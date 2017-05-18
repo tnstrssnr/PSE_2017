@@ -48,8 +48,8 @@
 
 ### Zeitplan
 
-* bis 05.05. Pflichtenheft fertig
-* 05.05. bis Abgabe: Korrekturlesen
+* bis 05.06. Pflichtenheft fertig
+* 05.06. bis Abgabe: Korrekturlesen
 
 ### bis nächstes Mal
 
