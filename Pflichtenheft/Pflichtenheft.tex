@@ -21,6 +21,15 @@
 \author{Gruppe 3}
 \date{11.06.17}
 
+% define custom lists
+\usepackage{enumitem}
+\usepackage{lipsum}
+
+\def\threedigits#1{%
+  \ifnum#1<100 0\fi
+  \ifnum#1<10 0\fi
+  \number#1}
+
 \begin{document}
 
 \begin{titlepage}
@@ -74,11 +83,25 @@
 
 \section{Funktionen}
 
-\subsection{Funktion 1}
-\subsection{Funktion 2}
-% usw. 
+\subsection{Funktionsbereich 1}
+
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
+	\item bla
+	\item bla bla
+\end{enumerate}
+\subsection{Funktionsbereich 2}
+
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item bla
+	\item bla bla
+\end{enumerate}
 
 \section{Produktdaten}
+
+\begin{enumerate}[label={\textbf{/D\protect\threedigits{\theenumi}0/}}, leftmargin=*]
+	\item bla
+	\item bla bla
+\end{enumerate}
 
 \section{Produktleistungen}
 
@@ -89,8 +112,14 @@
 
 \section{globale Testfälle und Testszenarien}
 
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*]
+	\item bla
+	\item bla bla
+\end{enumerate}
+
 \section{Entwicklungsumbgebung}
 
 \section{Anhang}	
 \end{document}
+\grid
 \grid
