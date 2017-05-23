@@ -62,23 +62,39 @@
 
 \section{Zielbestimmung}
 
+
 \subsection{Musskriterien}
+% Anzahl Gruppen, Gruppenmitglieder, GOs, etc. beschränken
+% grobe Zusammenfassung d. fktl. Kriterien (+ referenz auf die jeweiligen Funktionen)
+
+	
 \subsection{Wunschkriterien}
+% Profilbilder
+% Gruppenbilder
+% Benachrichtigungen ??
+
 \subsection{Abgrenzungskriterien}
+% kein IM
+% kein Social Media
 
 
 \section{Produkteinsatz}
 
 \subsection{Anwendungsbereiche}
 \subsection{Zielgruppen}
+% Studenten
+
 \subsection{Betriebsbedingungen}
+% mind. benötigte Android-Version
+% funktionierende Netzwerkverbindung
+% Zugriff auf GPS-Daten erlaubt
 
 
 \section{Produktumgebung}
 
 \subsection{Software}
 \subsection{Hardware}
-% \subsection{Produktschnittstellen}
+% \subsection{Produktschnittstellen} --> inwiefern ist das im Pflichtenheft relevant?
 
 
 \section{Funktionen}
@@ -86,47 +102,129 @@
 \subsection{Benutzerkontofunktionen}
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item \textit{Anmelden}
-	\item \textit{Registrieren}
+	\item \textit{Registrieren} Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat, kann sich in dem System registrieren. Zum erfolgreichen Registrieren m"ussen mindestens folgende Angaben gemacht werden:
+	\begin{itemize}
+		\item Benutzername
+		\item Telefonnummer %Email ?? --> wie soll die Verifikation des Benutzerkontos erfolgen
+		\item Passwort (zweimal) % je nach Sign-In-Modus nicht benötigt
+	\end{itemize}
+	 Das System "uberpr"uft, ob der Benutzername eindeutig ist und das Passwort zweimal identisch eingegeben wurde. Das System sendet dem Benutzer eine SMS %Email ??
+	 mit einem Best"atigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
+	 Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Das System loggt den Benutzer automatisch ein und es wird *GUI-Ansicht* angezeigt %Referenz auf GUI-Ansicht
+	\item \textit{Anmelden} Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe seines
+	\begin{itemize}
+		\item Benutzername
+		\item Passwort
+	\end{itemize}
+	Passen Benutzername und Passwort zu einem existierenden Benutzerkonto, wird dem Benutzer seine *GUI-Ansicht* angezeigt und der Anmeldevorgang ist erfolgreich abgeschlossen.
+	
+	%Benutzerkonto mit Telefon-# verbinden und immer angemeldet bleiben?
 	\item \textit{Benutzerkennung anfordern}
+	\item \textit{Kontoinformationen anzeigen}
 	\item \textit{Anzeigenamen "andern}
 	\item \textit{Passwort "andern}
-	\item \textit{Profilbild "andern}
+	%\item \textit{Profilbild "andern}
 	\item \textit{Benutzerkonto l"oschen}
+	\item \textit{Abmelden}
 \end{enumerate}
 
-\subsection{Gruppen und Kontakte}
+\subsection{Gruppen}
+
+\subsubsection{von allen Benutzern ausführbare Funktionen} %TODO bessere Überschrift überlegen
+Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt und bereits im System eingeloggt ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item \textit{Kontakt hinzufügen}
-	\item \textit{Kontakt anzeigen}
-	\item \textit{Kontakt entfernen}
+%keie Kontakte, sondern Leute direkt über den Benutzernamen in eine Gruppe hinzufügen
 	\item \textit{Gruppe erstellen}
 	\item \textit{Aus Gruppe austreten}
+	\item \textit{Gruppenanfrage beantworten} %bestätigen und ablehnen getrennt?
+	\item \textit{Gruppeninformationen abrufen} %Mitglieder, Admin, aktuelle GOs
+	\item \textit{Gruppen anzeigen} %zählt hier "alle gruppen in denen man ist ansehen" als Funktion?
 \end{enumerate}
 
-\subsection{Adminfunktionen}
+\subsubsection{Administratorfunktionen}
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Administrator einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 	\item \textit{Gruppenname "andern}
-	\item \textit{Gruppenbild "andern}
+	%\item \textit{Gruppenbild "andern}
 	\item \textit{Gruppenmitglied hinzuf"ugen}
 	\item \textit{Gruppenmitglied entfernen}	
 	\item \textit{Admin hinzuf"ugen}
 	\item \textit{Gruppe l"oschen}
 	\item \textit{GO erstellen}
 \end{enumerate}
+	
+\subsection{GO-Funktionen}
+
+\subsubsection{von allen Benutzern ausführbare Funktionen}
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und Mitglied einer Gruppe ist.
+
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+	\item \textit{Dem Event beitreten}
+	\item \textit{Losgehen}
+	\item \textit{Aus Event austreten}
+	\item \textit{Standorte abfragen} % alle ?? Sekunden aktualisieren
+	\item \textit{GO-Informationen abrufen}
+	%\item \textit{Zeit und Ort vorschlagen} --> evtl. Wunschkriterium?
+\end{enumerate}
+
+\subsubsection{Administratorfunktionen}
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Administrator einer Gruppe ist.
+
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+	\item \textit{GO erstellen}
+	\item \textit{GO-Daten ändern} %Anfangszeitpunkt + Dauer festlegen --> GO beendet sich von selbst; Maximaldauer vorgeben (z.B. 10h); GO-Beschreibung, Name, Zielort (sollte auch unbestimmt sein dürfen)
+	\item \textit{GO starten}
+	\item \textit{GO beenden}
+\end{enumerate}
+
+\subsection{Sonstiges}
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist.
+
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+	\item \textit{Benachrichtigungseinstellungen ändern}
+	\item \textit{About-Seite anzeigen}
+	\item \textit{Lizenzinformationen anzeigen}
+\end{enumerate}
 
 \section{Produktdaten}
 
 \begin{enumerate}[label={\textbf{/D\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item bla
-	\item bla bla
+	\item \textit{Benutzerdaten} Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
+	\begin{itemize}
+		\item Benutzer-ID (eindeutig)
+		\item Benutzername (eindeutig)
+		\item Name
+		%\item Profilbild
+		\item Telefonnummer
+		%\Passwort (verschlüsselt)
+	\end{itemize}
+	\item \textit{Gruppendaten} Für jede erstellte Gruppe müssen folgende Informationen gespeichert werden:
+	\begin{itemize}
+	\item Gruppen-ID (eindeutig)
+		\item Gruppenname
+		\item Mitglieder
+		\item Administratoren
+		%\item offene Gruppenanfragen --> wie sollte man länger ausstehende Anfragen verwalten?
+		%\item Ersteller --> evtl. unnötig
+	\end{itemize}
+	\item \textit{Go-Daten} Für jedes erstellte Event müssen folgende Informationen gespeichert werden:
+	\begin{itemize}
+		\item GO-ID (eindeutig)
+		\item Uhrzeit
+		\item Dauer
+		\item Zielort (optional)
+		\item beigetretene Benutzer
+		\item losgegangene Benutzer
+		\item Standorte der losgegangenen Benutzer
+	\end{itemize}
 \end{enumerate}
 
 \section{Produktleistungen}
 
 \section{Benutzeroberfläche}
+%TODO Übergangsdiagramm erstellen
 
 \section{Qualitäts-Zielbestimmungen}
 % Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit, Übertragbarkeit
@@ -142,5 +240,3 @@
 
 \section{Anhang}	
 \end{document}
-\grid
-\grid
