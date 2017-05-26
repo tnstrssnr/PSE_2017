@@ -154,8 +154,7 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 	 Das System "uberpr"uft, ob die Telefonnummer noch nicht im System registriert ist. Das System sendet dem Benutzer eine SMS %Email ??
 	 mit einem Best"atigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
 	 Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Das System loggt den Benutzer automatisch ein und es wird *GUI-Ansicht* angezeigt %Referenz auf GUI-Ansicht
-	
-	
+	 	
 	\item \textit{Anmelden} Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe seines
 	\begin{itemize}
 		\item Telefonnummer
@@ -178,13 +177,40 @@ Bemerkung: Anmelden soll nur dann aufgeruft werden, wenn der Benutzer vom neuen 
 \subsubsection{von allen Benutzern ausführbare Funktionen} %TODO bessere Überschrift überlegen
 Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt und bereits im System eingeloggt ist.
 
-\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 %keie Kontakte, sondern Leute direkt über den Benutzernamen in eine Gruppe hinzufügen
-	\item \textit{Gruppe erstellen}
-	\item \textit{Aus Gruppe austreten}
-	\item \textit{Gruppenanfrage beantworten} %bestätigen und ablehnen getrennt?
-	\item \textit{Gruppeninformationen abrufen} %Mitglieder, Admin, aktuelle GOs
 	\item \textit{Gruppen anzeigen} %zählt hier "alle gruppen in denen man ist ansehen" als Funktion?
+	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den "Gruppen"-Reiter der Hauptansicht auswählt (vgl. *GUI-Ansicht*)
+	
+	\item \textit{Gruppeninformationen abrufen} %Mitglieder, Admin, aktuelle GOs
+	Ein Benutzer, der Mitglied einer Gruppe ist, kann sich von der App bestimmte Systeminformationen zu dieser Gruppe anzeigen lassen. Dazu wählt der Benutzer das Gruppenicon der gewünschten Gruppe in der *GUI-Ansicht* aus. Darauffolgend werden ihm vom System folgende Informationen über die Gruppe angezeigt:
+	\begin{itemize}
+		\item Gruppenname
+		\item Gruppenbild
+		\item aktuelle Mitglieder der Gruppe (offene Gruppenmitgliedsanfragen werden nur den Administratoren der Gruppe angezeigt, ehemalige Mitglieder der Gruppe werden nicht angezeigt)
+		\item aktuelle Administratoren der Gruppe
+		\item aktuelle GO's der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs du gelangen --> Querverweis einfügen
+	\end{itemize}
+	
+	
+	\item \textit{Gruppe erstellen}
+	Ein User kann eine neue Gruppe erstellen. Dazu muss in der Ansicht *GUI-Ansicht* die Auswahl "Gruppe erstellen" gewählt werden und anschließend ein Gruppenname angegeben werden. Die Funktion bietet die Option bei der Erstellung der Gruppe Gruppenmitglieder hinzuzufügen (vgl. *GUI-Ansicht*). Für genauere Erläuterungen hierzu siehe \ref{Mitglieder hinzufügen}.
+	Der Ersteller der Gruppe wird automatisch zum (zu diesem Zeitpunkt) einzigen Administrator derselben.
+	
+	\item \textit{Aus Gruppe austreten}
+	Ein Benutzer, der Mitglied einer Gruppe ist, kann aus derselben austreten. Sollte der Benutzer einziger Administrator der Gruppe sein, muss zuerst ein weiteres aktuelles Mitglied der Gruppe zum Administrator ernannt werden (siehe Funktion \ref{Admin hinzufügen}, bevor diese Funktion ausgeführt werden kann. \\
+	Um aus einer Gruppe auszutreten wird vom Benutzer in der Gruppensansicht (vgl. *GUI-Ansicht*) die Gruppeninformation aufgerufen (vgl. *GUI-Ansicht*) und anschlie"send auf den Button "Gruppe verlassen" gedrückt. Das System entfernt den Benutzer aus der Gruppe und die Funktion ist erfolgreich abgeschlossen. Die Gruppe bleibt im System weiterhin bestehen.\\
+	In dem Fall, dass der austretende Benutzer das einzige Mitglied der Gruppe ist (und somit auch Administrator), entfällt das Ernennen eines neuen Administrators vor dem Austritt und die Gruppe wird nach dem Ausführen dieser Funktion automatisch von dem System gelöscht.
+	
+	\item \textit{Gruppenanfrage beantworten}
+	Diese Funktion setzt voraus, dass ein Benutzer eine Anfrage auf Gruppenmitgliedschaft von einem anderen Benutzer bekommen hat (vgl. Funktion \ref{Mitglieder hinzufügen}). Dem Benutzer werden offene Gruppenanfragen durch ein grün hinterlegtes Gruppenicon in der Gruppenansicht angezeigt (vgl *GUI-Ansicht*). Durch Klicken auf das Icon wird die Funktion "Gruppenanfrage beantworten" gestartet (vgl. *GUI-Ansicht*). Der Benutzer hat dann zwei Möglichkeiten auf die Anfrage zu reagieren:
+	\begin{itemize}
+		\item \textit{Bestätigen} bestätigt der Benutzer die Anfrage, so wird er vom System der Gruppe hinzugefügt.
+		\item \textit{Ablehnen} lehnt der Benutzer die Anfrage ab, wird keine weitere Aktion des Systems ausgeführt.
+	\end{itemize}
+In beiden Fällen wird der Sender der Anfrage über die Beantwortung informiert (vgl. \ref{Mitglieder hinzufügen}) und anschließend die Anfrage vom System gelöscht.
+	
+
 \end{enumerate}
 
 \subsubsection{Administratorfunktionen}
@@ -193,9 +219,9 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 	\item \textit{Gruppenname "andern}
 	%\item \textit{Gruppenbild "andern}
-	\item \textit{Gruppenmitglied hinzuf"ugen}
+	\item \textit{Gruppenmitglied hinzuf"ugen} \label{Mitglieder hinzufügen}
 	\item \textit{Gruppenmitglied entfernen}	
-	\item \textit{Admin hinzuf"ugen}
+	\item \textit{Admin hinzuf"ugen} \label{Admin hinzufügen}
 	\item \textit{Gruppe l"oschen}
 	\item \textit{GO erstellen}
 \end{enumerate}
