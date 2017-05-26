@@ -144,21 +144,23 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 \subsection{Benutzerkontofunktionen}
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
+	
+	
 	\item \textit{Registrieren} Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat, kann sich in dem System registrieren. Zum erfolgreichen Registrieren m"ussen mindestens folgende Angaben gemacht werden:
 	\begin{itemize}
-		\item Benutzername
 		\item Telefonnummer %Email ?? --> wie soll die Verifikation des Benutzerkontos erfolgen
-		\item Passwort (zweimal) % je nach Sign-In-Modus nicht benötigt
 	\end{itemize}
-	 Das System "uberpr"uft, ob der Benutzername eindeutig ist und das Passwort zweimal identisch eingegeben wurde. Das System sendet dem Benutzer eine SMS %Email ??
+	 Das System "uberpr"uft, ob die Telefonnummer noch nicht im System registriert ist. Das System sendet dem Benutzer eine SMS %Email ??
 	 mit einem Best"atigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
 	 Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Das System loggt den Benutzer automatisch ein und es wird *GUI-Ansicht* angezeigt %Referenz auf GUI-Ansicht
+	
+	
 	\item \textit{Anmelden} Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe seines
 	\begin{itemize}
-		\item Benutzername
-		\item Passwort
+		\item Telefonnummer
 	\end{itemize}
-	Passen Benutzername und Passwort zu einem existierenden Benutzerkonto, wird dem Benutzer seine *GUI-Ansicht* angezeigt und der Anmeldevorgang ist erfolgreich abgeschlossen.
+	Passt die Telefonnummer zu einem existierenden Benutzerkonto, wird dem Benutzer eine SMS mit einem Bestätigungscode geschickt. Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Danach wird dem Benutzer seine *GUI-Ansicht* angezeigt und der Anmeldevorgang ist erfolgreich abgeschlossen.\\
+Bemerkung: Anmelden soll nur dann aufgeruft wernde, wenn der Benutzer vom neuem Gerät sich anmeldet. Nach dem anmelden muss der Benutzer im System bleiben und wird vom System nicht ausgeloggt.
 	
 	%Benutzerkonto mit Telefon-# verbinden und immer angemeldet bleiben?
 	\item \textit{Benutzerkennung anfordern}
