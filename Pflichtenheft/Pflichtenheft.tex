@@ -365,35 +365,53 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 \section{Produktdaten}
 
 \begin{enumerate}[label={\textbf{/D\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item \textit{Profildaten} \label{Profildaten}
-	\item \textit{Persönliche Daten} \label{persönliche Daten} Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
-	\begin{itemize}
-		\item Benutzer-ID (eindeutig)
-		\item Benutzername (eindeutig)
-		\item Name
-		%\item Profilbild
-		\item Telefonnummer
-		\item Passwort (verschlüsselt)
-	\end{itemize}
+	\item \textit{Profildaten} \label{Profildaten} Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
+		\begin{itemize}
+			\item \textit{Benutzerkennung}
+				\begin{itemize}
+					\item Benutzer-ID (eindeutig)
+					\item Benutzername (eindeutig)
+					\item Telefonnummer (eindeutig)
+				\end{itemize}
+			\item \textit{Persönliche Daten} \label{persönliche Daten} 
+			\begin{itemize}
+			\item Anzeigename
+			\item Statusmeldung
+			\item Profilbild
+			\item Passwort (verschlüsselt)
+		\end{itemize}
+		\end{itemize}
+	
 	\item \textit{Gruppendaten} Für jede erstellte Gruppe müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
-	\item Gruppen-ID (eindeutig)
+		\item Gruppen-ID (eindeutig)
 		\item Gruppenname
+		\item Gruppenbild
+		\item Gruppenbeschreibung
 		\item Mitglieder
 		\item Administratoren
-		\item offene Gruppenanfragen --> wie sollte man länger ausstehende Anfragen verwalten?
+		\item offene Gruppenanfragen %--> wie sollte man länger ausstehende Anfragen verwalten?
+		\item erstellte GOs
 	\end{itemize}
 	\item \textit{Go-Daten} \label{GO-Daten}
-	Für jedes erstellte Event müssen folgende Informationen gespeichert werden:
+	Für jedes erstellte GO müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
 		\item GO-ID (eindeutig)
-		\item Uhrzeit
-		\item Dauer
+		\item GO-Verantwortlicher
+		\item Startzeitpunkt
+		\item Endzeitpunkt
 		\item Zielort (optional)
-		\item beigetretene Benutzer
-		\item losgegangene Benutzer
+		\item Gruppe, der das GO angehört
+		\item Gruppenmitglieder mit Teilnahmestatus 'Abgelehnt'
+		\item Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'
+		\item Gruppenmitglieder mit Teilnahmestatus 'Losgegangen'
 		\item Standorte der losgegangenen Benutzer
 	\end{itemize}
+	\item \textit{Sonstiges}
+		\begin{itemize}
+			\item bla
+			% Benachrichtigungseinstellungen?
+		\end{itemize}
 \end{enumerate}
 
 \newpage
