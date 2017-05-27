@@ -107,6 +107,8 @@ Dises Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinbar
 \subsection{Musskriterien}
 % Anzahl Gruppen, Gruppenmitglieder, GOs, etc. beschränken
 % grobe Zusammenfassung d. fktl. Kriterien (+ referenz auf die jeweiligen Funktionen)
+% Aktualität der Standorte / Häufigkeit er Aktualisierung
+% wann wird geclustert?
 
 \begin{itemize}[itemsep=0pt]
 	\item Benutzer  
@@ -287,20 +289,46 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und Mitglied einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
-	\item \textit{GO erstellen}
-	\item \textit{Dem Event beitreten}
+	\item \textit{GO erstellen} Jedes Mitglied eienr Gruppe kann für diese Gruppe einen GO erstellen. Dazu wählt der Benutzer in der jeweiligen Gruppenansicht die Option 'GO erstellen' und übergibt dem System folgende Informationen (vgl. *GUI-Ansicht*):
+	\begin{itemize}
+		\item GO-Bezeichnung
+		\item Startzeitpunkt
+		\item Endzeitpunkt
+		\item Zielpunkt (optional)
+	\end{itemize}
+Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. Die Mitglieder erhalten außerdem eine Benachrichtigung, dass in der Gruppe ein neues GO erstellt wurde (???). Der Ersteller des GOs ist während dem gesamten GO-Lifecycle der GO-Verantwortliche.
+	
+	\item \textit{Teilnahmestatus ändern} Das System weist für jedes GO jedem Gruppenmitglied einen Teilnahmestatus zu. Dieser lautet entweder
+	\begin{itemize}
+		\item Abgelehnt: Der Benutzer nimmt an dem GO nicht teil
+		\item Bestätigt: Der Benutzer nimmt an dem GO teil
+		\item Unterwegs: Der Benutzer nimmt an dem GO teil und ist bereits losgegangen
+	\end{itemize}
+Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO ändern.
+
+	\begin{itemize}
+	\item \textit{Dem Event beitreten} \label{GO-Anfrage}
+	Mitglieder einer Gruppe können zu jeder Zeit einem aktuellen GO der Gruppe beitreten. Dazu wird vorausgesetzt, dass der aktuelle Teilnahmestatus des Gruppenmitglieds 'Abgelehnt' ist. In der Gruppendetailansicht kann der Benutzer die Option 'Beitreten' des gewünschten GOs anklicken. Das System wird dadurch veranlasst, den Teilnahmestatus des Benutzers auf 'Bestätigt' zu setzen. Sobald dies geschehen ist, kann der Benutzer die GO-Detailansicht (vgl. *GUI-Ansicht*) aufrufen.
+	
 	\item \textit{Losgehen}
+	Um diese Funktion ausführen zu können, muss der Teilnahmestatus des Benutzers auf 'Bestätigt' gesetzt sein und das GO vom GO-Verantwortlichen gestartet worden sein (???). Sobald der Button 'Losgehen' betätigt wurde wird der Teilnahmestatus des Benutzers vom System auf 'Unterwegs' gesetzt und die GPS-Verfolgung des Benutzers wird aktiviert und für andere GO-Mitglieder, deren Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, sichtbar (???).
+	
 	\item \textit{Aus Event austreten}
-	\item \textit{Standorte abfragen} % alle ?? Sekunden aktualisieren
+Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt. Sollte die GPS-Verfolgung dieses Gos bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
+	\end{itemize}
+	
+	\item \textit{Standorte abfragen}
+	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an.
+	
 	\item \textit{GO-Informationen abrufen}
+	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}).
 	%\item \textit{Zeit und Ort vorschlagen} --> evtl. Wunschkriterium?
 \end{enumerate}
 
-\subsubsection{Administratorfunktionen}
+\subsubsection{Funktionen für GO-Verantwortliche}
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Administrator einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
-	\item \textit{GO erstellen}
 	\item \textit{GO-Daten ändern} %Anfangszeitpunkt + Dauer festlegen --> GO beendet sich von selbst; Maximaldauer vorgeben (z.B. 10h); GO-Beschreibung, Name, Zielort (sollte auch unbestimmt sein dürfen)
 	\item \textit{GO starten}
 	\item \textit{GO beenden}
@@ -337,7 +365,8 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Administratoren
 		\item offene Gruppenanfragen --> wie sollte man länger ausstehende Anfragen verwalten?
 	\end{itemize}
-	\item \textit{Go-Daten} Für jedes erstellte Event müssen folgende Informationen gespeichert werden:
+	\item \textit{Go-Daten} \label{GO-Daten}
+	Für jedes erstellte Event müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
 		\item GO-ID (eindeutig)
 		\item Uhrzeit
