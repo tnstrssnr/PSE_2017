@@ -59,6 +59,11 @@
 	name={Hauptansicht},
 	description={Ansicht, die geöffnet wird, sobald sich ein Benutzer angemeldet hat. Dies entspricht der Ansicht *GUI-Ansicht*},
 }
+\newglossaryentry{App}
+{
+	name={App},
+	description={mobile Applikation, die auf dem Smartphone/Tablet des Benutzers installiert ist. Der Benutzer interagiert ausschließlich mit der Applikation und nicht mit dem Webserver direkt.},
+}
 
 \def\threedigits#1{%
   \ifnum#1<100 0\fi
@@ -96,14 +101,14 @@
 %TODO Gliederung ggfs nochmal überarbeiten
 \newpage
 \section{Zielbestimmung}
-Die App dient zur Erleichterung und Strukturierung von Treffen. 
+Die \gls{App} dient zur Erleichterung und Strukturierung von Treffen. 
 Man trifft sich jeden Tag und die Vereinbarungen im Text-Format in WhatsApp sind unübersichtlich. 
 Dises Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsprozess reinbringen.  
 \subsection{Musskriterien}
 % Anzahl Gruppen, Gruppenmitglieder, GOs, etc. beschränken
 % grobe Zusammenfassung d. fktl. Kriterien (+ referenz auf die jeweiligen Funktionen)
 
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
 	\item Benutzer  
 	\begin{itemize}
 	 	\item Registrierung
@@ -200,13 +205,15 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 Bemerkung: Anmelden soll nur dann aufgeruft werden, wenn der Benutzer vom neuen Gerät sich anmeldet. Nach dem Anmelden muss der Benutzer im System bleiben und wird vom System nicht ausgeloggt.
 	
 	%Benutzerkonto mit Telefon-# verbinden und immer angemeldet bleiben?
-	\item \textit{Benutzerkennung anfordern}
-	\item \textit{Kontoinformationen anzeigen}
-	\item \textit{\gls{Anzeigename}n "andern}
-	\item \textit{Passwort "andern}
-	%\item \textit{Profilbild "andern}
+	\item \textit{Benutzerkennung anfordern} Ein Benutzer kann, sollte er sein Passwort vergessen haben, seine Benutzerkennung anfordern und eine neues Passwort setzen. Wird auf dem Anmeldescreen (vgl. *GUI-Ansicht*) die 'Passwort vergessen'-Option gewählt, schickt der Server dem Benutzer eine SMS mit einem Zugangscode. Dieser Zugangscode ist 10min lang gültig. Der Benutzer gibt den Zugangscode ein und kann anschließend eine neues Passwort setzen. Danach loggt das System den Benutzer ein und lädt die Hauptansicht der Applikation. Beim nächsten Anmelden kann sich der Benutzer mit dem neuen Passwort anmelden.
+	
+	\item \textit{Persönliche Daten ändern} Das System speichert persönliche Daten der Benutzer (siehe  \ref{persönliche Daten}). Der Benutzer kann diese Daten ändern. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt die Schaltfläche 'Profil bearbeiten'. In der sich öffnenden Aktivität kann der Benutzer die gewünschten Änderungen vornehmen und mit dem Button 'Profil speichern' sichern. Die geänderten Daten werden dann vom System übernommen.\\
+	Um das Benutzerpasswort ändern zu können, muss zuerst das alte Passwort korrekt eingegeben werden. Danach gibt der Nutzer zweimal das neue Passwort ein (beide Eingaben müssen identisch sein). Danach wird die Änderung ebenfalls mit 'Profil speichern' bestätigt. Ab sofort kann sich der Benutzer mit seinem neuen Passwort einloggen.
+	
+	\item \textit{Abmelden} Ein Benutzer kann sich aus seinem Account abmelden, indem er in der Einstellungs-Ansicht (vgl. *GUI-Ansicht*) die Option 'Abmelden' auswählt. Das System meldet daraufhin den Benutzer von seinem Benutzerkonto ab und lädt die Anmelde-Ansicht (vgl. *GUI-Ansicht*).
+	
 	\item \textit{Benutzerkonto l"oschen}
-	\item \textit{Abmelden}
+	Ein Benutzer hat die Möglichkeit seinen Benutzeraccount zu löschen. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt den Button 'Profil löschen'. Das System fragt denBenutzer ob das Konto wirklich gelöscht werden soll. Wird dies bestätigt so wird der Benutzer von dem System aus seinem Account ausgeloggt. Anschließend löscht das System alle Daten des Benutzerkontos (vgl. \ref{Profildaten}) und entfernt den Benutzer aus sämtlichen Gruppen und GO's denen er zuvor beigetreten war.
 \end{enumerate}
 
 \subsection{Gruppen}
@@ -229,7 +236,6 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 		\item aktuelle Administratoren der Gruppe
 		\item aktuelle \gls{GO}'s der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
 	\end{itemize}
-	
 	
 	\item \textit{Gruppe erstellen}
 	Ein User kann eine neue Gruppe erstellen. Dazu muss in der Ansicht *GUI-Ansicht* die Auswahl "Gruppe erstellen" gewählt werden und anschließend ein Gruppenname angegeben werden. Die Funktion bietet die Option bei der Erstellung der Gruppe Gruppenmitglieder hinzuzufügen (vgl. *GUI-Ansicht*). Für genauere Erläuterungen hierzu siehe \ref{Mitglieder hinzufügen}.
@@ -313,14 +319,15 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 \section{Produktdaten}
 
 \begin{enumerate}[label={\textbf{/D\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item \textit{Benutzerdaten} Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
+	\item \textit{Profildaten} \label{Profildaten}
+	\item \textit{Persönliche Daten} \label{persönliche Daten} Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
 	\begin{itemize}
 		\item Benutzer-ID (eindeutig)
 		\item Benutzername (eindeutig)
 		\item Name
 		%\item Profilbild
 		\item Telefonnummer
-		%\Passwort (verschlüsselt)
+		\item Passwort (verschlüsselt)
 	\end{itemize}
 	\item \textit{Gruppendaten} Für jede erstellte Gruppe müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
@@ -328,8 +335,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Gruppenname
 		\item Mitglieder
 		\item Administratoren
-		%\item offene Gruppenanfragen --> wie sollte man länger ausstehende Anfragen verwalten?
-		%\item Ersteller --> evtl. unnötig
+		\item offene Gruppenanfragen --> wie sollte man länger ausstehende Anfragen verwalten?
 	\end{itemize}
 	\item \textit{Go-Daten} Für jedes erstellte Event müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
