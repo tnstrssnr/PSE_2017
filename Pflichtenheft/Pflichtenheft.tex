@@ -64,6 +64,11 @@
 	name={App},
 	description={mobile Applikation, die auf dem Smartphone/Tablet des Benutzers installiert ist. Der Benutzer interagiert ausschließlich mit der Applikation und nicht mit dem Webserver direkt.},
 }
+\newglossaryentry{losgehen}
+{
+	name={losgehen, losgegangen},
+	description={Die Änderung des Teilnahmestatus eines GOs von 'Bestätigt' auf 'Unterwegs'},
+}
 
 \def\threedigits#1{%
   \ifnum#1<100 0\fi
@@ -296,6 +301,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Endzeitpunkt
 		\item Zielpunkt (optional)
 	\end{itemize}
+Der Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???).\\
 Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. Die Mitglieder erhalten außerdem eine Benachrichtigung, dass in der Gruppe ein neues GO erstellt wurde (???). Der Ersteller des GOs ist während dem gesamten GO-Lifecycle der GO-Verantwortliche.
 	
 	\item \textit{Teilnahmestatus ändern} Das System weist für jedes GO jedem Gruppenmitglied einen Teilnahmestatus zu. Dieser lautet entweder
@@ -329,15 +335,27 @@ Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, 
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Administrator einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
-	\item \textit{GO-Daten ändern} %Anfangszeitpunkt + Dauer festlegen --> GO beendet sich von selbst; Maximaldauer vorgeben (z.B. 10h); GO-Beschreibung, Name, Zielort (sollte auch unbestimmt sein dürfen)
-	\item \textit{GO starten}
-	\item \textit{GO beenden}
+	\item \textit{GO-Daten ändern}
+	Der GO-Verantwortliche kann auch nach Erstellung des GOs die/den
+	\begin{itemize}
+		\item GO-Bezeichnung
+		\item Startzeitpunkt
+		\item Endzeitpunkt
+		\item Zielpunkt
+	\end{itemize}
+	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???). Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des Gos angezeigt, wenn diese die GO-Detailansicht aufrufen.
+	
+	\item \textit{GO starten} Ein GO muss vom GO-Verantwortlichen gestartet werden, bevor die Mitglieder der Gruppe \gls{losgehen} können und die GPS-Verfolgung gestartet wird. Dies geschieht durch das Klicken des Buttons 'GO starten' in der GO-Detailansicht. Das System registriert das GO als gestartet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'.
+	
+	\item \textit{GO beenden} Ein GO kann vom GO-Verantwortlichen vorzeitig beendet werden durch Klicken des Buttons 'GO beenden' in der GO-Detailansicht. Das System registriert das GO als beendet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt' und 'Unterwegs'. Anschließend wird das GO vom System gelöscht. \\
+	Wird das GO nicht vom GO-Veratnwortlichen vorzeitig beendet, wird es bei Erreichen des Endzeitpunkts automatisch vom System beendet. Das System führt dabei die gleichen Aktionen aus wie beim Beenden durch den GO-Verantwortlichen.
 \end{enumerate}
 
 \subsection{Sonstiges}
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+	\item \textit{App-interne Benachrichtigungen abrufen}
 	\item \textit{Benachrichtigungseinstellungen ändern}
 	\item \textit{About-Seite anzeigen}
 	\item \textit{Lizenzinformationen anzeigen}
