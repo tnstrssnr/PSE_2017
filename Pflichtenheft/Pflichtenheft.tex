@@ -25,6 +25,41 @@
 \usepackage{enumitem}
 \usepackage{lipsum}
 
+% add glossary
+\usepackage{glossaries}
+\makeglossaries
+\newglossaryentry{System}
+{
+	name={System},
+	description={Die Kombination aus Mobile App und Server},
+}
+
+\newglossaryentry{GO} %TODO anderen Namen finden
+{
+	name={GO},
+	description={Ein Event in einer Gruppe, dem Mitglieder beitreten können, um ihren Standort mit anderen GO-Teilnehmern zu teilen},
+}
+\newglossaryentry{Benutzer}
+{
+	name={Benutzer},
+	description={Eine Person, die die App installiert und sich mit einem Benutzeraccount registriert hat bzw. plant dies zu tun},
+}
+\newglossaryentry{Benutzername}
+{
+	name={Benutzername},
+	description={Ein im System eindeutiger Name, der es ermöglicht einen Benutzer mit Benutzeraccount zu identifizieren. Er kann nach Erstellung eines Accounts nicht mehr geändert werden},
+}
+\newglossaryentry{Anzeigename}
+{
+	name={Anzeigename},
+	description={Ein im System nicht-eindeutiger Name, den der Benutzer jederzeit ändern kann},
+}
+\newglossaryentry{Hauptansicht}
+{
+	name={Hauptansicht},
+	description={Ansicht, die geöffnet wird, sobald sich ein Benutzer angemeldet hat. Dies entspricht der Ansicht *GUI-Ansicht*},
+}
+
 \def\threedigits#1{%
   \ifnum#1<100 0\fi
   \ifnum#1<10 0\fi
@@ -147,7 +182,7 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
 	
 	
-	\item \textit{Registrieren} Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat, kann sich in dem System registrieren. Zum erfolgreichen Registrieren m"ussen mindestens folgende Angaben gemacht werden:
+	\item \textit{Registrieren} Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat, kann sich in dem \gls{System} registrieren. Zum erfolgreichen Registrieren m"ussen mindestens folgende Angaben gemacht werden:
 	\begin{itemize}
 		\item Telefonnummer %Email ?? --> wie soll die Verifikation des Benutzerkontos erfolgen
 		\item Passwort (muss zweimal identisch eingegeben werden)
@@ -167,7 +202,7 @@ Bemerkung: Anmelden soll nur dann aufgeruft werden, wenn der Benutzer vom neuen 
 	%Benutzerkonto mit Telefon-# verbinden und immer angemeldet bleiben?
 	\item \textit{Benutzerkennung anfordern}
 	\item \textit{Kontoinformationen anzeigen}
-	\item \textit{Anzeigenamen "andern}
+	\item \textit{\gls{Anzeigename}n "andern}
 	\item \textit{Passwort "andern}
 	%\item \textit{Profilbild "andern}
 	\item \textit{Benutzerkonto l"oschen}
@@ -182,7 +217,7 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 %keie Kontakte, sondern Leute direkt über den Benutzernamen in eine Gruppe hinzufügen
 	\item \textit{Gruppen anzeigen} %zählt hier "alle gruppen in denen man ist ansehen" als Funktion?
-	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den 'Gruppen'-Reiter der Hauptansicht auswählt (vgl. *GUI-Ansicht*)
+	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den 'Gruppen'-Reiter der \gls{Hauptansicht} auswählt (vgl. *GUI-Ansicht*)
 	
 	\item \textit{Gruppeninformationen abrufen} \label{Gruppeninfo anzeigen} %Mitglieder, Admin, aktuelle GOs
 	Ein Benutzer, der Mitglied einer Gruppe ist, kann sich von der App bestimmte Systeminformationen zu dieser Gruppe anzeigen lassen. Dazu wählt der Benutzer das Gruppenicon der gewünschten Gruppe in der *GUI-Ansicht* aus. Darauffolgend werden ihm vom System folgende Informationen über die Gruppe angezeigt:
@@ -192,7 +227,7 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 		%\item Gruppenbeschreibung
 		\item aktuelle Mitglieder der Gruppe (offene Gruppenmitgliedsanfragen werden nur den Administratoren der Gruppe angezeigt, ehemalige Mitglieder der Gruppe werden nicht angezeigt)
 		\item aktuelle Administratoren der Gruppe
-		\item aktuelle GO's der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
+		\item aktuelle \gls{GO}'s der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
 	\end{itemize}
 	
 	
@@ -201,7 +236,7 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 	Der Ersteller der Gruppe wird automatisch zum (zu diesem Zeitpunkt) einzigen Administrator derselben.
 	
 	\item \textit{Aus Gruppe austreten}
-	Ein Benutzer, der Mitglied einer Gruppe ist, kann aus derselben austreten. Sollte der Benutzer einziger Administrator der Gruppe sein, muss zuerst ein weiteres aktuelles Mitglied der Gruppe zum Administrator ernannt werden (siehe Funktion \ref{Admin hinzufügen}, bevor diese Funktion ausgeführt werden kann. \\
+	Ein \gls{Benutzer}, der Mitglied einer Gruppe ist, kann aus derselben austreten. Sollte der Benutzer einziger Administrator der Gruppe sein, muss zuerst ein weiteres aktuelles Mitglied der Gruppe zum Administrator ernannt werden (siehe Funktion \ref{Admin hinzufügen}, bevor diese Funktion ausgeführt werden kann. \\
 	Um aus einer Gruppe auszutreten wird vom Benutzer in der Gruppensansicht (vgl. *GUI-Ansicht*) die Gruppeninformation aufgerufen (vgl. *GUI-Ansicht*) und anschlie"send auf den Button "Gruppe verlassen" gedrückt. Das System entfernt den Benutzer aus der Gruppe und die Funktion ist erfolgreich abgeschlossen. Die Gruppe bleibt im System weiterhin bestehen.\\
 	In dem Fall, dass der austretende Benutzer das einzige Mitglied der Gruppe ist (und somit auch Administrator), entfällt das Ernennen eines neuen Administrators vor dem Austritt und die Gruppe wird nach dem Ausführen dieser Funktion automatisch von dem System gelöscht.
 	
@@ -228,7 +263,7 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	%\item \textit{Gruppenbild "andern}
 	
 	\item \textit{Gruppenmitglied hinzuf"ugen} \label{Mitglieder hinzufügen}
-	Ein Administrator kann einer Gruppe neue Mitglieder hinzufügen. Dazu wählt er den Button 'Mitglied hinzufügen' aus. Anschließend kann anhand des Benutzernamens nach dem gewünschten Benutzer gesucht werden. Das System zeigt dem Administrator Benutzer an, deren Benutzernamen dem gesuchten entsprechen. Der Administrator wählt den gewünschten Benutzer aus, woraufhin das System diesem Nutzer eine Gruppenanfrage sendet (siehe \ref{Gruppenanfrage beantworten}). Solange die Gruppenanfrage offen ist, wird das potentielle Gruppenmitglied für die Administratoren der Gruppe angezeigt (Status der Mitgliedschaft ist farblich gekennzeichnet), für normale Gruppenmitglieder sind offene Gruppenanfragen nicht sichtbar.
+	Ein Administrator kann einer Gruppe neue Mitglieder hinzufügen. Dazu wählt er den Button 'Mitglied hinzufügen' aus. Anschließend kann anhand des \gls{Benutzername}ns nach dem gewünschten Benutzer gesucht werden. Das System zeigt dem Administrator Benutzer an, deren Benutzernamen dem gesuchten entsprechen. Der Administrator wählt den gewünschten Benutzer aus, woraufhin das System diesem Nutzer eine Gruppenanfrage sendet (siehe \ref{Gruppenanfrage beantworten}). Solange die Gruppenanfrage offen ist, wird das potentielle Gruppenmitglied für die Administratoren der Gruppe angezeigt (Status der Mitgliedschaft ist farblich gekennzeichnet), für normale Gruppenmitglieder sind offene Gruppenanfragen nicht sichtbar.
 	
 	\item \textit{Gruppenmitglied entfernen}
 	Ein Administrator kann beliebige Mitglieder der Gruppe entfernen, indem er das rote Minuszeichen neben dem zu entfernenden Benutzer anklickt (vgl. *GUI-Ansicht*) und anschließend die Durchführung der Aktion bestätigt. Der ausgewählte Benutzer wird vom System aus der Gruppe entfernt.
@@ -325,16 +360,11 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \section{Entwicklungsumbgebung}
 
-\section{Anhang}	
+\section{Anhang}
+
+\newpage
+\printglossary	
 \end{document}
 
 
-%Begriffe für Glossar
 
-% GO
-% Benutzer
-% Benutzername vs Anzeigename
-% System = App + Server
-% Benachrichtigungen
-% Hauptansicht
-% Aktivität
