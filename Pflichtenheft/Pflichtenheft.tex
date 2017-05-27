@@ -150,14 +150,16 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 	\item \textit{Registrieren} Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat, kann sich in dem System registrieren. Zum erfolgreichen Registrieren m"ussen mindestens folgende Angaben gemacht werden:
 	\begin{itemize}
 		\item Telefonnummer %Email ?? --> wie soll die Verifikation des Benutzerkontos erfolgen
+		\item Passwort (muss zweimal identisch eingegeben werden)
 	\end{itemize}
 	 Das System "uberpr"uft, ob die Telefonnummer noch nicht im System registriert ist. Das System sendet dem Benutzer eine SMS %Email ??
 	 mit einem Best"atigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
 	 Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Das System loggt den Benutzer automatisch ein und es wird *GUI-Ansicht* angezeigt %Referenz auf GUI-Ansicht
 	 	
-	\item \textit{Anmelden} Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe seines
+	\item \textit{Anmelden} Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe von
 	\begin{itemize}
 		\item Telefonnummer
+		\item Passwort
 	\end{itemize}
 	Passt die Telefonnummer zu einem existierenden Benutzerkonto, wird dem Benutzer eine SMS mit einem Bestätigungscode geschickt. Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Danach wird dem Benutzer seine *GUI-Ansicht* angezeigt und der Anmeldevorgang ist erfolgreich abgeschlossen.\\
 Bemerkung: Anmelden soll nur dann aufgeruft werden, wenn der Benutzer vom neuen Gerät sich anmeldet. Nach dem Anmelden muss der Benutzer im System bleiben und wird vom System nicht ausgeloggt.
@@ -180,16 +182,17 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 %keie Kontakte, sondern Leute direkt über den Benutzernamen in eine Gruppe hinzufügen
 	\item \textit{Gruppen anzeigen} %zählt hier "alle gruppen in denen man ist ansehen" als Funktion?
-	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den "Gruppen"-Reiter der Hauptansicht auswählt (vgl. *GUI-Ansicht*)
+	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den 'Gruppen'-Reiter der Hauptansicht auswählt (vgl. *GUI-Ansicht*)
 	
-	\item \textit{Gruppeninformationen abrufen} %Mitglieder, Admin, aktuelle GOs
+	\item \textit{Gruppeninformationen abrufen} \label{Gruppeninfo anzeigen} %Mitglieder, Admin, aktuelle GOs
 	Ein Benutzer, der Mitglied einer Gruppe ist, kann sich von der App bestimmte Systeminformationen zu dieser Gruppe anzeigen lassen. Dazu wählt der Benutzer das Gruppenicon der gewünschten Gruppe in der *GUI-Ansicht* aus. Darauffolgend werden ihm vom System folgende Informationen über die Gruppe angezeigt:
 	\begin{itemize}
 		\item Gruppenname
-		\item Gruppenbild
+		%\item Gruppenbild
+		%\item Gruppenbeschreibung
 		\item aktuelle Mitglieder der Gruppe (offene Gruppenmitgliedsanfragen werden nur den Administratoren der Gruppe angezeigt, ehemalige Mitglieder der Gruppe werden nicht angezeigt)
 		\item aktuelle Administratoren der Gruppe
-		\item aktuelle GO's der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs du gelangen --> Querverweis einfügen
+		\item aktuelle GO's der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
 	\end{itemize}
 	
 	
@@ -202,28 +205,40 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 	Um aus einer Gruppe auszutreten wird vom Benutzer in der Gruppensansicht (vgl. *GUI-Ansicht*) die Gruppeninformation aufgerufen (vgl. *GUI-Ansicht*) und anschlie"send auf den Button "Gruppe verlassen" gedrückt. Das System entfernt den Benutzer aus der Gruppe und die Funktion ist erfolgreich abgeschlossen. Die Gruppe bleibt im System weiterhin bestehen.\\
 	In dem Fall, dass der austretende Benutzer das einzige Mitglied der Gruppe ist (und somit auch Administrator), entfällt das Ernennen eines neuen Administrators vor dem Austritt und die Gruppe wird nach dem Ausführen dieser Funktion automatisch von dem System gelöscht.
 	
-	\item \textit{Gruppenanfrage beantworten}
+	\item \textit{Gruppenanfrage beantworten} \label{Gruppenanfrage beantworten}
 	Diese Funktion setzt voraus, dass ein Benutzer eine Anfrage auf Gruppenmitgliedschaft von einem anderen Benutzer bekommen hat (vgl. Funktion \ref{Mitglieder hinzufügen}). Dem Benutzer werden offene Gruppenanfragen durch ein grün hinterlegtes Gruppenicon in der Gruppenansicht angezeigt (vgl *GUI-Ansicht*). Durch Klicken auf das Icon wird die Funktion "Gruppenanfrage beantworten" gestartet (vgl. *GUI-Ansicht*). Der Benutzer hat dann zwei Möglichkeiten auf die Anfrage zu reagieren:
 	\begin{itemize}
 		\item \textit{Bestätigen} bestätigt der Benutzer die Anfrage, so wird er vom System der Gruppe hinzugefügt.
 		\item \textit{Ablehnen} lehnt der Benutzer die Anfrage ab, wird keine weitere Aktion des Systems ausgeführt.
 	\end{itemize}
-In beiden Fällen wird der Sender der Anfrage über die Beantwortung informiert (vgl. \ref{Mitglieder hinzufügen}) und anschließend die Anfrage vom System gelöscht.
+Nach Beantwortung der Anfrage wird diese vom System gelöscht.
 	
 
 \end{enumerate}
 
 \subsubsection{Administratorfunktionen}
-Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Administrator einer Gruppe ist.
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und der Administrator einer Gruppe ist.\\
+Um eine der folgenden Funktionen ausführen zu können muss der Administrator zunächst in die Gruppeninformationsansicht wechseln (vgl. *GUI-Ansicht* und \ref{Gruppeninfo anzeigen}). Unter der Voraussetzung, das es sich bei dem Benutzer um einen Administrator dieser Gruppe handelt, wird ihm eine Schaltfläche 'Gruppe bearbeiten' angezeigt. Die Betätigung dieser Schaltfläche startet eine Aktivität, die es dem Benutzer erlaubt Änderungen an der aktuellen Konfiguration der Gruppe vorzunehmen. Es wird im Folgenden Abschnitt angenommen, dass der Benutzer diese Aktivität bereits gestartet hat.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+
 	\item \textit{Gruppenname "andern}
+	Der Gruppenname kann von einem Administrator geändert werden, indem er den aktuellen Gruppennamen, der in einem editierbaren Textfeld angezeigt wird, durch den neuen erstetzt und im Anschluss auf den Button "Änderungen speichern" klickt (vgl. *GUI-Ansicht*).
+	%\item \textit{Gruppenbeschreibung ändern}
 	%\item \textit{Gruppenbild "andern}
+	
 	\item \textit{Gruppenmitglied hinzuf"ugen} \label{Mitglieder hinzufügen}
-	\item \textit{Gruppenmitglied entfernen}	
+	Ein Administrator kann einer Gruppe neue Mitglieder hinzufügen. Dazu wählt er den Button 'Mitglied hinzufügen' aus. Anschließend kann anhand des Benutzernamens nach dem gewünschten Benutzer gesucht werden. Das System zeigt dem Administrator Benutzer an, deren Benutzernamen dem gesuchten entsprechen. Der Administrator wählt den gewünschten Benutzer aus, woraufhin das System diesem Nutzer eine Gruppenanfrage sendet (siehe \ref{Gruppenanfrage beantworten}). Solange die Gruppenanfrage offen ist, wird das potentielle Gruppenmitglied für die Administratoren der Gruppe angezeigt (Status der Mitgliedschaft ist farblich gekennzeichnet), für normale Gruppenmitglieder sind offene Gruppenanfragen nicht sichtbar.
+	
+	\item \textit{Gruppenmitglied entfernen}
+	Ein Administrator kann beliebige Mitglieder der Gruppe entfernen, indem er das rote Minuszeichen neben dem zu entfernenden Benutzer anklickt (vgl. *GUI-Ansicht*) und anschließend die Durchführung der Aktion bestätigt. Der ausgewählte Benutzer wird vom System aus der Gruppe entfernt.
+	
 	\item \textit{Admin hinzuf"ugen} \label{Admin hinzufügen}
+	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er den 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus (vgl. *GUI-Ansicht*). Das System ändert die Rolle des Gruppenmitglieds zu 'Adminsitrator'. Das Gruppenmitglied erhält eine Benachrichtigung (???) über den neuen Status und kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen.
+	
 	\item \textit{Gruppe l"oschen}
-	\item \textit{GO erstellen}
+	Ein Adminsitrator kann eine Gruppe löschen indem er den "Gruppe löschen"-Button auswählt. Das System löscht die Gruppe. Sie wird ab diesem Zeitpunkt nicht mehr in der Gruppenansicht der Mitglieder angezeigt. Mitglieder erhalten keine Benachrichtigung über die Löschung der Gruppe (???).
+	
 \end{enumerate}
 	
 \subsection{GO-Funktionen}
@@ -232,6 +247,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und Mitglied einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+	\item \textit{GO erstellen}
 	\item \textit{Dem Event beitreten}
 	\item \textit{Losgehen}
 	\item \textit{Aus Event austreten}
@@ -311,3 +327,14 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \section{Anhang}	
 \end{document}
+
+
+%Begriffe für Glossar
+
+% GO
+% Benutzer
+% Benutzername vs Anzeigename
+% System = App + Server
+% Benachrichtigungen
+% Hauptansicht
+% Aktivität
