@@ -38,6 +38,7 @@
 {
 	name={GO},
 	description={Ein Event in einer Gruppe, dem Mitglieder beitreten können, um ihren Standort mit anderen GO-Teilnehmern zu teilen},
+	plural={GOs},
 }
 \newglossaryentry{Benutzer}
 {
@@ -142,7 +143,7 @@ Dises Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinbar
 \begin{itemize}
 	\item Profilbilder
 	\item Gruppenbild
-	\item Benachrichtigungen (wie z.B. ''Event in 30 Minuten'', oder ''Jemand ist in der nähe'')
+	\item Benachrichtigungen (wie z.B. ''Event in 30 Minuten'', oder ''Jemand ist in der Nähe'')
 \end{itemize}
 
 \subsection{Abgrenzungskriterien}
@@ -175,7 +176,7 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 \subsection{Software}
 \begin{itemize}
 	\item Client Seite:\\
-	Android 4 oder höher wird auf dem Smartphone verlangt.
+	Android 4 oder höher wird auf dem Gerät verlangt.
 	\item Server Seite:\\
 	Tomcat 8 
 \end{itemize}
@@ -184,7 +185,7 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 \subsection{Hardware}
 % \subsection{Produktschnittstellen} --> inwiefern ist das im Pflichtenheft relevant?
 \begin{itemize}
-\item Client Seite: \\ Android Gerät.\\
+\item Client Seite: \\ Android Gerät. (Bei der Registrierung/Erstanmeldung eines neuen Gerätes wird ein Android-Gerät mit einer funktionierenden SIM-Karte verlangt.)\\
 \item Server Seite: \\ Tomcat 8 Server.
 \end{itemize}
 
@@ -210,7 +211,7 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 		\item Passwort
 	\end{itemize}
 	Passt die Telefonnummer zu einem existierenden Benutzerkonto, wird dem Benutzer eine SMS mit einem Bestätigungscode geschickt. Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Danach wird dem Benutzer seine *GUI-Ansicht* angezeigt und der Anmeldevorgang ist erfolgreich abgeschlossen.\\
-Bemerkung: Anmelden soll nur dann aufgeruft werden, wenn der Benutzer vom neuen Gerät sich anmeldet. Nach dem Anmelden muss der Benutzer im System bleiben und wird vom System nicht ausgeloggt.
+Bemerkung: Anmelden soll nur dann aufgerufen werden, wenn der Benutzer vom neuen Gerät sich anmeldet. Nach dem Anmelden muss der Benutzer im System bleiben und wird vom System nicht ausgeloggt.
 	
 	%Benutzerkonto mit Telefon-# verbinden und immer angemeldet bleiben?
 	\item \textit{Benutzerkennung anfordern} \\ Ein Benutzer kann, sollte er sein Passwort vergessen haben, seine Benutzerkennung anfordern und eine neues Passwort setzen. Wird auf dem Anmeldescreen (vgl. *GUI-Ansicht*) die 'Passwort vergessen'-Option gewählt, schickt der Server dem Benutzer eine SMS mit einem Zugangscode. Dieser Zugangscode ist 10min lang gültig. Der Benutzer gibt den Zugangscode ein und kann anschließend eine neues Passwort setzen. Danach loggt das System den Benutzer ein und lädt die Hauptansicht der Applikation. Beim nächsten Anmelden kann sich der Benutzer mit dem neuen Passwort anmelden.
@@ -242,7 +243,7 @@ Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt 
 		%\item Gruppenbeschreibung
 		\item aktuelle Mitglieder der Gruppe (offene Gruppenmitgliedsanfragen werden nur den Administratoren der Gruppe angezeigt, ehemalige Mitglieder der Gruppe werden nicht angezeigt)
 		\item aktuelle Administratoren der Gruppe
-		\item aktuelle \gls{GO}'s der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
+		\item aktuelle \glspl{GO} der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
 	\end{itemize}
 	
 	\item \textit{Gruppe erstellen}\\
@@ -299,11 +300,13 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 	\begin{itemize}
 		\item GO-Bezeichnung
 		\item Startzeitpunkt
-		\item Endzeitpunkt
+		\item Endzeitpunkt 
 		\item Zielpunkt (optional)
 	\end{itemize}
-Der Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???).\\
-Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. Die Mitglieder erhalten außerdem eine Benachrichtigung, dass in der Gruppe ein neues GO erstellt wurde (???). Der Ersteller des GOs ist während dem gesamten GO-Lifecycle der GO-Verantwortliche.
+Der Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???) \textbf{vielleicht gar nicht begrenzen ???}.\\
+Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. 
+Die Mitglieder erhalten außerdem eine Benachrichtigung, dass in der Gruppe ein neues GO erstellt wurde %machen wir bestimmt, wenn wir Benachrichtingungen implementieren(???). 
+Der Ersteller des GOs ist während dem gesamten GO-Lifecycle der GO-Verantwortliche.
 	
 	\item \textit{Teilnahmestatus ändern} \\
 	Das System weist für jedes GO jedem Gruppenmitglied einen Teilnahmestatus zu. Dieser lautet entweder
@@ -325,8 +328,8 @@ Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO �
 Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt. Sollte die GPS-Verfolgung dieses Gos bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
 	\end{itemize}
 	
-	\item \textit{Standorte abfragen} \\
-	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an.
+	\item \textit{Standorte abfragen}
+	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an. %TODO vielleich automatisch 
 	
 	\item \textit{GO-Informationen abrufen} \\
 	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}).
@@ -334,7 +337,7 @@ Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, 
 \end{enumerate}
 
 \subsubsection{Funktionen für GO-Verantwortliche}
-Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Administrator einer Gruppe ist.
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Verantwortlicher eines GOs ist. % hier war wohl der Verantwortlicher und nicht Admin gemeint
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
 	\item \textit{GO-Daten ändern} \\
@@ -346,9 +349,9 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Zielpunkt
 	\end{itemize}
 	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???). Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des Gos angezeigt, wenn diese die GO-Detailansicht aufrufen.
-	
-	\item \textit{GO starten} \\
-	Ein GO muss vom GO-Verantwortlichen gestartet werden, bevor die Mitglieder der Gruppe \gls{losgehen} können und die GPS-Verfolgung gestartet wird. Dies geschieht durch das Klicken des Buttons 'GO starten' in der GO-Detailansicht. Das System registriert das GO als gestartet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'.
+
+	\item \textit{GO starten} Ein GO muss vom GO-Verantwortlichen gestartet werden, bevor die Mitglieder der Gruppe \gls{losgehen} \textbf{<- hier wird es schlecht formattiert} können und die GPS-Verfolgung gestartet wird. Dies geschieht durch das Klicken des Buttons 'GO starten' in der GO-Detailansicht. Das System registriert das GO als gestartet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'.
+
 	
 	\item \textit{GO beenden} \\
 	Ein GO kann vom GO-Verantwortlichen vorzeitig beendet werden durch Klicken des Buttons 'GO beenden' in der GO-Detailansicht. Das System registriert das GO als beendet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt' und 'Unterwegs'. Anschließend wird das GO vom System gelöscht. \\
@@ -397,7 +400,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Mitglieder
 		\item Administratoren
 		\item offene Gruppenanfragen %--> wie sollte man länger ausstehende Anfragen verwalten?
-		\item erstellte GOs
+		\item aktuelle GOs
 	\end{itemize}
 	\item \textit{Go-Daten} \label{GO-Daten}
 	Für jedes erstellte GO müssen folgende Informationen gespeichert werden:
