@@ -107,9 +107,9 @@
 %TODO Gliederung ggfs nochmal überarbeiten
 \newpage
 \section{Zielbestimmung}
-Die \gls{App} dient zur Erleichterung und Strukturierung von Treffen. 
-Man trifft sich jeden Tag und die Vereinbarungen im Text-Format in WhatsApp sind unübersichtlich. 
-Dises Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsprozess reinbringen.  
+Die \gls{App} dient der Erleichterung und Strukturierung von Gruppentreffen. 
+ Bei täglichen Vereinbarungen, ist die Kommunikation im Text-Format via WhatsApp und ähnlichen Apps unübersichtlich und unintuitiv. 
+Dies wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsprozess reinbringen.  
 \subsection{Musskriterien}
 % Anzahl Gruppen, Gruppenmitglieder, GOs, etc. beschränken
 % grobe Zusammenfassung d. fktl. Kriterien (+ referenz auf die jeweiligen Funktionen)
@@ -150,24 +150,26 @@ Dises Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinbar
 % kein IM
 % kein Social Media
 % kein Live-Navigationssystem mit Routenplanungsfunkton, etc.
+% Kontakte wrden nur innerhalb der Gruppen hinzugefügt
 Diese App ist kein Instant Messaging Platform: Textnachrichten, Filesharing wie z.B. in WhatsApp werden nicht unterstützt.
 
 \newpage
 \section{Produkteinsatz}
 %TODO was muss hier hin?
 %\subsection{Anwendungsbereiche} Ich glaube diese Section ist unnötig.
+% Zielgruppe gehört im Prinzip zu dieser Section, genauso wie Anwendungsbereich
 \subsection{Zielgruppen}
-% Studenten
-Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusammen mit den Freunden rausgehen und eine einfache App brauchen, um leichter und strukturierter die Treffen zu organisieren.
+% 
+Als Zielgruppe werden junge Erwachsene (13-35 Jahre alt) und regelmäßige Handynutzer berücksichtigt, die siche regelmäßig mit Freunden verabreden und eine einfache App brauchen, um strukturierter ihre Treffen zu organisieren.
 
 \subsection{Betriebsbedingungen}
-% mind. benötigte Android-Version
+% mind. benötigte Android-Version -> 4.4
 % funktionierende Netzwerkverbindung
 % Zugriff auf GPS-Daten erlaubt
 \begin{itemize}
 \item Die App braucht funktionierende Netzwerkverbindung.\\
-\item Der Zugriff auf GPS-Daten soll erlaubt werden.\\
-\item Zugriff auf Kontakten ist wünschenswert für bessere User-Experience.
+\item Der Zugriff auf GPS-Daten muss erlaubt sein.\\
+\item Zugriff auf Kontakten ist wünschenswert für bessere User-Experience. %inwiefern? Machen wir das nicht über eine Datenbank
 \end{itemize}
 
 \newpage
@@ -201,8 +203,8 @@ Als Zielgruppe werden die junge Leute 13-35 Jahre alt berücksichtigt, die zusam
 		\item Telefonnummer %Email ?? --> wie soll die Verifikation des Benutzerkontos erfolgen
 		\item Passwort (muss zweimal identisch eingegeben werden)
 	\end{itemize}
-	 Das System "uberpr"uft, ob die Telefonnummer noch nicht im System registriert ist. Das System sendet dem Benutzer eine SMS %Email ??
-	 mit einem Best"atigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
+	 Das \gls{System} überprüft, ob die Telefonnummer noch  nicht  registriert ist. Auf Konfirmation hin, sendet es dem Benutzer eine SMS %Email ??
+	 mit einem Bestätigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
 	 Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Das System loggt den Benutzer automatisch ein und es wird *GUI-Ansicht* angezeigt %Referenz auf GUI-Ansicht
 	 	
 	\item \textit{Anmelden} \\ Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe von
@@ -227,7 +229,7 @@ Bemerkung: Anmelden soll nur dann aufgerufen werden, wenn der Benutzer vom neuen
 
 \subsection{Gruppen}
 
-\subsubsection{von allen Benutzern ausführbare Funktionen} %TODO bessere Überschrift überlegen
+\subsubsection{öffentliche Operationen} %TODO bessere Überschrift überlegen 
 Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt und bereits im System eingeloggt ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
@@ -266,7 +268,7 @@ Nach Beantwortung der Anfrage wird diese vom System gelöscht.
 
 \subsubsection{Administratorfunktionen}
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und der Administrator einer Gruppe ist.\\
-Um eine der folgenden Funktionen ausführen zu können muss der Administrator zunächst in die Gruppeninformationsansicht wechseln (vgl. *GUI-Ansicht* und \ref{Gruppeninfo anzeigen}). Unter der Voraussetzung, das es sich bei dem Benutzer um einen Administrator dieser Gruppe handelt, wird ihm eine Schaltfläche 'Gruppe bearbeiten' angezeigt. Die Betätigung dieser Schaltfläche startet eine Aktivität, die es dem Benutzer erlaubt Änderungen an der aktuellen Konfiguration der Gruppe vorzunehmen. Es wird im Folgenden Abschnitt angenommen, dass der Benutzer diese Aktivität bereits gestartet hat.
+Um eine der folgenden Funktionen ausführen zu können muss der Administrator zunächst in die Gruppeninformationsansicht wechseln (vgl. *GUI-Ansicht* und \ref{Gruppeninfo anzeigen}). Unter der Voraussetzung, dass es sich bei dem Benutzer um einen Administrator dieser Gruppe handelt, wird ihm eine Schaltfläche 'Gruppe bearbeiten' angezeigt. Die Betätigung dieser Schaltfläche startet eine Aktivität, die es dem Benutzer erlaubt Änderungen an der aktuellen Konfiguration der Gruppe vorzunehmen. Es wird im Folgenden Abschnitt angenommen, dass der Benutzer diese Aktivität bereits gestartet hat.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 
@@ -287,11 +289,13 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	\item \textit{Gruppe l"oschen} \\
 	Ein Adminsitrator kann eine Gruppe löschen indem er den "Gruppe löschen"-Button auswählt. Das System löscht die Gruppe. Sie wird ab diesem Zeitpunkt nicht mehr in der Gruppenansicht der Mitglieder angezeigt. Mitglieder erhalten keine Benachrichtigung über die Löschung der Gruppe (???).
 	
+	%Benarichtung an Nutzer...
+	
 \end{enumerate}
 	
 \subsection{GO-Funktionen}
 
-\subsubsection{von allen Benutzern ausführbare Funktionen}
+\subsubsection{Gruppenmitglieder Funktionen}
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und Mitglied einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
@@ -333,7 +337,8 @@ Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, 
 	
 	\item \textit{GO-Informationen abrufen} \\
 	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}).
-	%\item \textit{Zeit und Ort vorschlagen} --> evtl. Wunschkriterium?
+	%\item \textit{Zeit und Ort vorschlagen} --> evtl. Wunschkriterium? 
+	%Abrufen? Sollte es nicht besser einfach als Übersicht dastehen wenn er aufs GO klickt?
 \end{enumerate}
 
 \subsubsection{Funktionen für GO-Verantwortliche}
