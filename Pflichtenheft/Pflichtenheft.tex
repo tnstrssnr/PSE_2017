@@ -67,7 +67,7 @@
 }
 \newglossaryentry{losgehen}
 {
-	name={losgehen, losgegangen},
+	name={losgehen},
 	description={Die Änderung des Teilnahmestatus eines GOs von 'Bestätigt' auf 'Unterwegs'},
 }
 
@@ -93,7 +93,6 @@
 	{\bfseries erstellt von:\par}
 	Arsenii Dunaev \\
 	Florian Kröger \\
-	Houra Mortazavi \\ %TODO Nachname überprüfen
 	Tina Maria Strößner \\
 	Volodymyr Shpylka \\	
 	\vfill
@@ -192,75 +191,69 @@ Als Zielgruppe werden junge Erwachsene (13-35 Jahre alt) und regelmäßige Handy
 \end{itemize}
 
 \newpage
-\section{Funktionen}
+\section{Funktionale Anforderungen}
 
 \subsection{Benutzerkontofunktionen}
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
 	
-	\item \textit{Registrieren} \\ Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat, kann sich in dem \gls{System} registrieren. Zum erfolgreichen Registrieren m"ussen mindestens folgende Angaben gemacht werden:
-	\begin{itemize}
-		\item Telefonnummer %Email ?? --> wie soll die Verifikation des Benutzerkontos erfolgen
-		\item Passwort (muss zweimal identisch eingegeben werden)
-	\end{itemize}
-	 Das \gls{System} überprüft, ob die Telefonnummer noch  nicht  registriert ist. Auf Konfirmation hin, sendet es dem Benutzer eine SMS %Email ??
-	 mit einem Bestätigungscode und fordert ihn auf, diesen in der App einzugeben %Referenz auf GUI-Ansicht
-	 Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Das System loggt den Benutzer automatisch ein und es wird *GUI-Ansicht* angezeigt %Referenz auf GUI-Ansicht
+	\item \textit{Registrieren}\label{Registrieren} \\ Ein beliebiger Benutzer, der zuvor die App auf seinem Andoid-Ger"at installiert hat und ein Google-Account besitzt, kann sich in der App registrieren un ein Benutzeraccount zu erstellen. Dazu muss der Benutzer sich auf dem Anmeldescreen (vgl. *GUI-Ansicht*) mit einem existierenden Google-Account anmelden (vgl. \ref{Anmelden}). Wird diese Funktion zum ersten Mal ausgeführt, wird vom System automatisch ein neuer Account für diesen Benutzer angelegt und der Benutzer in diesen Account eingeloggt. Bevor der Benutzer die App nutzen kann, muss er bestätigen, dass er mit einer eventuellen unanonymisierten Veröffentlichung seines Standortes einverstanden ist (vgl. \ref{Anonymisierung}). Wird dies nicht bestätigt, schlägt die Registrierung fehl.
+	Bei erfolgreicher Registrierung kann sich der Benutzer ab sofort mit seinem Google-Account im System anmelden und Zugriff auf seinen Benutzeraccount erlangen.
+
 	 	
-	\item \textit{Anmelden} \\ Ein Benutzer, der zuvor bereits ein Benutzerkonto angelegt hat, kann sich in dem System einloggen durch Angabe von
+	\item \textit{Anmelden} \label{Anmelden} \\ Ein Benutzer kann sich mithilfe seines Google-Accounts im System anmelden. Dazu ist sind folgende Eingaben des Benutzers erforderlich:
 	\begin{itemize}
-		\item Telefonnummer
-		\item Passwort
+		\item E-Mail Adresse mit der der Benutzer bei Google registriert ist
+		\item Passwort des Google-Accounts des Benutzers
 	\end{itemize}
-	Passt die Telefonnummer zu einem existierenden Benutzerkonto, wird dem Benutzer eine SMS mit einem Bestätigungscode geschickt. Wird der Code korrekt eingegeben ist die Registrierung erfolgreich abgeschlossen. Danach wird dem Benutzer seine *GUI-Ansicht* angezeigt und der Anmeldevorgang ist erfolgreich abgeschlossen.\\
-Bemerkung: Anmelden soll nur dann aufgerufen werden, wenn der Benutzer vom neuen Gerät sich anmeldet. Nach dem Anmelden muss der Benutzer im System bleiben und wird vom System nicht ausgeloggt.
+	Sind die Angaben korrekt wird der Benutzer vom System in sein GO-Benutzeraccount eingeloggt. Der Benutzer bleibt eingeloggt, bis er die Funktion \ref{Abmelden} ausführt, dies gilt auch für das zwischenzeitliche Schließen der App.
 	
-	%Benutzerkonto mit Telefon-# verbinden und immer angemeldet bleiben?
-	\item \textit{Benutzerkennung anfordern} \\ Ein Benutzer kann, sollte er sein Passwort vergessen haben, seine Benutzerkennung anfordern und eine neues Passwort setzen. Wird auf dem Anmeldescreen (vgl. *GUI-Ansicht*) die 'Passwort vergessen'-Option gewählt, schickt der Server dem Benutzer eine SMS mit einem Zugangscode. Dieser Zugangscode ist 10min lang gültig. Der Benutzer gibt den Zugangscode ein und kann anschließend eine neues Passwort setzen. Danach loggt das System den Benutzer ein und lädt die Hauptansicht der Applikation. Beim nächsten Anmelden kann sich der Benutzer mit dem neuen Passwort anmelden.
+	%\item \textit{Benutzerkennung anfordern} \\ Ein Benutzer kann, sollte er sein Passwort vergessen haben, seine Benutzerkennung anfordern und eine neues Passwort setzen. Wird auf dem Anmeldescreen (vgl. *GUI-Ansicht*) die 'Passwort vergessen'-Option gewählt, schickt der Server dem Benutzer eine SMS mit einem Zugangscode. Dieser Zugangscode ist 10min lang gültig. Der Benutzer gibt den Zugangscode ein und kann anschließend eine neues Passwort setzen. Danach loggt das System den Benutzer ein und lädt die Hauptansicht der Applikation. Beim nächsten Anmelden kann sich der Benutzer mit dem neuen Passwort anmelden.
 	
 	\item \textit{Persönliche Daten ändern} \\ Das System speichert persönliche Daten der Benutzer (siehe  \ref{persönliche Daten}). Der Benutzer kann diese Daten ändern. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt die Schaltfläche 'Profil bearbeiten'. In der sich öffnenden Aktivität kann der Benutzer die gewünschten Änderungen vornehmen und mit dem Button 'Profil speichern' sichern. Die geänderten Daten werden dann vom System übernommen.\\
-	Um das Benutzerpasswort ändern zu können, muss zuerst das alte Passwort korrekt eingegeben werden. Danach gibt der Nutzer zweimal das neue Passwort ein (beide Eingaben müssen identisch sein). Danach wird die Änderung ebenfalls mit 'Profil speichern' bestätigt. Ab sofort kann sich der Benutzer mit seinem neuen Passwort einloggen.
+Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse und Passwort zum Anmelden) können nicht geändert werden.
 	
-	\item \textit{Abmelden} \\ Ein Benutzer kann sich aus seinem Account abmelden, indem er in der Einstellungs-Ansicht (vgl. *GUI-Ansicht*) die Option 'Abmelden' auswählt. Das System meldet daraufhin den Benutzer von seinem Benutzerkonto ab und lädt die Anmelde-Ansicht (vgl. *GUI-Ansicht*).
+	\item \textit{Abmelden} \label{Abmelden} \\ Ein Benutzer kann sich aus seinem Account abmelden, indem er in der Einstellungs-Ansicht (vgl. *GUI-Ansicht*) die Option 'Abmelden' auswählt. Das System meldet daraufhin den Benutzer von seinem Benutzerkonto ab und lädt die Anmelde-Ansicht (vgl. *GUI-Ansicht*).
 	
 	\item \textit{Benutzerkonto l"oschen} \\
-	Ein Benutzer hat die Möglichkeit seinen Benutzeraccount zu löschen. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt den Button 'Profil löschen'. Das System fragt denBenutzer ob das Konto wirklich gelöscht werden soll. Wird dies bestätigt so wird der Benutzer von dem System aus seinem Account ausgeloggt. Anschließend löscht das System alle Daten des Benutzerkontos (vgl. \ref{Profildaten}) und entfernt den Benutzer aus sämtlichen Gruppen und GO's denen er zuvor beigetreten war.
+	Ein Benutzer hat die Möglichkeit seinen Benutzeraccount zu löschen. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt den Button 'Profil löschen'. Das System fragt den Benutzer ob das Konto wirklich gelöscht werden soll. Wird dies bestätigt so wird der Benutzer von dem System aus seinem Account ausgeloggt. Anschließend löscht das System alle Daten des Benutzerkontos (vgl. \ref{Profildaten}) und entfernt den Benutzer aus sämtlichen Gruppen und GO's denen er zuvor beigetreten war.
 \end{enumerate}
 
-\subsection{Gruppen}
+\subsection{Gruppenfunktionen}
 
-\subsubsection{öffentliche Operationen} %TODO bessere Überschrift überlegen 
-Im Folgenden wird stets angenommen, dass der Benutzer ein Benutzerkonto besitzt und bereits im System eingeloggt ist.
+\subsubsection{öffentliche Funktionen}
+Die im Folgenden beschriebenen Funktionen sind öffentlich, das bedeutet sie können von jedem Benutzer ausgeführt werden.
+Im folgenden Abschnitt wird angenommen, dass der Benutzer ein Benutzerkonto besitzt und bereits im System eingeloggt ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 %keie Kontakte, sondern Leute direkt über den Benutzernamen in eine Gruppe hinzufügen
 	\item \textit{Gruppen anzeigen} \\ %zählt hier "alle gruppen in denen man ist ansehen" als Funktion?
-	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den 'Gruppen'-Reiter der \gls{Hauptansicht} auswählt (vgl. *GUI-Ansicht*)
+	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den 'Gruppen'-Reiter der \gls{Hauptansicht} auswählt (vgl. *GUI-Ansicht*).
 	
 	\item \textit{Gruppeninformationen abrufen} \label{Gruppeninfo anzeigen} \\%Mitglieder, Admin, aktuelle GOs
-	Ein Benutzer, der Mitglied einer Gruppe ist, kann sich von der App bestimmte Systeminformationen zu dieser Gruppe anzeigen lassen. Dazu wählt der Benutzer das Gruppenicon der gewünschten Gruppe in der *GUI-Ansicht* aus. Darauffolgend werden ihm vom System folgende Informationen über die Gruppe angezeigt:
+	Ein Benutzer, der Mitglied einer Gruppe ist, kann sich von der App Systeminformationen zu dieser Gruppe anzeigen lassen. Dazu wählt der Benutzer das Gruppenicon der gewünschten Gruppe in der *GUI-Ansicht* aus. Darauffolgend werden dem Benutzer vom System folgende Informationen über die Gruppe angezeigt:
 	\begin{itemize}
 		\item Gruppenname
-		%\item Gruppenbild
-		%\item Gruppenbeschreibung
+		\item Gruppenbild
+		\item Gruppenbeschreibung
 		\item aktuelle Mitglieder der Gruppe (offene Gruppenmitgliedsanfragen werden nur den Administratoren der Gruppe angezeigt, ehemalige Mitglieder der Gruppe werden nicht angezeigt)
 		\item aktuelle Administratoren der Gruppe
 		\item aktuelle \glspl{GO} der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
 	\end{itemize}
 	
 	\item \textit{Gruppe erstellen}\\
-	Ein User kann eine neue Gruppe erstellen. Dazu muss in der Ansicht *GUI-Ansicht* die Auswahl "Gruppe erstellen" gewählt werden und anschließend ein Gruppenname angegeben werden. Die Funktion bietet die Option bei der Erstellung der Gruppe Gruppenmitglieder hinzuzufügen (vgl. *GUI-Ansicht*). Für genauere Erläuterungen hierzu siehe \ref{Mitglieder hinzufügen}.
-	Der Ersteller der Gruppe wird automatisch zum (zu diesem Zeitpunkt) einzigen Administrator derselben.
+	Ein User kann eine neue Gruppe erstellen. Dazu muss in der Ansicht *GUI-Ansicht* die Auswahl "Gruppe erstellen" gewählt werden und anschließend ein Gruppenname angegeben werden. Der Ersteller der Gruppe wird automatisch zum (zu diesem Zeitpunkt) einzigen Gruppenmitglied und Administrator derselben. Um anschließend Mitglieder zu der Gruppe hinzuzufügen, muss die Funktion \ref{Mitglieder hinzufügen} aufgerufen werden.
+	
 	
 	\item \textit{Aus Gruppe austreten}\\
-	Ein \gls{Benutzer}, der Mitglied einer Gruppe ist, kann aus derselben austreten. Sollte der Benutzer einziger Administrator der Gruppe sein, muss zuerst ein weiteres aktuelles Mitglied der Gruppe zum Administrator ernannt werden (siehe Funktion \ref{Admin hinzufügen}, bevor diese Funktion ausgeführt werden kann. \\
-	Um aus einer Gruppe auszutreten wird vom Benutzer in der Gruppensansicht (vgl. *GUI-Ansicht*) die Gruppeninformation aufgerufen (vgl. *GUI-Ansicht*) und anschlie"send auf den Button "Gruppe verlassen" gedrückt. Das System entfernt den Benutzer aus der Gruppe und die Funktion ist erfolgreich abgeschlossen. Die Gruppe bleibt im System weiterhin bestehen.\\
-	In dem Fall, dass der austretende Benutzer das einzige Mitglied der Gruppe ist (und somit auch Administrator), entfällt das Ernennen eines neuen Administrators vor dem Austritt und die Gruppe wird nach dem Ausführen dieser Funktion automatisch von dem System gelöscht.
+	Ein \gls{Benutzer}, der Mitglied einer Gruppe ist, kann aus derselben austreten. Sollte der Benutzer einziger Administrator der Gruppe sein, muss zuerst ein weiteres aktuelles Mitglied der Gruppe zum Administrator ernannt werden, bevor diese Funktion ausgeführt werden kann (siehe Funktion \ref{Admin hinzufügen}). \\
+	Um aus einer Gruppe auszutreten wird vom Benutzer in der Gruppensansicht (vgl. *GUI-Ansicht*) die Detailansicht der ausgewählten Gruppe aufgerufen (vgl. *GUI-Ansicht*) und anschlie"send auf den Button 'Gruppe verlassen' geklickt. Das System entfernt den Benutzer aus der Gruppe und die Funktion ist erfolgreich abgeschlossen. Die Gruppe bleibt im System für alle anderen Benutzer weiterhin bestehen.\\
+	In dem Fall, dass der austretende Benutzer das einzige Mitglied der Gruppe ist (und somit auch Administrator), entfällt das Ernennen eines neuen Administrators vor dem Austritt und die Gruppe wird nach dem Ausführen dieser Funktion automatisch vom System gelöscht.
 	
 	\item \textit{Gruppenanfrage beantworten} \label{Gruppenanfrage beantworten} \\
-	Diese Funktion setzt voraus, dass ein Benutzer eine Anfrage auf Gruppenmitgliedschaft von einem anderen Benutzer bekommen hat (vgl. Funktion \ref{Mitglieder hinzufügen}). Dem Benutzer werden offene Gruppenanfragen durch ein grün hinterlegtes Gruppenicon in der Gruppenansicht angezeigt (vgl *GUI-Ansicht*). Durch Klicken auf das Icon wird die Funktion "Gruppenanfrage beantworten" gestartet (vgl. *GUI-Ansicht*). Der Benutzer hat dann zwei Möglichkeiten auf die Anfrage zu reagieren:
+	Diese Funktion setzt voraus, dass ein Benutzer eine Anfrage auf Gruppenmitgliedschaft von einem anderen Benutzer bekommen hat (vgl. Funktion \ref{Mitglieder hinzufügen}). Dem Benutzer werden offene Gruppenanfragen durch ein grün hinterlegtes Gruppenicon in der Gruppenansicht angezeigt (vgl *GUI-Ansicht*). Durch Klicken auf das Icon wird die Funktion "Gruppenanfrage beantworten" gestartet (vgl. *GUI-Ansicht*). Der Benutzer hat zwei Möglichkeiten auf die Anfrage zu reagieren:
 	\begin{itemize}
-		\item \textit{Bestätigen} bestätigt der Benutzer die Anfrage, so wird er vom System der Gruppe hinzugefügt.
+		\item \textit{Bestätigen} bestätigt der Benutzer die Anfrage, so wird er vom System der Gruppe hinzugefügt. Sie erscheint ab sofort in seiner Gruppenübersicht und der Benutzer hat die Befugnis sämtliche öffentlichen Gruppenfunktionen für die Gruppe aufzurufen.
 		\item \textit{Ablehnen} lehnt der Benutzer die Anfrage ab, wird keine weitere Aktion des Systems ausgeführt.
 	\end{itemize}
 Nach Beantwortung der Anfrage wird diese vom System gelöscht.
@@ -272,13 +265,17 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 
-	\item \textit{Gruppenname "andern}\\
-	Der Gruppenname kann von einem Administrator geändert werden, indem er den aktuellen Gruppennamen, der in einem editierbaren Textfeld angezeigt wird, durch den neuen erstetzt und im Anschluss auf den Button "Änderungen speichern" klickt (vgl. *GUI-Ansicht*).
-	%\item \textit{Gruppenbeschreibung ändern}
-	%\item \textit{Gruppenbild "andern}
+	\item \textit{Gruppendaten "andern}\\
+	Ein Administrator kann folgende Daten einer Gruppe ändern:
+	\begin{itemize}
+	\item Gruppenname
+	\item Gruppenbeschreibung
+	\item Gruppenbild
+	\end{itemize}
+	Dazu gibt er die Änderungen in dem jeweiligen Feld der Änderungsansicht ein und betätigt anschließend den Button 'Änderungen speichern'.
 	
 	\item \textit{Gruppenmitglied hinzuf"ugen} \label{Mitglieder hinzufügen} \\
-	Ein Administrator kann einer Gruppe neue Mitglieder hinzufügen. Dazu wählt er den Button 'Mitglied hinzufügen' aus. Anschließend kann anhand des \gls{Benutzername}ns nach dem gewünschten Benutzer gesucht werden. Das System zeigt dem Administrator Benutzer an, deren Benutzernamen dem gesuchten entsprechen. Der Administrator wählt den gewünschten Benutzer aus, woraufhin das System diesem Nutzer eine Gruppenanfrage sendet (siehe \ref{Gruppenanfrage beantworten}). Solange die Gruppenanfrage offen ist, wird das potentielle Gruppenmitglied für die Administratoren der Gruppe angezeigt (Status der Mitgliedschaft ist farblich gekennzeichnet), für normale Gruppenmitglieder sind offene Gruppenanfragen nicht sichtbar.
+	Ein Administrator kann einer Gruppe neue Mitglieder hinzufügen. Dazu wählt er den Button 'Mitglied hinzufügen' aus. Anschließend kann anhand der E-Mailadresse, die beim Login benutzt wurde, nach dem gewünschten Benutzer gesucht werden. Das System zeigt dem Administrator Benutzer an, deren E-Mailadresse der Gesuchten entsprechen. Der Administrator wählt den gewünschten Benutzer aus, woraufhin das System diesem Nutzer eine Gruppenanfrage sendet (siehe \ref{Gruppenanfrage beantworten}). Solange die Gruppenanfrage offen ist, wird das potentielle Gruppenmitglied für die Administratoren der Gruppe angezeigt (Status der Mitgliedschaft ist farblich gekennzeichnet), für normale Gruppenmitglieder sind offene Gruppenanfragen nicht sichtbar.
 	
 	\item \textit{Gruppenmitglied entfernen}\\
 	Ein Administrator kann beliebige Mitglieder der Gruppe entfernen, indem er das rote Minuszeichen neben dem zu entfernenden Benutzer anklickt (vgl. *GUI-Ansicht*) und anschließend die Durchführung der Aktion bestätigt. Der ausgewählte Benutzer wird vom System aus der Gruppe entfernt.
@@ -287,32 +284,43 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er den 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus (vgl. *GUI-Ansicht*). Das System ändert die Rolle des Gruppenmitglieds zu 'Adminsitrator'. Das Gruppenmitglied erhält eine Benachrichtigung (???) über den neuen Status und kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen.
 	
 	\item \textit{Gruppe l"oschen} \\
-	Ein Adminsitrator kann eine Gruppe löschen indem er den "Gruppe löschen"-Button auswählt. Das System löscht die Gruppe. Sie wird ab diesem Zeitpunkt nicht mehr in der Gruppenansicht der Mitglieder angezeigt. Mitglieder erhalten keine Benachrichtigung über die Löschung der Gruppe (???).
-	
-	%Benarichtung an Nutzer...
+	Ein Adminsitrator kann eine Gruppe löschen indem er den "Gruppe löschen"-Button auswählt. Das System löscht die Gruppe. Sie wird ab diesem Zeitpunkt nicht mehr in der Gruppenansicht der Mitglieder angezeigt. Mitglieder erhalten keine Benachrichtigung über die Löschung der Gruppe.
 	
 \end{enumerate}
 	
 \subsection{GO-Funktionen}
 
-\subsubsection{Gruppenmitglieder Funktionen}
+\subsubsection{öffentliche Funktionen}
+Die in diesem Abschnitt beschriebenen Funktionen sind öffentlich, das bedeutet sie können von jedem Benutzer, der Mitglied einer Gruppe ist ausgeführt werden.
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet und Mitglied einer Gruppe ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+
+	\item \textit{GOs anzeigen}\label{GOs anzeigen} Ein Benutzer kann sich vom System eine Liste seiner aktuellen GOs anzeigen lassen. Dies kann auf zwei verschiedene Arten geschehen:
+	\begin{itemize}
+		\item Der Benutzer wählt die GO-Hauptansicht (vgl. *GUI-Ansicht*) aus. Das System zeigt eine Liste von allen GOs aus allen Gruppen des Benutzers, für die sein Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist (vgl. \ref{Teilnahmestatus}).
+		\item Der Benutzer wählt die Detailansicht einer seiner Gruppe. Hier wird ihm eine Liste aller GOs dieser Gruppe angezeigt, unabhängig von seinem Teilnahmestatus für dieses GO.
+	\end{itemize}
+	
+	\item \textit{GO-Informationen abrufen} \\
+	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}), indem er die Detailansicht des GOs, durch Klicken auf das GO-Icon in der GO-Hauptansicht oder der Gruppendetailansicht (vgl. \ref{GOs anzeigen}), anruft.
+
 	\item \textit{GO erstellen} \\
-	Jedes Mitglied eienr Gruppe kann für diese Gruppe einen GO erstellen. Dazu wählt der Benutzer in der jeweiligen Gruppenansicht die Option 'GO erstellen' und übergibt dem System folgende Informationen (vgl. *GUI-Ansicht*):
+	Jedes Mitglied einer Gruppe kann für diese Gruppe ein GO erstellen. Dazu wählt der Benutzer in der jeweiligen Gruppendetailansicht die Option 'GO erstellen' und übergibt dem System folgende Informationen (vgl. *GUI-Ansicht*):
 	\begin{itemize}
 		\item GO-Bezeichnung
+		\item Beschreibung
 		\item Startzeitpunkt
 		\item Endzeitpunkt 
 		\item Zielpunkt (optional)
+		\item Clustering-Schwellwert (vgl. \ref{Clustering})
 	\end{itemize}
-Der Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???) \textbf{vielleicht gar nicht begrenzen ???}.\\
+Der Startzeitpunkt darf nicht in der Vergangenheit liegen.\\
 Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. 
-Die Mitglieder erhalten außerdem eine Benachrichtigung, dass in der Gruppe ein neues GO erstellt wurde %machen wir bestimmt, wenn wir Benachrichtingungen implementieren(???). 
+Das GO wird den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt.
 Der Ersteller des GOs ist während dem gesamten GO-Lifecycle der GO-Verantwortliche.
 	
-	\item \textit{Teilnahmestatus ändern} \\
+	\item \textit{Teilnahmestatus ändern}\label{Teilnahmestatus} \\
 	Das System weist für jedes GO jedem Gruppenmitglied einen Teilnahmestatus zu. Dieser lautet entweder
 	\begin{itemize}
 		\item Abgelehnt: Der Benutzer nimmt an dem GO nicht teil
@@ -323,26 +331,22 @@ Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO �
 
 	\begin{itemize}
 	\item \textit{Dem Event beitreten} \label{GO-Anfrage} \\
-	Mitglieder einer Gruppe können zu jeder Zeit einem aktuellen GO der Gruppe beitreten. Dazu wird vorausgesetzt, dass der aktuelle Teilnahmestatus des Gruppenmitglieds 'Abgelehnt' ist. In der Gruppendetailansicht kann der Benutzer die Option 'Beitreten' des gewünschten GOs anklicken. Das System wird dadurch veranlasst, den Teilnahmestatus des Benutzers auf 'Bestätigt' zu setzen. Sobald dies geschehen ist, kann der Benutzer die GO-Detailansicht (vgl. *GUI-Ansicht*) aufrufen.
+	Mitglieder einer Gruppe können zu jeder Zeit einem aktuellen GO der Gruppe beitreten. Dazu wird vorausgesetzt, dass der aktuelle Teilnahmestatus des Gruppenmitglieds 'Abgelehnt' ist. In der Gruppendetailansicht kann der Benutzer die Option 'Beitreten' des gewünschten GOs anklicken. Das System wird  veranlasst, den Teilnahmestatus des Benutzers auf 'Bestätigt' zu setzen. Sobald dies geschehen ist, kann der Benutzer die GO-Detailansicht (vgl. *GUI-Ansicht*) aufrufen.
 	
 	\item \textit{Losgehen} \\
-	Um diese Funktion ausführen zu können, muss der Teilnahmestatus des Benutzers auf 'Bestätigt' gesetzt sein und das GO vom GO-Verantwortlichen gestartet worden sein (???). Sobald der Button 'Losgehen' betätigt wurde wird der Teilnahmestatus des Benutzers vom System auf 'Unterwegs' gesetzt und die GPS-Verfolgung des Benutzers wird aktiviert und für andere GO-Mitglieder, deren Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, sichtbar (???).
+	Um diese Funktion ausführen zu können, muss der Teilnahmestatus des Benutzers auf 'Bestätigt' gesetzt sein. Sobald der Button 'Losgehen' betätigt wurde wird der Teilnahmestatus des Benutzers vom System auf 'Unterwegs' gesetzt und die GPS-Verfolgung des Benutzers wird aktiviert und für andere GO-Mitglieder, deren Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, sichtbar. Sobald der Startzeitpunkt eintritt, wird der Teilnahmestatus von Benutzern, die 'Bestätigt', aber noch nicht 'Unterwegs' sind, automatisch auf 'Unterwegs' gesetzt.
 	
 	\item \textit{Aus Event austreten} \\
-Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt. Sollte die GPS-Verfolgung dieses Gos bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
+Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
 	\end{itemize}
 	
-	\item \textit{Standorte abfragen}
-	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an. %TODO vielleich automatisch 
+	\item \textit{Standorte abfragen}\label{Standorte abrufen}
+	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an (vgl. \ref{Clustering}).
 	
-	\item \textit{GO-Informationen abrufen} \\
-	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}).
-	%\item \textit{Zeit und Ort vorschlagen} --> evtl. Wunschkriterium? 
-	%Abrufen? Sollte es nicht besser einfach als Übersicht dastehen wenn er aufs GO klickt?
 \end{enumerate}
 
 \subsubsection{Funktionen für GO-Verantwortliche}
-Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Verantwortlicher eines GOs ist. % hier war wohl der Verantwortlicher und nicht Admin gemeint
+Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist und der Verantwortlicher eines GOs ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
 	\item \textit{GO-Daten ändern} \\
@@ -352,23 +356,48 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Startzeitpunkt
 		\item Endzeitpunkt
 		\item Zielpunkt
+		\item Clustering-Schwellwert (vgl. \ref{Clustering})
 	\end{itemize}
-	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen und die sich ergebende Dauer darf eine Maximaldauer von 10h nicht überschreiten (???). Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des Gos angezeigt, wenn diese die GO-Detailansicht aufrufen.
-
-	\item \textit{GO starten} Ein GO muss vom GO-Verantwortlichen gestartet werden, bevor die Mitglieder der Gruppe \gls{losgehen} \textbf{<- hier wird es schlecht formattiert} können und die GPS-Verfolgung gestartet wird. Dies geschieht durch das Klicken des Buttons 'GO starten' in der GO-Detailansicht. Das System registriert das GO als gestartet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'.
-
+	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen. Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des GOs angezeigt, wenn diese die GO-Detailansicht aufrufen.
 	
 	\item \textit{GO beenden} \\
 	Ein GO kann vom GO-Verantwortlichen vorzeitig beendet werden durch Klicken des Buttons 'GO beenden' in der GO-Detailansicht. Das System registriert das GO als beendet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt' und 'Unterwegs'. Anschließend wird das GO vom System gelöscht. \\
 	Wird das GO nicht vom GO-Veratnwortlichen vorzeitig beendet, wird es bei Erreichen des Endzeitpunkts automatisch vom System beendet. Das System führt dabei die gleichen Aktionen aus wie beim Beenden durch den GO-Verantwortlichen.
 \end{enumerate}
 
+\subsection{Systemfunktionen}
+Die im folgenden beschriebenen Funktionen werden vom System ausgeführt, ohne das die Ausführung von einer direkten Interaktion mit dem Benutzer ausgelöst muss.
+\begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
+	%\item \textit{Verwaltung von Server Log-Dateien}
+	
+	\item \textit{Clustering}\label{Clustering} \\
+	Ist der Teilnahmestatus eines Benutzers in einem aktiven GO auf 'Unterwegs' gesetzt, beginnt das System den Standort dieses Benutzers zu erfassen. Die Standorte der losgegangenen Benutzer werden gegebenenfalls geclustert, sodass in der App nicht der Standort der einzelnen Benutzer, sondern die gemittelte Position dieser Benutzer angezeigt wird. Die Positionen mehrerer Benutzer werden zu einem Cluster zusammengefasst, sobald die Distanz der einzelnen Personen zum Zentrum des Clusters einen kritischen Schwellwert unterschreitet. Dieser Schwellwert kann in den GO-Daten vom GO-Verantwortlichen bestimmt werden. Es werden dem Benutzer beim Abrufen der Standorte (\ref{Standorte abrufen}) in einem GO die errechneten Standortcluster der anderen Benutzer angezeigt und wie viele Benutzer sich jeweils in einem Cluster befinden. Die Standorte von Benutzern, die sich nicht in der Nähe von anderen Benutzern befinden, werden nicht-geclustert dargestellt.
+	
+	\item \textit{Anonymisierung der Benutzer}\label{Anonymisierung} \\ Die Funktionalität des Systems soll die Anonymität des Benutzers bestmöglich sicherstellen. Dazu sind folgende Funktionen der App zu implementieren:
+		\begin{itemize}
+			\item Die Standorte der Benutzer während eines GOs werden auf der Karte ohne den jeweiligen Benutzernamen angezeigt und bei ausreichender geographischer Nähe nur in Clustern dargestellt
+			\item Die Genauigkeit der Standortbestimmung kann durch den Clustering-Schwellwert von dem GO-Verantwortlichen selbst bestimmt werden.
+			\item Bei GOs, bei denen weniger als 5 Benutzer die Standortverfolgung aktiviert haben, erhält der Benutzer beim Losgehen eine Warnung: er kann den Start der Standortverfolgung solange verzögern, bis mindestens 4 andere Benutzer ebenfalls losgegangen sind. 
+			\item Der automatische Start der Standortverfolgung bei Eintreten des Startzeitpunkts wird im Fall von weniger 5 losgegangen Benutzern nicht ausgeführt. Die Benutzer müssen manuell die Standortverfolgung durch Änderung des Teilnahmestatus auf 'Unterwegs' aktivieren.
+			\item Benutzer haben zu jeder Zeit die Möglichkeit die Standortverfolgung zu beenden, indem sie ihren Teilnahmestatus auf 'Abgeleht' setzen.
+		\end{itemize}
+		Bemerkung: In Ausnahmefällen kann die Anonymität eines Benutzers nicht garantiert werden (etwa, wenn er sich als einziger nicht in der Nähe der anderen GO-Teilnehmer befindet oder das GO nur sehr wenige Teilnehmer hat). Das System weist den Benutzer bei erstmaliger Anmeldung auf diese Tatsache hin. Der Benutzer muss sich damit einverstanden erklären, bevor er die App nutzen kann (vgl. \ref{Registrieren}).
+		
+	\item \textit{Benachrichtigungen senden}\\
+	Die App sendet dem Benutzer Android-Benachrichtigungen bei folgenden Ereignissen:
+	\begin{itemize}
+		\item Der Benutzer wurde zu einer Gruppe hinzugefügt
+		\item In einer Gruppe des Benutzers wurde ein GO erstellt
+		\item ein GO des Benutzers ist gestartet
+	\end{itemize}
+\end{enumerate}
+
 \subsection{Sonstiges}
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
-	\item \textit{App-interne Benachrichtigungen abrufen} \\
 	\item \textit{Benachrichtigungseinstellungen ändern} \\
+	Der Benutzer kann entscheiden, ob er Android-Benachrichtigungen von der App erhalten will oder nicht. Er kann dies selbst über einen Slider in der Einstellungs-Ansicht einstellen (vgl. *GUI-Ansicht*).
 	\item \textit{About-Seite anzeigen} \\
 	Der Benutzer kann eine 'About'-Seite aufrufen, die allgemeine Informationen zur App beinhaltet.
 	\item \textit{Lizenzinformationen anzeigen} \\
@@ -383,16 +412,14 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\begin{itemize}
 			\item \textit{Benutzerkennung}
 				\begin{itemize}
-					\item Benutzer-ID (eindeutig)
-					\item Benutzername (eindeutig)
-					\item Telefonnummer (eindeutig)
+					\item Benutzer-ID (eindeutig, erzeugt von der verwendeten Firebase Authentication)
+					\item E-Mailadresse des zum Anmelden verwendeten Google-Accounts
 				\end{itemize}
 			\item \textit{Persönliche Daten} \label{persönliche Daten} 
 			\begin{itemize}
-			\item Anzeigename
-			\item Statusmeldung
+			\item Benutzername
 			\item Profilbild
-			\item Passwort (verschlüsselt)
+			\item Gruppen
 		\end{itemize}
 		\end{itemize}
 	
@@ -407,7 +434,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item offene Gruppenanfragen %--> wie sollte man länger ausstehende Anfragen verwalten?
 		\item aktuelle GOs
 	\end{itemize}
-	\item \textit{Go-Daten} \label{GO-Daten}
+	\item \textit{GO-Daten} \label{GO-Daten}
 	Für jedes erstellte GO müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
 		\item GO-ID (eindeutig)
@@ -415,17 +442,13 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Startzeitpunkt
 		\item Endzeitpunkt
 		\item Zielort (optional)
+		\item Clustering-Schwellwert
 		\item Gruppe, der das GO angehört
 		\item Gruppenmitglieder mit Teilnahmestatus 'Abgelehnt'
 		\item Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'
 		\item Gruppenmitglieder mit Teilnahmestatus 'Losgegangen'
 		\item Standorte der losgegangenen Benutzer
 	\end{itemize}
-	\item \textit{Sonstiges}
-		\begin{itemize}
-			\item bla
-			% Benachrichtigungseinstellungen?
-		\end{itemize}
 \end{enumerate}
 
 \newpage
@@ -562,3 +585,4 @@ Für die folgenden Testfälle wird voraussgesetzt, dass die Benutzer Bob und Ali
 
 
 
+\grid
