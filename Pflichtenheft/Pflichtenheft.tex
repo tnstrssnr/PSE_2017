@@ -330,7 +330,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Clustering-Schwellwert (vgl. \ref{Clustering})
 	\end{itemize}
 Der Startzeitpunkt darf nicht in der Vergangenheit liegen.\\
-Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. 
+Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. Der Teilnahmestatus des GO-Verantwortlichen wird auf 'Bestätigt' gesetzt.
 Das GO wird den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt.
 Der Ersteller des GOs ist während dem gesamten GO-Lifecycle der GO-Verantwortliche.
 	
@@ -353,6 +353,8 @@ Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO �
 	\item \textit{Aus Event austreten} \\
 Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
 	\end{itemize}
+	
+	Bemerkung: Ein GO-Verantwortlicher kann nicht aus dem GO austreten. Der Teilnahmestatus eines GO-Verantwortlichen kann nur 'Bestätigt' oder 'Unterwegs' lauten.
 	
 	\item \textit{Standorte abfragen}\label{Standorte abrufen}
 	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an (vgl. \ref{Clustering}).
@@ -431,7 +433,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 				\end{itemize}
 			\item \textit{Persönliche Daten} \label{persönliche Daten} 
 			\begin{itemize}
-			\item Benutzername
+			\item Benutzername (defaultwert: E-Mailadresse des Benutzers)
 			\item Profilbild
 			\item Gruppen
 		\end{itemize}
@@ -477,115 +479,92 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 % Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit, Übertragbarkeit
 
 \newpage
-\section{globale Testfälle und Testszenarien}
-%TODO Voraussetzungen für Testfälle ausarbeiten
-%TODO sind alle wichtigen Fälle abgedeckt?
+\section{Use cases und globale Testszenarien}
+
+\subsection{Use Case: Erstellung und Verwaltung eines Benutzeraccounts}
+Dieser Use Case beschreibt die Interaktion eines Benutzers (hier: Bob) mit dem System zum Einen mit dem Ziel, einen Benutzeraccount zu erstellen und die Benutzerdaten anzupassen, zum Anderen mit dem Ziel den Benutzeraccount wieder zu löschen.
+
+\textbf{Akteure:} Bob (Benutzer) \\
+
+\includegraphics[width=1\textwidth]{Use_Cases/use_case_Benutzerprofil.png}
+
+\subsubsection{Szenario 1}
+Bob will die App GO nutzen. Dazu erstellt er einen Benutzeraccount, fügt persönliche Daten seinem Benutzerprofil hinzu und loggt sich anschließend wieder aus.\\
+
+\textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item \textit{Registrieren} \\ Bob erstellt mit der Telefonnummer xxxx und dem Passwort ein Benutzerkonto.
-	\item \textit{Anmelden} \\ Bob meldet sich mit der Benutzerkennung xxxxxx an.
-	\item \textit{Benutzerkennung anfordern} \\ Bob fordert seine Benutzerkennung an.
-	\item \textit{Persönliche Daten}
-	\begin{enumerate}
-		\item Bob ändert seinen Anzeigenamen auf "Bobbob"
-		\item Bob ändert sein Profilbild
-		\item Bob ändert seine Statusmeldung
-		\item Bob ändert sein Passwort
-	\end{enumerate}
-	\item \textit{Abmelden} \\ Bob meldet sich von seinem Benutzerkonto ab
-	\item \textit{Benutzerkonto löschen} \\ Bob löscht sein Benutzerkonto
+	\item\label{Registrieren-Test} Bob öffnet die App, gibt die Anmeldedaten seines gültigen Google-Accounts ein (E-Mailadresse: bob-testperson@gmail.com, Passwort: passwort) und klickt auf den Button 'Sign In'.
+	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet seine Profilansicht und klickt auf den Button 'Profil ändern'. Er gibt in das Textfeld 'Benutzername' den Namen 'Bob' ein. Er klickt auf den Button 'Bild wählen'. Er wählt ein Bild aus dem Foto-Ornder des Android-Geräts aus. Er klickt auf den Button 'Änderungen speichern'.
+	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet die Ansicht 'Einstellungen' und klickt auf das Feld 'Abmelden'.
 \end{enumerate}
-Für die folgenden Testfälle wird vorausgesetzt, dass zwei Benutzer mit den Benutzernamen Bob und Alice existieren.
+
+\subsubsection{Szenario 2}
+Bob will die App GO nicht mehr benutzen. Er will deshalb seinen Benutzeraccount löschen. \\
+
+\textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item \textit{Gruppe erstellen} \\ Bob erstellt die Gruppe 'Foo'
-	\item \textit{Gruppenmitglied hinzufügen} \label{Gruppenmitglied hinzufügen - Test} \\ Bob fügt die Benutzerin 'Alice' zur Gruppe hinzu. Alice erhält eine Gruppenanfrage.
-	\item \textit{Gruppenanfrage beantworten} \label{Anfrage - Test} \\ Voraussetzung: \ref{Gruppenmitglied hinzufügen - Test}
-	\begin{enumerate}
-		\item Alice bestätigt die Gruppenanfrage zur Gruppe 'Foo'.
-		\item Alice lehnt die Gruppenanfrage zur Gruppe 'Foo' ab.
-	\end{enumerate}
-	\item \textit{Gruppen anzeigen} \\ Bob wählt die Gruppenhauptansicht aus. Ihm wird eine Gruppe names 'Foo' angezeigt.
-	\item \textit{Gruppendaten ändern}\\ Bob ändert die Daten der Gruppe 'Foo' zu:
-	\begin{itemize}
-		\item Gruppenname: 'FooBar'
-		\item Gruppenbeschreibung: 'Bar'
-	\end{itemize}
-	\item \textit{Gruppeninformationen abrufen} \\
-	Voraussetzung: \ref{Anfrage - Test} (a)\\
-	Bob ruft die Gruppeninformationen zur Gruppe 'Foo' ab. Ihm weden folgende Informationen angezeigt:
-	\begin{itemize}
-		\item Gruppenname: Foo
-		\item Gruppenbeschreibung: FooBar
-		\item Mitglieder: Bob, Alice
-		\item Administratoren: Bob
-		\item offene Gruppenanfragen: leer
-		\item aktuelle Gos: leer
-	\end{itemize}
-	\item \textit{Aus Gruppe austreten}
-	\begin{itemize}
-		\item Alice tritt aus der Gruppe 'FooBar' aus.
-		\item Bob versucht aus der Gruppe 'FooBar' auszutreten. Die App zeigt eine Fehlermeldung an, da Bob der einzige Administrator ist.
-	\end{itemize}
-	\item \textit{Gruppenmitglied entfernen} \\
-	Voraussetzung: \ref{Anfrage - Test} (a) \\
-	Bob entfernt Alice aus der Gruppe 'FooBar'
-	\item \textit{Admin hinzufügen} \\
-	Voraussetzung: \ref{Anfrage - Test} (a) \\
-	Bob ernennt Alice zum Administrator der Gruppe 'FooBar'
-	\item \textit{Gruppe löschen} \\
-	Bob löscht die Gruppe 'FooBar'
+	\item Bob meldet sich in seinem Benutzeraccount an. Er benutzt dieselben Login-Daten wie in \ref{Registrieren-Test}. 
+	\item Bob ist in seinem BEnutzeraccount angemeldet. Er öffnet seine Profilansicht und klickt auf den Button 'Profil löschen'.
 \end{enumerate}
-Für die folgenden Testfälle wird voraussgesetzt, dass die Benutzer Bob und Alice in einer gemeinsamen Gruppe names 'FooBar' sind.
+
+\subsection{Use Case: Erstellung und Verwaltung einer neuen Gruppe}
+Dieser Use Case beschreibt die Interaktion mehrerer Benutzer mit dem System mit dem Ziel, gemeinsam eine Gruppe zu gründen bzw. eine gemeinsame Gruppe zu löschen.\\
+
+\textbf{Akteure:} Bob (Administrator), Alice (Gruppenmitglied), Peter (Benutzer) \\
+
+\includegraphics[width=1\textwidth]{Use_Cases/use_case_Gruppen.png}
+
+\subsubsection{Szenario 3}
+Bob, Alice und Peter wollen gemeinsam eine Gruppe erstellen, um ihre Treffen organisieren zu können. Bob soll der Administrator dieser Gruppe sein.\\
+
+\textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item \textit{GO erstellen} \label{Go erstellen - Test}
-	\begin{enumerate}
-		\item Bob erstellt in der Gruppe 'FooBar' ein GO mit folgenden Daten:
-	\begin{itemize}
-		\item Startzeitpunkt: 15.09.2017 14:00
-		\item Endzeitpunkt: 15.09.2017 18:00
-		\item Zielort: Mensa am Adenauerring
-	\end{itemize}
-	Die Erstellung ist erfolgreich
-	
-	\item Bob erstellt ein GO mit Startzeitpunkt 15.09.2016. Die Erstellung schlägt fehl, da der Startzeitpunkt in der Vergangenheit liegt
-	\item Bob erstellt ein GO mit Startzeitpunkt 15.09.2017 14:00 und Endzeitpunkt 16.09.2017 14:00. Die Erstellung schlägt fehl, da die maximale Dauer eines GOs überschritten wird.
-	\end{enumerate}
-	
-	\item \textit{Teilnahmestatus ändern}\\ \label{teilnehmen - Test}
-	Voraussetzung: \ref{Go erstellen - Test} (a)
-	\begin{enumerate}
-		\item Alice tritt dem GO bei
-		\item Alice tritt dem GO bei und geht los
-		\item Alice lehnt das GO ab
-	\end{enumerate}
-	\item \textit{GO-Daten ändern} \label{GO Daten ändern, Test} \\
-	\begin{enumerate}
-		\item Bob ändert den Startzeitpunkt zu: 16.09.2017 15:00
-		\item Bob ändert den Endzeitpunkt zu: 16.09.2017 16:00
-		\item Bob ändert den Zielort zu: ohne Zielort
-	\end{enumerate}
-	\item \textit{GO starten} \label{GO starten - Test} \\
-	Voraussetzungen: \ref{teilnehmen - Test} \\
-	Bob startet das GO
-	\item \textit{Standorte abfragen} \\
-	Voraussetzungen: \ref{GO starten - Test}, \ref{teilnehmen - Test} (b)
-	Bob fragt den Standort von Alice ab. Die App zeigt Bob den Standort von Alice an.
-	\item \textit{GO-Informationen abrufen} \\
-	Voraussetzungen: \ref{Go erstellen - Test}, \ref{GO Daten ändern, Test} \\
-	Alice frägt die GO-Daten ab. Die App zeigt ihr folgende Daten an:
-	\begin{itemize}
-		\item Startzeitpunkt: 16.09.2017 15:00
-		\item Endzeitpunkt: 16.09.2017 16:00
-		\item Zielort: ohne Zielort
-		\item GO-Verantwortlicher: Bob
-		\item Teilanhmestatus: Bestätigt		
-	\end{itemize}
-	\item \textit{GO beenden} \\
-	Bob beendet das GO
-	\item \textit{App-interne Benachrichtigungen abrufen}
-	\item \textit{Benachrichtigungseinstellungen ändern}
-	\item \textit{About-Seite anzeigen}
-	\item \textit{Lizenzinformationen anzeigen}
+	\item Bob klickt in der Gruppenansicht auf das Feld 'neue Gruppe'. Er gibt in das Eingabefeld den Gruppennamen 'Foo' ein.
+	\item Bob öffnet die Gruppendetailansicht und klickt auf den Button 'Gruppe bearbeiten'. Er gibt den Gruppennamen 'Bar' und die Gruppenbeschreibung 'FooBar' ein.
+	\item Bob öffnet die Gruppendetailansicht und klickt auf das Feld 'Mitglied hinzufügen'. Er gibt in das Suchfeld 'alice-testperson@gmail.com' ein. Er wählt aus den Suchresultaten Alice's Profil aus.
+	\item Alice hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Sie bestätigt die Gruppenanfrage.
+	\item Peter hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Er lehnt die Gruppenanfrage ab.
 \end{enumerate}
+
+\subsubsection{Szenario 4}
+Bob tritt aus der Gruppe 'Bar' wieder aus. Da Alice nun das einzige Mitglied ist, entschließt sie sich die Gruppe wieder zu löschen. \\
+
+\textbf{Testfälle:}
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. Die Aktion schlägt fehl, da Bob der einzige Administrator der Gruppe ist.
+	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Administrator hinzufügen'. Er wählt Alice als neuen Administrator aus.
+	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. Die Aktion ist erfolgreich.
+	\item Alice wählt in der Gruppendetailansicht die Option 'Gruppe löschen'.
+\end{enumerate}
+
+\subsection{Use Case: Erstellung und Ausführung eines GOs}
+Dieser Use Case beschreibt die Interaktion mehrerer Benutzer, die gemeinsam in einer Gruppe sind, mit dem System, mit dem Ziel ein GO zu erstellen und auszuführen.\\
+
+\textbf{Akteure:} Bob (GO-Verantwortlicher), Alice (Gruppenmitglied)\\
+
+\includegraphics[width=1\textwidth]{Use_Cases/use_case_GO.png}
+
+\subsubsection{Szenario 5}
+Bob erstellt ein neues GO in der Gruppe 'Bar'. Die Gruppe hat mittlerweile 3 neue Mitglieder (Gesamtmitgliederzahl: 5). Alice tritt dem GO bei und bestätigt 10min vor dem Startzeitpunkt, dass sie losgegangen ist. Alice entfernt sich während des GOs von der Gruppe und will nicht, dass man ihren Standort verfolgen kann. Sie verlässt daher das GO.\\
+
+\textbf{Testfälle:}
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item Bob erstellt ein GO mit folgenden Daten:
+	\begin{itemize}
+		\item Startzeitpunkt: 15.09.17 14:00
+		\item Endzeitpunkt: 15.09.2017 16:00
+		\item Zielort: leer
+		\item Clustering-Schwellwert: 100m
+	\end{itemize}
+	\item Alice setzt ihren Teilnahmestatus auf 'Bestätigt.
+	\item Alice setzt ihren Teilnahmestatus manuell auf 'Unterwegs'.
+	\item zum Startzeitpunkt setzt das System Bobs Teilnahemstatus automatisch auf 'Unterwegs' (es ist vorausgesetzt, dass alle anderen Gruppenmitglieder bereits losgegangen sind).
+	\item alle Gruppenmitglieder außer Bob sind als Gruppe (geographisch nah beieinander) unterwegs. Bob kann die Standorte der anderen Gruppenmitglieder nur als Cluster auf der Karte sehen.
+	\item Alice ändert ihren Teilanhmestatus auf 'Abgelehnt'. Ihr Standort ist für die anderen nicht mehr sichtbar.
+	\item das GO endet zum Endzeitpunkt automatisch.
+	
+\end{enumerate}
+
 
 \newpage
 \section{Entwicklungsumbgebung}
