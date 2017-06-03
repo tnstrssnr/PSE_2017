@@ -16,6 +16,10 @@
 \fancyfoot[C]{\thepage} %<----to get page number below text
 \pagestyle{fancy} %<-------the page style itself
 
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{220,220,220}
+
 
 \title{Android GO! App - Pflichtenheft}
 \author{Gruppe 3}
@@ -205,9 +209,18 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 \end{itemize}
 
 \newpage
+
 \section{Funktionale Anforderungen}
+Im folgenden Abschnitt werden die funktionalen Anforderungen sowohl der Musskriterien, als auch der Wunschkriterien erläutert. Anforderungen, die die Wunschkriterien beschreiben (also nicht zwingend implementiert werden müssen) sind \colorbox{shadecolor}{farblich gekennzeichnet}
 
 \subsection{Benutzerkontofunktionen}
+
+\subsubsection{Übersicht}
+Die Benutzerkontofunktionen erlauben das Erstellen, Verwalten und Löschen von Benutzeraccounts im System.
+
+\includegraphics[width=.7\textwidth]{Use_Cases/use_case_Benutzerprofil.png}
+
+\subsubsection{Funktionen}
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*]
 	
@@ -224,7 +237,7 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 	
 	%\item \textit{Benutzerkennung anfordern} \\ Ein Benutzer kann, sollte er sein Passwort vergessen haben, seine Benutzerkennung anfordern und eine neues Passwort setzen. Wird auf dem Anmeldescreen (vgl. *GUI-Ansicht*) die 'Passwort vergessen'-Option gewählt, schickt der Server dem Benutzer eine SMS mit einem Zugangscode. Dieser Zugangscode ist 10min lang gültig. Der Benutzer gibt den Zugangscode ein und kann anschließend eine neues Passwort setzen. Danach loggt das System den Benutzer ein und lädt die Hauptansicht der Applikation. Beim nächsten Anmelden kann sich der Benutzer mit dem neuen Passwort anmelden.
 	
-	\item \textit{Persönliche Daten ändern} \\ Das System speichert persönliche Daten der Benutzer (siehe  \ref{persönliche Daten}). Der Benutzer kann diese Daten ändern. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt die Schaltfläche 'Profil bearbeiten'. In der sich öffnenden Aktivität kann der Benutzer die gewünschten Änderungen vornehmen und mit dem Button 'Profil speichern' sichern. Die geänderten Daten werden dann vom System übernommen.\\
+	\item \colorbox{shadecolor}{\textit{Persönliche Daten ändern}} \\ Das System speichert persönliche Daten der Benutzer (siehe  \ref{persönliche Daten}). Der Benutzer kann diese Daten ändern. Dazu ruft der Benutzer sein Profil auf (vgl. *GUI-Ansicht*) und betätigt die Schaltfläche 'Profil bearbeiten'. In der sich öffnenden Aktivität kann der Benutzer die gewünschten Änderungen vornehmen und mit dem Button 'Profil speichern' sichern. Die geänderten Daten werden dann vom System übernommen.\\
 Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse und Passwort zum Anmelden) können nicht geändert werden.
 	
 	\item \textit{Abmelden} \label{Abmelden} \\ Ein Benutzer kann sich aus seinem Account abmelden, indem er in der Einstellungs-Ansicht (vgl. *GUI-Ansicht*) die Option 'Abmelden' auswählt. Das System meldet daraufhin den Benutzer von seinem Benutzerkonto ab und lädt die Anmelde-Ansicht (vgl. *GUI-Ansicht*).
@@ -234,6 +247,11 @@ Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse 
 \end{enumerate}
 
 \subsection{Gruppenfunktionen}
+
+\subsubsection{Übersicht}
+Die Gruppenfunktionen erlauben das Erstellen, Verwalten und Löschen von Gruppen im System. Das System unterscheidet zwischen den Rollen Gruppenmitglied und Gruppenadministrator. Dabei ist ein Gruppenadministrator gleichzeitig auch ein Gruppenmitglied.
+
+\includegraphics[width=1\textwidth]{Use_Cases/use_case_Gruppen.png}
 
 \subsubsection{öffentliche Funktionen}
 Die im Folgenden beschriebenen Funktionen sind öffentlich, das bedeutet sie können von jedem Benutzer ausgeführt werden.
@@ -248,8 +266,8 @@ Im folgenden Abschnitt wird angenommen, dass der Benutzer ein Benutzerkonto besi
 	Ein Benutzer, der Mitglied einer Gruppe ist, kann sich von der App Systeminformationen zu dieser Gruppe anzeigen lassen. Dazu wählt der Benutzer das Gruppenicon der gewünschten Gruppe in der *GUI-Ansicht* aus. Darauffolgend werden dem Benutzer vom System folgende Informationen über die Gruppe angezeigt:
 	\begin{itemize}
 		\item Gruppenname
-		\item Gruppenbild
-		\item Gruppenbeschreibung
+		\item \colorbox{shadecolor}{Gruppenbild}
+		\item \colorbox{shadecolor}{Gruppenbeschreibung}
 		\item aktuelle Mitglieder der Gruppe (offene Gruppenmitgliedsanfragen werden nur den Administratoren der Gruppe angezeigt, ehemalige Mitglieder der Gruppe werden nicht angezeigt)
 		\item aktuelle Administratoren der Gruppe
 		\item aktuelle \glspl{GO} der Gruppe %kann geklickt werden, um in die Ansicht des jeweiligen GOs zu gelangen --> Querverweis einfügen
@@ -283,8 +301,8 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	Ein Administrator kann folgende Daten einer Gruppe ändern:
 	\begin{itemize}
 	\item Gruppenname
-	\item Gruppenbeschreibung
-	\item Gruppenbild
+	\item \colorbox{shadecolor}{Gruppenbeschreibung}
+	\item \colorbox{shadecolor}{Gruppenbild}
 	\end{itemize}
 	Dazu gibt er die Änderungen in dem jeweiligen Feld der Änderungsansicht ein und betätigt anschließend den Button 'Änderungen speichern'.
 	
@@ -303,6 +321,11 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 \end{enumerate}
 	
 \subsection{GO-Funktionen}
+
+\subsubsection{Übersicht}
+Die GO-Funktionen erlauben das Erstellen, Verwalten und Löschen von sogenannten GOs, also Events bei denen die Standorte der GO-Teilnehmer von System verfolgt und in der App angezeigt werden. Das System unterscheidet zwischen zwei Rollen: Gruppenmitglieder und GO-Verantwortliche. GO-Verantwortliche sind gleichzeitig auch Gruppenmitglieder.
+
+ \includegraphics[width=1\textwidth]{Use_Cases/use_case_GO.png}
 
 \subsubsection{öffentliche Funktionen}
 Die in diesem Abschnitt beschriebenen Funktionen sind öffentlich, das bedeutet sie können von jedem Benutzer, der Mitglied einer Gruppe ist ausgeführt werden.
@@ -327,7 +350,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Startzeitpunkt
 		\item Endzeitpunkt 
 		\item Zielpunkt (optional)
-		\item Clustering-Schwellwert (vgl. \ref{Clustering})
+		\item \colorbox{shadecolor}{Clustering-Schwellwert (vgl. \ref{Clustering})}
 	\end{itemize}
 Der Startzeitpunkt darf nicht in der Vergangenheit liegen.\\
 Hat der Benutzer die Angaben bestätigt, wird vom System ein neues GO erstellt und in den Mitgliedern der Gruppe in der Gruppendetailansicht angezeigt. Der Teilnahmestatus aller Gruppenmitglieder wird standardmäßig auf 'Abgelehnt' gesetzt. Der Teilnahmestatus des GO-Verantwortlichen wird auf 'Bestätigt' gesetzt.
@@ -352,6 +375,10 @@ Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO �
 	
 	\item \textit{Aus Event austreten} \\
 Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
+	
+	\item \textit{Anhalten} \\
+	Ein Benutzer dessen Teilnahmestatus 'Unterwegs' lautet kann diesen zurück auf 'Bestätigt' setzen, indem er die Option 'Anhalten' auswählt. Das System ändert den Teilnahmestatus und stoppt die GPS-Verfolgung des Benutzers.
+	
 	\end{itemize}
 	
 	Bemerkung: Ein GO-Verantwortlicher kann nicht aus dem GO austreten. Der Teilnahmestatus eines GO-Verantwortlichen kann nur 'Bestätigt' oder 'Unterwegs' lauten.
@@ -372,7 +399,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Startzeitpunkt
 		\item Endzeitpunkt
 		\item Zielpunkt
-		\item Clustering-Schwellwert (vgl. \ref{Clustering})
+		\item \colorbox{shadecolor}{Clustering-Schwellwert (vgl. \ref{Clustering})}
 	\end{itemize}
 	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen. Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des GOs angezeigt, wenn diese die GO-Detailansicht aufrufen.
 	
@@ -381,38 +408,45 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 	Wird das GO nicht vom GO-Veratnwortlichen vorzeitig beendet, wird es bei Erreichen des Endzeitpunkts automatisch vom System beendet. Das System führt dabei die gleichen Aktionen aus wie beim Beenden durch den GO-Verantwortlichen.
 \end{enumerate}
 
-\subsection{Systemfunktionen}
+\subsubsection{Systemfunktionen}
 Die im folgenden beschriebenen Funktionen werden vom System ausgeführt, ohne das die Ausführung von einer direkten Interaktion mit dem Benutzer ausgelöst muss.
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
 	%\item \textit{Verwaltung von Server Log-Dateien}
 	
-	\item \textit{Clustering}\label{Clustering} \\
-	Ist der Teilnahmestatus eines Benutzers in einem aktiven GO auf 'Unterwegs' gesetzt, beginnt das System den Standort dieses Benutzers zu erfassen. Die Standorte der losgegangenen Benutzer werden gegebenenfalls geclustert, sodass in der App nicht der Standort der einzelnen Benutzer, sondern die gemittelte Position dieser Benutzer angezeigt wird. Die Positionen mehrerer Benutzer werden zu einem Cluster zusammengefasst, sobald die Distanz der einzelnen Personen zum Zentrum des Clusters einen kritischen Schwellwert unterschreitet. Dieser Schwellwert kann in den GO-Daten vom GO-Verantwortlichen bestimmt werden. Es werden dem Benutzer beim Abrufen der Standorte (\ref{Standorte abrufen}) in einem GO die errechneten Standortcluster der anderen Benutzer angezeigt und wie viele Benutzer sich jeweils in einem Cluster befinden. Die Standorte von Benutzern, die sich nicht in der Nähe von anderen Benutzern befinden, werden nicht-geclustert dargestellt.
+	\item \textit{Standorte verfolgen}\\
+	Das System verfolgt die Standorte aller Benutzer, dessen Teilnahmestatus für das GO auf 'Unterwegs' gesetzt ist. Die Standortverfolgung ist so lange aktiviert, bis sich der Teilnahmestatus des Benutzers ändert oder das GO beendet wird. Sie wird auch weiter durchgeführt, sollte der Benutzer die App nur im Hintergrund ausführen.
 	
-	\item \textit{Anonymisierung der Benutzer}\label{Anonymisierung} \\ Die Funktionalität des Systems soll die Anonymität des Benutzers bestmöglich sicherstellen. Dazu sind folgende Funktionen der App zu implementieren:
+	\item \textit{Clustering}\label{Clustering} \\
+	Ist der Teilnahmestatus eines Benutzers in einem aktiven GO auf 'Unterwegs' gesetzt, beginnt das System den Standort dieses Benutzers zu erfassen. Die Standorte der losgegangenen Benutzer werden gegebenenfalls geclustert, sodass in der App nicht der Standort der einzelnen Benutzer, sondern die gemittelte Position dieser Benutzer angezeigt wird. Die Positionen mehrerer Benutzer werden zu einem Cluster zusammengefasst, sobald die Distanz der einzelnen Personen zum Zentrum des Clusters einen kritischen Schwellwert unterschreitet. \\ 
+	
+	\colorbox{shadecolor}{\parbox{.9\textwidth}{Dieser Schwellwert kann in den GO-Daten vom GO-Verantwortlichen bestimmt werden.}}\\
+	
+	 Es werden dem Benutzer beim Abrufen der Standorte (\ref{Standorte abrufen}) in einem GO die errechneten Standortcluster der anderen Benutzer angezeigt und wie viele Benutzer sich jeweils in einem Cluster befinden. Die Standorte von Benutzern, die sich nicht in der Nähe von anderen Benutzern befinden, werden nicht-geclustert dargestellt.
+	
+\item \textit{Anonymisierung der Benutzer}\label{Anonymisierung} \\ Die Funktionalität des Systems soll die Anonymität des Benutzers bestmöglich sicherstellen. Dazu sind folgende Funktionen der App zu implementieren:
 		\begin{itemize}
 			\item Die Standorte der Benutzer während eines GOs werden auf der Karte ohne den jeweiligen Benutzernamen angezeigt und bei ausreichender geographischer Nähe nur in Clustern dargestellt
-			\item Die Genauigkeit der Standortbestimmung kann durch den Clustering-Schwellwert von dem GO-Verantwortlichen selbst bestimmt werden.
-			\item Bei GOs, bei denen weniger als 5 Benutzer die Standortverfolgung aktiviert haben, erhält der Benutzer beim Losgehen eine Warnung: er kann den Start der Standortverfolgung solange verzögern, bis mindestens 4 andere Benutzer ebenfalls losgegangen sind. 
+			\item \colorbox{shadecolor}{\parbox{0.85\textwidth}{Die Genauigkeit der Standortbestimmung kann durch den Clustering-Schwellwert von dem GO-Verantwortlichen selbst bestimmt werden.}}
+			\item \colorbox{shadecolor}{\parbox{.85\textwidth}{Bei GOs, bei denen weniger als 5 Benutzer die Standortverfolgung aktiviert haben, erhält der Benutzer beim Losgehen eine Warnung: er kann den Start der Standortverfolgung solange verzögern, bis mindestens 4 andere Benutzer ebenfalls losgegangen sind.}}
 			\item Der automatische Start der Standortverfolgung bei Eintreten des Startzeitpunkts wird im Fall von weniger 5 losgegangen Benutzern nicht ausgeführt. Die Benutzer müssen manuell die Standortverfolgung durch Änderung des Teilnahmestatus auf 'Unterwegs' aktivieren.
-			\item Benutzer haben zu jeder Zeit die Möglichkeit die Standortverfolgung zu beenden, indem sie ihren Teilnahmestatus auf 'Abgeleht' setzen.
+			\item Benutzer haben zu jeder Zeit die Möglichkeit die Standortverfolgung zu beenden, indem sie ihren Teilnahmestatus auf 'Abgelehnt' oder 'Bestätigt' setzen.
 		\end{itemize}
 		Bemerkung: In Ausnahmefällen kann die Anonymität eines Benutzers nicht garantiert werden (etwa, wenn er sich als einziger nicht in der Nähe der anderen GO-Teilnehmer befindet oder das GO nur sehr wenige Teilnehmer hat). Das System weist den Benutzer bei erstmaliger Anmeldung auf diese Tatsache hin. Der Benutzer muss sich damit einverstanden erklären, bevor er die App nutzen kann (vgl. \ref{Registrieren}).
 		
-	\item \textit{Benachrichtigungen senden}\\
-	Die App sendet dem Benutzer Android-Benachrichtigungen bei folgenden Ereignissen:
-	\begin{itemize}
-		\item Der Benutzer wurde zu einer Gruppe hinzugefügt
-		\item In einer Gruppe des Benutzers wurde ein GO erstellt
-		\item ein GO des Benutzers ist gestartet
-	\end{itemize}
 \end{enumerate}
 
 \subsection{Sonstiges}
 Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeldet ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
-	\item \textit{Benachrichtigungseinstellungen ändern} \\
+ \item \colorbox{shadecolor}{\textit{Benachrichtigungen senden}}\\
+	Die App sendet dem Benutzer Android-Benachrichtigungen bei folgenden Ereignissen:
+	\begin{itemize}
+		\item Der Benutzer wurde zu einer Gruppe hinzugefügt
+		\item In einer Gruppe des Benutzers wurde ein GO erstellt
+		\item ein GO des Benutzers ist gestartet
+	\end{itemize}
+	\item \colorbox{shadecolor}{\textit{Benachrichtigungseinstellungen ändern}} \\
 	Der Benutzer kann entscheiden, ob er Android-Benachrichtigungen von der App erhalten will oder nicht. Er kann dies selbst über einen Slider in der Einstellungs-Ansicht einstellen (vgl. *GUI-Ansicht*).
 	\item \textit{About-Seite anzeigen} \\
 	Der Benutzer kann eine 'About'-Seite aufrufen, die allgemeine Informationen zur App beinhaltet.
@@ -486,8 +520,6 @@ Dieser Use Case beschreibt die Interaktion eines Benutzers (hier: Bob) mit dem S
 
 \textbf{Akteure:} Bob (Benutzer) \\
 
-\includegraphics[width=1\textwidth]{Use_Cases/use_case_Benutzerprofil.png}
-
 \subsubsection{Szenario 1}
 Bob will die App GO nutzen. Dazu erstellt er einen Benutzeraccount, fügt persönliche Daten seinem Benutzerprofil hinzu und loggt sich anschließend wieder aus.\\
 
@@ -512,7 +544,7 @@ Dieser Use Case beschreibt die Interaktion mehrerer Benutzer mit dem System mit 
 
 \textbf{Akteure:} Bob (Administrator), Alice (Gruppenmitglied), Peter (Benutzer) \\
 
-\includegraphics[width=1\textwidth]{Use_Cases/use_case_Gruppen.png}
+
 
 \subsubsection{Szenario 3}
 Bob, Alice und Peter wollen gemeinsam eine Gruppe erstellen, um ihre Treffen organisieren zu können. Bob soll der Administrator dieser Gruppe sein.\\
@@ -541,8 +573,6 @@ Bob tritt aus der Gruppe 'Bar' wieder aus. Da Alice nun das einzige Mitglied ist
 Dieser Use Case beschreibt die Interaktion mehrerer Benutzer, die gemeinsam in einer Gruppe sind, mit dem System, mit dem Ziel ein GO zu erstellen und auszuführen.\\
 
 \textbf{Akteure:} Bob (GO-Verantwortlicher), Alice (Gruppenmitglied)\\
-
-\includegraphics[width=1\textwidth]{Use_Cases/use_case_GO.png}
 
 \subsubsection{Szenario 5}
 Bob erstellt ein neues GO in der Gruppe 'Bar'. Die Gruppe hat mittlerweile 3 neue Mitglieder (Gesamtmitgliederzahl: 5). Alice tritt dem GO bei und bestätigt 10min vor dem Startzeitpunkt, dass sie losgegangen ist. Alice entfernt sich während des GOs von der Gruppe und will nicht, dass man ihren Standort verfolgen kann. Sie verlässt daher das GO.\\
