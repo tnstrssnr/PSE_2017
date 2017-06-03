@@ -19,6 +19,7 @@
 \usepackage{xcolor}
 \usepackage{framed}
 \definecolor{shadecolor}{RGB}{220,220,220}
+\usepackage{float}
 
 
 \title{Android GO! App - Pflichtenheft}
@@ -211,14 +212,18 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 \newpage
 
 \section{Funktionale Anforderungen}
-Im folgenden Abschnitt werden die funktionalen Anforderungen sowohl der Musskriterien, als auch der Wunschkriterien erläutert. Anforderungen, die die Wunschkriterien beschreiben (also nicht zwingend implementiert werden müssen) sind \colorbox{shadecolor}{farblich gekennzeichnet}
+Im folgenden Abschnitt werden die funktionalen Anforderungen sowohl der Musskriterien, als auch der Wunschkriterien erläutert. Anforderungen, die die Wunschkriterien beschreiben (also nicht zwingend implementiert werden müssen) sind \colorbox{shadecolor}{farblich gekennzeichnet}.
 
 \subsection{Benutzerkontofunktionen}
 
 \subsubsection{Übersicht}
 Die Benutzerkontofunktionen erlauben das Erstellen, Verwalten und Löschen von Benutzeraccounts im System.
 
-\includegraphics[width=.7\textwidth]{Use_Cases/use_case_Benutzerprofil.png}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.7\textwidth]{Use_Cases/use_case_Benutzerprofil.png}
+	\caption{Use-Case Diagramm für Benutzerkontofunktionen}	
+\end{figure}
 
 \subsubsection{Funktionen}
 
@@ -251,7 +256,13 @@ Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse 
 \subsubsection{Übersicht}
 Die Gruppenfunktionen erlauben das Erstellen, Verwalten und Löschen von Gruppen im System. Das System unterscheidet zwischen den Rollen Gruppenmitglied und Gruppenadministrator. Dabei ist ein Gruppenadministrator gleichzeitig auch ein Gruppenmitglied.
 
-\includegraphics[width=1\textwidth]{Use_Cases/use_case_Gruppen.png}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Use_Cases/use_case_Gruppen.png}
+	\caption{Use-Case Diagramm für Gruppenfunktionen}
+\end{figure}
+
+
 
 \subsubsection{öffentliche Funktionen}
 Die im Folgenden beschriebenen Funktionen sind öffentlich, das bedeutet sie können von jedem Benutzer ausgeführt werden.
@@ -312,7 +323,7 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	\item \textit{Gruppenmitglied entfernen}\\
 	Ein Administrator kann beliebige Mitglieder der Gruppe entfernen, indem er das rote Minuszeichen neben dem zu entfernenden Benutzer anklickt (vgl. *GUI-Ansicht*) und anschließend die Durchführung der Aktion bestätigt. Der ausgewählte Benutzer wird vom System aus der Gruppe entfernt.
 	
-	\item \textit{Admin hinzuf"ugen} \label{Admin hinzufügen} \\
+	\item \colorbox{shadecolor}{\textit{Admin hinzuf"ugen}} \label{Admin hinzufügen} \\
 	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er den 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus (vgl. *GUI-Ansicht*). Das System ändert die Rolle des Gruppenmitglieds zu 'Adminsitrator'. Das Gruppenmitglied erhält eine Benachrichtigung (???) über den neuen Status und kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen.
 	
 	\item \textit{Gruppe l"oschen} \\
@@ -325,7 +336,13 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 \subsubsection{Übersicht}
 Die GO-Funktionen erlauben das Erstellen, Verwalten und Löschen von sogenannten GOs, also Events bei denen die Standorte der GO-Teilnehmer von System verfolgt und in der App angezeigt werden. Das System unterscheidet zwischen zwei Rollen: Gruppenmitglieder und GO-Verantwortliche. GO-Verantwortliche sind gleichzeitig auch Gruppenmitglieder.
 
- \includegraphics[width=1\textwidth]{Use_Cases/use_case_GO.png}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{Use_Cases/use_case_GO.png}
+		\caption{Use-Case Diagramm für GO-Funktionen}
+	\end{figure}
+
+ 
 
 \subsubsection{öffentliche Funktionen}
 Die in diesem Abschnitt beschriebenen Funktionen sind öffentlich, das bedeutet sie können von jedem Benutzer, der Mitglied einer Gruppe ist ausgeführt werden.
@@ -381,9 +398,16 @@ Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, 
 	
 	\end{itemize}
 	
-	Bemerkung: Ein GO-Verantwortlicher kann nicht aus dem GO austreten. Der Teilnahmestatus eines GO-Verantwortlichen kann nur 'Bestätigt' oder 'Unterwegs' lauten.
+	Bemerkung: Ein GO-Verantwortlicher kann nicht aus dem GO austreten. Der Teilnahmestatus eines GO-Verantwortlichen kann nur 'Bestätigt' oder 'Unterwegs' lauten.\\
 	
-	\item \textit{Standorte abfragen}\label{Standorte abrufen}
+	\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.55]{res/Teilnahmestatus.png}
+		\caption{Übergangsdiagramm für GO-Teilnehmerstatus}	
+	\end{figure}
+	
+	
+	\item \textit{Standorte abfragen}\label{Standorte abrufen} \\
 	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann, bei gestarteten GOs, die Standorte der Gruppenmitglieder abrufen, deren Teilnahmestatus 'Unterwegs' ist. Dazu ruft er die GO-Detailansicht auf'. Das System zeigt auf einer Karte die anonymisierten und ggf. zu Clustern zusammengefassten Standorte der losgegangen Benutzer an (vgl. \ref{Clustering}).
 	
 \end{enumerate}
