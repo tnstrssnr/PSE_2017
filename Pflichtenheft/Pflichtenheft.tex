@@ -527,6 +527,33 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \newpage
 \section{Nichtfunktionale Anforderungen}
+\begin{enumerate}[label={\textbf{/NF\protect\threedigits{\theenumi}0/}}, leftmargin=*]
+		\item \textit{Anonymisierung des Standortes} \\
+		Um den Datenschutz, beziehungsweise die Privatsphäre der Benutzer zu garantieren, findet die Lokalisierung und Mittlung der Standorte(via GPS) der Mitglieder einer Gruppe, die sich einem Event angeschlossen haben, erst ab einer Teilnehmerzahl von 3 statt. 
+		
+		\item \textit{Eventlimit} \\
+		Die Anzahl an gleichzeitig möglichen Events ist auf 10 beschränkt um mögliche Überlastungen des Servers durch Schadsoftware oder böswillige Nutzer zu verhindern.
+		
+		\item \textit{Mitgliederanzahl} \\
+		Das Limit an maximal zugelassen Mitgliedern wird auf 50 beschränkt um die Füllung von Gruppen mit vielen inaktiven Mitgliedern zu verhindern. Die App ist auf kleine Gruppen und Ansammlungen ausgelegt.
+		
+		\item \textit{Menüsortierung} \\
+		Sowohl Gruppenübersicht als auch die Übersicht der Gruppenmitglieder ist alphabetisch(anhand des Benutzernamens) sortiert. 
+		
+		\item \textit{Serverlimit} \\
+		Der Server erlaubt ein Maximum von 300 möglichen Gruppen und 5000 Nutzern.
+		Diese Limits werden für Testzwecke ausgewählt.
+		
+		\item \textit{Standortaktualisierungszeit} \\
+		Die Aktualisierung der Standortmittlung findet alle 8 Sekunden statt.
+		
+		\item \textit{Automatisches Ausloggen} \\
+		Der Nutzer wird nicht automatisch ausgeloggt sollte die App inaktiv oder geschlossen werden. Nur im Falle, dass der Nutzer sich auf einem anderen Gerät einloggt wird er auf dem vorigen ausgeloggt.
+		
+		\item \textit{Startzeit} \\
+		Die Startzeit der App sollte nicht länger als 5 Sekunden betragen.
+		
+\end{enumerate}
 
 \newpage
 \section{Benutzeroberfläche}
@@ -534,6 +561,13 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \newpage
 \section{Qualitäts-Zielbestimmungen}
+Bestimmung der Schwerpunkte in der Entwicklung dieser App:
+\begin{enumerate}
+	\item[Bedienbarkeit] Eine möglichst einfache Bedienung mit voller Funktionalität.
+	\item[Verständnis] Ein simples Design, dass direktes Verständnis der Funktionen und Arbeitsweise der App erlauben.
+	\item[Funktionalität] Möglichst intuitive Umsetzung der gewünschten Funktionen der App.
+	\item[Modifizierbarkeit] Die einfach Änderung und Erweiterung der Funktionalität der App.
+\end{enumerate}
 % Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit, Übertragbarkeit
 
 \newpage
@@ -619,9 +653,15 @@ Bob erstellt ein neues GO in der Gruppe 'Bar'. Die Gruppe hat mittlerweile 3 neu
 	
 \end{enumerate}
 
+<<<<<<< Updated upstream
 
 \newpage
 \section{Entwicklungsumbgebung}
+=======
+%\newpage
+%\section{Entwicklungsumbgebung}
+%	Zur Entwicklung wird die aktuellste Version von Android Studio genutzt.
+>>>>>>> Stashed changes
 
 \newpage
 \section{Anhang}
