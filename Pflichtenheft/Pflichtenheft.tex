@@ -50,11 +50,6 @@
 	name={Benutzer},
 	description={Eine Person, die die App installiert und sich mit einem Benutzeraccount registriert hat bzw. plant dies zu tun},
 }
-\newglossaryentry{Benutzername}
-{
-	name={Benutzername},
-	description={Ein im System eindeutiger Name, der es ermöglicht einen Benutzer mit Benutzeraccount zu identifizieren. Er kann nach Erstellung eines Accounts nicht mehr geändert werden},
-}
 \newglossaryentry{Anzeigename}
 {
 	name={Anzeigename},
@@ -165,7 +160,7 @@ Die GO! App ist eine Software-Oberfläche, die speziell zur Organisation von Tre
 \subsection{Zielgruppen}
 Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichtigt, die sich regelmäßig mit Freunden verabreden und eine einfache App brauchen, um strukturierter ihre Treffen zu organisieren und ihre Freunde bei dem Losgehen zu finden.
 
-\subsection{Betriebsbedingungen}
+\subsection{Betriebsbedingungen}\label{Betriebsbedingungen}
 % mind. benötigte Android-Version -> 4.4
 % funktionierende Netzwerkverbindung
 % Zugriff auf GPS-Daten erlaubt
@@ -425,11 +420,14 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item Zielpunkt
 		\item \colorbox{shadecolor}{Clustering-Schwellwert (vgl. \ref{Clustering})}
 	\end{itemize}
-	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen. Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des GOs angezeigt, wenn diese die GO-Detailansicht aufrufen.
+	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen. Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des GOs angezeigt, wenn diese die GO-Detailansicht aufrufen. Die GO-Daten können nicht mehr geändert werden, sobald der Startzeitpunkt eingetreten ist.
 	
 	\item \textit{GO beenden} \\
 	Ein GO kann vom GO-Verantwortlichen vorzeitig beendet werden durch Klicken des Buttons 'GO beenden' in der GO-Detailansicht. Das System registriert das GO als beendet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt' und 'Unterwegs'. Anschließend wird das GO vom System gelöscht. \\
 	Wird das GO nicht vom GO-Veratnwortlichen vorzeitig beendet, wird es bei Erreichen des Endzeitpunkts automatisch vom System beendet. Das System führt dabei die gleichen Aktionen aus wie beim Beenden durch den GO-Verantwortlichen.
+	
+	\item \textit{GO löschen} \\
+	Ein Go kann von dem GO-Verantwortlichen gelöscht werden. Dazu gibt es in der GO-Datailansicht den Button 'GO löschen'. Ein GO kann jederzeit gelöscht werden.
 \end{enumerate}
 
 \subsubsection{Systemfunktionen}
@@ -471,7 +469,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		\item ein GO des Benutzers ist gestartet
 	\end{itemize}
 	\item \colorbox{shadecolor}{\textit{Benachrichtigungseinstellungen ändern}} \\
-	Der Benutzer kann entscheiden, ob er Android-Benachrichtigungen von der App erhalten will oder nicht. Er kann dies selbst über einen Slider in der Einstellungs-Ansicht einstellen (vgl. *GUI-Ansicht*).
+	Der Benutzer kann entscheiden, ob er Android-Benachrichtigungen von der App erhalten will oder nicht. Er kann dies selbst über einen Slider in der Einstellungs-Ansicht einstellen (vgl. *GUI-Ansicht*). Die default-Einstellung ist 'stumm', d.h. der Benutzer erhält keine Benachrichtigungen der App auf seinem Android-Gerät.
 	\item \textit{About-Seite anzeigen} \\
 	Der Benutzer kann eine 'About'-Seite aufrufen, die allgemeine Informationen zur App beinhaltet.
 	\item \textit{Lizenzinformationen anzeigen} \\
@@ -571,98 +569,159 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 % Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit, Übertragbarkeit
 
 \newpage
-\section{Use cases und globale Testszenarien}
+\section{globale Testfälle und Testszenarien}
 
-\subsection{Use Case: Erstellung und Verwaltung eines Benutzeraccounts}
-Dieser Use Case beschreibt die Interaktion eines Benutzers (hier: Bob) mit dem System zum Einen mit dem Ziel, einen Benutzeraccount zu erstellen und die Benutzerdaten anzupassen, zum Anderen mit dem Ziel den Benutzeraccount wieder zu löschen.
+\subsection{Erstellen, Verwalten, Löschen eines Benutzeraccounts}
+
+\subsubsection*{Szenario 1}Bob will die App GO nutzen. Dazu erstellt er einen Benutzeraccount, fügt persönliche Daten seinem Benutzerprofil hinzu und loggt sich anschließend wieder aus.\\
 
 \textbf{Akteure:} Bob (Benutzer) \\
 
-\subsubsection{Szenario 1}
-Bob will die App GO nutzen. Dazu erstellt er einen Benutzeraccount, fügt persönliche Daten seinem Benutzerprofil hinzu und loggt sich anschließend wieder aus.\\
+\textbf{Voraussetzungen: }Bob benutzt ein Smartphone, dass sämtliche Betriebsbedingungen erfüllt (vgl. \ref{Betriebsbedingungen}) erfüllt und auf dem die App installiert ist. Bob verfügt über ein gültiges Google-Konto.\\
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item\label{Registrieren-Test} Bob öffnet die App, gibt die Anmeldedaten seines gültigen Google-Accounts ein (E-Mailadresse: bob-testperson@gmail.com, Passwort: passwort) und klickt auf den Button 'Sign In'.
-	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet seine Profilansicht und klickt auf den Button 'Profil ändern'. Er gibt in das Textfeld 'Benutzername' den Namen 'Bob' ein. Er klickt auf den Button 'Bild wählen'. Er wählt ein Bild aus dem Foto-Ornder des Android-Geräts aus. Er klickt auf den Button 'Änderungen speichern'.
+	\item\label{Registrieren-Test} Bob öffnet die App, gibt die Anmeldedaten seines Google-Accounts ein und klickt auf den Button 'Sign In'.
+	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet seine Profilansicht und klickt auf den Button 'Profil ändern'. Er gibt in das Textfeld 'Benutzername' den Namen 'Bob' ein. Er klickt auf den Button 'Bild wählen'. Er wählt ein Bild aus dem Foto-Ordner des Android-Geräts aus. Er klickt auf den Button 'Änderungen speichern'.
 	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet die Ansicht 'Einstellungen' und klickt auf das Feld 'Abmelden'.
 \end{enumerate}
 
-\subsubsection{Szenario 2}
-Bob will die App GO nicht mehr benutzen. Er will deshalb seinen Benutzeraccount löschen. \\
+\subsubsection*{Szenario 2}Bob will die App GO nicht mehr benutzen. Er will deshalb seinen Benutzeraccount löschen. \\
+
+\textbf{Akteure:} Bob (Benutzer) \\
+
+\textbf{Voraussetzungen: }Bob besitzt einen gültigen GO-Benutzeraccount.\\
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob meldet sich in seinem Benutzeraccount an. Er benutzt dieselben Login-Daten wie in \ref{Registrieren-Test}. 
-	\item Bob ist in seinem BEnutzeraccount angemeldet. Er öffnet seine Profilansicht und klickt auf den Button 'Profil löschen'.
+	\item Bob meldet sich in seinem Benutzeraccount an. 
+	\item Bob ist in seinem Benutzeraccount angemeldet. Er öffnet seine Profilansicht und klickt auf den Button 'Profil löschen'.
 \end{enumerate}
 
-\subsection{Use Case: Erstellung und Verwaltung einer neuen Gruppe}
-Dieser Use Case beschreibt die Interaktion mehrerer Benutzer mit dem System mit dem Ziel, gemeinsam eine Gruppe zu gründen bzw. eine gemeinsame Gruppe zu löschen.\\
+\subsection{Erstellen, Verwalten, Löschen einer Gruppe}
 
-\textbf{Akteure:} Bob (Administrator), Alice (Gruppenmitglied), Peter (Benutzer) \\
+\subsubsection*{Szenario 3} Bob, Alice und Peter wollen gemeinsam eine Gruppe erstellen, um ihre Treffen organisieren zu können. Bob soll der Administrator dieser Gruppe sein.\\
 
+\textbf{Akteure:} Bob (Administrator), Alice (Gruppenmitglied), Peter (Gruppenmitglied) \\
 
-
-\subsubsection{Szenario 3}
-Bob, Alice und Peter wollen gemeinsam eine Gruppe erstellen, um ihre Treffen organisieren zu können. Bob soll der Administrator dieser Gruppe sein.\\
+\textbf{Voraussetzungen: }Bob, Alice und verfügen beide über einen gültigen GO-Benutzeraccount.
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 	\item Bob klickt in der Gruppenansicht auf das Feld 'neue Gruppe'. Er gibt in das Eingabefeld den Gruppennamen 'Foo' ein.
 	\item Bob öffnet die Gruppendetailansicht und klickt auf den Button 'Gruppe bearbeiten'. Er gibt den Gruppennamen 'Bar' und die Gruppenbeschreibung 'FooBar' ein.
-	\item Bob öffnet die Gruppendetailansicht und klickt auf das Feld 'Mitglied hinzufügen'. Er gibt in das Suchfeld 'alice-testperson@gmail.com' ein. Er wählt aus den Suchresultaten Alice's Profil aus.
+	\item Bob öffnet die Gruppenansicht der App. Ihm wird die gruppe 'Bar' angezeigt.
+	\item Bob öffnet die Gruppendetailansicht und klickt auf das Feld 'Mitglied hinzufügen'. Er gibt in das Suchfeld Alice's E-Mailadresse ein. Er wählt aus den Suchresultaten Alice's Profil aus. Er wiederholt den Vorgang, um Peter ur Gruppe hinzuzufügen.
 	\item Alice hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Sie bestätigt die Gruppenanfrage.
 	\item Peter hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Er lehnt die Gruppenanfrage ab.
+	\item Alice ruft die Gruppendetailansicht auf. Ihr werden folgende Informationen angezeigt:
+	\begin{itemize}
+		\item Gruppenname: Bar
+		\item Gruppenbeschreibung: FooBar
+		\item Mitglieder: Bob, Alice
+		\item Administratoren: Bob
+		\item aktuelle GOs: leer
+	\end{itemize}
 \end{enumerate}
 
-\subsubsection{Szenario 4}
-Bob tritt aus der Gruppe 'Bar' wieder aus. Da Alice nun das einzige Mitglied ist, entschließt sie sich die Gruppe wieder zu löschen. \\
+\subsubsection*{Szenario 4}Nach dem Event wollen Bob, Alice und Peter die Gruppe 'Bar' wieder auflösen.\\
+
+\textbf{Voraussetzungen: }Bob, Alice und Peter verfügen über je einen gültigen GO-Benutzeraccount. Bob, Alice und sind gemeinsam Mitglieder der Gruppe 'Bar'. Bob ist Administrator, Alice und Peter sind Gruppenmitglieder.
+
+\textbf{Akteure:} Bob (Administrator), Alice (Gruppenmitglied), Peter (Gruppenmitglieder) \\
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. Die Aktion schlägt fehl, da Bob der einzige Administrator der Gruppe ist.
 	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Administrator hinzufügen'. Er wählt Alice als neuen Administrator aus.
 	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. Die Aktion ist erfolgreich.
+	\item Alice entfernt Peter aus der Gruppe 'Bar'
 	\item Alice wählt in der Gruppendetailansicht die Option 'Gruppe löschen'.
 \end{enumerate}
 
-\subsection{Use Case: Erstellung und Ausführung eines GOs}
-Dieser Use Case beschreibt die Interaktion mehrerer Benutzer, die gemeinsam in einer Gruppe sind, mit dem System, mit dem Ziel ein GO zu erstellen und auszuführen.\\
+\subsection{Erstellen, Verwalten und Löschen eines GOs}
+
+\subsubsection*{Szenario 5}Bob erstellt ein neues GO in der Gruppe 'Bar'. Alice tritt dem GO bei und bestätigt 10min vor dem Startzeitpunkt, dass sie losgegangen ist.\\
 
 \textbf{Akteure:} Bob (GO-Verantwortlicher), Alice (Gruppenmitglied)\\
 
-\subsubsection{Szenario 5}
-Bob erstellt ein neues GO in der Gruppe 'Bar'. Die Gruppe hat mittlerweile 3 neue Mitglieder (Gesamtmitgliederzahl: 5). Alice tritt dem GO bei und bestätigt 10min vor dem Startzeitpunkt, dass sie losgegangen ist. Alice entfernt sich während des GOs von der Gruppe und will nicht, dass man ihren Standort verfolgen kann. Sie verlässt daher das GO.\\
+\textbf{Voraussetzungen: }Bob und Alice sind Mitglieder der Gruppe 'Bar'. Die Gruppe hat eine Gesamtmitgliederzahl von 5 Benutzern.
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob erstellt ein GO mit folgenden Daten:
+	\item\label{Go Test} Bob erstellt ein GO mit folgenden Daten:
 	\begin{itemize}
 		\item Startzeitpunkt: 15.09.17 14:00
 		\item Endzeitpunkt: 15.09.2017 16:00
 		\item Zielort: leer
 		\item Clustering-Schwellwert: 100m
 	\end{itemize}
-	\item Alice setzt ihren Teilnahmestatus auf 'Bestätigt.
+	\item Alice ruft die Go-Datailansicht auf, um sich über das GO zu informieren. Ihr werden die Informationen aus Testfall \ref{Go Test} angezeigt.
+		\item Alice setzt ihren Teilnahmestatus auf 'Bestätigt'.
 	\item Alice setzt ihren Teilnahmestatus manuell auf 'Unterwegs'.
 	\item zum Startzeitpunkt setzt das System Bobs Teilnahemstatus automatisch auf 'Unterwegs' (es ist vorausgesetzt, dass alle anderen Gruppenmitglieder bereits losgegangen sind).
 	\item alle Gruppenmitglieder außer Bob sind als Gruppe (geographisch nah beieinander) unterwegs. Bob kann die Standorte der anderen Gruppenmitglieder nur als Cluster auf der Karte sehen.
-	\item Alice ändert ihren Teilanhmestatus auf 'Abgelehnt'. Ihr Standort ist für die anderen nicht mehr sichtbar.
-	\item das GO endet zum Endzeitpunkt automatisch.
-	
+	\item (a) das GO wird von Bob manuell beendet. \\
+	 (b) das GO endet zum Endzeitpunkt automatisch.	
 \end{enumerate}
 
-<<<<<<< Updated upstream
+\subsubsection*{Szenario 6} Die Pläne der Gruppe ändern sich. Bob muss die Details des GOs ändern. Letztendlich muss das Treffen komplett abgesagt werden, also wird das GO von Bob gelöscht.\\
 
+\textbf{Akteure:} Bob (GO-Verantwortlicher)\\
+
+\textbf{Voraussetzungen: }Bob hat zuvor ein GO erstellt mit den GO-Daten aus Testfall \ref{Go Test} und ist der GO-Verantwortliche. Das Go hat noch nicht begonnen.\\
+
+\textbf{Testfälle:}\\
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item Bob ruft die GO-Detailansicht auf und ändert den Startzeitpunkt des GOs von 15.09.17 14:00 auf 18.09.17 15:00
+	\item Bob löscht das GO
+\end{enumerate}
+
+\subsubsection*{Szenario 7}Alice entfernt sich während des GOs von der Gruppe. Sie will nicht, dass man ihren Standort verfolgen kann, deshalb setzt sie ihren Teilnahmestatus von 'Unterwegs' auf 'Bestätigt'. Nach einer Weile entschließt sie sich nicht mehr zu der Gruppe zurückzukehren und verlässt das GO.\\
+
+\textbf{Akteure:} Bob (GO-Verantwortlicher), Alice (Gruppenmitglied)\\
+
+\textbf{Voraussetzungen: }Alice ist Mitglied einer Gruppe. Es findet aktuell ein GO statt. Alice's Teilnahmestatus für dieses GO lautet 'Unterwegs'.\\
+
+\textbf{Testfälle:}
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item Alice ändert ihren Teilnahmestatus auf 'Bestätigt
+	\item Alice ändert ihren Teilnahmestatus auf 'Abgelehnt'
+\end{enumerate}
+
+\subsection{Sonstiges}
+
+\subsubsection*{Szenario 8} Bob will sich über die App GO informieren und schaut sich dazu die About- und Lizenzinformnationsseiten der App an.\\
+
+\textbf{Akteure: }Bob (Benutzer)\\
+
+\textbf{Voraussetzungen: }Bob Bob besitzt einen gültigen GO-Benutzeraccount.\\
+
+\textbf{Testfälle:}\\
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item Bob ruft die About-Seite der App auf.
+	\item Bob ruft die Lizenzinformationen der App auf.
+\end{enumerate}
+
+\subsubsection*{Szenario 9} Bob und Alice erstellen gemeinsam eine neue Gruppe mit Alice als Administrator. Bob aktiviert die Benachrichtigungen der App, um zeitnah mitzubekommen, wenn es Neuigkeiten in der Gruppe gibt.\\
+
+\textbf{Akteure: }Bob (Gruppenmitglied), Alice (Administrator)\\
+
+\textbf{Voraussetzungen: }Bob und Alice besitzen beide einen gültigen GO-Benutzeraccount. Alice ist Administrator der Gruppe 'Foo'.\\
+
+\textbf{Testfälle:}\\
+\begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+	\item Bob ändert die Benachrichtigungseinstellungen in seinem Profil auf 'aktiv'.
+	\item Alice fügt Bob der gruppe 'Foo' hinzu. Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.
+	\item Alice erstellt einen neuen GO in der Gruppe 'Foo'. Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.
+	\item Der Startzeitpunkt des GOs ist eingetreten. Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.
+\end{enumerate}
 \newpage
 \section{Entwicklungsumbgebung}
-=======
+
 %\newpage
 %\section{Entwicklungsumbgebung}
 %	Zur Entwicklung wird die aktuellste Version von Android Studio genutzt.
->>>>>>> Stashed changes
-
 \newpage
 \section{Anhang}
 
