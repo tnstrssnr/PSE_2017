@@ -50,10 +50,10 @@
 	name={Benutzer},
 	description={Eine Person, die die App installiert und sich mit einem Benutzeraccount registriert hat bzw. plant dies zu tun},
 }
-\newglossaryentry{Anzeigename}
+\newglossaryentry{Benutzername}
 {
-	name={Anzeigename},
-	description={Ein im System nicht-eindeutiger Name, den der Benutzer jederzeit ändern kann},
+	name={Benutzername},
+	description={Ein im System nicht-eindeutiger Name, den der Benutzer jederzeit ändern kann.},
 }
 \newglossaryentry{Hauptansicht}
 {
@@ -70,6 +70,23 @@
 	name={losgehen},
 	description={Die Änderung des Teilnahmestatus eines GOs von 'Bestätigt' auf 'Unterwegs'},
 }
+\newglossaryentry{Google-Account}
+{
+	name={Google-Account},
+	description={Ein Benutzeraccount bei dem Internetdienstleister Google, die Benutzerkennung besteht aus einer E-Mailadresse mit der Domain '@gmail.com' und einem Passwort}
+}
+\newglossaryentry{Clustering}
+{
+	name={Clustering},
+	description={Clustering bezeichnet den Vorgang, nahe beieinander gelegene Datenpunkte (im Kontext der App sind dies die Standorte der GO-Teilnehmer) zu einer Gruppe (sprich einem Cluster) zusammenzufassen.}
+}
+\newglossaryentry{Android-Benachrichtigung}
+{
+	name={Android-Benachrichtigung},
+	description={Benachrichtigungen, die dem Benutzer auf dem Smartphone-Bildschirm angezeigt werden, soblad etwas Neues in der App passiert ist. Dies erfordert nicht das Öffnen der App.},
+	plural={Android-Benachrichtigungen}
+}
+
 
 \def\threedigits#1{%
   \ifnum#1<100 0\fi
@@ -151,7 +168,7 @@ Dies wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsproze
 % kein Live-Navigationssystem mit Routenplanungsfunkton, etc.
 % Kontakte wrden nur innerhalb der Gruppen hinzugefügt
 \begin{itemize}
-\item Es werden weder direkte Messagingfunktion, noch ähnliche Funktionen von Social Media Plattformen wie Facebook geboten geboten.
+\item Es werden weder direkte Messagingfunktion, noch ähnliche Funktionen von Social Media Plattformen wie Facebook geboten.
 \item Kontakte werden nur innerhalb der Gruppen hinzugefügt.
 \item GPS-Funktionen beinhaltet keine Navigationshilfen
 \end{itemize}
@@ -171,7 +188,7 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 \begin{itemize}
 	\item Die App braucht funktionierende Netzwerkverbindung auf dem Android Gerät.\\
 	\item Der Zugriff auf GPS-Daten muss erlaubt sein.\\
-	\item Die Benutzer müssen einen Google-Account besitzen, um sich in der App zu registrieren.
+	\item Die Benutzer müssen einen \gls{Google-Account} besitzen, um sich in der App zu registrieren.
 \end{itemize}
 
 \newpage
@@ -187,7 +204,7 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 	\item Server Seite:
 	\begin{itemize} 
         \item Apache Tomcat (Version 8).
-		%\item MySQL-Datenbank. %TODO Brauchen wir eine Datenbank und wenn ja, welche benutzen wir dann?
+		\item MySQL-Datenbank. %TODO Brauchen wir eine Datenbank und wenn ja, welche benutzen wir dann? mysql sollte passen
     \end{itemize}
 \end{itemize}
 
@@ -197,7 +214,7 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 \begin{itemize}
 	\item Client Seite:
 	\begin{itemize} 
-		\item Internetfähiges Android Gerät. %(bei der Registrierung/Erstanmeldung eines neuen Gerätes wird ein Android-Gerät mit einer funktionierenden SIM-Karte verlangt).\\
+		\item Internetfähiges Android Gerät
 	\end{itemize}
 	
 	\item Server Seite:
@@ -267,7 +284,6 @@ Die im Folgenden beschriebenen Funktionen sind öffentlich, das bedeutet sie kö
 Im folgenden Abschnitt wird angenommen, dass der Benutzer ein Benutzerkonto besitzt und bereits im System eingeloggt ist.
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-%keie Kontakte, sondern Leute direkt über den Benutzernamen in eine Gruppe hinzufügen
 	\item \textit{Gruppen anzeigen} \\ %zählt hier "alle gruppen in denen man ist ansehen" als Funktion?
 	Ein Benutzer kann sich alle Gruppen, in denen er zu diesem Zeitpunkt Mitglied ist, anzeigen lassen, indem er den 'Gruppen'-Reiter der \gls{Hauptansicht} auswählt (vgl. *GUI-Ansicht*).
 	
@@ -441,7 +457,7 @@ Die im folgenden beschriebenen Funktionen werden vom System ausgeführt, ohne da
 	\item \textit{Standorte verfolgen}\\
 	Das System verfolgt die Standorte aller Benutzer, dessen Teilnahmestatus für das GO auf 'Unterwegs' gesetzt ist. Die Standortverfolgung ist so lange aktiviert, bis sich der Teilnahmestatus des Benutzers ändert oder das GO beendet wird. Sie wird auch weiter durchgeführt, sollte der Benutzer die App nur im Hintergrund ausführen.
 	
-	\item \textit{Clustering}\label{Clustering} \\
+	\item \textit{\gls{Clustering}}\label{Clustering} \\
 	Ist der Teilnahmestatus eines Benutzers in einem aktiven GO auf 'Unterwegs' gesetzt, beginnt das System den Standort dieses Benutzers zu erfassen. Die Standorte der losgegangenen Benutzer werden gegebenenfalls geclustert, sodass in der App nicht der Standort der einzelnen Benutzer, sondern die gemittelte Position dieser Benutzer angezeigt wird. Die Positionen mehrerer Benutzer werden zu einem Cluster zusammengefasst, sobald die Distanz der einzelnen Personen zum Zentrum des Clusters einen kritischen Schwellwert unterschreitet. \\ 
 	
 	\colorbox{shadecolor}{\parbox{.9\textwidth}{Dieser Schwellwert kann in den GO-Daten vom GO-Verantwortlichen bestimmt werden.}}\\
@@ -465,7 +481,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
  \item \colorbox{shadecolor}{\textit{Benachrichtigungen senden}}\\
-	Die App sendet dem Benutzer Android-Benachrichtigungen bei folgenden Ereignissen:
+	Die App sendet dem Benutzer \glspl{Android-Benachrichtigung} bei folgenden Ereignissen:
 	\begin{itemize}
 		\item Der Benutzer wurde zu einer Gruppe hinzugefügt
 		\item In einer Gruppe des Benutzers wurde ein GO erstellt
@@ -492,7 +508,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 				\end{itemize}
 			\item \textit{Persönliche Daten} \label{persönliche Daten} 
 			\begin{itemize}
-			\item Benutzername (defaultwert: E-Mailadresse des Benutzers)
+			\item \gls{Benutzername} (Default-Wert: E-Mailadresse des Benutzers)
 			\item Profilbild
 			\item Gruppen
 		\end{itemize}
