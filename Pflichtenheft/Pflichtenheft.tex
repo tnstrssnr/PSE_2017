@@ -124,7 +124,7 @@
 \newpage
 \section{Zielbestimmung}
 Die \gls{App} dient der Erleichterung und Strukturierung von Gruppentreffen. 
- Bei täglichen Vereinbarungen, ist die Kommunikation im Text-Format via WhatsApp und ähnlichen Apps unübersichtlich und unintuitiv. 
+ Bei täglichen Vereinbarungen ist die Kommunikation im Text-Format via WhatsApp und ähnlichen Apps unübersichtlich und unintuitiv. 
 Dies wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsprozess reinbringen.  
 \subsection{Musskriterien}
 % Anzahl Gruppen, Gruppenmitglieder, GOs, etc. beschränken
@@ -133,33 +133,83 @@ Dies wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsproze
 % wann wird geclustert?
 
 \begin{itemize}[itemsep=0pt]
-	\item Benutzer  
+	\item Der Benutzer  
 	\begin{itemize}
-	 	\item Registrierung
-	 	\item Anmeldung
-	 	\item Unterscheidung zwischen Administrator der Gruppe und ordentlichen Teilnehmer
+		\item Unterscheidung zwischen Administrator der Gruppe und ordentlichen Teilnehmer der Gruppe.
+		\item Unterscheidung zwischen GO-Verantwortlichen und ordentlichen Teilnehmer der Gruppe.
+	 	\item Der App-Benutzer kann sich in der App registrieren und damit einen Benutzeraccount erstellen.
+	 	\item Der Benutzer kann sich mithilfe von Google-Account im System anmelden und vom System abmelden.
+	 	\item Der Benutzer kann seinen Benutzeraccount löschen.
+	 	\item Der Benutzer kann die 'About'-Seite einsehen.
+	 	\item Der Benutzer kann Lizenzinformationen einsehen.
 	\end{itemize} 
-	\item Gruppen
-		\begin{itemize}
+	
+	\item Die Gruppen
+	\begin{itemize}
 	 		%\item Jeder kann eine Gruppe erstellen und Nutzer in die Gruppe einladen
 	 		%\item Jeder Teilnehmer der Gruppe kann ein Event in der Gruppe erstellen
 	 		%\item Jeder Teilnehmer der Gruppe kann sich zum Event in der Gruppe anschließen
 	 		%Das oben kommentiert sind eher schon Funktionalen Anforderungen
-	 		\item Gruppen erstellen
-	 		\item Events mit Eventdetails in der Gruppe erstellen 
-	 		\item Zu den Gruppen eingeladen werden können
-	 		\item Gemittelten Standort der Eventsteilnehmer anzeigen 
-		\end{itemize}
+	 	\item Der Benutzer kann eine Anfrage auf Gruppenmitgliedschaft beantworten.
+	 	\item Der Benutzer kann eine Gruppe erstellen.
+	 \end{itemize}
+	 Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied ist.
+	 \begin{itemize}
+	 	\item Der Benutzer kann alle seinen Gruppen einsehen.
+	 	\item Der Benutzer kann die Systeminformationen zu den Gruppen einsehen.
+	 	\item Der Benutzer kann aus der Gruppe austreten.
+	\end{itemize}
+	
+	\item Der Administrator der Gruppe\\
+	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig Administrator ist.
+	\begin{itemize}
+		\item Der Administrator kann Gruppendaten ändern.
+		\item Der Administrator kann der Gruppe neue Mitglieder hinzufügen.
+		\item Der Administrator kann Mitglieder der Gruppe entfernen.
+		\item Der Administrator kann die Gruppe löschen.  
+	\end{itemize}
+	
+	\item Die \glspl{GO}\\
+	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied ist.
+	\begin{itemize}
+		\item Der Benutzer kann ein GO erstellen.
+		\item Der Benutzer kann die aktuellen GOs der Gruppe einsehen.
+		\item Der Benutzer kann GO-Daten des aktuellen GO's einsehen.
+		\item Der Benutzer kann seinen Teilnahmestatus  ('Abgelehnt', 'Bestätigt' oder 'Unterwegs') an dem aktuellen GO ändern.
+		\item Der Benutzer mit dem Teilnahmetatus 'Bestätigt' oder 'Unterwegs' kann den gemittelten und anonymisierten GPS-Standort der losgegangenen Teilnehmer des aktuellen GO's einsehen.
+	\end{itemize}
+	
+	\item Der GO-Verantwortliche eines GO's\\
+	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig GO-Verantwortlicher eines GO's ist.
+	\begin{itemize}
+		\item Der GO-Verantwortliche kann die GO-Daten ändern.
+		\item Der GO-Verantwortliche kann das GO beenden.
+		\item Der GO-Verantwortliche kann das GO löschen.
+	\end{itemize}
+	
+	\item Sonstiges
+	\begin{itemize}
+		\item Das System kann GPS-Standorte der Benutzer mit dem Teilnahmetatus 'Unterwegs' verfolgen.
+		\item Das System stellt die Anonymität des Benutzers durch \gls{Clustering} und Anonymisierung des GPS-Standortes sicher. %TODO ausformulieren ?
+		\item Das System kann die GPS-Standorte der losgegangenen Benutzer zu einem Cluster zusammenfassen.
+	\end{itemize}
 \end{itemize}
+
+\newpage
 	
 \subsection{Wunschkriterien}
 % Profilbilder
 % Gruppenbilder
 % Benachrichtigungen ??
 \begin{itemize}
-	\item Profilbilder
-	\item Gruppenbild
-	\item Benachrichtigungen (wie z.B. ''Event in 30 Minuten'', oder ''Jemand ist in der Nähe'')
+	\item Der Benutzer kann seine persönliche Daten ändern.
+	\item Der Benutzer kann Benachrichtigungseinstellungen ändern.
+	\item Der Benutzer kann ein Profilbild zu seinem Benutzeraccount hinzufügen. %TODO Wollen wir Profilbilder entfernen?
+	\item Der Administrator der Gruppe kann andere Mitglieder dieser Gruppe zum Administrator upgraden.
+	\item Der Administrator der Gruppe kann ein Gruppenbild und eine Gruppenbeschreibung zu der Gruppe hinzufügen.
+	\item Der GO-Verantwortliche kann Clustering-Schwellwert bestimmen.
+	\item Das System kann dem Benutzer \glspl{Android-Benachrichtigung} senden.
+	%\item Benachrichtigungen (wie z.B. ''Event in 30 Minuten'', oder ''Jemand ist in der Nähe'')
 \end{itemize}
 
 \subsection{Abgrenzungskriterien}
@@ -168,9 +218,14 @@ Dies wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsproze
 % kein Live-Navigationssystem mit Routenplanungsfunkton, etc.
 % Kontakte wrden nur innerhalb der Gruppen hinzugefügt
 \begin{itemize}
-\item Es werden weder direkte Messagingfunktion, noch ähnliche Funktionen von Social Media Plattformen wie Facebook geboten.
-\item Kontakte werden nur innerhalb der Gruppen hinzugefügt.
-\item GPS-Funktionen beinhaltet keine Navigationshilfen
+\item Es werden weder direkte Messagingfunktion noch ähnliche Funktionen von Social Media Plattformen wie Facebook geboten.
+\item GPS-Funktionen beinhaltet keine Navigationshilfen.
+\item Benutzer ohne Google-Account werden nicht unterstützt.
+\item Die Standortverfolgung wird im Fall von weniger 5 losgegangen Benutzern nicht ausgeführt.
+%TODO Soll das Weitere hier hin?
+\item Die GO-Daten können nicht mehr geändert werden, sobald der Startzeitpunkt eingetreten ist.
+\item Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse und Passwort zum Anmelden) können nicht geändert werden.
+\item Der Teilnahmestatus eines GO-Verantwortlichen kann nur 'Bestätigt' oder 'Unterwegs' lauten.
 \end{itemize}
 
 \newpage
@@ -214,7 +269,7 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 \begin{itemize}
 	\item Client Seite:
 	\begin{itemize} 
-		\item Internetfähiges Android Gerät
+		\item Internetfähiges Android Gerät.
 	\end{itemize}
 	
 	\item Server Seite:
