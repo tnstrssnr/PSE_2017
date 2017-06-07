@@ -427,8 +427,8 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 	\item \textit{GO erstellen}\label{GO erstellen} \\
 	Jedes Mitglied einer Gruppe kann für diese Gruppe ein GO erstellen. Dazu wählt der Benutzer in der jeweiligen Gruppendetailansicht die Option 'GO erstellen' und übergibt dem System folgende Informationen (vgl. *GUI-Ansicht*):
 	\begin{itemize}
-		\item GO-Bezeichnung
-		\item Beschreibung
+		\item GO-Name
+		\item \colorbox{shadecolor}{Beschreibung}
 		\item Startzeitpunkt
 		\item Endzeitpunkt 
 		\item Zielpunkt (optional)
@@ -550,7 +550,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 \section{Produktdaten}
 
 \begin{enumerate}[label={\textbf{/D\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item \textit{Profildaten} \label{Profildaten} Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
+	\item \textit{Profildaten} \label{Profildaten} \\Für jeden im System registrierten Benutzer m"ussen folgende Informationen gespeichert werden:
 		\begin{itemize}
 			\item \textit{Benutzerkennung}
 				\begin{itemize}
@@ -560,33 +560,33 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 			\item \textit{Persönliche Daten} \label{persönliche Daten} 
 			\begin{itemize}
 			\item \gls{Benutzername} (Default-Wert: E-Mailadresse des Benutzers)
-			\item Profilbild
+			\item \colorbox{shadecolor}{Profilbild}
 			\item Gruppen
 		\end{itemize}
 		\end{itemize}
 	
-	\item \textit{Gruppendaten} Für jede erstellte Gruppe müssen folgende Informationen gespeichert werden:
+	\item \textit{Gruppendaten} \\Für jede erstellte Gruppe müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
 		\item Gruppen-ID (eindeutig)
 		\item Gruppenname
-		\item Gruppenbild
-		\item Gruppenbeschreibung
+		\item \colorbox{shadecolor}{Gruppenbild}
+		\item \colorbox{shadecolor}{Gruppenbeschreibung}
 		\item Mitglieder
 		\item Administratoren
 		\item offene Gruppenanfragen %--> wie sollte man länger ausstehende Anfragen verwalten?
 		\item aktuelle GOs
 	\end{itemize}
-	\item \textit{GO-Daten} \label{GO-Daten}
+	\item \textit{GO-Daten} \label{GO-Daten}\\
 	Für jedes erstellte GO müssen folgende Informationen gespeichert werden:
 	\begin{itemize}
 		\item GO-ID (eindeutig)
 		\item GO-Verantwortlicher
 		\item GO-Name
-		\item Beschreibung
+		\item \colorbox{shadecolor}{Beschreibung}
 		\item Startzeitpunkt
 		\item Endzeitpunkt
 		\item Zielort (optional)
-		\item Clustering-Schwellwert
+		\item \colorbox{shadecolor}{Clustering-Schwellwert}
 		\item Gruppe, der das GO angehört
 		\item Gruppenmitglieder mit Teilnahmestatus 'Abgelehnt'
 		\item Gruppenmitglieder mit Teilnahmestatus 'Bestätigt'
