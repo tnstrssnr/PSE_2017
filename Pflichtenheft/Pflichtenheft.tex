@@ -395,7 +395,7 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	Ein Administrator kann beliebige Mitglieder der Gruppe entfernen, indem er in der Änderungsansicht der Gruppe das rote Minuszeichen neben dem zu entfernenden Benutzer anklickt und anschließend die Durchführung der Aktion bestätigt. Der ausgewählte Benutzer wird vom System aus der Gruppe entfernt.
 	
 	\item \colorbox{shadecolor}{\textit{Admin hinzuf"ugen}}\label{Admin hinzufügen} \\
-	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er den 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus. Das System ändert die Rolle des Gruppenmitglieds zu 'Administrator'. Das Gruppenmitglied kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen.
+	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er den 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus. Das System ändert die Rolle des Gruppenmitglieds zu 'Administrator'. Das Gruppenmitglied kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen. Ein Administrator kann den Administrator-Status von anderen Administratoren nicht wieder entfernen.
 	
 	\item \textit{Gruppe l"oschen}\label{Gruppe löschen} \\
 	Ein Administrator kann eine Gruppe löschen indem er den 'Gruppe löschen'-Button auswählt. Das System löscht die Gruppe. Sie wird ab diesem Zeitpunkt nicht mehr in der Gruppenansicht der Mitglieder angezeigt. Mitglieder erhalten keine Benachrichtigung über die Löschung der Gruppe.
@@ -499,11 +499,9 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 	ändern. Der neue Startzeitpunkt darf nicht in der Vergangenheit liegen. Sobald die Änderungen vom Benutzer bestätigt wurden, werden sie vom System übernommen und den Mitgliedern des GOs angezeigt, wenn diese die GO-Detailansicht aufrufen. Die GO-Daten können nicht mehr geändert werden, sobald der Startzeitpunkt eingetreten ist.
 	
 	\item \textit{GO beenden}\label{GO beenden} \\
-	Ein GO kann vom GO-Verantwortlichen vorzeitig beendet werden durch Klicken des Buttons 'GO beenden' in der GO-Detailansicht. Das System registriert das GO als beendet und sendet eine Benachrichtigung an alle Gruppenmitglieder mit Teilnahmestatus 'Bestätigt' und 'Unterwegs'. Anschließend wird das GO vom System gelöscht. \\
+	Ein GO kann vom GO-Verantwortlichen vorzeitig beendet werden durch Klicken des Buttons 'GO beenden' in der GO-Detailansicht. Es spielt keine für diese Funktion keine Rolle, ob der Startzeitpunkt bereits eingetreten ist oder nicht. Das System registriert das GO als beendet und stoppt die Standortverfolgung aller GO-Teilnehmer. Anschließend wird das GO vom System gelöscht. \\
 	Wird das GO nicht vom GO-Veratnwortlichen vorzeitig beendet, wird es bei Erreichen des Endzeitpunkts automatisch vom System beendet. Das System führt dabei die gleichen Aktionen aus wie beim Beenden durch den GO-Verantwortlichen.
 	
-	\item \textit{GO löschen}\label{GO löschen} \\
-	Ein Go kann von dem GO-Verantwortlichen gelöscht werden. Dazu gibt es in der GO-Datailansicht den Button 'GO löschen'. Ein GO kann jederzeit gelöscht werden.
 \end{enumerate}
 
 \subsubsection{Systemfunktionen}
@@ -634,7 +632,13 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \newpage
 \section{Benutzeroberfläche}
-%TODO Übergangsdiagramm erstellen
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{res/gui_flowchart.png}
+	\caption{Flowchart der GUI-Ansichten der App}
+\end{figure}
+
 \begin{figure}[H]
   \centering
   \begin{minipage}[b]{0.4\textwidth}
@@ -820,10 +824,10 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
 	\item Bob ruft die GO-Detailansicht auf und ändert den Startzeitpunkt des GOs von 15.09.17 12:00 auf 15.09.17 13:00
-	\item Bob löscht das GO
+	\item Bob beendet das GO
 \end{enumerate}
 
-\textbf{getestete Funktionen: }\ref{GO Daten ändern}, \ref{GO löschen}
+\textbf{getestete Funktionen: }\ref{GO Daten ändern}, \ref{GO beenden}
 
 \subsubsection*{Szenario 7}Alice entfernt sich während des GOs von der Gruppe. Sie will nicht, dass man ihren Standort verfolgen kann, deshalb setzt sie ihren Teilnahmestatus von 'Unterwegs' auf 'Bestätigt'. Nach einer Weile entschließt sie sich nicht mehr zu der Gruppe zurückzukehren und verlässt das GO.\\
 
