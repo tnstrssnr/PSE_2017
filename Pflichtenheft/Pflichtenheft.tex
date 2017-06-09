@@ -633,50 +633,75 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 \newpage
 \section{Benutzeroberfläche}
 
-\begin{figure}
+Im untenstehenden Flowchart wird die Struktur der grafischen Benutzeröberfläche der App dargestellt (bei fehler- und konfliktfreier Benutzung). Sollte es zu Fehleingaben durch den Benutzer kommen, wird eine Fehlermeldung gegeben. Die aktuelle GUI-Ansicht wird weiterhin angezeigt.
+
+\begin{figure}[H]
+	\vspace{1cm}
 	\centering
 	\includegraphics[width=\textwidth]{res/gui_flowchart.png}
 	\caption{Flowchart der GUI-Ansichten der App}
-\end{figure}
+	\vspace{1cm}
+	\end{figure}
+
+Die App besteht im Wesentlichen aus sechs Ansichten, die den Benutzer sämtliche Funktionen ausführen lassen (+ eine Login-Seite zum Anmelden/Registrieren). Diese werden durch verschiedene Änderungsansichten erweitert, sollte der Benutzer spezielle Rollen inne haben.
+
+\newpage
+
+Beim Starten der App, beziehungsweise nach erfolgreichem Anmelden/Registrieren auf der Login-Seite (vgl. Abbildung \ref{login}), gelangt der Benutzer auf die Hauptansicht der App (vgl. Abbildung \ref{hauptansicht}). Diese zeigt ihm alle Gruppen, in denen er aktuell Mitglied ist, plus aktuelle unbeantwortete Gruppenanfragen.
 
 \begin{figure}[H]
+  \vspace{1cm}
   \centering
   \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{GUI/AndroidStudio/login_simple.PNG}\label{login}
-	\caption{Login-Seite}	
+    \includegraphics[width=\textwidth]{GUI/AndroidStudio/login_simple.PNG}
+	\caption{Login-Seite}\label{login}	
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{GUI/AndroidStudio/hauptansicht.PNG}
 	\caption{Hauptansicht der App}	\label{hauptansicht}
   \end{minipage}
+  \vspace{1cm}
 \end{figure}
 
+Von der Hauptansicht kann der Benutzer durch auswählen einer Gruppe in die Detailansicht dieser Gruppe gelangen (vgl. Abbildung \ref{gruppendetailansicht} und Abbildung \ref{gruppeninfo}). Sollte es sich bei dem Benutzer um einen Administrator handeln, so wird die Gruppendetailansicht erweitert durch die Änderungsansicht der Gruppe, in der spezielle Administratorfunktionen (z.B: Gruppendaten ändern, Mitglieder hinzufügen, etc.) ausgeführt werden können.
+
 \begin{figure}[H]
+  \vspace{1cm}
   \centering
   \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{GUI/AndroidStudio/group_view.PNG}\label{gruppendetailansicht}
-	\caption{Gruppendetailansicht}	
+    \includegraphics[width=\textwidth]{GUI/AndroidStudio/group_view.PNG}
+	\caption{Gruppendetailansicht}\label{gruppendetailansicht}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{GUI/AndroidStudio/group_info.PNG}\label{gruppeninfo}
-	\caption{Gruppeninfo}	
+    \includegraphics[width=\textwidth]{GUI/AndroidStudio/group_info.PNG}
+	\caption{Gruppeninfo}\label{gruppeninfo}
   \end{minipage}
+  \vspace{1cm}
 \end{figure}
 
+Ebenfalls von der Hauptseite ausgehend, kann der Benutzer auch zur GO-Ansicht wechseln. Es werden alle aktuellen GOs des Benutzers (mit Teilnahmestatus 'Bestätigt' doer 'Unterwegs') angezeigt. Durch Auswählen eines bestimmten GOs gelangt der Benutzer auf die Detailansicht dieses GOs (vgl. Abbildung \ref{godetailansicht}, und Abbildung \ref{goinfo}).\\
+Eine zweite Möglichkeit die Detailansicht eines GOs aufzurufen ist, die Detailansicht der dazugehörigen Gruppe aufzurufen und in der GO-Auflistung (vgl. Abbildung \ref{gruppendetailansicht}) das entsprechende GO auszuwählen. \\
+
+In der GO-Detailansicht, können alle zu einem GO gehörigen Funktionen ausgeführt werden. Handelt es sich bei dem Benutzer um den GO-Verantwortlichen, dann wird die GO-Detailansicht um die Änderungsansicht des GOs erweitert, in der spezielle Funktionen des GO-Veratnwortlichen (z.B. GO-Daten ändern, GO beenden) ausgeführt werden können.
+
 \begin{figure}[H]
+  \vspace{1cm}
   \centering
   \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{GUI/AndroidStudio/event_info_navi.PNG}\label{godetailansicht}
-	\caption{Eventansicht, Karten-Tab}
+    \includegraphics[width=\textwidth]{GUI/AndroidStudio/event_info_navi.PNG}
+	\caption{Eventansicht, Karten-Tab}\label{godetailansicht}
   \end{minipage}
-  \hfil
+  \hfill
   \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{GUI/AndroidStudio/event_info_teilnehmer.PNG}\label{goinfo}
-	\caption{Eventansicht, Eventinfo-Tab}
+    \includegraphics[width=\textwidth]{GUI/AndroidStudio/event_info_teilnehmer.PNG}
+	\caption{Eventansicht, Eventinfo-Tab}\label{goinfo}
   \end{minipage}
+  \vspace{1cm}
 \end{figure}
+
+Sonstige Funktionen, wie das Anzeigen der 'About'-Seite, oder Interaktionen mit dem eigenen Benutzerprofil (Ansehen, Ändern, Löschen, Abmelden) können vom Benutzer in der Einstellungsansicht ausgeführt werden, die ebenfalls von der Hauptseite aus erreichbar ist.
 
 \newpage
 \section{Qualitäts-Zielbestimmungen}
