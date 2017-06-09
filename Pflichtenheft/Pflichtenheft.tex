@@ -58,17 +58,17 @@
 \newglossaryentry{Benutzername}
 {
 	name={Benutzername},
-	description={Ein im System nicht-eindeutiger Name, den der Benutzer jederzeit ändern kann.},
+	description={Ein im System nicht-eindeutiger Name, den der Benutzer jederzeit ändern kann},
 }
 \newglossaryentry{Hauptansicht}
 {
 	name={Hauptansicht},
-	description={Ansicht, die geöffnet wird, sobald sich ein Benutzer angemeldet hat. Dies entspricht der Ansicht in Abbildung \ref{hauptansicht}.},
+	description={Ansicht, die geöffnet wird, sobald sich ein Benutzer angemeldet hat. Dies entspricht der Ansicht in Abbildung \ref{hauptansicht}},
 }
 \newglossaryentry{App}
 {
 	name={App},
-	description={mobile Applikation, die auf dem Smartphone/Tablet des Benutzers installiert ist. Der Benutzer interagiert ausschließlich mit der Applikation und nicht mit dem Webserver direkt.},
+	description={mobile Applikation, die auf dem Smartphone/Tablet des Benutzers installiert ist. Der Benutzer interagiert ausschließlich mit der Applikation und nicht mit dem Webserver direkt},
 }
 \newglossaryentry{losgehen}
 {
@@ -83,13 +83,18 @@
 \newglossaryentry{Clustering}
 {
 	name={Clustering},
-	description={Clustering bezeichnet den Vorgang, nahe beieinander gelegene Datenpunkte (im Kontext der App sind dies die Standorte der GO-Teilnehmer) zu einer Gruppe (sprich einem Cluster) zusammenzufassen.}
+	description={Clustering bezeichnet den Vorgang, nahe beieinander gelegene Datenpunkte (im Kontext der App sind dies die Standorte der GO-Teilnehmer) zu einer Gruppe (sprich einem Cluster) zusammenzufassen}
 }
 \newglossaryentry{Android-Benachrichtigung}
 {
 	name={Android-Benachrichtigung},
-	description={Benachrichtigungen, die dem Benutzer auf dem Smartphone-Bildschirm angezeigt werden, soblad etwas Neues in der App passiert ist. Dies erfordert nicht das Öffnen der App.},
+	description={Benachrichtigungen, die dem Benutzer auf dem Smartphone-Bildschirm angezeigt werden, soblad etwas Neues in der App passiert ist. Dies erfordert nicht das Öffnen der App},
 	plural={Android-Benachrichtigungen}
+}
+\newglossaryentry{GO-Teilnehmer}
+{
+	name={GO-Teilnehmer},
+	description={Ein Mitglied der zu dem GO gehörigen Gruppe, dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lautet},
 }
 
 
@@ -139,7 +144,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 		\item Unterscheidung zwischen Administrator der Gruppe und ordentlichen Teilnehmer der Gruppe.
 		\item Unterscheidung zwischen GO-Verantwortlichen und ordentlichen Teilnehmer der Gruppe.
 	 	\item Der App-Benutzer kann sich in der App registrieren und damit einen Benutzeraccount erstellen.
-	 	\item Der Benutzer kann sich mithilfe von Google-Account im System anmelden und vom System abmelden.
+	 	\item Der Benutzer kann sich mithilfe von Google-Account im \gls{System} anmelden und vom System abmelden.
 	 	\item Der Benutzer kann seinen Benutzeraccount löschen.
 	 	\item Der Benutzer kann die 'About'-Seite einsehen.
 	 	\item Der Benutzer kann Lizenzinformationen einsehen.
@@ -405,7 +410,7 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 \subsection{GO-Funktionen}
 
 \subsubsection{Übersicht}
-Die GO-Funktionen erlauben das Erstellen, Verwalten und Löschen von sogenannten GOs, also Events bei denen die Standorte der GO-Teilnehmer von System verfolgt und in der App angezeigt werden. Das System unterscheidet zwischen zwei Rollen: Gruppenmitglieder und GO-Verantwortliche. GO-Verantwortliche sind gleichzeitig auch Gruppenmitglieder, sind aber bei der Änderung ihres Teilnahmestatus in der Funktionalität eingeschränkt (nähere Erläuterung im folgenden Abschnitt).
+Die GO-Funktionen erlauben das Erstellen, Verwalten und Löschen von sogenannten GOs, also Events bei denen die Standorte der \gls{GO-Teilnehmer} von System verfolgt und in der App angezeigt werden. Das System unterscheidet zwischen zwei Rollen: Gruppenmitglieder und GO-Verantwortliche. GO-Verantwortliche sind gleichzeitig auch Gruppenmitglieder, sind aber bei der Änderung ihres Teilnahmestatus in der Funktionalität eingeschränkt (nähere Erläuterung im folgenden Abschnitt).
 
 	\begin{figure}[H]
 		\centering
@@ -743,12 +748,16 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*]
-	\item\label{Registrieren-Test} Bob öffnet die App, gibt die Anmeldedaten seines Google-Accounts ein und klickt auf den Button 'Sign In'.
-	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet seine Profilansicht und klickt auf den Button 'Profil ändern'. Er gibt in das Textfeld 'Benutzername' den Namen 'Bob' ein. Er klickt auf den Button 'Bild wählen'. Er wählt ein Bild aus dem Foto-Ordner des Android-Geräts aus. Er klickt auf den Button 'Änderungen speichern'.
-	\item Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet die Ansicht 'Einstellungen' und klickt auf das Feld 'Abmelden'.
+	\item\label{Registrieren-Test} \textbf{Aktion:} Bob öffnet die App, gibt die gültigen Anmeldedaten seines Google-Accounts ein und klickt auf den Button 'Sign In'. \\
+									\textbf{Reaktion:} Das System lädt die Hauptansicht von Bobs Benutzerprofil.\\
+									\textbf{getestete Funktion: }\ref{Registrieren}
+	\item \textbf{Aktion:} Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet seine Profilansicht und klickt auf den Button 'Profil ändern'. Er gibt in das Textfeld 'Benutzername' den Namen 'Bob' ein. Er klickt auf den Button 'Bild wählen'. Er wählt ein Bild aus dem Foto-Ordner des Android-Geräts aus. Er klickt auf den Button 'Änderungen speichern'. \\
+		  \textbf{Reaktion:} Die neuen Daten werden in der Datenbank des Systems gespeichert. Sie werden in Bobs Profilansicht angezeigt.\\
+		  \textbf{getestete Funktion: }\ref{Persönliche Daten ändern}
+	\item \textbf{Aktion:} Bob ist in seinem Benutzeraccount angemeldet. Bob öffnet die Ansicht 'Einstellungen' und klickt auf das Feld 'Abmelden'.\\
+		  \textbf{Reaktion:} Das System lädt die Anmelde-Seite.\\
+		  \textbf{getestete Funktion: }\ref{Abmelden}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{Registrieren}, \ref{Persönliche Daten ändern}, \ref{Abmelden}
 
 \subsubsection*{Szenario 2}Bob will die App GO nicht mehr benutzen. Er will deshalb seinen Benutzeraccount löschen. \\
 
@@ -758,11 +767,13 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob meldet sich in seinem Benutzeraccount an. 
-	\item Bob ist in seinem Benutzeraccount angemeldet. Er öffnet seine Profilansicht und klickt auf den Button 'Profil löschen'.
+	\item \textbf{Aktion:} Bob meldet sich in seinem Benutzeraccount an. \\
+	\textbf{Reaktion:} Das System lädt die Hauptansicht von Bobs Profil.\\
+	\textbf{getestete Funktion:} \ref{Anmelden}
+	\item \textbf{Aktion:} Bob ist in seinem Benutzeraccount angemeldet. Er öffnet seine Profilansicht und klickt auf den Button 'Profil löschen'.\\
+	\textbf{Reaktion:} Bobs Daten werden aus der Datenbank gelöscht. Die App lädt die Anmelde-Seite.\\
+	\textbf{getestete Funktion:} \ref{Benutzerkonto löschen}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{Anmelden}, \ref{Benutzerkonto löschen}
 
 \subsection{Erstellen, Verwalten, Löschen einer Gruppe}
 
@@ -774,13 +785,26 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob klickt in der Gruppenansicht auf das Feld 'neue Gruppe'. Er gibt in das Eingabefeld den Gruppennamen 'Foo' ein.
-	\item Bob öffnet die Gruppendetailansicht und klickt auf den Button 'Gruppe bearbeiten'. Er gibt den Gruppennamen 'Bar' und die Gruppenbeschreibung 'FooBar' ein.
-	\item Bob öffnet die Gruppenansicht der App. Ihm wird die gruppe 'Bar' angezeigt.
-	\item Bob öffnet die Gruppendetailansicht und klickt auf das Feld 'Mitglied hinzufügen'. Er gibt in das Suchfeld Alice's E-Mailadresse ein. Er wählt aus den Suchresultaten Alice's Profil aus. Er wiederholt den Vorgang, um Peter ur Gruppe hinzuzufügen.
-	\item Alice hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Sie bestätigt die Gruppenanfrage.
-	\item Peter hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Er lehnt die Gruppenanfrage ab.
-	\item Alice ruft die Gruppendetailansicht auf. Ihr werden folgende Informationen angezeigt:
+	\item \textbf{Aktion:} Bob klickt in der Gruppenansicht auf das Feld 'neue Gruppe'. Er gibt in das Eingabefeld den Gruppennamen 'Foo' ein und bestätigt die Eingabe.\\
+	\textbf{Reaktion:} Das System lädt die Gruppendetailansicht der Gruppe 'Foo'. Bob ist das einzige Mitglied und Administrator.\\
+	\textbf{gestestete Funktion:} \ref{Gruppe erstellen}
+	\item \textbf{Aktion:} Bob öffnet die Gruppendetailansicht und klickt auf den Button 'Gruppe bearbeiten'. Er gibt den Gruppennamen 'Bar' und die Gruppenbeschreibung 'FooBar' ein.\\
+	\textbf{Reaktion:} Die neuen Gruppendaten werden in der Gruppendetailansicht angezeigt.\\
+	\textbf{gestestete Funktion:} \ref{Gruppendaten ändern}
+	\item \textbf{Aktion:} Bob öffnet die Gruppenansicht der App.\\
+	\textbf{Reaktion:} Es wird die Gruppe 'Bar' angezeigt.\\
+	\textbf{getestete Funktion: }\ref{Gruppen anzeigen}
+	\item \textbf{Aktion:} Bob öffnet die Gruppendetailansicht und klickt auf das Feld 'Mitglied hinzufügen'. Er gibt in das Suchfeld Alice's E-Mailadresse ein. Er wählt aus den Suchresultaten Alice's Profil aus. Er wiederholt den Vorgang, um Peter zur Gruppe hinzuzufügen.\\
+	\textbf{Reaktion:} In der Gruppendetailansicht von Bob werden Alice und Peter als potenzielle Mitglieder angzeigt. Alice und Peter erhalten Gruppenanfragen.\\
+	\textbf{getestete Funktion: }\ref{Mitglieder hinzufügen}
+	\item \textbf{Aktion:} Alice hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Sie bestätigt die Gruppenanfrage.\\
+	\textbf{Reaktion:} Die Gruppenanfrage wird aus Alice's Gruppenansicht gelöscht. Die App öffnet die Gruppendetailansicht. In Bobs Gruppendetailansicht wird Alice als Gruppenmitglied angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Gruppenanfrage beantworten}
+	\item \textbf{Aktion:} Peter hat eine Gruppenanfrage für die Gruppe 'Bar' bekommen. Er lehnt die Gruppenanfrage ab.\\
+	\textbf{Reaktion:} Die Gruppenanfrage wird aus Peters Gruppenansicht entfernt. In Bobs Gruppendetailansicht wird Peter nicht mehr als potenzielles Mitglied angezeigt.\\
+	\textbf{getestete Funktion: }\ref{Gruppenanfrage beantworten}
+	\item \textbf{Aktion:} Alice ruft die Gruppendetailansicht auf.\\
+	\textbf{Reaktion:} Ihr werden folgende Informationen angezeigt:
 	\begin{itemize}
 		\item Gruppenname: Bar
 		\item Gruppenbeschreibung: FooBar
@@ -788,9 +812,8 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 		\item Administratoren: Bob
 		\item aktuelle GOs: leer
 	\end{itemize}
+	\textbf{getestete Funktion: }\ref{Gruppeninfo anzeigen}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{Gruppe erstellen}, \ref{Gruppendaten ändern}, \ref{Gruppen anzeigen}, \ref{Mitglieder hinzufügen}, \ref{Gruppenanfrage beantworten}, \ref{Gruppeninfo anzeigen}
 
 \subsubsection*{Szenario 4}Nach dem Event wollen Bob, Alice und Peter die Gruppe 'Bar' wieder auflösen.\\
 
@@ -800,14 +823,22 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. Die Aktion schlägt fehl, da Bob der einzige Administrator der Gruppe ist.
-	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Administrator hinzufügen'. Er wählt Alice als neuen Administrator aus.
-	\item Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. Die Aktion ist erfolgreich.
-	\item Alice entfernt Peter aus der Gruppe 'Bar'
-	\item Alice wählt in der Gruppendetailansicht die Option 'Gruppe löschen'.
+	\item \textbf{Aktion:} Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'. \\
+	\textbf{Reaktion:} Die Aktion schlägt fehl, da Bob der einzige Administrator der Gruppe ist.\\
+	\textbf{getestete Funktion:} \ref{aus Gruppe austreten}
+	\item \textbf{Aktion:} Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Administrator hinzufügen'. Er wählt Alice als neuen Administrator aus.\\
+	\textbf{Reaktion:} Alice wird in der Gruppendetailansicht als Administrator angezeigt. Alice wird in der Gruppendetailansicht die Möglichkeit zur Änderungsansicht zu wechseln, angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Admin hinzufügen}
+	\item \textbf{Aktion:} Bob wählt in der Gruppendetailansicht der Gruppe 'Bar' die Option 'Austreten'.\\
+	\textbf{Reaktion:} Die App lädt die Hauptansicht. Die Gruppe 'Bar' wird nicht mehr angezeigt. In Alice's Gruppedetailansicht wird Bob nicht mehr als Mitglied angezeigt.\\
+	\textbf{getestete Funktion:} \ref{aus Gruppe austreten}
+	\item \textbf{Aktion:} Alice entfernt Peter aus der Gruppe 'Bar'.\\
+	\textbf{Reaktion:} Peter wird nicht mehr als Mitglied in der Gruppendetailansicht angezeigt. In Peters Hauptansicht wird die Gruppe 'Bar' nicht mehr angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Gruppenmitglied entfernen}
+	\item \textbf{Aktion:} Alice wählt in der Gruppendetailansicht die Option 'Gruppe löschen'.\\
+	\textbf{Reaktion:} Die App lädt die Hauptansicht. Bei sämtlichen Mitgliedern wird die Gruppe 'Bar' nicht mehr in der Hauptansicht angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Gruppe löschen}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{aus Gruppe austreten}, \ref{Admin hinzufügen}, \ref{Gruppenmitglied entfernen}, \ref{Gruppe löschen}
 
 \subsection{Erstellen, Verwalten und Löschen eines GOs}
 
@@ -819,7 +850,7 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item\label{Go Test} Bob erstellt ein GO mit folgenden Daten:
+	\item\label{Go Test} \textbf{Aktion:} Bob erstellt ein GO mit folgenden Daten:
 	\begin{itemize}
 		\item Name: Mittagessen
 		\item Beshcreibung: Mittagessen im Oxford Pub
@@ -828,17 +859,32 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 		\item Zielort: leer
 		\item Clustering-Schwellwert: 100m
 	\end{itemize}
-	\item Alice ruft die GO-Detailansicht auf, um sich über das GO zu informieren. Ihr werden die Informationen aus Testfall \ref{Go Test} angezeigt.
-	\item Alice setzt ihren Teilnahmestatus auf 'Bestätigt'.
-	\item Alice ruft die GO-Ansicht auf. Ihr wird das GO 'Mittagessen' aus der Gruppe 'Bar' angezeigt.
-	\item Alice setzt ihren Teilnahmestatus manuell auf 'Unterwegs'.
-	\item zum Startzeitpunkt setzt das System Bobs Teilnahemstatus automatisch auf 'Unterwegs' (es ist vorausgesetzt, dass alle anderen Gruppenmitglieder bereits losgegangen sind).
-	\item alle Gruppenmitglieder außer Bob sind als Gruppe (geographisch nah beieinander) unterwegs. Bob kann die Standorte der anderen Gruppenmitglieder nur als Cluster auf der Karte sehen.
-	\item (a) das GO wird von Bob manuell beendet. \\
-	 (b) das GO endet zum Endzeitpunkt automatisch.	
+	\textbf{Reaktion:} Die App lädt die Detailansicht des GOs. In der Gruppendetailansicht der Gruppe 'Bar' wird den Gruppenmitgliedern das GO angezeigt. Das GO wird in Bobs GO-Ansicht angezeigt.\\
+	\item \textbf{Aktion:} Alice ruft die GO-Detailansicht auf, um sich über das GO zu informieren.\\
+	\textbf{Reaktion:} Ihr werden die Informationen aus Testfall \ref{Go Test} angezeigt.\\
+	\textbf{getestete Funktion:} \ref{GO erstellen}
+	\item \textbf{Aktion:} Alice setzt ihren Teilnahmestatus auf 'Bestätigt'.\\
+	\textbf{Reaktion:} Die App lädt die GO-Detailansicht. Alice wird den anderen GO-Teilnehmern in der Detailansicht als GO-Teilnehmerin angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Teilnahmestatus} (a)
+	\item \textbf{Aktion:} Alice ruft die GO-Ansicht auf.\\
+	\textbf{Reaktion:} Ihr wird das GO 'Mittagessen' aus der Gruppe 'Bar' angezeigt.\\
+	\textbf{getestete Funktion:} \ref{GO-Informationen abrufen}
+	\item \textbf{Aktion:} Alice setzt ihren Teilnahmestatus manuell auf 'Unterwegs'.\\
+	\textbf{Reaktion:} Alice's Standort wird erfasst und in der Kartenansicht des GOs angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Teilnahmestatus} (b)
+	\item \textbf{Aktion:} alle Gruppenmitgleider außer Bob sind bereits losgegangen. Der Startzeitpunkt tritt ein.\\
+	\textbf{Reaktion:} Das System setzt Bobs Teilnahmestatus automatisch auf 'Unterwegs'. Bobs Standort wird erfasst und in der Kartenansicht des GOs angezeigt.\\
+	\textbf{getestete Funktion: }\ref{Teilnahmestatus} (b)
+	\item \textbf{Aktion:} alle Gruppenmitglieder außer Bob sind als Gruppe (geographisch nah beieinander) unterwegs.\\
+	\textbf{Reaktion: }Bob kann die Standorte der anderen Gruppenmitglieder nur als Cluster auf der Karte sehen.\\
+	\textbf{getestete Funktion:} \ref{Clustering}, \ref{Anonymisierung}, \ref{Standorte abrufen}, \ref{Standorte verfolgen}
+	\item (a) \textbf{Aktion:} das GO wird von Bob manuell beendet. \\
+	\textbf{Reaktion: }Die App lädt die Hauptansicht. Das Go wird in der Gruppendetailansicht, sowie der GO-Ansicht nicht mehr angezeigt. Es wird von keinem Teilnehmer mehr der Standort erfasst.\\
+	\textbf{getestete Funktion:} \ref{GO beenden}\\
+	 (b) \textbf{Aktion:} das GO endet zum Endzeitpunkt automatisch.\\
+	 \textbf{Reaktion: }Die App lädt die Hauptansicht. Das Go wird in der Gruppendetailansicht, sowie der GO-Ansicht nicht mehr angezeigt. Es wird von keinem Teilnehmer mehr der Standort erfasst.\\	
+	 \textbf{getestete Funktion:} \ref{GO beenden}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{GO erstellen}, \ref{GO-Informationen abrufen}, \ref{Teilnahmestatus} (a), \ref{GO-Anfrage} (b), \ref{GOs anzeigen}, \ref{Clustering}, \ref{Standorte verfolgen}, \ref{Anonymisierung},\ref{Standorte abrufen}, \ref{GO beenden}
 
 \subsubsection*{Szenario 6} Die Pläne der Gruppe ändern sich. Bob muss die Details des GOs ändern. Letztendlich muss das Treffen komplett abgesagt werden, also wird das GO von Bob gelöscht.\\
 
@@ -848,11 +894,13 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob ruft die GO-Detailansicht auf und ändert den Startzeitpunkt des GOs von 15.09.17 12:00 auf 15.09.17 13:00
-	\item Bob beendet das GO
+	\item \textbf{Aktion:} Bob ruft die GO-Detailansicht auf und ändert den Startzeitpunkt des GOs von 15.09.17 12:00 auf 15.09.17 13:00\\
+	\textbf{Reaktion:} Es wird die Detailansicht des GOs geladen. Der neue Startzeitpunkt wird angezeigt.\\
+	\textbf{getestete Funktion:} \ref{GO Daten ändern}
+	\item \textbf{Aktion:} Bob beendet das GO\\
+	\textbf{Reaktion:} Die App lädt die Hauptansicht. Das GO wird nicht mehr in der Gruppendetailansicht angezeigt. Auch in der GO-Ansicht der GO-Teilnehmer wird es nicht mehr angezeigt.\\
+	\textbf{getestete Funktion:} \ref{GO beenden}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{GO Daten ändern}, \ref{GO beenden}
 
 \subsubsection*{Szenario 7}Alice entfernt sich während des GOs von der Gruppe. Sie will nicht, dass man ihren Standort verfolgen kann, deshalb setzt sie ihren Teilnahmestatus von 'Unterwegs' auf 'Bestätigt'. Nach einer Weile entschließt sie sich nicht mehr zu der Gruppe zurückzukehren und verlässt das GO.\\
 
@@ -862,11 +910,13 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Alice ändert ihren Teilnahmestatus auf 'Bestätigt
-	\item Alice ändert ihren Teilnahmestatus auf 'Abgelehnt'
+	\item \textbf{Aktion:} Alice ändert ihren Teilnahmestatus auf 'Bestätigt'.\\
+	\textbf{Reaktion:} Die App lädt die GO-Detailansicht. Alice's Standort wird nicht mehr erfasst. Ihr Standort ist für die anderen GO-Teilnehmer nicht mehr sichtbar.\\
+	\textbf{getestete Funktion:} \ref{Teilnahmestatus} (d)
+	\item \textbf{Aktion:} Alice ändert ihren Teilnahmestatus auf 'Abgelehnt'.\\
+	\textbf{Reaktion:} Die App lädt die Hauptansicht. Alice wird den anderen GO-Teilnehmern nicht mehr als Teilnehmerin angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Teilnahmestatus} (c)
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{losgehen} (d), \ref{austreten} (c)
 
 \subsection{Sonstiges}
 
@@ -878,11 +928,13 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob ruft die About-Seite der App auf.
-	\item Bob ruft die Lizenzinformationen der App auf.
+	\item \textbf{Aktion:} Bob ruft die About-Seite der App auf.\\
+	\textbf{Reaktion:} Die 'About'-Seite wird angezeigt.\\
+	\textbf{getestete Funktion:} \ref{About}
+	\item \textbf{Aktion:} Bob ruft die Lizenzinformationen der App auf.\\
+	\textbf{Reaktion: }Die Lizenzinformationen werden angezeigt.\\
+	\textbf{getestete Funktion:} \ref{Lizenz}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{About}, \ref{Lizenz}
 
 \subsubsection*{Szenario 9} Bob und Alice erstellen gemeinsam eine neue Gruppe mit Alice als Administrator. Bob aktiviert die Benachrichtigungen der App, um zeitnah mitzubekommen, wenn es Neuigkeiten in der Gruppe gibt.\\
 
@@ -892,13 +944,19 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 
 \textbf{Testfälle:}
 \begin{enumerate}[label={\textbf{/T\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
-	\item Bob ändert die Benachrichtigungseinstellungen in seinem Profil auf 'aktiv'.
-	\item Alice fügt Bob der Gruppe 'Foo' hinzu. Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.
-	\item Alice erstellt einen neuen GO in der Gruppe 'Foo'. Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.
-	\item Der Startzeitpunkt des GOs ist eingetreten. Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.
+	\item \textbf{Aktion:} Bob ändert die Benachrichtigungseinstellungen in seinem Profil auf 'aktiv'.\\
+	\textbf{Reaktion: }Die Einstellung wird vom System gespeichert. Der Vorgang ist für den Benutzer nicht sichtbar.\\
+	\textbf{getestete Funktion:} \ref{Benachrichtigungseinstellungen ändern}
+	\item \textbf{Aktion:} Alice fügt Bob der Gruppe 'Foo' hinzu.\\
+	\textbf{Reaktion: }Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.\\
+	\textbf{getestete Funktion:} \ref{Benachrichtigungen senden}
+	\item \textbf{Aktion:} Alice erstellt einen neuen GO in der Gruppe 'Foo'.\\
+	\textbf{Reaktion: }Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.\\
+	\textbf{getestete Funktion:} \ref{Benachrichtigungen senden}
+	\item \textbf{Aktion:} Der Startzeitpunkt des GOs ist eingetreten.\\
+	\textbf{Reaktion: }Bob bekommt eine Benachrichtigung auf seinem Android-Gerät.\\
+	\textbf{getestete Funktion:} \ref{Benachrichtigungen senden}
 \end{enumerate}
-
-\textbf{getestete Funktionen: }\ref{Benachrichtigungseinstellungen ändern}, \ref{Benachrichtigungen senden} \\
 Mit diesen Testfällen sollen speziell die Benachrichtigungsfunktionen der App getestet und nicht die Funktionen zum Erstellen einer Gruppe/eines GOs. Für diese Testfälle ist sicherzustellen, dass diese Funktionen fehlerfrei funktionieren.
 
 % \newpage
