@@ -146,8 +146,7 @@ Die \gls{App} dient der Erleichterung und Strukturierung von Gruppentreffen.
 Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinbarungsprozess reinbringen.  
 \subsection{Musskriterien}
 
-\begin{itemize}[itemsep=0pt]
-	\item Der Benutzer  
+\subsubsection*{Benutzer}
 	\begin{itemize}
 		\item Unterscheidung zwischen Administrator der Gruppe und ordentlichen Teilnehmer der Gruppe.
 		\item Unterscheidung zwischen GO-Verantwortlichen und ordentlichen Teilnehmer der Gruppe.
@@ -158,19 +157,19 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 	 	\item Der Benutzer kann Lizenzinformationen einsehen.
 	\end{itemize} 
 	
-	\item Die Gruppen
+\subsubsection*{Die Gruppen}
 	\begin{itemize}
 	 	\item Der Benutzer kann eine Anfrage auf Gruppenmitgliedschaft bekommen und beantworten.
 	 	\item Der Benutzer kann eine Gruppe erstellen.
 	 \end{itemize}
-	 Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied ist.
+Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied ist.
 	 \begin{itemize}
 	 	\item Der Benutzer kann alle seinen Gruppen einsehen.
 	 	\item Der Benutzer kann die Systeminformationen zu den Gruppen einsehen.
 	 	\item Der Benutzer kann aus der Gruppe austreten.
 	\end{itemize}
 	
-	\item Der \gls{Administrator} der Gruppe\\
+\subsubsection*{Der \gls{Administrator} der Gruppe}
 	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig Administrator ist.
 	\begin{itemize}
 		\item Der Administrator kann Gruppendaten ändern.
@@ -179,7 +178,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 		\item Der Administrator kann die Gruppe löschen.  
 	\end{itemize}
 	
-	\item Die \glspl{GO}\\
+\subsubsection*{Die \glspl{GO}}
 	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied ist.
 	\begin{itemize}
 		\item Der Benutzer kann ein GO erstellen.
@@ -189,7 +188,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 		\item Der Benutzer mit dem Teilnahmetatus 'Bestätigt' oder 'Unterwegs' kann den gemittelten und anonymisierten GPS-Standort der losgegangenen Teilnehmer des aktuellen GO's einsehen.
 	\end{itemize}
 	
-	\item Der GO-Verantwortliche eines GO's\\
+\subsubsection*{Der GO-Verantwortliche}
 	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig \gls{GO-Verantwortlicher} eines GOs ist.
 	\begin{itemize}
 		\item Der GO-Verantwortliche kann die GO-Daten ändern.
@@ -197,15 +196,13 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 		\item Der GO-Verantwortliche kann das GO löschen.
 	\end{itemize}
 	
-	\item Sonstiges
+\subsubsection*{Sonstiges}
 	\begin{itemize}
 		\item Das System kann GPS-Standorte der Benutzer mit dem Teilnahmetatus 'Unterwegs' verfolgen.
 		\item Das System stellt die Anonymität des Benutzers durch \gls{Clustering} und Anonymisierung des GPS-Standortes sicher.
 		\item Das System kann die GPS-Standorte der losgegangenen Benutzer zu einem Cluster zusammenfassen.
 	\end{itemize}
-\end{itemize}
 
-\newpage
 	
 \subsection{Wunschkriterien}
 \begin{itemize}
@@ -222,13 +219,13 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 
 \subsection{Abgrenzungskriterien}
 \begin{itemize}
-\item Es werden weder direkte Messagingfunktion noch ähnliche Funktionen von Social Media Plattformen wie Facebook geboten.
+\item Es werden weder direkte Messagingfunktionen, noch andere ähnliche Funktionen von Social Media Plattformen wie Facebook (Statusmeldungen, Kommentare, etc.) geboten.
 \item Die GPS-Funktionen beinhalten keine Navigationshilfen.
 \item Benutzer ohne Google-Account werden nicht unterstützt.
 \item Die Standortverfolgung wird im Fall von weniger 3 losgegangen Benutzern nicht ausgeführt. %nur nach ausdrücklichem Wunsch des Benutzers?
 %TODO Soll das Weitere hier hin?
 %\item Die GO-Daten können nicht mehr geändert werden, sobald der Startzeitpunkt eingetreten ist. %Ich glaube, es ist nicht wichtig hier
-\item Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse und Passwort zum Anmelden) können nicht in der App geändert werden.
+\item Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse und Passwort zum Anmelden) können nicht in der App geändert werden, sondern nur über Google-Dienste.
 %\item Der Teilnahmestatus eines GO-Verantwortlichen kann nur 'Bestätigt' oder 'Unterwegs' lauten. %Das auch unwichtig
 \end{itemize}
 
@@ -310,17 +307,17 @@ Die Benutzerkontofunktionen erlauben das Erstellen, Verwalten und Löschen von B
 		\item E-Mail Adresse mit der der Benutzer bei Google registriert ist
 		\item Passwort des Google-Accounts des Benutzers
 	\end{itemize}
-	Sind die Angaben korrekt wird der Benutzer vom System in sein GO-Benutzeraccount eingeloggt. Der Benutzer bleibt eingeloggt, bis er die Funktion \ref{Abmelden} ausführt, dies gilt auch für das zwischenzeitliche Schließen der App.
+	Sind die Angaben korrekt wird der Benutzer vom System in sein GO-Benutzeraccount eingeloggt. Der Benutzer bleibt eingeloggt, bis er die Funktion \ref{Abmelden} ausführt. Dies gilt auch für das zwischenzeitliche Schließen der App.
 	
 	%\item \textit{Benutzerkennung anfordern} \\ Ein Benutzer kann, sollte er sein Passwort vergessen haben, seine Benutzerkennung anfordern und eine neues Passwort setzen. Wird auf dem Anmeldescreen (vgl. *GUI-Ansicht*) die 'Passwort vergessen'-Option gewählt, schickt der Server dem Benutzer eine SMS mit einem Zugangscode. Dieser Zugangscode ist 10min lang gültig. Der Benutzer gibt den Zugangscode ein und kann anschließend eine neues Passwort setzen. Danach loggt das System den Benutzer ein und lädt die Hauptansicht der Applikation. Beim nächsten Anmelden kann sich der Benutzer mit dem neuen Passwort anmelden.
 	
-	\item \colorbox{shadecolor}{\textit{Persönliche Daten ändern}\label{Persönliche Daten ändern}} \\ Das System speichert persönliche Daten der Benutzer (siehe  \ref{persönliche Daten}). Der Benutzer kann diese Daten ändern. Dazu ruft der Benutzer sein Profil auf und betätigt die Schaltfläche 'Profil bearbeiten'. In der sich öffnenden Aktivität kann der Benutzer die gewünschten Änderungen vornehmen und mit dem Button 'Profil speichern' sichern. Die geänderten Daten werden dann vom System übernommen.\\
+	\item \colorbox{shadecolor}{\textit{Persönliche Daten ändern}\label{Persönliche Daten ändern}} \\ Das System speichert persönliche Daten der Benutzer (siehe  \ref{persönliche Daten}). Der Benutzer kann diese Daten ändern. Dazu ruft der Benutzer die Einstellungsansicht auf und betätigt die Schaltfläche 'Profil bearbeiten'. In der sich öffnenden Aktivität kann der Benutzer die gewünschten Änderungen vornehmen und mit dem Button 'Profil speichern' sichern. Die geänderten Daten werden dann vom System übernommen.\\
 Daten, die mit dem Google-Account des Benutzers verknüpft sind (E-Mail Adresse und Passwort zum Anmelden) können nicht geändert werden.
 	
 	\item \textit{Abmelden}\label{Abmelden} \\ Ein Benutzer kann sich aus seinem Account abmelden, indem er in der Einstellungs-Ansicht die Option 'Abmelden' auswählt. Das System meldet daraufhin den Benutzer von seinem Benutzerkonto ab und lädt die Anmelde-Ansicht (vgl. Abbildung \ref{login}).
 	
 	\item \textit{Benutzerkonto l"oschen}\label{Benutzerkonto löschen}\\
-	Ein Benutzer hat die Möglichkeit seinen Benutzeraccount zu löschen. Dazu ruft der Benutzer sein Profil auf und betätigt den Button 'Profil löschen'. Das System fragt den Benutzer ob das Konto wirklich gelöscht werden soll. Wird dies bestätigt so wird der Benutzer von dem System aus seinem Account ausgeloggt. Anschließend löscht das System alle Daten des Benutzerkontos (vgl. \ref{Profildaten}) und entfernt den Benutzer aus sämtlichen Gruppen und GO's denen er zuvor beigetreten war.
+	Ein Benutzer hat die Möglichkeit seinen Benutzeraccount zu löschen. Dazu ruft der Benutzer die Einstellungsansicht auf und betätigt den Button 'Profil löschen'. Das System fragt den Benutzer ob das Konto wirklich gelöscht werden soll. Wird dies bestätigt so wird der Benutzer von dem System aus seinem Account ausgeloggt. Anschließend löscht das System alle Daten des Benutzerkontos (vgl. \ref{Profildaten}) und entfernt den Benutzer aus sämtlichen Gruppen und GO's denen er zuvor beigetreten war.
 \end{enumerate}
 
 \subsection{Gruppenfunktionen}
@@ -367,8 +364,8 @@ Im folgenden Abschnitt wird angenommen, dass der Benutzer ein Benutzerkonto besi
 	\item \textit{Gruppenanfrage beantworten}\label{Gruppenanfrage beantworten} \\
 	Diese Funktion setzt voraus, dass ein Benutzer eine Anfrage auf Gruppenmitgliedschaft von einem anderen Benutzer bekommen hat (vgl. Funktion \ref{Mitglieder hinzufügen}). Dem Benutzer werden offene Gruppenanfragen durch ein farblich hinterlegtes Gruppenicon in der Hauptansicht angezeigt. Durch Klicken auf das Icon wird die Funktion "Gruppenanfrage beantworten" gestartet. Der Benutzer hat zwei Möglichkeiten auf die Anfrage zu reagieren:
 	\begin{itemize}
-		\item \textit{Bestätigen} bestätigt der Benutzer die Anfrage, so wird er vom System der Gruppe hinzugefügt. Sie erscheint ab sofort in seiner Gruppenübersicht und der Benutzer hat die Befugnis sämtliche öffentlichen Gruppenfunktionen für die Gruppe aufzurufen.
-		\item \textit{Ablehnen} lehnt der Benutzer die Anfrage ab, wird diese Gruppenanfrage aus der Hauptansicht gelöscht und dem Benutzer wieder die Hauptansicht gezeigt.
+		\item \textit{Bestätigen} \\Bestätigt der Benutzer die Anfrage, so wird er vom System der Gruppe hinzugefügt. Sie erscheint ab sofort in seiner Gruppenübersicht und der Benutzer hat die Befugnis sämtliche öffentlichen Gruppenfunktionen für die Gruppe aufzurufen.
+		\item \textit{Ablehnen} \\Lehnt der Benutzer die Anfrage ab, wird diese Gruppenanfrage aus der Hauptansicht gelöscht und dem Benutzer wieder die Hauptansicht gezeigt.
 	\end{itemize}
 Nach Beantwortung der Anfrage wird diese vom System gelöscht.
 \end{enumerate}
@@ -395,8 +392,10 @@ Um eine der folgenden Funktionen ausführen zu können muss der Administrator zu
 	Ein Administrator kann beliebige Mitglieder der Gruppe entfernen, indem er in der Änderungsansicht der Gruppe das rote Minuszeichen neben dem zu entfernenden Benutzer anklickt und anschließend die Durchführung der Aktion bestätigt. Der ausgewählte Benutzer wird vom System aus der Gruppe entfernt.
 	
 	\item \colorbox{shadecolor}{\textit{Admin hinzuf"ugen}}\label{Admin hinzufügen} \\
-	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er den 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus. Das System ändert die Rolle des Gruppenmitglieds zu 'Administrator'. Das Gruppenmitglied kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen. Ein Administrator kann den Administrator-Status von anderen Administratoren nicht wieder entfernen.
-	
+	Ein Administrator kann ein weiteres Mitglied der Gruppe zum Administrator ernennen. Dazu wählt er die 'Als Admin hinzufügen'-Option neben dem gewünschten Gruppenmitglied aus. Das System ändert die Rolle des Gruppenmitglieds zu 'Administrator'. Das Gruppenmitglied kann ab sofort alle Funktionen eines Administrators der Gruppe ausführen. Ein Administrator kann den Administrator-Status von anderen Administratoren nicht wieder entfernen.
+
+\newpage
+
 	\item \textit{Gruppe l"oschen}\label{Gruppe löschen} \\
 	Ein Administrator kann eine Gruppe löschen indem er den 'Gruppe löschen'-Button auswählt. Das System löscht die Gruppe. Sie wird ab diesem Zeitpunkt nicht mehr in der Gruppenansicht der Mitglieder angezeigt. Mitglieder erhalten keine Benachrichtigung über die Löschung der Gruppe.
 	
@@ -459,13 +458,13 @@ Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO �
 	Mitglieder einer Gruppe können zu jeder Zeit einem aktuellen GO der Gruppe beitreten. Dazu wird vorausgesetzt, dass der aktuelle Teilnahmestatus des Gruppenmitglieds 'Abgelehnt' ist. In der Gruppendetailansicht kann der Benutzer die Option 'Beitreten' des gewünschten GOs anklicken. Das System wird  veranlasst, den Teilnahmestatus des Benutzers auf 'Bestätigt' zu setzen. Sobald dies geschehen ist, kann der Benutzer die GO-Detailansicht (vgl. Abbildung \ref{goinfo}) aufrufen.
 	
 	\item (b) \textit{Losgehen}\label{losgehen} \\
-	Um diese Funktion ausführen zu können, muss der Teilnahmestatus des Benutzers auf 'Bestätigt' gesetzt sein. Sobald der Button 'Losgehen' betätigt wurde wird der Teilnahmestatus des Benutzers vom System auf 'Unterwegs' gesetzt und die GPS-Verfolgung des Benutzers wird aktiviert und für andere GO-Mitglieder, deren Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, sichtbar. Sobald der Startzeitpunkt eintritt, wird der Teilnahmestatus von Benutzern, die 'Bestätigt', aber noch nicht 'Unterwegs' sind, automatisch auf 'Unterwegs' gesetzt.
+	Um diese Funktion ausführen zu können, muss der Teilnahmestatus des Benutzers auf 'Bestätigt' gesetzt sein. Sobald der Button 'Losgehen' betätigt wurde wird der Teilnahmestatus des Benutzers vom System auf 'Unterwegs' gesetzt. Die GPS-Verfolgung des Benutzers wird aktiviert und für andere GO-Mitglieder, deren Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, sichtbar. Sobald der Startzeitpunkt eintritt, wird der Teilnahmestatus von Benutzern, die 'Bestätigt', aber noch nicht 'Unterwegs' sind, automatisch auf 'Unterwegs' gesetzt.
 	
 	\item (c) \textit{Aus Event austreten}\label{austreten} \\
-Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt'. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System zeigt die Ansicht, wo der Benutzer die GO geclickt hat und zeigt jetzt den Status dieses GOs als 'Abgelehnt'.
+Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus GO austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt'. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System zeigt die Ansicht, wo der Benutzer die GO geclickt hat und zeigt jetzt den Status dieses GOs als 'Abgelehnt'.
 	
 	\item (d) \textit{Anhalten}\label{anhalten} \\
-	Ein Benutzer dessen Teilnahmestatus 'Unterwegs' lautet kann diesen zurück auf 'Bestätigt' setzen, indem er die Option 'Anhalten' auswählt. Das System ändert den Teilnahmestatus und stoppt die GPS-Verfolgung des Benutzers.
+	Ein Benutzer dessen Teilnahmestatus 'Unterwegs' lautet, kann diesen zurück auf 'Bestätigt' setzen, indem er die Option 'Anhalten' auswählt. Das System ändert den Teilnahmestatus und stoppt die GPS-Verfolgung des Benutzers.
 	
 	\end{itemize}
 	
@@ -558,7 +557,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 			\item \textit{Benutzerkennung}
 				\begin{itemize}
 					\item Benutzer-ID (eindeutig, erzeugt von der verwendeten Firebase Authentication)
-					\item E-Mailadresse des zum Anmelden verwendeten Google-Accounts
+					\item E-Mail Adresse des zum Anmelden verwendeten Google-Accounts
 				\end{itemize}
 			\item \textit{Persönliche Daten} \label{persönliche Daten} 
 			\begin{itemize}
@@ -602,7 +601,7 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 \section{Nichtfunktionale Anforderungen}
 \begin{enumerate}[label={\textbf{/NF\protect\threedigits{\theenumi}0/}}, leftmargin=*]
 		\item \textit{Anonymisierung des Standortes} \\
-		Um den Datenschutz, beziehungsweise die Privatsphäre der Benutzer zu garantieren, findet die Lokalisierung und Mittlung der Standorte(via GPS) der Mitglieder einer Gruppe, die sich einem Event angeschlossen haben, erst ab einer Teilnehmerzahl von 3 statt. 
+		Um den Datenschutz, beziehungsweise die Privatsphäre der Benutzer zu garantieren, findet die Lokalisierung und Mittelung der Standorte (via GPS) der Mitglieder einer Gruppe, die sich einem Event angeschlossen haben, erst ab einer Teilnehmerzahl von 3 statt. 
 		
 		\item \textit{Eventlimit} \\
 		Die Anzahl an gleichzeitig möglichen GOs ist auf 10 GOs pro Gruppe beschränkt um mögliche Überlastungen des Servers durch Schadsoftware oder böswillige Nutzer zu verhindern.
@@ -617,17 +616,20 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 		Der Server erlaubt einen zuverlässigen Dienst nur bis zu einem Maximum von 300 möglichen Gruppen und 5000 Nutzern. Werden diese Werte überschritten, kann die problemlose Abarbeitung von Serveranfragen nicht mehr garantiert werden.
 		
 		\item \textit{Standortaktualisierungszeit} \\
-		Die Aktualisierung der Standortmittlung findet alle 8 Sekunden statt.
+		Die Aktualisierung der Standortmittelung findet alle 8 Sekunden statt.
 		
 		\item \textit{Automatisches Ausloggen} \\
-		Der Nutzer wird nicht automatisch ausgeloggt sollte die App inaktiv oder geschlossen werden. Nur im Falle, dass der Nutzer sich auf einem anderen Gerät einloggt wird er auf dem vorigen ausgeloggt.
+		Der Nutzer wird nicht automatisch ausgeloggt, sollte die App inaktiv oder geschlossen werden. Nur im Falle, dass der Nutzer sich auf einem anderen Gerät einloggt wird er auf dem vorigen ausgeloggt.
 		
 		\item \textit{Startzeit} \\
 		Die Startzeit der App sollte nicht länger als 5 Sekunden betragen. \\
-		Referenzgerät: Samsung Galaxy S7 mit Android 7.0
+		Referenzgerät: Samsung Galaxy S7 mit Android 7.0. Alle anderen Anwendungen sind auf dem Referenzgerät vor des Tests zu beenden.
 		
 		\item \textit{Ausfallzeiten} \\
 		Der Dienst der App ist für maximal 3 Tage pro Jahr nicht verfügbar.
+		
+		\item \textit{Einfache Handhabung}\\
+		Für sämtliche Funktionen gilt: Um von der Hauptansicht der App (nach der Anmeldung) zur Ausführungsaktivität zu gelangen sind maximal 3 Klicks nötig. Die Ausführungsaktivität ist die Ansicht der App, in der die Ausführung der Funktion beginnt (z.B. beginnt die Ausführung der Funktion 'Gruppenmitglied hinzufügen', nachdem er Button 'Mitglied hinzufügen' in der Gruppenänderungsansicht gedrückt wurde).
 		
 \end{enumerate}
 
@@ -644,7 +646,7 @@ Im untenstehenden Flowchart wird die Struktur der grafischen Benutzeröberfläch
 	\vspace{1cm}
 	\end{figure}
 
-Die App besteht im Wesentlichen aus sechs Ansichten, die den Benutzer sämtliche Funktionen ausführen lassen (+ eine Login-Seite zum Anmelden/Registrieren). Diese werden durch verschiedene Änderungsansichten erweitert, sollte der Benutzer spezielle Rollen inne haben.
+Die App besteht im Wesentlichen aus sechs Ansichten, die den Benutzer sämtliche Funktionen ausführen lassen (+ eine Login-Seite zum Anmelden/Registrieren). Diese werden durch verschiedene Änderungsansichten erweitert, sollte der Benutzer spezielle Rollen innehaben.
 
 \newpage
 
@@ -665,19 +667,19 @@ Beim Starten der App, beziehungsweise nach erfolgreichem Anmelden/Registrieren a
   \vspace{1cm}
 \end{figure}
 
-Von der Hauptansicht kann der Benutzer durch auswählen einer Gruppe in die Detailansicht dieser Gruppe gelangen (vgl. Abbildung \ref{gruppendetailansicht} und Abbildung \ref{gruppeninfo}). Sollte es sich bei dem Benutzer um einen Administrator handeln, so wird die Gruppendetailansicht erweitert durch die Änderungsansicht der Gruppe, in der spezielle Administratorfunktionen (z.B: Gruppendaten ändern, Mitglieder hinzufügen, etc.) ausgeführt werden können.
+Von der Hauptansicht kann der Benutzer durch Auswählen einer Gruppe in die Detailansicht dieser Gruppe gelangen (vgl. Abbildung \ref{gruppendetailansicht} und Abbildung \ref{gruppeninfo}). Sollte es sich bei dem Benutzer um einen Administrator handeln, so wird die Gruppendetailansicht erweitert durch die Änderungsansicht der Gruppe, in der spezielle Administratorfunktionen (z.B: Gruppendaten ändern, Mitglieder hinzufügen, etc.) ausgeführt werden können.
 
 \begin{figure}[H]
   \vspace{1cm}
   \centering
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{GUI/AndroidStudio/group_view.PNG}
-	\caption{Gruppendetailansicht}\label{gruppendetailansicht}
+	\caption{Gruppendetailansicht - GOs der Gruppe}\label{gruppendetailansicht}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{GUI/AndroidStudio/group_info.PNG}
-	\caption{Gruppeninfo}\label{gruppeninfo}
+	\caption{Gruppendetailansicht - Gruppeninformationen}\label{gruppeninfo}
   \end{minipage}
   \vspace{1cm}
 \end{figure}
@@ -725,9 +727,9 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 	\end{center}
 \end{table}
 
-\textbf{Hoher Fokus:}\\ Sowohl die Bedienbarkeit als auch die Verständlichkeit der App erhalten bei der Entwicklung einen großen Fokus, weil wir viel Wert auf ein simples und verständliches Design legen, um eine möglichst einfache und unkomplizierte Bedienung der App, sowie dass volle ausnutzen ihrer Funktionalitäten erlauben möchten.
+\textbf{Hoher Fokus:}\\ Sowohl die Bedienbarkeit als auch die Verständlichkeit der App erhalten bei der Entwicklung einen großen Fokus. Wir legen viel Wert auf ein simples und verständliches Design, um eine möglichst einfache und unkomplizierte Bedienung der App zu erlauben. Die volle Ausnutzen der Funktionalitäten soll im Mittelpunkt stehen. %Ich hab den einen Satz mal in 3 Teile geteilt :) war sonst ein bisschen lang
 	
-\textbf{Höchster Fokus:}\\ Die Funktionalität ist ein Eckpunkt der größere Aufmerksamkeit bekommt, da der gesamte Wert der App sich anhand ihrer Operationsfähigkeit, ihrer Funktionen und der Umsetzung dieser messen lässt. Dabei spielt die Anpassbarkeit der App eine ebenso große Rolle, da das zukünftige Umsetzen neuer Ideen und möglicher Funktionen ein wichtiger Bestandteil der Wettbewerbsfähigkeit einer App ist.
+\textbf{Höchster Fokus:}\\ Die Funktionalität ist ein Eckpunkt der die größte Aufmerksamkeit bekommt, da der gesamte Wert der App sich anhand ihrer Operationsfähigkeit, ihrer Funktionen und der Umsetzung dieser messen lässt. Dabei spielt die Anpassbarkeit der App eine ebenso große Rolle, da das zukünftige Umsetzen neuer Ideen und möglicher Funktionen ein wichtiger Bestandteil der Wettbewerbsfähigkeit einer App ist.
 
 % Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit, Übertragbarkeit
 
@@ -868,7 +870,7 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 	\item \textbf{Aktion:} Alice setzt ihren Teilnahmestatus manuell auf 'Unterwegs'.\\
 	\textbf{Reaktion:} Alice's Standort wird erfasst und in der Kartenansicht des GOs angezeigt.\\
 	\textbf{getestete Funktion:} \ref{Teilnahmestatus} (b)
-	\item \textbf{Aktion:} alle Gruppenmitgleider außer Bob sind bereits losgegangen. Der Startzeitpunkt tritt ein.\\
+	\item \textbf{Aktion:} alle Gruppenmitglieder außer Bob sind bereits losgegangen. Der Startzeitpunkt tritt ein.\\
 	\textbf{Reaktion:} Das System setzt Bobs Teilnahmestatus automatisch auf 'Unterwegs'. Bobs Standort wird erfasst und in der Kartenansicht des GOs angezeigt.\\
 	\textbf{getestete Funktion: }\ref{Teilnahmestatus} (b)
 	\item \textbf{Aktion:} alle Gruppenmitglieder außer Bob sind als Gruppe (geographisch nah beieinander) unterwegs.\\
@@ -878,7 +880,7 @@ Bestimmung der Schwerpunkte in der Entwicklung dieser App:
 	\textbf{Reaktion: }Die App lädt die Hauptansicht. Das Go wird in der Gruppendetailansicht, sowie der GO-Ansicht nicht mehr angezeigt. Es wird von keinem Teilnehmer mehr der Standort erfasst.\\
 	\textbf{getestete Funktion:} \ref{GO beenden}\\
 	 (b) \textbf{Aktion:} das GO endet zum Endzeitpunkt automatisch.\\
-	 \textbf{Reaktion: }Die App lädt die Hauptansicht. Das Go wird in der Gruppendetailansicht, sowie der GO-Ansicht nicht mehr angezeigt. Es wird von keinem Teilnehmer mehr der Standort erfasst.\\	
+	 \textbf{Reaktion: }Die App lädt die Hauptansicht. Das GO wird in der Gruppendetailansicht, sowie der GO-Ansicht nicht mehr angezeigt. Es wird von keinem Teilnehmer mehr der Standort erfasst.\\	
 	 \textbf{getestete Funktion:} \ref{GO beenden}
 \end{enumerate}
 
