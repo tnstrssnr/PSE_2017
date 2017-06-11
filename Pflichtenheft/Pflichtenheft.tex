@@ -215,6 +215,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 	\item Der Administrator der Gruppe kann ein Gruppenbild und eine Gruppenbeschreibung zu der Gruppe hinzufügen.
 	\item Der GO-Verantwortliche kann Clustering-Schwellwert bestimmen.
 	\item Das System kann dem Benutzer \glspl{Android-Benachrichtigung} senden.
+	\item Der Benutzer kann eine Liste aller seiner aktuellen GOs in der GO-Hauptansicht einsehen.
 	%\item Benachrichtigungen (wie z.B. ''Event in 30 Minuten'', oder ''Jemand ist in der Nähe'')
 \end{itemize}
 
@@ -426,14 +427,14 @@ Im Folgenden wird angenommen, dass der Benutzer in seinem Benutzerkonto angemeld
 
 \begin{enumerate}[label={\textbf{/F\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]	
 
-	\item \textit{GOs anzeigen}\label{GOs anzeigen} Ein Benutzer kann sich vom System eine Liste seiner aktuellen GOs anzeigen lassen. Dies kann auf zwei verschiedene Arten geschehen:
+	\item \textit{GOs anzeigen}\label{GOs anzeigen} Ein Benutzer kann sich vom System eine Liste seiner aktuellen GOs anzeigen lassen. Dies kann auf \colorbox{shadecolor}{zwei} verschiedene Arten geschehen:
 	\begin{itemize}
-		\item Der Benutzer wählt die GO-Hauptansicht aus. Das System zeigt eine Liste von allen GOs aus allen Gruppen des Benutzers, für die sein Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist (vgl. \ref{Teilnahmestatus}).
+		\item \colorbox{shadecolor}{\parbox{0.85\textwidth}{Der Benutzer wählt die GO-Hauptansicht aus. Das System zeigt eine Liste von allen GOs aus allen Gruppen des Benutzers, für die sein Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist (vgl. \ref{Teilnahmestatus}).}}
 		\item Der Benutzer wählt die Detailansicht einer seiner Gruppe. Hier wird ihm eine Liste aller GOs dieser Gruppe angezeigt, unabhängig von seinem Teilnahmestatus für dieses GO.
 	\end{itemize}
 	
 	\item \textit{GO-Informationen abrufen}\label{GO-Informationen abrufen} \\
-	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}), indem er die Detailansicht des GOs, durch Klicken auf das GO-Icon in der GO-Hauptansicht oder der Gruppendetailansicht (vgl. Abbildung \ref{gruppendetailansicht}), anruft.
+	Ein Benutzer dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, kann im System gespeicherte Informationen zu einem GO abrufen (vgl. \ref{GO-Daten}), indem er die Detailansicht des GOs, durch Klicken auf das GO-Icon \colorbox{shadecolor}{in der GO-Hauptansicht} oder der Gruppendetailansicht (vgl. Abbildung \ref{gruppendetailansicht}), anruft.
 
 	\item \textit{GO erstellen}\label{GO erstellen} \\
 	Jedes Mitglied einer Gruppe kann für diese Gruppe ein GO erstellen. Dazu wählt der Benutzer in der jeweiligen Gruppendetailansicht die Option 'GO erstellen' und übergibt dem System folgende Informationen:
@@ -467,7 +468,7 @@ Durch folgende Funktionen kann ein Benutzer seinen Teilnahmestatus in einem GO �
 	Um diese Funktion ausführen zu können, muss der Teilnahmestatus des Benutzers auf 'Bestätigt' gesetzt sein. Sobald der Button 'Losgehen' betätigt wurde wird der Teilnahmestatus des Benutzers vom System auf 'Unterwegs' gesetzt und die GPS-Verfolgung des Benutzers wird aktiviert und für andere GO-Mitglieder, deren Teilnahmestatus 'Bestätigt' oder 'Unterwegs' ist, sichtbar. Sobald der Startzeitpunkt eintritt, wird der Teilnahmestatus von Benutzern, die 'Bestätigt', aber noch nicht 'Unterwegs' sind, automatisch auf 'Unterwegs' gesetzt.
 	
 	\item (c) \textit{Aus Event austreten}\label{austreten} \\
-Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt'. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System lädt die GO-Hauptansicht des Benutzers.
+Ein Benutzer, dessen Teilnahmestatus des GOs 'Bestätigt' oder 'Unterwegs' ist, kann seinen Status auf 'Abgelehnt' setzen, indem er in der GO-Detailansicht den Button 'Aus Event austreten' klickt. Das System setzt den Teilnahmestatus des Benutzers auf 'Abgelehnt'. Sollte die GPS-Verfolgung dieses GOs bereits aktiviert worden sein, wird sie vom System deaktiviert. Das System zeigt die Ansicht, wo der Benutzer die GO geclickt hat und zeigt jetzt den Status dieses GOs als 'Abgelehnt'.
 	
 	\item (d) \textit{Anhalten}\label{anhalten} \\
 	Ein Benutzer dessen Teilnahmestatus 'Unterwegs' lautet kann diesen zurück auf 'Bestätigt' setzen, indem er die Option 'Anhalten' auswählt. Das System ändert den Teilnahmestatus und stoppt die GPS-Verfolgung des Benutzers.
