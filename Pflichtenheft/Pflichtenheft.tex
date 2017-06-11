@@ -96,6 +96,16 @@
 	name={GO-Teilnehmer},
 	description={Ein Mitglied der zu dem GO gehörigen Gruppe, dessen Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lautet},
 }
+\newglossaryentry{GO-Verantwortlicher}
+{
+	name={GO-Verantwortlicher},
+	description={Der Ersteller eines GOs wird immer zum GO-Verantwortlichen desselben. Er ist verantwortlich für die Adminsitration des GOs (Daten ggfs. ändern, GO vorzeitig beenden, etc.). Ihm stehen mehr Funktionen zur Verfügung wie normalen GO-Teilnehmern},
+}
+\newglossaryentry{Administrator}
+{
+	name={Administrator},
+	description={Der Administrator ist für die Verwaltung einer Gruppe zuständig. Dazu gehört beispielsweise das Hinzufügen und Entfernen von Gruppenmitgliedern oder das Einpflegen von Gruppendaten. Jede Gruppe muss stets mindestens einen Adminsitrator haben. Es ist zulässig, dass eine Gruppe mehr als einen Administrator hat}
+}
 
 
 \def\threedigits#1{%
@@ -107,8 +117,6 @@
 
 \begin{titlepage}
 	\begin{center}
-	%TODO evtl App-Logo ergänzen
-	%\includegraphics[width=0.15\textwidth]{example-image-1x1}\par\vspace{1cm}
 	{\scshape\LARGE \bfseries Pflichtenheft \par}
 	\vspace{1cm}
 	{\scshape\Large Praktikum der Softwareentwicklung \\ Sommersemester 2017\par}
@@ -152,11 +160,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 	
 	\item Die Gruppen
 	\begin{itemize}
-	 		%\item Jeder kann eine Gruppe erstellen und Nutzer in die Gruppe einladen
-	 		%\item Jeder Teilnehmer der Gruppe kann ein Event in der Gruppe erstellen
-	 		%\item Jeder Teilnehmer der Gruppe kann sich zum Event in der Gruppe anschließen
-	 		%Das oben kommentiert sind eher schon Funktionalen Anforderungen
-	 	\item Der Benutzer kann eine Anfrage auf Gruppenmitgliedschaft beantworten.
+	 	\item Der Benutzer kann eine Anfrage auf Gruppenmitgliedschaft bekommen und beantworten.
 	 	\item Der Benutzer kann eine Gruppe erstellen.
 	 \end{itemize}
 	 Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied ist.
@@ -166,7 +170,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 	 	\item Der Benutzer kann aus der Gruppe austreten.
 	\end{itemize}
 	
-	\item Der Administrator der Gruppe\\
+	\item Der \gls{Administrator} der Gruppe\\
 	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig Administrator ist.
 	\begin{itemize}
 		\item Der Administrator kann Gruppendaten ändern.
@@ -186,7 +190,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 	\end{itemize}
 	
 	\item Der GO-Verantwortliche eines GO's\\
-	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig GO-Verantwortlicher eines GO's ist.
+	Die folgenden Kriterien funktionieren lediglich in den Gruppen, in denen der Benutzer Mitglied und gleichzeitig \gls{GO-Verantwortlicher} eines GOs ist.
 	\begin{itemize}
 		\item Der GO-Verantwortliche kann die GO-Daten ändern.
 		\item Der GO-Verantwortliche kann das GO beenden.
@@ -196,7 +200,7 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 	\item Sonstiges
 	\begin{itemize}
 		\item Das System kann GPS-Standorte der Benutzer mit dem Teilnahmetatus 'Unterwegs' verfolgen.
-		\item Das System stellt die Anonymität des Benutzers durch \gls{Clustering} und Anonymisierung des GPS-Standortes sicher. %TODO ausformulieren ?
+		\item Das System stellt die Anonymität des Benutzers durch \gls{Clustering} und Anonymisierung des GPS-Standortes sicher.
 		\item Das System kann die GPS-Standorte der losgegangenen Benutzer zu einem Cluster zusammenfassen.
 	\end{itemize}
 \end{itemize}
@@ -204,29 +208,22 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 \newpage
 	
 \subsection{Wunschkriterien}
-% Profilbilder
-% Gruppenbilder
-% Benachrichtigungen ??
 \begin{itemize}
 	\item Der Benutzer kann seine persönliche Daten ändern.
-	\item Der Benutzer kann Benachrichtigungseinstellungen ändern.
+	\item Das System kann dem Benutzer \glspl{Android-Benachrichtigung} senden.
+	\item Der Benutzer kann die Benachrichtigungseinstellungen ändern.
 	\item Der Benutzer kann ein Profilbild zu seinem Benutzeraccount hinzufügen. %TODO Wollen wir Profilbilder entfernen?
 	\item Der Administrator der Gruppe kann andere Mitglieder dieser Gruppe zum Administrator upgraden.
 	\item Der Administrator der Gruppe kann ein Gruppenbild und eine Gruppenbeschreibung zu der Gruppe hinzufügen.
 	\item Der GO-Verantwortliche kann Clustering-Schwellwert bestimmen.
-	\item Das System kann dem Benutzer \glspl{Android-Benachrichtigung} senden.
 	\item Der Benutzer kann eine Liste aller seiner aktuellen GOs in der GO-Hauptansicht einsehen.
 	%\item Benachrichtigungen (wie z.B. ''Event in 30 Minuten'', oder ''Jemand ist in der Nähe'')
 \end{itemize}
 
 \subsection{Abgrenzungskriterien}
-% kein IM
-% kein Social Media
-% kein Live-Navigationssystem mit Routenplanungsfunkton, etc.
-% Kontakte wrden nur innerhalb der Gruppen hinzugefügt
 \begin{itemize}
 \item Es werden weder direkte Messagingfunktion noch ähnliche Funktionen von Social Media Plattformen wie Facebook geboten.
-\item GPS-Funktionen beinhaltet keine Navigationshilfen.
+\item Die GPS-Funktionen beinhalten keine Navigationshilfen.
 \item Benutzer ohne Google-Account werden nicht unterstützt.
 \item Die Standortverfolgung wird im Fall von weniger 3 losgegangen Benutzern nicht ausgeführt. %nur nach ausdrücklichem Wunsch des Benutzers?
 %TODO Soll das Weitere hier hin?
@@ -238,20 +235,17 @@ Dieses Problem wird durch die GO-App gelöst, indem wir Struktur in den Vereinba
 \newpage
 \section{Produkteinsatz}
 \subsection{Anwendungsbereiche}
-Die GO! App ist eine Software-Oberfläche, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Bei dem erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.
+Die GO! App ist eine mobile Applikation, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Bei dem erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.
  
 \subsection{Zielgruppen}
-Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichtigt, die sich regelmäßig mit Freunden verabreden und eine einfache App brauchen, um strukturierter ihre Treffen zu organisieren und ihre Freunde bei dem Losgehen zu finden.
+Als Zielgruppe werden Jugendliche und Erwachsene (13-50 Jahre alt) berücksichtigt, die sich regelmäßig mit Freunden verabreden und eine einfache App brauchen, um strukturierter ihre Treffen zu organisieren und ihre Freunde bei dem Losgehen zu finden.
 
 \subsection{Betriebsbedingungen}\label{Betriebsbedingungen}
-% mind. benötigte Android-Version -> 4.4
-% funktionierende Netzwerkverbindung
-% Zugriff auf GPS-Daten erlaubt
 \begin{itemize}
 	\item Betriebszeit: täglich, 24 Stunden.
-	\item Die App braucht funktionierende Netzwerkverbindung auf dem Android Gerät.
+	\item Die App benötigt eine funktionierende Netzwerkverbindung auf dem Android Gerät.
 	\item Der Zugriff auf GPS-Daten muss erlaubt sein.
-	\item Die Benutzer müssen einen \gls{Google-Account} besitzen, um sich in der App zu registrieren.
+	\item Die Benutzer müssen einen \gls{Google-Account} besitzen, um sich in der App anzumelden und zu registrieren.
 \end{itemize}
 
 \newpage
@@ -261,13 +255,13 @@ Als Zielgruppe werden junge Leute und Erwachsene (13-50 Jahre alt) berücksichti
 \begin{itemize}
 	\item Client Seite:
 	\begin{itemize}
-		\item Android Version 4 (oder höher) wird auf dem Gerät verlangt.
+		\item Android Version 4.4 (oder höher) wird auf dem Gerät verlangt.
 	\end{itemize}
 	
 	\item Server Seite:
 	\begin{itemize} 
         \item Apache Tomcat (Version 8).
-		\item MySQL-Datenbank. %TODO Brauchen wir eine Datenbank und wenn ja, welche benutzen wir dann? mysql sollte passen
+		\item MySQL-Datenbank.
     \end{itemize}
 \end{itemize}
 
