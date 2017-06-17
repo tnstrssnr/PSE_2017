@@ -1,5 +1,6 @@
 #
-# this example demonstrates the use of different .tex inlude files
+# Skript, um die Javadoc-Kommentare aus dem Source-Code in die .tex-Datei einzufügen.
+# TeXDoclet.jar muss heruntergeladen werden und der Pfad anschließend unten aktualisert werden.
 #
 
 mkdir texdoclet_output
