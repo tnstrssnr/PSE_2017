@@ -17,7 +17,7 @@ javadoc -docletpath TeXDoclet.jar \
 	-texfinish texdoclet_include/finish.tex \
 	-texinit texdoclet_include/preamble.tex \
 	-output texdoclet_output/Entwurf.tex \
-	-sourcepath ../03_Implementierung/GO/app/src/main/java \
+	-sourcepath ../03_Implementierung/GO-App/app/src/main/java \
 	-subpackages edu \
  	-sectionlevel section
 
