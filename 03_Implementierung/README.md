@@ -1,4 +1,4 @@
-# Implemetierung
+# Implementierung
 
 **Phasenverantwortlicher**: Arsenii
 
