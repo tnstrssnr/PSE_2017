@@ -4,7 +4,6 @@ import android.graphics.drawable.Icon;
 
 import java.util.Date;
 
-import edu.kit.pse17.go_app.GO;
 import edu.kit.pse17.go_app.RecyclerView.ListItem;
 
 
@@ -13,19 +12,42 @@ import edu.kit.pse17.go_app.RecyclerView.ListItem;
  * Created by tina on 17.06.17.
  */
 
-public class GOListItem extends ListItem {
+public class GOListItem implements ListItem<Date> {
 
-    /**
-     *
-     * @param go Das GO für das ein List-Item erstellt werden soll
-     */
-    public GOListItem(GO go) {
-        this.setTitle(go.getName());
-        this.setSubtitle(go.getStart());
-        this.setIcon(null);
+    private static final String SUBTITLE_TEXT = "Startzeitpunkt: ";
+
+    private String name;
+    private Date start;
+    private Icon icon;
+
+
+    @Override
+    public String getTitle() {
+        return name;
     }
 
-    private String generateSubtitleText(Date date) {
-        return "Starzeitpunkt: " + date.toString();
+    @Override
+    public void setTitle(String title) {
+        this.name = title;
+    }
+
+    @Override
+    public String getSubtitle() {
+        return SUBTITLE_TEXT + start.toString();
+    }
+
+    @Override
+    public void setSubtitle(Date date) {
+        this.start = date;
+    }
+
+    @Override
+    public Icon getIcon() {
+        return null;
+    }
+
+    @Override
+    public void setIcon(Icon icon) {
+
     }
 }

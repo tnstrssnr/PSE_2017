@@ -9,6 +9,7 @@
 - Kommentare für protected
 - Oberklasse mit nur einem Untertyp --> lieber eine abstrakte Oberklasse ?
 - wie kommen Interfaces ins Spiel?
+- abstrakte Klasse vs Interface
 
 
 ### Entwurfsmuster

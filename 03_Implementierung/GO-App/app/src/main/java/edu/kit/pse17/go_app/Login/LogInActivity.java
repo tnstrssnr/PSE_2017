@@ -50,7 +50,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, uid, Toast.LENGTH_SHORT).show();
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            User user = (User) data.getSerializableExtra(GoLoginHelper.USER_CODE);
+            User user = (User) data.getSerializableExtra(GoLoginHelper.ACCOUNT_DATA_CODE);
         }
     }
 }

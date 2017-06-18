@@ -70,12 +70,12 @@
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_layout_recycler"
+        app:layout_constraintTop_toBottomOf="@+id/group_recycler"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_group_add_white_24dp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_layout_recycler"
+        android:id="@+id/group_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginRight="8dp"
