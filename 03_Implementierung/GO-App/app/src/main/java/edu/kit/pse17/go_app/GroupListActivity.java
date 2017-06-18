@@ -11,9 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import edu.kit.pse17.go_app.RecyclerView.GroupListItem;
 import edu.kit.pse17.go_app.RecyclerView.ListAdapter;
-import edu.kit.pse17.go_app.RecyclerView.ListItem;
 import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
 
 /**
@@ -29,7 +30,7 @@ public class GroupListActivity extends AppCompatActivity implements OnListItemCl
      * starts the Activity
      * @param activity Activity from which the groupListActivity is started
      */
-    public void start(Activity activity) {
+    public static void start(Activity activity) {
         activity.startActivity(new Intent(activity, GroupListActivity.class));
     }
 
@@ -41,7 +42,10 @@ public class GroupListActivity extends AppCompatActivity implements OnListItemCl
         RecyclerView list = (RecyclerView)  findViewById(R.id.group_recycler);
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        adapter = new ListAdapter(new ArrayList<ListItem>(), this);
+        //TODO get all user groups
+        List data = new ArrayList<GroupListItem>();
+
+        adapter = new ListAdapter(data, this);
         list.setAdapter(adapter);
 
     }

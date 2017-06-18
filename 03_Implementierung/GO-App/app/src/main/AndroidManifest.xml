@@ -18,6 +18,9 @@
         </activity>
         <activity android:name=".Login.FirebaseLoginHelper"/>
         <activity android:name=".Login.LoginHelper" />
+        <activity android:name=".GroupListActivity" />
+        <activity android:name=".Login.GoLoginHelper" />
+
         <uses-permission android:name="android.permission.INTERNET" />
     </application>
 

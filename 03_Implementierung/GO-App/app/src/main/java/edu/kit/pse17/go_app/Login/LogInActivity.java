@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
 
+import edu.kit.pse17.go_app.GroupListActivity;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.User;
 
@@ -48,6 +49,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         if(requestCode == FIREBASE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String uid = (String) data.getSerializableExtra(LoginHelper.ACCOUNT_DATA_CODE);
             Toast.makeText(this, uid, Toast.LENGTH_SHORT).show();
+
+            GroupListActivity.start(this);
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             User user = (User) data.getSerializableExtra(GoLoginHelper.ACCOUNT_DATA_CODE);

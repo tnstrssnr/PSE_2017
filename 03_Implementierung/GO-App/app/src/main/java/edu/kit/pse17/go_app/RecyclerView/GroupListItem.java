@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView;
+package edu.kit.pse17.go_app.RecyclerView;
 
 import android.graphics.drawable.Icon;
 
@@ -11,7 +11,7 @@ import edu.kit.pse17.go_app.RecyclerView.ListItem;
 
 public class GroupListItem implements ListItem<Integer> {
 
-    private static final String SUBTITLE_TEXT = " Teilnemher";
+    private static final String SUBTITLE_TEXT = " Teilnehmer";
 
     private String name;
     private int memberCount;
