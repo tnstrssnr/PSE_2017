@@ -37,7 +37,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == this.signInBtn.getId()) {
-            FirebaseLoginHelper.signIn(this, FIREBASE_REQUEST_CODE);
+            FirebaseLoginHelper.signIn(this, FIREBASE_REQUEST_CODE, null, FirebaseLoginHelper.class);
         }
     }
 
@@ -46,9 +46,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == FIREBASE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            String uid = data.getStringExtra(FirebaseLoginHelper.UID_CODE);
+            String uid = (String) data.getSerializableExtra(LoginHelper.ACCOUNT_DATA_CODE);
             Toast.makeText(this, uid, Toast.LENGTH_SHORT).show();
-            GoLoginHelper.signIn(this, GO_REQUEST_CODE, uid);
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             User user = (User) data.getSerializableExtra(GoLoginHelper.USER_CODE);

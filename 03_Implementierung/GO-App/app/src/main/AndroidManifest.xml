@@ -17,8 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.FirebaseLoginHelper"/>
-        
-
+        <activity android:name=".Login.LoginHelper" />
         <uses-permission android:name="android.permission.INTERNET" />
     </application>
 
