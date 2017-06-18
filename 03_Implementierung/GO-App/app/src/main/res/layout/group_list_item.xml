@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <ImageView
+        android:id="@+id/group_list_item_icon"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_group_white_24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/group_list_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="GroupName"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/group_list_item_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/group_list_item_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10 members"
+        android:layout_marginTop="9dp"
+        app:layout_constraintTop_toBottomOf="@+id/group_list_item_title"
+        app:layout_constraintLeft_toRightOf="@+id/group_list_item_icon"
+        android:layout_marginLeft="15dp" />
+</android.support.constraint.ConstraintLayout>
