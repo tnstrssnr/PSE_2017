@@ -4,4 +4,4 @@
 
 **Bearbeitungsdauer**: 4 Wochen
 
-**Abgabedatum**: nichmal abklären, wegen Klausurpause
+**Abgabedatum**: nochmal abklären, wegen Klausurpause
