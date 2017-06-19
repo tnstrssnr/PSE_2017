@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.User;
 
 /**
+ *  * wandelt User-Objekte um in JSON-Objekte der entsprechenden Struktur
+ *
  * Created by tina on 19.06.17.
  */
 

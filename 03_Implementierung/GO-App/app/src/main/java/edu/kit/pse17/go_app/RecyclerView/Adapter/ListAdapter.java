@@ -12,19 +12,42 @@ import edu.kit.pse17.go_app.RecyclerView.ListViewHolder;
 import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
 
 /**
+ * Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet.
+ * Unterklassen müssen die Methode setLayout() implementieren, um dem Adapter ein passendes XML-Layout zuzuweisen
+ *
  * Created by tina on 17.06.17.
  */
 
 public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
+    /**
+     * ListItems, die in dem RecyclerView angezeigt werden sollen
+     */
     protected List<ListItem> data;
+
+    /**
+     * ClickListener für die Listenelemente
+     */
     protected final OnListItemClicked onListItemClicked;
 
+    /**
+     * Konstruktor
+     * @param data ListItems, die in dem RecyclerView angezeigt werden sollen
+     * @param onListItemClicked ClickListener für die Listenelemente
+     */
     public ListAdapter(List<ListItem> data, OnListItemClicked onListItemClicked) {
         this.data = data;
         this.onListItemClicked = onListItemClicked;
     }
 
+    /**
+     * Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird
+     * wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren
+     *
+     * @param parent Viewgroup, zu der der neue View hinzugefügt werden soll
+     * @param viewType viewType des neuen Views
+     * @return neuer ViewHolder des gewünschten Typs
+     */
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -45,10 +68,19 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         return data.size();
     }
 
+    /**
+     * gibt das ListItem an der angegebenen Position zurück
+     * @param position Listenposition des gewünschten ListItems
+     * @return ListItem, an der angegebenen Position aus der Liste data
+     */
     public ListItem getItem(int position) {
         return data.get(position);
     }
 
+    /**
+     * Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
+     * @return ID des gewünschten XML Layouts aus R.layout
+     */
     protected abstract int setLayout();
 
 

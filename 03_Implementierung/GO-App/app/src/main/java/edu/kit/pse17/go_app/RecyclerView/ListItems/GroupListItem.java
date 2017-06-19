@@ -5,7 +5,8 @@ import android.graphics.drawable.Icon;
 import edu.kit.pse17.go_app.Group;
 
 /**
- * This class represents ListItems that display information about a group to be displayed in a RecyclerView
+ * Diese Klasse repräsentiert ListItems, die Informationen über eine Gruppe in einem RecyclerView darstellen sollen
+ *
  * Created by tina on 17.06.17.
  */
 
@@ -17,14 +18,26 @@ public class GroupListItem implements ListItem<Integer> {
     private int memberCount; //# of members in the group
     private Icon icon; //groupIcon
 
+    /**
+     * Konstruktor
+     * @param title Gruppenname
+     * @param memberCount Anzahl der Gruppenmitglieder
+     * @param icon Gruppenbild
+     */
     public GroupListItem(String title, int memberCount, Icon icon) {
         this.name = title;
         this.memberCount = memberCount;
         this.icon = icon;
     }
 
+    /**
+     * Konstruktor
+     * @param group gruppen-Objekt, das von dem ListItem repräsentiert werden soll
+     */
     public GroupListItem(Group group) {
-
+        this.name = group.getName();
+        this.memberCount = group.getMemberCount();
+        this.icon = group.getIcon();
     }
 
 

@@ -21,20 +21,22 @@ import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
 /**
  *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers
  */
+
 public class GroupListActivity extends AppCompatActivity implements OnListItemClicked, View.OnClickListener {
 
     private ListAdapter adapter;
     private FloatingActionButton addGroupBtn;
     private ImageView options;
 
-    /**
-     * starts the Activity
-     * @param activity Activity from which the groupListActivity is started
-     */
     public static void start(Activity activity) {
         activity.startActivity(new Intent(activity, GroupListActivity.class));
     }
 
+    /**
+     * RecyclerView und passender Listadapter werden erzeugt
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +53,20 @@ public class GroupListActivity extends AppCompatActivity implements OnListItemCl
 
     }
 
+    /**
+     * ClickListener für addGroupButton
+     * @param v
+     */
     @Override
     public void onClick(View v) {
 
     }
 
+    /**
+     * ClickListener für RecyclerView-Elemente
+     *
+     * @param position Position des ListItems, auf das geklickt wurde
+     */
     @Override
     public void onItemClicked(int position) {
 

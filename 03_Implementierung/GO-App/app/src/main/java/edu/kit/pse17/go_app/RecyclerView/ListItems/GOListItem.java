@@ -8,7 +8,8 @@ import edu.kit.pse17.go_app.GO;
 
 
 /**
- * This class represents ListItems that display information about a GO to be displayed in a RecyclerView
+ * Diese Klasse repräsentiert ListItems, die Informationen über ein GO in einem RecyclerView darstellen sollen
+ *
  * Created by tina on 17.06.17.
  */
 
@@ -20,12 +21,22 @@ public class GOListItem implements ListItem<Date> {
     private Date start;
     private Icon icon;
 
+    /**
+     * Konstruktor
+     * @param name GO-Bezeichnung
+     * @param start Startzeitpunkt des GOs
+     * @param icon GO-Icon
+     */
     public GOListItem(String name, Date start, Icon icon) {
         this.name = name;
         this.start = start;
         this.icon = icon;
     }
 
+    /**
+     * Konstruktor
+     * @param go Go-Objekt, das von dem ListItem repräsentiert werden soll
+     */
     public GOListItem(GO go) {
         this.name = go.getName();
         this.start = go.getStart();

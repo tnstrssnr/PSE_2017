@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.Group;
 
 /**
+ *  * wandelt Gruppen-Objekte um in JSON-Objekte der entsprechenden Struktur
+ *
  * Created by tina on 19.06.17.
  */
 

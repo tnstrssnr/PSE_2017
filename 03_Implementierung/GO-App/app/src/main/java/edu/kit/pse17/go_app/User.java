@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * Diese Klasse verwaltet User Objekte
+ *
  * Created by tina on 17.06.17.
  */
 

@@ -22,7 +22,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import edu.kit.pse17.go_app.R;
 
 /**
- * Diese Klasse ist für die Kommunikation mit der Firebase und Goofle API zuständig
+ * Diese Klasse ist für die Kommunikation mit der Firebase und Google API zuständig während des Login-Prozesses zuständig.
+ * Sie implemetiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
+ *
  * Created by tina on 17.06.17.
  */
 
@@ -33,6 +35,9 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
 
+    /**
+     * Implementierung gehört zur Schablonenmethode signIn()
+     */
     @Override
     protected void configureSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -48,6 +53,10 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Implementierung gehört zur Schablonenmethode signIn()
+     * Die Methode startet die signIn Aktivität der GoogleSignInApi
+     */
     @Override
     protected void startSignInProcess() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -60,6 +69,13 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
         }
     }
 
+    /**
+     * Methode erwartet das Resultat der signInAktivität der GoogleSignInApi. War die Aktivität erfolgreich,
+     * wird die Authentifizierung mit Firebase gestartet.
+     * @param requestCode Request Code, mit dem Aktivität gestartet wurde
+     * @param resultCode Result Code der Aktivität
+     * @param data Intent, den die Aktivität übergibt
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

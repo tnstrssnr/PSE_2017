@@ -8,6 +8,8 @@ import edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem;
 import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
 
 /**
+ *  * Konkreter ViewHolder, der die ListItems an das user_list_item.xml Layout bindet
+ *
  * Created by tina on 19.06.17.
  */
 

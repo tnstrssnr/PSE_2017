@@ -9,6 +9,7 @@ import edu.kit.pse17.go_app.R;
 
 /**
  * Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten
+ *
  * Created by tina on 17.06.17.
  */
 
@@ -30,7 +31,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public ImageView icon;
 
     /**
-     *
+     * Konstruktor
      * @param itemView View, in der die Items angezeigt werden sollen
      * @param onListItemClicked ClickListener für ListItems
      */

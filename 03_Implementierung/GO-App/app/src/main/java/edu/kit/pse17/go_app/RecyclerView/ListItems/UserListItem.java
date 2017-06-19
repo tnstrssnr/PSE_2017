@@ -6,6 +6,8 @@ import edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem;
 import edu.kit.pse17.go_app.User;
 
 /**
+ *  Diese Klasse repräsentiert ListItems, die Informationen über einen User in einem RecyclerView darstellen sollen
+ *
  * Created by tina on 19.06.17.
  */
 
@@ -15,12 +17,22 @@ public class UserListItem implements ListItem<String> {
     private String email;
     private Icon icon;
 
+    /**
+     * Konstruktor
+     * @param title Benutzername
+     * @param email EMail-Adresse, die zur Anmeldung verwendet wurde
+     * @param icon Profilbild
+     */
     public UserListItem(String title, String email, Icon icon) {
         this.title = title;
         this.email = email;
         this.icon = icon;
     }
 
+    /**
+     * Konstruktor
+     * @param user Das User-Objekt, das von dem ListItem repräsentiert werden soll
+     */
     public UserListItem(User user) {
         title = user.getName();
         email = user.getEmail();

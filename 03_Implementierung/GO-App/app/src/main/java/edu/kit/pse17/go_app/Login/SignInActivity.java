@@ -15,7 +15,8 @@ import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.User;
 
 /**
- * Die Klasse zeigt dem User den Login-Screen an und koordiniert den LogIn Prozess
+ * Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess
+ *
  * Created by tina on 17.06.17.
  */
 
@@ -35,10 +36,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         signInBtn.setOnClickListener(this);
     }
 
+    /**
+     * Click-Listener, der auf Klicken des Signin Buttons wartet --> SignIn wird gestartet
+     * @param v geklickter View
+     */
     @Override
     public void onClick(View v) {
         if (v.getId() == this.signInBtn.getId()) {
             FirebaseSignInHelper.signIn(this, FIREBASE_REQUEST_CODE, null, FirebaseSignInHelper.class);
+
         }
     }
 
