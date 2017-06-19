@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import edu.kit.pse17.go_app.R;
+import edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem;
 
 /**
  * Created by tina on 17.06.17.
  */
 
-public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
+public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
-    private List<ListItem> data;
-    private final OnListItemClicked onListItemClicked;
+    protected List<ListItem> data;
+    protected final OnListItemClicked onListItemClicked;
 
     public ListAdapter(List<ListItem> data, OnListItemClicked onListItemClicked) {
         this.data = data;
@@ -26,7 +26,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.group_list_item, parent, false);
+        View view = layoutInflater.inflate( setLayout(), parent, false);
         return new ListViewHolder(view, onListItemClicked);
     }
 
@@ -46,6 +46,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     public ListItem getItem(int position) {
         return data.get(position);
     }
+
+    protected abstract int setLayout();
 
 
 }

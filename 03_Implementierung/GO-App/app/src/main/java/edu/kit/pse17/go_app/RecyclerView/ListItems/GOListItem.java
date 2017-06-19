@@ -4,6 +4,7 @@ import android.graphics.drawable.Icon;
 
 import java.util.Date;
 
+import edu.kit.pse17.go_app.GO;
 import edu.kit.pse17.go_app.RecyclerView.ListItem;
 
 
@@ -19,6 +20,17 @@ public class GOListItem implements ListItem<Date> {
     private String name;
     private Date start;
     private Icon icon;
+
+    public GOListItem(String name, Date start, Icon icon) {
+        this.name = name;
+        this.start = start;
+        this.icon = icon;
+    }
+
+    public GOListItem(GO go) {
+        this.name = go.getName();
+        this.start = go.getStart();
+    }
 
 
     @Override

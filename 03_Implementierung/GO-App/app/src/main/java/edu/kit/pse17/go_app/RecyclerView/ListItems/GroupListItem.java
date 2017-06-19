@@ -2,6 +2,7 @@ package edu.kit.pse17.go_app.RecyclerView;
 
 import android.graphics.drawable.Icon;
 
+import edu.kit.pse17.go_app.Group;
 import edu.kit.pse17.go_app.RecyclerView.ListItem;
 
 /**
@@ -13,8 +14,19 @@ public class GroupListItem implements ListItem<Integer> {
 
     private static final String SUBTITLE_TEXT = " Teilnehmer";
 
-    private String name;
-    private int memberCount;
+    private String name; //name of the group
+    private int memberCount; //# of members in the group
+    private Icon icon; //groupIcon
+
+    public GroupListItem(String title, int memberCount, Icon icon) {
+        this.name = title;
+        this.memberCount = memberCount;
+        this.icon = icon;
+    }
+
+    public GroupListItem(Group group) {
+
+    }
 
 
     @Override
@@ -39,11 +51,11 @@ public class GroupListItem implements ListItem<Integer> {
 
     @Override
     public Icon getIcon() {
-        return null;
+        return icon;
     }
 
     @Override
     public void setIcon(Icon icon) {
-
+        this.icon = icon;
     }
 }
