@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.io.Serializable;
-
 import edu.kit.pse17.go_app.R;
 
 /**
@@ -28,14 +26,9 @@ import edu.kit.pse17.go_app.R;
  * Created by tina on 17.06.17.
  */
 
-public class FirebaseLoginHelper extends LoginHelper implements GoogleApiClient.OnConnectionFailedListener {
+public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final int SIGN_IN_REQUEST_CODE = 9001;
-
-    /**
-     * Name des String-Extras des Intents des Activity Results
-     */
-    public static final String UID_CODE = "uid";
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;

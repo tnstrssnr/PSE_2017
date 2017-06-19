@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Created by tina on 18.06.17.
  */
 
-public class LoginHelper extends AppCompatActivity {
+public abstract class SignInHelper extends AppCompatActivity {
 
     public static final String SIGN_IN_DATA_CODE = "signInData";
     public static final String ACCOUNT_DATA_CODE = "accountDataCode";
@@ -39,4 +39,5 @@ public class LoginHelper extends AppCompatActivity {
         }
         finish();
     }
+
 }

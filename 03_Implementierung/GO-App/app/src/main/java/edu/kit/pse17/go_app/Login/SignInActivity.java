@@ -19,7 +19,7 @@ import edu.kit.pse17.go_app.User;
  * Created by tina on 17.06.17.
  */
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int FIREBASE_REQUEST_CODE = 1;
     private static final int GO_REQUEST_CODE = 2;
@@ -38,7 +38,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == this.signInBtn.getId()) {
-            FirebaseLoginHelper.signIn(this, FIREBASE_REQUEST_CODE, null, FirebaseLoginHelper.class);
+            FirebaseSignInHelper.signIn(this, FIREBASE_REQUEST_CODE, null, FirebaseSignInHelper.class);
         }
     }
 
@@ -47,13 +47,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == FIREBASE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            String uid = (String) data.getSerializableExtra(LoginHelper.ACCOUNT_DATA_CODE);
+            String uid = (String) data.getSerializableExtra(SignInHelper.ACCOUNT_DATA_CODE);
             Toast.makeText(this, uid, Toast.LENGTH_SHORT).show();
 
             GroupListActivity.start(this);
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            User user = (User) data.getSerializableExtra(GoLoginHelper.ACCOUNT_DATA_CODE);
+            User user = (User) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
         }
     }
 }

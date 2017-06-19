@@ -11,10 +11,10 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    String uid;
-    String name;
-    String email;
-    Icon icon;
+    private String uid;
+    private String name;
+    private String email;
+    private Icon icon;
 
     /**
      * Konstruktor
@@ -27,6 +27,38 @@ public class User implements Serializable {
         this.uid = uid;
         this.name = name;
         this.email = email;
+        this.icon = icon;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Icon icon) {
         this.icon = icon;
     }
 }

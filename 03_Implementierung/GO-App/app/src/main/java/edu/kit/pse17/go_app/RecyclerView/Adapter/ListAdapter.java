@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.RecyclerView;
+package edu.kit.pse17.go_app.RecyclerView.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem;
+import edu.kit.pse17.go_app.RecyclerView.ListViewHolder;
+import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
 
 /**
  * Created by tina on 17.06.17.

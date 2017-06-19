@@ -37,9 +37,9 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public ListViewHolder(View itemView, OnListItemClicked onListItemClicked) {
         super(itemView);
         this.onListItemClicked = onListItemClicked;
-        this.title = (TextView) itemView.findViewById(R.id.group_list_item_title);
-        this.subtitle = (TextView) itemView.findViewById(R.id.group_list_item_subtitle);
-        this.icon = (ImageView) itemView.findViewById(R.id.group_list_item_icon);
+        this.title = (TextView) itemView.findViewById(R.id.list_item_title);
+        this.subtitle = (TextView) itemView.findViewById(R.id.list_item_subtitle);
+        this.icon = (ImageView) itemView.findViewById(R.id.list_item_icon);
     }
     @Override
     public void onClick(View v) {

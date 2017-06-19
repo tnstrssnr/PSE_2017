@@ -13,8 +13,9 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.kit.pse17.go_app.RecyclerView.GroupListItem;
-import edu.kit.pse17.go_app.RecyclerView.ListAdapter;
+import edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter;
+import edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem;
+import edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter;
 import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
 
 /**
@@ -45,7 +46,7 @@ public class GroupListActivity extends AppCompatActivity implements OnListItemCl
         //TODO get all user groups
         List data = new ArrayList<GroupListItem>();
 
-        adapter = new ListAdapter(data, this);
+        adapter = new GroupListAdapter(data, this);
         list.setAdapter(adapter);
 
     }

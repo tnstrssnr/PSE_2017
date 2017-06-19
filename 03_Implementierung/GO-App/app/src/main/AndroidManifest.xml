@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.LogInActivity">
+        <activity android:name=".Login.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.FirebaseLoginHelper"/>
-        <activity android:name=".Login.LoginHelper" />
+        <activity android:name=".Login.FirebaseSignInHelper"/>
+        <activity android:name=".Login.SignInHelper" />
         <activity android:name=".GroupListActivity" />
-        <activity android:name=".Login.GoLoginHelper" />
+        <activity android:name=".Login.GoSignInHelper" />
 
         <uses-permission android:name="android.permission.INTERNET" />
     </application>

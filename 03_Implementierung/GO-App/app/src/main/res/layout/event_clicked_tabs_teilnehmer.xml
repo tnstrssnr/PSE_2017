@@ -174,7 +174,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView23"
-                tools:listitem="@layout/person_list_item" />
+                tools:listitem="@layout/user_list_item" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
