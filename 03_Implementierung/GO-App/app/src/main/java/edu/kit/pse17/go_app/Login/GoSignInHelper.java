@@ -20,4 +20,12 @@ public class GoSignInHelper extends SignInHelper {
 
     }
 
+    private void createNewUser(String uid, String email) {
+
+    }
+
+    private void onFirstSignIn() {
+        //needs to show DialogBox, before creating new Account
+    }
+
 }
