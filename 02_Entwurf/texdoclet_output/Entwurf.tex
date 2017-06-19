@@ -116,7 +116,20 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
 }
+
+\chapter{verwendete Entwurfsmuster} {
+
+\subparagraph{Schablonenmethode für SignInHelper}
+Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über die signIn()-Methode angesto"sen werden. Der spezifische Ablauf der Anmelde-Aktivität wird in den Unterklassen durch die primitiven Methoden definiert.
+
+\textbf{beteiligte Klassen:}
+\begin{itemize}
+	\item SignInHelper: besitzt die Methode signIn(), die als Schablonenmethode dient und bei der Ausführung die primitiven Methoden configureSignIn() und startSignInProcess() aufruft
+	\item FirebaseSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
+	\item GoSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
+\end{itemize}
 
 \chapter{Klassenbeschreibungen} {
 
@@ -130,25 +143,34 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 {\raggedright
 \hspace{0.0cm} $\bullet$ java.lang.Object {\tiny \refdefined{java.lang.Object}} \\
 \hspace{1.0cm} $\bullet$  {\tiny } \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListAdapter}} \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.Adapter.ListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.Adapter.GOListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.Adapter.GroupListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.Adapter.UserListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter}} \\
 \hspace{1.0cm} $\bullet$ AppCompatActivity {\tiny } \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.GroupListActivity {\tiny \refdefined{edu.kit.pse17.go_app.GroupListActivity}} \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.LogInActivity {\tiny \refdefined{edu.kit.pse17.go_app.Login.LogInActivity}} \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.LoginHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.LoginHelper}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.FirebaseLoginHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.FirebaseLoginHelper}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.GoLoginHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.GoLoginHelper}} \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.SignInActivity {\tiny \refdefined{edu.kit.pse17.go_app.Login.SignInActivity}} \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.SignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.SignInHelper}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.FirebaseSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.GoSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.GoSignInHelper}} \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.MainActivity {\tiny \refdefined{edu.kit.pse17.go_app.MainActivity}} \\
 \hspace{1.0cm} $\bullet$ RecyclerView.ViewHolder {\tiny } \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListViewHolder {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListViewHolder}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.GO {\tiny \refdefined{edu.kit.pse17.go_app.GO}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.Group {\tiny \refdefined{edu.kit.pse17.go_app.Group}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.GORecyclerView.GOListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.GroupRecyclerView.GroupListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListItems.GOListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListItems.GroupListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListItems.UserListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCom.HTTPAdapter {\tiny \refdefined{edu.kit.pse17.go_app.ServerCom.HTTPAdapter}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCom.JSON.GoParser {\tiny \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.GoParser}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCom.JSON.GroupParser {\tiny \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCom.JSON.UserParser {\tiny \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.UserParser}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.User {\tiny \refdefined{edu.kit.pse17.go_app.User}} \\
 }
 \subsection*{Interfaces}
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItem}} \\
+\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.ListItems.ListItem {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.RecyclerView.OnListItemClicked {\tiny \refdefined{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked}} \\
+\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCom.JSON.JsonParser {\tiny \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}} \\
 }
 \section{Package edu.kit.pse17.go\_app.Login}{
 \label{edu.kit.pse17.go_app.Login}\hypertarget{edu.kit.pse17.go_app.Login}{}
@@ -156,58 +178,40 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{FirebaseLoginHelper}{edu.kit.pse17.go_app.Login.FirebaseLoginHelper}{Diese Klasse ist für die Kommunikation mit der Firebase und Goofle API zuständig Created by tina on 17.06.17.}
-\entityintro{GoLoginHelper}{edu.kit.pse17.go_app.Login.GoLoginHelper}{Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig Created by tina on 17.06.17.}
-\entityintro{LogInActivity}{edu.kit.pse17.go_app.Login.LogInActivity}{Die Klasse zeigt dem User den Login-Screen an und koordiniert den LogIn Prozess Created by tina on 17.06.17.}
-\entityintro{LoginHelper}{edu.kit.pse17.go_app.Login.LoginHelper}{Created by tina on 18.06.17.}
+\entityintro{FirebaseSignInHelper}{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}{Diese Klasse ist für die Kommunikation mit der Firebase und Google API zuständig während des Login-Prozesses zuständig.}
+\entityintro{GoSignInHelper}{edu.kit.pse17.go_app.Login.GoSignInHelper}{Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig.}
+\entityintro{SignInActivity}{edu.kit.pse17.go_app.Login.SignInActivity}{Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess Created by tina on 17.06.17.}
+\entityintro{SignInHelper}{edu.kit.pse17.go_app.Login.SignInHelper}{Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient Created by tina on 18.06.17.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.Login.FirebaseLoginHelper}Class FirebaseLoginHelper}{
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper}{}\vskip .1in 
-Diese Klasse ist für die Kommunikation mit der Firebase und Goofle API zuständig Created by tina on 17.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}Class FirebaseSignInHelper}{
+\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}{}\vskip .1in 
+Diese Klasse ist für die Kommunikation mit der Firebase und Google API zuständig während des Login-Prozesses zuständig. Sie implemetiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper. Created by tina on 17.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class FirebaseLoginHelper
- extends edu.kit.pse17.go_app.Login.LoginHelper\end{lstlisting}
-\subsubsection{Field summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.UID_CODE}{{\bf UID\_CODE}} Name des String-Extras des Intents des Activity Results\\
-\end{verse}
-}
+public class FirebaseSignInHelper
+ extends edu.kit.pse17.go_app.Login.SignInHelper\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseLoginHelper()}{{\bf FirebaseLoginHelper()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper()}{{\bf FirebaseSignInHelper()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onConnectionFailed(ConnectionResult)}{{\bf onConnectionFailed(ConnectionResult)}} wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt\\
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onStart()}{{\bf onStart()}} startet die Aktivität\\
+\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.configureSignIn()}{{\bf configureSignIn()}} Implementierung gehört zur Schablonenmethode signIn()\\
+\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} Methode erwartet das Resultat der signInAktivität der GoogleSignInApi.\\
+\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onConnectionFailed(ConnectionResult)}{{\bf onConnectionFailed(ConnectionResult)}} wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt\\
+\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} Implementierung gehört zur Schablonenmethode signIn() Die Methode startet die signIn Aktivität der GoogleSignInApi\\
 \end{verse}
-}
-\subsubsection{Fields}{
-\begin{itemize}
-\item{
-\index{UID\_CODE}
-\label{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.UID_CODE}\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.UID_CODE}{\texttt{public static final java.lang.String\ {\bf  UID\_CODE}}
-}
-\begin{itemize}
-\item{\vskip -.9ex 
-Name des String-Extras des Intents des Activity Results}
-\end{itemize}
-}
-\end{itemize}
 }
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{FirebaseLoginHelper()}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper()}{{\bf  FirebaseLoginHelper}\\}
+\index{FirebaseSignInHelper()}
+\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper()}{{\bf  FirebaseSignInHelper}\\}
 \begin{lstlisting}[frame=none]
-public FirebaseLoginHelper()\end{lstlisting} %end signature
+public FirebaseSignInHelper()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -215,14 +219,45 @@ public FirebaseLoginHelper()\end{lstlisting} %end signature
 \vskip -2em
 \begin{itemize}
 \item{ 
+\index{configureSignIn()}
+\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
+\begin{lstlisting}[frame=none]
+protected void configureSignIn()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Implementierung gehört zur Schablonenmethode signIn()
+}
+\end{itemize}
+}%end item
+\item{ 
 \index{onActivityResult(int, int, Intent)}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onActivityResult(int, int, Intent)}{{\bf  onActivityResult}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onActivityResult(int, int, Intent)}{{\bf  onActivityResult}\\}
 \begin{lstlisting}[frame=none]
 protected void onActivityResult(int requestCode,int resultCode,Intent data)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Methode erwartet das Resultat der signInAktivität der GoogleSignInApi. War die Aktivität erfolgreich, wird die Authentifizierung mit Firebase gestartet.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{requestCode} -- Request Code, mit dem Aktivität gestartet wurde}
+   \item{
+\texttt{resultCode} -- Result Code der Aktivität}
+   \item{
+\texttt{data} -- Intent, den die Aktivität übergibt}
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \item{ 
 \index{onConnectionFailed(ConnectionResult)}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onConnectionFailed(ConnectionResult)}{{\bf  onConnectionFailed}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onConnectionFailed(ConnectionResult)}{{\bf  onConnectionFailed}\\}
 \begin{lstlisting}[frame=none]
 public void onConnectionFailed(ConnectionResult connectionResult)\end{lstlisting} %end signature
 \begin{itemize}
@@ -241,35 +276,41 @@ wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt
 \end{itemize}
 }%end item
 \item{ 
-\index{onCreate(Bundle)}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onCreate(Bundle)}{{\bf  onCreate}\\}
+\index{startSignInProcess()}
+\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
 \begin{lstlisting}[frame=none]
-protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{onStart()}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseLoginHelper.onStart()}{{\bf  onStart}\\}
-\begin{lstlisting}[frame=none]
-protected void onStart()\end{lstlisting} %end signature
+protected void startSignInProcess()\end{lstlisting} %end signature
 \begin{itemize}
 \item{
 {\bf  Description}
 
-startet die Aktivität
+Implementierung gehört zur Schablonenmethode signIn() Die Methode startet die signIn Aktivität der GoogleSignInApi
 }
 \end{itemize}
 }%end item
 \end{itemize}
 }
-\subsubsection{Members inherited from class LoginHelper }{
-\texttt{edu.kit.pse17.go_app.Login.LoginHelper} {\small 
-\refdefined{edu.kit.pse17.go_app.Login.LoginHelper}}
+\subsubsection{Members inherited from class SignInHelper }{
+\texttt{edu.kit.pse17.go_app.Login.SignInHelper} {\small 
+\refdefined{edu.kit.pse17.go_app.Login.SignInHelper}}
 {\small 
 
 \vskip -2em
 \begin{itemize}
 \item{\vskip -1.5ex 
 \texttt{public static final {\bf  ACCOUNT\_DATA\_CODE}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract void {\bf  configureSignIn}()
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected void {\bf  onCreate}(\texttt{Bundle} {\bf  savedInstanceState})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected void {\bf  onStart}()
+}%end signature
 }%end item
 \item{\vskip -1.5ex 
 \texttt{protected void {\bf  returnActivityResult}(\texttt{java.io.Serializable} {\bf  accountData})
@@ -282,38 +323,42 @@ startet die Aktivität
 \texttt{protected static void {\bf  signIn}(\texttt{Activity} {\bf  activity},
 \texttt{int} {\bf  requestCode},
 \texttt{java.io.Serializable} {\bf  signInData},
-\texttt{java.lang.Class} {\bf  loginHelper})
+\texttt{java.lang.Class} {\bf  signinHelper})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract void {\bf  startSignInProcess}()
 }%end signature
 }%end item
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.Login.GoLoginHelper}Class GoLoginHelper}{
-\hypertarget{edu.kit.pse17.go_app.Login.GoLoginHelper}{}\vskip .1in 
-Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig Created by tina on 17.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.Login.GoSignInHelper}Class GoSignInHelper}{
+\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper}{}\vskip .1in 
+Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig. Sie implemetiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper. Created by tina on 17.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class GoLoginHelper
- extends edu.kit.pse17.go_app.Login.LoginHelper\end{lstlisting}
+public class GoSignInHelper
+ extends edu.kit.pse17.go_app.Login.SignInHelper\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.GoLoginHelper()}{{\bf GoLoginHelper()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.GoSignInHelper()}{{\bf GoSignInHelper()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.GoLoginHelper.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.GoLoginHelper.onStart()}{{\bf onStart()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.GoSignInHelper.configureSignIn()}{{\bf configureSignIn()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.GoSignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{GoLoginHelper()}
-\hypertarget{edu.kit.pse17.go_app.Login.GoLoginHelper()}{{\bf  GoLoginHelper}\\}
+\index{GoSignInHelper()}
+\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper()}{{\bf  GoSignInHelper}\\}
 \begin{lstlisting}[frame=none]
-public GoLoginHelper()\end{lstlisting} %end signature
+public GoSignInHelper()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -321,28 +366,54 @@ public GoLoginHelper()\end{lstlisting} %end signature
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{onCreate(Bundle)}
-\hypertarget{edu.kit.pse17.go_app.Login.GoLoginHelper.onCreate(Bundle)}{{\bf  onCreate}\\}
+\index{configureSignIn()}
+\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
 \begin{lstlisting}[frame=none]
-protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
+protected abstract void configureSignIn()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.Login.SignInHelper}{SignInHelper}{\small \refdefined{edu.kit.pse17.go_app.Login.SignInHelper}} }
+
+wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
+}
+\end{itemize}
 }%end item
 \item{ 
-\index{onStart()}
-\hypertarget{edu.kit.pse17.go_app.Login.GoLoginHelper.onStart()}{{\bf  onStart}\\}
+\index{startSignInProcess()}
+\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
 \begin{lstlisting}[frame=none]
-protected void onStart()\end{lstlisting} %end signature
+protected abstract void startSignInProcess()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.Login.SignInHelper}{SignInHelper}{\small \refdefined{edu.kit.pse17.go_app.Login.SignInHelper}} }
+
+wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
+}
+\end{itemize}
 }%end item
 \end{itemize}
 }
-\subsubsection{Members inherited from class LoginHelper }{
-\texttt{edu.kit.pse17.go_app.Login.LoginHelper} {\small 
-\refdefined{edu.kit.pse17.go_app.Login.LoginHelper}}
+\subsubsection{Members inherited from class SignInHelper }{
+\texttt{edu.kit.pse17.go_app.Login.SignInHelper} {\small 
+\refdefined{edu.kit.pse17.go_app.Login.SignInHelper}}
 {\small 
 
 \vskip -2em
 \begin{itemize}
 \item{\vskip -1.5ex 
 \texttt{public static final {\bf  ACCOUNT\_DATA\_CODE}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract void {\bf  configureSignIn}()
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected void {\bf  onCreate}(\texttt{Bundle} {\bf  savedInstanceState})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected void {\bf  onStart}()
+}%end signature
 }%end item
 \item{\vskip -1.5ex 
 \texttt{protected void {\bf  returnActivityResult}(\texttt{java.io.Serializable} {\bf  accountData})
@@ -355,39 +426,43 @@ protected void onStart()\end{lstlisting} %end signature
 \texttt{protected static void {\bf  signIn}(\texttt{Activity} {\bf  activity},
 \texttt{int} {\bf  requestCode},
 \texttt{java.io.Serializable} {\bf  signInData},
-\texttt{java.lang.Class} {\bf  loginHelper})
+\texttt{java.lang.Class} {\bf  signinHelper})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract void {\bf  startSignInProcess}()
 }%end signature
 }%end item
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.Login.LogInActivity}Class LogInActivity}{
-\hypertarget{edu.kit.pse17.go_app.Login.LogInActivity}{}\vskip .1in 
-Die Klasse zeigt dem User den Login-Screen an und koordiniert den LogIn Prozess Created by tina on 17.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.Login.SignInActivity}Class SignInActivity}{
+\hypertarget{edu.kit.pse17.go_app.Login.SignInActivity}{}\vskip .1in 
+Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess Created by tina on 17.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class LogInActivity
+public class SignInActivity
  extends AppCompatActivity\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.LogInActivity()}{{\bf LogInActivity()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInActivity()}{{\bf SignInActivity()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.LogInActivity.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.LogInActivity.onClick(View)}{{\bf onClick(View)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.LogInActivity.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInActivity.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInActivity.onClick(View)}{{\bf onClick(View)}} Click-Listener, der auf Klicken des Signin Buttons wartet --\textgreater  SignIn wird gestartet\\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInActivity.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{LogInActivity()}
-\hypertarget{edu.kit.pse17.go_app.Login.LogInActivity()}{{\bf  LogInActivity}\\}
+\index{SignInActivity()}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInActivity()}{{\bf  SignInActivity}\\}
 \begin{lstlisting}[frame=none]
-public LogInActivity()\end{lstlisting} %end signature
+public SignInActivity()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -396,61 +471,87 @@ public LogInActivity()\end{lstlisting} %end signature
 \begin{itemize}
 \item{ 
 \index{onActivityResult(int, int, Intent)}
-\hypertarget{edu.kit.pse17.go_app.Login.LogInActivity.onActivityResult(int, int, Intent)}{{\bf  onActivityResult}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInActivity.onActivityResult(int, int, Intent)}{{\bf  onActivityResult}\\}
 \begin{lstlisting}[frame=none]
 protected void onActivityResult(int requestCode,int resultCode,Intent data)\end{lstlisting} %end signature
 }%end item
 \item{ 
 \index{onClick(View)}
-\hypertarget{edu.kit.pse17.go_app.Login.LogInActivity.onClick(View)}{{\bf  onClick}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInActivity.onClick(View)}{{\bf  onClick}\\}
 \begin{lstlisting}[frame=none]
 public void onClick(View v)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Click-Listener, der auf Klicken des Signin Buttons wartet --\textgreater  SignIn wird gestartet
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{v} -- geklickter View}
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \item{ 
 \index{onCreate(Bundle)}
-\hypertarget{edu.kit.pse17.go_app.Login.LogInActivity.onCreate(Bundle)}{{\bf  onCreate}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInActivity.onCreate(Bundle)}{{\bf  onCreate}\\}
 \begin{lstlisting}[frame=none]
 protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.Login.LoginHelper}Class LoginHelper}{
-\hypertarget{edu.kit.pse17.go_app.Login.LoginHelper}{}\vskip .1in 
-Created by tina on 18.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.Login.SignInHelper}Class SignInHelper}{
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper}{}\vskip .1in 
+Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient Created by tina on 18.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class LoginHelper
+public abstract class SignInHelper
  extends AppCompatActivity\end{lstlisting}
-\subsubsection{All known subclasses}{FirebaseLoginHelper\small{\refdefined{edu.kit.pse17.go_app.Login.FirebaseLoginHelper}}, GoLoginHelper\small{\refdefined{edu.kit.pse17.go_app.Login.GoLoginHelper}}}
+\subsubsection{All known subclasses}{GoSignInHelper\small{\refdefined{edu.kit.pse17.go_app.Login.GoSignInHelper}}, FirebaseSignInHelper\small{\refdefined{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}}}
 \subsubsection{Field summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.LoginHelper.ACCOUNT_DATA_CODE}{{\bf ACCOUNT\_DATA\_CODE}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.LoginHelper.SIGN_IN_DATA_CODE}{{\bf SIGN\_IN\_DATA\_CODE}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.ACCOUNT_DATA_CODE}{{\bf ACCOUNT\_DATA\_CODE}} Name des Intent-Extra, das als Ergebnis der Anmelde-Aktivität zurückgegeben wird\\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.SIGN_IN_DATA_CODE}{{\bf SIGN\_IN\_DATA\_CODE}} Name des Intent-Extra, das Anmeldedaten an die SignIn-Aktivität übergibt\\
 \end{verse}
 }
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.LoginHelper()}{{\bf LoginHelper()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper()}{{\bf SignInHelper()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.LoginHelper.returnActivityResult(java.io.Serializable)}{{\bf returnActivityResult(Serializable)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.LoginHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf signIn(Activity, int, Serializable, Class)}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.configureSignIn()}{{\bf configureSignIn()}} wird von Unterklassen implementiert und in Schablonenmethode aufgerufen\\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.onStart()}{{\bf onStart()}} \\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.returnActivityResult(java.io.Serializable)}{{\bf returnActivityResult(Serializable)}} gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück\\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf signIn(Activity, int, Serializable, Class)}} Schablonenmethode für den Anmelde-Prozess der konkreten SignInHelper\\
+\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} wird von Unterklassen implementiert und in Schablonenmethode aufgerufen\\
 \end{verse}
 }
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{SIGN\_IN\_DATA\_CODE}
-\label{edu.kit.pse17.go_app.Login.LoginHelper.SIGN_IN_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.Login.LoginHelper.SIGN_IN_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  SIGN\_IN\_DATA\_CODE}}
+\label{edu.kit.pse17.go_app.Login.SignInHelper.SIGN_IN_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.SIGN_IN_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  SIGN\_IN\_DATA\_CODE}}
 }
+\begin{itemize}
+\item{\vskip -.9ex 
+Name des Intent-Extra, das Anmeldedaten an die SignIn-Aktivität übergibt}
+\end{itemize}
 }
 \item{
 \index{ACCOUNT\_DATA\_CODE}
-\label{edu.kit.pse17.go_app.Login.LoginHelper.ACCOUNT_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.Login.LoginHelper.ACCOUNT_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  ACCOUNT\_DATA\_CODE}}
+\label{edu.kit.pse17.go_app.Login.SignInHelper.ACCOUNT_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.ACCOUNT_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  ACCOUNT\_DATA\_CODE}}
 }
+\begin{itemize}
+\item{\vskip -.9ex 
+Name des Intent-Extra, das als Ergebnis der Anmelde-Aktivität zurückgegeben wird}
+\end{itemize}
 }
 \end{itemize}
 }
@@ -458,10 +559,10 @@ public class LoginHelper
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{LoginHelper()}
-\hypertarget{edu.kit.pse17.go_app.Login.LoginHelper()}{{\bf  LoginHelper}\\}
+\index{SignInHelper()}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper()}{{\bf  SignInHelper}\\}
 \begin{lstlisting}[frame=none]
-public LoginHelper()\end{lstlisting} %end signature
+public SignInHelper()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -469,16 +570,88 @@ public LoginHelper()\end{lstlisting} %end signature
 \vskip -2em
 \begin{itemize}
 \item{ 
+\index{configureSignIn()}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
+\begin{lstlisting}[frame=none]
+protected abstract void configureSignIn()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
+}
+\end{itemize}
+}%end item
+\item{ 
+\index{onCreate(Bundle)}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.onCreate(Bundle)}{{\bf  onCreate}\\}
+\begin{lstlisting}[frame=none]
+protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{onStart()}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.onStart()}{{\bf  onStart}\\}
+\begin{lstlisting}[frame=none]
+protected void onStart()\end{lstlisting} %end signature
+}%end item
+\item{ 
 \index{returnActivityResult(Serializable)}
-\hypertarget{edu.kit.pse17.go_app.Login.LoginHelper.returnActivityResult(java.io.Serializable)}{{\bf  returnActivityResult}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.returnActivityResult(java.io.Serializable)}{{\bf  returnActivityResult}\\}
 \begin{lstlisting}[frame=none]
 protected void returnActivityResult(java.io.Serializable accountData)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{accountData} -- Ergebnis der Anmelde-Aktivität}
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \item{ 
 \index{signIn(Activity, int, Serializable, Class)}
-\hypertarget{edu.kit.pse17.go_app.Login.LoginHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf  signIn}\\}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf  signIn}\\}
 \begin{lstlisting}[frame=none]
-protected static void signIn(Activity activity,int requestCode,java.io.Serializable signInData,java.lang.Class loginHelper)\end{lstlisting} %end signature
+protected static void signIn(Activity activity,int requestCode,java.io.Serializable signInData,java.lang.Class signinHelper)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Schablonenmethode für den Anmelde-Prozess der konkreten SignInHelper
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{activity} -- Aktivity, die die anmeldung aufruft}
+   \item{
+\texttt{requestCode} -- Request-Code des Aktivitäts-Aufrufs}
+   \item{
+\texttt{signInData} -- AnmeldeDaten die ggfs an Anmelde-Aktivität übergeben werden müssen}
+   \item{
+\texttt{signinHelper} -- Referenz auf die Unterklasse, die Methode ausführt}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{startSignInProcess()}
+\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
+\begin{lstlisting}[frame=none]
+protected abstract void startSignInProcess()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
+}
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -777,10 +950,10 @@ public class GroupListActivity
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.GroupListActivity.onClick(View)}{{\bf onClick(View)}} \\
-\hyperlink{edu.kit.pse17.go_app.GroupListActivity.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
-\hyperlink{edu.kit.pse17.go_app.GroupListActivity.onItemClicked(int)}{{\bf onItemClicked(int)}} \\
-\hyperlink{edu.kit.pse17.go_app.GroupListActivity.start(Activity)}{{\bf start(Activity)}} starts the Activity\\
+\hyperlink{edu.kit.pse17.go_app.GroupListActivity.onClick(View)}{{\bf onClick(View)}} ClickListener für addGroupButton\\
+\hyperlink{edu.kit.pse17.go_app.GroupListActivity.onCreate(Bundle)}{{\bf onCreate(Bundle)}} RecyclerView und passender Listadapter werden erzeugt\\
+\hyperlink{edu.kit.pse17.go_app.GroupListActivity.onItemClicked(int)}{{\bf onItemClicked(int)}} ClickListener für RecyclerView-Elemente\\
+\hyperlink{edu.kit.pse17.go_app.GroupListActivity.start(Activity)}{{\bf start(Activity)}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -802,38 +975,66 @@ public GroupListActivity()\end{lstlisting} %end signature
 \hypertarget{edu.kit.pse17.go_app.GroupListActivity.onClick(View)}{{\bf  onClick}\\}
 \begin{lstlisting}[frame=none]
 public void onClick(View v)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+ClickListener für addGroupButton
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{v} -- }
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \item{ 
 \index{onCreate(Bundle)}
 \hypertarget{edu.kit.pse17.go_app.GroupListActivity.onCreate(Bundle)}{{\bf  onCreate}\\}
 \begin{lstlisting}[frame=none]
 protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{onItemClicked(int)}
-\hypertarget{edu.kit.pse17.go_app.GroupListActivity.onItemClicked(int)}{{\bf  onItemClicked}\\}
-\begin{lstlisting}[frame=none]
-void onItemClicked(int position)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{start(Activity)}
-\hypertarget{edu.kit.pse17.go_app.GroupListActivity.start(Activity)}{{\bf  start}\\}
-\begin{lstlisting}[frame=none]
-public void start(Activity activity)\end{lstlisting} %end signature
 \begin{itemize}
 \item{
 {\bf  Description}
 
-starts the Activity
+RecyclerView und passender Listadapter werden erzeugt
 }
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{activity} -- Activity from which the groupListActivity is started}
+\texttt{savedInstanceState} -- }
   \end{itemize}
 }%end item
 \end{itemize}
+}%end item
+\item{ 
+\index{onItemClicked(int)}
+\hypertarget{edu.kit.pse17.go_app.GroupListActivity.onItemClicked(int)}{{\bf  onItemClicked}\\}
+\begin{lstlisting}[frame=none]
+public void onItemClicked(int position)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+ClickListener für RecyclerView-Elemente
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{position} -- Position des ListItems, auf das geklickt wurde}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{start(Activity)}
+\hypertarget{edu.kit.pse17.go_app.GroupListActivity.start(Activity)}{{\bf  start}\\}
+\begin{lstlisting}[frame=none]
+public static void start(Activity activity)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -889,6 +1090,18 @@ public class User
 \hyperlink{edu.kit.pse17.go_app.User(java.lang.String, java.lang.String, java.lang.String, Icon)}{{\bf User(String, String, String, Icon)}} Konstruktor\\
 \end{verse}
 }
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.User.getEmail()}{{\bf getEmail()}} \\
+\hyperlink{edu.kit.pse17.go_app.User.getIcon()}{{\bf getIcon()}} \\
+\hyperlink{edu.kit.pse17.go_app.User.getName()}{{\bf getName()}} \\
+\hyperlink{edu.kit.pse17.go_app.User.getUid()}{{\bf getUid()}} \\
+\hyperlink{edu.kit.pse17.go_app.User.setEmail(java.lang.String)}{{\bf setEmail(String)}} \\
+\hyperlink{edu.kit.pse17.go_app.User.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
+\hyperlink{edu.kit.pse17.go_app.User.setName(java.lang.String)}{{\bf setName(String)}} \\
+\hyperlink{edu.kit.pse17.go_app.User.setUid(java.lang.String)}{{\bf setUid(String)}} \\
+\end{verse}
+}
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
@@ -920,6 +1133,1156 @@ Konstruktor
 }%end item
 \end{itemize}
 }
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{getEmail()}
+\hypertarget{edu.kit.pse17.go_app.User.getEmail()}{{\bf  getEmail}\\}
+\begin{lstlisting}[frame=none]
+public java.lang.String getEmail()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{getIcon()}
+\hypertarget{edu.kit.pse17.go_app.User.getIcon()}{{\bf  getIcon}\\}
+\begin{lstlisting}[frame=none]
+public Icon getIcon()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{getName()}
+\hypertarget{edu.kit.pse17.go_app.User.getName()}{{\bf  getName}\\}
+\begin{lstlisting}[frame=none]
+public java.lang.String getName()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{getUid()}
+\hypertarget{edu.kit.pse17.go_app.User.getUid()}{{\bf  getUid}\\}
+\begin{lstlisting}[frame=none]
+public java.lang.String getUid()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setEmail(String)}
+\hypertarget{edu.kit.pse17.go_app.User.setEmail(java.lang.String)}{{\bf  setEmail}\\}
+\begin{lstlisting}[frame=none]
+public void setEmail(java.lang.String email)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setIcon(Icon)}
+\hypertarget{edu.kit.pse17.go_app.User.setIcon(Icon)}{{\bf  setIcon}\\}
+\begin{lstlisting}[frame=none]
+public void setIcon(Icon icon)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setName(String)}
+\hypertarget{edu.kit.pse17.go_app.User.setName(java.lang.String)}{{\bf  setName}\\}
+\begin{lstlisting}[frame=none]
+public void setName(java.lang.String name)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setUid(String)}
+\hypertarget{edu.kit.pse17.go_app.User.setUid(java.lang.String)}{{\bf  setUid}\\}
+\begin{lstlisting}[frame=none]
+public void setUid(java.lang.String uid)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package edu.kit.pse17.go\_app.RecyclerView.Adapter}{
+\label{edu.kit.pse17.go_app.RecyclerView.Adapter}\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter}{}
+\hskip -.05in
+\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\vskip .13in
+\hbox{{\bf  Classes}}
+\entityintro{GOListAdapter}{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter}{Konkreter ViewHolder, der die ListItems an das go\_list\_item.xml Layout bindet Created by tina on 19.06.17.}
+\entityintro{GroupListAdapter}{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter}{Konkreter ViewHolder, der die ListItems an das group\_list\_item.xml Layout bindet Created by tina on 19.06.17.}
+\entityintro{ListAdapter}{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}{Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet.}
+\entityintro{UserListAdapter}{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter}{* Konkreter ViewHolder, der die ListItems an das user\_list\_item.xml Layout bindet Created by tina on 19.06.17.}
+\vskip .1in
+\vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter}Class GOListAdapter}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter}{}\vskip .1in 
+Konkreter ViewHolder, der die ListItems an das go\_list\_item.xml Layout bindet Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class GOListAdapter
+ extends edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf GOListAdapter(List, OnListItemClicked)}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter.setLayout()}{{\bf setLayout()}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{GOListAdapter(List, OnListItemClicked)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf  GOListAdapter}\\}
+\begin{lstlisting}[frame=none]
+public GOListAdapter(java.util.List data,edu.kit.pse17.go_app.RecyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{setLayout()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter.setLayout()}{{\bf  setLayout}\\}
+\begin{lstlisting}[frame=none]
+protected abstract int setLayout()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}{ListAdapter}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}} }
+
+Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
+}
+\item{{\bf  Returns} -- 
+ID des gewünschten XML Layouts aus R.layout 
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Members inherited from class ListAdapter }{
+\texttt{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter} {\small 
+\refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}}
+{\small 
+
+\vskip -2em
+\begin{itemize}
+\item{\vskip -1.5ex 
+\texttt{protected {\bf  data}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public ListItem {\bf  getItem}(\texttt{int} {\bf  position})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public int {\bf  getItemCount}()
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public void {\bf  onBindViewHolder}(\texttt{edu.kit.pse17.go\_app.RecyclerView.ListViewHolder} {\bf  holder},
+\texttt{int} {\bf  position})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public ListViewHolder {\bf  onCreateViewHolder}(\texttt{ViewGroup} {\bf  parent},
+\texttt{int} {\bf  viewType})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected final {\bf  onListItemClicked}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract int {\bf  setLayout}()
+}%end signature
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter}Class GroupListAdapter}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter}{}\vskip .1in 
+Konkreter ViewHolder, der die ListItems an das group\_list\_item.xml Layout bindet Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class GroupListAdapter
+ extends edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf GroupListAdapter(List, OnListItemClicked)}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter.setLayout()}{{\bf setLayout()}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{GroupListAdapter(List, OnListItemClicked)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf  GroupListAdapter}\\}
+\begin{lstlisting}[frame=none]
+public GroupListAdapter(java.util.List data,edu.kit.pse17.go_app.RecyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{setLayout()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter.setLayout()}{{\bf  setLayout}\\}
+\begin{lstlisting}[frame=none]
+protected abstract int setLayout()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}{ListAdapter}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}} }
+
+Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
+}
+\item{{\bf  Returns} -- 
+ID des gewünschten XML Layouts aus R.layout 
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Members inherited from class ListAdapter }{
+\texttt{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter} {\small 
+\refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}}
+{\small 
+
+\vskip -2em
+\begin{itemize}
+\item{\vskip -1.5ex 
+\texttt{protected {\bf  data}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public ListItem {\bf  getItem}(\texttt{int} {\bf  position})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public int {\bf  getItemCount}()
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public void {\bf  onBindViewHolder}(\texttt{edu.kit.pse17.go\_app.RecyclerView.ListViewHolder} {\bf  holder},
+\texttt{int} {\bf  position})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public ListViewHolder {\bf  onCreateViewHolder}(\texttt{ViewGroup} {\bf  parent},
+\texttt{int} {\bf  viewType})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected final {\bf  onListItemClicked}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract int {\bf  setLayout}()
+}%end signature
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}Class ListAdapter}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}{}\vskip .1in 
+Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet. Unterklassen müssen die Methode setLayout() implementieren, um dem Adapter ein passendes XML-Layout zuzuweisen Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public abstract class ListAdapter
+ extends <any>\end{lstlisting}
+\subsubsection{All known subclasses}{UserListAdapter\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter}}, GOListAdapter\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.GOListAdapter}}, GroupListAdapter\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter}}}
+\subsubsection{Field summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.data}{{\bf data}} ListItems, die in dem RecyclerView angezeigt werden sollen\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onListItemClicked}{{\bf onListItemClicked}} ClickListener für die Listenelemente\\
+\end{verse}
+}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf ListAdapter(List, OnListItemClicked)}} Konstruktor\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.getItem(int)}{{\bf getItem(int)}} gibt das ListItem an der angegebenen Position zurück\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.getItemCount()}{{\bf getItemCount()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.RecyclerView.ListViewHolder, int)}{{\bf onBindViewHolder(ListViewHolder, int)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf onCreateViewHolder(ViewGroup, int)}} Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.setLayout()}{{\bf setLayout()}} Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne\\
+\end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{data}
+\label{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.data}\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.data}{\texttt{protected java.util.List\ {\bf  data}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+ListItems, die in dem RecyclerView angezeigt werden sollen}
+\end{itemize}
+}
+\item{
+\index{onListItemClicked}
+\label{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onListItemClicked}\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onListItemClicked}{\texttt{protected final edu.kit.pse17.go\_app.RecyclerView.OnListItemClicked\ {\bf  onListItemClicked}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+ClickListener für die Listenelemente}
+\end{itemize}
+}
+\end{itemize}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{ListAdapter(List, OnListItemClicked)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf  ListAdapter}\\}
+\begin{lstlisting}[frame=none]
+public ListAdapter(java.util.List data,edu.kit.pse17.go_app.RecyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{data} -- ListItems, die in dem RecyclerView angezeigt werden sollen}
+   \item{
+\texttt{onListItemClicked} -- ClickListener für die Listenelemente}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{getItem(int)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.getItem(int)}{{\bf  getItem}\\}
+\begin{lstlisting}[frame=none]
+public edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem getItem(int position)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+gibt das ListItem an der angegebenen Position zurück
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{position} -- Listenposition des gewünschten ListItems}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+ListItem, an der angegebenen Position aus der Liste data 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getItemCount()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.getItemCount()}{{\bf  getItemCount}\\}
+\begin{lstlisting}[frame=none]
+public int getItemCount()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{onBindViewHolder(ListViewHolder, int)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.RecyclerView.ListViewHolder, int)}{{\bf  onBindViewHolder}\\}
+\begin{lstlisting}[frame=none]
+public void onBindViewHolder(edu.kit.pse17.go_app.RecyclerView.ListViewHolder holder,int position)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{onCreateViewHolder(ViewGroup, int)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf  onCreateViewHolder}\\}
+\begin{lstlisting}[frame=none]
+public edu.kit.pse17.go_app.RecyclerView.ListViewHolder onCreateViewHolder(ViewGroup parent,int viewType)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{parent} -- Viewgroup, zu der der neue View hinzugefügt werden soll}
+   \item{
+\texttt{viewType} -- viewType des neuen Views}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+neuer ViewHolder des gewünschten Typs 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setLayout()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter.setLayout()}{{\bf  setLayout}\\}
+\begin{lstlisting}[frame=none]
+protected abstract int setLayout()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
+}
+\item{{\bf  Returns} -- 
+ID des gewünschten XML Layouts aus R.layout 
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter}Class UserListAdapter}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter}{}\vskip .1in 
+* Konkreter ViewHolder, der die ListItems an das user\_list\_item.xml Layout bindet Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class UserListAdapter
+ extends edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf UserListAdapter(List, OnListItemClicked)}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter.setLayout()}{{\bf setLayout()}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{UserListAdapter(List, OnListItemClicked)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf  UserListAdapter}\\}
+\begin{lstlisting}[frame=none]
+public UserListAdapter(java.util.List data,edu.kit.pse17.go_app.RecyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{setLayout()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.Adapter.UserListAdapter.setLayout()}{{\bf  setLayout}\\}
+\begin{lstlisting}[frame=none]
+protected abstract int setLayout()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}{ListAdapter}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}} }
+
+Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
+}
+\item{{\bf  Returns} -- 
+ID des gewünschten XML Layouts aus R.layout 
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Members inherited from class ListAdapter }{
+\texttt{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter} {\small 
+\refdefined{edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter}}
+{\small 
+
+\vskip -2em
+\begin{itemize}
+\item{\vskip -1.5ex 
+\texttt{protected {\bf  data}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public ListItem {\bf  getItem}(\texttt{int} {\bf  position})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public int {\bf  getItemCount}()
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public void {\bf  onBindViewHolder}(\texttt{edu.kit.pse17.go\_app.RecyclerView.ListViewHolder} {\bf  holder},
+\texttt{int} {\bf  position})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{public ListViewHolder {\bf  onCreateViewHolder}(\texttt{ViewGroup} {\bf  parent},
+\texttt{int} {\bf  viewType})
+}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected final {\bf  onListItemClicked}}%end signature
+}%end item
+\item{\vskip -1.5ex 
+\texttt{protected abstract int {\bf  setLayout}()
+}%end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package edu.kit.pse17.go\_app.RecyclerView.ListItems}{
+\label{edu.kit.pse17.go_app.RecyclerView.ListItems}\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems}{}
+\hskip -.05in
+\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\vskip .13in
+\hbox{{\bf  Interfaces}}
+\entityintro{ListItem}{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{Interface für ListItems, die die Datenobjekt in den verschiedenen RecyclerViews der App sind Created by tina on 18.06.17.}
+\vskip .13in
+\hbox{{\bf  Classes}}
+\entityintro{GOListItem}{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem}{Diese Klasse repräsentiert ListItems, die Informationen über ein GO in einem RecyclerView darstellen sollen Created by tina on 17.06.17.}
+\entityintro{GroupListItem}{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem}{Diese Klasse repräsentiert ListItems, die Informationen über eine Gruppe in einem RecyclerView darstellen sollen Created by tina on 17.06.17.}
+\entityintro{UserListItem}{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem}{Diese Klasse repräsentiert ListItems, die Informationen über einen User in einem RecyclerView darstellen sollen Created by tina on 19.06.17.}
+\vskip .1in
+\vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}Interface ListItem}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{}\vskip .1in 
+Interface für ListItems, die die Datenobjekt in den verschiedenen RecyclerViews der App sind Created by tina on 18.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public interface ListItem
+\end{lstlisting}
+\subsubsection{All known subinterfaces}{GOListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem}}, UserListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem}}, GroupListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem}}}
+\subsubsection{All classes known to implement interface}{GOListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem}}, UserListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem}}, GroupListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem}}}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.getIcon()}{{\bf getIcon()}} getter-Methode für Icon des ListItems\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.getSubtitle()}{{\bf getSubtitle()}} getter-Methode für Untertitel des ListItems.\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.getTitle()}{{\bf getTitle()}} getter-Methode für Überschrift des ListItems\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} setter-Methode für icon des ListItems\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.setSubtitle(T)}{{\bf setSubtitle(T)}} setter-Methode für Untertitel.\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} setter-Methode für Überschrift des ListItems\\
+\end{verse}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{getIcon()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.getIcon()}{{\bf  getIcon}\\}
+\begin{lstlisting}[frame=none]
+Icon getIcon()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+getter-Methode für Icon des ListItems
+}
+\item{{\bf  Returns} -- 
+Icon des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getSubtitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.getSubtitle()}{{\bf  getSubtitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getSubtitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+getter-Methode für Untertitel des ListItems. Muss ggfs. erst generiert werden, die Information wird als Datentyp T im Objekt gespeichert
+}
+\item{{\bf  Returns} -- 
+Untertitel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getTitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.getTitle()}{{\bf  getTitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getTitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+getter-Methode für Überschrift des ListItems
+}
+\item{{\bf  Returns} -- 
+Titel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setIcon(Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.setIcon(Icon)}{{\bf  setIcon}\\}
+\begin{lstlisting}[frame=none]
+void setIcon(Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+setter-Methode für icon des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{icon} -- das neue Icon}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setSubtitle(T)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.setSubtitle(T)}{{\bf  setSubtitle}\\}
+\begin{lstlisting}[frame=none]
+void setSubtitle(java.lang.Object t)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+setter-Methode für Untertitel. Methode erwartet Datentyp T, der Untertitel wird dann innerhalb der Klasse als String-Objekt erzeugt
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{t} -- Objekt/Datentyp, aus dem Untertitel erzeugt wird}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setTitle(String)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
+\begin{lstlisting}[frame=none]
+void setTitle(java.lang.String title)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+setter-Methode für Überschrift des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{title} -- der neue Titel}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem}Class GOListItem}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem}{}\vskip .1in 
+Diese Klasse repräsentiert ListItems, die Informationen über ein GO in einem RecyclerView darstellen sollen Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class GOListItem
+ extends java.lang.Object implements ListItem\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem(edu.kit.pse17.go_app.GO)}{{\bf GOListItem(GO)}} Konstruktor\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem(java.lang.String, java.util.Date, Icon)}{{\bf GOListItem(String, Date, Icon)}} Konstruktor\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.getIcon()}{{\bf getIcon()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.getSubtitle()}{{\bf getSubtitle()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.getTitle()}{{\bf getTitle()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.setSubtitle(java.util.Date)}{{\bf setSubtitle(Date)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{GOListItem(GO)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem(edu.kit.pse17.go_app.GO)}{{\bf  GOListItem}\\}
+\begin{lstlisting}[frame=none]
+public GOListItem(edu.kit.pse17.go_app.GO go)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{go} -- Go-Objekt, das von dem ListItem repräsentiert werden soll}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{GOListItem(String, Date, Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem(java.lang.String, java.util.Date, Icon)}{{\bf  GOListItem}\\}
+\begin{lstlisting}[frame=none]
+public GOListItem(java.lang.String name,java.util.Date start,Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{name} -- GO-Bezeichnung}
+   \item{
+\texttt{start} -- Startzeitpunkt des GOs}
+   \item{
+\texttt{icon} -- GO-Icon}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{getIcon()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.getIcon()}{{\bf  getIcon}\\}
+\begin{lstlisting}[frame=none]
+Icon getIcon()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Icon des ListItems
+}
+\item{{\bf  Returns} -- 
+Icon des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getSubtitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.getSubtitle()}{{\bf  getSubtitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getSubtitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Untertitel des ListItems. Muss ggfs. erst generiert werden, die Information wird als Datentyp T im Objekt gespeichert
+}
+\item{{\bf  Returns} -- 
+Untertitel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getTitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.getTitle()}{{\bf  getTitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getTitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Überschrift des ListItems
+}
+\item{{\bf  Returns} -- 
+Titel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setIcon(Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.setIcon(Icon)}{{\bf  setIcon}\\}
+\begin{lstlisting}[frame=none]
+void setIcon(Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+setter-Methode für icon des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{icon} -- das neue Icon}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setSubtitle(Date)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.setSubtitle(java.util.Date)}{{\bf  setSubtitle}\\}
+\begin{lstlisting}[frame=none]
+public void setSubtitle(java.util.Date date)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setTitle(String)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GOListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
+\begin{lstlisting}[frame=none]
+void setTitle(java.lang.String title)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+setter-Methode für Überschrift des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{title} -- der neue Titel}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem}Class GroupListItem}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem}{}\vskip .1in 
+Diese Klasse repräsentiert ListItems, die Informationen über eine Gruppe in einem RecyclerView darstellen sollen Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class GroupListItem
+ extends java.lang.Object implements ListItem\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem(edu.kit.pse17.go_app.Group)}{{\bf GroupListItem(Group)}} Konstruktor\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem(java.lang.String, int, Icon)}{{\bf GroupListItem(String, int, Icon)}} Konstruktor\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.getIcon()}{{\bf getIcon()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.getSubtitle()}{{\bf getSubtitle()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.getTitle()}{{\bf getTitle()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.setSubtitle(java.lang.Integer)}{{\bf setSubtitle(Integer)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{GroupListItem(Group)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem(edu.kit.pse17.go_app.Group)}{{\bf  GroupListItem}\\}
+\begin{lstlisting}[frame=none]
+public GroupListItem(edu.kit.pse17.go_app.Group group)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{group} -- gruppen-Objekt, das von dem ListItem repräsentiert werden soll}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{GroupListItem(String, int, Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem(java.lang.String, int, Icon)}{{\bf  GroupListItem}\\}
+\begin{lstlisting}[frame=none]
+public GroupListItem(java.lang.String title,int memberCount,Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{title} -- Gruppenname}
+   \item{
+\texttt{memberCount} -- Anzahl der Gruppenmitglieder}
+   \item{
+\texttt{icon} -- Gruppenbild}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{getIcon()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.getIcon()}{{\bf  getIcon}\\}
+\begin{lstlisting}[frame=none]
+Icon getIcon()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Icon des ListItems
+}
+\item{{\bf  Returns} -- 
+Icon des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getSubtitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.getSubtitle()}{{\bf  getSubtitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getSubtitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Untertitel des ListItems. Muss ggfs. erst generiert werden, die Information wird als Datentyp T im Objekt gespeichert
+}
+\item{{\bf  Returns} -- 
+Untertitel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getTitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.getTitle()}{{\bf  getTitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getTitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Überschrift des ListItems
+}
+\item{{\bf  Returns} -- 
+Titel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setIcon(Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.setIcon(Icon)}{{\bf  setIcon}\\}
+\begin{lstlisting}[frame=none]
+void setIcon(Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+setter-Methode für icon des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{icon} -- das neue Icon}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setSubtitle(Integer)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.setSubtitle(java.lang.Integer)}{{\bf  setSubtitle}\\}
+\begin{lstlisting}[frame=none]
+public void setSubtitle(java.lang.Integer memberCount)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setTitle(String)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
+\begin{lstlisting}[frame=none]
+void setTitle(java.lang.String title)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+setter-Methode für Überschrift des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{title} -- der neue Titel}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem}Class UserListItem}{
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem}{}\vskip .1in 
+Diese Klasse repräsentiert ListItems, die Informationen über einen User in einem RecyclerView darstellen sollen Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class UserListItem
+ extends java.lang.Object implements ListItem\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem(java.lang.String, java.lang.String, Icon)}{{\bf UserListItem(String, String, Icon)}} Konstruktor\\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem(edu.kit.pse17.go_app.User)}{{\bf UserListItem(User)}} Konstruktor\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.getIcon()}{{\bf getIcon()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.getSubtitle()}{{\bf getSubtitle()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.getTitle()}{{\bf getTitle()}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.setSubtitle(java.lang.String)}{{\bf setSubtitle(String)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{UserListItem(String, String, Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem(java.lang.String, java.lang.String, Icon)}{{\bf  UserListItem}\\}
+\begin{lstlisting}[frame=none]
+public UserListItem(java.lang.String title,java.lang.String email,Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{title} -- Benutzername}
+   \item{
+\texttt{email} -- EMail-Adresse, die zur Anmeldung verwendet wurde}
+   \item{
+\texttt{icon} -- Profilbild}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{UserListItem(User)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem(edu.kit.pse17.go_app.User)}{{\bf  UserListItem}\\}
+\begin{lstlisting}[frame=none]
+public UserListItem(edu.kit.pse17.go_app.User user)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{user} -- Das User-Objekt, das von dem ListItem repräsentiert werden soll}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{getIcon()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.getIcon()}{{\bf  getIcon}\\}
+\begin{lstlisting}[frame=none]
+Icon getIcon()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Icon des ListItems
+}
+\item{{\bf  Returns} -- 
+Icon des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getSubtitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.getSubtitle()}{{\bf  getSubtitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getSubtitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Untertitel des ListItems. Muss ggfs. erst generiert werden, die Information wird als Datentyp T im Objekt gespeichert
+}
+\item{{\bf  Returns} -- 
+Untertitel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getTitle()}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.getTitle()}{{\bf  getTitle}\\}
+\begin{lstlisting}[frame=none]
+java.lang.String getTitle()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+getter-Methode für Überschrift des ListItems
+}
+\item{{\bf  Returns} -- 
+Titel des Datenobjekts 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setIcon(Icon)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.setIcon(Icon)}{{\bf  setIcon}\\}
+\begin{lstlisting}[frame=none]
+void setIcon(Icon icon)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+setter-Methode für icon des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{icon} -- das neue Icon}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{setSubtitle(String)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.setSubtitle(java.lang.String)}{{\bf  setSubtitle}\\}
+\begin{lstlisting}[frame=none]
+public void setSubtitle(java.lang.String s)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{setTitle(String)}
+\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItems.UserListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
+\begin{lstlisting}[frame=none]
+void setTitle(java.lang.String title)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}{ListItem}{\small \refdefined{edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem}} }
+
+setter-Methode für Überschrift des ListItems
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{title} -- der neue Titel}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
 }
 }
 \section{Package edu.kit.pse17.go\_app.RecyclerView}{
@@ -928,78 +2291,15 @@ Konstruktor
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
 \hbox{{\bf  Interfaces}}
-\entityintro{ListItem}{edu.kit.pse17.go_app.RecyclerView.ListItem}{Created by tina on 18.06.17.}
-\entityintro{OnListItemClicked}{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked}{Created by tina on 17.06.17.}
+\entityintro{OnListItemClicked}{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked}{ClickListener für die ListItems eines RecyclerViews Created by tina on 17.06.17.}
 \vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{ListAdapter}{edu.kit.pse17.go_app.RecyclerView.ListAdapter}{Created by tina on 17.06.17.}
 \entityintro{ListViewHolder}{edu.kit.pse17.go_app.RecyclerView.ListViewHolder}{Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten Created by tina on 17.06.17.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.RecyclerView.ListItem}Interface ListItem}{
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem}{}\vskip .1in 
-Created by tina on 18.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public interface ListItem
-\end{lstlisting}
-\subsubsection{All known subinterfaces}{GroupListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem}}, GOListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem}}}
-\subsubsection{All classes known to implement interface}{GroupListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem}}, GOListItem\small{\refdefined{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem}}}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItem.getIcon()}{{\bf getIcon()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItem.getSubtitle()}{{\bf getSubtitle()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItem.getTitle()}{{\bf getTitle()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItem.setSubtitle(T)}{{\bf setSubtitle(T)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} \\
-\end{verse}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{getIcon()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem.getIcon()}{{\bf  getIcon}\\}
-\begin{lstlisting}[frame=none]
-Icon getIcon()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{getSubtitle()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem.getSubtitle()}{{\bf  getSubtitle}\\}
-\begin{lstlisting}[frame=none]
-java.lang.String getSubtitle()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{getTitle()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem.getTitle()}{{\bf  getTitle}\\}
-\begin{lstlisting}[frame=none]
-java.lang.String getTitle()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setIcon(Icon)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem.setIcon(Icon)}{{\bf  setIcon}\\}
-\begin{lstlisting}[frame=none]
-void setIcon(Icon icon)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setSubtitle(T)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem.setSubtitle(T)}{{\bf  setSubtitle}\\}
-\begin{lstlisting}[frame=none]
-void setSubtitle(java.lang.Object t)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setTitle(String)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
-\begin{lstlisting}[frame=none]
-void setTitle(java.lang.String title)\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-}
 \subsection{\label{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked}Interface OnListItemClicked}{
 \hypertarget{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked}{}\vskip .1in 
-Created by tina on 17.06.17.\vskip .1in 
+ClickListener für die ListItems eines RecyclerViews Created by tina on 17.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public interface OnListItemClicked
@@ -1008,7 +2308,7 @@ public interface OnListItemClicked
 \subsubsection{All classes known to implement interface}{GroupListActivity\small{\refdefined{edu.kit.pse17.go_app.GroupListActivity}}}
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked.onItemClicked(int)}{{\bf onItemClicked(int)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked.onItemClicked(int)}{{\bf onItemClicked(int)}} führt gewünschte Aktion der implemetierenden Klasse aus, falls auf das ListItem an Position position geklickt wird\\
 \end{verse}
 }
 \subsubsection{Methods}{
@@ -1019,67 +2319,20 @@ public interface OnListItemClicked
 \hypertarget{edu.kit.pse17.go_app.RecyclerView.OnListItemClicked.onItemClicked(int)}{{\bf  onItemClicked}\\}
 \begin{lstlisting}[frame=none]
 void onItemClicked(int position)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+führt gewünschte Aktion der implemetierenden Klasse aus, falls auf das ListItem an Position position geklickt wird
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{position} -- Position des ListItems, auf das geklickt wurde}
+  \end{itemize}
 }%end item
 \end{itemize}
-}
-}
-\subsection{\label{edu.kit.pse17.go_app.RecyclerView.ListAdapter}Class ListAdapter}{
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListAdapter}{}\vskip .1in 
-Created by tina on 17.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public class ListAdapter
- extends <any>\end{lstlisting}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf ListAdapter(List, OnListItemClicked)}} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListAdapter.getItem(int)}{{\bf getItem(int)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListAdapter.getItemCount()}{{\bf getItemCount()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.RecyclerView.ListViewHolder, int)}{{\bf onBindViewHolder(ListViewHolder, int)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf onCreateViewHolder(ViewGroup, int)}} \\
-\end{verse}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{ListAdapter(List, OnListItemClicked)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListAdapter(java.util.List, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf  ListAdapter}\\}
-\begin{lstlisting}[frame=none]
-public ListAdapter(java.util.List data,OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{getItem(int)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListAdapter.getItem(int)}{{\bf  getItem}\\}
-\begin{lstlisting}[frame=none]
-public ListItem getItem(int position)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{getItemCount()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListAdapter.getItemCount()}{{\bf  getItemCount}\\}
-\begin{lstlisting}[frame=none]
-public int getItemCount()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{onBindViewHolder(ListViewHolder, int)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.RecyclerView.ListViewHolder, int)}{{\bf  onBindViewHolder}\\}
-\begin{lstlisting}[frame=none]
-public void onBindViewHolder(ListViewHolder holder,int position)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{onCreateViewHolder(ViewGroup, int)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf  onCreateViewHolder}\\}
-\begin{lstlisting}[frame=none]
-public ListViewHolder onCreateViewHolder(ViewGroup parent,int viewType)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -1100,7 +2353,7 @@ public class ListViewHolder
 }
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListViewHolder(View, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf ListViewHolder(View, OnListItemClicked)}} \\
+\hyperlink{edu.kit.pse17.go_app.RecyclerView.ListViewHolder(View, edu.kit.pse17.go_app.RecyclerView.OnListItemClicked)}{{\bf ListViewHolder(View, OnListItemClicked)}} Konstruktor\\
 \end{verse}
 }
 \subsubsection{Method summary}{
@@ -1149,6 +2402,11 @@ Icon, das zum Item angezeigt werden soll}
 public ListViewHolder(View itemView,OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
 \begin{itemize}
 \item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
@@ -1174,45 +2432,113 @@ public void onClick(View v)\end{lstlisting} %end signature
 }
 }
 }
-\section{Package edu.kit.pse17.go\_app.RecyclerView.GroupRecyclerView}{
-\label{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView}\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView}{}
+\section{Package edu.kit.pse17.go\_app.ServerCom.JSON}{
+\label{edu.kit.pse17.go_app.ServerCom.JSON}\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
+\hbox{{\bf  Interfaces}}
+\entityintro{JsonParser}{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}{Die implementierenden Klassen kümmern sich um Wnadlung zwischen Datenobjekt vom Typ T und JSON-Objekt, das zur Kommunikation mit dem GO-Server benutzt werden kann Created by tina on 19.06.17.}
+\vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{GroupListItem}{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem}{This class represents ListItems that display information about a group to be displayed in a RecyclerView Created by tina on 17.06.17.}
+\entityintro{GoParser}{edu.kit.pse17.go_app.ServerCom.JSON.GoParser}{wandelt Go-Objekte um in JSON-Objekte der entsprechenden Struktur Created by tina on 19.06.17.}
+\entityintro{GroupParser}{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser}{* wandelt Gruppen-Objekte um in JSON-Objekte der entsprechenden Struktur Created by tina on 19.06.17.}
+\entityintro{UserParser}{edu.kit.pse17.go_app.ServerCom.JSON.UserParser}{* wandelt User-Objekte um in JSON-Objekte der entsprechenden Struktur Created by tina on 19.06.17.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem}Class GroupListItem}{
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem}{}\vskip .1in 
-This class represents ListItems that display information about a group to be displayed in a RecyclerView Created by tina on 17.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}Interface JsonParser}{
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}{}\vskip .1in 
+Die implementierenden Klassen kümmern sich um Wnadlung zwischen Datenobjekt vom Typ T und JSON-Objekt, das zur Kommunikation mit dem GO-Server benutzt werden kann Created by tina on 19.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class GroupListItem
- extends java.lang.Object implements edu.kit.pse17.go_app.RecyclerView.ListItem\end{lstlisting}
+public interface JsonParser
+\end{lstlisting}
+\subsubsection{All known subinterfaces}{GroupParser\small{\refdefined{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser}}, UserParser\small{\refdefined{edu.kit.pse17.go_app.ServerCom.JSON.UserParser}}, GoParser\small{\refdefined{edu.kit.pse17.go_app.ServerCom.JSON.GoParser}}}
+\subsubsection{All classes known to implement interface}{GroupParser\small{\refdefined{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser}}, UserParser\small{\refdefined{edu.kit.pse17.go_app.ServerCom.JSON.UserParser}}, GoParser\small{\refdefined{edu.kit.pse17.go_app.ServerCom.JSON.GoParser}}}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser.parseFromJson(JSONObject)}{{\bf parseFromJson(JSONObject)}} wandelt das JsonObject o in ein Datenobjekt T um\\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser.parseToJson(T)}{{\bf parseToJson(T)}} wandelt das Objekt T in ein JsonObject um\\
+\end{verse}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{parseFromJson(JSONObject)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser.parseFromJson(JSONObject)}{{\bf  parseFromJson}\\}
+\begin{lstlisting}[frame=none]
+java.lang.Object parseFromJson(JSONObject o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+wandelt das JsonObject o in ein Datenobjekt T um
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{o} -- das umzuwandelnde Objekt}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+das umgewandelte Objekt 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{parseToJson(T)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser.parseToJson(T)}{{\bf  parseToJson}\\}
+\begin{lstlisting}[frame=none]
+JSONObject parseToJson(java.lang.Object t)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+wandelt das Objekt T in ein JsonObject um
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{t} -- das umzuwandelnde Objekt}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+das umgewandelte JsonObject 
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServerCom.JSON.GoParser}Class GoParser}{
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GoParser}{}\vskip .1in 
+wandelt Go-Objekte um in JSON-Objekte der entsprechenden Struktur Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class GoParser
+ extends java.lang.Object implements JsonParser\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem()}{{\bf GroupListItem()}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.GoParser()}{{\bf GoParser()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.getIcon()}{{\bf getIcon()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.getSubtitle()}{{\bf getSubtitle()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.getTitle()}{{\bf getTitle()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.setSubtitle(java.lang.Integer)}{{\bf setSubtitle(Integer)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.GoParser.parseFromJson(JSONObject)}{{\bf parseFromJson(JSONObject)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.GoParser.parseToJson(edu.kit.pse17.go_app.GO)}{{\bf parseToJson(GO)}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{GroupListItem()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem()}{{\bf  GroupListItem}\\}
+\index{GoParser()}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GoParser()}{{\bf  GoParser}\\}
 \begin{lstlisting}[frame=none]
-public GroupListItem()\end{lstlisting} %end signature
+public GoParser()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -1220,84 +2546,63 @@ public GroupListItem()\end{lstlisting} %end signature
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{getIcon()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.getIcon()}{{\bf  getIcon}\\}
+\index{parseFromJson(JSONObject)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GoParser.parseFromJson(JSONObject)}{{\bf  parseFromJson}\\}
 \begin{lstlisting}[frame=none]
-Icon getIcon()\end{lstlisting} %end signature
+java.lang.Object parseFromJson(JSONObject o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}{JsonParser}{\small \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}} }
+
+wandelt das JsonObject o in ein Datenobjekt T um
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{o} -- das umzuwandelnde Objekt}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+das umgewandelte Objekt 
+}%end item
+\end{itemize}
 }%end item
 \item{ 
-\index{getSubtitle()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.getSubtitle()}{{\bf  getSubtitle}\\}
+\index{parseToJson(GO)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GoParser.parseToJson(edu.kit.pse17.go_app.GO)}{{\bf  parseToJson}\\}
 \begin{lstlisting}[frame=none]
-java.lang.String getSubtitle()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{getTitle()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.getTitle()}{{\bf  getTitle}\\}
-\begin{lstlisting}[frame=none]
-java.lang.String getTitle()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setIcon(Icon)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.setIcon(Icon)}{{\bf  setIcon}\\}
-\begin{lstlisting}[frame=none]
-void setIcon(Icon icon)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setSubtitle(Integer)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.setSubtitle(java.lang.Integer)}{{\bf  setSubtitle}\\}
-\begin{lstlisting}[frame=none]
-public void setSubtitle(java.lang.Integer memberCount)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setTitle(String)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GroupRecyclerView.GroupListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
-\begin{lstlisting}[frame=none]
-void setTitle(java.lang.String title)\end{lstlisting} %end signature
+public JSONObject parseToJson(edu.kit.pse17.go_app.GO go)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
 }
-}
-\section{Package edu.kit.pse17.go\_app.RecyclerView.GORecyclerView}{
-\label{edu.kit.pse17.go_app.RecyclerView.GORecyclerView}\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView}{}
-\hskip -.05in
-\hbox to \hsize{\textit{ Package Contents\hfil Page}}
-\vskip .13in
-\hbox{{\bf  Classes}}
-\entityintro{GOListItem}{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem}{This class represents ListItems that display information about a GO to be displayed in a RecyclerView Created by tina on 17.06.17.}
-\vskip .1in
-\vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem}Class GOListItem}{
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem}{}\vskip .1in 
-This class represents ListItems that display information about a GO to be displayed in a RecyclerView Created by tina on 17.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser}Class GroupParser}{
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser}{}\vskip .1in 
+* wandelt Gruppen-Objekte um in JSON-Objekte der entsprechenden Struktur Created by tina on 19.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class GOListItem
- extends java.lang.Object implements edu.kit.pse17.go_app.RecyclerView.ListItem\end{lstlisting}
+public class GroupParser
+ extends java.lang.Object implements JsonParser\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem()}{{\bf GOListItem()}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser()}{{\bf GroupParser()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.getIcon()}{{\bf getIcon()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.getSubtitle()}{{\bf getSubtitle()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.getTitle()}{{\bf getTitle()}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.setIcon(Icon)}{{\bf setIcon(Icon)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.setSubtitle(java.util.Date)}{{\bf setSubtitle(Date)}} \\
-\hyperlink{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.setTitle(java.lang.String)}{{\bf setTitle(String)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser.parseFromJson(JSONObject)}{{\bf parseFromJson(JSONObject)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser.parseToJson(edu.kit.pse17.go_app.Group)}{{\bf parseToJson(Group)}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{GOListItem()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem()}{{\bf  GOListItem}\\}
+\index{GroupParser()}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser()}{{\bf  GroupParser}\\}
 \begin{lstlisting}[frame=none]
-public GOListItem()\end{lstlisting} %end signature
+public GroupParser()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -1305,40 +2610,178 @@ public GOListItem()\end{lstlisting} %end signature
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{getIcon()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.getIcon()}{{\bf  getIcon}\\}
+\index{parseFromJson(JSONObject)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser.parseFromJson(JSONObject)}{{\bf  parseFromJson}\\}
 \begin{lstlisting}[frame=none]
-Icon getIcon()\end{lstlisting} %end signature
+java.lang.Object parseFromJson(JSONObject o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}{JsonParser}{\small \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}} }
+
+wandelt das JsonObject o in ein Datenobjekt T um
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{o} -- das umzuwandelnde Objekt}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+das umgewandelte Objekt 
+}%end item
+\end{itemize}
 }%end item
 \item{ 
-\index{getSubtitle()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.getSubtitle()}{{\bf  getSubtitle}\\}
+\index{parseToJson(Group)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.GroupParser.parseToJson(edu.kit.pse17.go_app.Group)}{{\bf  parseToJson}\\}
 \begin{lstlisting}[frame=none]
-java.lang.String getSubtitle()\end{lstlisting} %end signature
+public JSONObject parseToJson(edu.kit.pse17.go_app.Group group)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServerCom.JSON.UserParser}Class UserParser}{
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.UserParser}{}\vskip .1in 
+* wandelt User-Objekte um in JSON-Objekte der entsprechenden Struktur Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class UserParser
+ extends java.lang.Object implements JsonParser\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.UserParser()}{{\bf UserParser()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.UserParser.parseFromJson(JSONObject)}{{\bf parseFromJson(JSONObject)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.UserParser.parseToJson(edu.kit.pse17.go_app.User)}{{\bf parseToJson(User)}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{UserParser()}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.UserParser()}{{\bf  UserParser}\\}
+\begin{lstlisting}[frame=none]
+public UserParser()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{parseFromJson(JSONObject)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.UserParser.parseFromJson(JSONObject)}{{\bf  parseFromJson}\\}
+\begin{lstlisting}[frame=none]
+java.lang.Object parseFromJson(JSONObject o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}{JsonParser}{\small \refdefined{edu.kit.pse17.go_app.ServerCom.JSON.JsonParser}} }
+
+wandelt das JsonObject o in ein Datenobjekt T um
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{o} -- das umzuwandelnde Objekt}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+das umgewandelte Objekt 
+}%end item
+\end{itemize}
 }%end item
 \item{ 
-\index{getTitle()}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.getTitle()}{{\bf  getTitle}\\}
+\index{parseToJson(User)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.JSON.UserParser.parseToJson(edu.kit.pse17.go_app.User)}{{\bf  parseToJson}\\}
 \begin{lstlisting}[frame=none]
-java.lang.String getTitle()\end{lstlisting} %end signature
+public JSONObject parseToJson(edu.kit.pse17.go_app.User user)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package edu.kit.pse17.go\_app.ServerCom}{
+\label{edu.kit.pse17.go_app.ServerCom}\hypertarget{edu.kit.pse17.go_app.ServerCom}{}
+\hskip -.05in
+\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\vskip .13in
+\hbox{{\bf  Classes}}
+\entityintro{HTTPAdapter}{edu.kit.pse17.go_app.ServerCom.HTTPAdapter}{Adapter-Klasse, die von anderen Klassen benutzt werden kann, um HTTP-Anfragen an den tomcat-Server zu schicken Created by tina on 19.06.17.}
+\vskip .1in
+\vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.ServerCom.HTTPAdapter}Class HTTPAdapter}{
+\hypertarget{edu.kit.pse17.go_app.ServerCom.HTTPAdapter}{}\vskip .1in 
+Adapter-Klasse, die von anderen Klassen benutzt werden kann, um HTTP-Anfragen an den tomcat-Server zu schicken Created by tina on 19.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public abstract class HTTPAdapter
+ extends java.lang.Object\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCom.HTTPAdapter()}{{\bf HTTPAdapter()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCom.HTTPAdapter.sendGetRequest()}{{\bf sendGetRequest()}} sendet GET-Request an Tomcat\\
+\hyperlink{edu.kit.pse17.go_app.ServerCom.HTTPAdapter.sendPostRequest(JSONObject)}{{\bf sendPostRequest(JSONObject)}} sendet POSTRequest an Tomcat\\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{HTTPAdapter()}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.HTTPAdapter()}{{\bf  HTTPAdapter}\\}
+\begin{lstlisting}[frame=none]
+public HTTPAdapter()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{sendGetRequest()}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.HTTPAdapter.sendGetRequest()}{{\bf  sendGetRequest}\\}
+\begin{lstlisting}[frame=none]
+protected JSONObject sendGetRequest()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+sendet GET-Request an Tomcat
+}
+\item{{\bf  Returns} -- 
+vom Tomcat erhaltenes JSONObjekt 
+}%end item
+\end{itemize}
 }%end item
 \item{ 
-\index{setIcon(Icon)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.setIcon(Icon)}{{\bf  setIcon}\\}
+\index{sendPostRequest(JSONObject)}
+\hypertarget{edu.kit.pse17.go_app.ServerCom.HTTPAdapter.sendPostRequest(JSONObject)}{{\bf  sendPostRequest}\\}
 \begin{lstlisting}[frame=none]
-void setIcon(Icon icon)\end{lstlisting} %end signature
+protected void sendPostRequest(JSONObject obj)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+sendet POSTRequest an Tomcat
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{obj} -- JSON-Objekt, das übermittlet werden soll}
+  \end{itemize}
 }%end item
-\item{ 
-\index{setSubtitle(Date)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.setSubtitle(java.util.Date)}{{\bf  setSubtitle}\\}
-\begin{lstlisting}[frame=none]
-public void setSubtitle(java.util.Date date)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{setTitle(String)}
-\hypertarget{edu.kit.pse17.go_app.RecyclerView.GORecyclerView.GOListItem.setTitle(java.lang.String)}{{\bf  setTitle}\\}
-\begin{lstlisting}[frame=none]
-void setTitle(java.lang.String title)\end{lstlisting} %end signature
+\end{itemize}
 }%end item
 \end{itemize}
 }

@@ -8,7 +8,7 @@ import edu.kit.pse17.go_app.User;
 
 /**
  * Diese Klasse verwaltet Gruppen Objekte
- * 
+ *
  * Created by tina on 17.06.17.
  */
 
