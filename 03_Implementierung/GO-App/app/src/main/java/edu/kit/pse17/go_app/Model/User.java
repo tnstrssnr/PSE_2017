@@ -1,8 +1,9 @@
-package edu.kit.pse17.go_app;
+package edu.kit.pse17.go_app.Model;
 
 import android.graphics.drawable.Icon;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Diese Klasse verwaltet User Objekte
@@ -61,5 +62,17 @@ public class User implements Serializable {
 
     public void setIcon(Icon icon) {
         this.icon = icon;
+    }
+
+    public List<Group> getGroups() {
+        return null;
+    }
+
+    public List<Group> getGroupRequests() {
+        return null;
+    }
+
+    public Status getStatus(GO go) {
+        return Status.NOT_GOING;
     }
 }

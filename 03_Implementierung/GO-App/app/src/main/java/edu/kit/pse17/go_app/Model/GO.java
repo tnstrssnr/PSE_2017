@@ -1,11 +1,10 @@
-package edu.kit.pse17.go_app;
+package edu.kit.pse17.go_app.Model;
 
 import android.location.Location;
 import android.support.annotation.Nullable;
 
 import java.util.Date;
-
-import edu.kit.pse17.go_app.User;
+import java.util.List;
 
 /**
  * Diese Klasse verwaltet GO Objekte
@@ -15,6 +14,7 @@ import edu.kit.pse17.go_app.User;
 
 public class GO {
 
+    private int ID;
     private String name;
     private String description;
     private Date start;
@@ -24,6 +24,7 @@ public class GO {
 
     /**
      * Konstruktor
+     * @param ID eindeutige Nummer, mit der ein GO identifiziert werden kann
      * @param name GO Bezeichnung
      * @param description Go Beschreibung
      * @param start Startzeitpunkt
@@ -31,7 +32,8 @@ public class GO {
      * @param location Treffpunkt (kann null sein)
      * @param owner GO-Verantwortlicher
      */
-    public GO(String name, String description, Date start, Date end, @Nullable Location location, User owner) {
+    public GO(int ID, String name, String description, Date start, Date end, @Nullable Location location, User owner) {
+        this.ID = ID;
         this.name = name;
         this.description = description;
         this.start = start;
@@ -86,5 +88,21 @@ public class GO {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public boolean isOwner(User user) {
+        return false;
+    }
+
+    public List<User> getGoingUsers() {
+        return null;
+    }
+
+    public List<User> getGoneUsers() {
+        return null;
+    }
+
+    private void onDataChanged() {
+
     }
 }

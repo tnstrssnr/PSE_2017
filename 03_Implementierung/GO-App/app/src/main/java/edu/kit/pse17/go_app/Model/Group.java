@@ -1,10 +1,8 @@
-package edu.kit.pse17.go_app;
+package edu.kit.pse17.go_app.Model;
 
 import android.graphics.drawable.Icon;
 
 import java.util.ArrayList;
-
-import edu.kit.pse17.go_app.User;
 
 /**
  * Diese Klasse verwaltet Gruppen Objekte
@@ -14,6 +12,7 @@ import edu.kit.pse17.go_app.User;
 
 public class Group {
 
+    private int ID;
     private String name;
     private String description;
     private Icon icon;
@@ -22,13 +21,15 @@ public class Group {
 
     /**
      * Konstruktor
+     * @param ID eindeutige Nummer, mit der eine Gruppe identifiziert werden kann
      * @param name Gruppenname
      * @param description Gruppenbeschreibung
      * @param icon Gruppenicon
      * @param members Liste aller Gruppenmitglieder
      * @param memberCount Anzahl der Gruppenmitglieder
      */
-    public Group(String name, String description, Icon icon, ArrayList<User> members, int memberCount) {
+    public Group(int ID, String name, String description, Icon icon, ArrayList<User> members, int memberCount) {
+        this.ID = ID;
         this.name = name;
         this.description = description;
         this.icon = icon;
@@ -74,5 +75,13 @@ public class Group {
 
     public void setMemberCount(int memberCount) {
         this.memberCount = memberCount;
+    }
+
+    public boolean isAdmin(User user) {
+        return false;
+    }
+
+    private void onDataChanged() {
+
     }
 }
