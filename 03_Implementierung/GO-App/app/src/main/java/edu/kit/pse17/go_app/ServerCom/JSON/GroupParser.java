@@ -2,7 +2,7 @@ package edu.kit.pse17.go_app.ServerCom.JSON;
 
 import org.json.JSONObject;
 
-import edu.kit.pse17.go_app.Group;
+import edu.kit.pse17.go_app.Model.Group;
 
 /**
  *  * wandelt Gruppen-Objekte um in JSON-Objekte der entsprechenden Struktur

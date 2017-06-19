@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app;
+package edu.kit.pse17.go_app.View;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,10 +13,11 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.kit.pse17.go_app.RecyclerView.Adapter.GroupListAdapter;
-import edu.kit.pse17.go_app.RecyclerView.ListItems.GroupListItem;
-import edu.kit.pse17.go_app.RecyclerView.Adapter.ListAdapter;
-import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.R;
+import edu.kit.pse17.go_app.View.RecyclerView.Adapter.GroupListAdapter;
+import edu.kit.pse17.go_app.View.RecyclerView.ListItems.GroupListItem;
+import edu.kit.pse17.go_app.View.RecyclerView.Adapter.ListAdapter;
+import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
 
 /**
  *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers

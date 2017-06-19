@@ -33,7 +33,7 @@ public abstract class SignInHelper extends AppCompatActivity {
      * @param signInData AnmeldeDaten die ggfs an Anmelde-Aktivität übergeben werden müssen
      * @param signinHelper  Referenz auf die Unterklasse, die Methode ausführt
      */
-    protected static void signIn(Activity activity, int requestCode, Serializable signInData, Class signinHelper) {
+    public static void signIn(Activity activity, int requestCode, Serializable signInData, Class signinHelper) {
         Intent intent = new Intent(activity, signinHelper);
 
         if (signInData != null) {

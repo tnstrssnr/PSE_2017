@@ -2,7 +2,7 @@ package edu.kit.pse17.go_app.ServerCom.JSON;
 
 import org.json.JSONObject;
 
-import edu.kit.pse17.go_app.User;
+import edu.kit.pse17.go_app.Model.User;
 
 /**
  *  * wandelt User-Objekte um in JSON-Objekte der entsprechenden Struktur

@@ -1,10 +1,10 @@
-package edu.kit.pse17.go_app.RecyclerView.Adapter;
+package edu.kit.pse17.go_app.View.RecyclerView.Adapter;
 
 import java.util.List;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.RecyclerView.ListItems.ListItem;
-import edu.kit.pse17.go_app.RecyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.View.RecyclerView.ListItems.ListItem;
+import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
 
 /**
  * Konkreter ViewHolder, der die ListItems an das group_list_item.xml Layout bindet

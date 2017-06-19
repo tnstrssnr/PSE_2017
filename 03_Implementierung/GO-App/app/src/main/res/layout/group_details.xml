@@ -101,7 +101,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/add_member"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_edit_white_24dp" />
+                app:srcCompat="@drawable/ic_edit_white_24dp"
+                android:visibility="invisible"
+                android:clickable="false"/>
 
             <ImageView
                 android:id="@+id/add_member"
@@ -114,7 +116,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_person_add_white_24dp" />
+                app:srcCompat="@drawable/ic_person_add_white_24dp"
+                android:visibility="invisible"
+                android:clickable="false"/>
 
         </android.support.constraint.ConstraintLayout>
 

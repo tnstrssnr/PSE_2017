@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.SignInActivity">
+        <activity android:name=".View.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,8 +18,9 @@
         </activity>
         <activity android:name=".Login.FirebaseSignInHelper"/>
         <activity android:name=".Login.SignInHelper" />
-        <activity android:name=".GroupListActivity" />
+        <activity android:name=".View.GroupListActivity" />
         <activity android:name=".Login.GoSignInHelper" />
+        <activity android:name=".View.GroupDetailActivity" />
 
         <uses-permission android:name="android.permission.INTERNET" />
     </application>

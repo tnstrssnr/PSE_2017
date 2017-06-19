@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.Login;
+package edu.kit.pse17.go_app.View;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
 
-import edu.kit.pse17.go_app.GroupListActivity;
+import edu.kit.pse17.go_app.Login.FirebaseSignInHelper;
+import edu.kit.pse17.go_app.Login.GoSignInHelper;
+import edu.kit.pse17.go_app.Login.SignInHelper;
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.User;
+import edu.kit.pse17.go_app.Model.User;
 
 /**
  * Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess
@@ -53,13 +55,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == FIREBASE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            String uid = (String) data.getSerializableExtra(SignInHelper.ACCOUNT_DATA_CODE);
-            Toast.makeText(this, uid, Toast.LENGTH_SHORT).show();
+            String[] accountData  = (String[]) data.getSerializableExtra(SignInHelper.ACCOUNT_DATA_CODE);
+            String uid = accountData[0];
+            String email = accountData[1];
+            Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
 
-            GroupListActivity.start(this);
+            //safe UID in local SharedPreferences!
+
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             User user = (User) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
+
+            GroupListActivity.start(this);
+
         }
     }
 }

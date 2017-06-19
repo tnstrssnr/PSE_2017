@@ -62,7 +62,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) { // User already signed in
-            returnActivityResult(currentUser.getUid());
+            returnActivityResult(new String[]{currentUser.getUid(), currentUser.getEmail()});
         } else { // User not signed in
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, SIGN_IN_REQUEST_CODE);
@@ -99,7 +99,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            returnActivityResult(user.getUid());
+                            returnActivityResult(new String[]{user.getUid(), user.getEmail()});
                         } else {
                             returnActivityResult(null);
                         }
