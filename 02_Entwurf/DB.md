@@ -15,11 +15,17 @@ Schlüssel: Benutzer-ID
 - Gruppenname: String
 - Gruppenbild (?)
 - Gruppenbeschreibung: String
-- Benutzer: Benutzer (Fremdschlüssel)
+
+Schlüssel: Gruppen-ID
+
+### Gruppenmitgliederrelation
+
+- Gruppen-ID (Fremdschlüssel)
+- Benutzer-ID (Fremdschlüssel)
 - isAdmin: Boolean
 - isRequest: Boolean
 
-Schlüssel: Gruppen-ID + Benutzer
+Schlüssel: Gruppen-ID + Benutzer-ID
 
 #### GO-Relation
 
@@ -31,9 +37,24 @@ Schlüssel: Gruppen-ID + Benutzer
 - Endzeitpunkt: Date
 - Schwellwert: int
 - Gruppe: Gruppen-ID
-- Teilnehmer: Benutzer
+
+
+Schlüssel: GO-ID
+
+#### GO-Teilnehmerstatus
+
+- GO-ID (Fremdschlüssel)
+- Teilnehmer: Benutzer-ID (Fremdschlüssel)
 - Teilnahmestatus: enum
 
-Schlüssel: GO-ID + Benutzer
+Schlüssel: GO-ID + Benutzer-ID
+
+#### Konsistenzbedingungen
+
+folgende Konsistenzbedingungen sind *nicht* durch Schlüssel abgedeckt:
+
+- ein GO-Verantwortlicher darf nur Teilnehmerstatus 'bestätigt' und 'unterwegs' haben
+- es dürfen nur Mitglieder der jeweiligen Gruppe in der Relation Go-Teilnehmerstatus auftauchen
+- jedes Mitglied der Gruppe muss für jedes Go der Gruppe in der Relation Go-Teilnehmerstatus auftauchen
 
 
