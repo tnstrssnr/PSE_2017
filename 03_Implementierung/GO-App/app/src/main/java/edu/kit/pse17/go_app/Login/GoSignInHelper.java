@@ -11,13 +11,13 @@ import android.support.annotation.Nullable;
 public class GoSignInHelper extends SignInHelper {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void configureSignIn() {
+
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void startSignInProcess() {
+
     }
 
 }

@@ -34,8 +34,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
     private FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void configureSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -49,12 +48,8 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
         mAuth = FirebaseAuth.getInstance();
     }
 
-    /**
-     * startet die Aktivität
-     */
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void startSignInProcess() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) { // User already signed in

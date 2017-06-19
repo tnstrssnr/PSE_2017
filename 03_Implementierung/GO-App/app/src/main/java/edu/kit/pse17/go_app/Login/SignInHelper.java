@@ -40,4 +40,19 @@ public abstract class SignInHelper extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startSignInProcess();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        configureSignIn();
+    }
+
+    protected abstract void configureSignIn();
+
+    protected abstract void startSignInProcess();
 }
