@@ -4,4 +4,10 @@
     <string name="members">Members</string>
     <string name="multi_line_group_description">multi line group description ansdjlfvbjldeqbernjbfnqjlenljbqeljbrngjlqrebjnqjenrl sdnfjlqnjgblqe</string>
     <string name="go_name">Event Name</string>
+    <string name="einstellungen">Einstellungen</string>
+    <string name="profildaten_ndern">Profildaten ändern</string>
+    <string name="go_info">Über GO</string>
+    <string name="lizenzinformationen">Lizenzinformationen</string>
+    <string name="abmelden">Abmelden</string>
+    <string name="profil_l_schen">Profil löschen</string>
 </resources>

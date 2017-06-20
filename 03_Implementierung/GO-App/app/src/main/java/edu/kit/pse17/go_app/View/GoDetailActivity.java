@@ -13,7 +13,7 @@ import edu.kit.pse17.go_app.R;
  * Created by tina on 20.06.17.
  */
 
-public class GoDetailActivity extends AppCompatActivity {
+public class GoDetailActivity extends BaseActivity {
 
     private TextView name;
     private TextView startDate;

@@ -15,6 +15,11 @@ import edu.kit.pse17.go_app.View.RecyclerView.ListItems.ListItem;
 
 public class UserStatusListItem implements ListItem<Status> {
 
+    private static final String going = "Bestätigt";
+    private static final String gone = "Unterwegs";
+    private static final String notGoing = "Abgelehnt";
+    private static final String[] statusArr = {notGoing, going, gone};
+
     private String title;
     private Status status;
     private Icon icon;
@@ -22,24 +27,21 @@ public class UserStatusListItem implements ListItem<Status> {
     /**
      * Konstruktor
      * @param title Benutzername
-     * @param status EMail-Adresse, die zur Anmeldung verwendet wurde
+     * @param status Status des Users
      * @param icon Profilbild
      */
     public UserStatusListItem(String title, Status status, Icon icon) {
-        this.title = title;
-        this.status = status;
-        this.icon = icon;
+        title = title;
+        status = status;
+        icon = icon;
     }
 
-    /**
-     * Konstruktor
-     * @param user Das User-Objekt, das von dem ListItem repräsentiert werden soll
-     */
     public UserStatusListItem(User user, GO go) {
-        title = user.getName();
-        status = go.getUserStatus(user);
-        icon = user.getIcon();
+        this.title = user.getName();
+        this.icon = user.getIcon();
+        this.status = go.getUserStatus(user);
     }
+
 
     @Override
     public String getTitle() {
@@ -53,7 +55,7 @@ public class UserStatusListItem implements ListItem<Status> {
 
     @Override
     public String getSubtitle() {
-        return status.toString();
+        return statusArr[this.status.ordinal()];
     }
 
     @Override

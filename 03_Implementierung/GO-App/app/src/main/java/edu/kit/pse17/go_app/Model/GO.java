@@ -45,6 +45,15 @@ public class GO {
         this.locationData = locationData;
     }
 
+    /**
+     * erzeugt ein neues GO-Objekt und speichert die GO-Daten in der Datenbank auf dem Tomcat Server
+     *
+     * @return  das neue GO
+     */
+    public static GO createGO() {
+        return null;
+    }
+
     public String getName() {
         return name;
     }

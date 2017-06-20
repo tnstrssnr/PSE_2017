@@ -19,19 +19,19 @@ public class GroupDetailActivityAdmin extends GroupDetailActivity {
     private GroupDetailActivity gda;
 
     private ImageView edit;
-    private ImageView add_member; //onClick: Dialog mit add User oder add Admin
+    private ImageView addMember; //onClick: Dialog mit add User oder add Admin
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ImageView edit  = (ImageView) findViewById(R.id.edit);
-        ImageView add_member = (ImageView) findViewById(R.id.add_member);
+        edit  = (ImageView) findViewById(R.id.edit);
+        addMember = (ImageView) findViewById(R.id.add_member);
 
         edit.setVisibility(View.VISIBLE);
         edit.setClickable(true);
 
-        add_member.setVisibility(View.VISIBLE);
+        addMember.setVisibility(View.VISIBLE);
         edit.setClickable(true);
     }
 }

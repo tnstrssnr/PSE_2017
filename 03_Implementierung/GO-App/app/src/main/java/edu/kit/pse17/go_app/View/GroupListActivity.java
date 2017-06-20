@@ -23,7 +23,7 @@ import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
  *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers
  */
 
-public class GroupListActivity extends AppCompatActivity implements OnListItemClicked, View.OnClickListener {
+public class GroupListActivity extends BaseActivity implements OnListItemClicked, View.OnClickListener {
 
     private ListAdapter adapter;
     private FloatingActionButton addGroupBtn;

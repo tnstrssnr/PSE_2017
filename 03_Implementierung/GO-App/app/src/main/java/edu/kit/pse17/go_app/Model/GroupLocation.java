@@ -36,6 +36,7 @@ public class GroupLocation {
 
     private List<Cluster> cluster;
 
+
     public List<Cluster> getCluster() {
         return cluster;
     }

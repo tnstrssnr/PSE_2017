@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.View.RecyclerView.Adapter;
 
+import android.support.v7.app.AlertDialog;
+
 import java.util.List;
 
 import edu.kit.pse17.go_app.R;

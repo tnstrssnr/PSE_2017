@@ -20,7 +20,7 @@ import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
  * Created by tina on 19.06.17.
  */
 
-public class GroupDetailActivity extends AppCompatActivity implements OnListItemClicked {
+public class GroupDetailActivity extends BaseActivity implements OnListItemClicked {
 
     private TextView groupName;
     private ImageView groupIcon;
@@ -47,7 +47,4 @@ public class GroupDetailActivity extends AppCompatActivity implements OnListItem
 
     }
 
-    public void configureView() {
-
-    }
 }

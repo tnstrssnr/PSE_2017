@@ -18,7 +18,6 @@ public class Group {
     private Icon icon;
     private ArrayList<User> members;
     private int memberCount;
-
     /**
      * Konstruktor
      * @param ID eindeutige Nummer, mit der eine Gruppe identifiziert werden kann
@@ -35,6 +34,15 @@ public class Group {
         this.icon = icon;
         this.members = members;
         this.memberCount = memberCount;
+    }
+
+    /**
+     * erzeugt ein neues Group-Objekt und speichert die Group-Daten in der Datenbank auf dem Tomcat Server
+     *
+     * @return die neue Gruppe
+     */
+    public static Group createGroup() {
+        return null;
     }
 
     public String getName() {

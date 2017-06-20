@@ -7,7 +7,9 @@ package edu.kit.pse17.go_app.Model;
  */
 
 public enum Status {
-    NOT_GOING, // Abgelehnt
-    GOING, // Bestätigt
-    GONE // Unterwegs
+    NOT_GOING,
+    GOING,
+    GONE;
+
+
 }

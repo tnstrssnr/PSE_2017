@@ -32,6 +32,24 @@ public class User implements Serializable {
         this.icon = icon;
     }
 
+    /**
+     * gibt das User-Objekt, mit den Daten des momentan angemeldeten Benutzers zurück
+     *
+     * @return der angemeldete Benutzer
+     */
+    public static User getMyself() {
+        return null;
+    }
+
+    /**
+     * erzeugt ein neues User-Objekt und speichert die User-Daten in der Datenbank auf dem Tomcat Server
+     *
+     * @return der neue user
+     */
+    public static User createUser() {
+        return null;
+    }
+
     public String getUid() {
         return uid;
     }
@@ -74,5 +92,9 @@ public class User implements Serializable {
 
     public Status getStatus(GO go) {
         return Status.NOT_GOING;
+    }
+
+    public void onChangeData() {
+
     }
 }

@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.View.RecyclerView.Adapter;
 
+import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,5 +85,7 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
      */
     protected abstract int setLayout();
 
-
+    public void addItem(ListItem item) {
+        data.add(item);
+    }
 }

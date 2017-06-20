@@ -22,7 +22,7 @@ import edu.kit.pse17.go_app.Model.User;
  * Created by tina on 17.06.17.
  */
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int FIREBASE_REQUEST_CODE = 1;
     private static final int GO_REQUEST_CODE = 2;
