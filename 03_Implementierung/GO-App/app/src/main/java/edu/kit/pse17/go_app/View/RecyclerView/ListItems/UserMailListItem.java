@@ -10,7 +10,7 @@ import edu.kit.pse17.go_app.Model.User;
  * Created by tina on 19.06.17.
  */
 
-public class UserListItem implements ListItem<String> {
+public class UserMailListItem implements ListItem<String> {
 
     private String title;
     private String email;
@@ -22,7 +22,7 @@ public class UserListItem implements ListItem<String> {
      * @param email EMail-Adresse, die zur Anmeldung verwendet wurde
      * @param icon Profilbild
      */
-    public UserListItem(String title, String email, Icon icon) {
+    public UserMailListItem(String title, String email, Icon icon) {
         this.title = title;
         this.email = email;
         this.icon = icon;
@@ -32,7 +32,7 @@ public class UserListItem implements ListItem<String> {
      * Konstruktor
      * @param user Das User-Objekt, das von dem ListItem repräsentiert werden soll
      */
-    public UserListItem(User user) {
+    public UserMailListItem(User user) {
         title = user.getName();
         email = user.getEmail();
         icon = user.getIcon();

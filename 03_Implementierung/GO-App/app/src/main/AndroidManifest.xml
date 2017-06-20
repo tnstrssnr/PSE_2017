@@ -21,6 +21,7 @@
         <activity android:name=".View.GroupListActivity" />
         <activity android:name=".Login.GoSignInHelper" />
         <activity android:name=".View.GroupDetailActivity" />
+        <activity android:name=".View.GoDetailActivity" />
 
         <uses-permission android:name="android.permission.INTERNET" />
     </application>

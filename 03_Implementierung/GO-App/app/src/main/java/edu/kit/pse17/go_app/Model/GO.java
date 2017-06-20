@@ -21,6 +21,7 @@ public class GO {
     private Date end;
     private Location location;
     private User owner;
+    private GroupLocation locationData;
 
     /**
      * Konstruktor
@@ -31,8 +32,9 @@ public class GO {
      * @param end Endzeitpunkt
      * @param location Treffpunkt (kann null sein)
      * @param owner GO-Verantwortlicher
+     * @param locationData Die GPS-Daten der Go-Teilnehmer
      */
-    public GO(int ID, String name, String description, Date start, Date end, @Nullable Location location, User owner) {
+    public GO(int ID, String name, String description, Date start, Date end, @Nullable Location location, User owner, GroupLocation locationData) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -40,6 +42,7 @@ public class GO {
         this.end = end;
         this.location = location;
         this.owner = owner;
+        this.locationData = locationData;
     }
 
     public String getName() {
@@ -104,5 +107,9 @@ public class GO {
 
     private void onDataChanged() {
 
+    }
+
+    public Status getUserStatus(User user) {
+        return null;
     }
 }
