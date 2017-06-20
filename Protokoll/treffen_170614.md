@@ -5,12 +5,11 @@
 - Eventhandler Klassen
 - MVC Klasse oder Paket
 - Testklassen
-- private Methoden in Sequenzdiagrammen
+- private Methoden in Sequenzdiagrammen --> nur interessanten Teil darstellen
 - Kommentare für protected
 - Oberklasse mit nur einem Untertyp --> lieber eine abstrakte Oberklasse ?
 - wie kommen Interfaces ins Spiel?
 - abstrakte Klasse vs Interface
-
 
 ### Entwurfsmuster
 - Adapter --> Java <-> HTTP
