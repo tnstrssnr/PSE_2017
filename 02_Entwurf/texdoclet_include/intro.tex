@@ -1,5 +1,6 @@
 
 
+
 % add something here
 
 \subsection{Änderungen zum Pflichtenheft}
@@ -9,14 +10,54 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 \subsection{Paketstruktur}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\subsubsection{Client}
+Der Programmteil, der auf dem Client - also auf dem Android-Gerät - ausgeführt wird, ist in folgende Pakete (die ggfs. Unterpakete enthalten) aufgeteilt:
+\begin{itemize}
+	\item Views
+	\item Controller
+	\item Model
+	\item ServerCom
+\end{itemize}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Der folgende Abschnitt erläutert, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\subsubsubsection{Views}
+Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Die Hauptaufgabe des Pakets ist es zum Einen, dem Benutzer ein Interface zur Verfügung zu stellen, mit dem er Interagieren kann, zum Anderen werden hier Benutzereingaben entgegengenommen und soweit ausgewertet, dass die Verarbeitung der Eingabe an die dafür zuständige Stelle im Programm weitergegeben werden kann.\\
+
+\textbf{Abhängigkeiten zu anderen Paketen:}\\
+Das Paket Views kann die Informationen, die dem Benutzer angezeigt werden, nicht selbst generieren, sondern bekommt diese bereitgestellt vom Paket Model. Welche Informationen das sind, wird bestimmt vom Paket Controller. Somit besteht eine Abhängigkeit zu den Paketen Controller und Model.\\
+
+\textbf{Unterpakete:}\\
+das Paket enthält das Unterpaket 'RecyclerView'. Da in der Applikation viele (verschiedene) RecyclerViews verwendet werden, gibt es für die Erstellung derselben ein eigenes Paket, dessen Aufgabe es ist, von den Datenobjekten die das Model liefert die gewünschten Informationen zu extrahieren und diese mit dem richtigen Layout zusammenzuführen. Innerhalb des Pakets besteht eine Abhängigkeit derjenigen View-Klassen, die einen RecyclerView verwenden zu dem Unterpaket RecyclerViews. Das Unterpaket RecyclerViews selbst ist nocht von anderen Klassen und Paketen abhängig.
+
+\subsubsubsection{Model}
+Das Paket Model enthält Klassen, deren Entitäten die physischen und konzeptuellen Objekte, mit denen umgegangen werden muss, abbilden und deren Funktionen und Eigenschaften modellieren.
+
+\textbf{Abhängigkeiten zu anderen Paketen}\\
+Das Paket benötigt, um seine Aufgaben erfüllen zu können, die Dienste des Pakets ServerCom. Für die Verwaltung der Daten der modellierten Entitäten ist Kommunikation mit dem Server notwenig (für das Holen und Speichern von Daten).
+
+\textbf{Unterpakete:}\\
+
+\subsubsubsection{Controller}
+Das Paket Controller ist dafür verantwortlich für .....
+
+\textbf{Abhängigkeiten zu anderen Paketen:}\\
 
 
-\subsection{verwendete Entwurfsmuster}
+\textbf{Unterpakete:}\\
+\begin{enumerate}
+	\item \textit{SinInHelper}\\
+	Das Unterpaket SignInHelper ist für die Koordination des SignIn Prozesses zuständig. Die Anmeldung eines benutzers erfolgt in zwei Schritten: zunächst muss die Identität des Benutzers festgestellt werden (dies geschieht über eine Schnittstelle zu Firebase), danach müssen die Daten des identifizierten Benutzers geladen werden.
+\end{enumerate}
+
+\subsubsubsection{ServerCom}
+Das Paket ServerCom übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holden von Daten von dem Server.\\
+
+\textbf{Abhängigkeiten zu anderen Paketen}\\
+Das Paket hat keine Abhängigkeiten zu anderen Paketen.
+
+
+\section{verwendete Entwurfsmuster}
 
 \subsubsection{Schablonenmethode für SignInHelper}
 Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über die signIn()-Methode angesto"sen werden. Der spezifische Ablauf der Anmelde-Aktivität wird in den Unterklassen durch die primitiven Methoden definiert. \\
