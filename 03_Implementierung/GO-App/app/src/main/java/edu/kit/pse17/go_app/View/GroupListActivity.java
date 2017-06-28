@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.kit.pse17.go_app.Model.Group;
+import edu.kit.pse17.go_app.Model.User;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.View.RecyclerView.Adapter.GroupListAdapter;
 import edu.kit.pse17.go_app.View.RecyclerView.ListItems.GroupListItem;
@@ -25,12 +27,18 @@ import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
 
 public class GroupListActivity extends BaseActivity implements OnListItemClicked, View.OnClickListener {
 
+    private static final String USER_ID_INTENT_CODE = "user_id";
+
     private ListAdapter adapter;
     private FloatingActionButton addGroupBtn;
     private ImageView options;
 
-    public static void start(Activity activity) {
-        activity.startActivity(new Intent(activity, GroupListActivity.class));
+    public static void start(Activity activity, User user) {
+        Intent intent = new Intent(activity, GroupListActivity.class);
+
+        intent.putExtra(USER_ID_INTENT_CODE, user.getUid());
+
+        activity.startActivity(intent);
     }
 
     /**
@@ -46,8 +54,10 @@ public class GroupListActivity extends BaseActivity implements OnListItemClicked
         RecyclerView list = (RecyclerView)  findViewById(R.id.group_recycler);
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        String uid = getIntent().getStringExtra(USER_ID_INTENT_CODE);
+
         //TODO get all user groups
-        List data = new ArrayList<GroupListItem>();
+        List data = Group.getAllGroups(uid);
 
         adapter = new GroupListAdapter(data, this);
         list.setAdapter(adapter);

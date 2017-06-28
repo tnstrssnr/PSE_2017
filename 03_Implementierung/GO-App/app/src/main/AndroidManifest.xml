@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.kit.pse17.go_app">
 
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,15 +20,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.FirebaseSignInHelper"/>
-        <activity android:name=".Login.SignInHelper" />
+        <activity android:name=".login.FirebaseSignInHelper"/>
         <activity android:name=".View.GroupListActivity" />
-        <activity android:name=".Login.GoSignInHelper" />
+        <activity android:name=".login.GoSignInHelper" />
         <activity android:name=".View.GroupDetailActivity" />
         <activity android:name=".View.GoDetailActivity" />
         <activity android:name=".View.SettingsActivity" />
 
         <uses-permission android:name="android.permission.INTERNET" />
+
+        <!--
+            Defining Services
+        -->
+        <service
+            android:name=".ServerCom.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ServerCom.InstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

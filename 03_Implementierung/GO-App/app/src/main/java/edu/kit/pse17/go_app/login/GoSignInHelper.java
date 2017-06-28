@@ -1,7 +1,4 @@
-package edu.kit.pse17.go_app.Login;
-
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+package edu.kit.pse17.go_app.login;
 
 /**
  * Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig.

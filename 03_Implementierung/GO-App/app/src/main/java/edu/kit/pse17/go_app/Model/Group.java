@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.Model;
 import android.graphics.drawable.Icon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Diese Klasse verwaltet Gruppen Objekte
@@ -90,6 +91,29 @@ public class Group {
     }
 
     private void onDataChanged() {
+
+    }
+
+    /**
+     * Gibt eine Liste mit allen Gruppen des Benutzer mit der ID *uid* zurück
+     *
+     * @param uid Die User-ID des Benutzer
+     * @return Liste mit Gruppen des Benutzers
+     */
+    public static List<Group> getAllGroups(String uid) {
+
+        return null;
+    }
+
+    /**
+     * Gibt eine Liste mit allen Gruppen zurück, zu denen der Benutzer mit der ID *uid* eingeladen wurde (und auf die Anfrage noch nicht geantwortet hat)
+     *
+     * @param uid Die User-ID des Benutzers
+     * @return Liste mit allen Gruppenanfragen des Benutzers
+     */
+    public static List<Group> getAllGroupRequests(String uid) {
+
+        return null;
 
     }
 }

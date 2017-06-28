@@ -1,9 +1,7 @@
-package edu.kit.pse17.go_app.Login;
+package edu.kit.pse17.go_app.login;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,8 +20,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import edu.kit.pse17.go_app.R;
 
 /**
- * Diese Klasse ist für die Kommunikation mit der Firebase und Google API zuständig während des Login-Prozesses zuständig.
- * Sie implemetiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
+ * Diese Klasse ist für die Kommunikation mit Firebase und Google API zuständig während des Login-Prozesses zuständig.
+ * Sie implementiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
  *
  * Created by tina on 17.06.17.
  */

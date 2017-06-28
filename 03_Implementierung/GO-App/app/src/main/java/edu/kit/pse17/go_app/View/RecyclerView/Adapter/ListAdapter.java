@@ -1,7 +1,5 @@
 package edu.kit.pse17.go_app.View.RecyclerView.Adapter;
 
-import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +32,8 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
     /**
      * Konstruktor
-     * @param data ListItems, die in dem RecyclerView angezeigt werden sollen
+     *
+     * @param data              ListItems, die in dem RecyclerView angezeigt werden sollen
      * @param onListItemClicked ClickListener für die Listenelemente
      */
     public ListAdapter(List<ListItem> data, OnListItemClicked onListItemClicked) {
@@ -46,14 +45,14 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
      * Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird
      * wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren
      *
-     * @param parent Viewgroup, zu der der neue View hinzugefügt werden soll
+     * @param parent   Viewgroup, zu der der neue View hinzugefügt werden soll
      * @param viewType viewType des neuen Views
      * @return neuer ViewHolder des gewünschten Typs
      */
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate( setLayout(), parent, false);
+        View view = layoutInflater.inflate(setLayout(), parent, false);
         return new ListViewHolder(view, onListItemClicked);
     }
 
@@ -72,6 +71,7 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
     /**
      * gibt das ListItem an der angegebenen Position zurück
+     *
      * @param position Listenposition des gewünschten ListItems
      * @return ListItem, an der angegebenen Position aus der Liste data
      */
@@ -81,6 +81,7 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
     /**
      * Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
+     *
      * @return ID des gewünschten XML Layouts aus R.layout
      */
     protected abstract int setLayout();
@@ -88,4 +89,5 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     public void addItem(ListItem item) {
         data.add(item);
     }
+
 }

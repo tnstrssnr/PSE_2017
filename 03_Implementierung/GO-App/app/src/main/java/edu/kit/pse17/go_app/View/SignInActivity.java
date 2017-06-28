@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
 
-import edu.kit.pse17.go_app.Login.FirebaseSignInHelper;
-import edu.kit.pse17.go_app.Login.GoSignInHelper;
-import edu.kit.pse17.go_app.Login.SignInHelper;
+import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
+import edu.kit.pse17.go_app.login.GoSignInHelper;
+import edu.kit.pse17.go_app.login.SignInHelper;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.Model.User;
 
@@ -34,8 +33,17 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_firebase_login);
 
+        //check for compatible Google Play Services APK!
+
         signInBtn = (SignInButton) this.findViewById(R.id.sign_in_button);
         signInBtn.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //check for compatible GPS APK
     }
 
     /**
@@ -66,7 +74,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             User user = (User) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
 
-            GroupListActivity.start(this);
+            GroupListActivity.start(this, user);
 
         }
     }
