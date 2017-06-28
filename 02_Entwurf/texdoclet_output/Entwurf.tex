@@ -108,7 +108,11 @@ Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflicht
 
 \subsection{Änderungen zum Pflichtenheft}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenommen:
+\begin{enumerate}
+	\item \textbf{Produktdaten - Benutzer} \\
+	Es werden in den Produktdaten zusätzlich eine (von Firebase automatisch generierte) InstanceID gespeichert, die es dem Server erlaubt, Daten an das Android-Gerät eines bestimmten Benutzers zu senden.
+\end{enumerate}
 
 
 \subsection{Paketstruktur}
@@ -198,9 +202,6 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.Adapter.GroupListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.Adapter.GroupListAdapter}} \\
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.Adapter.UserListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.Adapter.UserListAdapter}} \\
 \hspace{1.0cm} $\bullet$ AppCompatActivity {\tiny } \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.SignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.SignInHelper}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.FirebaseSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.Login.GoSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.Login.GoSignInHelper}} \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.View.BaseActivity {\tiny \refdefined{edu.kit.pse17.go_app.View.BaseActivity}} \\
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.View.GoDetailActivity {\tiny \refdefined{edu.kit.pse17.go_app.View.GoDetailActivity}} \\
 \hspace{4.0cm} $\bullet$ edu.kit.pse17.go\_app.View.GoDetailActivityOwner {\tiny \refdefined{edu.kit.pse17.go_app.View.GoDetailActivityOwner}} \\
@@ -210,13 +211,19 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.View.InformationActivity {\tiny \refdefined{edu.kit.pse17.go_app.View.InformationActivity}} \\
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.View.SettingsActivity {\tiny \refdefined{edu.kit.pse17.go_app.View.SettingsActivity}} \\
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.View.SignInActivity {\tiny \refdefined{edu.kit.pse17.go_app.View.SignInActivity}} \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.login.SignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.login.SignInHelper}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.login.FirebaseSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.login.FirebaseSignInHelper}} \\
+\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.login.GoSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.login.GoSignInHelper}} \\
+\hspace{1.0cm} $\bullet$ FirebaseInstanceIdService {\tiny } \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCommunication.TokenService {\tiny \refdefined{edu.kit.pse17.go_app.ServerCommunication.TokenService}} \\
+\hspace{1.0cm} $\bullet$ FirebaseMessagingService {\tiny } \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCommunication.MessagingService {\tiny \refdefined{edu.kit.pse17.go_app.ServerCommunication.MessagingService}} \\
 \hspace{1.0cm} $\bullet$ ViewHolder {\tiny } \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListViewHolder {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListViewHolder}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.Model.GO {\tiny \refdefined{edu.kit.pse17.go_app.Model.GO}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.Model.Group {\tiny \refdefined{edu.kit.pse17.go_app.Model.Group}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.Model.GroupLocation {\tiny \refdefined{edu.kit.pse17.go_app.Model.GroupLocation}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.Model.User {\tiny \refdefined{edu.kit.pse17.go_app.Model.User}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCom.HttpRequestHandler {\tiny \refdefined{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.GOListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.GOListItem}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.GroupListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.GroupListItem}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.UserMailListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.UserMailListItem}} \\
@@ -228,35 +235,126 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.ListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.ListItem}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.OnListItemClicked {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked}} \\
 }
-\section{Package edu.kit.pse17.go\_app.Login}{
-\label{edu.kit.pse17.go_app.Login}\hypertarget{edu.kit.pse17.go_app.Login}{}
+\section{Package edu.kit.pse17.go\_app.ServerCommunication}{
+\label{edu.kit.pse17.go_app.ServerCommunication}\hypertarget{edu.kit.pse17.go_app.ServerCommunication}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{FirebaseSignInHelper}{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}{Diese Klasse ist für die Kommunikation mit Firebase und Google API zuständig während des Login-Prozesses zuständig.}
-\entityintro{GoSignInHelper}{edu.kit.pse17.go_app.Login.GoSignInHelper}{Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig.}
-\entityintro{SignInHelper}{edu.kit.pse17.go_app.Login.SignInHelper}{Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient Created by tina on 18.06.17.}
+\entityintro{MessagingService}{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{Created by tina on 28.06.17.}
+\entityintro{TokenService}{edu.kit.pse17.go_app.ServerCommunication.TokenService}{Created by tina on 28.06.17.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}Class FirebaseSignInHelper}{
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}{}\vskip .1in 
-Diese Klasse ist für die Kommunikation mit Firebase und Google API zuständig während des Login-Prozesses zuständig. Sie implementiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper. Created by tina on 17.06.17.\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.ServerCommunication.MessagingService}Class MessagingService}{
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{}\vskip .1in 
+Created by tina on 28.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
-public class FirebaseSignInHelper
- extends edu.kit.pse17.go_app.Login.SignInHelper\end{lstlisting}
+public class MessagingService
+ extends FirebaseMessagingService\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper()}{{\bf FirebaseSignInHelper()}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.MessagingService()}{{\bf MessagingService()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.configureSignIn()}{{\bf configureSignIn()}} Implementierung gehört zur Schablonenmethode signIn()\\
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} Methode erwartet das Resultat der signInAktivität der GoogleSignInApi.\\
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onConnectionFailed(ConnectionResult)}{{\bf onConnectionFailed(ConnectionResult)}} wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt\\
-\hyperlink{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} Implementierung gehört zur Schablonenmethode signIn() Die Methode startet die signIn Aktivität der GoogleSignInApi\\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.MessagingService.onMessageReceived(RemoteMessage)}{{\bf onMessageReceived(RemoteMessage)}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{MessagingService()}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.MessagingService()}{{\bf  MessagingService}\\}
+\begin{lstlisting}[frame=none]
+public MessagingService()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{onMessageReceived(RemoteMessage)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.MessagingService.onMessageReceived(RemoteMessage)}{{\bf  onMessageReceived}\\}
+\begin{lstlisting}[frame=none]
+public void onMessageReceived(RemoteMessage remoteMessage)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServerCommunication.TokenService}Class TokenService}{
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TokenService}{}\vskip .1in 
+Created by tina on 28.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class TokenService
+ extends FirebaseInstanceIdService\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TokenService()}{{\bf TokenService()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TokenService.onTokenRefresh()}{{\bf onTokenRefresh()}} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{TokenService()}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TokenService()}{{\bf  TokenService}\\}
+\begin{lstlisting}[frame=none]
+public TokenService()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{onTokenRefresh()}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TokenService.onTokenRefresh()}{{\bf  onTokenRefresh}\\}
+\begin{lstlisting}[frame=none]
+public void onTokenRefresh()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package edu.kit.pse17.go\_app.login}{
+\label{edu.kit.pse17.go_app.login}\hypertarget{edu.kit.pse17.go_app.login}{}
+\hskip -.05in
+\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\vskip .13in
+\hbox{{\bf  Classes}}
+\entityintro{FirebaseSignInHelper}{edu.kit.pse17.go_app.login.FirebaseSignInHelper}{Diese Klasse ist für die Kommunikation mit Firebase und Google API zuständig während des Login-Prozesses zuständig.}
+\entityintro{GoSignInHelper}{edu.kit.pse17.go_app.login.GoSignInHelper}{Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig.}
+\entityintro{SignInHelper}{edu.kit.pse17.go_app.login.SignInHelper}{Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient Created by tina on 18.06.17.}
+\vskip .1in
+\vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.login.FirebaseSignInHelper}Class FirebaseSignInHelper}{
+\hypertarget{edu.kit.pse17.go_app.login.FirebaseSignInHelper}{}\vskip .1in 
+Diese Klasse ist für die Kommunikation mit Firebase und Google API zuständig während des Login-Prozesses zuständig. Sie implementiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper. Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class FirebaseSignInHelper
+ extends edu.kit.pse17.go_app.login.SignInHelper\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.login.FirebaseSignInHelper()}{{\bf FirebaseSignInHelper()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.login.FirebaseSignInHelper.configureSignIn()}{{\bf configureSignIn()}} Implementierung gehört zur Schablonenmethode signIn()\\
+\hyperlink{edu.kit.pse17.go_app.login.FirebaseSignInHelper.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} Methode erwartet das Resultat der signInAktivität der GoogleSignInApi.\\
+\hyperlink{edu.kit.pse17.go_app.login.FirebaseSignInHelper.onConnectionFailed(ConnectionResult)}{{\bf onConnectionFailed(ConnectionResult)}} wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt\\
+\hyperlink{edu.kit.pse17.go_app.login.FirebaseSignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} Implementierung gehört zur Schablonenmethode signIn() Die Methode startet die signIn Aktivität der GoogleSignInApi\\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -264,7 +362,7 @@ public class FirebaseSignInHelper
 \begin{itemize}
 \item{ 
 \index{FirebaseSignInHelper()}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper()}{{\bf  FirebaseSignInHelper}\\}
+\hypertarget{edu.kit.pse17.go_app.login.FirebaseSignInHelper()}{{\bf  FirebaseSignInHelper}\\}
 \begin{lstlisting}[frame=none]
 public FirebaseSignInHelper()\end{lstlisting} %end signature
 }%end item
@@ -275,7 +373,7 @@ public FirebaseSignInHelper()\end{lstlisting} %end signature
 \begin{itemize}
 \item{ 
 \index{configureSignIn()}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
+\hypertarget{edu.kit.pse17.go_app.login.FirebaseSignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
 \begin{lstlisting}[frame=none]
 protected void configureSignIn()\end{lstlisting} %end signature
 \begin{itemize}
@@ -288,7 +386,7 @@ Implementierung gehört zur Schablonenmethode signIn()
 }%end item
 \item{ 
 \index{onActivityResult(int, int, Intent)}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onActivityResult(int, int, Intent)}{{\bf  onActivityResult}\\}
+\hypertarget{edu.kit.pse17.go_app.login.FirebaseSignInHelper.onActivityResult(int, int, Intent)}{{\bf  onActivityResult}\\}
 \begin{lstlisting}[frame=none]
 protected void onActivityResult(int requestCode,int resultCode,Intent data)\end{lstlisting} %end signature
 \begin{itemize}
@@ -312,7 +410,7 @@ Methode erwartet das Resultat der signInAktivität der GoogleSignInApi. War die 
 }%end item
 \item{ 
 \index{onConnectionFailed(ConnectionResult)}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.onConnectionFailed(ConnectionResult)}{{\bf  onConnectionFailed}\\}
+\hypertarget{edu.kit.pse17.go_app.login.FirebaseSignInHelper.onConnectionFailed(ConnectionResult)}{{\bf  onConnectionFailed}\\}
 \begin{lstlisting}[frame=none]
 public void onConnectionFailed(ConnectionResult connectionResult)\end{lstlisting} %end signature
 \begin{itemize}
@@ -332,7 +430,7 @@ wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt
 }%end item
 \item{ 
 \index{startSignInProcess()}
-\hypertarget{edu.kit.pse17.go_app.Login.FirebaseSignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
+\hypertarget{edu.kit.pse17.go_app.login.FirebaseSignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
 \begin{lstlisting}[frame=none]
 protected void startSignInProcess()\end{lstlisting} %end signature
 \begin{itemize}
@@ -346,8 +444,8 @@ Implementierung gehört zur Schablonenmethode signIn() Die Methode startet die s
 \end{itemize}
 }
 \subsubsection{Members inherited from class SignInHelper }{
-\texttt{edu.kit.pse17.go_app.Login.SignInHelper} {\small 
-\refdefined{edu.kit.pse17.go_app.Login.SignInHelper}}
+\texttt{edu.kit.pse17.go_app.login.SignInHelper} {\small 
+\refdefined{edu.kit.pse17.go_app.login.SignInHelper}}
 {\small 
 
 \vskip -2em
@@ -388,22 +486,22 @@ Implementierung gehört zur Schablonenmethode signIn() Die Methode startet die s
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.Login.GoSignInHelper}Class GoSignInHelper}{
-\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper}{}\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.login.GoSignInHelper}Class GoSignInHelper}{
+\hypertarget{edu.kit.pse17.go_app.login.GoSignInHelper}{}\vskip .1in 
 Die Klasse ist für die Anmeldung eines Beutzers am GO-Server zuständig. Sie implemetiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper. Created by tina on 17.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class GoSignInHelper
- extends edu.kit.pse17.go_app.Login.SignInHelper\end{lstlisting}
+ extends edu.kit.pse17.go_app.login.SignInHelper\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.GoSignInHelper()}{{\bf GoSignInHelper()}} \\
+\hyperlink{edu.kit.pse17.go_app.login.GoSignInHelper()}{{\bf GoSignInHelper()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.GoSignInHelper.configureSignIn()}{{\bf configureSignIn()}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.GoSignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} \\
+\hyperlink{edu.kit.pse17.go_app.login.GoSignInHelper.configureSignIn()}{{\bf configureSignIn()}} \\
+\hyperlink{edu.kit.pse17.go_app.login.GoSignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -411,7 +509,7 @@ public class GoSignInHelper
 \begin{itemize}
 \item{ 
 \index{GoSignInHelper()}
-\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper()}{{\bf  GoSignInHelper}\\}
+\hypertarget{edu.kit.pse17.go_app.login.GoSignInHelper()}{{\bf  GoSignInHelper}\\}
 \begin{lstlisting}[frame=none]
 public GoSignInHelper()\end{lstlisting} %end signature
 }%end item
@@ -422,12 +520,12 @@ public GoSignInHelper()\end{lstlisting} %end signature
 \begin{itemize}
 \item{ 
 \index{configureSignIn()}
-\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
+\hypertarget{edu.kit.pse17.go_app.login.GoSignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
 \begin{lstlisting}[frame=none]
 protected abstract void configureSignIn()\end{lstlisting} %end signature
 \begin{itemize}
 \item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.Login.SignInHelper}{SignInHelper}{\small \refdefined{edu.kit.pse17.go_app.Login.SignInHelper}} }
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.login.SignInHelper}{SignInHelper}{\small \refdefined{edu.kit.pse17.go_app.login.SignInHelper}} }
 
 wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 }
@@ -435,12 +533,12 @@ wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 }%end item
 \item{ 
 \index{startSignInProcess()}
-\hypertarget{edu.kit.pse17.go_app.Login.GoSignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
+\hypertarget{edu.kit.pse17.go_app.login.GoSignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
 \begin{lstlisting}[frame=none]
 protected abstract void startSignInProcess()\end{lstlisting} %end signature
 \begin{itemize}
 \item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.Login.SignInHelper}{SignInHelper}{\small \refdefined{edu.kit.pse17.go_app.Login.SignInHelper}} }
+{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.login.SignInHelper}{SignInHelper}{\small \refdefined{edu.kit.pse17.go_app.login.SignInHelper}} }
 
 wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 }
@@ -449,8 +547,8 @@ wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 \end{itemize}
 }
 \subsubsection{Members inherited from class SignInHelper }{
-\texttt{edu.kit.pse17.go_app.Login.SignInHelper} {\small 
-\refdefined{edu.kit.pse17.go_app.Login.SignInHelper}}
+\texttt{edu.kit.pse17.go_app.login.SignInHelper} {\small 
+\refdefined{edu.kit.pse17.go_app.login.SignInHelper}}
 {\small 
 
 \vskip -2em
@@ -491,40 +589,40 @@ wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.Login.SignInHelper}Class SignInHelper}{
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper}{}\vskip .1in 
+\subsection{\label{edu.kit.pse17.go_app.login.SignInHelper}Class SignInHelper}{
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper}{}\vskip .1in 
 Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient Created by tina on 18.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public abstract class SignInHelper
  extends AppCompatActivity\end{lstlisting}
-\subsubsection{All known subclasses}{GoSignInHelper\small{\refdefined{edu.kit.pse17.go_app.Login.GoSignInHelper}}, FirebaseSignInHelper\small{\refdefined{edu.kit.pse17.go_app.Login.FirebaseSignInHelper}}}
+\subsubsection{All known subclasses}{GoSignInHelper\small{\refdefined{edu.kit.pse17.go_app.login.GoSignInHelper}}, FirebaseSignInHelper\small{\refdefined{edu.kit.pse17.go_app.login.FirebaseSignInHelper}}}
 \subsubsection{Field summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.ACCOUNT_DATA_CODE}{{\bf ACCOUNT\_DATA\_CODE}} Name des Intent-Extra, das als Ergebnis der Anmelde-Aktivität zurückgegeben wird\\
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.SIGN_IN_DATA_CODE}{{\bf SIGN\_IN\_DATA\_CODE}} Name des Intent-Extra, das Anmeldedaten an die SignIn-Aktivität übergibt\\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.ACCOUNT_DATA_CODE}{{\bf ACCOUNT\_DATA\_CODE}} Name des Intent-Extra, das als Ergebnis der Anmelde-Aktivität zurückgegeben wird\\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.SIGN_IN_DATA_CODE}{{\bf SIGN\_IN\_DATA\_CODE}} Name des Intent-Extra, das Anmeldedaten an die SignIn-Aktivität übergibt\\
 \end{verse}
 }
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper()}{{\bf SignInHelper()}} \\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper()}{{\bf SignInHelper()}} \\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.configureSignIn()}{{\bf configureSignIn()}} wird von Unterklassen implementiert und in Schablonenmethode aufgerufen\\
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.onStart()}{{\bf onStart()}} \\
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.returnActivityResult(java.io.Serializable)}{{\bf returnActivityResult(Serializable)}} gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück\\
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf signIn(Activity, int, Serializable, Class)}} Schablonenmethode für den Anmelde-Prozess der konkreten SignInHelper\\
-\hyperlink{edu.kit.pse17.go_app.Login.SignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} wird von Unterklassen implementiert und in Schablonenmethode aufgerufen\\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.configureSignIn()}{{\bf configureSignIn()}} wird von Unterklassen implementiert und in Schablonenmethode aufgerufen\\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.onStart()}{{\bf onStart()}} \\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.returnActivityResult(java.io.Serializable)}{{\bf returnActivityResult(Serializable)}} gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück\\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf signIn(Activity, int, Serializable, Class)}} Schablonenmethode für den Anmelde-Prozess der konkreten SignInHelper\\
+\hyperlink{edu.kit.pse17.go_app.login.SignInHelper.startSignInProcess()}{{\bf startSignInProcess()}} wird von Unterklassen implementiert und in Schablonenmethode aufgerufen\\
 \end{verse}
 }
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{SIGN\_IN\_DATA\_CODE}
-\label{edu.kit.pse17.go_app.Login.SignInHelper.SIGN_IN_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.SIGN_IN_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  SIGN\_IN\_DATA\_CODE}}
+\label{edu.kit.pse17.go_app.login.SignInHelper.SIGN_IN_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.SIGN_IN_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  SIGN\_IN\_DATA\_CODE}}
 }
 \begin{itemize}
 \item{\vskip -.9ex 
@@ -533,7 +631,7 @@ Name des Intent-Extra, das Anmeldedaten an die SignIn-Aktivität übergibt}
 }
 \item{
 \index{ACCOUNT\_DATA\_CODE}
-\label{edu.kit.pse17.go_app.Login.SignInHelper.ACCOUNT_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.ACCOUNT_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  ACCOUNT\_DATA\_CODE}}
+\label{edu.kit.pse17.go_app.login.SignInHelper.ACCOUNT_DATA_CODE}\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.ACCOUNT_DATA_CODE}{\texttt{public static final java.lang.String\ {\bf  ACCOUNT\_DATA\_CODE}}
 }
 \begin{itemize}
 \item{\vskip -.9ex 
@@ -547,7 +645,7 @@ Name des Intent-Extra, das als Ergebnis der Anmelde-Aktivität zurückgegeben wi
 \begin{itemize}
 \item{ 
 \index{SignInHelper()}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper()}{{\bf  SignInHelper}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper()}{{\bf  SignInHelper}\\}
 \begin{lstlisting}[frame=none]
 public SignInHelper()\end{lstlisting} %end signature
 }%end item
@@ -558,7 +656,7 @@ public SignInHelper()\end{lstlisting} %end signature
 \begin{itemize}
 \item{ 
 \index{configureSignIn()}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.configureSignIn()}{{\bf  configureSignIn}\\}
 \begin{lstlisting}[frame=none]
 protected abstract void configureSignIn()\end{lstlisting} %end signature
 \begin{itemize}
@@ -571,19 +669,19 @@ wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 }%end item
 \item{ 
 \index{onCreate(Bundle)}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.onCreate(Bundle)}{{\bf  onCreate}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.onCreate(Bundle)}{{\bf  onCreate}\\}
 \begin{lstlisting}[frame=none]
 protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
 }%end item
 \item{ 
 \index{onStart()}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.onStart()}{{\bf  onStart}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.onStart()}{{\bf  onStart}\\}
 \begin{lstlisting}[frame=none]
 protected void onStart()\end{lstlisting} %end signature
 }%end item
 \item{ 
 \index{returnActivityResult(Serializable)}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.returnActivityResult(java.io.Serializable)}{{\bf  returnActivityResult}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.returnActivityResult(java.io.Serializable)}{{\bf  returnActivityResult}\\}
 \begin{lstlisting}[frame=none]
 protected void returnActivityResult(java.io.Serializable accountData)\end{lstlisting} %end signature
 \begin{itemize}
@@ -603,7 +701,7 @@ gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück
 }%end item
 \item{ 
 \index{signIn(Activity, int, Serializable, Class)}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf  signIn}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.signIn(Activity, int, java.io.Serializable, java.lang.Class)}{{\bf  signIn}\\}
 \begin{lstlisting}[frame=none]
 public static void signIn(Activity activity,int requestCode,java.io.Serializable signInData,java.lang.Class signinHelper)\end{lstlisting} %end signature
 \begin{itemize}
@@ -629,7 +727,7 @@ Schablonenmethode für den Anmelde-Prozess der konkreten SignInHelper
 }%end item
 \item{ 
 \index{startSignInProcess()}
-\hypertarget{edu.kit.pse17.go_app.Login.SignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
+\hypertarget{edu.kit.pse17.go_app.login.SignInHelper.startSignInProcess()}{{\bf  startSignInProcess}\\}
 \begin{lstlisting}[frame=none]
 protected abstract void startSignInProcess()\end{lstlisting} %end signature
 \begin{itemize}
@@ -916,7 +1014,7 @@ public class GroupListActivity
 \hyperlink{edu.kit.pse17.go_app.View.GroupListActivity.onClick(View)}{{\bf onClick(View)}} ClickListener für addGroupButton\\
 \hyperlink{edu.kit.pse17.go_app.View.GroupListActivity.onCreate(Bundle)}{{\bf onCreate(Bundle)}} RecyclerView und passender Listadapter werden erzeugt\\
 \hyperlink{edu.kit.pse17.go_app.View.GroupListActivity.onItemClicked(int)}{{\bf onItemClicked(int)}} ClickListener für RecyclerView-Elemente\\
-\hyperlink{edu.kit.pse17.go_app.View.GroupListActivity.start(Activity, java.lang.String)}{{\bf start(Activity, String)}} \\
+\hyperlink{edu.kit.pse17.go_app.View.GroupListActivity.start(Activity, edu.kit.pse17.go_app.Model.User)}{{\bf start(Activity, User)}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -994,10 +1092,10 @@ ClickListener für RecyclerView-Elemente
 \end{itemize}
 }%end item
 \item{ 
-\index{start(Activity, String)}
-\hypertarget{edu.kit.pse17.go_app.View.GroupListActivity.start(Activity, java.lang.String)}{{\bf  start}\\}
+\index{start(Activity, User)}
+\hypertarget{edu.kit.pse17.go_app.View.GroupListActivity.start(Activity, edu.kit.pse17.go_app.Model.User)}{{\bf  start}\\}
 \begin{lstlisting}[frame=none]
-public static void start(Activity activity,java.lang.String uid)\end{lstlisting} %end signature
+public static void start(Activity activity,edu.kit.pse17.go_app.Model.User user)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -1083,6 +1181,7 @@ public class SignInActivity
 \hyperlink{edu.kit.pse17.go_app.View.SignInActivity.onActivityResult(int, int, Intent)}{{\bf onActivityResult(int, int, Intent)}} \\
 \hyperlink{edu.kit.pse17.go_app.View.SignInActivity.onClick(View)}{{\bf onClick(View)}} Click-Listener, der auf Klicken des Signin Buttons wartet --\textgreater  SignIn wird gestartet\\
 \hyperlink{edu.kit.pse17.go_app.View.SignInActivity.onCreate(Bundle)}{{\bf onCreate(Bundle)}} \\
+\hyperlink{edu.kit.pse17.go_app.View.SignInActivity.onResume()}{{\bf onResume()}} \\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -1130,6 +1229,12 @@ Click-Listener, der auf Klicken des Signin Buttons wartet --\textgreater  SignIn
 \hypertarget{edu.kit.pse17.go_app.View.SignInActivity.onCreate(Bundle)}{{\bf  onCreate}\\}
 \begin{lstlisting}[frame=none]
 protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{onResume()}
+\hypertarget{edu.kit.pse17.go_app.View.SignInActivity.onResume()}{{\bf  onResume}\\}
+\begin{lstlisting}[frame=none]
+protected void onResume()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -2559,70 +2664,6 @@ Konstruktor
 \hypertarget{edu.kit.pse17.go_app.View.RecyclerView.ListViewHolder.onClick(View)}{{\bf  onClick}\\}
 \begin{lstlisting}[frame=none]
 public void onClick(View v)\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-}
-}
-\section{Package edu.kit.pse17.go\_app.ServerCom}{
-\label{edu.kit.pse17.go_app.ServerCom}\hypertarget{edu.kit.pse17.go_app.ServerCom}{}
-\hskip -.05in
-\hbox to \hsize{\textit{ Package Contents\hfil Page}}
-\vskip .13in
-\hbox{{\bf  Classes}}
-\entityintro{HttpRequestHandler}{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler}{Adapter-Klasse, die von anderen Klassen benutzt werden kann, um HTTP-Anfragen an den tomcat-Server zu schicken Created by tina on 19.06.17.}
-\vskip .1in
-\vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler}Class HttpRequestHandler}{
-\hypertarget{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler}{}\vskip .1in 
-Adapter-Klasse, die von anderen Klassen benutzt werden kann, um HTTP-Anfragen an den tomcat-Server zu schicken Created by tina on 19.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public abstract class HttpRequestHandler
- extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler()}{{\bf HttpRequestHandler()}} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler.sendReadRequest()}{{\bf sendReadRequest()}} sendet POSTRequest an Tomcat\\
-\hyperlink{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler.sendWriteRequest()}{{\bf sendWriteRequest()}} \\
-\end{verse}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{HttpRequestHandler()}
-\hypertarget{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler()}{{\bf  HttpRequestHandler}\\}
-\begin{lstlisting}[frame=none]
-public HttpRequestHandler()\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{sendReadRequest()}
-\hypertarget{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler.sendReadRequest()}{{\bf  sendReadRequest}\\}
-\begin{lstlisting}[frame=none]
-protected java.lang.Object sendReadRequest()\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-sendet POSTRequest an Tomcat
-}
-\end{itemize}
-}%end item
-\item{ 
-\index{sendWriteRequest()}
-\hypertarget{edu.kit.pse17.go_app.ServerCom.HttpRequestHandler.sendWriteRequest()}{{\bf  sendWriteRequest}\\}
-\begin{lstlisting}[frame=none]
-public void sendWriteRequest()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }

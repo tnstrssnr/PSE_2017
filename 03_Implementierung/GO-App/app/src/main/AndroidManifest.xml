@@ -29,23 +29,21 @@
 
         <uses-permission android:name="android.permission.INTERNET" />
 
-        <!--
-            Defining Services
-        -->
-        <service
-            android:name=".ServerCom.MessagingService">
+        <service android:name=".ServerCommunication.TokenService">
+
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
             </intent-filter>
+
         </service>
 
-        <service
-            android:name=".ServerCom.InstanceIdService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
+        <service android:name=".ServerCommunication.MessagingService" >
 
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGE_EVENT"></action>
+            </intent-filter>
+
+        </service>
     </application>
 
 </manifest>

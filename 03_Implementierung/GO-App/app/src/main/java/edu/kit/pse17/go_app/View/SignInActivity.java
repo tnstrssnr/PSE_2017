@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
 import edu.kit.pse17.go_app.login.GoSignInHelper;
@@ -31,7 +34,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ID", FirebaseInstanceId.getInstance().getToken());
         setContentView(R.layout.simple_firebase_login);
+        GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
         //check for compatible Google Play Services APK!
 
