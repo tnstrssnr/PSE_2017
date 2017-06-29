@@ -228,6 +228,7 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.GroupListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.GroupListItem}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.UserMailListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.UserMailListItem}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.UserStatusListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.UserStatusListItem}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.controller.ServerMessageReceivedEvent {\tiny \refdefined{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent}} \\
 \hspace{1.0cm} $\bullet$ java.lang.Enum {\tiny \refdefined{java.lang.Enum}} \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Model.Status {\tiny \refdefined{edu.kit.pse17.go_app.Model.Status}} \\
 }
@@ -241,13 +242,13 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{MessagingService}{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{Created by tina on 28.06.17.}
-\entityintro{TokenService}{edu.kit.pse17.go_app.ServerCommunication.TokenService}{Created by tina on 28.06.17.}
+\entityintro{MessagingService}{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{Die Klasse implementiert einen Service, der auf den GO TOmcat-Server hört.}
+\entityintro{TokenService}{edu.kit.pse17.go_app.ServerCommunication.TokenService}{Die Klasse erzeugt ein InstanceID Token, welches an den Server übergeben wird, um von Server-Seite aus Nachrichten an ein einzelnes Gerät schicken zu können.}
 \vskip .1in
 \vskip .1in
 \subsection{\label{edu.kit.pse17.go_app.ServerCommunication.MessagingService}Class MessagingService}{
 \hypertarget{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{}\vskip .1in 
-Created by tina on 28.06.17.\vskip .1in 
+Die Klasse implementiert einen Service, der auf den GO TOmcat-Server hört. Bei Ankunft einer Nachricht des Servers, wird die onMessageReceived-methode aufgerufen (sofern die App im Vordergrund läuft). Läuft die App im Hintergrund, ... Created by tina on 28.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class MessagingService
@@ -259,7 +260,7 @@ public class MessagingService
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServerCommunication.MessagingService.onMessageReceived(RemoteMessage)}{{\bf onMessageReceived(RemoteMessage)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.MessagingService.onMessageReceived(RemoteMessage)}{{\bf onMessageReceived(RemoteMessage)}} wird aufgerufen, soblad die App eine Nachricht des Go Tomcat-Servers erhält.\\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -281,13 +282,27 @@ public MessagingService()\end{lstlisting} %end signature
 \hypertarget{edu.kit.pse17.go_app.ServerCommunication.MessagingService.onMessageReceived(RemoteMessage)}{{\bf  onMessageReceived}\\}
 \begin{lstlisting}[frame=none]
 public void onMessageReceived(RemoteMessage remoteMessage)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+wird aufgerufen, soblad die App eine Nachricht des Go Tomcat-Servers erhält.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{remoteMessage} -- die erhaltene Nachricht}
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \end{itemize}
 }
 }
 \subsection{\label{edu.kit.pse17.go_app.ServerCommunication.TokenService}Class TokenService}{
 \hypertarget{edu.kit.pse17.go_app.ServerCommunication.TokenService}{}\vskip .1in 
-Created by tina on 28.06.17.\vskip .1in 
+Die Klasse erzeugt ein InstanceID Token, welches an den Server übergeben wird, um von Server-Seite aus Nachrichten an ein einzelnes Gerät schicken zu können. Created by tina on 28.06.17.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class TokenService
@@ -299,7 +314,7 @@ public class TokenService
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TokenService.onTokenRefresh()}{{\bf onTokenRefresh()}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TokenService.onTokenRefresh()}{{\bf onTokenRefresh()}} holt das neue Token und veranlasst das Programm, das neue Token an den Server zu übergeben.\\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -321,6 +336,13 @@ public TokenService()\end{lstlisting} %end signature
 \hypertarget{edu.kit.pse17.go_app.ServerCommunication.TokenService.onTokenRefresh()}{{\bf  onTokenRefresh}\\}
 \begin{lstlisting}[frame=none]
 public void onTokenRefresh()\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+holt das neue Token und veranlasst das Programm, das neue Token an den Server zu übergeben.
+}
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -2664,6 +2686,133 @@ Konstruktor
 \hypertarget{edu.kit.pse17.go_app.View.RecyclerView.ListViewHolder.onClick(View)}{{\bf  onClick}\\}
 \begin{lstlisting}[frame=none]
 public void onClick(View v)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package edu.kit.pse17.go\_app.controller}{
+\label{edu.kit.pse17.go_app.controller}\hypertarget{edu.kit.pse17.go_app.controller}{}
+\hskip -.05in
+\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\vskip .13in
+\hbox{{\bf  Classes}}
+\entityintro{ServerMessageReceivedEvent}{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent}{Created by tina on 28.06.17.}
+\vskip .1in
+\vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent}Class ServerMessageReceivedEvent}{
+\hypertarget{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent}{}\vskip .1in 
+Created by tina on 28.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class ServerMessageReceivedEvent
+ extends java.lang.Object\end{lstlisting}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent()}{{\bf ServerMessageReceivedEvent()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGoCreated(edu.kit.pse17.go_app.Model.GO)}{{\bf onGoCreated(GO)}} Methode wird aufgerufen, wenn in einer Gruppe des Benutzers ein neues GO erstellt wird.\\
+\hyperlink{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGoInfoChanged(edu.kit.pse17.go_app.Model.GO)}{{\bf onGoInfoChanged(GO)}} Methode wird aufgerufen, wenn der Server der App meldet, dass sich Daten innerhalb des GOs go verändert haben.\\
+\hyperlink{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGroupInfoChanged(edu.kit.pse17.go_app.Model.Group)}{{\bf onGroupInfoChanged(Group)}} Methode wird aufgerufen, wenn der Server der App meldet, dass sich Daten in der Gruppe group verändert haben.\\
+\hyperlink{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGroupRequestReceived(edu.kit.pse17.go_app.Model.Group)}{{\bf onGroupRequestReceived(Group)}} Methode wird aufgerufen, wenn der Benutzer der App eine neue Gruppenanfrage erhält, d.h. seinem Account eine neue Gruppe hinzugefügt wird\\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{ServerMessageReceivedEvent()}
+\hypertarget{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent()}{{\bf  ServerMessageReceivedEvent}\\}
+\begin{lstlisting}[frame=none]
+public ServerMessageReceivedEvent()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{onGoCreated(GO)}
+\hypertarget{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGoCreated(edu.kit.pse17.go_app.Model.GO)}{{\bf  onGoCreated}\\}
+\begin{lstlisting}[frame=none]
+public void onGoCreated(edu.kit.pse17.go_app.Model.GO go)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Methode wird aufgerufen, wenn in einer Gruppe des Benutzers ein neues GO erstellt wird.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{go} -- Das neu erstellte GO}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{onGoInfoChanged(GO)}
+\hypertarget{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGoInfoChanged(edu.kit.pse17.go_app.Model.GO)}{{\bf  onGoInfoChanged}\\}
+\begin{lstlisting}[frame=none]
+public void onGoInfoChanged(edu.kit.pse17.go_app.Model.GO go)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Methode wird aufgerufen, wenn der Server der App meldet, dass sich Daten innerhalb des GOs go verändert haben. Dazu gehören nicht die Standorte der Mitglieder. Diese werden separat von der App in der Klasse *** von Server abgefragt
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{go} -- Das veränderte GO}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{onGroupInfoChanged(Group)}
+\hypertarget{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGroupInfoChanged(edu.kit.pse17.go_app.Model.Group)}{{\bf  onGroupInfoChanged}\\}
+\begin{lstlisting}[frame=none]
+public void onGroupInfoChanged(edu.kit.pse17.go_app.Model.Group group)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Methode wird aufgerufen, wenn der Server der App meldet, dass sich Daten in der Gruppe group verändert haben. Dazu gehören Änderungen in den Gruppendaten selbst, sowie hinzugefügte und entfernte Mitglieder.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{group} -- Die veränderte Gruppe}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{onGroupRequestReceived(Group)}
+\hypertarget{edu.kit.pse17.go_app.controller.ServerMessageReceivedEvent.onGroupRequestReceived(edu.kit.pse17.go_app.Model.Group)}{{\bf  onGroupRequestReceived}\\}
+\begin{lstlisting}[frame=none]
+public void onGroupRequestReceived(edu.kit.pse17.go_app.Model.Group group)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Methode wird aufgerufen, wenn der Benutzer der App eine neue Gruppenanfrage erhält, d.h. seinem Account eine neue Gruppe hinzugefügt wird
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{group} -- Die Gruppe, zu der der Benutzer eingeladen wurde}
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \end{itemize}
 }
