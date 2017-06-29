@@ -1,4 +1,4 @@
-package PersistenceLayer.daos;
+package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import java.util.List;
 

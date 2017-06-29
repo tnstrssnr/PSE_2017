@@ -1,4 +1,4 @@
-package ClientCommunication.Downstream;
+package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

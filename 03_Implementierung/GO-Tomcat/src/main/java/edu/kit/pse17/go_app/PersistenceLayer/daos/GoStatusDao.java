@@ -1,7 +1,7 @@
-package PersistenceLayer.daos;
+package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import PersistenceLayer.hibernateEntities.GoEntity;
-import PersistenceLayer.hibernateEntities.GoStatusEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.GoStatusEntity;
 
 import java.util.List;
 

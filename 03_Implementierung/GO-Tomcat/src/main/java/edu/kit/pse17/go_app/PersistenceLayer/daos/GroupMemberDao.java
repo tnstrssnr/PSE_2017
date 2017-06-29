@@ -1,8 +1,7 @@
-package PersistenceLayer.daos;
+package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import PersistenceLayer.hibernateEntities.GroupEntity;
-import PersistenceLayer.hibernateEntities.GroupMemberEntity;
-import PersistenceLayer.hibernateEntities.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.UserEntity;
 
 import java.util.List;
 

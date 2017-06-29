@@ -1,6 +1,6 @@
-package ClientCommunication.Upstream;
+package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import PersistenceLayer.hibernateEntities.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.GroupEntity;
 import observer.HttpObserver;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

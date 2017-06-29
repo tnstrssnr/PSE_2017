@@ -1,6 +1,5 @@
-package PersistenceLayer.hibernateEntities;
+package edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;

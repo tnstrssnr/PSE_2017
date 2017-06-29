@@ -1,6 +1,5 @@
-package ClientCommunication.Downstream;
+package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
-import com.google.gson.JsonObject;
 import retrofit2.http.POST;
 
 /**

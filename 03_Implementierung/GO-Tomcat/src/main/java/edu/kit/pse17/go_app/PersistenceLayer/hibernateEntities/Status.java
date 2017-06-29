@@ -1,7 +1,4 @@
-package PersistenceLayer.hibernateEntities;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+package edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities;
 
 /**
  * Werte, die der Benutzerstatus eines Benutzers in einem Go annehmen kann
