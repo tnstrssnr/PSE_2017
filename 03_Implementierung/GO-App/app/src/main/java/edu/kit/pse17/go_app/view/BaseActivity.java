@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View;
+package edu.kit.pse17.go_app.view;
 
 import android.support.v7.app.AppCompatActivity;
 

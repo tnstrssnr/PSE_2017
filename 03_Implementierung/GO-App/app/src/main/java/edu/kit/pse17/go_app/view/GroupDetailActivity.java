@@ -1,8 +1,7 @@
-package edu.kit.pse17.go_app.View;
+package edu.kit.pse17.go_app.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -12,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.View.RecyclerView.Adapter.GroupListAdapter;
-import edu.kit.pse17.go_app.View.RecyclerView.ListItems.GroupListItem;
-import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter;
+import edu.kit.pse17.go_app.view.recyclerView.listItems.GroupListItem;
+import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**
  * Created by tina on 19.06.17.

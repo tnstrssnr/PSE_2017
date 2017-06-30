@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View;
+package edu.kit.pse17.go_app.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.View.GroupDetailActivity;
 
 /**
  * Klasse dekoriert die GroupDetailActivity und fügt ihr die Admin-Funktionalitäten hinzu

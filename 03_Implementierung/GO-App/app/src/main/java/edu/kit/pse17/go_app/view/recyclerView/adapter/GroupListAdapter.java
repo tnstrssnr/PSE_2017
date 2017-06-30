@@ -1,9 +1,9 @@
-package edu.kit.pse17.go_app.view.recyclerView.Adapter;
+package edu.kit.pse17.go_app.view.recyclerView.adapter;
 
 import java.util.List;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.view.recyclerView.ListItems.ListItem;
+import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**

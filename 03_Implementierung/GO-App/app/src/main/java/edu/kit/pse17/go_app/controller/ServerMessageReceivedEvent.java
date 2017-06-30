@@ -1,7 +1,7 @@
 package edu.kit.pse17.go_app.controller;
 
-import edu.kit.pse17.go_app.Model.GO;
-import edu.kit.pse17.go_app.Model.Group;
+import edu.kit.pse17.go_app.model.GO;
+import edu.kit.pse17.go_app.model.Group;
 
 /**
  * Created by tina on 28.06.17.

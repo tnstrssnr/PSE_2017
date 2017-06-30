@@ -1,11 +1,10 @@
-package edu.kit.pse17.go_app.View;
+package edu.kit.pse17.go_app.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import edu.kit.pse17.go_app.View.RecyclerView.Adapter.UserListAdapter;
+import edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter;
 
 import edu.kit.pse17.go_app.R;
 

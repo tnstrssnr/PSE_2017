@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View.RecyclerView;
+package edu.kit.pse17.go_app.view.recyclerView;
 
 import android.view.View;
 import android.widget.ImageView;

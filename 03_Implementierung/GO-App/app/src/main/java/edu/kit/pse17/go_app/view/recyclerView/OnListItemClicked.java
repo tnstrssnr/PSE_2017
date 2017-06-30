@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View.RecyclerView;
+package edu.kit.pse17.go_app.view.recyclerView;
 
 /**
  * ClickListener für die ListItems eines RecyclerViews

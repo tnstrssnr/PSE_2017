@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.Model;
+package edu.kit.pse17.go_app.model;
 
 /**
  * möglicher Teilnehmerstatus für GOs

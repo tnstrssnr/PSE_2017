@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View;
+package edu.kit.pse17.go_app.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,11 +12,11 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
-import edu.kit.pse17.go_app.login.GoSignInHelper;
-import edu.kit.pse17.go_app.login.SignInHelper;
+import edu.kit.pse17.go_app.controller.login.FirebaseSignInHelper;
+import edu.kit.pse17.go_app.controller.login.GoSignInHelper;
+import edu.kit.pse17.go_app.controller.login.SignInHelper;
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.Model.User;
+import edu.kit.pse17.go_app.model.User;
 
 /**
  * Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess

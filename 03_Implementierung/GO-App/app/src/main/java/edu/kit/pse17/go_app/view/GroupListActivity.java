@@ -1,25 +1,22 @@
-package edu.kit.pse17.go_app.View;
+package edu.kit.pse17.go_app.view;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.kit.pse17.go_app.Model.Group;
-import edu.kit.pse17.go_app.Model.User;
+import edu.kit.pse17.go_app.model.Group;
+import edu.kit.pse17.go_app.model.User;
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.View.RecyclerView.Adapter.GroupListAdapter;
-import edu.kit.pse17.go_app.View.RecyclerView.ListItems.GroupListItem;
-import edu.kit.pse17.go_app.View.RecyclerView.Adapter.ListAdapter;
-import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter;
+import edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter;
+import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**
  *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers
