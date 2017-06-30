@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.ServerCommunication;
+package edu.kit.pse17.go_app.serverCommunication;
 
 import android.util.Log;
 

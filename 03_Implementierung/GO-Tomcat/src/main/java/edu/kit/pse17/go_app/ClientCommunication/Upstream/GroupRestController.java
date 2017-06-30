@@ -1,13 +1,10 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.GroupEntity;
-import observer.HttpObserver;
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * Created by tina on 29.06.17.
@@ -17,10 +14,11 @@ import java.util.Map;
 @RequestMapping("/groups")
 public class GroupRestController {
 
-    private static Map<String, V> mediatorMap;
-
-    @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addGoup(@RequestBody group) {
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void addGoup(@RequestBody GroupEntity groupEntity) {
 
     }
 

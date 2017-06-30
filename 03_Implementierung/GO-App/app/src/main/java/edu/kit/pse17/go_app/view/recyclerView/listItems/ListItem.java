@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View.RecyclerView.ListItems;
+package edu.kit.pse17.go_app.view.recyclerView.ListItems;
 
 import android.graphics.drawable.Icon;
 

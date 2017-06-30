@@ -1,7 +1,10 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.ServiceLayer.Observable;
+import edu.kit.pse17.go_app.ServiceLayer.Observer;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,7 +12,10 @@ import java.util.List;
 /**
  * Created by tina on 30.06.17.
  */
-public class GroupDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, Serializable {
+public class GroupDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, Serializable, Observable<GroupEntity> {
+
+    private static long idCounter;
+
     @Override
     public GoEntity create(GoEntity goEntity) {
         return null;
@@ -69,4 +75,21 @@ public class GroupDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, S
     public List<GoEntity> getActiveGosByGroup(long id) {
         return null;
     }
+
+
+    @Override
+    public void register(Observer observer) {
+
+    }
+
+    @Override
+    public void unregister(Observer observer) {
+
+    }
+
+    @Override
+    public void notify(GroupEntity groupEntity) {
+
+    }
+
 }

@@ -1,12 +1,10 @@
-package edu.kit.pse17.go_app.View.RecyclerView.Adapter;
-
-import android.support.v7.app.AlertDialog;
+package edu.kit.pse17.go_app.view.recyclerView.Adapter;
 
 import java.util.List;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.View.RecyclerView.ListItems.ListItem;
-import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.view.recyclerView.ListItems.ListItem;
+import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**
  *  * Konkreter ViewHolder, der die ListItems an das user_list_item.xml Layout bindet

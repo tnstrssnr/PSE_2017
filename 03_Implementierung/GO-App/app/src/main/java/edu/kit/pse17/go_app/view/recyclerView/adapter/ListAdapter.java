@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.View.RecyclerView.Adapter;
+package edu.kit.pse17.go_app.view.recyclerView.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import edu.kit.pse17.go_app.View.RecyclerView.ListItems.ListItem;
-import edu.kit.pse17.go_app.View.RecyclerView.ListViewHolder;
-import edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.view.recyclerView.ListItems.ListItem;
+import edu.kit.pse17.go_app.view.recyclerView.ListViewHolder;
+import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**
  * Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet.

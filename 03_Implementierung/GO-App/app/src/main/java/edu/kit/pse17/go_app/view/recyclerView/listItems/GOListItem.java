@@ -1,10 +1,10 @@
-package edu.kit.pse17.go_app.View.RecyclerView.ListItems;
+package edu.kit.pse17.go_app.view.recyclerView.ListItems;
 
 import android.graphics.drawable.Icon;
 
 import java.util.Date;
 
-import edu.kit.pse17.go_app.Model.GO;
+import edu.kit.pse17.go_app.model.GO;
 
 
 /**
