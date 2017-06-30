@@ -17,8 +17,14 @@ public class Group {
     private String name;
     private String description;
     private Icon icon;
-    private ArrayList<User> members;
     private int memberCount;
+
+    private List<User> members;
+    private List<User> admins;
+    private List<User> requests;
+
+    private GroupLocation groupLocation;
+
     /**
      * Konstruktor
      * @param ID eindeutige Nummer, mit der eine Gruppe identifiziert werden kann
@@ -70,7 +76,7 @@ public class Group {
         this.icon = icon;
     }
 
-    public ArrayList<User> getMembers() {
+    public List<User> getMembers() {
         return members;
     }
 

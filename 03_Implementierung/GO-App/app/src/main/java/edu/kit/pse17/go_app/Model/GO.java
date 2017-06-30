@@ -14,14 +14,19 @@ import java.util.List;
 
 public class GO {
 
-    private int ID;
+    private long ID;
     private String name;
     private String description;
     private Date start;
     private Date end;
-    private Location location;
+    private long lat;
+    private long lon;
     private User owner;
     private GroupLocation locationData;
+
+    private List<User> notGoingUsers;
+    private List<User> goingUsers;
+    private List<User> goneUsers;
 
     /**
      * Konstruktor
@@ -34,7 +39,7 @@ public class GO {
      * @param owner GO-Verantwortlicher
      * @param locationData Die GPS-Daten der Go-Teilnehmer
      */
-    public GO(int ID, String name, String description, Date start, Date end, @Nullable Location location, User owner, GroupLocation locationData) {
+    public GO(long ID, String name, String description, Date start, Date end, @Nullable Location location, User owner, GroupLocation locationData) {
         this.ID = ID;
         this.name = name;
         this.description = description;

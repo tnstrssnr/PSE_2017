@@ -1,30 +1,27 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import edu.kit.pse17.go_app.PersistenceLayer.hibernateEntities.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 
 import java.util.List;
 
 /**
- * DAO-interface für DB-Operationen, die auf der GO-Relation ausgeführt werden sollen
- *
- * Created by tina on 29.06.17.
+ * Created by tina on 30.06.17.
  */
 public interface GoDao {
 
-    /**
-     * Gibt eine Liste aller GOs zurück, die zu der selben Gruppe gehören
-     *
-     * @param groupId ID der Gruppe, deren GOs gesucht wernde
-     * @return Liste der GOs der Gruppe
-     */
-    public List<GoEntity> getGosByGroup(long groupId);
+    public List<UserEntity> getDeclinedusers(long id);
 
-    /**
-     * Gibt eine Liste aller GOs zurpck, die zu einem User gehören (also die zu Gruppen gehören, in denen der Benutzer Mitglied ist)
-     *
-     * @param userId Id des Users, dessen GOs gesucht werden
-     * @return Liste der GOs des Users
-     */
-    public List<GoEntity> getGOsByUser(String userId);
+    public List<UserEntity> getActiveUsers(long id);
+
+    public List<UserEntity> getGoingUsers(long id);
+
+    public List<GoEntity> getAllGosByUser(String uid);
+
+    public List<GoEntity> getAllGosByGroup(long id);
+
+    public List<GoEntity> getActiveGosByUser(String uid);
+
+    public List<GoEntity> getActiveGosByGroup(long id);
 
 }

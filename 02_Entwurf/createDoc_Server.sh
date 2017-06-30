@@ -3,9 +3,9 @@
 # TeXDoclet.jar muss heruntergeladen werden und der Pfad anschließend unten aktualisert werden.
 #
 
-mkdir texdoclet_output
+mkdir texdoclet_output_server
 
-rm texdoclet_output/Entwurf.aux
+rm texdoclet_output_server/Entwurf.aux
 
 javadoc -docletpath TeXDoclet.jar \
 	-doclet org.stfm.texdoclet.TeXDoclet \
@@ -16,12 +16,11 @@ javadoc -docletpath TeXDoclet.jar \
 	-texintro texdoclet_include/intro.tex \
 	-texfinish texdoclet_include/finish.tex \
 	-texinit texdoclet_include/preamble.tex \
-	-output texdoclet_output/Entwurf.tex \
-	-sourcepath ../03_Implementierung/GO-App/app/src/main/java \
+	-output texdoclet_output_server/Entwurf.tex \
+	-sourcepath ../03_Implementierung/GO-Tomcat/src/main/java \
 	-subpackages edu \
  	-sectionlevel section
 
-cd texdoclet_output
+cd texdoclet_output_server
 pdflatex Entwurf.tex
 pdflatex Entwurf.tex
-cp Entwurf.pdf ../

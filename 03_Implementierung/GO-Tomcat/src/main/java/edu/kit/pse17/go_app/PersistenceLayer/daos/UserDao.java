@@ -1,11 +1,12 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+
 /**
- * DAO-Interface für DB-Operationen, die auf der User-Relation ausgeführt werden
- *
- * Created by tina on 29.06.17.
+ * Created by tina on 30.06.17.
  */
 public interface UserDao {
 
-    //TODO: think of something...
+    public UserEntity getUserByEmail(String mail);
+
 }

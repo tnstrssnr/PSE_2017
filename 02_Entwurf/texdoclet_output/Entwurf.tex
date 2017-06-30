@@ -233,6 +233,7 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.Model.Status {\tiny \refdefined{edu.kit.pse17.go_app.Model.Status}} \\
 }
 \subsection*{Interfaces}
+\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServerCommunication.TomcatRestApi {\tiny \refdefined{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.ListItems.ListItem {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.ListItems.ListItem}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.View.RecyclerView.OnListItemClicked {\tiny \refdefined{edu.kit.pse17.go_app.View.RecyclerView.OnListItemClicked}} \\
 }
@@ -241,11 +242,104 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
+\hbox{{\bf  Interfaces}}
+\entityintro{TomcatRestApi}{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi}{das Interface ist die Schnittstelle des Clients zur REST-API des Tomcat-Servers.}
+\vskip .13in
 \hbox{{\bf  Classes}}
 \entityintro{MessagingService}{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{Die Klasse implementiert einen Service, der auf den GO TOmcat-Server hört.}
 \entityintro{TokenService}{edu.kit.pse17.go_app.ServerCommunication.TokenService}{Die Klasse erzeugt ein InstanceID Token, welches an den Server übergeben wird, um von Server-Seite aus Nachrichten an ein einzelnes Gerät schicken zu können.}
 \vskip .1in
 \vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi}Interface TomcatRestApi}{
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi}{}\vskip .1in 
+das Interface ist die Schnittstelle des Clients zur REST-API des Tomcat-Servers. Created by tina on 29.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public interface TomcatRestApi
+\end{lstlisting}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.acceptGroupRequest(int, java.lang.String)}{{\bf acceptGroupRequest(int, String)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.alterGroupData(int)}{{\bf alterGroupData(int)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.createGroup()}{{\bf createGroup()}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.deleteGroup(int)}{{\bf deleteGroup(int)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.deleteMember(java.lang.String)}{{\bf deleteMember(String)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.getGroupInfo(int)}{{\bf getGroupInfo(int)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.getGroupsByUid(java.lang.String)}{{\bf getGroupsByUid(String)}} Gibt alle Gruppen zurück, in denen der Benutzer Mitglied ist bzw. eine Mitgliedschaftsanfrage erhalten hat.\\
+\hyperlink{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.inviteToGroup(int, java.lang.String)}{{\bf inviteToGroup(int, String)}} \\
+\end{verse}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{acceptGroupRequest(int, String)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.acceptGroupRequest(int, java.lang.String)}{{\bf  acceptGroupRequest}\\}
+\begin{lstlisting}[frame=none]
+<any> acceptGroupRequest(int groupId,java.lang.String userId)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{alterGroupData(int)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.alterGroupData(int)}{{\bf  alterGroupData}\\}
+\begin{lstlisting}[frame=none]
+<any> alterGroupData(int groupId)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{createGroup()}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.createGroup()}{{\bf  createGroup}\\}
+\begin{lstlisting}[frame=none]
+<any> createGroup()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{deleteGroup(int)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.deleteGroup(int)}{{\bf  deleteGroup}\\}
+\begin{lstlisting}[frame=none]
+<any> deleteGroup(int groupId)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{deleteMember(String)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.deleteMember(java.lang.String)}{{\bf  deleteMember}\\}
+\begin{lstlisting}[frame=none]
+<any> deleteMember(java.lang.String userId)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{getGroupInfo(int)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.getGroupInfo(int)}{{\bf  getGroupInfo}\\}
+\begin{lstlisting}[frame=none]
+<any> getGroupInfo(int groupId)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{getGroupsByUid(String)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.getGroupsByUid(java.lang.String)}{{\bf  getGroupsByUid}\\}
+\begin{lstlisting}[frame=none]
+<any> getGroupsByUid(java.lang.String uid)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Gibt alle Gruppen zurück, in denen der Benutzer Mitglied ist bzw. eine Mitgliedschaftsanfrage erhalten hat.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{uid} -- Benutzer.ID des Benutzers}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+Liste von Gruppen 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{inviteToGroup(int, String)}
+\hypertarget{edu.kit.pse17.go_app.ServerCommunication.TomcatRestApi.inviteToGroup(int, java.lang.String)}{{\bf  inviteToGroup}\\}
+\begin{lstlisting}[frame=none]
+<any> inviteToGroup(int groupId,java.lang.String userId)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
 \subsection{\label{edu.kit.pse17.go_app.ServerCommunication.MessagingService}Class MessagingService}{
 \hypertarget{edu.kit.pse17.go_app.ServerCommunication.MessagingService}{}\vskip .1in 
 Die Klasse implementiert einen Service, der auf den GO TOmcat-Server hört. Bei Ankunft einer Nachricht des Servers, wird die onMessageReceived-methode aufgerufen (sofern die App im Vordergrund läuft). Läuft die App im Hintergrund, ... Created by tina on 28.06.17.\vskip .1in 
