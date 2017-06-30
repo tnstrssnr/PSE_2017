@@ -1,11 +1,14 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
+import edu.kit.pse17.go_app.PersistenceLayer.daos.PersistentClass;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tina on 30.06.17.
  */
-public class GroupEntity {
+public class GroupEntity implements Serializable, PersistentClass {
 
     private int ID;
     private String name;

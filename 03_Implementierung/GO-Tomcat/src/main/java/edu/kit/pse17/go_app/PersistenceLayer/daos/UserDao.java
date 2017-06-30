@@ -9,4 +9,6 @@ public interface UserDao {
 
     public UserEntity getUserByEmail(String mail);
 
+    public void deleteUser();
+
 }

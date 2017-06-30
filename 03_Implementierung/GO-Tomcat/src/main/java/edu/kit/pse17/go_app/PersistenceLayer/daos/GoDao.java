@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface GoDao {
 
-    public List<UserEntity> getDeclinedusers(long id);
+    public List<UserEntity> getDeclinedUsers(long id);
 
     public List<UserEntity> getActiveUsers(long id);
 
@@ -24,4 +24,7 @@ public interface GoDao {
 
     public List<GoEntity> getActiveGosByGroup(long id);
 
+    public void deleteGo();
+
+    public void kickUser(String userId);
 }

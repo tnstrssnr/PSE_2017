@@ -2,6 +2,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.ServiceLayer.EventArg;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
 
@@ -41,7 +42,7 @@ public class GoDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, Seri
     }
 
     @Override
-    public List<UserEntity> getDeclinedusers(long id) {
+    public List<UserEntity> getDeclinedUsers(long id) {
         return null;
     }
 
@@ -76,6 +77,16 @@ public class GoDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, Seri
     }
 
     @Override
+    public void deleteGo() {
+
+    }
+
+    @Override
+    public void kickUser(String userId) {
+
+    }
+
+    @Override
     public void register(Observer observer) {
 
     }
@@ -87,6 +98,15 @@ public class GoDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, Seri
 
     @Override
     public void notify(GoEntity goEntity) {
+
+    }
+
+    public class GoEventArg implements EventArg {
+
+        public static final String GO_CREATED = "go_created";
+        public static final String GO_DATA_CHANGED = "go_data_changed";
+        public static final String GO_DELETED = "go_deleted";
+        public static final String GO_STATUS_CHANGED = "go_status_changed";
 
     }
 }

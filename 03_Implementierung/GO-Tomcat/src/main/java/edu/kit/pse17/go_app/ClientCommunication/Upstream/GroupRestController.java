@@ -16,43 +16,60 @@ public class GroupRestController {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE,
+            value = "/",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addGoup(@RequestBody GroupEntity groupEntity) {
+    public void addGroup(@RequestBody GroupEntity groupEntity) {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/alter/{groupId}")
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            value = "/{groupId}")
     public void alterGroup(@PathVariable Long groupId) {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/newMember/{groupId}/{userId}")
-    public void addMember(@PathVariable Long groupId, @PathVariable String userId) {
-
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value="/{groupId}")
+    public GroupEntity getgroupInfo(@PathVariable Long groupId) {
+        return null;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{groupId}")
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/{groupId}")
     public void deleteGroup(@PathVariable Long groupId) {
 
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{userId}")
-    public void removeMember(@PathVariable String userId) {
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            value = "/{groupId}/members/{userId}")
+    public void addMember(@PathVariable Long groupId, @PathVariable String userId) {
+
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/newRequest/{groupId}/{userId}")
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/{groupId}/members/{userId}")
+    public void removeMember(@PathVariable String userId, @PathVariable("groupId") String groupId) {
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "/{groupId}/members/{userId}")
     public void inviteMember(@PathVariable Long groupId, @PathVariable String userId) {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getAllGroups/{userId}")
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/{userId}")
     public Collection<GroupEntity> getGroupsById(@PathVariable String userId) {
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/getGroupInfo/{groupId}")
-    public GroupEntity getgroupInfo(@PathVariable Long groupId) {
-        return null;
-    }
+
 }

@@ -60,6 +60,16 @@ Das Paket ServerCom übernimmt die Kommunikation der App mit dem Server, also da
 \textbf{Abhängigkeiten zu anderen Paketen}\\
 Das Paket hat keine Abhängigkeiten zu anderen Paketen.
 
+\subsection{Server}
+Das Programm des Servers ist in folgende Pakete aufgeteilt:
+\begin{itemize}
+	\item Communicationlayer
+	\item BusinessLayer
+	\item PersistenceLayer
+\end{itemize}
+
+\subsubsection*{CommunicationLayer}
+Das Paket CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Uunterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den LCients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
 
 \section{verwendete Entwurfsmuster}
 
@@ -84,7 +94,7 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 
 \subsubsection{DAO Pattern für Datenpersistenz auf dem Server}
 
-\subsubsection{Observer Pattern zum Beobachten der DAO-Implementationen}
+\subsubsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
 
 \chapter{Klassenbeschreibungen} {
 

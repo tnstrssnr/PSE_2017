@@ -18,4 +18,8 @@ public interface GroupDao {
 
     public List<GroupEntity> getRequestsbyUser(String uid);
 
+    public void deleteGroup();
+
+    public void kickMember();
+
 }

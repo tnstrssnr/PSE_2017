@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Abstrakte DAO-Klasse, die einfache CRUD-Methoden besitzt
+ *
  * Created by tina on 30.06.17.
  */
-public abstract class AbstractDao<PK extends Serializable, T> {
+public abstract class AbstractDao<PK extends Serializable, T extends PersistentClass> {
 
     private Class<T> persistenClass;
 

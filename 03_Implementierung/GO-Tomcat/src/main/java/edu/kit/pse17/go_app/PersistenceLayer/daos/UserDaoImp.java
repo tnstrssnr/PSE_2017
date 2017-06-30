@@ -20,6 +20,13 @@ public class UserDaoImp extends AbstractDao<String, UserEntity> implements UserD
     }
 
     @Override
+    public void deleteUser() {
+        //Tupel aus DB löschen
+        //User aus allen Gruppen entfernen
+        //User aus allen GOs entfernen
+    }
+
+    @Override
     public UserEntity create(UserEntity userEntity) {
         return null;
     }

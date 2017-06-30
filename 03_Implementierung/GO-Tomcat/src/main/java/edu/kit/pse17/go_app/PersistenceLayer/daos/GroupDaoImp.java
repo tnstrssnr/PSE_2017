@@ -42,7 +42,7 @@ public class GroupDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, S
     }
 
     @Override
-    public List<UserEntity> getDeclinedusers(long id) {
+    public List<UserEntity> getDeclinedUsers(long id) {
         return null;
     }
 
@@ -76,6 +76,15 @@ public class GroupDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, S
         return null;
     }
 
+    @Override
+    public void deleteGo() {
+
+    }
+
+    @Override
+    public void kickUser(String userId) {
+
+    }
 
     @Override
     public void register(Observer observer) {
