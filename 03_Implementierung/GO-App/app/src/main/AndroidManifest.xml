@@ -44,6 +44,8 @@
             </intent-filter>
 
         </service>
+        <service android:name=".controller.ServiceCommand" />
+        <service android:name=".controller.DeleteUserCommand" />
     </application>
 
 </manifest>

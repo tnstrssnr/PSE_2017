@@ -3,18 +3,20 @@
 
 % add something here
 
-\subsection{Änderungen zum Pflichtenheft}
+\section{Änderungen zum Pflichtenheft}
 
 Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenommen:
 \begin{enumerate}
 	\item \textbf{Produktdaten - Benutzer} \\
 	Es werden in den Produktdaten zusätzlich eine (von Firebase automatisch generierte) InstanceID gespeichert, die es dem Server erlaubt, Daten an das Android-Gerät eines bestimmten Benutzers zu senden.
+	\item \textbf{Detailansicht der GOs} \\
+	Es ist jedem Mitglied einer Gruppen (unabhängig von Teilnahmestatus) möglich, die Detailansicht eines GOs aufzurufen. Um den Karten-Tab öffnen zu können, um die Standorte der anderen Teilnahmer zu verfolgen, gilt weiterhin, dass der Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lauten muss.
 \end{enumerate}
 
 
-\subsection{Paketstruktur}
+\section{Paketstruktur}
 
-\subsubsection{Client}
+\subsection{Client}
 Der Programmteil, der auf dem Client - also auf dem Android-Gerät - ausgeführt wird, ist in folgende Pakete (die ggfs. Unterpakete enthalten) aufgeteilt:
 \begin{itemize}
 	\item Views
@@ -25,7 +27,7 @@ Der Programmteil, der auf dem Client - also auf dem Android-Gerät - ausgeführt
 
 Der folgende Abschnitt erläutert, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
 
-\subsubsubsection{Views}
+\subsubsection{Views}
 Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Die Hauptaufgabe des Pakets ist es zum Einen, dem Benutzer ein Interface zur Verfügung zu stellen, mit dem er Interagieren kann, zum Anderen werden hier Benutzereingaben entgegengenommen und soweit ausgewertet, dass die Verarbeitung der Eingabe an die dafür zuständige Stelle im Programm weitergegeben werden kann.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen:}\\
@@ -34,7 +36,7 @@ Das Paket Views kann die Informationen, die dem Benutzer angezeigt werden, nicht
 \textbf{Unterpakete:}\\
 das Paket enthält das Unterpaket 'RecyclerView'. Da in der Applikation viele (verschiedene) RecyclerViews verwendet werden, gibt es für die Erstellung derselben ein eigenes Paket, dessen Aufgabe es ist, von den Datenobjekten die das Model liefert die gewünschten Informationen zu extrahieren und diese mit dem richtigen Layout zusammenzuführen. Innerhalb des Pakets besteht eine Abhängigkeit derjenigen View-Klassen, die einen RecyclerView verwenden zu dem Unterpaket RecyclerViews. Das Unterpaket RecyclerViews selbst ist nocht von anderen Klassen und Paketen abhängig.
 
-\subsubsubsection{Model}
+\subsubsection{Model}
 Das Paket Model enthält Klassen, deren Entitäten die physischen und konzeptuellen Objekte, mit denen umgegangen werden muss, abbilden und deren Funktionen und Eigenschaften modellieren.
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
@@ -42,7 +44,7 @@ Das Paket benötigt, um seine Aufgaben erfüllen zu können, die Dienste des Pak
 
 \textbf{Unterpakete:}\\
 
-\subsubsubsection{Controller}
+\subsubsection{Controller}
 Das Paket Controller ist dafür verantwortlich für .....
 
 \textbf{Abhängigkeiten zu anderen Paketen:}\\
@@ -54,7 +56,7 @@ Das Paket Controller ist dafür verantwortlich für .....
 	Das Unterpaket SignInHelper ist für die Koordination des SignIn Prozesses zuständig. Die Anmeldung eines benutzers erfolgt in zwei Schritten: zunächst muss die Identität des Benutzers festgestellt werden (dies geschieht über eine Schnittstelle zu Firebase), danach müssen die Daten des identifizierten Benutzers geladen werden.
 \end{enumerate}
 
-\subsubsubsection{ServerCom}
+\subsubsection{ServerCom}
 Das Paket ServerCom übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holden von Daten von dem Server.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
@@ -68,12 +70,12 @@ Das Programm des Servers ist in folgende Pakete aufgeteilt:
 	\item PersistenceLayer
 \end{itemize}
 
-\subsubsection*{CommunicationLayer}
+\subsection{CommunicationLayer}
 Das Paket CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Uunterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den LCients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
 
 \section{verwendete Entwurfsmuster}
 
-\subsubsection{Schablonenmethode für SignInHelper}
+\subsection{Schablonenmethode für SignInHelper}
 Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über die signIn()-Methode angesto"sen werden. Der spezifische Ablauf der Anmelde-Aktivität wird in den Unterklassen durch die primitiven Methoden definiert. \\
 
 \textbf{beteiligte Klassen:}
@@ -83,7 +85,7 @@ Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über d
 	\item GoSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
 \end{itemize}
 
-\subsubsection{Brücke}
+\subsection{Brücke}
 Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews definieren, können mit die dargestellten Daten aus verschiedenen ListItems beziehen.
 
 \textbf{beteiligte Klassen:}
@@ -92,10 +94,30 @@ Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews defin
 	\item ListAdapter
 \end{itemize}
 
-\subsubsection{DAO Pattern für Datenpersistenz auf dem Server}
+\subsection{DAO Pattern für Datenpersistenz auf dem Server}
 
-\subsubsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
+\subsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
+Das Clustern der Standorte der Teilnehmer eines GOs wird von der Klasse GoClusterStrategy übernommen. Diese Klasse ist mittels eines Strategy-Patterns in das Programm eingebunden. Dies entkoppelt den Algorithmus von seinem Kontext und erkann dynamisch durch andere Clustering-Alogirthmen ersetzt oder ergänzt werden. \\
 
-\chapter{Klassenbeschreibungen} {
+\textbf{beteiligte Klassen:}
+\begin{itemize}
+	\item \textit{LocationService} \\
+	Die Klasse ist der Kontext der Clustering-Strategie. Von hier aus wird die Ausführung des Algorithmus angestoßen.
+	\item \textit{ClusterStrategy} \\
+	ClusterStrategy ist ein Interface, das von jedem Cluster-Algorithmus implementiert werden muss. Es definiert eine \textit{caluculateCluster()} Methode, die eine Liste an einzelnen User-Standorten entgegen nimmt und eine Liste an User-Clustern zurückgibt.
+	\item \textit{GoClusterStrategy} \\
+	In dieser Klasse wird der Clustering-Algorithmus implementiert, der angewendet werden soll. Die Klasse erweitert das Interface ClusterStrategy.
+\end{itemize}
+
+\subsection{Fassade zur Vereinfachung des Server Interfaces}
+Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST Interface an. Das Ansprechen der verschiedenen REST Ressourcen ist in der App hinter dem Interface \textit{TomcatRestApi}. Das Interface bietet den aufrufenden Klassen Methoden zum aufrufen der REST Ressourcen an, ohne das ein Aufrufer etwas von der eigentlichen Kommunikation mit dem Server wissen muss. \\
+
+\textbf{beteiligte Klassen}
+\begin{itemize}
+	\item \textit{TomcatRestApi} \\
+	Das Interface ist die Fassade, die die Schnittstelle zum Tomcat-Server hinter sich versteckt. Nach außen werden Methoden bereitgestellt, die von anderen Klassen aufgerufen werden können, um Server-Dienste in Anspruch nehmen zu können, ohne sich um die Details der Kommunikation zu kümmern.
+\end{itemize}
+
+\section{Klassenbeschreibungen}
 
 % ------- textdoclet_include/intro.tex end

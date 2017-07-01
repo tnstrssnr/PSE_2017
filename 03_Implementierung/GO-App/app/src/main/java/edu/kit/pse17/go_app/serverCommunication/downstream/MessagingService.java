@@ -6,7 +6,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 /**
- * Die Klasse implementiert einen Service, der auf den GO TOmcat-Server hört.
+ * Die Klasse implementiert einen ServiceCommand, der auf den GO TOmcat-Server hört.
  * Bei Ankunft einer Nachricht des Servers, wird die onMessageReceived-methode aufgerufen (sofern die App im Vordergrund läuft).
  * Läuft die App im Hintergrund, ...
  *
@@ -16,7 +16,7 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MessagingService extends FirebaseMessagingService {
 
     // Tag, der zum Loggen der Nachrichten verwendet wird
-    private static final String TAG = "Messaging Service";
+    private static final String TAG = "Messaging ServiceCommand";
 
     // URL des Servers, von dem die Nachrichten kommen sollen. Nachrichten von anderen Absendern werden ignoriert
     private static final String SENDER = "Platzhalter";
