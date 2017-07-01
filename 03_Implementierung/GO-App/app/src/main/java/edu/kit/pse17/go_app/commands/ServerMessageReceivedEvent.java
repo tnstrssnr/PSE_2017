@@ -1,6 +1,6 @@
-package edu.kit.pse17.go_app.controller;
+package edu.kit.pse17.go_app.commands;
 
-import edu.kit.pse17.go_app.model.GO;
+import edu.kit.pse17.go_app.model.Go;
 import edu.kit.pse17.go_app.model.Group;
 
 /**
@@ -24,9 +24,9 @@ public class ServerMessageReceivedEvent {
      * Methode wird aufgerufen, wenn der Server der App meldet, dass sich Daten innerhalb des GOs go verändert haben.
      * Dazu gehören nicht die Standorte der Mitglieder. Diese werden separat von der App in der Klasse *** von Server abgefragt
      *
-     * @param go Das veränderte GO
+     * @param go Das veränderte Go
      */
-    public void onGoInfoChanged(GO go) {
+    public void onGoInfoChanged(Go go) {
 
     }
 
@@ -40,11 +40,11 @@ public class ServerMessageReceivedEvent {
     }
 
     /**
-     * Methode wird aufgerufen, wenn in einer Gruppe des Benutzers ein neues GO erstellt wird.
+     * Methode wird aufgerufen, wenn in einer Gruppe des Benutzers ein neues Go erstellt wird.
      *
-     * @param go Das neu erstellte GO
+     * @param go Das neu erstellte Go
      */
-    public void onGoCreated(GO go) {
+    public void onGoCreated(Go go) {
 
     }
 

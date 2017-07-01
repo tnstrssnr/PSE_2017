@@ -1,5 +1,9 @@
 package edu.kit.pse17.go_app.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Relation;
 import android.graphics.drawable.Icon;
 
 import java.util.ArrayList;
@@ -11,45 +15,48 @@ import java.util.List;
  * Created by tina on 17.06.17.
  */
 
+@Entity
 public class Group {
 
-    private int ID;
-    private String name;
-    private String description;
-    private Icon icon;
-    private int memberCount;
+    @PrimaryKey
+    public long id;
+    public String name;
+    public String description;
+    public String imagePath;
 
-    private List<User> members;
-    private List<User> admins;
-    private List<User> requests;
+    @Ignore
+    public Icon icon;
 
+    @Relation(parentColumn = "id", entityColumn = "uid")
+    public List<User> members;
+
+    @Relation(parentColumn = "id", entityColumn = "uid")
+    public List<User> admins;
+
+    @Relation(parentColumn = "id", entityColumn = "uid")
+    public List<User> requests;
+
+    @Ignore
     private GroupLocation groupLocation;
 
-    /**
-     * Konstruktor
-     * @param ID eindeutige Nummer, mit der eine Gruppe identifiziert werden kann
-     * @param name Gruppenname
-     * @param description Gruppenbeschreibung
-     * @param icon Gruppenicon
-     * @param members Liste aller Gruppenmitglieder
-     * @param memberCount Anzahl der Gruppenmitglieder
-     */
-    public Group(int ID, String name, String description, Icon icon, ArrayList<User> members, int memberCount) {
-        this.ID = ID;
+    public Group(long id, String name, String description, String imagePath, Icon icon, List<User> members, List<User> admins, List<User> requests, GroupLocation groupLocation) {
+        this.id = id;
         this.name = name;
         this.description = description;
+        this.imagePath = imagePath;
         this.icon = icon;
         this.members = members;
-        this.memberCount = memberCount;
+        this.admins = admins;
+        this.requests = requests;
+        this.groupLocation = groupLocation;
     }
 
-    /**
-     * erzeugt ein neues Group-Objekt und speichert die Group-Daten in der Datenbank auf dem Tomcat Server
-     *
-     * @return die neue Gruppe
-     */
-    public static Group createGroup() {
-        return null;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -68,6 +75,14 @@ public class Group {
         this.description = description;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public Icon getIcon() {
         return icon;
     }
@@ -80,46 +95,31 @@ public class Group {
         return members;
     }
 
-    public void setMembers(ArrayList<User> members) {
+    public void setMembers(List<User> members) {
         this.members = members;
     }
 
-    public int getMemberCount() {
-        return memberCount;
+    public List<User> getAdmins() {
+        return admins;
     }
 
-    public void setMemberCount(int memberCount) {
-        this.memberCount = memberCount;
+    public void setAdmins(List<User> admins) {
+        this.admins = admins;
     }
 
-    public boolean isAdmin(User user) {
-        return false;
+    public List<User> getRequests() {
+        return requests;
     }
 
-    private void onDataChanged() {
-
+    public void setRequests(List<User> requests) {
+        this.requests = requests;
     }
 
-    /**
-     * Gibt eine Liste mit allen Gruppen des Benutzer mit der ID *uid* zurück
-     *
-     * @param uid Die User-ID des Benutzer
-     * @return Liste mit Gruppen des Benutzers
-     */
-    public static List<Group> getAllGroups(String uid) {
-
-        return null;
+    public GroupLocation getGroupLocation() {
+        return groupLocation;
     }
 
-    /**
-     * Gibt eine Liste mit allen Gruppen zurück, zu denen der Benutzer mit der ID *uid* eingeladen wurde (und auf die Anfrage noch nicht geantwortet hat)
-     *
-     * @param uid Die User-ID des Benutzers
-     * @return Liste mit allen Gruppenanfragen des Benutzers
-     */
-    public static List<Group> getAllGroupRequests(String uid) {
-
-        return null;
-
+    public void setGroupLocation(GroupLocation groupLocation) {
+        this.groupLocation = groupLocation;
     }
 }

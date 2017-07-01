@@ -6,7 +6,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 /**
- * Die Klasse implementiert einen ServiceCommand, der auf den GO TOmcat-Server hört.
+ * Die Klasse implementiert einen ServiceCommand, der auf den Go TOmcat-Server hört.
  * Bei Ankunft einer Nachricht des Servers, wird die onMessageReceived-methode aufgerufen (sofern die App im Vordergrund läuft).
  * Läuft die App im Hintergrund, ...
  *

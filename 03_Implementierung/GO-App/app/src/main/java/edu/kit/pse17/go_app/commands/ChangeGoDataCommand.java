@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.controller;
+package edu.kit.pse17.go_app.commands;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -7,13 +7,13 @@ import android.support.annotation.Nullable;
  * Created by tina on 01.07.17.
  */
 
-public class RemoveGroupmemberCommand extends ServiceCommand {
+public class ChangeGoDataCommand extends ServiceCommand {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public RemoveGroupmemberCommand(String name) {
+    public ChangeGoDataCommand(String name) {
         super(name);
     }
 

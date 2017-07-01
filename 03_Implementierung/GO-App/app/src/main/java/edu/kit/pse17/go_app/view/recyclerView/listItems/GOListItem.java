@@ -4,11 +4,11 @@ import android.graphics.drawable.Icon;
 
 import java.util.Date;
 
-import edu.kit.pse17.go_app.model.GO;
+import edu.kit.pse17.go_app.model.Go;
 
 
 /**
- * Diese Klasse repräsentiert ListItems, die Informationen über ein GO in einem RecyclerView darstellen sollen
+ * Diese Klasse repräsentiert ListItems, die Informationen über ein Go in einem RecyclerView darstellen sollen
  *
  * Created by tina on 17.06.17.
  */
@@ -23,9 +23,9 @@ public class GOListItem implements ListItem<Date> {
 
     /**
      * Konstruktor
-     * @param name GO-Bezeichnung
+     * @param name Go-Bezeichnung
      * @param start Startzeitpunkt des GOs
-     * @param icon GO-Icon
+     * @param icon Go-Icon
      */
     public GOListItem(String name, Date start, Icon icon) {
         this.name = name;
@@ -37,7 +37,7 @@ public class GOListItem implements ListItem<Date> {
      * Konstruktor
      * @param go Go-Objekt, das von dem ListItem repräsentiert werden soll
      */
-    public GOListItem(GO go) {
+    public GOListItem(Go go) {
         this.name = go.getName();
         this.start = go.getStart();
     }

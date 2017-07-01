@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.login.FirebaseSignInHelper"/>
+        <activity android:name=".commands.login.FirebaseSignInHelper"/>
         <activity android:name=".view.GroupListActivity" />
-        <activity android:name=".controller.login.GoSignInHelper" />
+        <activity android:name=".commands.login.GoSignInHelper" />
         <activity android:name=".view.GroupDetailActivity" />
         <activity android:name=".view.GoDetailActivity" />
         <activity android:name=".view.SettingsActivity" />
@@ -44,8 +44,8 @@
             </intent-filter>
 
         </service>
-        <service android:name=".controller.ServiceCommand" />
-        <service android:name=".controller.DeleteUserCommand" />
+        <service android:name=".commands.ServiceCommand" />
+        <service android:name=".commands.DeleteUserCommand" />
     </application>
 
 </manifest>

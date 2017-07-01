@@ -1,5 +1,8 @@
 package edu.kit.pse17.go_app.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.graphics.drawable.Icon;
 
 import java.io.Serializable;
@@ -11,43 +14,24 @@ import java.util.List;
  * Created by tina on 17.06.17.
  */
 
+@Entity
 public class User implements Serializable {
 
+    @PrimaryKey
     private String uid;
+    private String instanceId;
     private String name;
     private String email;
+
+    @Ignore
     private Icon icon;
 
-    /**
-     * Konstruktor
-     * @param uid User-ID (--> übernommen von FirebaseUser-Objekt aus der FirebaseAPI (eindeutig)
-     * @param name Benutzername
-     * @param email E-Mailadresse, die bei der Anmeldung verwendet wurde. Wird verwendet, um User nach anderen Usern suchen zu lassen
-     * @param icon Profilbild
-     */
-    public User(String uid, String name, String email, Icon icon) {
+    public User(String uid, String instanceId, String name, String email, Icon icon) {
         this.uid = uid;
+        this.instanceId = instanceId;
         this.name = name;
         this.email = email;
         this.icon = icon;
-    }
-
-    /**
-     * gibt das User-Objekt, mit den Daten des momentan angemeldeten Benutzers zurück
-     *
-     * @return der angemeldete Benutzer
-     */
-    public static User getMyself() {
-        return null;
-    }
-
-    /**
-     * erzeugt ein neues User-Objekt und speichert die User-Daten in der Datenbank auf dem Tomcat Server
-     *
-     * @return der neue user
-     */
-    public static User createUser() {
-        return null;
     }
 
     public String getUid() {
@@ -56,6 +40,14 @@ public class User implements Serializable {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     public String getName() {
@@ -80,21 +72,5 @@ public class User implements Serializable {
 
     public void setIcon(Icon icon) {
         this.icon = icon;
-    }
-
-    public List<Group> getGroups() {
-        return null;
-    }
-
-    public List<Group> getGroupRequests() {
-        return null;
-    }
-
-    public Status getStatus(GO go) {
-        return Status.NOT_GOING;
-    }
-
-    public void onChangeData() {
-
     }
 }

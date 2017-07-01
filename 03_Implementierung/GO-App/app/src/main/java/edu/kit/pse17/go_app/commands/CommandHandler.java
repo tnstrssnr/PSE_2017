@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.controller;
+package edu.kit.pse17.go_app.commands;
 
 import android.app.Activity;
 import android.content.Intent;

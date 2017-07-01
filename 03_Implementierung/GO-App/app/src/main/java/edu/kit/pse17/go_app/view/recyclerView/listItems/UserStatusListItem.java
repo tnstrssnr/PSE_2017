@@ -2,7 +2,7 @@ package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
 import android.graphics.drawable.Icon;
 
-import edu.kit.pse17.go_app.model.GO;
+import edu.kit.pse17.go_app.model.Go;
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.User;
 
@@ -35,7 +35,7 @@ public class UserStatusListItem implements ListItem<Status> {
         icon = icon;
     }
 
-    public UserStatusListItem(User user, GO go) {
+    public UserStatusListItem(User user, Go go) {
         this.title = user.getName();
         this.icon = user.getIcon();
         this.status = go.getUserStatus(user);
