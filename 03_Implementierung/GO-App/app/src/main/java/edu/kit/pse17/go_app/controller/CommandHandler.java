@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class CommandHandler {
 
-    private Map<String, ServiceCommand> commands;
+    private Map<String, Class> commands;
 
     public void handleCommand(Activity activity, String viewId, Intent intent) {
         commands.get(viewId).execute(activity, intent);
