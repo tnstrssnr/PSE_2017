@@ -13,7 +13,7 @@ import java.util.List;
  * Der Zugriff auf die Daten läuft ausschließlich über die UserDao-Klasse
  */
 
-@Entity
+@Entity(tableName = "users")
 public class User implements Serializable {
 
     /**

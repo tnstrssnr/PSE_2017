@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.serverCommunication.upstream;
 
+import java.util.List;
+
 import edu.kit.pse17.go_app.model.Group;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -18,8 +20,9 @@ import retrofit2.http.Path;
 public interface TomcatRestApi {
 
     @GET("/users/{group}")
-    Call<Group> getGroup(@Path("user") long groupId);
+    Call<Group> getGroup(@Path("group") long groupId);
 
-
+    @GET("/groups/{user}")
+    Call<List<Group>> getGroupsByUser(@Path("user") String uid);
 
 }

@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import javax.inject.Inject;
 
 import edu.kit.pse17.go_app.model.Group;
-import edu.kit.pse17.go_app.model.GroupRepository;
+import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
  * Stellt die Daten für die GroupDetailActivity View-Komponente zur Verfügung und übernimmt die Kommunikation

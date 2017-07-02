@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *  Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Go-Objekte persistiert.
@@ -16,7 +17,7 @@ import java.util.List;
  *
  */
 
-@Entity
+@Entity(tableName = "gos")
 public class Go {
 
     /**
@@ -76,29 +77,12 @@ public class Go {
     public Status userStatus;
 
     /**
+     * Eine Liste mit dem UserStatus jedes Gruppenmitglieds der Gruppe des GOs
+     */
+    public List<UserGoStatus> statusList;
+    /**
      * Die aktuelle Position der Gruppe. Ist null, falls das GO noch nicht gestartet ist.
      */
-    @Ignore
-    private GroupLocation locationData;
-
-    /**
-     * Eine Liste aller Benutzer mit Teilnahmestatus "Unterwegs"
-     */
-    @Relation(parentColumn = "id", entityColumn = "uid")
-    private List<User> notGoingUsers;
-
-    /**
-     * Eine Liste aller Benutzer mit Teilnahmestatus "Bestätigt"
-     */
-    @Relation(parentColumn = "id", entityColumn = "uid")
-    private List<User> goingUsers;
-
-    /**
-     * Eine Liste aller Benutzer mit Teilnahmestatus "Unterwegs"
-     */
-    @Relation(parentColumn = "id", entityColumn = "uid")
-    private List<User> goneUsers;
-
 
     public Go() {
     }
@@ -181,37 +165,5 @@ public class Go {
 
     public void setUserStatus(Status userStatus) {
         this.userStatus = userStatus;
-    }
-
-    public GroupLocation getLocationData() {
-        return locationData;
-    }
-
-    public void setLocationData(GroupLocation locationData) {
-        this.locationData = locationData;
-    }
-
-    public List<User> getNotGoingUsers() {
-        return notGoingUsers;
-    }
-
-    public void setNotGoingUsers(List<User> notGoingUsers) {
-        this.notGoingUsers = notGoingUsers;
-    }
-
-    public List<User> getGoingUsers() {
-        return goingUsers;
-    }
-
-    public void setGoingUsers(List<User> goingUsers) {
-        this.goingUsers = goingUsers;
-    }
-
-    public List<User> getGoneUsers() {
-        return goneUsers;
-    }
-
-    public void setGoneUsers(List<User> goneUsers) {
-        this.goneUsers = goneUsers;
     }
 }

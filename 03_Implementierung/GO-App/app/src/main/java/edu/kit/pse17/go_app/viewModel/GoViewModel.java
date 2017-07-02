@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import javax.inject.Inject;
 
 import edu.kit.pse17.go_app.model.Go;
-import edu.kit.pse17.go_app.model.GoRepository;
+import edu.kit.pse17.go_app.repositories.GoRepository;
 
 /**
  * Stellt die Daten für die GoDetailActivity View-Komponente zur Verfügung und übernimmt die Kommunikation

@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.view.recyclerView.adapter;
+package edu.kit.pse17.go_app.view.recyclerView;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
 import edu.kit.pse17.go_app.view.recyclerView.ListViewHolder;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
@@ -18,7 +19,7 @@ import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
  * Created by tina on 17.06.17.
  */
 
-public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
     /**
      * ListItems, die in dem RecyclerView angezeigt werden sollen
@@ -52,7 +53,7 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(setLayout(), parent, false);
+        View view = layoutInflater.inflate(R.layout.list_item, parent, false);
         return new ListViewHolder(view, onListItemClicked);
     }
 
@@ -78,13 +79,6 @@ public abstract class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     public ListItem getItem(int position) {
         return data.get(position);
     }
-
-    /**
-     * Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
-     *
-     * @return ID des gewünschten XML Layouts aus R.layout
-     */
-    protected abstract int setLayout();
 
     public void addItem(ListItem item) {
         data.add(item);

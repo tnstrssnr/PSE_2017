@@ -1,7 +1,74 @@
+\documentclass[parskip=full]{scrartcl}
+
+\usepackage{pdfpages}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{fancyhdr}%<-------------to control headers and footers
+\usepackage[a4paper,margin=1in,footskip=.25in]{geometry}
+\fancyhf{}
+\fancyfoot[C]{\thepage} %<----to get page number below text
+\pagestyle{fancy} %<-------the page style itself
+
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{220,220,220}
+\usepackage{float}
 
 
+\title{Android GO! App - Pflichtenheft}
+\author{Gruppe 3}
+\date{11.06.17}
 
-% add something here
+% define custom lists
+\usepackage{enumitem}
+\usepackage{lipsum}
+
+\makeindex
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+	{\scshape\LARGE \bfseries Entwurfsdokument \par}
+	\vspace{1cm}
+	{\scshape\Large Praktikum der Softwareentwicklung \\ Sommersemester 2017\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Android GO! App\par}
+	\vspace{2cm}
+	{\Large\itshape - Gruppe 3 -\par}
+	\vfill
+	{\bfseries erstellt von:\par}
+	Arsenii Dunaev \\
+	Florian Kröger \\
+	Tina Maria Strößner \\
+	Volodymyr Shpylka \\	
+	\vfill
+	% Bottom of the page
+	{\large 09.07.17 \par}	
+	\end{center}
+\end{titlepage}
+
+\newpage
+
+\begin{abstract}
+Die Android App GO! ist eine mobile Applikation, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Beim erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.\\
+
+Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
 
 \section{Änderungen zum Pflichtenheft}
 
@@ -13,6 +80,7 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 	Es ist jedem Mitglied einer Gruppen (unabhängig von Teilnahmestatus) möglich, die Detailansicht eines GOs aufzurufen. Um den Karten-Tab öffnen zu können, um die Standorte der anderen Teilnahmer zu verfolgen, gilt weiterhin, dass der Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lauten muss.
 \end{enumerate}
 
+\newpage
 
 \section{Architekturstil und Paketstruktur}
 
@@ -22,25 +90,25 @@ Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (
 Die drei Komponenten der Applikation - Modell, View und ViewModell - haben dabei folgende Zuständigkeiten:\\
 
 \textbf{Modell:}\\
-Das Modell ist die Dtenzugriffsschicht der Applikation, d.h. sie kapselt den Zugriff auf persistente Daten, die in einer lokalen SQLite Datenbank gehalten werden. Darüber hinaus enthält das Modell die Geschäftslogik der App.\\
-
+Das Modell ist die Datenzugriffsschicht der Applikation, d.h. sie kapselt den Zugriff auf persistente Daten, die in einer lokalen SQLite Datenbank gehalten werden. Darüber hinaus enthält das Modell die Geschäftslogik der App.\\
 Neben dem lokalen Modell-Paket muss außerdem die Datenkonsitenz mit dem Remote-Server der App gewährleistet werden. Die Kommunikation mit dem Server wird im Paket ServerCommunication implementiert. Koordiniert wird die Kommunikation der Komponenten Modell, Remote-Server und View durch Repository-Klassen, die als Vermittler auftreten (vgl. *Vermittler-Entwurfsmuster*).
 
 \textbf{View:}\\
 Die Views der App (sämtliche Activity- und Fragment-Klassen, sowie die dazugehörigen Layout .xml-Dateien) sind für die Präsentation, sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) der Daten es Viewmodells zuständig.
 
-\textbf{ViewModell:}
+\textbf{ViewModell:}\\
+Das ViewModell ist das Bidneglied zwischen View und Modell. Es tauscht Informationen mit dem Modell aus und stellt so der View öffentliche Eigenschaften und Befehle zur Verfügung, die an die Steuerungselemente der UI angebunden werden können. Dabei hat as ViewModell keine Referenz auf die View. Durch diese lose kopplung kann die View jederzeit ausgetauscht werden, ohne dass das ViewModell verändert werden muss.
 
-
-Der Programmteil, der auf dem Client - also auf dem Android-Gerät - ausgeführt wird, ist in folgende Pakete (die ggfs. Unterpakete enthalten) aufgeteilt:
+In dieser Implementierung des MVVM Musters wurde die Applikation in folgende Pakete unterteilt:
 \begin{itemize}
 	\item Views
-	\item Controller
+	\item Commands
 	\item Model
-	\item ServerCom
+	\item ViewModel
+	\item ServerCommunication
 \end{itemize}
 
-Der folgende Abschnitt erläutert, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
+Die folgende Abschnitte erläutern, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
 
 \subsubsection{Views}
 Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Die Hauptaufgabe des Pakets ist es zum Einen, dem Benutzer ein Interface zur Verfügung zu stellen, mit dem er Interagieren kann, zum Anderen werden hier Benutzereingaben entgegengenommen und soweit ausgewertet, dass die Verarbeitung der Eingabe an die dafür zuständige Stelle im Programm weitergegeben werden kann.\\
@@ -59,8 +127,8 @@ Das Paket benötigt, um seine Aufgaben erfüllen zu können, die Dienste des Pak
 
 \textbf{Unterpakete:}\\
 
-\subsubsection{Controller}
-Das Paket Controller ist dafür verantwortlich für .....
+\subsubsection{Commands}
+Das Paket Commands ist dafür verantwortlich für .....
 
 \textbf{Abhängigkeiten zu anderen Paketen:}\\
 
@@ -71,7 +139,7 @@ Das Paket Controller ist dafür verantwortlich für .....
 	Das Unterpaket SignInHelper ist für die Koordination des SignIn Prozesses zuständig. Die Anmeldung eines benutzers erfolgt in zwei Schritten: zunächst muss die Identität des Benutzers festgestellt werden (dies geschieht über eine Schnittstelle zu Firebase), danach müssen die Daten des identifizierten Benutzers geladen werden.
 \end{enumerate}
 
-\subsubsection{ServerCom}
+\subsubsection{ServerCommunication}
 Das Paket ServerCom übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holden von Daten von dem Server.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
@@ -88,6 +156,9 @@ Das Programm des Servers ist in folgende Pakete aufgeteilt:
 \subsection{CommunicationLayer}
 Das Paket CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Uunterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den LCients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
 
+\newpage
+
+
 \section{verwendete Entwurfsmuster}
 
 \subsection{Schablonenmethode für SignInHelper}
@@ -99,6 +170,40 @@ Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über d
 	\item FirebaseSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
 	\item GoSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
 \end{itemize}
+
+\subsection{Beobachter zum Aktualisieren des UI}
+Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderngen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die Livedata-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
+\textbf{beteiligte Klassen:}
+\begin{itemize}
+	\item \textit{LiveData<>:}\\ das beobachtete Subjekt
+	\item \textit{BaseActivity (die von LifecycleActivity erbt):}\\ Der Beobachter, der bei Änderung der Daten benachrichtigt wird und daraufhin das dem Benutzer präsentierte UI aktualisiert.
+\end{itemize}
+
+\subsection{DAO-Pattern zur lokalen Persisitierung von Daten}
+Damit nicht bei jeder Datenanforderung, die vom UI gestellt wird, ein Zugriff auf den Tomcat-Server unternommen werden muss, werden die Daten des Benutzers lokal in einer SQLite Datenbank persistiert. Die Implementierung des Datenbankschemas und der Datenbankzugriffe wird mithilfe des Android-Framworks Room realisiert. Dabei wird ein Data Access Object Pattern verwendet.
+Die Entity-Beans definieren dabei, wie das Schema der Datenbank aufgebaut wird (jede als entity annotierte klasse wird als eine Tabelle in der Datenbank umgesetzt), die DAO-Interfaces definieren die Methoden, mit denen vom Programm aus af die Datenbank zugegriffen werden kann.\\
+
+\textbf{beteiligte Klassen:}\\
+\begin{itemize}
+	\item \textit{User, Go, Group:}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
+	\item \textit{UserDao, GoDao, GroupDao:}\\ Data-Access-Object Interfaces, die die eigentlichen Zugriffe auf die Datenbank übernehmen.
+\end{itemize}
+
+\subsection{Vermittler zur Koordination von Datenzugriffen}
+Wenn der Benutzer bestimmte Daten anzigen will, muss die App diese Daten zunächst beschaffen, entweder aus den lokal persisitierten Daten oder gegebenenfalls vom Remote-Server des Systems- Ähnlich verhält es sich mit Änderungen von Daten: Die Änderungen müssen sowohl lokal in der SQLIte Datenbank und im ViewModell, als auch auch der zentralen Datenbank des Server geändert werden.\\
+Um diese vielen Abhängigkeiten zu verwalten und die Konsistenz der Daten sicherzustellen, sollen Datarepository-Klasssen implementiert werden, die als Vermittler zwischen den Kollegen dienen.
+So muss das ViewModell zum Erstellen/Ändern/Löschen von Daten lediglich das DataRepository ansprechen, ohne die darunterliegende Datenpersistenzlogik zu kennen. Auch der Server kommuniziert seine Daten nur mit der Datarepository. Modell und Viewmodell müssen sich so gegenseitig nicht referenzieren, sondern für alle Komponenten eyisitert ein zentraler Ansprechpartner.\\
+
+\textbf{beteiligte Klassen:}\\
+\begin{itemize}
+	\item \textit{GoRepository/GroupRepository:}\\
+	 Vermittler
+	\item \textit{ViewModell, TomcatrestApi, Dao:}\\ Kollegen
+\end{itemize}
+
+\subsection{singleton zur Vermeidung häufiger Instanziierung von schwergewichtigen DataRepositories}
+
+\subsection{Dependency Injection}
 
 \subsection{DAO Pattern für Datenpersistenz auf dem Server}
 
@@ -124,6 +229,5 @@ Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST In
 	Das Interface ist die Fassade, die die Schnittstelle zum Tomcat-Server hinter sich versteckt. Nach außen werden Methoden bereitgestellt, die von anderen Klassen aufgerufen werden können, um Server-Dienste in Anspruch nehmen zu können, ohne sich um die Details der Kommunikation zu kümmern.
 \end{itemize}
 
-\section{Klassenbeschreibungen}
+\end{document}
 
-% ------- textdoclet_include/intro.tex end

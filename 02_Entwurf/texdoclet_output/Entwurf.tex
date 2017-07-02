@@ -115,9 +115,24 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 \end{enumerate}
 
 
-\section{Paketstruktur}
+\section{Architekturstil und Paketstruktur}
 
 \subsection{Client}
+Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die auch hier eingesetzten Architecture Components unterstützt. \\
+
+Die drei Komponenten der Applikation - Modell, View und ViewModell - haben dabei folgende Zuständigkeiten:\\
+
+\textbf{Modell:}\\
+Das Modell ist die Dtenzugriffsschicht der Applikation, d.h. sie kapselt den Zugriff auf persistente Daten, die in einer lokalen SQLite Datenbank gehalten werden. Darüber hinaus enthält das Modell die Geschäftslogik der App.\\
+
+Neben dem lokalen Modell-Paket muss außerdem die Datenkonsitenz mit dem Remote-Server der App gewährleistet werden. Die Kommunikation mit dem Server wird im Paket ServerCommunication implementiert. Koordiniert wird die Kommunikation der Komponenten Modell, Remote-Server und View durch Repository-Klassen, die als Vermittler auftreten (vgl. *Vermittler-Entwurfsmuster*).
+
+\textbf{View:}\\
+Die Views der App (sämtliche Activity- und Fragment-Klassen, sowie die dazugehörigen Layout .xml-Dateien) sind für die Präsentation, sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) der Daten es Viewmodells zuständig.
+
+\textbf{ViewModell:}
+
+
 Der Programmteil, der auf dem Client - also auf dem Android-Gerät - ausgeführt wird, ist in folgende Pakete (die ggfs. Unterpakete enthalten) aufgeteilt:
 \begin{itemize}
 	\item Views
@@ -186,15 +201,6 @@ Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über d
 	\item GoSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
 \end{itemize}
 
-\subsection{Brücke}
-Die verschiedenen RecyclerView-Adapter, die das Layout eines RecyclerViews definieren, können mit die dargestellten Daten aus verschiedenen ListItems beziehen.
-
-\textbf{beteiligte Klassen:}
-\begin{itemize}
-	\item ListItem<T>
-	\item ListAdapter
-\end{itemize}
-
 \subsection{DAO Pattern für Datenpersistenz auf dem Server}
 
 \subsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
@@ -231,10 +237,7 @@ Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST In
 {\raggedright
 \hspace{0.0cm} $\bullet$ java.lang.Object {\tiny \refdefined{java.lang.Object}} \\
 \hspace{1.0cm} $\bullet$  {\tiny } \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.view.recyclerView.adapter.ListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.view.recyclerView.adapter.GOListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.view.recyclerView.adapter.GroupListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter}} \\
-\hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.view.recyclerView.adapter.UserListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter}} \\
+\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.view.recyclerView.ListAdapter {\tiny \refdefined{edu.kit.pse17.go_app.view.recyclerView.ListAdapter}} \\
 \hspace{1.0cm} $\bullet$ AppCompatActivity {\tiny } \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.commands.login.SignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.commands.login.SignInHelper}} \\
 \hspace{3.0cm} $\bullet$ edu.kit.pse17.go\_app.commands.login.FirebaseSignInHelper {\tiny \refdefined{edu.kit.pse17.go_app.commands.login.FirebaseSignInHelper}} \\
@@ -2458,13 +2461,13 @@ public UserService()\end{lstlisting} %end signature
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{GoViewModel}{edu.kit.pse17.go_app.viewModel.GoViewModel}{Created by tina on 01.07.17.}
-\entityintro{GroupViewModel}{edu.kit.pse17.go_app.viewModel.GroupViewModel}{Created by tina on 01.07.17.}
+\entityintro{GoViewModel}{edu.kit.pse17.go_app.viewModel.GoViewModel}{Stellt die Daten für die GoDetailActivity View-Komponente zur Verfügung und übernimmt die Kommunikation mit der Programmlogik, um die richtigen Daten an die View weiterzugeben.}
+\entityintro{GroupViewModel}{edu.kit.pse17.go_app.viewModel.GroupViewModel}{Stellt die Daten für die GroupDetailActivity View-Komponente zur Verfügung und übernimmt die Kommunikation mit der Programmlogik, um die richtigen Daten an die View weiterzugeben.}
 \vskip .1in
 \vskip .1in
 \subsection{\label{edu.kit.pse17.go_app.viewModel.GoViewModel}Class GoViewModel}{
 \hypertarget{edu.kit.pse17.go_app.viewModel.GoViewModel}{}\vskip .1in 
-Created by tina on 01.07.17.\vskip .1in 
+Stellt die Daten für die GoDetailActivity View-Komponente zur Verfügung und übernimmt die Kommunikation mit der Programmlogik, um die richtigen Daten an die View weiterzugeben. Das ViewModel hat keine Abhängigkeit zu der View und wird, anders als die Views, bei Konfigurationsänderungen nicht zerstört, sondern bleibt erhalten.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class GoViewModel
@@ -2511,7 +2514,7 @@ public void init(long goId)\end{lstlisting} %end signature
 }
 \subsection{\label{edu.kit.pse17.go_app.viewModel.GroupViewModel}Class GroupViewModel}{
 \hypertarget{edu.kit.pse17.go_app.viewModel.GroupViewModel}{}\vskip .1in 
-Created by tina on 01.07.17.\vskip .1in 
+Stellt die Daten für die GroupDetailActivity View-Komponente zur Verfügung und übernimmt die Kommunikation mit der Programmlogik, um die richtigen Daten an die View weiterzugeben. Das ViewModel hat keine Abhängigkeit zu der View und wird, anders als die Views, bei Konfigurationsänderungen nicht zerstört, sondern bleibt erhalten.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class GroupViewModel
@@ -2569,10 +2572,10 @@ public void init(long groupId)\end{lstlisting} %end signature
 \vskip .13in
 \hbox{{\bf  Classes}}
 \entityintro{Go}{edu.kit.pse17.go_app.model.Go}{Entity-Klasse.}
-\entityintro{GoRepository}{edu.kit.pse17.go_app.model.GoRepository}{}
+\entityintro{GoRepository}{edu.kit.pse17.go_app.model.GoRepository}{Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine einfache Schnittstelle zum Holen, Ändern und Löschen von Daten zur Verfügung.}
 \entityintro{Group}{edu.kit.pse17.go_app.model.Group}{Entity-Klasse.}
 \entityintro{GroupLocation}{edu.kit.pse17.go_app.model.GroupLocation}{Die Objekte der Klasse kapseln die geclusterten GPS-Daten der Go-Teilnehmer}
-\entityintro{GroupRepository}{edu.kit.pse17.go_app.model.GroupRepository}{Created by tina on 01.07.17.}
+\entityintro{GroupRepository}{edu.kit.pse17.go_app.model.GroupRepository}{Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine einfache Schnittstelle zum Holen, Ändern und Löschen von Daten zur Verfügung.}
 \entityintro{LocalDatabase}{edu.kit.pse17.go_app.model.LocalDatabase}{abstrakte Klasse, zur Erzeugung einer lokalen SQLite Datenbank.}
 \entityintro{Status}{edu.kit.pse17.go_app.model.Status}{möglicher Teilnehmerstatus für GOs}
 \entityintro{User}{edu.kit.pse17.go_app.model.User}{Entity-Klasse.}
@@ -3028,6 +3031,7 @@ public void setUserStatus(Status userStatus)\end{lstlisting} %end signature
 }
 \subsection{\label{edu.kit.pse17.go_app.model.GoRepository}Class GoRepository}{
 \hypertarget{edu.kit.pse17.go_app.model.GoRepository}{}\vskip .1in 
+Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine einfache Schnittstelle zum Holen, Ändern und Löschen von Daten zur Verfügung. Bei einer Anfrage weiß das Repository, wo es die Daten holen muss (lokal oder vom remote Server). Das Repository agiert als Vermittler zwischen der lokalen Datanbank und den Daten die die App vom Server erhält.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class GoRepository
@@ -3385,7 +3389,7 @@ public void setCluster(java.util.List cluster)\end{lstlisting} %end signature
 }
 \subsection{\label{edu.kit.pse17.go_app.model.GroupRepository}Class GroupRepository}{
 \hypertarget{edu.kit.pse17.go_app.model.GroupRepository}{}\vskip .1in 
-Created by tina on 01.07.17.\vskip .1in 
+Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine einfache Schnittstelle zum Holen, Ändern und Löschen von Daten zur Verfügung. Bei einer Anfrage weiß das Repository, wo es die Daten holen muss (lokal oder vom remote Server). Das Repository agiert als Vermittler zwischen der lokalen Datanbank und den Daten die die App vom Server erhält.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class GroupRepository
@@ -5224,9 +5228,9 @@ wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
 \entityintro{GroupDetailActivity}{edu.kit.pse17.go_app.view.GroupDetailActivity}{die Activity ist zusammen mit der Layout File group\_details.xml Teil des Views, der dem user die Details eines Gruppe anzeigt.}
 \entityintro{GroupDetailActivityAdmin}{edu.kit.pse17.go_app.view.GroupDetailActivityAdmin}{Klasse dekoriert die GroupDetailActivity und fügt ihr die Admin-Funktionalitäten hinzu.}
 \entityintro{GroupListActivity}{edu.kit.pse17.go_app.view.GroupListActivity}{Hauptansicht der App.}
-\entityintro{InformationActivity}{edu.kit.pse17.go_app.view.InformationActivity}{Created by tina on 20.06.17.}
-\entityintro{SettingsActivity}{edu.kit.pse17.go_app.view.SettingsActivity}{Created by tina on 20.06.17.}
-\entityintro{SignInActivity}{edu.kit.pse17.go_app.view.SignInActivity}{Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess Created by tina on 17.06.17.}
+\entityintro{InformationActivity}{edu.kit.pse17.go_app.view.InformationActivity}{Diese Activity ist zuständig für die Darstellung eines Informationstextes.}
+\entityintro{SettingsActivity}{edu.kit.pse17.go_app.view.SettingsActivity}{Die Aktivität stellt dem User ein Menü zur Verfügung, in dem er verschiedende Einstellungsänderungen vornehmen kann.}
+\entityintro{SignInActivity}{edu.kit.pse17.go_app.view.SignInActivity}{Die Klasse stellt die View für den LogIn- und SignIn-Prozess bereit.}
 \vskip .1in
 \vskip .1in
 \subsection{\label{edu.kit.pse17.go_app.view.BaseActivity}Class BaseActivity}{
@@ -5628,7 +5632,7 @@ public static void start(Activity activity,edu.kit.pse17.go_app.model.User user)
 }
 \subsection{\label{edu.kit.pse17.go_app.view.InformationActivity}Class InformationActivity}{
 \hypertarget{edu.kit.pse17.go_app.view.InformationActivity}{}\vskip .1in 
-Created by tina on 20.06.17.\vskip .1in 
+Diese Activity ist zuständig für die Darstellung eines Informationstextes.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class InformationActivity
@@ -5652,7 +5656,7 @@ public InformationActivity()\end{lstlisting} %end signature
 }
 \subsection{\label{edu.kit.pse17.go_app.view.SettingsActivity}Class SettingsActivity}{
 \hypertarget{edu.kit.pse17.go_app.view.SettingsActivity}{}\vskip .1in 
-Created by tina on 20.06.17.\vskip .1in 
+Die Aktivität stellt dem User ein Menü zur Verfügung, in dem er verschiedende Einstellungsänderungen vornehmen kann. Die Aufgabe der Aktivität ist dabei, dem Benutzer die View zur Verfügung zu stellen, den User-input entgegenzunehmen und an die Eingabe an die entsprechende Aktivität weiterzuleiten.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class SettingsActivity
@@ -5692,7 +5696,7 @@ protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signatur
 }
 \subsection{\label{edu.kit.pse17.go_app.view.SignInActivity}Class SignInActivity}{
 \hypertarget{edu.kit.pse17.go_app.view.SignInActivity}{}\vskip .1in 
-Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess Created by tina on 17.06.17.\vskip .1in 
+Die Klasse stellt die View für den LogIn- und SignIn-Prozess bereit.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class SignInActivity
@@ -5761,6 +5765,309 @@ protected void onCreate(Bundle savedInstanceState)\end{lstlisting} %end signatur
 \hypertarget{edu.kit.pse17.go_app.view.SignInActivity.onResume()}{{\bf  onResume}\\}
 \begin{lstlisting}[frame=none]
 protected void onResume()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package edu.kit.pse17.go\_app.view.recyclerView}{
+\label{edu.kit.pse17.go_app.view.recyclerView}\hypertarget{edu.kit.pse17.go_app.view.recyclerView}{}
+\hskip -.05in
+\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\vskip .13in
+\hbox{{\bf  Interfaces}}
+\entityintro{OnListItemClicked}{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked}{ClickListener für die ListItems eines RecyclerViews Created by tina on 17.06.17.}
+\vskip .13in
+\hbox{{\bf  Classes}}
+\entityintro{ListAdapter}{edu.kit.pse17.go_app.view.recyclerView.ListAdapter}{Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet.}
+\entityintro{ListViewHolder}{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder}{Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten Created by tina on 17.06.17.}
+\vskip .1in
+\vskip .1in
+\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked}Interface OnListItemClicked}{
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked}{}\vskip .1in 
+ClickListener für die ListItems eines RecyclerViews Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public interface OnListItemClicked
+\end{lstlisting}
+\subsubsection{All known subinterfaces}{GroupDetailActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupDetailActivity}}, GroupDetailActivityAdmin\small{\refdefined{edu.kit.pse17.go_app.view.GroupDetailActivityAdmin}}, GroupListActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupListActivity}}}
+\subsubsection{All classes known to implement interface}{GroupDetailActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupDetailActivity}}, GroupListActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupListActivity}}}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked.onItemClicked(int)}{{\bf onItemClicked(int)}} führt gewünschte Aktion der implemetierenden Klasse aus, falls auf das ListItem an Position position geklickt wird\\
+\end{verse}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{onItemClicked(int)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked.onItemClicked(int)}{{\bf  onItemClicked}\\}
+\begin{lstlisting}[frame=none]
+void onItemClicked(int position)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+führt gewünschte Aktion der implemetierenden Klasse aus, falls auf das ListItem an Position position geklickt wird
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{position} -- Position des ListItems, auf das geklickt wurde}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.ListAdapter}Class ListAdapter}{
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter}{}\vskip .1in 
+Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet. Unterklassen müssen die Methode setLayout() implementieren, um dem Adapter ein passendes XML-Layout zuzuweisen Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class ListAdapter
+ extends <any>\end{lstlisting}
+\subsubsection{Field summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.data}{{\bf data}} ListItems, die in dem RecyclerView angezeigt werden sollen\\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onListItemClicked}{{\bf onListItemClicked}} ClickListener für die Listenelemente\\
+\end{verse}
+}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf ListAdapter(List, OnListItemClicked)}} Konstruktor\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.addItem(edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem)}{{\bf addItem(ListItem)}} \\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.getItem(int)}{{\bf getItem(int)}} gibt das ListItem an der angegebenen Position zurück\\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.getItemCount()}{{\bf getItemCount()}} \\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.view.recyclerView.ListViewHolder, int)}{{\bf onBindViewHolder(ListViewHolder, int)}} \\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf onCreateViewHolder(ViewGroup, int)}} Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren\\
+\end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{data}
+\label{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.data}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.data}{\texttt{protected java.util.List\ {\bf  data}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+ListItems, die in dem RecyclerView angezeigt werden sollen}
+\end{itemize}
+}
+\item{
+\index{onListItemClicked}
+\label{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onListItemClicked}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onListItemClicked}{\texttt{protected final OnListItemClicked\ {\bf  onListItemClicked}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+ClickListener für die Listenelemente}
+\end{itemize}
+}
+\end{itemize}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{ListAdapter(List, OnListItemClicked)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  ListAdapter}\\}
+\begin{lstlisting}[frame=none]
+public ListAdapter(java.util.List data,OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{data} -- ListItems, die in dem RecyclerView angezeigt werden sollen}
+   \item{
+\texttt{onListItemClicked} -- ClickListener für die Listenelemente}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{addItem(ListItem)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.addItem(edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem)}{{\bf  addItem}\\}
+\begin{lstlisting}[frame=none]
+public void addItem(listItems.ListItem item)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{getItem(int)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.getItem(int)}{{\bf  getItem}\\}
+\begin{lstlisting}[frame=none]
+public listItems.ListItem getItem(int position)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+gibt das ListItem an der angegebenen Position zurück
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{position} -- Listenposition des gewünschten ListItems}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+ListItem, an der angegebenen Position aus der Liste data 
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{getItemCount()}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.getItemCount()}{{\bf  getItemCount}\\}
+\begin{lstlisting}[frame=none]
+public int getItemCount()\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{onBindViewHolder(ListViewHolder, int)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.view.recyclerView.ListViewHolder, int)}{{\bf  onBindViewHolder}\\}
+\begin{lstlisting}[frame=none]
+public void onBindViewHolder(ListViewHolder holder,int position)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{onCreateViewHolder(ViewGroup, int)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf  onCreateViewHolder}\\}
+\begin{lstlisting}[frame=none]
+public ListViewHolder onCreateViewHolder(ViewGroup parent,int viewType)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{parent} -- Viewgroup, zu der der neue View hinzugefügt werden soll}
+   \item{
+\texttt{viewType} -- viewType des neuen Views}
+  \end{itemize}
+}%end item
+\item{{\bf  Returns} -- 
+neuer ViewHolder des gewünschten Typs 
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder}Class ListViewHolder}{
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder}{}\vskip .1in 
+Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten Created by tina on 17.06.17.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class ListViewHolder
+ extends ViewHolder\end{lstlisting}
+\subsubsection{Field summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.icon}{{\bf icon}} Icon, das zum Item angezeigt werden soll\\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.subtitle}{{\bf subtitle}} Untertitel des Items\\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.title}{{\bf title}} Titel des Items\\
+\end{verse}
+}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View)}{{\bf ListViewHolder(View)}} \\
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf ListViewHolder(View, OnListItemClicked)}} Konstruktor\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.onClick(View)}{{\bf onClick(View)}} \\
+\end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{title}
+\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.title}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.title}{\texttt{public TextView\ {\bf  title}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+Titel des Items}
+\end{itemize}
+}
+\item{
+\index{subtitle}
+\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.subtitle}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.subtitle}{\texttt{public TextView\ {\bf  subtitle}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+Untertitel des Items}
+\end{itemize}
+}
+\item{
+\index{icon}
+\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.icon}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.icon}{\texttt{public ImageView\ {\bf  icon}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+Icon, das zum Item angezeigt werden soll}
+\end{itemize}
+}
+\end{itemize}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{ListViewHolder(View)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View)}{{\bf  ListViewHolder}\\}
+\begin{lstlisting}[frame=none]
+public ListViewHolder(View itemView)\end{lstlisting} %end signature
+}%end item
+\item{ 
+\index{ListViewHolder(View, OnListItemClicked)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  ListViewHolder}\\}
+\begin{lstlisting}[frame=none]
+public ListViewHolder(View itemView,OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Konstruktor
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{itemView} -- View, in der die Items angezeigt werden sollen}
+   \item{
+\texttt{onListItemClicked} -- ClickListener für ListItems}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{onClick(View)}
+\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.onClick(View)}{{\bf  onClick}\\}
+\begin{lstlisting}[frame=none]
+public void onClick(View v)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
@@ -6584,612 +6891,6 @@ setter-Methode für Überschrift des ListItems
   \end{itemize}
 }%end item
 \end{itemize}
-}%end item
-\end{itemize}
-}
-}
-}
-\section{Package edu.kit.pse17.go\_app.view.recyclerView.adapter}{
-\label{edu.kit.pse17.go_app.view.recyclerView.adapter}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter}{}
-\hskip -.05in
-\hbox to \hsize{\textit{ Package Contents\hfil Page}}
-\vskip .13in
-\hbox{{\bf  Classes}}
-\entityintro{GOListAdapter}{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter}{Konkreter ViewHolder, der die ListItems an das go\_list\_item.xml Layout bindet Created by tina on 19.06.17.}
-\entityintro{GroupListAdapter}{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter}{Konkreter ViewHolder, der die ListItems an das group\_list\_item.xml Layout bindet Created by tina on 19.06.17.}
-\entityintro{ListAdapter}{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}{Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet.}
-\entityintro{UserListAdapter}{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter}{* Konkreter ViewHolder, der die ListItems an das user\_list\_item.xml Layout bindet Created by tina on 19.06.17.}
-\vskip .1in
-\vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter}Class GOListAdapter}{
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter}{}\vskip .1in 
-Konkreter ViewHolder, der die ListItems an das go\_list\_item.xml Layout bindet Created by tina on 19.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public class GOListAdapter
- extends edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter\end{lstlisting}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf GOListAdapter(List, OnListItemClicked)}} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter.setLayout()}{{\bf setLayout()}} \\
-\end{verse}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{GOListAdapter(List, OnListItemClicked)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  GOListAdapter}\\}
-\begin{lstlisting}[frame=none]
-public GOListAdapter(java.util.List data,edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{setLayout()}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter.setLayout()}{{\bf  setLayout}\\}
-\begin{lstlisting}[frame=none]
-protected abstract int setLayout()\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}{ListAdapter}{\small \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}} }
-
-Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
-}
-\item{{\bf  Returns} -- 
-ID des gewünschten XML Layouts aus R.layout 
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-\subsubsection{Members inherited from class ListAdapter }{
-\texttt{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter} {\small 
-\refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}}
-{\small 
-
-\vskip -2em
-\begin{itemize}
-\item{\vskip -1.5ex 
-\texttt{public void {\bf  addItem}(\texttt{edu.kit.pse17.go\_app.view.recyclerView.listItems.ListItem} {\bf  item})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected {\bf  data}}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public ListItem {\bf  getItem}(\texttt{int} {\bf  position})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public int {\bf  getItemCount}()
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public void {\bf  onBindViewHolder}(\texttt{edu.kit.pse17.go\_app.view.recyclerView.ListViewHolder} {\bf  holder},
-\texttt{int} {\bf  position})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public ListViewHolder {\bf  onCreateViewHolder}(\texttt{ViewGroup} {\bf  parent},
-\texttt{int} {\bf  viewType})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected final {\bf  onListItemClicked}}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected abstract int {\bf  setLayout}()
-}%end signature
-}%end item
-\end{itemize}
-}
-}
-\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter}Class GroupListAdapter}{
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter}{}\vskip .1in 
-Konkreter ViewHolder, der die ListItems an das group\_list\_item.xml Layout bindet Created by tina on 19.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public class GroupListAdapter
- extends edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter\end{lstlisting}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf GroupListAdapter(List, OnListItemClicked)}} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter.setLayout()}{{\bf setLayout()}} \\
-\end{verse}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{GroupListAdapter(List, OnListItemClicked)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  GroupListAdapter}\\}
-\begin{lstlisting}[frame=none]
-public GroupListAdapter(java.util.List data,edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{setLayout()}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter.setLayout()}{{\bf  setLayout}\\}
-\begin{lstlisting}[frame=none]
-protected abstract int setLayout()\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}{ListAdapter}{\small \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}} }
-
-Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
-}
-\item{{\bf  Returns} -- 
-ID des gewünschten XML Layouts aus R.layout 
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-\subsubsection{Members inherited from class ListAdapter }{
-\texttt{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter} {\small 
-\refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}}
-{\small 
-
-\vskip -2em
-\begin{itemize}
-\item{\vskip -1.5ex 
-\texttt{public void {\bf  addItem}(\texttt{edu.kit.pse17.go\_app.view.recyclerView.listItems.ListItem} {\bf  item})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected {\bf  data}}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public ListItem {\bf  getItem}(\texttt{int} {\bf  position})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public int {\bf  getItemCount}()
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public void {\bf  onBindViewHolder}(\texttt{edu.kit.pse17.go\_app.view.recyclerView.ListViewHolder} {\bf  holder},
-\texttt{int} {\bf  position})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public ListViewHolder {\bf  onCreateViewHolder}(\texttt{ViewGroup} {\bf  parent},
-\texttt{int} {\bf  viewType})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected final {\bf  onListItemClicked}}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected abstract int {\bf  setLayout}()
-}%end signature
-}%end item
-\end{itemize}
-}
-}
-\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}Class ListAdapter}{
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}{}\vskip .1in 
-Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet. Unterklassen müssen die Methode setLayout() implementieren, um dem Adapter ein passendes XML-Layout zuzuweisen Created by tina on 17.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public abstract class ListAdapter
- extends <any>\end{lstlisting}
-\subsubsection{All known subclasses}{UserListAdapter\small{\refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter}}, GOListAdapter\small{\refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.GOListAdapter}}, GroupListAdapter\small{\refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter}}}
-\subsubsection{Field summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.data}{{\bf data}} ListItems, die in dem RecyclerView angezeigt werden sollen\\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onListItemClicked}{{\bf onListItemClicked}} ClickListener für die Listenelemente\\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf ListAdapter(List, OnListItemClicked)}} Konstruktor\\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.addItem(edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem)}{{\bf addItem(ListItem)}} \\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.getItem(int)}{{\bf getItem(int)}} gibt das ListItem an der angegebenen Position zurück\\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.getItemCount()}{{\bf getItemCount()}} \\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.view.recyclerView.ListViewHolder, int)}{{\bf onBindViewHolder(ListViewHolder, int)}} \\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf onCreateViewHolder(ViewGroup, int)}} Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren\\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.setLayout()}{{\bf setLayout()}} Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne\\
-\end{verse}
-}
-\subsubsection{Fields}{
-\begin{itemize}
-\item{
-\index{data}
-\label{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.data}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.data}{\texttt{protected java.util.List\ {\bf  data}}
-}
-\begin{itemize}
-\item{\vskip -.9ex 
-ListItems, die in dem RecyclerView angezeigt werden sollen}
-\end{itemize}
-}
-\item{
-\index{onListItemClicked}
-\label{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onListItemClicked}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onListItemClicked}{\texttt{protected final edu.kit.pse17.go\_app.view.recyclerView.OnListItemClicked\ {\bf  onListItemClicked}}
-}
-\begin{itemize}
-\item{\vskip -.9ex 
-ClickListener für die Listenelemente}
-\end{itemize}
-}
-\end{itemize}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{ListAdapter(List, OnListItemClicked)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  ListAdapter}\\}
-\begin{lstlisting}[frame=none]
-public ListAdapter(java.util.List data,edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-Konstruktor
-}
-\item{
-{\bf  Parameters}
-  \begin{itemize}
-   \item{
-\texttt{data} -- ListItems, die in dem RecyclerView angezeigt werden sollen}
-   \item{
-\texttt{onListItemClicked} -- ClickListener für die Listenelemente}
-  \end{itemize}
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{addItem(ListItem)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.addItem(edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem)}{{\bf  addItem}\\}
-\begin{lstlisting}[frame=none]
-public void addItem(edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem item)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{getItem(int)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.getItem(int)}{{\bf  getItem}\\}
-\begin{lstlisting}[frame=none]
-public edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem getItem(int position)\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-gibt das ListItem an der angegebenen Position zurück
-}
-\item{
-{\bf  Parameters}
-  \begin{itemize}
-   \item{
-\texttt{position} -- Listenposition des gewünschten ListItems}
-  \end{itemize}
-}%end item
-\item{{\bf  Returns} -- 
-ListItem, an der angegebenen Position aus der Liste data 
-}%end item
-\end{itemize}
-}%end item
-\item{ 
-\index{getItemCount()}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.getItemCount()}{{\bf  getItemCount}\\}
-\begin{lstlisting}[frame=none]
-public int getItemCount()\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{onBindViewHolder(ListViewHolder, int)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onBindViewHolder(edu.kit.pse17.go_app.view.recyclerView.ListViewHolder, int)}{{\bf  onBindViewHolder}\\}
-\begin{lstlisting}[frame=none]
-public void onBindViewHolder(edu.kit.pse17.go_app.view.recyclerView.ListViewHolder holder,int position)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{onCreateViewHolder(ViewGroup, int)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.onCreateViewHolder(ViewGroup, int)}{{\bf  onCreateViewHolder}\\}
-\begin{lstlisting}[frame=none]
-public edu.kit.pse17.go_app.view.recyclerView.ListViewHolder onCreateViewHolder(ViewGroup parent,int viewType)\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-Schablonenmethode: erzeugt ListViewHolder, dem das passende XML layout zugewiesen wird wird aufgerufen, wenn ein RecyclerView einen neuen ViewHolder braucht, um ein ListItem zu repräsentieren
-}
-\item{
-{\bf  Parameters}
-  \begin{itemize}
-   \item{
-\texttt{parent} -- Viewgroup, zu der der neue View hinzugefügt werden soll}
-   \item{
-\texttt{viewType} -- viewType des neuen Views}
-  \end{itemize}
-}%end item
-\item{{\bf  Returns} -- 
-neuer ViewHolder des gewünschten Typs 
-}%end item
-\end{itemize}
-}%end item
-\item{ 
-\index{setLayout()}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter.setLayout()}{{\bf  setLayout}\\}
-\begin{lstlisting}[frame=none]
-protected abstract int setLayout()\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
-}
-\item{{\bf  Returns} -- 
-ID des gewünschten XML Layouts aus R.layout 
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-}
-\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter}Class UserListAdapter}{
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter}{}\vskip .1in 
-* Konkreter ViewHolder, der die ListItems an das user\_list\_item.xml Layout bindet Created by tina on 19.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public class UserListAdapter
- extends edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter\end{lstlisting}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf UserListAdapter(List, OnListItemClicked)}} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter.setLayout()}{{\bf setLayout()}} \\
-\end{verse}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{UserListAdapter(List, OnListItemClicked)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter(java.util.List, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  UserListAdapter}\\}
-\begin{lstlisting}[frame=none]
-public UserListAdapter(java.util.List data,edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{setLayout()}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter.setLayout()}{{\bf  setLayout}\\}
-\begin{lstlisting}[frame=none]
-protected abstract int setLayout()\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}{ListAdapter}{\small \refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}} }
-
-Methode wird von Unterklassen implementiert, um einem konkreten Viewholder das richtige Layout zuweisen zu könne
-}
-\item{{\bf  Returns} -- 
-ID des gewünschten XML Layouts aus R.layout 
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-\subsubsection{Members inherited from class ListAdapter }{
-\texttt{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter} {\small 
-\refdefined{edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter}}
-{\small 
-
-\vskip -2em
-\begin{itemize}
-\item{\vskip -1.5ex 
-\texttt{public void {\bf  addItem}(\texttt{edu.kit.pse17.go\_app.view.recyclerView.listItems.ListItem} {\bf  item})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected {\bf  data}}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public ListItem {\bf  getItem}(\texttt{int} {\bf  position})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public int {\bf  getItemCount}()
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public void {\bf  onBindViewHolder}(\texttt{edu.kit.pse17.go\_app.view.recyclerView.ListViewHolder} {\bf  holder},
-\texttt{int} {\bf  position})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{public ListViewHolder {\bf  onCreateViewHolder}(\texttt{ViewGroup} {\bf  parent},
-\texttt{int} {\bf  viewType})
-}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected final {\bf  onListItemClicked}}%end signature
-}%end item
-\item{\vskip -1.5ex 
-\texttt{protected abstract int {\bf  setLayout}()
-}%end signature
-}%end item
-\end{itemize}
-}
-}
-}
-\section{Package edu.kit.pse17.go\_app.view.recyclerView}{
-\label{edu.kit.pse17.go_app.view.recyclerView}\hypertarget{edu.kit.pse17.go_app.view.recyclerView}{}
-\hskip -.05in
-\hbox to \hsize{\textit{ Package Contents\hfil Page}}
-\vskip .13in
-\hbox{{\bf  Interfaces}}
-\entityintro{OnListItemClicked}{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked}{ClickListener für die ListItems eines RecyclerViews Created by tina on 17.06.17.}
-\vskip .13in
-\hbox{{\bf  Classes}}
-\entityintro{ListViewHolder}{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder}{Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten Created by tina on 17.06.17.}
-\vskip .1in
-\vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked}Interface OnListItemClicked}{
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked}{}\vskip .1in 
-ClickListener für die ListItems eines RecyclerViews Created by tina on 17.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public interface OnListItemClicked
-\end{lstlisting}
-\subsubsection{All known subinterfaces}{GroupDetailActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupDetailActivity}}, GroupDetailActivityAdmin\small{\refdefined{edu.kit.pse17.go_app.view.GroupDetailActivityAdmin}}, GroupListActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupListActivity}}}
-\subsubsection{All classes known to implement interface}{GroupDetailActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupDetailActivity}}, GroupListActivity\small{\refdefined{edu.kit.pse17.go_app.view.GroupListActivity}}}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked.onItemClicked(int)}{{\bf onItemClicked(int)}} führt gewünschte Aktion der implemetierenden Klasse aus, falls auf das ListItem an Position position geklickt wird\\
-\end{verse}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{onItemClicked(int)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked.onItemClicked(int)}{{\bf  onItemClicked}\\}
-\begin{lstlisting}[frame=none]
-void onItemClicked(int position)\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-führt gewünschte Aktion der implemetierenden Klasse aus, falls auf das ListItem an Position position geklickt wird
-}
-\item{
-{\bf  Parameters}
-  \begin{itemize}
-   \item{
-\texttt{position} -- Position des ListItems, auf das geklickt wurde}
-  \end{itemize}
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-}
-\subsection{\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder}Class ListViewHolder}{
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder}{}\vskip .1in 
-Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten Created by tina on 17.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public class ListViewHolder
- extends ViewHolder\end{lstlisting}
-\subsubsection{Field summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.icon}{{\bf icon}} Icon, das zum Item angezeigt werden soll\\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.subtitle}{{\bf subtitle}} Untertitel des Items\\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.title}{{\bf title}} Titel des Items\\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View)}{{\bf ListViewHolder(View)}} \\
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf ListViewHolder(View, OnListItemClicked)}} Konstruktor\\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.onClick(View)}{{\bf onClick(View)}} \\
-\end{verse}
-}
-\subsubsection{Fields}{
-\begin{itemize}
-\item{
-\index{title}
-\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.title}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.title}{\texttt{public TextView\ {\bf  title}}
-}
-\begin{itemize}
-\item{\vskip -.9ex 
-Titel des Items}
-\end{itemize}
-}
-\item{
-\index{subtitle}
-\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.subtitle}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.subtitle}{\texttt{public TextView\ {\bf  subtitle}}
-}
-\begin{itemize}
-\item{\vskip -.9ex 
-Untertitel des Items}
-\end{itemize}
-}
-\item{
-\index{icon}
-\label{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.icon}\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.icon}{\texttt{public ImageView\ {\bf  icon}}
-}
-\begin{itemize}
-\item{\vskip -.9ex 
-Icon, das zum Item angezeigt werden soll}
-\end{itemize}
-}
-\end{itemize}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{ListViewHolder(View)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View)}{{\bf  ListViewHolder}\\}
-\begin{lstlisting}[frame=none]
-public ListViewHolder(View itemView)\end{lstlisting} %end signature
-}%end item
-\item{ 
-\index{ListViewHolder(View, OnListItemClicked)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder(View, edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked)}{{\bf  ListViewHolder}\\}
-\begin{lstlisting}[frame=none]
-public ListViewHolder(View itemView,OnListItemClicked onListItemClicked)\end{lstlisting} %end signature
-\begin{itemize}
-\item{
-{\bf  Description}
-
-Konstruktor
-}
-\item{
-{\bf  Parameters}
-  \begin{itemize}
-   \item{
-\texttt{itemView} -- View, in der die Items angezeigt werden sollen}
-   \item{
-\texttt{onListItemClicked} -- ClickListener für ListItems}
-  \end{itemize}
-}%end item
-\end{itemize}
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{onClick(View)}
-\hypertarget{edu.kit.pse17.go_app.view.recyclerView.ListViewHolder.onClick(View)}{{\bf  onClick}\\}
-\begin{lstlisting}[frame=none]
-public void onClick(View v)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }

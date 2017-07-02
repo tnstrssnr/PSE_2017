@@ -1,11 +1,19 @@
-package edu.kit.pse17.go_app.model;
+package edu.kit.pse17.go_app.repositories;
 
 import android.arch.lifecycle.LiveData;
+
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import edu.kit.pse17.go_app.model.Group;
+import edu.kit.pse17.go_app.model.GroupDao;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine
@@ -16,17 +24,17 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
  */
 
 @Singleton
-public class GoRepository {
+public class GroupRepository {
 
     /**
      * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
      */
-    private final TomcatRestApi webService;
+    private final TomcatRestApi webservice;
 
     /**
-     * Eine DAO zum komminizieren mit der lokalen go-Datenbankrelation
+     * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
      */
-    private final GoDao goDao;
+    private final GroupDao groupDao;
 
     /**
      * Ein executor-objekt, um Anfragen auf einem separaten Hintergrundthread ausführen zu können.
@@ -34,24 +42,44 @@ public class GoRepository {
     private final Executor executor;
 
     @Inject
-    public GoRepository(TomcatRestApi webService, GoDao goDao, Executor executor) {
-        this.webService = webService;
-        this.goDao = goDao;
+    public GroupRepository(TomcatRestApi webservice, GroupDao groupDao, Executor executor) {
+        this.webservice = webservice;
+        this.groupDao = groupDao;
         this.executor = executor;
     }
 
-    public LiveData<Go> getGo(long goId) {
-        refreshGo(goId);
+
+    public LiveData<Group> getGroup(long groupId) {
+       refreshGroup(groupId);
         //return LiveData directly from database
-        return goDao.load(goId);
+        return groupDao.load(groupId);
+        
     }
 
-    private void refreshGo(long groupId) {
+    private void refreshGroup(long groupId) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 //fetch data from server
             }
         });
+    }
+
+    public LiveData<List<Group>> getGroupsForUser(String uid) {
+
+        LiveData<List<Group>> groups = groupDao.getGroupsForUser(uid);
+
+        if (groups == null) {
+            try {
+                Response response = webservice.getGroupsByUser(uid).execute();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        return null;
     }
 }

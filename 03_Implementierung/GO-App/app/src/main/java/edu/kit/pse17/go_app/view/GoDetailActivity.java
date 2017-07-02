@@ -4,15 +4,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.TextView;
 
 import edu.kit.pse17.go_app.model.Go;
-import edu.kit.pse17.go_app.model.Group;
-import edu.kit.pse17.go_app.view.recyclerView.adapter.UserListAdapter;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.viewModel.GoViewModel;
-import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 
 /**
  * die Activity ist zusammen mit der Layout File go_detail.xml Teil des Views, der dem user die Details eines Gos anzeigt.

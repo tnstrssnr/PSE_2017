@@ -14,7 +14,7 @@ import java.util.List;
  * Der Zugriff auf die Daten läuft ausschließlich über die GroupDao-Klasse
  */
 
-@Entity
+@Entity(tableName = "groups")
 public class Group {
 
     /**
@@ -34,30 +34,14 @@ public class Group {
     public String description;
 
     /**
+     * Die Anzahl der Gruppenmitglieder
+     */
+    public int memberCount;
+    /**
      * Das Bild er Gruppe
      */
     @Ignore
     public Icon icon;
-
-    /**
-     * Eine Liste aller Benutzer, die Mitglied der Gruppe sind. Dies schließt Benutzer, die eingeladen wurden, aber die Mitgliedschaft
-     * noch nicht bestätigt haben nicht mit ein. Administratoren der Gruppe sind in dieser Liste ebenfalls aufgeführt.
-     */
-    @Relation(parentColumn = "id", entityColumn = "uid")
-    public List<User> members;
-
-    /**
-     * Eine Liste aller Administratoren der Gruppe
-     */
-    @Relation(parentColumn = "id", entityColumn = "uid")
-    public List<User> admins;
-
-    /**
-     * Eine Liste aller Benutzer, die zu der Gruppe eingeladen wurden, die mitgliedschaft aber nich nicht bestätigt haben.
-     */
-    @Relation(parentColumn = "id", entityColumn = "uid")
-    public List<User> requests;
-
 
     /**
      * Boolean-Wert der angibt, ob der Benutzer ein Administrator der Gruppe ist.
@@ -69,6 +53,12 @@ public class Group {
      * oder um eine unbeantwortete Gruppenanfrage handelt.
      */
     public boolean isRequest;
+
+    /**
+     * Eine Liste mit allen Mitgliedern der Gruppe + Information on das Mitglied ein Administrator ist
+     * oder ob es sich bei der Mitgliedschaft lediglich um eine offene Grupppenanfrage handelt.
+     */
+    public List<GroupMembership> membershipList;
 
     @Ignore
     private GroupLocation groupLocation;
@@ -109,30 +99,6 @@ public class Group {
         this.icon = icon;
     }
 
-    public List<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<User> members) {
-        this.members = members;
-    }
-
-    public List<User> getAdmins() {
-        return admins;
-    }
-
-    public void setAdmins(List<User> admins) {
-        this.admins = admins;
-    }
-
-    public List<User> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(List<User> requests) {
-        this.requests = requests;
-    }
-
     public GroupLocation getGroupLocation() {
         return groupLocation;
     }
@@ -155,5 +121,13 @@ public class Group {
 
     public void setRequest(boolean request) {
         isRequest = request;
+    }
+
+    public int getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(int memberCount) {
+        this.memberCount = memberCount;
     }
 }

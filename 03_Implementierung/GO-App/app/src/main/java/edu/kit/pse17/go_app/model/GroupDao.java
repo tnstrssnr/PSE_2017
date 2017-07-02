@@ -5,6 +5,8 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 /**
  * Data-Access-Object Interface, das alle Zugriffe auf die lokale Datenbank-Tabelle "group" verwaltet.
  * Die Implementierung der Gruppe wird vom Room-Framework realisiert.
@@ -18,4 +20,6 @@ public interface GroupDao {
 
     @Query("SELECT * FROM group WHERE id =: groupId")
     LiveData<Group> load(long groupId);
+
+    LiveData<List<Group> >getGroupsForUser(String uid);
 }

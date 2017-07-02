@@ -8,7 +8,7 @@ import android.arch.persistence.room.RoomDatabase;
  * Die Erzeugung des Datenbankschemas und der Relationen wird vom Room-Framework übernommen.
  */
 
-@Database(entities = {Group.class, Go.class, User.class}, version = 1)
+@Database(entities = {Group.class, Go.class, User.class, GroupMembership.class, UserGoStatus.class}, version = 1)
 public abstract class LocalDatabase extends RoomDatabase {
 
     public abstract GroupDao groupDao();

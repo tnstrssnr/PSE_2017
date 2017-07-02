@@ -1,22 +1,12 @@
 package edu.kit.pse17.go_app.view;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.Group;
-import edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter;
-import edu.kit.pse17.go_app.view.recyclerView.listItems.GroupListItem;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 

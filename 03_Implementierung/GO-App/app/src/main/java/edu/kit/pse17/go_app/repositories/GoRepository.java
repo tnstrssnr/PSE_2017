@@ -1,12 +1,15 @@
-package edu.kit.pse17.go_app.model;
+package edu.kit.pse17.go_app.repositories;
 
 import android.arch.lifecycle.LiveData;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import edu.kit.pse17.go_app.model.Go;
+import edu.kit.pse17.go_app.model.GoDao;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 
 /**
@@ -18,17 +21,17 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
  */
 
 @Singleton
-public class GroupRepository {
+public class GoRepository {
 
     /**
      * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
      */
-    private final TomcatRestApi webservice;
+    private final TomcatRestApi webService;
 
     /**
-     * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
+     * Eine DAO zum komminizieren mit der lokalen go-Datenbankrelation
      */
-    private final GroupDao groupDao;
+    private final GoDao goDao;
 
     /**
      * Ein executor-objekt, um Anfragen auf einem separaten Hintergrundthread ausführen zu können.
@@ -36,21 +39,19 @@ public class GroupRepository {
     private final Executor executor;
 
     @Inject
-    public GroupRepository(TomcatRestApi webservice, GroupDao groupDao, Executor executor) {
-        this.webservice = webservice;
-        this.groupDao = groupDao;
+    public GoRepository(TomcatRestApi webService, GoDao goDao, Executor executor) {
+        this.webService = webService;
+        this.goDao = goDao;
         this.executor = executor;
     }
 
-
-    public LiveData<Group> getGroup(long groupId) {
-       refreshGroup(groupId);
+    public LiveData<Go> getGo(long goId) {
+        refreshGo(goId);
         //return LiveData directly from database
-        return groupDao.load(groupId);
-        
+        return goDao.load(goId);
     }
 
-    private void refreshGroup(long groupId) {
+    private void refreshGo(long groupId) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -59,4 +60,8 @@ public class GroupRepository {
         });
     }
 
+    public LiveData<List<Go>> getGosForUser(String uid) {
+
+        return null;
+    }
 }
