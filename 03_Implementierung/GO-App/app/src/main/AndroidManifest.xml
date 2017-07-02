@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".commands.login.FirebaseSignInHelper"/>
+        <activity android:name=".login.FirebaseSignInHelper"/>
         <activity android:name=".view.GroupListActivity" />
-        <activity android:name=".commands.login.GoSignInHelper" />
+        <activity android:name=".login.GoSignInHelper" />
         <activity android:name=".view.GroupDetailActivity" />
         <activity android:name=".view.GoDetailActivity" />
         <activity android:name=".view.SettingsActivity" />

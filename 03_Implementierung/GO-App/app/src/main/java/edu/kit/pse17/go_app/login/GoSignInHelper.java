@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.commands.login;
+package edu.kit.pse17.go_app.login;
 
 /**
  * Die Klasse ist für die Anmeldung eines Beutzers am Go-Server zuständig.

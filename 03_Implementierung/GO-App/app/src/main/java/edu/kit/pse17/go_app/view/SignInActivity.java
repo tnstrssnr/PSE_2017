@@ -12,9 +12,9 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import edu.kit.pse17.go_app.commands.login.FirebaseSignInHelper;
-import edu.kit.pse17.go_app.commands.login.GoSignInHelper;
-import edu.kit.pse17.go_app.commands.login.SignInHelper;
+import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
+import edu.kit.pse17.go_app.login.GoSignInHelper;
+import edu.kit.pse17.go_app.login.SignInHelper;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.User;
 

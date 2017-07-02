@@ -85,76 +85,71 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 \section{Architekturstil und Paketstruktur}
 
 \subsection{Client}
-Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die auch hier eingesetzten Architecture Components unterstützt. \\
-
-Die drei Komponenten der Applikation - Modell, View und ViewModell - haben dabei folgende Zuständigkeiten:\\
-
-\textbf{Modell:}\\
-Das Modell ist die Datenzugriffsschicht der Applikation, d.h. sie kapselt den Zugriff auf persistente Daten, die in einer lokalen SQLite Datenbank gehalten werden. Darüber hinaus enthält das Modell die Geschäftslogik der App.\\
-Neben dem lokalen Modell-Paket muss außerdem die Datenkonsitenz mit dem Remote-Server der App gewährleistet werden. Die Kommunikation mit dem Server wird im Paket ServerCommunication implementiert. Koordiniert wird die Kommunikation der Komponenten Modell, Remote-Server und View durch Repository-Klassen, die als Vermittler auftreten (vgl. *Vermittler-Entwurfsmuster*).
-
-\textbf{View:}\\
-Die Views der App (sämtliche Activity- und Fragment-Klassen, sowie die dazugehörigen Layout .xml-Dateien) sind für die Präsentation, sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) der Daten es Viewmodells zuständig.
-
-\textbf{ViewModell:}\\
-Das ViewModell ist das Bidneglied zwischen View und Modell. Es tauscht Informationen mit dem Modell aus und stellt so der View öffentliche Eigenschaften und Befehle zur Verfügung, die an die Steuerungselemente der UI angebunden werden können. Dabei hat as ViewModell keine Referenz auf die View. Durch diese lose kopplung kann die View jederzeit ausgetauscht werden, ohne dass das ViewModell verändert werden muss.
-
-In dieser Implementierung des MVVM Musters wurde die Applikation in folgende Pakete unterteilt:
+Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. In dieser Implementierung des MVVM Musters wurde die Applikation in folgende Pakete unterteilt:
 \begin{itemize}
 	\item Views
-	\item Commands
-	\item Model
-	\item ViewModel
+	\item Modell
+	\item ViewModell
+	\item Repositories
 	\item ServerCommunication
 \end{itemize}
-
 Die folgende Abschnitte erläutern, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
 
 \subsubsection{Views}
-Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Die Hauptaufgabe des Pakets ist es zum Einen, dem Benutzer ein Interface zur Verfügung zu stellen, mit dem er Interagieren kann, zum Anderen werden hier Benutzereingaben entgegengenommen und soweit ausgewertet, dass die Verarbeitung der Eingabe an die dafür zuständige Stelle im Programm weitergegeben werden kann.\\
+Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Das sind sämtliche Activities, Fragments und dazugehörige .xml-Layouts. Das Modul ist für die Präsentation der Appdaten sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) zuständig.
 
 \textbf{Abhängigkeiten zu anderen Paketen:}\\
-Das Paket Views kann die Informationen, die dem Benutzer angezeigt werden, nicht selbst generieren, sondern bekommt diese bereitgestellt vom Paket Model. Welche Informationen das sind, wird bestimmt vom Paket Controller. Somit besteht eine Abhängigkeit zu den Paketen Controller und Model.\\
+Das Paket Views kann die Informationen, die dem Benutzer angezeigt werden, nicht selbst generieren, sondern bekommt diese bereitgestellt von den entsprechenden ViewModells.
 
 \textbf{Unterpakete:}\\
 das Paket enthält das Unterpaket 'RecyclerView'. Da in der Applikation viele (verschiedene) RecyclerViews verwendet werden, gibt es für die Erstellung derselben ein eigenes Paket, dessen Aufgabe es ist, von den Datenobjekten die das Model liefert die gewünschten Informationen zu extrahieren und diese mit dem richtigen Layout zusammenzuführen. Innerhalb des Pakets besteht eine Abhängigkeit derjenigen View-Klassen, die einen RecyclerView verwenden zu dem Unterpaket RecyclerViews. Das Unterpaket RecyclerViews selbst ist nocht von anderen Klassen und Paketen abhängig.
 
-\subsubsection{Model}
-Das Paket Model enthält Klassen, deren Entitäten die physischen und konzeptuellen Objekte, mit denen umgegangen werden muss, abbilden und deren Funktionen und Eigenschaften modellieren.
+\subsubsection{Modell}
+Das Modell ist die Datenzugriffsschicht der Applikation, d.h. sie kapselt den Zugriff auf persistente Daten, die in einer lokalen SQLite Datenbank gehalten werden.Darüber hinaus enthält das Paket die Geschäftslogik der App, das hei?t hier werden die om ViewModel aufbereiteten und weitergeleiteten Befehle umgesetzt und anschließend die sich ergebenden Datenänderungen an das ViewModell zurückgegeben. Die Modellklassen, die sich lokal in der Applikation befinden, werden erweitert durch das Datenmodell, welches sich auf dem Server befindet. Es muss stets die Datenkonsistenz dieser zwei Modellteile sichergestellt werden (vgl. Paket Repository).
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
-Das Paket benötigt, um seine Aufgaben erfüllen zu können, die Dienste des Pakets ServerCom. Für die Verwaltung der Daten der modellierten Entitäten ist Kommunikation mit dem Server notwenig (für das Holen und Speichern von Daten).
+Der Aufbau und die Operationen, die auf der lokalen Datenbank durchgeführt werden, werden mittels des Frameworks \textit{Room} realisiert.
 
 \textbf{Unterpakete:}\\
+Das Modell enthält das Unterpaket 'Entities'. Dies enthält die Java Entitäten, die von Room zu den Relationen der Datenbank umgesetzt werden. Die Datenbank kann von Room auch ohne eine Implementierung der Zugriffslogik aufgebaut werden. Die Entities haben demnach keine Anhängigkeiten zu anderen Klassen innerhalb des Programms. DIe Zugriffslogik der DAOs setzt hingegen die Existenz der Datenbank voraus, es gibt eine Abhängigkeit vom Modell zu den Entities.
 
-\subsubsection{Commands}
-Das Paket Commands ist dafür verantwortlich für .....
+\subsubsection{ViewModell}
+Das ViewModell ist das Bindeglied zwischen View und Modell. Es tauscht Informationen mit dem Modell aus und stellt so der View öffentliche Eigenschaften und Befehle zur Verfügung, die an die Steuerungselemente der UI angebunden werden können. Dabei hat as ViewModell keine Referenz auf die View. Durch diese lose Kopplung kann die View jederzeit ausgetauscht werden, ohne dass das ViewModell verändert werden muss.
 
-\textbf{Abhängigkeiten zu anderen Paketen:}\\
-
-
-\textbf{Unterpakete:}\\
-\begin{enumerate}
-	\item \textit{SinInHelper}\\
-	Das Unterpaket SignInHelper ist für die Koordination des SignIn Prozesses zuständig. Die Anmeldung eines benutzers erfolgt in zwei Schritten: zunächst muss die Identität des Benutzers festgestellt werden (dies geschieht über eine Schnittstelle zu Firebase), danach müssen die Daten des identifizierten Benutzers geladen werden.
-\end{enumerate}
+\textbf{Abhängigkeiten zu anderen Paketen}\\
+Das ViewModell benötigt eine Referenz zum Modell, um die von der View empfangenen Befehle weiterleiten und die richtigen Daten von Modell anfordern zu können. Um diese Abhängigkeit zu entkoppeln und das Ansprechen der richtigen Modellkomponente zu erleichtern, wird diese Abhängigkeit über einen Vermittler ("Repository") geleitet. Dies ermöglicht das einfache Austauschen des Modells, ohne dass das ViewModell verändert werden muss.
 
 \subsubsection{ServerCommunication}
-Das Paket ServerCom übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holden von Daten von dem Server.\\
+Das Paket ServerCommunication übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holen von Daten von dem Server. Darüber hinaus werden in diesem Paket auch Nachrichten, die vom Server gesendet werden empfangen und an das Modell zur Verarbeitung weitergeleitet.
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
-Das Paket hat keine Abhängigkeiten zu anderen Paketen.
+Das Paket hat keine Abhängigkeiten zu anderen Paketen der Applikation. Die Implementierung des REST-Clients erfolgt über das Framework \textit{Retrofit 2}. Hier besteht also eine Abhängigkeit zu einem externen Framework. Außerdem benötigt das Modukl zur fehlerfreien Ausführung seiner Aufgaben ein funktionierendes Backend (REST-Api, das die entsprechenden Ressourcen bereitstellt) des Systems.
+
+\textbf{Unterpakete:}\\
+Das Modul ServerCommunication setzt sich aus zwei Untermodulen zusammen. Das Modul \textit{Upstream} implementiert die Kommunikation, die über die REST-Api des Tomcat-Servers läuft, also jegliche Kommunikation, die von einem Client initiiert wird. Das Modul \textit{Downstream} hingegen ist dafür zuständig Kommunikationsströme zu empfangen, die vom Server initiiert werden und diese den Vermittlern zur Verbreitung weiterzuleiten.
+
+\subsubsection{Repositories}
+Wie in den vorherigen Abschnitten erläutert, ist die Geschäftslogik der App aufgeteilt auf den lokalen Teil (Modell) und einen Remote-Teil (ServerCommunication), die miteinander synchronisiert werden müssen. Zusätzlich müssen die ViewModells nach sämtlichen Änderungen mit den aktuellsten Daten versorgt werden. Dise Abhängigkeiten der einzelnen Komponenten werden in den Repository-Klassen zusammengefasst. Genauere Erläuterungen zur Funktionsweise finden sich in Abschnitt \ref{Vermittler}.
+
+\textbf{Abhängigkeiten zu anderen Paketen:}\\
+...
 
 \subsection{Server}
-Das Programm des Servers ist in folgende Pakete aufgeteilt:
+Die Architektur ser Servers orientiert sich an einer MVC-Architektur. Das Programm des Servers ist in folgende Pakete aufgeteilt:
 \begin{itemize}
-	\item Communicationlayer
+	\item CommunicationLayer
 	\item BusinessLayer
 	\item PersistenceLayer
 \end{itemize}
 
-\subsection{CommunicationLayer}
-Das Paket CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Uunterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den LCients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+\subsubsection{CommunicationLayer}
+Dieses Paket übernimmt die Rolle des Views. Die CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Unterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+
+\subsubsection{BusinessLayer}
+Die BusinessLayer ist der Controller der Serveranwendung. dieses Modul realisiert Datenänderungen und Operationen auf der PersistenceLayer. Außerdem ist hier die Logik für die Erfassung und Auswertung der Standortdaten implementiert. Dies funktioniert ohne die Beteiligung des Modells, da diese Daten nur kurzfristig erfasst, verarbeitet und zurückgesendet werden müssen.
+
+\subsubsection{PersistenceLayer}
+Die PersistenceLayer bildet das Datenmodell. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung an die Communicationlayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.
 
 \newpage
 
@@ -183,27 +178,23 @@ Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderngen in d
 Damit nicht bei jeder Datenanforderung, die vom UI gestellt wird, ein Zugriff auf den Tomcat-Server unternommen werden muss, werden die Daten des Benutzers lokal in einer SQLite Datenbank persistiert. Die Implementierung des Datenbankschemas und der Datenbankzugriffe wird mithilfe des Android-Framworks Room realisiert. Dabei wird ein Data Access Object Pattern verwendet.
 Die Entity-Beans definieren dabei, wie das Schema der Datenbank aufgebaut wird (jede als entity annotierte klasse wird als eine Tabelle in der Datenbank umgesetzt), die DAO-Interfaces definieren die Methoden, mit denen vom Programm aus af die Datenbank zugegriffen werden kann.\\
 
-\textbf{beteiligte Klassen:}\\
+\textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{User, Go, Group:}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
 	\item \textit{UserDao, GoDao, GroupDao:}\\ Data-Access-Object Interfaces, die die eigentlichen Zugriffe auf die Datenbank übernehmen.
 \end{itemize}
 
-\subsection{Vermittler zur Koordination von Datenzugriffen}
+\subsection{Vermittler zur Koordination von Datenzugriffen}\label{Vermittler}
 Wenn der Benutzer bestimmte Daten anzigen will, muss die App diese Daten zunächst beschaffen, entweder aus den lokal persisitierten Daten oder gegebenenfalls vom Remote-Server des Systems- Ähnlich verhält es sich mit Änderungen von Daten: Die Änderungen müssen sowohl lokal in der SQLIte Datenbank und im ViewModell, als auch auch der zentralen Datenbank des Server geändert werden.\\
 Um diese vielen Abhängigkeiten zu verwalten und die Konsistenz der Daten sicherzustellen, sollen Datarepository-Klasssen implementiert werden, die als Vermittler zwischen den Kollegen dienen.
 So muss das ViewModell zum Erstellen/Ändern/Löschen von Daten lediglich das DataRepository ansprechen, ohne die darunterliegende Datenpersistenzlogik zu kennen. Auch der Server kommuniziert seine Daten nur mit der Datarepository. Modell und Viewmodell müssen sich so gegenseitig nicht referenzieren, sondern für alle Komponenten eyisitert ein zentraler Ansprechpartner.\\
 
-\textbf{beteiligte Klassen:}\\
+\textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{GoRepository/GroupRepository:}\\
 	 Vermittler
 	\item \textit{ViewModell, TomcatrestApi, Dao:}\\ Kollegen
 \end{itemize}
-
-\subsection{singleton zur Vermeidung häufiger Instanziierung von schwergewichtigen DataRepositories}
-
-\subsection{Dependency Injection}
 
 \subsection{DAO Pattern für Datenpersistenz auf dem Server}
 

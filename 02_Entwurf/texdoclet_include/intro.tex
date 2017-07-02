@@ -30,14 +30,15 @@ Neben dem lokalen Modell-Paket muss außerdem die Datenkonsitenz mit dem Remote-
 Die Views der App (sämtliche Activity- und Fragment-Klassen, sowie die dazugehörigen Layout .xml-Dateien) sind für die Präsentation, sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) der Daten es Viewmodells zuständig.
 
 \textbf{ViewModell:}
+Das ViewModell ist das Bineglied zwischen View und Modell. Es tauscht Informationen mit dem Modell aus und stellt so der View öffentliche Eigenschaften und Befehle zur Verfügung, die an die Steuerungselemente der UI angebunden werden können. Dabei hat as ViewModell keine Referenz auf die View. Durch diese lose kopplung kann die View jederzeit ausgetauscht werden, ohne dass das ViewModell verändert werden muss.
 
-
-Der Programmteil, der auf dem Client - also auf dem Android-Gerät - ausgeführt wird, ist in folgende Pakete (die ggfs. Unterpakete enthalten) aufgeteilt:
+In dieser Implementierung des MVVM Musters wurde die Applikation in folgende Pakete unterteilt:
 \begin{itemize}
 	\item Views
-	\item Controller
+	\item Commands
 	\item Model
-	\item ServerCom
+	\item ViewModel
+	\item ServerCommunication
 \end{itemize}
 
 Der folgende Abschnitt erläutert, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
