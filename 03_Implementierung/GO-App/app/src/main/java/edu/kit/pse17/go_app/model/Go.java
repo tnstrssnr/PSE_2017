@@ -11,56 +11,96 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Diese Klasse verwaltet Go Objekte
+ *  Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Go-Objekte persistiert.
+ *  Der Zugriff auf die Daten läuft ausschließlich über die GoDao-Klasse
  *
- * Created by tina on 17.06.17.
  */
 
 @Entity
 public class Go {
 
+    /**
+     * ID des GOs. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig
+     */
     @PrimaryKey
     public long id;
+
+    /**
+     * GO-Bezeichnug (frei wählbar, muss nicht eindeutig sein)
+     */
     public String name;
+
+    /**
+     * Beschreibungstext des GOs
+     */
     public String description;
+
+    /**
+     * Startdatum und -zeitpunkt des GOs
+     */
     public Date start;
+
+    /**
+     * Enddatum und -zeitpunkt des GOs
+     */
     public Date end;
+
+    /**
+     *  Die Gruppe, zu der das Go gehört
+     */
+    public Group group;
+
+    /**
+     * Breitengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
+     */
     public long lat;
+
+    /**
+     * Längengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
+     */
     public long lon;
+
+    /**
+     * Die User-ID des GO-Verantwortlichen
+     */
     public String owner;
+
+    /**
+     * Der Benutzername des GO-Verantwortlichen
+     */
     public String ownerName;
+
+    /**
+     * Der Teilnahmestatus des Benutzers
+     */
     public Status userStatus;
 
+    /**
+     * Die aktuelle Position der Gruppe. Ist null, falls das GO noch nicht gestartet ist.
+     */
     @Ignore
     private GroupLocation locationData;
 
+    /**
+     * Eine Liste aller Benutzer mit Teilnahmestatus "Unterwegs"
+     */
     @Relation(parentColumn = "id", entityColumn = "uid")
     private List<User> notGoingUsers;
 
+    /**
+     * Eine Liste aller Benutzer mit Teilnahmestatus "Bestätigt"
+     */
     @Relation(parentColumn = "id", entityColumn = "uid")
     private List<User> goingUsers;
 
+    /**
+     * Eine Liste aller Benutzer mit Teilnahmestatus "Unterwegs"
+     */
     @Relation(parentColumn = "id", entityColumn = "uid")
     private List<User> goneUsers;
 
 
-    public Go(long id, String name, String description, Date start, Date end, long lat, long lon,
-              String owner, String ownerName, Status userStatus, GroupLocation locationData,
-              List<User> notGoingUsers, List<User> goingUsers, List<User> goneUsers) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.start = start;
-        this.end = end;
-        this.lat = lat;
-        this.lon = lon;
-        this.owner = owner;
-        this.ownerName = ownerName;
-        this.userStatus = userStatus;
-        this.locationData = locationData;
-        this.notGoingUsers = notGoingUsers;
-        this.goingUsers = goingUsers;
-        this.goneUsers = goneUsers;
+    public Go() {
     }
 
     public long getId() {

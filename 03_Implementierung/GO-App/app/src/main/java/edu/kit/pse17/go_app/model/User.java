@@ -9,20 +9,39 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Diese Klasse verwaltet User Objekte
- *
- * Created by tina on 17.06.17.
+ * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die User-Objekte persistiert.
+ * Der Zugriff auf die Daten läuft ausschließlich über die UserDao-Klasse
  */
 
 @Entity
 public class User implements Serializable {
 
+    /**
+     * Die User-ID des Benutzers. Dieses Attribut ist der Primärschlüssel der Relation. Die ID wird bei der Registrierung
+     * von Firebase Authentication Service übernommen.
+     */
     @PrimaryKey
     private String uid;
+
+    /**
+     * Die Instance-ID eines Benutzers bzw. android-Endgeräts wird vom Tomcat-Server verwendet, um Benachrichtigungen an das Gerät zu schicken.
+     * Die wird von Firebase Cloud Messaging Service generiert.
+     */
     private String instanceId;
+
+    /**
+     * Benutzername des Users. Dieser kann frei gewählt werden und muss nicht eindeutig sein. Der default-Wert ist die Email-Adresse des Benutzers.
+     */
     private String name;
+
+    /**
+     * Die Email-Adresse, mit der sich der Benutzer in der App registriert hat.
+     */
     private String email;
 
+    /**
+     * Profilbild des Benutzers.
+     */
     @Ignore
     private Icon icon;
 

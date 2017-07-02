@@ -10,45 +10,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Diese Klasse verwaltet Gruppen Objekte
- *
- * Created by tina on 17.06.17.
+ * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die User-Objekte persistiert.
+ * Der Zugriff auf die Daten läuft ausschließlich über die GroupDao-Klasse
  */
 
 @Entity
 public class Group {
 
+    /**
+     * ID der Gruppe. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig.
+     */
     @PrimaryKey
     public long id;
-    public String name;
-    public String description;
-    public String imagePath;
 
+    /**
+     * Der Name der Gruppe. Dieser muss nicht eindeutig sein
+     */
+    public String name;
+
+    /**
+     * Der beschreibungstext der Gruppe
+     */
+    public String description;
+
+    /**
+     * Das Bild er Gruppe
+     */
     @Ignore
     public Icon icon;
 
+    /**
+     * Eine Liste aller Benutzer, die Mitglied der Gruppe sind. Dies schließt Benutzer, die eingeladen wurden, aber die Mitgliedschaft
+     * noch nicht bestätigt haben nicht mit ein. Administratoren der Gruppe sind in dieser Liste ebenfalls aufgeführt.
+     */
     @Relation(parentColumn = "id", entityColumn = "uid")
     public List<User> members;
 
+    /**
+     * Eine Liste aller Administratoren der Gruppe
+     */
     @Relation(parentColumn = "id", entityColumn = "uid")
     public List<User> admins;
 
+    /**
+     * Eine Liste aller Benutzer, die zu der Gruppe eingeladen wurden, die mitgliedschaft aber nich nicht bestätigt haben.
+     */
     @Relation(parentColumn = "id", entityColumn = "uid")
     public List<User> requests;
+
+
+    /**
+     * Boolean-Wert der angibt, ob der Benutzer ein Administrator der Gruppe ist.
+     */
+    public boolean isAdmin;
+
+    /**
+     * Boolean-Wert, der angibt, ob es sich bei der Mitgliedschaft des Benutzers um eine "ordentliche Mitgliedschaft"
+     * oder um eine unbeantwortete Gruppenanfrage handelt.
+     */
+    public boolean isRequest;
 
     @Ignore
     private GroupLocation groupLocation;
 
-    public Group(long id, String name, String description, String imagePath, Icon icon, List<User> members, List<User> admins, List<User> requests, GroupLocation groupLocation) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.imagePath = imagePath;
-        this.icon = icon;
-        this.members = members;
-        this.admins = admins;
-        this.requests = requests;
-        this.groupLocation = groupLocation;
+    public Group() {
+
     }
 
     public long getId() {
@@ -73,14 +99,6 @@ public class Group {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public Icon getIcon() {
@@ -121,5 +139,21 @@ public class Group {
 
     public void setGroupLocation(GroupLocation groupLocation) {
         this.groupLocation = groupLocation;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public boolean isRequest() {
+        return isRequest;
+    }
+
+    public void setRequest(boolean request) {
+        isRequest = request;
     }
 }

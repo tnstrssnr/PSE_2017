@@ -4,7 +4,8 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
 /**
- * Created by tina on 01.07.17.
+ * abstrakte Klasse, zur Erzeugung einer lokalen SQLite Datenbank.
+ * Die Erzeugung des Datenbankschemas und der Relationen wird vom Room-Framework übernommen.
  */
 
 @Database(entities = {Group.class, Go.class, User.class}, version = 1)

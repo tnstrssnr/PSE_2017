@@ -6,7 +6,11 @@ import android.support.annotation.Nullable;
 import edu.kit.pse17.go_app.R;
 
 /**
- * Created by tina on 20.06.17.
+ * Die Aktivität stellt dem User ein Menü zur Verfügung, in dem er verschiedende Einstellungsänderungen
+ * vornehmen kann.
+ *
+ * Die Aufgabe der Aktivität ist dabei, dem Benutzer die View zur Verfügung zu stellen, den User-input entgegenzunehmen
+ * und an die Eingabe an die entsprechende Aktivität weiterzuleiten.
  */
 
 public class SettingsActivity extends BaseActivity {

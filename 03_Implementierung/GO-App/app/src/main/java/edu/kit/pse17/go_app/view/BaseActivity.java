@@ -4,7 +4,11 @@ import android.arch.lifecycle.LifecycleActivity;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by tina on 20.06.17.
+ * Die Base-Activity ist Oberklasse für alle weiteren Activities und kümmert sich um Funktionalität,
+ * die alle Activities gemeinsam haben.
+ *
+ * BaseActivity erbt von LifecycleActivty, was eine Lifecycle-Owner Klasse ist. Dies erlaubt es Objekte, die Lifecycle-Aware sind
+ * (z.B. LiveData-Objekten) den Lifecycle der Activity zu beobachten und je nach Zustand der Activity ein entsprechendes UI-Update zu triggern.
  */
 
 public class BaseActivity extends LifecycleActivity {

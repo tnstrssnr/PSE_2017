@@ -18,7 +18,7 @@ javadoc -docletpath TeXDoclet.jar \
 	-texinit texdoclet_include/preamble.tex \
 	-output texdoclet_output/Entwurf.tex \
 	-sourcepath ../03_Implementierung/GO-Tomcat/src/main/java:../03_Implementierung/GO-App/app/src/main/java \
-	-subpackages /go_app \
+	-subpackages /edu \
  	-sectionlevel section
 
 cd texdoclet_output

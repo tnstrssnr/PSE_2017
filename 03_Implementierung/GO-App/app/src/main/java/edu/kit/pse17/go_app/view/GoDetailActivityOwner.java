@@ -8,11 +8,18 @@ import android.widget.ImageView;
 import edu.kit.pse17.go_app.R;
 
 /**
- * Created by tina on 20.06.17.
+ * Die Klasse dekoriert dir Aktivity-Klasse "GoDetailActivity".
+ *
+ * Die Go-Detailansicht eines Go-Verantwortlichen
+ * unterscheidet dich von der Detailansicht eines "normalen" Teilnahemers nur in einer zusätzlichen Schaltfläche ("edit"), die geklickt
+ * werden kann, um die Änderungsansicht des GOs aufzurufen.
  */
 
 public class GoDetailActivityOwner extends GoDetailActivity {
 
+    /**
+     * zusätzliche Schaltflöche, um die GoEditView aufzurufen
+     */
     private ImageView edit;
 
     @Override

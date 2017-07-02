@@ -19,9 +19,7 @@ import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.User;
 
 /**
- * Die Klasse zeigt dem User den Login-Screen an und koordiniert den Login Prozess
- *
- * Created by tina on 17.06.17.
+ * Die Klasse stellt die View für den LogIn- und SignIn-Prozess bereit.
  */
 
 public class SignInActivity extends BaseActivity implements View.OnClickListener {

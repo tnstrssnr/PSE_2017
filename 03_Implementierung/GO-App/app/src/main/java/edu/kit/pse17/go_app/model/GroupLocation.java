@@ -6,8 +6,6 @@ import java.util.List;
 
 /**
  * Die Objekte der Klasse kapseln die geclusterten GPS-Daten der Go-Teilnehmer
- *
- * Created by tina on 20.06.17.
  */
 
 public class GroupLocation {

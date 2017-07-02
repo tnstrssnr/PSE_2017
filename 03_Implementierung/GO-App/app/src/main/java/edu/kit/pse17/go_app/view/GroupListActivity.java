@@ -17,9 +17,12 @@ import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.recyclerView.adapter.GroupListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.adapter.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
+import edu.kit.pse17.go_app.view.recyclerView.listItems.GroupListItem;
+import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
 
 /**
- *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers
+ *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers in einer
+ *  RecyclerView
  */
 
 public class GroupListActivity extends BaseActivity implements OnListItemClicked, View.OnClickListener {
@@ -54,7 +57,7 @@ public class GroupListActivity extends BaseActivity implements OnListItemClicked
         String uid = getIntent().getStringExtra(USER_ID_INTENT_CODE);
 
         //TODO get all user groups
-        List data = Group.getAllGroups(uid);
+        List<ListItem> data = null;
 
         adapter = new GroupListAdapter(data, this);
         list.setAdapter(adapter);

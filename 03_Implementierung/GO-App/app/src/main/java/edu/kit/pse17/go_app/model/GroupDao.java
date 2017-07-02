@@ -6,7 +6,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 /**
- * Created by tina on 01.07.17.
+ * Data-Access-Object Interface, das alle Zugriffe auf die lokale Datenbank-Tabelle "group" verwaltet.
+ * Die Implementierung der Gruppe wird vom Room-Framework realisiert.
  */
 
 @Dao

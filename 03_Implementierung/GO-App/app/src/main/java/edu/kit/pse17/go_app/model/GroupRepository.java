@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.model;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 
 import java.util.concurrent.Executor;
 
@@ -9,19 +8,31 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
- * Created by tina on 01.07.17.
+ * Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine
+ * einfache Schnittstelle zum Holen, Ändern und Löschen von Daten zur Verfügung.
+ *
+ * Bei einer Anfrage weiß das Repository, wo es die Daten holen muss (lokal oder vom remote Server).
+ * Das Repository agiert als Vermittler zwischen der lokalen Datanbank und den Daten die die App vom Server erhält.
  */
 
 @Singleton
 public class GroupRepository {
 
+    /**
+     * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
+     */
     private final TomcatRestApi webservice;
+
+    /**
+     * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
+     */
     private final GroupDao groupDao;
+
+    /**
+     * Ein executor-objekt, um Anfragen auf einem separaten Hintergrundthread ausführen zu können.
+     */
     private final Executor executor;
 
     @Inject

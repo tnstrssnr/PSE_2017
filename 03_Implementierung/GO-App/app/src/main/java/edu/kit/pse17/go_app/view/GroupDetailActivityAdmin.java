@@ -8,16 +8,24 @@ import android.widget.ImageView;
 import edu.kit.pse17.go_app.R;
 
 /**
- * Klasse dekoriert die GroupDetailActivity und fügt ihr die Admin-Funktionalitäten hinzu
+ * Klasse dekoriert die GroupDetailActivity und fügt ihr die Admin-Funktionalitäten hinzu.
  *
- * Created by tina on 19.06.17.
+ * Diese bestehen aus zwei zusätzlichen Schaltflächen, die einerseits die Änderungsansicht der Gruppe aufrufen ("edit"),
+ * anderersetis gibt es eine zusätzliche Schaltfläche zum Hinzugügen eiens neuen Gruppenmitglieds ("addMember")
+ *
  */
 
 public class GroupDetailActivityAdmin extends GroupDetailActivity {
 
-    private GroupDetailActivity gda;
-
+    /**
+     * Schaltfläche, bei deren Betätigung die EditGroupActivity gestartet wird.
+     */
     private ImageView edit;
+
+    /**
+     * Schaltfläche, bei deren Betätigung ein DialogFragment zum Hinzufügen von Gruppenmitgliedern
+     * öffnet.
+     */
     private ImageView addMember; //onClick: Dialog mit add User oder add Admin
 
     @Override

@@ -1,7 +1,7 @@
 package edu.kit.pse17.go_app.view;
 
 /**
- * Created by tina on 20.06.17.
+ * Diese Activity ist zuständig für die Darstellung eines Informationstextes.
  */
 
 public class InformationActivity extends BaseActivity {
