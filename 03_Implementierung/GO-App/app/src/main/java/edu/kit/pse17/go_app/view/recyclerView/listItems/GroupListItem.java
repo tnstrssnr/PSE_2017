@@ -2,7 +2,7 @@ package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
 import android.graphics.drawable.Icon;
 
-import edu.kit.pse17.go_app.model.Group;
+import edu.kit.pse17.go_app.model.entities.Group;
 
 /**
  * Diese Klasse repräsentiert ListItems, die Informationen über eine Gruppe in einem RecyclerView darstellen sollen

@@ -16,7 +16,7 @@ import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
 import edu.kit.pse17.go_app.login.GoSignInHelper;
 import edu.kit.pse17.go_app.login.SignInHelper;
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.model.User;
+import edu.kit.pse17.go_app.model.entities.User;
 
 /**
  * Die Klasse stellt die View für den LogIn- und SignIn-Prozess bereit.

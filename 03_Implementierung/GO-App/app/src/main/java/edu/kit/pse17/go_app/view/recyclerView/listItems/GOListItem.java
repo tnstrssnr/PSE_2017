@@ -4,7 +4,7 @@ import android.graphics.drawable.Icon;
 
 import java.util.Date;
 
-import edu.kit.pse17.go_app.model.Go;
+import edu.kit.pse17.go_app.model.entities.Go;
 
 
 /**

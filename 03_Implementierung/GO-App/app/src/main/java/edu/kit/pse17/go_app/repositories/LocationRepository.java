@@ -7,7 +7,7 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Singleton;
 
-import edu.kit.pse17.go_app.model.Cluster;
+import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.GoDao;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 

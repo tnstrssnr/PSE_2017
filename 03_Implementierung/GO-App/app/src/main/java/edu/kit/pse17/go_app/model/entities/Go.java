@@ -1,15 +1,12 @@
-package edu.kit.pse17.go_app.model;
+package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Relation;
-import android.location.Location;
-import android.support.annotation.Nullable;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import edu.kit.pse17.go_app.model.Status;
 
 /**
  *  Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Go-Objekte persistiert.

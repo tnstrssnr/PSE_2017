@@ -2,12 +2,9 @@ package edu.kit.pse17.go_app.serverCommunication.upstream;
 
 import java.util.List;
 
-import edu.kit.pse17.go_app.model.Group;
+import edu.kit.pse17.go_app.model.entities.Group;
 import retrofit2.Call;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**

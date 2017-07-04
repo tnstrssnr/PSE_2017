@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import edu.kit.pse17.go_app.model.Go;
+import edu.kit.pse17.go_app.model.entities.Go;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.viewModel.GoViewModel;

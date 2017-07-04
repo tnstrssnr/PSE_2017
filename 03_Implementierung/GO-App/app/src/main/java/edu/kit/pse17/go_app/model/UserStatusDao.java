@@ -7,6 +7,9 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import edu.kit.pse17.go_app.model.entities.User;
+import edu.kit.pse17.go_app.model.entities.UserGoStatus;
+
 /**
  * Created by tina on 02.07.17.
  */

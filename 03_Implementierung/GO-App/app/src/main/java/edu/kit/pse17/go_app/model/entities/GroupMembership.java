@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.model;
+package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;

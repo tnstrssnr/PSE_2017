@@ -1,10 +1,13 @@
 package edu.kit.pse17.go_app.model;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 
 import java.util.List;
+
+import edu.kit.pse17.go_app.model.entities.Group;
+import edu.kit.pse17.go_app.model.entities.GroupMembership;
+import edu.kit.pse17.go_app.model.entities.User;
 
 /**
  * Created by tina on 02.07.17.

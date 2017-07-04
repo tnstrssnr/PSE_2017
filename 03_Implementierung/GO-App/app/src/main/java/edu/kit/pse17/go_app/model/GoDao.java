@@ -5,6 +5,8 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import edu.kit.pse17.go_app.model.entities.Go;
+
 /**
  *  Data-Access-Object Interface, das alle Zugriffe auf die lokale Datenbank-Tabelle "go" verwaltet.
  *  Die Implementierung der Gruppe wird vom Room-Framework realisiert.

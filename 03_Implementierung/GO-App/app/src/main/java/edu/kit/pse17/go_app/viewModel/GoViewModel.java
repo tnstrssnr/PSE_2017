@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import javax.inject.Inject;
 
-import edu.kit.pse17.go_app.model.Go;
+import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.repositories.GoRepository;
 
 /**

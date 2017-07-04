@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.kit.pse17.go_app.model.Group;
-import edu.kit.pse17.go_app.model.User;
+import edu.kit.pse17.go_app.model.entities.Group;
+import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;

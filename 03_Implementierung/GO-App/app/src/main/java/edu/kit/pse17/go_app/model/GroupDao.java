@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import edu.kit.pse17.go_app.model.entities.Group;
+
 /**
  * Data-Access-Object Interface, das alle Zugriffe auf die lokale Datenbank-Tabelle "group" verwaltet.
  * Die Implementierung der Gruppe wird vom Room-Framework realisiert.

@@ -85,15 +85,13 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 \section{Architekturstil und Paketstruktur}
 
 \subsection{Client}
-Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. In dieser Implementierung des MVVM Musters wurde die Applikation in folgende Pakete unterteilt:
-\begin{itemize}
-	\item Views
-	\item Modell
-	\item ViewModell
-	\item Repositories
-	\item ServerCommunication
-\end{itemize}
-Die folgende Abschnitte erläutern, welche Aufgaben die einzelnen Module haben und welche Abhängigkeiten zu anderen Paketen und Klassen bestehen.
+Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. Das untenstehende Paketdiagramm zeigt den groben Aufbau der Client-Applikation, welche Abhängigkeiten bestehen und welche Aufgaben jedes Paket übernimmt. Genauere erläuterungen hierzu finden sich in den darauffolgenden Abschnitten.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{../Klassendiagramme/paketdiagramm_client.png}
+	\caption{Paketdiagramm der Clientanwendung}
+\end{figure}
 
 \subsubsection{Views}
 Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Das sind sämtliche Activities, Fragments und dazugehörige .xml-Layouts. Das Modul ist für die Präsentation der Appdaten sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) zuständig.

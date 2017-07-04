@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import edu.kit.pse17.go_app.model.Group;
+import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**

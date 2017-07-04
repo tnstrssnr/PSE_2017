@@ -8,7 +8,7 @@ import java.util.concurrent.Executor;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import edu.kit.pse17.go_app.model.Go;
+import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.GoDao;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.model.Group;
+import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 

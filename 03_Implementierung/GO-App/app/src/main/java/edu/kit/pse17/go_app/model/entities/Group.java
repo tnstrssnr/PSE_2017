@@ -1,12 +1,10 @@
-package edu.kit.pse17.go_app.model;
+package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Relation;
 import android.graphics.drawable.Icon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

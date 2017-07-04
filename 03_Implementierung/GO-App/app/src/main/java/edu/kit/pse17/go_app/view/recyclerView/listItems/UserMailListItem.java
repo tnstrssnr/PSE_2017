@@ -2,7 +2,7 @@ package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
 import android.graphics.drawable.Icon;
 
-import edu.kit.pse17.go_app.model.User;
+import edu.kit.pse17.go_app.model.entities.User;
 
 /**
  *  Diese Klasse repräsentiert ListItems, die Informationen über einen User in einem RecyclerView darstellen sollen
