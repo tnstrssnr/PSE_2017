@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import edu.kit.pse17.go_app.model.entities.Group;
-import edu.kit.pse17.go_app.model.GroupDao;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import retrofit2.Response;
 

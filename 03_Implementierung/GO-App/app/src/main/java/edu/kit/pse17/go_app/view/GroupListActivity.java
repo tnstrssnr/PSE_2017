@@ -22,7 +22,6 @@ import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.GroupListItem;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
-import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
 
 /**
  *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers in einer

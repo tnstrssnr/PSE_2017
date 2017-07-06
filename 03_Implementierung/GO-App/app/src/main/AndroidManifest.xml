@@ -37,7 +37,7 @@
 
         </service>
 
-        <service android:name=".serverCommunication.downstream.MessagingService" >
+        <service android:name=".serverCommunication.downstream.MessageReceiver" >
 
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGE_EVENT"></action>

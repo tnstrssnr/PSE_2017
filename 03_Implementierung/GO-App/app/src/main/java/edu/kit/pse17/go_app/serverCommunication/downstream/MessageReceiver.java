@@ -13,7 +13,7 @@ import com.google.firebase.messaging.RemoteMessage;
  * Created by tina on 28.06.17.
  **/
 
-public class MessagingService extends FirebaseMessagingService {
+public class MessageReceiver extends FirebaseMessagingService {
 
     // Tag, der zum Loggen der Nachrichten verwendet wird
     private static final String TAG = "Messaging ServiceCommand";
