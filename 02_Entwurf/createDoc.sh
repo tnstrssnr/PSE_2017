@@ -5,7 +5,7 @@
 
 mkdir texdoclet_output
 
-rm texdoclet_output/TeXDoclet.aux
+rm texdoclet_output/Entwurf.aux
 
 javadoc -docletpath TeXDoclet.jar \
 	-doclet org.stfm.texdoclet.TeXDoclet \
@@ -17,8 +17,8 @@ javadoc -docletpath TeXDoclet.jar \
 	-texfinish texdoclet_include/finish.tex \
 	-texinit texdoclet_include/preamble.tex \
 	-output texdoclet_output/Entwurf.tex \
-	-sourcepath ../03_Implementierung/GO-App/app/src/main/java \
-	-subpackages edu \
+	-sourcepath ../03_Implementierung/GO-Tomcat/src/main/java:../03_Implementierung/GO-App/app/src/main/java \
+	-subpackages /edu \
  	-sectionlevel section
 
 cd texdoclet_output

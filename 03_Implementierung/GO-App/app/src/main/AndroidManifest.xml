@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.SignInActivity">
+        <activity android:name=".view.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,31 +21,31 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.FirebaseSignInHelper"/>
-        <activity android:name=".View.GroupListActivity" />
+        <activity android:name=".view.GroupListActivity" />
         <activity android:name=".login.GoSignInHelper" />
-        <activity android:name=".View.GroupDetailActivity" />
-        <activity android:name=".View.GoDetailActivity" />
-        <activity android:name=".View.SettingsActivity" />
+        <activity android:name=".view.GroupDetailActivity" />
+        <activity android:name=".view.GoDetailActivity" />
+        <activity android:name=".view.SettingsActivity" />
 
         <uses-permission android:name="android.permission.INTERNET" />
 
-        <!--
-            Defining Services
-        -->
-        <service
-            android:name=".ServerCom.MessagingService">
+        <service android:name=".serverCommunication.downstream.TokenService">
+
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
             </intent-filter>
+
         </service>
 
-        <service
-            android:name=".ServerCom.InstanceIdService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
+        <service android:name=".serverCommunication.downstream.MessagingService" >
 
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGE_EVENT"></action>
+            </intent-filter>
+
+        </service>
+        <service android:name=".commands.ServiceCommand" />
+        <service android:name=".commands.DeleteUserCommand" />
     </application>
 
 </manifest>

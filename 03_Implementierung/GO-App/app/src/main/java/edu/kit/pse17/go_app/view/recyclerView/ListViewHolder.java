@@ -1,0 +1,55 @@
+package edu.kit.pse17.go_app.view.recyclerView;
+
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import edu.kit.pse17.go_app.R;
+
+import static android.support.v7.widget.RecyclerView.*;
+
+/**
+ * Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten
+ *
+ * Created by tina on 17.06.17.
+ */
+
+public class ListViewHolder extends ViewHolder implements View.OnClickListener {
+
+    private OnListItemClicked onListItemClicked;
+
+    /**
+     * Titel des Items
+     */
+    public TextView title;
+    /**
+     * Untertitel des Items
+     */
+    public TextView subtitle;
+    /**
+     * Icon, das zum Item angezeigt werden soll
+     */
+    public ImageView icon;
+
+    /**
+     * Konstruktor
+     * @param itemView View, in der die Items angezeigt werden sollen
+     * @param onListItemClicked ClickListener für ListItems
+     */
+    public ListViewHolder(View itemView, OnListItemClicked onListItemClicked) {
+        super(itemView);
+        this.onListItemClicked = onListItemClicked;
+        this.title = (TextView) itemView.findViewById(R.id.list_item_title);
+        this.subtitle = (TextView) itemView.findViewById(R.id.list_item_subtitle);
+        this.icon = (ImageView) itemView.findViewById(R.id.list_item_icon);
+    }
+
+    public ListViewHolder(View itemView) {
+        super(itemView);
+    }
+
+    @Override
+    public void onClick(View v) {
+        onListItemClicked.onItemClicked(getAdapterPosition());
+    }
+}
