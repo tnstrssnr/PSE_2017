@@ -20,7 +20,7 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
  */
 
 @Singleton
-public class GoRepository {
+public class GoRepository extends Repository<List<Go>>{
 
     /**
      * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
@@ -61,6 +61,16 @@ public class GoRepository {
 
     public LiveData<List<Go>> getGosForUser(String uid) {
 
+        return null;
+    }
+
+    @Override
+    public LiveData<List<Go>> fetchData() {
+        return null;
+    }
+
+    @Override
+    public LiveData<List<Go>> getUpdatedData() {
         return null;
     }
 }

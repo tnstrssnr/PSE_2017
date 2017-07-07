@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
-import edu.kit.pse17.go_app.viewModel.GroupViewModel;
+import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
 
 /**
  * die Activity ist zusammen mit der Layout File group_details.xml Teil des Views, der dem user die Details eines Gruppe anzeigt.
@@ -23,7 +23,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
      * Viewmodel Instanz, in der die dargestellten Daten der Aktivität gespeichert werden, um sie bei
      * Konfigurationsänderungen zu erhalten.
      */
-    private GroupViewModel viewModel;
+    private GroupListViewModel viewModel;
 
     /**
      * Lifecycle-Methode der Activity, die beim Erzeugen aufgreufen wird. Dem ContentView der App wird das richtige
@@ -39,7 +39,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_details);
 
-        viewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
 
         viewModel.getGroup().observe(this, new Observer<Group>() {
                     @Override

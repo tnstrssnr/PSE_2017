@@ -1,9 +1,11 @@
 package edu.kit.pse17.go_app.repositories;
 
+import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
 
 import java.util.concurrent.Executor;
 
+import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 
 /**
@@ -13,7 +15,7 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
  * Im Gegensatz zu anderen Repositories spricht diese Klasse auch die SharedPreferences des Systems an.
  */
 
-public class UserRepository {
+public class UserRepository extends Repository<User>{
 
     private final TomcatRestApi webService;
     private final SharedPreferences sharedPrefManager;
@@ -23,5 +25,15 @@ public class UserRepository {
         this.webService = webService;
         this.sharedPrefManager = sharedPrefManager;
         this.executor = executor;
+    }
+
+    @Override
+    public LiveData<User> fetchData() {
+        return null;
+    }
+
+    @Override
+    public LiveData<User> getUpdatedData() {
+        return null;
     }
 }

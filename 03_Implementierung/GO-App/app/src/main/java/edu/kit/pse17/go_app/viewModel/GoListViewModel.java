@@ -16,14 +16,16 @@ import edu.kit.pse17.go_app.repositories.GoRepository;
  * sondern bleibt erhalten.
  */
 
-public class GoViewModel extends ViewModel {
-
+public class GoListViewModel extends ViewModel {
+    /*
+    *
+    * */
     private long goId;
     private LiveData<Go> go;
     private GoRepository goRepo;
 
     @Inject
-    public GoViewModel(GoRepository goRepo) {
+    public GoListViewModel(GoRepository goRepo) {
         this.goRepo = goRepo;
     }
 
