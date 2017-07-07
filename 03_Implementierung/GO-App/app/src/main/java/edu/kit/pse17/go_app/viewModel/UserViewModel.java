@@ -29,4 +29,11 @@ public class UserViewModel {
     public LiveData<User> getUserData(String uId){
 
     }
+    /*
+    * Löscht die User Daten aus dem Gerät und gibt weiter, dass, die Daten aus den
+    * Datenbanken gelöscht werden
+    */
+    public void deleteUser(){
+        userRepo.deleteUser(uId);
+    }
 }

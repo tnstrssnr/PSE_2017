@@ -36,4 +36,8 @@ public class UserRepository extends Repository<User>{
     public LiveData<User> getUpdatedData() {
         return null;
     }
+
+    public void deleteUser(String uid){
+        executor.; //Tomcat deleteUser request
+    }
 }

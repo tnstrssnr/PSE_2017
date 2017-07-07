@@ -15,7 +15,7 @@ import edu.kit.pse17.go_app.R;
  *
  */
 
-public class GroupDetailActivityAdmin extends GroupDetailActivity {
+public class GroupDetailActivityOwner extends GroupDetailActivity {
 
     /**
      * Schaltfläche, bei deren Betätigung die EditGroupActivity gestartet wird.

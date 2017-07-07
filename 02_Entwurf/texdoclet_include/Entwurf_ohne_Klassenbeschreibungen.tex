@@ -217,6 +217,22 @@ Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST In
 	\item \textit{TomcatRestApi} \\
 	Das Interface ist die Fassade, die die Schnittstelle zum Tomcat-Server hinter sich versteckt. Nach außen werden Methoden bereitgestellt, die von anderen Klassen aufgerufen werden können, um Server-Dienste in Anspruch nehmen zu können, ohne sich um die Details der Kommunikation zu kümmern.
 \end{itemize}
+\subsection{Dekorierer zur Erweiterung der Aktivitäten für Sonderbenutzer}
+Für GO-Verantwortliche und Gruppenadmins werden GroupDetailActivity oder GoDetailActivity entschprechend erweitert. Zusätzliche Buttons und Methoden werden hinzugefügt.(z.B. Name der Gruppe ändern, Mitglieder hinzufügen usw.) Dazu haben wir eine Android-Version von Dekorierer benutzt. Die spezielle Unterklassen (GroupDetailActivitzOwner bzw. GoDetailActivityOwner) von oben genannten Activities benutzen fertige Oberklassen Activities und fügen darauf die benötigte Funktionalität hinzu.
 
+\textbf{beteiligte Klassen}
+\begin{itemize}
+\item \textit{GroupdetailActivity} \\
+Activity, wo die Gruppendetails angezeigt werden. Ist eine Oberklasse von GroupDetailActivityOwner.
+\item \textit{GroupDetailActivityOwner}
+Erweitert die Oberklasse um Funktionen für die Admins.
+\item \textit{GoDetailActivity}
+Activity, wo Go-Details angezeigt werden. Oberklasse von GoDetailActivityOwner.
+\item \textit{GoDetailActivityOwner}
+Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
+\end{itemize}
+\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+
+\end{itemize}
 \end{document}
 
