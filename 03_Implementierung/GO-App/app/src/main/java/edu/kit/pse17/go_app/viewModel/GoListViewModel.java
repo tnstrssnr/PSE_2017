@@ -3,6 +3,8 @@ package edu.kit.pse17.go_app.viewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import edu.kit.pse17.go_app.model.entities.Go;
@@ -18,10 +20,18 @@ import edu.kit.pse17.go_app.repositories.GoRepository;
 
 public class GoListViewModel extends ViewModel {
     /*
-    *
+    * Group id
     * */
-    private long goId;
-    private LiveData<Go> go;
+    private long groupId;
+
+    /*
+    * List aller GOs in der Gruppe
+    * */
+    private LiveData<List<Go>> go;
+
+    /*
+    * GO Repository
+    * */
     private GoRepository goRepo;
 
     @Inject
@@ -29,12 +39,12 @@ public class GoListViewModel extends ViewModel {
         this.goRepo = goRepo;
     }
 
-    public void init(long goId) {
-        this.goId = goId;
-        this.go = goRepo.getGo(goId);
+    public void init(long groupId) {
+        this.groupId = groupId;
+        this.go = goRepo.getGo(groupId);
     }
 
-    public LiveData<Go> getGo() {
+    public LiveData<List<Go>> getGo() {
         return this.go;
     }
 
