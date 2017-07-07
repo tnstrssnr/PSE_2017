@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import edu.kit.pse17.go_app.model.entities.Go;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.viewModel.GoViewModel;
+import edu.kit.pse17.go_app.viewModel.GoListViewModel;
 
 /**
  * die Activity ist zusammen mit der Layout File go_detail.xml Teil des Views, der dem user die Details eines Gos anzeigt.
@@ -23,7 +23,7 @@ public class GoDetailActivity extends BaseActivity {
      * Viewmodel Instanz, in der die dargestellten Daten der Aktivität gespeichert werden, um sie bei
      * Konfigurationsänderungen zu erhalten.
      */
-    private GoViewModel viewModel;
+    private GoListViewModel viewModel;
 
     /**
      * Lifecycle-Methode der Activity, die beim Erzeugen aufgreufen wird. Dem ContentView der App wird das richtige
@@ -39,7 +39,7 @@ public class GoDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.go_details);
 
-        viewModel = ViewModelProviders.of(this).get(GoViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(GoListViewModel.class);
 
         viewModel.getGo().observe(this, new Observer<Go>() {
 
