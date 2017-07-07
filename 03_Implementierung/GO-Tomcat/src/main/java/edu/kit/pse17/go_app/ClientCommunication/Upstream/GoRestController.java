@@ -90,7 +90,7 @@ public class GoRestController {
 
     /**
      * Diese Methode wird von einem Client aufgerufen, um seinen Teilnahmerstatus in einem Go zu ändern. IN der Methode werden die Anfrage-
-     * daten aus dem Request Body ausgewertet und an das goDao weitergegeben, um die entsprechnednen Änderungen in der Datenbank vorzunehmen.
+     * daten aus dem Request Body ausgewertet und an das goDao weitergegeben, um die entsprechenden Änderungen in der Datenbank vorzunehmen.
      *
      * Es ist garantiert, dass der Benutzer ein Mitglied des GOs ist und das er die geforderte Statusänderung vornehmen darf.
      *

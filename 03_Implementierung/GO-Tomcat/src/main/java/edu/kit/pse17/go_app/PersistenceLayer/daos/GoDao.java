@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 
 import java.util.List;
@@ -15,21 +16,20 @@ import java.util.List;
  */
 public interface GoDao {
 
-    public List<UserEntity> getDeclinedUsers(long id);
+    /**
+     * Mit dieser Methode wird der Teilnahmestatus eines GO-Teilnehnmers geändert. Der Status kann entweder "ABGELEHNT", "BESTÄTIGT",
+     * oder "UNTERWEGS" lauten.
+     *
+     * Vor dem Aufruf der Methode muss sichergestellt werden, dass es sich bei dem Benutzer um ein Mitglied der Gruppe handelt und die Statusänderung
+     * die vorgenommen werden soll legal ist.
+     *
+     * @param userId Die ID des Benutzers, dessen Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine gültige Id, ansonsten kann die Methode
+     *                nicht erfolgreich ausgeführt werden.
+     * @param goId Die des GOs, für den der Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine gültige Id, ansonsten kann die Methode
+     *                nicht erfolgreich ausgeführt werden.
+     * @param status Der neue Status des Benutzers.
+     */
+    public void changeStatus(String userId, long goId, Status status);
 
-    public List<UserEntity> getActiveUsers(long id);
 
-    public List<UserEntity> getGoingUsers(long id);
-
-    public List<GoEntity> getAllGosByUser(String uid);
-
-    public List<GoEntity> getAllGosByGroup(long id);
-
-    public List<GoEntity> getActiveGosByUser(String uid);
-
-    public List<GoEntity> getActiveGosByGroup(long id);
-
-    public void deleteGo();
-
-    public void kickUser(String userId);
 }
