@@ -22,7 +22,7 @@ import retrofit2.Response;
  */
 
 @Singleton
-public class GroupRepository {
+public class GroupRepository extends Repository<List<Group>>{
 
     /**
      * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
@@ -78,6 +78,16 @@ public class GroupRepository {
 
         }
 
+        return null;
+    }
+
+    @Override
+    public LiveData<List<Group>> fetchData() {
+        return null;
+    }
+
+    @Override
+    public LiveData<List<Group>> getUpdatedData() {
         return null;
     }
 }
