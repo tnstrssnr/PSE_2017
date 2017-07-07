@@ -2,7 +2,6 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.EventArg;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
 
@@ -101,7 +100,7 @@ public class GoDaoImp extends AbstractDao<Long, GoEntity> implements GoDao, Seri
 
     }
 
-    public class GoEventArg implements EventArg {
+    public class GoEventArg {
 
         public static final String GO_CREATED = "go_created";
         public static final String GO_DATA_CHANGED = "go_data_changed";
