@@ -83,6 +83,9 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 \newpage
 
 \section{Architekturstil und Paketstruktur}
+Dieses Kapitel erläutert den Architekturstil und die Paketstruktur des Systems. es wird noch nicht auf einzelne Klassen eingegangen sondern lediglich die Zusammenarbeit der module beschrieben und die Abhängigkeiten untereinander.
+
+Aufgebaut ist das System mit einer Client-Server-Architektur, d.h. es gibt eine Client-Applikation, die auf den Android-Geräten der Benutzer läuft und Services des Servers in Anspruch nimmt und eine Server-Anwendung, die auf dem Tomcat-Server läuft, der diese Services bereitstellt und auf Anfrage eines Clients seine Dienste erfüllt.
 
 \subsection{Client}
 Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. Das untenstehende Paketdiagramm zeigt den groben Aufbau der Client-Applikation, welche Abhängigkeiten bestehen und welche Aufgaben jedes Paket übernimmt. Genauere erläuterungen hierzu finden sich in den darauffolgenden Abschnitten.
@@ -133,7 +136,16 @@ Wie in den vorherigen Abschnitten erläutert, ist die Geschäftslogik der App au
 ...
 
 \subsection{Server}
-Die Architektur ser Servers orientiert sich an einer MVC-Architektur. Das Programm des Servers ist in folgende Pakete aufgeteilt:
+Die Architektur ser Servers orientiert sich an einer Schichten-Architektur. Dabei handelt es sich nicht um eine klassische Schichtenarchitektur, bei der nur obere Schichten Dienste der unteren Schichten aufrufen darf. Stattdessen sind die oberen Schichten in zwei Unterpakete unterteilt. In einer Hälfte jeder Schicht gehen die Methodenaufrufe von oben nach unten, in der anderen von unten nach oben. Durch diese zwei Säulen in der Anwendung ist die Implementierung, trotz Verletzung des Schichtenmodells, leicht realisierbar, da die Unterpakete immernoch topologisch sortiebar sind, sodass
+eine Implementierungsreihenfolge gefunden werden kann, bei der zu jeder Zeit die Abhängigkeiten des gerade entwickelten Moduls bereits implementiert sind.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{../Klassendiagramme/paketdiagramm_server.png}
+	\caption{Paketdiagramm der Clientanwendung}
+\end{figure}
+
+Das Programm des Servers ist in folgende Pakete aufgeteilt:
 \begin{itemize}
 	\item CommunicationLayer
 	\item BusinessLayer
@@ -141,13 +153,23 @@ Die Architektur ser Servers orientiert sich an einer MVC-Architektur. Das Progra
 \end{itemize}
 
 \subsubsection{CommunicationLayer}
-Dieses Paket übernimmt die Rolle des Views. Die CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Unterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+Dieses Paket bildet die oberste Schicht der Serveranwendung und ist die einzige Schicht, die für die Clients sichtbar ist. Die CommunicationLayer vereint alle Klassen, die an der Kommunikation mit den Clients beteiligt sind. Es besteht aus den Unterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+
+Das Untermodul Upstream nimmt die Dineste der unteren Schichten in Anspruch. Dabei handelt es sich um eine transparente Schichtenarchitektur, das bedeutet das Modul nimmt nicht nur die Dienste der mittleren, sondern auch die Dienste der unteren Schicht in Anspruch.
+
+Das Untermodul Downstream hingegen bietet Dienste an, nämlich das versenden von Nachrichten an Clients, die von den unteren Schichten der Serverandwendung verwendet wird.
 
 \subsubsection{BusinessLayer}
-Die BusinessLayer ist der Controller der Serveranwendung. dieses Modul realisiert Datenänderungen und Operationen auf der PersistenceLayer. Außerdem ist hier die Logik für die Erfassung und Auswertung der Standortdaten implementiert. Dies funktioniert ohne die Beteiligung des Modells, da diese Daten nur kurzfristig erfasst, verarbeitet und zurückgesendet werden müssen.
+Die BusinessLayer ist die mittlere Schicht und beinhaltet den Großteil der Anwendungslogik der Serveranwendung. Wie die anderen Schichten des Server, besteht auch die BusinessLayer aus zwei Untermodulen: LocationService und DataObserver.
+
+Das Modul LocationService kümmert sich um alle Angelegenheiten, die mit der Erfassung, der kurzzeitigen Persistierung und dem Clustering von Standortdaten zusammenhängen. Dieser Dienst wird von der oberen Schicht in Anspruch genommen. Zur unteren Schicht bestehen keine Abhängigkeiten, da Standortdaten nicht in der datenbank gespeichert weden. Dieses Untermodul aht selbst also keine Abhängigkeiten zu anderen Paketen.
+
+Das zweite Untermodul der BusinessLayer ist das DataObserver-Modul. Dieses Modul wird bei Anderungen in der Datenbasis von der PersistenceLayer angesprochen und kümmert sich folgend darum, die Änderungen zu analysieren, herauszufinden welche Clients von der Änderung erfahren müssen und diese Informationen an die obere Schicht weiterzuleiten, um eine Nachricht an genau diese Clients zu schicken. Dementsrechend bietet dieses Untermodul einen Dienst, der von der PersistenceLayer in Anspruch genommen wird und nimmt einen Dienst in Ansprcu der von der CommunicationLayer angeboten wird.
 
 \subsubsection{PersistenceLayer}
-Die PersistenceLayer bildet das Datenmodell. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung an die Communicationlayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.
+Die PersistenceLayer kapselt das Datenmodellder Anwendung in sich. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung der Daten an die Communicationlayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.
+
+Im Gegensatz zu den zwei anderen Schichten gibt es in dieser Schicht keine Untermodule. Der Dienst des Moduls wird von dem Upstream-Modul der CommunicationLayer in Anspruch genommen. Geschieht dies, wird aus der PersistenceLayer der Dienst der DataObserver angestoßen, um die Änderungen in dem Datenbestand wieder durch die Schichten nach oben und schließlich zu den Clients zu leiten.
 
 \newpage
 
@@ -165,36 +187,49 @@ Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über d
 \end{itemize}
 
 \subsection{Beobachter zum Aktualisieren des UI}
-Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderngen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die Livedata-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
+Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderungen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die Livedata-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
 \textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{LiveData<>:}\\ das beobachtete Subjekt
 	\item \textit{BaseActivity (die von LifecycleActivity erbt):}\\ Der Beobachter, der bei Änderung der Daten benachrichtigt wird und daraufhin das dem Benutzer präsentierte UI aktualisiert.
 \end{itemize}
 
-\subsection{DAO-Pattern zur lokalen Persisitierung von Daten}
-Damit nicht bei jeder Datenanforderung, die vom UI gestellt wird, ein Zugriff auf den Tomcat-Server unternommen werden muss, werden die Daten des Benutzers lokal in einer SQLite Datenbank persistiert. Die Implementierung des Datenbankschemas und der Datenbankzugriffe wird mithilfe des Android-Framworks Room realisiert. Dabei wird ein Data Access Object Pattern verwendet.
-Die Entity-Beans definieren dabei, wie das Schema der Datenbank aufgebaut wird (jede als entity annotierte klasse wird als eine Tabelle in der Datenbank umgesetzt), die DAO-Interfaces definieren die Methoden, mit denen vom Programm aus af die Datenbank zugegriffen werden kann.\\
+\subsection{Beobachter zum Weiterleiten von Änderungen der Datenbasis}
+Werden von einem Client Daten der App geändret (z.B. eine GO erstellt, ein Benutzer zu einer Gruppe hinzugefügt) betrifft dies in vielen auch die Daten, die ein anderer Client bei sich gespeichert hat und benutzt. Dementsprechend müssen Clients vom Server über Änderungen in der DAtenbasis informaiert werden können. Es ergibt sich eine 1-zu-n-Abhängigkeit: n Clients sind von 1 Datenbasis abhängig.
+
+Zur Auflösung dieser Abhängigkeit wird in der Anwendung eine Beobachter-Muster verwendet. Die Datenbasis wird beobachtet und bei Änderungen leiten die Beobachter die Benachrichtigung der Clients
+ein. Da ein Beobachter nicht ein einzelnes Objekt, sondern eine gesamte Datenbanktabelle beobachet, ist es schwierig, den aktuellen Zustand des Subjekts im Beobachter zu speichern. Aus idesem Grund verwenden die beobachter eine push-Methodik, bei der die Änderungen bei der Benachrichtigung der Beobachter mit übergeben werden.
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
-	\item \textit{User, Go, Group:}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
-	\item \textit{UserDao, GoDao, GroupDao:}\\ Data-Access-Object Interfaces, die die eigentlichen Zugriffe auf die Datenbank übernehmen.
+	\item \textit{Observable<T>}\\ Das Interface ist das abstrakte Subjekt. Jedes konkrete Subjekt muss dieses Interface und damit die Methode notify() implementieren. Diese Methode benachrichtigt die Beobachter über ein Update in der Datenbasis.
+	\item \textit{DAO-Klassen}\\ Diese Klassen implementieren das Interface Observable und sind die konkreten Subjekte, die von den Beobachtern beobachtet werden.
+	\item \textit{Observer}\\ Das Interface Observer ist der abstrakte Beobachter. Jeder konkrete Beobachter muss dieses Interface und damit die Methode update() implementieren.
+	\item \textit{EntityObserver}\\Konkrete Beobachter, die das Interface Observer implementieren. Jede dieser Klassen übernimmt die Verantwortung für bestimmte Änderungen in der Datenbasis, analysiert, welche Änderung geschehen ist und übergibt diese Daten zum versenden an den FcmClient.
+\end{itemize}
+
+\subsection{DAO-Pattern zur Persistierung von Daten}
+Die Daten der App werden in eine MySQL-Datenbank persistiert. Für den Zugriff auf diese Datenbank wird ein Data Access Object Entwurfsmuster verwendet. Dabei werden zum Einen Java Beans verwendet, die die Struktur der Datenbankrelationen festlegen. Zum Anderen gibt es spezielle DAO-Klassen die alle Datenbankzugriffe in sich kapseln. So können zusätzliche Zugriffsmethoden für die Datenbank hinzugefügt werden, ohne die Entity-Klassen verändern zu müssen. Andersherum kann der Aufbau der Datenbank verändert werden, ohne dass die DAO-klasseni ihre Schnittstelle nach außen verändern.
+Die Umsetzung der Datenbank und der SQL-Queries wird mithilfe des Frameworks Hibernate realisiert.\\
+
+\textbf{beteiligte Klassen:}
+\begin{itemize}
+	\item \textit{UserEntity, GoEntity, GroupEntity}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
+	\item \textit{AbstractDAO}\\ INterface für eine DAO-Klasse, wleches Zugriffsmethoden definiert, die auf jeder Datenbanktabelle durchgeführt werden müssen (CRUD)
+	\item \textit{UserDao, GoDao, GroupDao}\\ Data-Access-Object Interfaces, die spezielle Zugriffsmethoden enthalten, die nur für bestimmte Datenbanktabellen gebraucht werden.
+	\item \textit{UserDaoImp, GoDapImp, GroupDaoImp}\\ konkrete IMplementierungen der DAO Interfaces. Hier werden die Zugriffsmethoden anhand des von den Entity-Klassen definierten Datenbankschemas
+	implementiert.
 \end{itemize}
 
 \subsection{Vermittler zur Koordination von Datenzugriffen}\label{Vermittler}
-Wenn der Benutzer bestimmte Daten anzigen will, muss die App diese Daten zunächst beschaffen, entweder aus den lokal persisitierten Daten oder gegebenenfalls vom Remote-Server des Systems- Ähnlich verhält es sich mit Änderungen von Daten: Die Änderungen müssen sowohl lokal in der SQLIte Datenbank und im ViewModell, als auch auch der zentralen Datenbank des Server geändert werden.\\
-Um diese vielen Abhängigkeiten zu verwalten und die Konsistenz der Daten sicherzustellen, sollen Datarepository-Klasssen implementiert werden, die als Vermittler zwischen den Kollegen dienen.
-So muss das ViewModell zum Erstellen/Ändern/Löschen von Daten lediglich das DataRepository ansprechen, ohne die darunterliegende Datenpersistenzlogik zu kennen. Auch der Server kommuniziert seine Daten nur mit der Datarepository. Modell und Viewmodell müssen sich so gegenseitig nicht referenzieren, sondern für alle Komponenten eyisitert ein zentraler Ansprechpartner.\\
+Viele Apps Nutzen eine lokale Datenbank, um eine Benutzung der App, zumindest ansatzweise, auch ohne Internetverbindung zu ermöglichen. Auch wenn in diesem Entwurf keine lokale Datenbank auf den CLients vorgesehen ist, soll dieses Feature leicht erweiterbar sein. Zu diesem Zweck ist bei der Aktualisierung/Beschaffung der Daten für die ViewModels eine zusätzliche Indirektionsstufe eingebaut: Die Repositories. Diese übernehmen im Zusammenspiel der App-Komponenten eine Vermittler-Funktion: Während die ViewModels wissen WAS gemacht werden muss (da diese die aktuellen Daten und Funktionen für den User speichern), wissen die Repositories WO dies getan werden muss - in der lokalen Datenbank, in den SharedPreferences des Andorid-Geräts oder auf dem Remote Server.
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
-	\item \textit{GoRepository/GroupRepository:}\\
-	 Vermittler
-	\item \textit{ViewModell, TomcatrestApi, Dao:}\\ Kollegen
+	\item \textit{GoRepositor, GroupRepository, UserRepository:}\\
+	 Die Vermittler die die Koordination der Kollegen übernehmen
+	\item \textit{ViewModell, TomcatRestApi, lokale Datenbank, SharedPreferences:}\\ Kollegen, die nichts voneinander wissen, sondern bei allen Aufrufen vom vermittler angesprochen werden, bzw. den Vermittler ansprechen.
 \end{itemize}
-
-\subsection{DAO Pattern für Datenpersistenz auf dem Server}
 
 \subsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
 Das Clustern der Standorte der Teilnehmer eines GOs wird von der Klasse GoClusterStrategy übernommen. Diese Klasse ist mittels eines Strategy-Patterns in das Programm eingebunden. Dies entkoppelt den Algorithmus von seinem Kontext und erkann dynamisch durch andere Clustering-Alogirthmen ersetzt oder ergänzt werden. \\
@@ -231,6 +266,8 @@ Activity, wo Go-Details angezeigt werden. Oberklasse von GoDetailActivityOwner.
 \item \textit{GoDetailActivityOwner}
 Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
 \end{itemize}
+
+
 \subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
 
 
