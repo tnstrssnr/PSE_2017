@@ -140,6 +140,12 @@
             <version>${hibernate.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+
         <!-- Hibernate library dependecy start -->
         <dependency>
             <groupId>dom4j</groupId>
