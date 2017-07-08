@@ -8,11 +8,28 @@ import edu.kit.pse17.go_app.model.Status;
  * Created by tina on 02.07.17.
  */
 
+/**
+ * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die UserGoStatus-Objekte persistiert.
+ * Diese Klasse stellt alle Teilnehmer eines GOs + Status des Teilnehmers bei diesem GO dar.
+ * Jeder Benutzer darf nur Status innerhalb eines GOs haben.
+ */
 @Entity(tableName = "user_go_status")
 public class UserGoStatus {
 
+    /**
+     * Teilnehmer eines GOs.
+     */
     public User user;
+
+    /**
+     * GO, bei dem ein Benutzer Teilnehmer ist.
+     */
     public Go go;
+
+    /**
+     * Status eines Benutzers bei einem GO.
+     * Kann entweder NOT_GOING (Abgelehnt), oder GOING (Bestätigt) oder GONE (Unterwegs) lauten.
+     */
     public Status status;
 
     public UserGoStatus(User user, Go go, Status status) {

@@ -8,8 +8,8 @@ import android.graphics.drawable.Icon;
 import java.util.List;
 
 /**
- * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die User-Objekte persistiert.
- * Der Zugriff auf die Daten läuft ausschließlich über die GroupDao-Klasse
+ * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Gruppen-Objekte persistiert.
+ * Der Zugriff auf die Daten läuft ausschließlich über die GroupEntityDAO-Klasse
  */
 
 @Entity(tableName = "groups")
@@ -27,7 +27,7 @@ public class Group {
     public String name;
 
     /**
-     * Der beschreibungstext der Gruppe
+     * Der Beschreibungstext der Gruppe
      */
     public String description;
 
@@ -36,34 +36,27 @@ public class Group {
      */
     public int memberCount;
     /**
-     * Das Bild er Gruppe
+     * Das Bild der Gruppe
      */
     @Ignore
     public Icon icon;
 
     /**
-     * Boolean-Wert der angibt, ob der Benutzer ein Administrator der Gruppe ist.
-     */
-    public boolean isAdmin;
-
-    /**
-     * Boolean-Wert, der angibt, ob es sich bei der Mitgliedschaft des Benutzers um eine "ordentliche Mitgliedschaft"
-     * oder um eine unbeantwortete Gruppenanfrage handelt.
-     */
-    public boolean isRequest;
-
-    /**
-     * Eine Liste mit allen Mitgliedern der Gruppe + Information on das Mitglied ein Administrator ist
+     * Eine Liste mit allen Mitgliedern der Gruppe + Information ob das Mitglied ein Administrator ist
      * oder ob es sich bei der Mitgliedschaft lediglich um eine offene Grupppenanfrage handelt.
      */
     public List<GroupMembership> membershipList;
 
-    @Ignore
-    private GroupLocation groupLocation;
+    /**
+     * Eine Liste mit allen GOs der Gruppe.
+     */
+    public List<Go> currentGos;
+
 
     public Group() {
 
     }
+
 
     public long getId() {
         return id;
@@ -97,29 +90,20 @@ public class Group {
         this.icon = icon;
     }
 
-    public GroupLocation getGroupLocation() {
-        return groupLocation;
+    public List<GroupMembership> getMembershipList() { return membershipList; }
+
+    public void setMembershipList(List<GroupMembership> membershipList) {
+        this.membershipList = membershipList;
     }
 
-    public void setGroupLocation(GroupLocation groupLocation) {
-        this.groupLocation = groupLocation;
+    public List<Go> getCurrentGos() {
+        return currentGos;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public void setCurrentGos(List<Go> currentGos) {
+        this.currentGos = currentGos;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
-
-    public boolean isRequest() {
-        return isRequest;
-    }
-
-    public void setRequest(boolean request) {
-        isRequest = request;
-    }
 
     public int getMemberCount() {
         return memberCount;
@@ -128,4 +112,6 @@ public class Group {
     public void setMemberCount(int memberCount) {
         this.memberCount = memberCount;
     }
+
+
 }

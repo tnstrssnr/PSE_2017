@@ -1,9 +1,7 @@
 package edu.kit.pse17.go_app.model.entities;
 
-import android.location.Location;
-
 /**
- * Die Objekte dieser Klasse repräsentieren die Cluster, die dem Benutzer während eiens GOs auf der Karte
+ * Die Objekte dieser Klasse repräsentieren die Cluster, die dem Benutzer während eines GOs auf der Karte
  * angezeigt werden.
  *
  * Im Gegensatz zu den anderen Entity-Klassen, wird diese Klasse nicht von Room in der lokalen SQLite Datenbank gespeichert,
@@ -25,7 +23,7 @@ public class Cluster {
     private long lon;
 
     /**
-     * Die Größe des Clusters, sprich die Anzahl er Personen, die zu diesem Cluster gezählt werden
+     * Die Größe des Clusters, sprich die Anzahl der Personen, die zu diesem Cluster gezählt werden
      */
     private int size;
 
