@@ -3849,6 +3849,65 @@ public void setUserId(java.lang.String userId)\end{lstlisting} %end signature
 \section{verwendetes Datenbankschema}
 Das System persistiert Daten in einer zentralen MySQL-Datenbank auf dem Tomcat-Server und zusätzlich auf einer lokalen SQLite-Datenbank auf den Clients. Beide Datenbanken verwenden das gleiche Schema.\\
 
+\section{Client-Server-Schnittstelle}
+Dieser Abschnitt erläutert die Schnittstelle zwischen dem Client und dem Server. Diese Schnittstelle besteht aus zwei Teilen:
+
+Zum Einen bietet der Server eine REST API an, über die der Client die Dienste des Servers in Anspruch nehmen kann. Zum Anderen gibt es eine Schnittstelle, die über Firebase Cloud Messaging realisiert ist, damit der Server Nachrichten an bestimmte Clients schicken kann.
+
+\subsection{REST API des Servers}
+Folgende Grafik zeigt, welche Methoden unter welchen URL des Servers zu erreichen sind:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{restapi.png}
+	\caption{Übersicht über die Rest Api des Servers}
+\end{figure}
+Aufrufe der Request-Methoden DELETE und GET enthalten keinen Content-Body. Sämtliche Informationen, die der Server braucht, um richtig auf die anfrage antworten zu können, sind in der URL kodiert.
+Bei den Methoden POST und PUT, sowie bei Antworten des Servers, die einen Content-Body erfordern, ist sind die Daten in einem JSON-Objekt gekapselt. Dieses Objekt wird von dem Framework Gson aus der entsprechenden Entity-Klasse erzeugt. die Anwendung muss den genauen Aufbau des JSON Objekts nicht kennen. Die Verantwortung für die Verwaltung derselben wird hier vollständig an Gson übergeben.
+
+Bei sämtlichen Requests kann der Client anhand des HTTP-Statuscodes der Server-Response erkennen, ob die Anfrage erfolgreich ausgeführt werden konnte.
+
+\subsection{FCM Schnittstelle}
+Die Schnittstelle zwischen Server und Client, die zum Senden von Downstream-Nachrichten verwenet werden kann, wird über Firease Cloud Messaging realisiert. Der Server sendet einen HTTP Post Request an den Firebase Server. Dabei besteht der Content-Body dieser HTTP-Anfrage aus einem JSON-Objekt indem der Empfänger und die zu übermittlenden Daten spezifiziert sind.
+
+Folgende Grafik \footnote{Quelle: https://firebase.google.com/docs/cloud-messaging/send-message} zeigt den Aufbau eines HTTP-Requests, wie er an den FCM Server gesendet werden muss für eine erfolgreiche Weiterleitung der Nachricht:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{http_format.png}
+	\caption{Beispiel für ein HTTP-Request an den FCM Server}
+\end{figure}
+
+Das in grün markierte JSON-Objekt kann dabei je nach Anwendungsfall ein anderes Data-Field enthalten. Das "to"-Feld enthält die instanceId des Empfängers der Nachricht.
+
+\textbf{Inhalt des 'data'-Felds für die verschiedenen Anwendungsfälle der App:}
+Zunächst enthalten sämtliche Nachrichten unter dem Tag "tag" einen String der signalisiert, was der Anlass zum Senden der Nachricht war. Bei diesen Strings handelt es sich um Elemente des Enums EventArg.
+\begin{itemize}
+	\item \textit{Go Added}\\
+	Ein aus einer GO-Entität erzeugtes JSON-Objekt unter dem Tag 'go'. Dieses wird automatisch durch das Framework Gson erzeugt.
+	\item \textit{Go Edited}\\
+	Ein aus einer GO-Entität erzeugtes JSON-Objekt unter dem Tag 'go'. Dieses wird automatisch durch das Framework Gson erzeugt. Es werden allerdings die Listen der Go-Teilnehmer aus dem Objekt entfernt,
+	da Änderungen derselben von diesem Anwendungsfall nicht betroffen sind und die Daten somit nicht übertragen werden müssen.
+	\item \textit{Go Removed}\\
+	Die ID des entfernten Gos unter dem Tag 'id'
+	\item \textit{Group Edited}\\
+	Ein aus einer Group-Entität erzeugtes JSON-Objekt unter dem Tag 'group'. Dieses wird automatisch durch das Framework Gson erzeugt. Es werden allerdings die Listen der Gruppenmitgleider und Administratoren aus dem Objekt entfernt, da Änderungen derselben von diesem Anwendungsfall nicht betroffen sind und die Daten somit nicht übertragen werden müssen.
+	\item \textit{Group Removed}\\
+	Die ID der entfernten Gruppe unter dem Tag 'id'
+	\item \textit{Group Request Received}\\
+	Ein aus einer Group-Entität erzeugtes JSON-Objekt unter dem Tag 'group'. Dieses wird automatisch durch das Framework Gson erzeugt
+	\item \textit{Member Added}\\
+	Die ID der Gruppe zu der der Benutzer hinzugefügt werden soll unter dem Tag 'id'. Unter dem Tag 'user' ist ein JSON-Objekt gespeichert, das aus einer User-Entität erzeigt wurde. Dies geschieht automatisch durch das Framework Gson.
+	\item \textit{Member Removed}\\
+	Die ID des Benutzers, der aus der Gruppe entfernt werden soll unter dem Tag 'user\_id' und die ID der Gruppe, aus der der Benutzer entfernt werden soll unter dem Tag 'group\_id'.
+	\item \textit{Admin Added}\\
+	Die ID des Benutzers, der als Adminsitrator hinzugefügt werden soll unter dem Tag 'user\_id' und die ID der Gruppe, in der dies geschehen soll unter dem Tag 'group\_id'. Es ist nicht nötig das vollständige User-Objekt zu senden, da dies bereits auf den Clients in dem entsprechenden Gruppen-Objekt gespeichert ist.
+	\item \textit{Status Changed}\\
+	Die ID des Benutzers, der seinen Status geändert hat unter dem Tag 'user\_id', die ID des GOs in der die Statusänderung stattgefunden hat unter dem Tag 'go\_id' und eine Zahl, die den neuen Status repräsentiert, unter dem Tag 'status'. Es gilt '0': ABELEHNT, '1': BESTÄTIGT, '2': UNTERWEGS.
+\end{itemize}
+
+Bei den Clients kommt die gesendete Nachricht als remoteMessage-Objekt an. Durch die getData()-Methode kann auf den Content-Body, also das JSON-Objekt, das den eigentlichen Inhalte der Nachricht entält zugegriffen werden.
+
+
 
 \section{Klassendiagramme}
 
