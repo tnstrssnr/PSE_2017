@@ -30,6 +30,14 @@ public class FcmClient {
     private HttpClient httpClient;
 
     /**
+     * Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die Konfikuration des HttpClients
+     * standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL schicken kann.
+     */
+    public FcmClient() {
+
+    }
+
+    /**
      * Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der HttpClient
      * der FcmClient-Instanz benutzt.
      *

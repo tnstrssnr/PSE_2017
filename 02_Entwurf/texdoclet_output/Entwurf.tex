@@ -102,7 +102,19 @@ Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflicht
 
 
 
-% add something here
+\newpage
+
+\begin{abstract}
+Die Android App GO! ist eine mobile Applikation, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Beim erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.\\
+
+Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
 
 \section{Änderungen zum Pflichtenheft}
 
@@ -117,6 +129,9 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 \newpage
 
 \section{Architekturstil und Paketstruktur}
+Dieses Kapitel erläutert den Architekturstil und die Paketstruktur des Systems. es wird noch nicht auf einzelne Klassen eingegangen sondern lediglich die Zusammenarbeit der module beschrieben und die Abhängigkeiten untereinander.
+
+Aufgebaut ist das System mit einer Client-Server-Architektur, d.h. es gibt eine Client-Applikation, die auf den Android-Geräten der Benutzer läuft und Services des Servers in Anspruch nimmt und eine Server-Anwendung, die auf dem Tomcat-Server läuft, der diese Services bereitstellt und auf Anfrage eines Clients seine Dienste erfüllt.
 
 \subsection{Client}
 Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. Das untenstehende Paketdiagramm zeigt den groben Aufbau der Client-Applikation, welche Abhängigkeiten bestehen und welche Aufgaben jedes Paket übernimmt. Genauere erläuterungen hierzu finden sich in den darauffolgenden Abschnitten.
@@ -167,7 +182,16 @@ Wie in den vorherigen Abschnitten erläutert, ist die Geschäftslogik der App au
 ...
 
 \subsection{Server}
-Die Architektur ser Servers orientiert sich an einer MVC-Architektur. Das Programm des Servers ist in folgende Pakete aufgeteilt:
+Die Architektur ser Servers orientiert sich an einer Schichten-Architektur. Dabei handelt es sich nicht um eine klassische Schichtenarchitektur, bei der nur obere Schichten Dienste der unteren Schichten aufrufen darf. Stattdessen sind die oberen Schichten in zwei Unterpakete unterteilt. In einer Hälfte jeder Schicht gehen die Methodenaufrufe von oben nach unten, in der anderen von unten nach oben. Durch diese zwei Säulen in der Anwendung ist die Implementierung, trotz Verletzung des Schichtenmodells, leicht realisierbar, da die Unterpakete immernoch topologisch sortiebar sind, sodass
+eine Implementierungsreihenfolge gefunden werden kann, bei der zu jeder Zeit die Abhängigkeiten des gerade entwickelten Moduls bereits implementiert sind.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{../Klassendiagramme/paketdiagramm_server.png}
+	\caption{Paketdiagramm der Clientanwendung}
+\end{figure}
+
+Das Programm des Servers ist in folgende Pakete aufgeteilt:
 \begin{itemize}
 	\item CommunicationLayer
 	\item BusinessLayer
@@ -175,13 +199,23 @@ Die Architektur ser Servers orientiert sich an einer MVC-Architektur. Das Progra
 \end{itemize}
 
 \subsubsection{CommunicationLayer}
-Dieses Paket übernimmt die Rolle des Views. Die CommunicationLayer vereint alle Klassen, die an der Kommunication mit den Clients beteiligt sind. Es besteht aus den Unterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+Dieses Paket bildet die oberste Schicht der Serveranwendung und ist die einzige Schicht, die für die Clients sichtbar ist. Die CommunicationLayer vereint alle Klassen, die an der Kommunikation mit den Clients beteiligt sind. Es besteht aus den Unterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+
+Das Untermodul Upstream nimmt die Dineste der unteren Schichten in Anspruch. Dabei handelt es sich um eine transparente Schichtenarchitektur, das bedeutet das Modul nimmt nicht nur die Dienste der mittleren, sondern auch die Dienste der unteren Schicht in Anspruch.
+
+Das Untermodul Downstream hingegen bietet Dienste an, nämlich das versenden von Nachrichten an Clients, die von den unteren Schichten der Serverandwendung verwendet wird.
 
 \subsubsection{BusinessLayer}
-Die BusinessLayer ist der Controller der Serveranwendung. dieses Modul realisiert Datenänderungen und Operationen auf der PersistenceLayer. Außerdem ist hier die Logik für die Erfassung und Auswertung der Standortdaten implementiert. Dies funktioniert ohne die Beteiligung des Modells, da diese Daten nur kurzfristig erfasst, verarbeitet und zurückgesendet werden müssen.
+Die BusinessLayer ist die mittlere Schicht und beinhaltet den Großteil der Anwendungslogik der Serveranwendung. Wie die anderen Schichten des Server, besteht auch die BusinessLayer aus zwei Untermodulen: LocationService und DataObserver.
+
+Das Modul LocationService kümmert sich um alle Angelegenheiten, die mit der Erfassung, der kurzzeitigen Persistierung und dem Clustering von Standortdaten zusammenhängen. Dieser Dienst wird von der oberen Schicht in Anspruch genommen. Zur unteren Schicht bestehen keine Abhängigkeiten, da Standortdaten nicht in der datenbank gespeichert weden. Dieses Untermodul aht selbst also keine Abhängigkeiten zu anderen Paketen.
+
+Das zweite Untermodul der BusinessLayer ist das DataObserver-Modul. Dieses Modul wird bei Anderungen in der Datenbasis von der PersistenceLayer angesprochen und kümmert sich folgend darum, die Änderungen zu analysieren, herauszufinden welche Clients von der Änderung erfahren müssen und diese Informationen an die obere Schicht weiterzuleiten, um eine Nachricht an genau diese Clients zu schicken. Dementsrechend bietet dieses Untermodul einen Dienst, der von der PersistenceLayer in Anspruch genommen wird und nimmt einen Dienst in Ansprcu der von der CommunicationLayer angeboten wird.
 
 \subsubsection{PersistenceLayer}
-Die PersistenceLayer bildet das Datenmodell. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung an die Communicationlayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.
+Die PersistenceLayer kapselt das Datenmodellder Anwendung in sich. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung der Daten an die Communicationlayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.
+
+Im Gegensatz zu den zwei anderen Schichten gibt es in dieser Schicht keine Untermodule. Der Dienst des Moduls wird von dem Upstream-Modul der CommunicationLayer in Anspruch genommen. Geschieht dies, wird aus der PersistenceLayer der Dienst der DataObserver angestoßen, um die Änderungen in dem Datenbestand wieder durch die Schichten nach oben und schließlich zu den Clients zu leiten.
 
 \newpage
 
@@ -199,36 +233,49 @@ Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über d
 \end{itemize}
 
 \subsection{Beobachter zum Aktualisieren des UI}
-Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderngen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die Livedata-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
+Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderungen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die Livedata-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
 \textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{LiveData<>:}\\ das beobachtete Subjekt
 	\item \textit{BaseActivity (die von LifecycleActivity erbt):}\\ Der Beobachter, der bei Änderung der Daten benachrichtigt wird und daraufhin das dem Benutzer präsentierte UI aktualisiert.
 \end{itemize}
 
-\subsection{DAO-Pattern zur lokalen Persisitierung von Daten}
-Damit nicht bei jeder Datenanforderung, die vom UI gestellt wird, ein Zugriff auf den Tomcat-Server unternommen werden muss, werden die Daten des Benutzers lokal in einer SQLite Datenbank persistiert. Die Implementierung des Datenbankschemas und der Datenbankzugriffe wird mithilfe des Android-Framworks Room realisiert. Dabei wird ein Data Access Object Pattern verwendet.
-Die Entity-Beans definieren dabei, wie das Schema der Datenbank aufgebaut wird (jede als entity annotierte klasse wird als eine Tabelle in der Datenbank umgesetzt), die DAO-Interfaces definieren die Methoden, mit denen vom Programm aus af die Datenbank zugegriffen werden kann.\\
+\subsection{Beobachter zum Weiterleiten von Änderungen der Datenbasis}
+Werden von einem Client Daten der App geändret (z.B. eine GO erstellt, ein Benutzer zu einer Gruppe hinzugefügt) betrifft dies in vielen auch die Daten, die ein anderer Client bei sich gespeichert hat und benutzt. Dementsprechend müssen Clients vom Server über Änderungen in der DAtenbasis informaiert werden können. Es ergibt sich eine 1-zu-n-Abhängigkeit: n Clients sind von 1 Datenbasis abhängig.
+
+Zur Auflösung dieser Abhängigkeit wird in der Anwendung eine Beobachter-Muster verwendet. Die Datenbasis wird beobachtet und bei Änderungen leiten die Beobachter die Benachrichtigung der Clients
+ein. Da ein Beobachter nicht ein einzelnes Objekt, sondern eine gesamte Datenbanktabelle beobachet, ist es schwierig, den aktuellen Zustand des Subjekts im Beobachter zu speichern. Aus idesem Grund verwenden die beobachter eine push-Methodik, bei der die Änderungen bei der Benachrichtigung der Beobachter mit übergeben werden.
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
-	\item \textit{User, Go, Group:}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
-	\item \textit{UserDao, GoDao, GroupDao:}\\ Data-Access-Object Interfaces, die die eigentlichen Zugriffe auf die Datenbank übernehmen.
+	\item \textit{Observable<T>}\\ Das Interface ist das abstrakte Subjekt. Jedes konkrete Subjekt muss dieses Interface und damit die Methode notify() implementieren. Diese Methode benachrichtigt die Beobachter über ein Update in der Datenbasis.
+	\item \textit{DAO-Klassen}\\ Diese Klassen implementieren das Interface Observable und sind die konkreten Subjekte, die von den Beobachtern beobachtet werden.
+	\item \textit{Observer}\\ Das Interface Observer ist der abstrakte Beobachter. Jeder konkrete Beobachter muss dieses Interface und damit die Methode update() implementieren.
+	\item \textit{EntityObserver}\\Konkrete Beobachter, die das Interface Observer implementieren. Jede dieser Klassen übernimmt die Verantwortung für bestimmte Änderungen in der Datenbasis, analysiert, welche Änderung geschehen ist und übergibt diese Daten zum versenden an den FcmClient.
+\end{itemize}
+
+\subsection{DAO-Pattern zur Persistierung von Daten}
+Die Daten der App werden in eine MySQL-Datenbank persistiert. Für den Zugriff auf diese Datenbank wird ein Data Access Object Entwurfsmuster verwendet. Dabei werden zum Einen Java Beans verwendet, die die Struktur der Datenbankrelationen festlegen. Zum Anderen gibt es spezielle DAO-Klassen die alle Datenbankzugriffe in sich kapseln. So können zusätzliche Zugriffsmethoden für die Datenbank hinzugefügt werden, ohne die Entity-Klassen verändern zu müssen. Andersherum kann der Aufbau der Datenbank verändert werden, ohne dass die DAO-klasseni ihre Schnittstelle nach außen verändern.
+Die Umsetzung der Datenbank und der SQL-Queries wird mithilfe des Frameworks Hibernate realisiert.\\
+
+\textbf{beteiligte Klassen:}
+\begin{itemize}
+	\item \textit{UserEntity, GoEntity, GroupEntity}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
+	\item \textit{AbstractDAO}\\ INterface für eine DAO-Klasse, wleches Zugriffsmethoden definiert, die auf jeder Datenbanktabelle durchgeführt werden müssen (CRUD)
+	\item \textit{UserDao, GoDao, GroupDao}\\ Data-Access-Object Interfaces, die spezielle Zugriffsmethoden enthalten, die nur für bestimmte Datenbanktabellen gebraucht werden.
+	\item \textit{UserDaoImp, GoDapImp, GroupDaoImp}\\ konkrete IMplementierungen der DAO Interfaces. Hier werden die Zugriffsmethoden anhand des von den Entity-Klassen definierten Datenbankschemas
+	implementiert.
 \end{itemize}
 
 \subsection{Vermittler zur Koordination von Datenzugriffen}\label{Vermittler}
-Wenn der Benutzer bestimmte Daten anzigen will, muss die App diese Daten zunächst beschaffen, entweder aus den lokal persisitierten Daten oder gegebenenfalls vom Remote-Server des Systems- Ähnlich verhält es sich mit Änderungen von Daten: Die Änderungen müssen sowohl lokal in der SQLIte Datenbank und im ViewModell, als auch auch der zentralen Datenbank des Server geändert werden.\\
-Um diese vielen Abhängigkeiten zu verwalten und die Konsistenz der Daten sicherzustellen, sollen Datarepository-Klasssen implementiert werden, die als Vermittler zwischen den Kollegen dienen.
-So muss das ViewModell zum Erstellen/Ändern/Löschen von Daten lediglich das DataRepository ansprechen, ohne die darunterliegende Datenpersistenzlogik zu kennen. Auch der Server kommuniziert seine Daten nur mit der Datarepository. Modell und Viewmodell müssen sich so gegenseitig nicht referenzieren, sondern für alle Komponenten eyisitert ein zentraler Ansprechpartner.\\
+Viele Apps Nutzen eine lokale Datenbank, um eine Benutzung der App, zumindest ansatzweise, auch ohne Internetverbindung zu ermöglichen. Auch wenn in diesem Entwurf keine lokale Datenbank auf den CLients vorgesehen ist, soll dieses Feature leicht erweiterbar sein. Zu diesem Zweck ist bei der Aktualisierung/Beschaffung der Daten für die ViewModels eine zusätzliche Indirektionsstufe eingebaut: Die Repositories. Diese übernehmen im Zusammenspiel der App-Komponenten eine Vermittler-Funktion: Während die ViewModels wissen WAS gemacht werden muss (da diese die aktuellen Daten und Funktionen für den User speichern), wissen die Repositories WO dies getan werden muss - in der lokalen Datenbank, in den SharedPreferences des Andorid-Geräts oder auf dem Remote Server.
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
-	\item \textit{GoRepository/GroupRepository:}\\
-	 Vermittler
-	\item \textit{ViewModell, TomcatrestApi, Dao:}\\ Kollegen
+	\item \textit{GoRepositor, GroupRepository, UserRepository:}\\
+	 Die Vermittler die die Koordination der Kollegen übernehmen
+	\item \textit{ViewModell, TomcatRestApi, lokale Datenbank, SharedPreferences:}\\ Kollegen, die nichts voneinander wissen, sondern bei allen Aufrufen vom vermittler angesprochen werden, bzw. den Vermittler ansprechen.
 \end{itemize}
-
-\subsection{DAO Pattern für Datenpersistenz auf dem Server}
 
 \subsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
 Das Clustern der Standorte der Teilnehmer eines GOs wird von der Klasse GoClusterStrategy übernommen. Diese Klasse ist mittels eines Strategy-Patterns in das Programm eingebunden. Dies entkoppelt den Algorithmus von seinem Kontext und erkann dynamisch durch andere Clustering-Alogirthmen ersetzt oder ergänzt werden. \\
@@ -251,6 +298,60 @@ Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST In
 	\item \textit{TomcatRestApi} \\
 	Das Interface ist die Fassade, die die Schnittstelle zum Tomcat-Server hinter sich versteckt. Nach außen werden Methoden bereitgestellt, die von anderen Klassen aufgerufen werden können, um Server-Dienste in Anspruch nehmen zu können, ohne sich um die Details der Kommunikation zu kümmern.
 \end{itemize}
+
+\subsection{Dekorierer zur Erweiterung der Aktivitäten für Sonderbenutzer}
+Für GO-Verantwortliche und Gruppenadmins werden GroupDetailActivity oder GoDetailActivity entschprechend erweitert. Zusätzliche Buttons und Methoden werden hinzugefügt.(z.B. Name der Gruppe ändern, Mitglieder hinzufügen usw.) Dazu haben wir eine Android-Version von Dekorierer benutzt. Die spezielle Unterklassen (GroupDetailActivitzOwner bzw. GoDetailActivityOwner) von oben genannten Activities benutzen fertige Oberklassen Activities und fügen darauf die benötigte Funktionalität hinzu.
+
+\textbf{beteiligte Klassen}
+\begin{itemize}
+\item \textit{GroupdetailActivity} \\
+Activity, wo die Gruppendetails angezeigt werden. Ist eine Oberklasse von GroupDetailActivityOwner.
+\item \textit{GroupDetailActivityOwner}
+Erweitert die Oberklasse um Funktionen für die Admins.
+\item \textit{GoDetailActivity}
+Activity, wo Go-Details angezeigt werden. Oberklasse von GoDetailActivityOwner.
+\item \textit{GoDetailActivityOwner}
+Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
+\end{itemize}
+
+
+\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+
+
+\newpage
+
+\section{Client-Server-Schnittstelle}
+Dieser Abschnitt erläutert die Schnittstelle zwischen dem Client und dem Server. Diese Schnittstelle besteht aus zwei Teilen:
+
+Zum Einen bietet der Server eine REST API an, über die der Client die Dienste des Servers in Anspruch nehmen kann. Zum Anderen gibt es eine Schnittstelle, die über Firebase Cloud Messaging realisiert ist, damit der Server Nachrichten an bestimmte Clients schicken kann.
+
+\subsection{REST API des Servers}
+
+\section{Sequenzdiagramme}
+
+\subsection{Hinzufügen eines Gruppenmitglieds}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Sequenzdiagramme/addGroupMember.jpg}
+	\caption{Sequenzdiagramm - Hinzufügen eines Gruppenmitglieds Teil 1}
+\end{figure}
+
+Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms passiert, wenn ein Benutzer die Funktion "inviteMember" ausführt. Das User Interface stellt dem Benutzer ein Textfeld zur Eingabe der E-Mailadresse und einen Button zum Bestätigen zur Verfügung. Bei Klick dieses Buttons extrahiert die Activity-Klasse die eingegebene Mail-Adresse aus dem Textfeld und übergibt diese an das ViewModel über den Methodenaufruf "inviteMember". Das ViewModel überprüft zunächst ob es bereits einen Benutzer in Gruppe gibt, der diese E-Mailadresse besitzt. Falls nicht, wird die Gruppeneinladung an die Grouprepository weitergeleitet und von dort über die Klasse TomcatrestApi an den Server gesendet.
+
+Empfängt der Server eine Anfrage, einen User zu einer Gruppe hinzuzufügen, wird diese Anfrage zunächst an das UserDao weitergegeben. Dort wird zuerst die Methode getUserByMail() aufgerufen, um den richtigen Benutzer aus der Datenbank zu finden. Danach wird die addGroupmember-methode des GroupDaos aufgerufen. In dieser methode wird die neue gruppenanfrage in der Datenbank gespeichert und es werden die Observer benachrichtigt, dass sich Daten geändert haben.
+
+Der AddEntityObserver erkennt, dass es sich um eine Änderung handelt, die seinen Veratnwortlichkeitsbereich betrifft. Er bekommt beim Aufruf der update()-Methode die Gruppe mit der zusätzlichen Gruppenanfrage übergeben. Der Observer extrahiert alle Gruppenmitglieder aus dem Gruppenobjekt und ruft die send()-methode des FcmClients auf, um das geänderte Gruppenobjekt an alle Gruppenmitglieder zu senden. Danach wird die send()-Methode ein zweites Mal aufgerufen, um dem neuen Gruppenmitglied die neue Gruppenanfrage zu übermitteln.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Sequenzdiagramme/addMember2.jpg}
+	\caption{Sequenzdiagramm - Hinzufügen eines Gruppenmitglieds Teil 2}
+\end{figure}
+
+Das zweite Sequenzdiagramm zeigt, was passiert, wenn an einen Benutzer eine Gruppenmitgliedschaftsanfrage gesendet wird. Die Nachricht, die von dem Server, über dem Firebase Cloud Messaging Server, an den Client gesendet wird, löst einen Aufruf der Methode onMessageReceived() in der Klasse MessageReceiver aus. Diese Klasse extrahiert das JSON-Feld COMMAND\_CODE aus dem empfangenen JSON-Objekt und findet so heraus, an welches ServerCommand-Objekt die Anfrage weitergeleitet werden muss.
+
+Nach Weiterleitung der Anfrage an den GroupRequestReceivedCommand wird dort das Datenfeld aus der JSON-Nachricht extrahiert. dort ist die Gruppe gespeichert, zu der er Benutzer eingeladen wurde. Diese Gruppe wird in dem öffentlichen "CurrentData" Field des GroupRepository gespeichert. Danach schickt das GroupRequestReceivedCommand-Objekt einen Broadcast an alle ViewModels. Das GroupViewModel erkennt, dass der Broadcast eine Änderung der Gruppen des Benutzers betrifft. Daher wird dort die onBroadcastReceived()-Methode auferufen. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoupRepository ab, durch einen Aufruf der getCurrentData()-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
 \section{Klassenbeschreibungen}
 
@@ -275,22 +376,24 @@ Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST In
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GroupDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.UserDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Cluster {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Cluster}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.EntitiyRemovedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.EntityAddedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}} \\
+\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.EntityChangedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.GoClusterStrategy {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.LocationService {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.LocationService}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Observer {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observer}} \\
 \hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.UserLocation {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.UserLocation}} \\
 \hspace{1.0cm} $\bullet$ java.lang.Enum {\tiny \refdefined{java.lang.Enum}} \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Downstream.EventArg {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}} \\
 \hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.Status {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.Status}} \\
 }
 \subsection*{Interfaces}
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Downstream.FcmApi {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmApi}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.AbstractDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GoDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GroupDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.UserDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.ClusterStrategy {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy}} \\
 \hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Observable {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observable}} \\
+\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Observer {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observer}} \\
 }
 \section{Package edu.kit.pse17.go\_app.PersistenceLayer}{
 \label{edu.kit.pse17.go_app.PersistenceLayer}\hypertarget{edu.kit.pse17.go_app.PersistenceLayer}{}
@@ -1329,7 +1432,7 @@ public class GoDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.delete(java.lang.Long)}{{\bf delete(Long)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.get(java.lang.Long)}{{\bf get(Long)}} \\
-\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.notify(edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf notify(GoEntity)}} \\
+\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf notify(String, Observable, GoEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.persist(edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf persist(GoEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} \\
@@ -1408,16 +1511,20 @@ public edu.kit.pse17.go_app.PersistenceLayer.GoEntity get(java.lang.Long key)\en
 \end{itemize}
 }%end item
 \item{ 
-\index{notify(GoEntity)}
-\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.notify(edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf  notify}\\}
+\index{notify(String, Observable, GoEntity)}
+\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf  notify}\\}
 \begin{lstlisting}[frame=none]
-public void notify(edu.kit.pse17.go_app.PersistenceLayer.GoEntity goEntity)\end{lstlisting} %end signature
+public void notify(java.lang.String impCode,edu.kit.pse17.go_app.ServiceLayer.Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GoEntity goEntity)\end{lstlisting} %end signature
 \begin{itemize}
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{goEntity} -- }
+\texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+   \item{
+\texttt{goEntity} -- Das Go an dem Änderungen vorgenommen wurden}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1447,7 +1554,7 @@ public void register(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{ls
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observer} -- }
+\texttt{observer} -- der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1462,7 +1569,7 @@ public void unregister(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observer} -- }
+\texttt{observer} -- Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1507,7 +1614,7 @@ public class GroupDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.delete(java.lang.Long)}{{\bf delete(Long)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.get(java.lang.Long)}{{\bf get(Long)}} \\
-\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.notify(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf notify(GroupEntity)}} \\
+\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf notify(String, Observable, GroupEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.persist(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf persist(GroupEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} \\
@@ -1586,14 +1693,18 @@ public edu.kit.pse17.go_app.PersistenceLayer.GroupEntity get(java.lang.Long key)
 \end{itemize}
 }%end item
 \item{ 
-\index{notify(GroupEntity)}
-\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.notify(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf  notify}\\}
+\index{notify(String, Observable, GroupEntity)}
+\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf  notify}\\}
 \begin{lstlisting}[frame=none]
-public void notify(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity groupEntity)\end{lstlisting} %end signature
+public void notify(java.lang.String impCode,edu.kit.pse17.go_app.ServiceLayer.Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GroupEntity groupEntity)\end{lstlisting} %end signature
 \begin{itemize}
 \item{
 {\bf  Parameters}
   \begin{itemize}
+   \item{
+\texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
    \item{
 \texttt{groupEntity} -- }
   \end{itemize}
@@ -1625,7 +1736,7 @@ public void register(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{ls
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observer} -- }
+\texttt{observer} -- der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1640,7 +1751,7 @@ public void unregister(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observer} -- }
+\texttt{observer} -- Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1689,7 +1800,7 @@ public class UserDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.getGroups(java.lang.String)}{{\bf getGroups(String)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.getRequests(java.lang.String)}{{\bf getRequests(String)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.getUserByEmail(java.lang.String)}{{\bf getUserByEmail(String)}} \\
-\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.notify(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf notify(UserEntity)}} \\
+\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf notify(String, Observable, UserEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.persist(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf persist(UserEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} \\
@@ -1735,7 +1846,7 @@ public void delete(java.lang.String key) throws EntityNotFoundException\end{lstl
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
+\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
   \end{itemize}
 }%end item
 \item{{\bf  Throws}
@@ -1833,10 +1944,23 @@ public edu.kit.pse17.go_app.PersistenceLayer.UserEntity getUserByEmail(java.lang
 \end{itemize}
 }%end item
 \item{ 
-\index{notify(UserEntity)}
-\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.notify(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf  notify}\\}
+\index{notify(String, Observable, UserEntity)}
+\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf  notify}\\}
 \begin{lstlisting}[frame=none]
-public void notify(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity)\end{lstlisting} %end signature
+public void notify(java.lang.String impCode,edu.kit.pse17.go_app.ServiceLayer.Observable observable,edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+   \item{
+\texttt{userEntity} -- }
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \item{ 
 \index{persist(UserEntity)}
@@ -1857,18 +1981,13 @@ public void persist(edu.kit.pse17.go_app.PersistenceLayer.UserEntity entity)\end
 \index{register(Observer)}
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf  register}\\}
 \begin{lstlisting}[frame=none]
-void register(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{lstlisting} %end signature
+public void register(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{lstlisting} %end signature
 \begin{itemize}
-\item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable}{edu.kit.pse17.go_app.ServiceLayer.Observable}{\small \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observable}} }
-
-Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von observern hinzugefügt, falls diese Liste noch nicht vorhanden ist, wird sie erstellt. Der Beobachter ist nach dem Hinzufügen zu der Liste funktionsfähig.
-}
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observer} -- der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines Observers es sich handelt.}
+\texttt{observer} -- der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1877,18 +1996,13 @@ Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer 
 \index{unregister(Observer)}
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf  unregister}\\}
 \begin{lstlisting}[frame=none]
-void unregister(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{lstlisting} %end signature
+public void unregister(edu.kit.pse17.go_app.ServiceLayer.Observer observer)\end{lstlisting} %end signature
 \begin{itemize}
-\item{
-{\bf  Description copied from \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable}{edu.kit.pse17.go_app.ServiceLayer.Observable}{\small \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observable}} }
-
-ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird. Er wird aus der Liste entfernt.
-}
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observer} -- Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass es sich bei dem Objekt um einen vorher registrierten, noch existenten Observer handelt.}
+\texttt{observer} -- Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1903,7 +2017,7 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity) 
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{userEntity} -- }
+\texttt{userEntity} -- Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity handeln, ansonsten schlägt ide Ausführung der Methode fehl.}
   \end{itemize}
 }%end item
 \item{{\bf  Throws}
@@ -1922,38 +2036,11 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity) 
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
 \vskip .13in
-\hbox{{\bf  Interfaces}}
-\entityintro{FcmApi}{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmApi}{API des FCM-Servers.}
-\vskip .13in
 \hbox{{\bf  Classes}}
 \entityintro{EventArg}{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}{Dieses Enum enthält String-Konstanten, die vom FcmClient in die Nachrichten an Clients eingefügt werden, damit der Client anhand der Nachricht feststellen kann, welches Ereignis eingetreten ist.}
-\entityintro{FcmClient}{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}{Client-Klasse, die ein HTTP POST\_Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird.}
+\entityintro{FcmClient}{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}{Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmApi}Interface FcmApi}{
-\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmApi}{}\vskip .1in 
-API des FCM-Servers. Kann von Retrofit-Objekten verwendet werden, um POST-Requests an den FCM Server zu schicken. Created by tina on 29.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public interface FcmApi
-\end{lstlisting}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmApi.sendDownStreamMessage()}{{\bf sendDownStreamMessage()}} \\
-\end{verse}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{sendDownStreamMessage()}
-\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmApi.sendDownStreamMessage()}{{\bf  sendDownStreamMessage}\\}
-\begin{lstlisting}[frame=none]
-void sendDownStreamMessage()\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-}
 \subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}Class EventArg}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}{}\vskip .1in 
 Dieses Enum enthält String-Konstanten, die vom FcmClient in die Nachrichten an Clients eingefügt werden, damit der Client anhand der Nachricht feststellen kann, welches Ereignis eingetreten ist.\vskip .1in 
@@ -2145,19 +2232,19 @@ public static EventArg[] values()\end{lstlisting} %end signature
 }
 \subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}Class FcmClient}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}{}\vskip .1in 
-Client-Klasse, die ein HTTP POST\_Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird. Created by tina on 29.06.17.\vskip .1in 
+Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird. dadurch kann der Server eine Nachricht an einen Client schicken, ohne dass dieser zuvor den Server angesprochen haben muss. Die Methoden der Klasse werden aufgerufen von den Observer-Klassen der Anwendung. Dabei werden die Nachrichten, die an die Clients gesendet werden müssen sowie die Addressaten bereits in den aufrufenden Methoden bestimmt. Diese klasse muss sich nur um das eingentliche Senden der HTTP-Requests kümmern, der Inhalt der Nachricht spielt dabei keine Rolle.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public class FcmClient
  extends java.lang.Object\end{lstlisting}
 \subsubsection{Constructor summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient()}{{\bf FcmClient()}} Konstruktor\\
+\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient()}{{\bf FcmClient()}} Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt.\\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send()}{{\bf send()}} sendet eine Message an den FCM-Server, der diese an das User-Endgerät weiterleitet\\
+\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send(JsonObject, java.lang.String, java.util.List)}{{\bf send(JsonObject, String, List)}} Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet.\\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -2172,7 +2259,7 @@ public FcmClient()\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Konstruktor
+Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die Konfikuration des HttpClients standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL schicken kann.
 }
 \end{itemize}
 }%end item
@@ -2182,16 +2269,27 @@ Konstruktor
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{send()}
-\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send()}{{\bf  send}\\}
+\index{send(JsonObject, String, List)}
+\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send(JsonObject, java.lang.String, java.util.List)}{{\bf  send}\\}
 \begin{lstlisting}[frame=none]
-public void send()\end{lstlisting} %end signature
+public void send(JsonObject data,java.lang.String command,java.util.List receiver)\end{lstlisting} %end signature
 \begin{itemize}
 \item{
 {\bf  Description}
 
-sendet eine Message an den FCM-Server, der diese an das User-Endgerät weiterleitet
+Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der HttpClient der FcmClient-Instanz benutzt. Diese Methode wird von den Observer-Klassen aufgerufen, um die Änderungen, die dort behandlet wurden mithilde dieser Klasse an die Clients zu schicken. Es wird vorausgesetzt, dass die Daten und vor allem die InstanceIDs, die dieser Methode übergeben werden, gültig sind.
 }
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{data} -- Dieses Objekt enthält die Daten, die an den Client geschickt werden sollen}
+   \item{
+\texttt{command} -- Ein String, der anzeigt, um was für eine Nachricht es sich handelt, also zu welchem Serverereignis sie gehört. Dieser String bestimmt, an welche Command-Klasse auf dem Client die Nachricht weitergeleitet wird.}
+   \item{
+\texttt{receiver} -- Eine Liste mit den InstaceIds der Clients,an die die Nachricht geschickt werden soll. dabei muss es sich um gültige InstanceIds handeln, sonst kann die Methode nicht fehlerfrei ausgeführt werden.}
+  \end{itemize}
+}%end item
 \end{itemize}
 }%end item
 \end{itemize}
@@ -2816,13 +2914,16 @@ public static void main(java.lang.String[] args)\end{lstlisting} %end signature
 \vskip .13in
 \hbox{{\bf  Interfaces}}
 \entityintro{ClusterStrategy}{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy}{Dieses Interface definiert die Schnittstelle, die eine Klasse, die einen Clustering-Algorithmus implementiert, anbieten.}
-\entityintro{Observable}{edu.kit.pse17.go_app.ServiceLayer.Observable}{Dieses Interface ist Teil einer Implemtierung eines Beobachter-Entwurfsmusters.}
+\entityintro{Observable}{edu.kit.pse17.go_app.ServiceLayer.Observable}{Dieses Interface ist Teil einer Implementierung eines Beobachter-Entwurfsmusters.}
+\entityintro{Observer}{edu.kit.pse17.go_app.ServiceLayer.Observer}{Dieses Interface gehört zu einer Implementierung des Entwurfsmusters Beobachter.}
 \vskip .13in
 \hbox{{\bf  Classes}}
 \entityintro{Cluster}{edu.kit.pse17.go_app.ServiceLayer.Cluster}{Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den Standorten erleichtert.}
+\entityintro{EntitiyRemovedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces.}
+\entityintro{EntityAddedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces.}
+\entityintro{EntityChangedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Oberver interfaces. dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers.}
 \entityintro{GoClusterStrategy}{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}{In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus implementiert.}
 \entityintro{LocationService}{edu.kit.pse17.go_app.ServiceLayer.LocationService}{Diese Klasse bietet eine Schnittstelle für den GOrestController, an die Anfragen, die den User- bzw.}
-\entityintro{Observer}{edu.kit.pse17.go_app.ServiceLayer.Observer}{Created by tina on 30.06.17.}
 \entityintro{UserLocation}{edu.kit.pse17.go_app.ServiceLayer.UserLocation}{Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clustering-Algorithmus das hantieren mit den Standorten erleichtert.}
 \vskip .1in
 \vskip .1in
@@ -2871,7 +2972,7 @@ eine Liste von Cluster-Objekten, die den aktuellen Standort der Gruppe beschreib
 }
 \subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Observable}Interface Observable}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observable}{}\vskip .1in 
-Dieses Interface ist Teil einer Implemtierung eines Beobachter-Entwurfsmusters. Es übernimmt die Rolle des abstrakten Subjekts. Es muss von allen Klassen, die beobachtet werden müssen implementiert werden. In dieser Anwendung sind dies die DAO Klassen. Diese werden beobachtet, um Änderungen am Datenbestand zu bemerken und diese Änderungen an betroffene Clients weiterleiten zu können. Das Generic T gibt an, welcher Datentyp von den Änderungen betroffen ist und von den Beobachtern an die Clients weitergeleitet weden muss.\vskip .1in 
+Dieses Interface ist Teil einer Implementierung eines Beobachter-Entwurfsmusters. Es übernimmt die Rolle des abstrakten Subjekts. Es muss von allen Klassen, die beobachtet werden müssen implementiert werden. In dieser Anwendung sind dies die DAO Klassen. Diese werden beobachtet, um Änderungen am Datenbestand zu bemerken und diese Änderungen an betroffene Clients weiterleiten zu können. Das bedeutet bei jeder Änderung an dem Datenbestand muss anschließend die notify()-Methode aufgerufen werden, um den Beobachtern die Änderungen zu übergeben. Das Generic T gibt an, welcher Datentyp von den Änderungen betroffen ist und von den Beobachtern an die Clients weitergeleitet weden muss.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public interface Observable
@@ -2880,7 +2981,7 @@ public interface Observable
 \subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{Method summary}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.notify(edu.kit.pse17.go_app.ServiceLayer.Observable, T)}{{\bf notify(Observable, T)}} \\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, T)}{{\bf notify(String, Observable, T)}} Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} Mit dieser Methode kann man einen neuen Observer registrieren.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird.\\
 \end{verse}
@@ -2889,18 +2990,25 @@ public interface Observable
 \vskip -2em
 \begin{itemize}
 \item{ 
-\index{notify(Observable, T)}
-\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observable.notify(edu.kit.pse17.go_app.ServiceLayer.Observable, T)}{{\bf  notify}\\}
+\index{notify(String, Observable, T)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observable.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, T)}{{\bf  notify}\\}
 \begin{lstlisting}[frame=none]
-void notify(Observable observable,java.lang.Object t)\end{lstlisting} %end signature
+void notify(java.lang.String impCode,Observable observable,java.lang.Object t)\end{lstlisting} %end signature
 \begin{itemize}
+\item{
+{\bf  Description}
+
+Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst. Die Methode löst nur dann eine Aktion bei einem der Observer aus, wenn zuvor ein zu der Ändeurng passender Observer registriert wurde.
+}
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{observable} -- }
+\texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
    \item{
-\texttt{t} -- }
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+   \item{
+\texttt{t} -- Das Objekt das die Änderung enthält bzw. an dem die Änderung durchgeführt wurde.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2941,6 +3049,50 @@ ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Method
   \begin{itemize}
    \item{
 \texttt{observer} -- Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass es sich bei dem Objekt um einen vorher registrierten, noch existenten Observer handelt.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Observer}Interface Observer}{
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observer}{}\vskip .1in 
+Dieses Interface gehört zu einer Implementierung des Entwurfsmusters Beobachter. Es übernimmt dabei die Rolle des abstrakten Beobachters. Jede konkrete Beobachter-Klasse muss dieses Interface implementieren und über eine update-Methode verfügen. Die Aufgabe der Beobachter in dieser Anwendung ist das Beobachten der DAO-Klassen und bei Änderungen im Datenbestand, diese Ändeurngen an die Clients der betroffenen Benutzer weiterzuleiten. Dazu werden aus dem übergebenen Pbjekt die wichtigen Daten extrahiert und in ein JSON-Objekt umgewandelt. Dieses kann an das Downstream-ClientCommunication Modul übergeben werden, wo es an die betroffenen Clients geschickt wird. Die Implementierung des Entuwrfsmusters benutzt ein push-Modell, d.h. die Änderungen werden den Beobachtern bei einem notify()-Aufruf gliech mit übergeben. Die Beobachter müssen sich diese Änderungen nicht selbst holen.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public interface Observer
+\end{lstlisting}
+\subsubsection{All known subinterfaces}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
+\subsubsection{All classes known to implement interface}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observer.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die Clients weitergeben.\\
+\end{verse}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{update(String, Observable, Object)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observer.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+void update(java.lang.String arg,Observable observable,java.lang.Object o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die Clients weitergeben. Wie dieses Update genau aussieht, wird von der konkreten Implementierung des Beobachters bestimmt.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere ähnliche Ereignisse beobachten kann.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3019,6 +3171,459 @@ public void setLon(long lon)\end{lstlisting} %end signature
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.Cluster.setSize(int)}{{\bf  setSize}\\}
 \begin{lstlisting}[frame=none]
 public void setSize(int size)\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}Class EntitiyRemovedObserver}{
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}{}\vskip .1in 
+Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces. Dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Entfernen von Entitäten zu reagieren. Dies schließt folgende Ereignisse mit ein: - Entfernen eines GOs - Entfernen eines Gruppenmitglieds / einer Gruppenanfrage - Entfernen einer Gruppe Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class EntitiyRemovedObserver
+ extends java.lang.Object implements Observer\end{lstlisting}
+\subsubsection{Field summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.OBSERVER_CODE}{{\bf OBSERVER\_CODE}} Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll.\\
+\end{verse}
+}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver()}{{\bf EntitiyRemovedObserver()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der update()-methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der update()-methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.util.List)}{{\bf update(String, Observable, List)}} Überladung der update()-Methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
+\end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{OBSERVER\_CODE}
+\label{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.OBSERVER_CODE}\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.OBSERVER_CODE}{\texttt{public static final java.lang.String\ {\bf  OBSERVER\_CODE}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
+\end{itemize}
+}
+\end{itemize}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{EntitiyRemovedObserver()}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver()}{{\bf  EntitiyRemovedObserver}\\}
+\begin{lstlisting}[frame=none]
+public EntitiyRemovedObserver()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{update(String, Observable, GoEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GoEntity go)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der update()-methode des Observers. Diese Methode kümmert sich um das Entfernen eines GOs. Die Daten des GOs werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- in Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{go} -- Das GO, das aus der Datenbank entfernt wurde.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, GroupEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GroupEntity group)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der update()-methode des Observers. Diese Methode kümmert sich um das Entfernen einer Gruppe. Die Daten der Gruppe werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{group} -- Die Gruppe, die aus der Datenbank entfernt wurde.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, List)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.util.List)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,java.util.List changes)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der update()-Methode des Observers. Diese Methode kümmert sich um das Entfernen eines Gruppenmitglieds. Die Daten der Änderung werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen übergebenen Daten ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- in Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{changes} -- Eine Liste mit Objekten, die die Änderungen beschreiben. Dabei muss die Liste folgenden Aufbau haben: 1. GroupEntity -- Gruppe, aus der der Benutzer entfernt werden soll 2. UserEntity -- Benutzer, der aus der Gruppe entfernt werden soll}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, Object)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,java.lang.Object o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen Ereignisse, auf die dieser Observer reagieren kann zu unterscheiden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}Class EntityAddedObserver}{
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}{}\vskip .1in 
+Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces. Dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf das Erstellen neuer Entitäten zu reagieren. Dies schließt folgende Ereignisse mit ein: - Hinzufügen eines GOs - Hinzufügen einer Gruppenanfrage - Hinzufügen eines Gruppenmitglieds Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class EntityAddedObserver
+ extends java.lang.Object implements Observer\end{lstlisting}
+\subsubsection{Field summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.OBSERVER_CODE}{{\bf OBSERVER\_CODE}} Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll.\\
+\end{verse}
+}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver()}{{\bf EntityAddedObserver()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der Update-Methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der Update-Methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf update(String, Observable, UserEntity)}} Überladung der Update-Methode des Observers.\\
+\end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{OBSERVER\_CODE}
+\label{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.OBSERVER_CODE}\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.OBSERVER_CODE}{\texttt{public static final java.lang.String\ {\bf  OBSERVER\_CODE}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
+\end{itemize}
+}
+\end{itemize}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{EntityAddedObserver()}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver()}{{\bf  EntityAddedObserver}\\}
+\begin{lstlisting}[frame=none]
+public EntityAddedObserver()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{update(String, Observable, GoEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GoEntity go)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn ein neues GO in einer Gruppe erstellt wurde. Die Methode wandelt das GO daraufhin in ein passendes JSON-objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{go} -- Das Go das neu erstellt wurde. Es enthält alle Daten die wichtig sind für das GO und die an die Clients weitergegeben werden müssen.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, GroupEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GroupEntity group)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn eine neue Gruppenanfrage in einer Gruppe erstellt wurde. Die Methode wandelt die Anfrage daraufhin in ein passendes JSON-Objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{group} -- Die Gruppe in der die Anfrage neu erstellt wurde. Sie enthält alle Daten die wichtig sind für das GO und die an die Clients weitergegeben werden müssen. Da die Gruppenanfragen in einer Liste gespeichert werden, wird immer das letzte Listenelement als die neu hinzugefügte Anfrage betrachtet. Darauf muss geachtet werden, wenn in der DAO-Klasse eine neue Anfrage angelegt wird.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, Object)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,java.lang.Object o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen Ereignisse, auf die dieser Observer reagieren kann zu unterscheiden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, UserEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.UserEntity user)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn ein neuer Bernutzer zu einer Gruppe hinzugefügt wurde. Die Methode wandelt die Änderung daraufhin in ein passendes JSON-Objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen User-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{user} -- Der Benutzer, der der Gruppe hinzugefügt wurde. Die Entität enthält alle Daten die wichtig sind für die Änderung und die an die Clients weitergegeben werden müssen. Da die gruppenmitgliedschaften in einer Liste gespeichert werden, wird immer das letzte Listenelement als die neu hinzugefügte Gruppe betrachtet. Darauf muss geachtet werden, wenn in der DAO-Klasse eine neue Anfrage angelegt wird.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}Class EntityChangedObserver}{
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}{}\vskip .1in 
+Bei dieser Klasse handelt es sich um eine Implementierung des Oberver interfaces. dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Änderungen einer bestehenden Entität zu reagieren. Dies schließt folgende Ereignisse mit ein: - Änderung von GO-Daten - Änderung von Gruppendaten - Änderung des Teilnahmestatus - Änderung der Adminsitratoren einer Gruppe Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
+\subsubsection{Declaration}{
+\begin{lstlisting}[frame=none]
+public class EntityChangedObserver
+ extends java.lang.Object implements Observer\end{lstlisting}
+\subsubsection{Field summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.OBSERVER_CODE}{{\bf OBSERVER\_CODE}} Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll.\\
+\end{verse}
+}
+\subsubsection{Constructor summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver()}{{\bf EntityChangedObserver()}} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der Methode update() des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der Methode update() des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.util.List)}{{\bf update(String, Observable, List)}} Überladung der Methode update() des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
+\end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{OBSERVER\_CODE}
+\label{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.OBSERVER_CODE}\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.OBSERVER_CODE}{\texttt{public static final java.lang.String\ {\bf  OBSERVER\_CODE}}
+}
+\begin{itemize}
+\item{\vskip -.9ex 
+Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
+\end{itemize}
+}
+\end{itemize}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{EntityChangedObserver()}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver()}{{\bf  EntityChangedObserver}\\}
+\begin{lstlisting}[frame=none]
+public EntityChangedObserver()\end{lstlisting} %end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{ 
+\index{update(String, Observable, GoEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GoEntity go)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einem GO behandelt. Das geänderte Go wird in ein JSON-Objekt umgewandelt und an den FcmClient weiteregegeben, um es an die entsprechenden Clients weiterzuleiten. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{go} -- Das Go, dessen Daten verändert wurden.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, GroupEntity)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_app.PersistenceLayer.GroupEntity group)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einer Gruppe behandelt. Die geänderte gruppe wird in ein JSON-Objekt umgewandelt und an den FcmClient weiteregegeben, um es an die entsprechenden Clients weiterzuleiten. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{group} -- Die Gruppe, deren Daten verändert wurden.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, List)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.util.List)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,java.util.List changes)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Überladung der Methode update() des Observers. In dieser Methode wird das ereignis eines neu hinzugefügten Admins behandelt und an die entsprechenden Clients weitergeleitet. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity ermittelt werden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{changes} -- Eine Liste von Objekten, die die Änderung beschreiben. Dabei muss die Liste folgende Struktur haben: 1. String -- "ADMIN" 2. GroupEntity -- Gruppe, um die es sich handelt 3. UserEntity -- Benutzer, der zum Administrator gemacht wurde.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+\item{ 
+\index{update(String, Observable, Object)}
+\hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf  update}\\}
+\begin{lstlisting}[frame=none]
+public void update(java.lang.String arg,Observable observable,java.lang.Object o)\end{lstlisting} %end signature
+\begin{itemize}
+\item{
+{\bf  Description}
+
+Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen Ereignisse, auf die dieser Observer reagieren kann zu unterscheiden.
+}
+\item{
+{\bf  Parameters}
+  \begin{itemize}
+   \item{
+\texttt{arg} -- Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER\_CODE, das jeder Beobachter besitzt übereinstimmt.}
+   \item{
+\texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
+   \item{
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -3181,46 +3786,6 @@ Diese Methode speichert eine UserLocation in der acitveUsers Liste des entsprech
   \end{itemize}
 }%end item
 \end{itemize}
-}%end item
-\end{itemize}
-}
-}
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Observer}Class Observer}{
-\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observer}{}\vskip .1in 
-Created by tina on 30.06.17.\vskip .1in 
-\subsubsection{Declaration}{
-\begin{lstlisting}[frame=none]
-public abstract class Observer
- extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observer()}{{\bf Observer()}} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observer.update(edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg)}{{\bf update(EventArg)}} \\
-\end{verse}
-}
-\subsubsection{Constructors}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{Observer()}
-\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observer()}{{\bf  Observer}\\}
-\begin{lstlisting}[frame=none]
-public Observer()\end{lstlisting} %end signature
-}%end item
-\end{itemize}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
-\item{ 
-\index{update(EventArg)}
-\hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observer.update(edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg)}{{\bf  update}\\}
-\begin{lstlisting}[frame=none]
-public abstract void update(edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg arg)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
