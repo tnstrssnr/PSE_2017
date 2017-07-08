@@ -6,11 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 import android.graphics.drawable.Icon;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die User-Objekte persistiert.
- * Der Zugriff auf die Daten läuft ausschließlich über die UserDao-Klasse
+ * Der Zugriff auf die Daten läuft ausschließlich über die UserEntityDAO-Klasse
  */
 
 @Entity(tableName = "users")
@@ -24,7 +23,7 @@ public class User implements Serializable {
     private String uid;
 
     /**
-     * Die Instance-ID eines Benutzers bzw. android-Endgeräts wird vom Tomcat-Server verwendet, um Benachrichtigungen an das Gerät zu schicken.
+     * Die Instance-ID eines Benutzers bzw. Android-Endgeräts wird vom Tomcat-Server verwendet, um Benachrichtigungen an das Gerät zu schicken.
      * Die wird von Firebase Cloud Messaging Service generiert.
      */
     private String instanceId;

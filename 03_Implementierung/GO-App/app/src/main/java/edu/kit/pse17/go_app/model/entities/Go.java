@@ -10,7 +10,7 @@ import edu.kit.pse17.go_app.model.Status;
 
 /**
  *  Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Go-Objekte persistiert.
- *  Der Zugriff auf die Daten läuft ausschließlich über die GoDao-Klasse
+ *  Der Zugriff auf die Daten läuft ausschließlich über die GoEntityDAO-Klasse
  *
  */
 
@@ -51,12 +51,12 @@ public class Go {
     /**
      * Breitengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
-    public long lat;
+    public long desLat;
 
     /**
      * Längengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
-    public long lon;
+    public long desLon;
 
     /**
      * Die User-ID des GO-Verantwortlichen
@@ -124,20 +124,20 @@ public class Go {
         this.end = end;
     }
 
-    public long getLat() {
-        return lat;
+    public long getDesLat() {
+        return desLat;
     }
 
-    public void setLat(long lat) {
-        this.lat = lat;
+    public void setDesLat(long lat) {
+        this.desLat = lat;
     }
 
-    public long getLon() {
-        return lon;
+    public long getDesLon() {
+        return desLon;
     }
 
-    public void setLon(long lon) {
-        this.lon = lon;
+    public void setDesLon(long lon) {
+        this.desLon = lon;
     }
 
     public String getOwner() {

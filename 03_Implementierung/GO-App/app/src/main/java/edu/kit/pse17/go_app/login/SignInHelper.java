@@ -9,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import java.io.Serializable;
 
 /**
- * Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient
- *
  * Created by tina on 18.06.17.
+ */
+
+/**
+ * Abstrakte Klasse, die als Schablone für den Anmelde-Prozess ihrer Unterklassen dient.
+ *
  */
 
 public abstract class SignInHelper extends AppCompatActivity {
@@ -44,7 +47,7 @@ public abstract class SignInHelper extends AppCompatActivity {
     }
 
     /**
-     * gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück
+     * Diese Methode gibt das Ergebnis der Anmelde-Aktivität an das aufrufende Objekt zurück
      * @param accountData Ergebnis der Anmelde-Aktivität
      */
     protected void returnActivityResult(Serializable accountData) {
@@ -73,12 +76,12 @@ public abstract class SignInHelper extends AppCompatActivity {
     }
 
     /**
-     * wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
+     * Diese Methode wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
      */
     protected abstract void configureSignIn();
 
     /**
-     * wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
+     * Diese Methode wird von Unterklassen implementiert und in Schablonenmethode aufgerufen
      */
     protected abstract void startSignInProcess();
 }

@@ -20,10 +20,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import edu.kit.pse17.go_app.R;
 
 /**
- * Diese Klasse ist für die Kommunikation mit Firebase und Google API zuständig während des Login-Prozesses zuständig.
+ * Created by tina on 17.06.17.
+ */
+
+/**
+ * Diese Klasse ist für die Kommunikation mit Firebase und Google API während des Login-Prozesses zuständig.
  * Sie implementiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
  *
- * Created by tina on 17.06.17.
  */
 
 public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClient.OnConnectionFailedListener {
@@ -106,7 +109,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
     }
 
     /**
-     * wird aufgerufen, falls Verbindung zu google Play Services fehlschlägt
+     * Diese Methode wird aufgerufen, falls Verbindung zu Google Play Services fehlschlägt
      *
      * @param connectionResult Ergebnis der fehlgeschlagenen Verbindung
      */
