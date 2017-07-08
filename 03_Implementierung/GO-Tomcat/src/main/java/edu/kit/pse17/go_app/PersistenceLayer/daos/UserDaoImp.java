@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -36,6 +35,9 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      *
      * Aud dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt unveränderbar und
      * bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
+     *
+     * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
+     * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
     @Autowired
     SessionFactory sessionFactory;
@@ -47,20 +49,38 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
     private List<Observer> observer;
 
 
+    /**
+     *
+     * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
+     */
     @Override
     public void register(Observer observer) {
 
     }
 
+    /**
+     *
+     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass
+     */
     @Override
     public void unregister(Observer observer) {
 
     }
 
+    /**
+     *
+     * @param impCode Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein
+     *                öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird
+     *                kein Observer auf das notify() reagieren.
+     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine
+     *                   Benachrichtigung bekommen hat.
+     * @param userEntity
+     */
     @Override
-    public void notify(UserEntity userEntity) {
+    public void notify(String impCode, Observable observable, UserEntity userEntity) {
 
     }
+
 
     /**
      * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen Muster entsprechen,
@@ -132,7 +152,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
 
     /**
      *
-     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der
+     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird durch das Generic PK bei der
      *            Implementierung der Klasse spezifiziert.
      *
      * @throws EntityNotFoundException
@@ -144,7 +164,8 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
 
     /**
      *
-     * @param userEntity
+     * @param userEntity Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity handeln,
+     *                   ansonsten schlägt ide Ausführung der Methode fehl.
      * @throws EntityNotFoundException
      */
     @Override

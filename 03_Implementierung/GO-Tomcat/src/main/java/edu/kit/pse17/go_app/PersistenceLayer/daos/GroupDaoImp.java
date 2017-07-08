@@ -1,17 +1,13 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
-import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by tina on 30.06.17.
@@ -25,13 +21,16 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GoDao, Obser
      *
      * Aud dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt unveränderbar und
      * bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
+     *
+     * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
+     * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
     @Autowired
     SessionFactory sessionFactory;
 
     /**
      *
-     * @param observer
+     * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
      */
     @Override
     public void register(Observer observer) {
@@ -40,7 +39,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GoDao, Obser
 
     /**
      *
-     * @param observer
+     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass
      */
     @Override
     public void unregister(Observer observer) {
@@ -49,10 +48,15 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GoDao, Obser
 
     /**
      *
+     * @param impCode Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein
+     *                öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird
+     *                kein Observer auf das notify() reagieren.
+     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine
+     *                   Benachrichtigung bekommen hat.
      * @param groupEntity
      */
     @Override
-    public void notify(GroupEntity groupEntity) {
+    public void notify(String impCode, Observable observable, GroupEntity groupEntity) {
 
     }
 
