@@ -2,6 +2,7 @@ package edu.kit.pse17.go_app.PersistenceLayer;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen.
@@ -90,36 +91,19 @@ public class GoEntity {
     private long lon;
 
     /**
-     * Eine Liste mit allen Teilnehmern des GOs, die den Teilnahmestatus "ABGELEHNT" haben. Dabei handelt es sich um den default-Status, d.h. bei der
-     * Erzeugung einer Entity werden alle Benutzer, abgesehen vom GO-Verantwortlichen, zu dieser Liste hinzugefügt.
-     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das Go erstellt wurde.
-     * Der GO-Verantwortliche darf nicht Teil dieser Liste sein.
-     * Jedes Gruppenmitglied muss in genau eienr der drei Statuslisten enthalten sein.
+     * Eine Map mit allen Teilnehmern des GOs, um ihnen ihren Teilnahmestatus zuzuweisen.
      *
-     * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der Liste hinzufügen und Entfernen zu können.
-     */
-    private List<UserEntity> notGoingUsers;
-
-    /**
-     * Eine Liste mit allen Teilnehmern des GOs, die den Teilnahmestatus "BESTÄTIGT" haben.
-     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde.
-     * Bei Erzeugung eines Objekts dieser Klasse wird der GO-Verantwortliche automatisch zu dieser Liste hinzugefügt.
-     * Jedes Gruppenmitglied muss in genau eienr der drei Statuslisten enthalten sein.
-     *
-     * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der Liste hinzufügen und Entfernen zu können.
-     */
-    private List<UserEntity> goingUsers;
-
-    /**
-     * Eine Liste mit allen Teilnehmern des GOs, die den Teilnahmestatus "UNTERWEGS" haben,d.h. sie enthält alle Gruppenmitglieder, deren
-     * Standorte im Moment verfolgt werden. Es besteht jedoch keine Abhängigkeit dieser Liste zur LocationService-Klasse oder anderen Klassen, die von LocationService
+     * Bei Erzeugung eines Objekts dieser Klasse wird dem GO-Verantwortlichen automatisch der Status BESTÄTIGT zugewiesen, allen anderen Gruppenmitgliedern der Status
+     * ABGELEHNT.
+     * .
+     * Es besteht keine Abhängigkeit dieser Liste zur LocationService-Klasse oder anderen Klassen, die von LocationService
      * benutzt werden.
-     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde.
-     * Jedes Gruppenmitglied muss in genau eienr der drei Statuslisten enthalten sein.
+     *
+     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde. Jedes Mitglied der Gruppe des GOs muss in der liste enthalten sein.
      *
      * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der Liste hinzufügen und Entfernen zu können.
      */
-    private List<UserEntity> goneUsers;
+    private Map<UserEntity, Status> userStatus;
 
     public GoEntity() {
 

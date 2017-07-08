@@ -20,7 +20,7 @@ public class GroupEntity {
      * Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts
      * in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
      */
-    private int ID;
+    private long ID;
 
     /**
      * Der Name der gruppe. Dieser muss nicht eindeutig sein.
@@ -84,11 +84,11 @@ public class GroupEntity {
     public GroupEntity() {
     }
 
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 
@@ -152,7 +152,7 @@ public class GroupEntity {
 
     @Override
     public int hashCode() {
-        int result = getID();
+        int result = (int) (getID() ^ (getID() >>> 32));
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         result = 31 * result + (getMembers() != null ? getMembers().hashCode() : 0);

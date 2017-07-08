@@ -29,7 +29,7 @@ public class LocationService {
      * Ein neues Objekt wird in die Liste eingefügt, wenn die getLocationService()-Methode aufgerufen wird, und dabei kein passender Service gefunden wird. Die
      * Erstellung der LocationService-Objekte findet ausschließlich in dieser Klasse statt.
      */
-    private static List<Map<Long, LocationService>> activeServices;
+    private static Map<Long, LocationService> activeServices;
 
     /**
      * Ein Clustering-Strategie, die den Algorithmus, der für das Clustering benutzt wird festlegt.
