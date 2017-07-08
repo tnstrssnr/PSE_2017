@@ -41,7 +41,8 @@ public class GoEntity {
     /**
      * Der Name des GOs. Dieser muss nicht eindeutig sein.
      * Es handelt sich dabei um einen String, der weniger als 50 Zeichen enthält.
-     * Der Name eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
+     * Der Name eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts
+     * in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
      */
     private String name;
 

@@ -151,7 +151,7 @@ public class GroupRestController {
             method = RequestMethod.DELETE,
             value = "/members/{groupId}/{userId}")
     public void removeMember(@PathVariable String userId, @PathVariable("groupId") String groupId) {
-    } 
+    }
 
     /**
      * Diese Methode wird von einem Client aufgerufen, der einen Benutzer zu einer Gruppe einladen will. Bei Aufruf dieser Methode

@@ -17,7 +17,8 @@ public class GroupEntity {
     /**
      * Eine im gesamten System eindeutige ID-Nummer, anhand derer eine Gruppe eindeutig identifiziert werden kann.
      * Die ID ist eine positive ganze Zahl im Wertebereich des Datentyps long.
-     * Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden.
+     * Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts
+     * in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
      */
     private int ID;
 
