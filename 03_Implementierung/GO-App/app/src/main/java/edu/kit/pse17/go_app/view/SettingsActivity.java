@@ -38,11 +38,11 @@ public class SettingsActivity extends BaseActivity {
     /*
     * Löst Ausloggen von dem Benutzer und schaltet um auf die LoginActivity
     * */
-    public void signOut(){}
+    private void signOut(){}
     /*
     * Startet den Löschung des Benutzers aus dem System und allen Daten
     * */
-    public void deleteProfile(){
+    private void deleteProfile(){
         signOut();
         userViewModel.deleteUser();
     }

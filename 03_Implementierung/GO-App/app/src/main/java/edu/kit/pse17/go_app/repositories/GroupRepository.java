@@ -48,13 +48,6 @@ public class GroupRepository extends Repository<List<Group>>{
     }
 
 
-    public LiveData<Group> getGroup(long groupId) {
-       refreshGroup(groupId);
-        //return LiveData directly from database
-        return groupDao.load(groupId);
-        
-    }
-
     private void refreshGroup(long groupId) {
         executor.execute(new Runnable() {
             @Override
@@ -64,23 +57,6 @@ public class GroupRepository extends Repository<List<Group>>{
         });
     }
 
-    public LiveData<List<Group>> getGroupsForUser(String uid) {
-
-        LiveData<List<Group>> groups = groupDao.getGroupsForUser(uid);
-
-        if (groups == null) {
-            try {
-                Response response = webservice.getGroupsByUser(uid).execute();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-        return null;
-    }
 
     @Override
     public LiveData<List<Group>> fetchData() {
