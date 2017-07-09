@@ -19,22 +19,22 @@ public class Group {
      * ID der Gruppe. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig.
      */
     @PrimaryKey
-    public long id;
+    private long id;
 
     /**
      * Der Name der Gruppe. Dieser muss nicht eindeutig sein
      */
-    public String name;
+    private String name;
 
     /**
      * Der Beschreibungstext der Gruppe
      */
-    public String description;
+    private String description;
 
     /**
      * Die Anzahl der Gruppenmitglieder
      */
-    public int memberCount;
+    private int memberCount;
     /**
      * Das Bild der Gruppe
      */
@@ -45,12 +45,12 @@ public class Group {
      * Eine Liste mit allen Mitgliedern der Gruppe + Information ob das Mitglied ein Administrator ist
      * oder ob es sich bei der Mitgliedschaft lediglich um eine offene Grupppenanfrage handelt.
      */
-    public List<GroupMembership> membershipList;
+    private List<GroupMembership> membershipList;
 
     /**
      * Eine Liste mit allen GOs der Gruppe.
      */
-    public List<Go> currentGos;
+    private List<Go> currentGos;
 
 
     public Group() {

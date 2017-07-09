@@ -21,65 +21,62 @@ public class Go {
      * ID des GOs. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig
      */
     @PrimaryKey
-    public long id;
+    private long id;
 
     /**
      * GO-Bezeichnug (frei wählbar, muss nicht eindeutig sein)
      */
-    public String name;
+    private String name;
 
     /**
      * Beschreibungstext des GOs
      */
-    public String description;
+    private String description;
 
     /**
      * Startdatum und -zeitpunkt des GOs
      */
-    public Date start;
+    private Date start;
 
     /**
      * Enddatum und -zeitpunkt des GOs
      */
-    public Date end;
+    private Date end;
 
     /**
      *  Die Gruppe, zu der das Go gehört
      */
-    public Group group;
+    private Group group;
 
     /**
      * Breitengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
-    public long desLat;
+    private long desLat;
 
     /**
      * Längengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
-    public long desLon;
+    private long desLon;
 
     /**
      * Die User-ID des GO-Verantwortlichen
      */
-    public String owner;
+    private String owner;
 
     /**
      * Der Benutzername des GO-Verantwortlichen
      */
-    public String ownerName;
+    private String ownerName;
 
     /**
      * Der Teilnahmestatus des Benutzers
      */
-    public Status userStatus;
+    private Status userStatus;
 
     /**
      * Eine Liste mit dem UserStatus jedes Gruppenmitglieds der Gruppe des GOs
      */
-    public List<UserGoStatus> statusList;
-    /**
-     * Die aktuelle Position der Gruppe. Ist null, falls das GO noch nicht gestartet ist.
-     */
+    private List<UserGoStatus> participantsList;
 
     public Go() {
     }
@@ -162,5 +159,13 @@ public class Go {
 
     public void setUserStatus(Status userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public List<UserGoStatus> getParticipantsList() {
+        return participantsList;
+    }
+
+    public void setParticipantsList(List<UserGoStatus> participantsList) {
+        this.participantsList = participantsList;
     }
 }

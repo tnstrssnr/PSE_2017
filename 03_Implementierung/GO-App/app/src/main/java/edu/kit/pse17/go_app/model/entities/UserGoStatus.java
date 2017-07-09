@@ -19,18 +19,18 @@ public class UserGoStatus {
     /**
      * Teilnehmer eines GOs.
      */
-    public User user;
+    private User user;
 
     /**
      * GO, bei dem ein Benutzer Teilnehmer ist.
      */
-    public Go go;
+    private Go go;
 
     /**
      * Status eines Benutzers bei einem GO.
      * Kann entweder NOT_GOING (Abgelehnt), oder GOING (Bestätigt) oder GONE (Unterwegs) lauten.
      */
-    public Status status;
+    private Status status;
 
     public UserGoStatus(User user, Go go, Status status) {
         this.user = user;
