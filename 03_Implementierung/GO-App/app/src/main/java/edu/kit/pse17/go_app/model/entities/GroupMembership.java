@@ -16,23 +16,23 @@ public class GroupMembership {
     /**
      * Mitglied der Gruppe.
      */
-    public User user;
+    private User user;
 
     /**
      * Gruppe, zu der der Mitglied gehört.
      */
-    public Group group;
+    private Group group;
 
     /**
      * Boolean-Wert der angibt, ob der Benutzer ein Administrator der Gruppe ist.
      */
-    public boolean isAdmin;
+    private boolean isAdmin;
 
     /**
      * Boolean-Wert, der angibt, ob es sich bei der Mitgliedschaft des Benutzers um eine "ordentliche Mitgliedschaft"
      * oder um eine unbeantwortete Gruppenanfrage handelt.
      */
-    public boolean isRequest;
+    private boolean isRequest;
 
     public GroupMembership(User user, Group group, boolean isAdmin, boolean isRequest) {
         this.user = user;
