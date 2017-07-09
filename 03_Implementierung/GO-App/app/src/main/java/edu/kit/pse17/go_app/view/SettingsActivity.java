@@ -2,19 +2,30 @@ package edu.kit.pse17.go_app.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Button;
+import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.viewModel.UserViewModel;
 
 /**
- * Die Aktivität stellt dem User ein Menü zur Verfügung, in dem er verschiedende Einstellungsänderungen
- * vornehmen kann.
+ * Die Aktivität stellt dem User ein Menü zur Verfügung, in dem er verschiedende
+ * Einstellungsänderungen vornehmen kann.
  *
- * Die Aufgabe der Aktivität ist dabei, dem Benutzer die View zur Verfügung zu stellen, den User-input entgegenzunehmen
- * und an die Eingabe an die entsprechende Aktivität weiterzuleiten.
+ * Die Aufgabe der Aktivität ist dabei, dem Benutzer die View zur Verfügung zu stellen,
+ * den User-input entgegenzunehmen und an die Eingabe an die entsprechenden Klassen weiterzuleiten.
  */
 
 public class SettingsActivity extends BaseActivity {
+
+    /*
+    * Button zum Sign Out
+    * */
+    private Button signOutButton;
+    /*
+    * Name des Benutzers
+    * */
+    private TextView name;
     /*
     * UserViewModel
     * */

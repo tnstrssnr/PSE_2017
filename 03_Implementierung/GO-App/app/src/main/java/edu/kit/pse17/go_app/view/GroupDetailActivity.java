@@ -4,6 +4,9 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Group;
@@ -24,6 +27,14 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
      * Konfigurationsänderungen zu erhalten.
      */
     private GroupListViewModel viewModel;
+    private TextView groupName;
+    private ImageView groupIcon;
+    private TextView groupDescription;
+    private FloatingActionButton createGo;
+    /*
+    * Viewmodel, die für die Daten in der Aktivity zuständig ist.
+    * */
+    private GroupViewModel groupViewModel;
 
     /**
      * Lifecycle-Methode der Activity, die beim Erzeugen aufgreufen wird. Dem ContentView der App wird das richtige

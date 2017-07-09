@@ -117,5 +117,12 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+    /*
+    * Diese Methode wird bei dem Sign Out aufgerufen. User credentials (wie Tokens) sind nach
+    * der Ausführung nicht mehr gültig.
+    * */
+    public void signOut(){
+
+    }
 
 }

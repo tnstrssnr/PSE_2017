@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,13 +15,16 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.User;
-import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.GroupListItem;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
+import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
+
+import static android.R.id.list;
 
 /**
  *  Hauptansicht der App. Zeigt alle Gruppen eines Benutzers in einer
@@ -33,9 +36,9 @@ public class GroupListActivity extends BaseActivity implements OnListItemClicked
     private static final String USER_ID_INTENT_CODE = "user_id";
 
     private ListAdapter adapter;
-    private FloatingActionButton addGroupBtn;
-    private ImageView options;
-    private RecyclerView list;
+    private FloatingActionButton addGroup;
+    private ImageView settings;
+    private RecyclerView groupList;
 
     private GroupListViewModel viewModel;
 
