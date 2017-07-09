@@ -301,16 +301,37 @@ Für GO-Verantwortliche und Gruppenadmins werden GroupDetailActivity oder GoDeta
 \begin{itemize}
 \item \textit{GroupDetailActivity} \\
 Activity, wo die Gruppendetails angezeigt werden. Ist eine Oberklasse von GroupDetailActivityOwner.
-\item \textit{GroupDetailActivityOwner}
+\item \textit{GroupDetailActivityOwner}\\
 Erweitert die Oberklasse um Funktionen für die Admins.
-\item \textit{GoDetailActivity}
+\item \textit{GoDetailActivity}\\
 Activity, wo Go-Details angezeigt werden. Oberklasse von GoDetailActivityOwner.
-\item \textit{GoDetailActivityOwner}
+\item \textit{GoDetailActivityOwner}\\
 Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
 \end{itemize}
 
 
-%\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+Mit dem Command Muster haben wir die Bearbeitung der Messages von den Messages selbst getrennt. Messages kommen vom Server zu Client mit Hilfe von Firbase. Auf der Client Seite wird das Message vom MessageReceiver empfangen und zu einer der ServerCommand Unterklassen gemappt. Das erlaubt uns auch den Message Flow zu loggen z.B. In dem Command selbst wird schon entschieden, was der Client mit dem Message macht und was ausgeführt wird.
+
+\textbf{beteiligte Klassen}
+\begin{itemize}
+\item \textit{FcmClient} \\
+Verschickt die Messages an die Clients.
+\item \textit{MessageReceiver}\\
+Empfängt die Messages und mappt diese zu einem ServerCommand.
+\item \textit{ServerCommand}\\
+Kümmert sich um die Ausführung des Befehls, ändert die Daten auf dem Client entsprechend.
+\end{itemize}
+
+\subsection{Singleton in UserViewModel}
+Benutzer Daten werden im UserViewModel gespeichert. Also ist es sinnvoll ein Singleton Muster da zu implementieren, da es nur ein User per Session gibt. Andere Klassen können dann die UserId kriegen und man ist sicher, dass UserId eindeutig ist.
+
+\textbf{beteiligte Klasse}
+\begin{itemize}
+\item \textit{UserViewModel} \\
+Singleton.
+\end{itemize}
+
 
 
 \newpage
