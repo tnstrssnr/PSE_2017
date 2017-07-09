@@ -4223,3 +4223,4 @@ Der EntityChangedObserver merkt sich diese Änderung des betroffenen GOs, das er
 Nach Weiterleitung der Anfrage an den StatusChangedCommand  werden die neuen Daten (das GO) im GoRepository gespeichert. Danach schickt das StatusChangedCommand-Objekt einen Broadcast an alle ViewModels. Das GoViewModel erkennt, dass der Broadcast eine Änderung des GOs des Benutzers betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getCurrentData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
 \end{document}
+\grid
