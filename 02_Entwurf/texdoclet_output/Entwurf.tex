@@ -4222,5 +4222,20 @@ Der EntityChangedObserver merkt sich diese Änderung des betroffenen GOs, das er
 
 Nach Weiterleitung der Anfrage an den StatusChangedCommand  werden die neuen Daten (das GO) im GoRepository gespeichert. Danach schickt das StatusChangedCommand-Objekt einen Broadcast an alle ViewModels. Das GoViewModel erkennt, dass der Broadcast eine Änderung des GOs des Benutzers betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getCurrentData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
+
+\subsection{GPS-Standort ermitteln}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Sequenzdiagramme/Clustering.jpg}
+	\caption{Sequenzdiagramm - Anonymisierte und gemittelte GPS-Standort (Cluster der Standorte) der Teilnehmer eines GOs ermitteln}
+\end{figure}
+
+Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms passiert, wenn der Startzeitpunkt eines bestimmten GOs eintritt. Zu dem Zeitpunkt wird der Teilnahmestatus aller Teilnehmer des GOs mit dem Status 'Bestätigt' auf 'Unterwegs' gesetzt. Dabei wird die Methode 'getCluster()' der Klasse GoViewModel mit Parametern userId, goId und Location (latitude und longitude) aller Teilnehmer des GOs mit dem Status 'Unterwegs' aufgerufen. Das ViewModel überprüft zunächst ob die Daten für diesen Benutzer gültig sind. Falls ja, wird die Anfrage an das GoRepository weitergeleitet und von dort über die Klasse TomcatRestApi (RestAPI) an den Server gesendet.
+
+Die Anfrage kommt durch den Methodenaufruf 'getLocation()' in der GoRestController-Klasse an und wird dann an das LocationService weitergegeben. LocationService spielt dabei die Rolle von Context des Strategie-Entwurfsmusters. Die konkrete Strategie 'GoClusterStrategy' wird benutzt, um mithilfe der Methode 'calculate()' das Cluster aus den GPS-Standorten aller Teilnehmer des GOs zu berechnen und zurückzugeben.
+
+Das berechnete Cluster wird weiter zurückgegeben, bis die neuen Daten (Cluster der Standorte) im GoRepository gespeichert werden. Danach wird ein Broadcast an alle ViewModels geschickt, dabei erkennt das GoViewModel, dass der Broadcast eine Änderung des GOs (also GPS-Standort aller Teilnehmer) betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository durch einen Aufruf der 'getUpdatedData()'-Methode ab. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
+
 \end{document}
 \grid
