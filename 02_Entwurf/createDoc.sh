@@ -12,13 +12,13 @@ javadoc -docletpath TeXDoclet.jar \
 	-noindex \
 	-tree \
 	-hyperref \
-	-texsetup texdoclet_include/setup.tex \
-	-texintro texdoclet_include/intro.tex \
-	-texfinish texdoclet_include/finish.tex \
-	-texinit texdoclet_include/preamble.tex \
+	#-texsetup texdoclet_include/setup.tex \
+	#-texintro texdoclet_include/intro.tex \
+	#-texfinish texdoclet_include/finish.tex \
+	#-texinit texdoclet_include/preamble.tex \
 	-output texdoclet_output/Entwurf.tex \
 	-sourcepath ../03_Implementierung/GO-Tomcat/src/main/java \
-	-subpackages /edu \
+	-subpackages /edu/kit/pse17 \
  	-sectionlevel section
 
 cd texdoclet_output

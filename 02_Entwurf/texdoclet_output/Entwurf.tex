@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{report}
+\documentclass[11pt,a4paper]{article}
 \usepackage{color}
 \usepackage{ifthen}
 \usepackage{ifpdf}
@@ -93,25 +93,13 @@
 \begin{abstract}
 Die Android App GO! ist eine mobile Applikation, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Beim erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.\\
 
-Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts.
+Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts. Dazu wird zunächst die Modulstruktur und der Architekturstil erläutert. Danach werden die Klassen, Attribute und Methooden der Anwendung detailliert beschreiben. Das Zusammenspiel der einzelnen Klassen wird dargestellt im Klassendiagramm. Weitere Abschnitte erläutern die Client-Server SChnittstelle, das Datenbankschema er Applikation sowie typische Ausführungsabläufe.
 \end{abstract}
+
+\newpage
 
 \sloppy
 \addtocontents{toc}{\protect\markboth{Contents}{Contents}}
-\tableofcontents
-
-
-
-\newpage
-
-\begin{abstract}
-Die Android App GO! ist eine mobile Applikation, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Beim erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.\\
-
-Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts.
-\end{abstract}
-
-\newpage
-
 \tableofcontents
 
 \newpage
@@ -124,6 +112,8 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 	Es werden in den Produktdaten zusätzlich eine (von Firebase automatisch generierte) InstanceID gespeichert, die es dem Server erlaubt, Daten an das Android-Gerät eines bestimmten Benutzers zu senden.
 	\item \textbf{Detailansicht der GOs} \\
 	Es ist jedem Mitglied einer Gruppen (unabhängig von Teilnahmestatus) möglich, die Detailansicht eines GOs aufzurufen. Um den Karten-Tab öffnen zu können, um die Standorte der anderen Teilnahmer zu verfolgen, gilt weiterhin, dass der Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lauten muss.
+	\item \textbf{Profil- und Gruppenbilder} \\
+	Das Wunschkriterium der Profil- und Gruppenbilder wurde im Entwurf nicht berücksichtigt. Stattdessen werden in der App definierte Standardbilder dazu angezeigt.
 \end{enumerate}
 
 \newpage
@@ -320,82 +310,72 @@ Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
 
 \newpage
 
-\section{Client-Server-Schnittstelle}
-Dieser Abschnitt erläutert die Schnittstelle zwischen dem Client und dem Server. Diese Schnittstelle besteht aus zwei Teilen:
-
-Zum Einen bietet der Server eine REST API an, über die der Client die Dienste des Servers in Anspruch nehmen kann. Zum Anderen gibt es eine Schnittstelle, die über Firebase Cloud Messaging realisiert ist, damit der Server Nachrichten an bestimmte Clients schicken kann.
-
-\subsection{REST API des Servers}
-
-
-
 \section{Klassenbeschreibungen}
 
 % ------- textdoclet_include/intro.tex end
 
-\section*{Class Hierarchy}{
 \thispagestyle{empty}
 \markboth{Class Hierarchy}{Class Hierarchy}
 \addcontentsline{toc}{section}{Class Hierarchy}
 \subsection*{Classes}
 {\raggedright
 \hspace{0.0cm} $\bullet$ java.lang.Object {\tiny \refdefined{java.lang.Object}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Downstream.FcmClient {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Upstream.GoRestController {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Upstream.GroupRestController {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Upstream.UserRestController {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.Main {\tiny \refdefined{edu.kit.pse17.go_app.Main}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.GoEntity {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.GoEntity}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.GroupEntity {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.UserEntity {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.UserEntity}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GoDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GroupDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.UserDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Cluster {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Cluster}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.EntitiyRemovedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.EntityAddedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.EntityChangedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.GoClusterStrategy {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.LocationService {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.LocationService}} \\
-\hspace{1.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.UserLocation {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.UserLocation}} \\
+\hspace{1.0cm} $\bullet$ ClientCommunication.Downstream.FcmClient {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}} \\
+\hspace{1.0cm} $\bullet$ ClientCommunication.Upstream.GoRestController {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}} \\
+\hspace{1.0cm} $\bullet$ ClientCommunication.Upstream.GroupRestController {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}} \\
+\hspace{1.0cm} $\bullet$ ClientCommunication.Upstream.UserRestController {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}} \\
+\hspace{1.0cm} $\bullet$ Main {\tiny \refdefined{edu.kit.pse17.go_app.Main}} \\
+\hspace{1.0cm} $\bullet$ PersistenceLayer.GoEntity {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.GoEntity}} \\
+\hspace{1.0cm} $\bullet$ PersistenceLayer.GroupEntity {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity}} \\
+\hspace{1.0cm} $\bullet$ PersistenceLayer.UserEntity {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.UserEntity}} \\
+\hspace{1.0cm} $\bullet$ PersistenceLayer.daos.GoDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}} \\
+\hspace{1.0cm} $\bullet$ PersistenceLayer.daos.GroupDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}} \\
+\hspace{1.0cm} $\bullet$ PersistenceLayer.daos.UserDaoImp {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.Cluster {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Cluster}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.EntitiyRemovedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.EntityAddedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.EntityChangedObserver {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.GoClusterStrategy {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.LocationService {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.LocationService}} \\
+\hspace{1.0cm} $\bullet$ ServiceLayer.UserLocation {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.UserLocation}} \\
 \hspace{1.0cm} $\bullet$ java.lang.Enum {\tiny \refdefined{java.lang.Enum}} \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.ClientCommunication.Downstream.EventArg {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}} \\
-\hspace{2.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.Status {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.Status}} \\
+\hspace{2.0cm} $\bullet$ ClientCommunication.Downstream.EventArg {\tiny \refdefined{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}} \\
+\hspace{2.0cm} $\bullet$ PersistenceLayer.Status {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.Status}} \\
 }
 \subsection*{Interfaces}
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.AbstractDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao}} \\
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GoDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao}} \\
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.GroupDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao}} \\
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.PersistenceLayer.daos.UserDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao}} \\
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.ClusterStrategy {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy}} \\
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Observable {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observable}} \\
-\hspace{0.0cm} $\bullet$ edu.kit.pse17.go\_app.ServiceLayer.Observer {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observer}} \\
-}
-\section{Package edu.kit.pse17.go\_app.PersistenceLayer}{
+\hspace{0.0cm} $\bullet$ PersistenceLayer.daos.AbstractDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao}} \\
+\hspace{0.0cm} $\bullet$ PersistenceLayer.daos.GoDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao}} \\
+\hspace{0.0cm} $\bullet$ PersistenceLayer.daos.GroupDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao}} \\
+\hspace{0.0cm} $\bullet$ PersistenceLayer.daos.UserDao {\tiny \refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao}} \\
+\hspace{0.0cm} $\bullet$ ServiceLayer.ClusterStrategy {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy}} \\
+\hspace{0.0cm} $\bullet$ ServiceLayer.Observable {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observable}} \\
+\hspace{0.0cm} $\bullet$ ServiceLayer.Observer {\tiny \refdefined{edu.kit.pse17.go_app.ServiceLayer.Observer}} \\
+
+\section{Package PersistenceLayer}{
 \label{edu.kit.pse17.go_app.PersistenceLayer}\hypertarget{edu.kit.pse17.go_app.PersistenceLayer}{}
 \hskip -.05in
-\hbox to \hsize{\textit{ Package Contents\hfil Page}}
+\hbox to \hsize{\textit{ Package Inhalt\hfil Page}}
 \vskip .13in
-\hbox{{\bf  Classes}}
+\hbox{{\bf  Klassen}}
 \entityintro{GoEntity}{edu.kit.pse17.go_app.PersistenceLayer.GoEntity}{Dies ist eine Entity Klasse.}
 \entityintro{GroupEntity}{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity}{Dies ist eine Entity Klasse.}
-\entityintro{Status}{edu.kit.pse17.go_app.PersistenceLayer.Status}{Dieses Enum definiert die verschiedenen Teilnahmestati, die ein Benutzer in einem GO innehaben kann.}
+\entityintro{Status}{edu.kit.pse17.go_app.PersistenceLayer.Status}{Dieses Enum definiert die verschiedenen Teilnahmestatus, die ein Benutzer in einem GO innehaben kann.}
 \entityintro{UserEntity}{edu.kit.pse17.go_app.PersistenceLayer.UserEntity}{Dies ist eine Entity Klasse.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.GoEntity}Class GoEntity}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.GoEntity}Klasse GoEntity}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.GoEntity}{}\vskip .1in 
-Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern. Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface GoDao implementiert. Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.\vskip .1in 
-\subsubsection{Declaration}{
+Dies ist eine Entity Klasse. Sie wird von dem Framework Hibernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern. Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface GoDao implementiert. Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GoEntity
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GoEntity()}{{\bf GoEntity()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GoEntity.equals(java.lang.Object)}{{\bf equals(Object)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GoEntity.getDescription()}{{\bf getDescription()}} \\
@@ -421,7 +401,7 @@ public class GoEntity
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GoEntity.setStart(java.util.Date)}{{\bf setStart(Date)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -432,7 +412,7 @@ public GoEntity()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -570,19 +550,19 @@ public void setStart(java.util.Date start)\end{lstlisting} %end signature
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity}Class GroupEntity}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity}Klasse GroupEntity}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity}{}\vskip .1in 
-Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern. Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface GroupDao implementiert. Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.\vskip .1in 
-\subsubsection{Declaration}{
+Dies ist eine Entity Klasse. Sie wird von dem Framework Hibernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern. Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface GroupDao implementiert. Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GroupEntity
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity()}{{\bf GroupEntity()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity.equals(java.lang.Object)}{{\bf equals(Object)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity.getAdmins()}{{\bf getAdmins()}} \\
@@ -600,7 +580,7 @@ public class GroupEntity
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity.setRequests(java.util.List)}{{\bf setRequests(List)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -611,7 +591,7 @@ public GroupEntity()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -703,7 +683,7 @@ public void setRequests(java.util.List requests)\end{lstlisting} %end signature
 }
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.Status}Class Status}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.Status}{}\vskip .1in 
-Dieses Enum definiert die verschiedenen Teilnahmestati, die ein Benutzer in einem GO innehaben kann.\vskip .1in 
+Dieses Enum definiert die verschiedenen Teilnahmestatus, die ein Benutzer in einem GO innehaben kann.\vskip .1in 
 \subsubsection{Declaration}{
 \begin{lstlisting}[frame=none]
 public final class Status
@@ -715,13 +695,13 @@ public final class Status
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.Status.UNTERWEGS}{{\bf UNTERWEGS}} bedeutet, dass der Benutzer an dem GO teilnimmt und bereits aktiv ist, d.h. er teilt gerade seinen Standort mit anderen GO-Teilnehmern.\\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.Status.valueOf(java.lang.String)}{{\bf valueOf(String)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.Status.values()}{{\bf values()}} \\
 \end{verse}
 }
-\subsubsection{Fields}{
+\subsubsection{Felder}{
 \begin{itemize}
 \item{
 \index{ABGELEHNT}
@@ -738,7 +718,7 @@ bedeutet, dass der Benutzer nicht an dem GO teilnehmen wird. Er teilt seinen Sta
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-bedeutet, dass der Benutzer an dem GO teilnehmen wird. Er ist in dem GO aller dings noch nicht aktiv, d.h. er teilt seinen Standort nicht mit anderen. Gibt es andere Teilnehmer in dem GO, die bereits "UNTERWEGS" sind, kann der Benutzer deren Standorte sehen. Dieser Teilnahemstatus ist der default-Status für den Ersteller eines GOs.}
+bedeutet, dass der Benutzer an dem GO teilnehmen wird. Er ist in dem GO allerdings noch nicht aktiv, d.h. er teilt seinen Standort nicht mit anderen. Gibt es andere Teilnehmer in dem GO, die bereits "UNTERWEGS" sind, kann der Benutzer deren Standorte sehen. Dieser Teilnahemstatus ist der default-Status für den Ersteller eines GOs.}
 \end{itemize}
 }
 \item{
@@ -747,12 +727,12 @@ bedeutet, dass der Benutzer an dem GO teilnehmen wird. Er ist in dem GO aller di
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-bedeutet, dass der Benutzer an dem GO teilnimmt und bereits aktiv ist, d.h. er teilt gerade seinen Standort mit anderen GO-Teilnehmern. Dieser kann von Benutzern mit dem Status "UNTERWEGS" oder "BESTÄTIGT" angesehen werden.}
+bedeutet, dass der Benutzer an dem GO teilnimmt und bereits aktiv ist, d.h. er teilt gerade seinen Standort mit anderen GO-Teilnehmern. Dieser kann von Benutzern mit dem Status "UNTERWEGS" oder "BESTÄTIGT" angesehen werden. Er selbst kann den Standort von anderen aktiven Go-Teilnehnehmern sehen.}
 \end{itemize}
 }
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -769,7 +749,7 @@ public static Status[] values()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Members inherited from class Enum }{
+\subsubsection{Von der Klasse Enum vererbte Methoden }{
 \texttt{java.lang.Enum} {\small 
 \refdefined{java.lang.Enum}}
 {\small 
@@ -820,19 +800,19 @@ public static Status[] values()\end{lstlisting} %end signature
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.UserEntity}Class UserEntity}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.UserEntity}Klasse UserEntity}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.UserEntity}{}\vskip .1in 
-Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern. Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface UserDao implementiert. Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.\vskip .1in 
-\subsubsection{Declaration}{
+Dies ist eine Entity Klasse. Sie wird von dem Framework Hibernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern. Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface UserDao implementiert. Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class UserEntity
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.UserEntity()}{{\bf UserEntity()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.UserEntity.equals(java.lang.Object)}{{\bf equals(Object)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.UserEntity.getEmail()}{{\bf getEmail()}} \\
@@ -846,7 +826,7 @@ public class UserEntity
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.UserEntity.setUid(java.lang.String)}{{\bf setUid(String)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -857,7 +837,7 @@ public UserEntity()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -924,7 +904,7 @@ public void setUid(java.lang.String uid)\end{lstlisting} %end signature
 }
 }
 }
-\section{Package edu.kit.pse17.go\_app.PersistenceLayer.daos}{
+\section{Package PersistenceLayer.daos}{
 \label{edu.kit.pse17.go_app.PersistenceLayer.daos}\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
@@ -935,7 +915,7 @@ public void setUid(java.lang.String uid)\end{lstlisting} %end signature
 \entityintro{GroupDao}{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao}{Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt.}
 \entityintro{UserDao}{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao}{Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt.}
 \vskip .13in
-\hbox{{\bf  Classes}}
+\hbox{{\bf  Klassen}}
 \entityintro{GoDaoImp}{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}{Created by tina on 30.06.17.}
 \entityintro{GroupDaoImp}{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}{Created by tina on 30.06.17.}
 \entityintro{UserDaoImp}{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}{Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable.}
@@ -950,7 +930,7 @@ public interface AbstractDao
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.delete(PK)}{{\bf delete(PK)}} Diese Methode löscht ein Entity-Objekt aus der Datenbank.\\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.get(PK)}{{\bf get(PK)}} Diese Methode gibt ein Entity-Objekt zurück, das anhand seines Primärschlüssels aus der Datenbank geholt wurde.\\
@@ -1066,7 +1046,7 @@ public interface GoDao
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} Mit dieser Methode wird der Teilnahmestatus eines GO-Teilnehnmers geändert.\\
 \end{verse}
@@ -1108,7 +1088,7 @@ Bei diesem Interface handelt es sich um ein Interface für eine Data Access Obje
 \begin{lstlisting}[frame=none]
 public interface GroupDao
 \end{lstlisting}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao.addAdmin(java.lang.String, java.lang.String)}{{\bf addAdmin(String, String)}} Diese Methode fügt einen Administrator bei einer Gruppe hinzu.\\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao.addGroupMember(java.lang.String, long)}{{\bf addGroupMember(String, long)}} Fügt der Gruppe mit der Id groupId den Benutzer mit der Id userId hinzu.\\
@@ -1267,7 +1247,7 @@ public interface UserDao
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}}
 \subsubsection{All classes known to implement interface}{UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao.addUser(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf addUser(UserEntity)}} Die Methode fügt eine neue UserEntity in die Datenbank ein.\\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao.deleteUser(java.lang.String)}{{\bf deleteUser(String)}} Diese Methode entfernt eine Entity aus der Datenbank.\\
@@ -1398,12 +1378,12 @@ Created by tina on 30.06.17.\vskip .1in
 \begin{lstlisting}[frame=none]
 public class GoDaoImp
  extends java.lang.Object implements AbstractDao, GoDao, edu.kit.pse17.go_app.ServiceLayer.Observable\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp()}{{\bf GoDaoImp()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.delete(java.lang.Long)}{{\bf delete(Long)}} \\
@@ -1580,12 +1560,12 @@ Created by tina on 30.06.17.\vskip .1in
 \begin{lstlisting}[frame=none]
 public class GroupDaoImp
  extends java.lang.Object implements AbstractDao, GoDao, edu.kit.pse17.go_app.ServiceLayer.Observable\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp()}{{\bf GroupDaoImp()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.delete(java.lang.Long)}{{\bf delete(Long)}} \\
@@ -1762,12 +1742,12 @@ Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable. S
 \begin{lstlisting}[frame=none]
 public class UserDaoImp
  extends java.lang.Object implements UserDao, AbstractDao, edu.kit.pse17.go_app.ServiceLayer.Observable\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp()}{{\bf UserDaoImp()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.addUser(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf addUser(UserEntity)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.delete(java.lang.String)}{{\bf delete(String)}} \\
@@ -2038,7 +2018,7 @@ public final class EventArg
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg.STATUS_CHANGED_COMMAND}{{\bf STATUS\_CHANGED\_COMMAND}} Event wird ausgelöst, wenn ein GO-Teilnehmer seinen Teilnehmerstatus verändert hat.\\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg.valueOf(java.lang.String)}{{\bf valueOf(String)}} \\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg.values()}{{\bf values()}} \\
@@ -2213,12 +2193,12 @@ Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachr
 \begin{lstlisting}[frame=none]
 public class FcmClient
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient()}{{\bf FcmClient()}} Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt.\\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send(JsonObject, java.lang.String, java.util.List)}{{\bf send(JsonObject, String, List)}} Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet.\\
 \end{verse}
@@ -2290,12 +2270,12 @@ Die Klasse GORestController gehört zum Upstream ClientCommunication Modul und b
 \begin{lstlisting}[frame=none]
 public class GoRestController
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController()}{{\bf GoRestController()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.changeStatus(long, java.lang.String, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(long, String, Status)}} Diese Methode wird von einem Client aufgerufen, um seinen Teilnahmerstatus in einem Go zu ändern.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.createGo(java.lang.String, java.lang.String, java.util.Date, java.util.Date, double, double, int, long, java.lang.String)}{{\bf createGo(String, String, Date, Date, double, double, int, long, String)}} Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll.\\
@@ -2338,8 +2318,8 @@ Diese Methode wird von einem Client aufgerufen, um seinen Teilnahmerstatus in ei
    \item{
 \texttt{userId} -- Die ID des Users, der seinen Teilnahmestatus ändern will. Diese ID muss eine gültige, auf dem System registrierte User ID sein.}
    \item{
-\texttt{status} -- Der neue Status des Clients. Dieser hat entweder den Wert "Abgelehnt", "Bestätigt" oder "Losgegangen"}
-  \end{itemize}
+\texttt{status} -- Der neue Status des Clients. Dieser hat entweder den Wert "Abgelehnt", "Bestätigt" oder "Losgegangen". }
+\end{itemize}
 }%end item
 \end{itemize}
 }%end item
@@ -2495,12 +2475,12 @@ Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul un
 \begin{lstlisting}[frame=none]
 public class GroupRestController
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController()}{{\bf GroupRestController()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.acceptRequest(java.lang.Long, java.lang.String)}{{\bf acceptRequest(Long, String)}} Diese Methode wird dann aufgerufen, wenn ein Benutzer eine bestehende Gruppenmitgliedschaftsanfrage bestätigt und somit zu einem vollwertigen Mitglied der Gruppe wird.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.addAdmin(java.lang.String, java.lang.String)}{{\bf addAdmin(String, String)}} Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes Gruppenmitglied zu administrator ernennen will.\\
@@ -2717,12 +2697,12 @@ Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und
 \begin{lstlisting}[frame=none]
 public class UserRestController
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController()}{{\bf UserRestController()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.createUser(java.lang.String, java.lang.String)}{{\bf createUser(String, String)}} Diese Methode wird aufgerufen, wenn ein Benutzer sich zum ersten Mal in der App anmeldet.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.deleteUser(java.lang.String)}{{\bf deleteUser(String)}} Diese Methode wird aufgerufen, wenn ein Benutzer seinen Benutzeraccount löschen möchte.\\
@@ -2849,12 +2829,12 @@ Created by tina on 29.06.17.\vskip .1in
 \begin{lstlisting}[frame=none]
 public class Main
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.Main()}{{\bf Main()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.Main.main(java.lang.String[])}{{\bf main(String\lbrack \rbrack )}} \\
 \end{verse}
@@ -2912,7 +2892,7 @@ public interface ClusterStrategy
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{GoClusterStrategy\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}}}
 \subsubsection{All classes known to implement interface}{GoClusterStrategy\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}}}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy.calculateCluster(java.util.List)}{{\bf calculateCluster(List)}} Diese Methode muss von jeder konkreten Algorithmus-Klasse implementiert werden.\\
 \end{verse}
@@ -2955,7 +2935,7 @@ public interface Observable
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, T)}{{\bf notify(String, Observable, T)}} Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} Mit dieser Methode kann man einen neuen Observer registrieren.\\
@@ -3041,7 +3021,7 @@ public interface Observer
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
 \subsubsection{All classes known to implement interface}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observer.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die Clients weitergeben.\\
 \end{verse}
@@ -3083,12 +3063,12 @@ Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clusterin
 \begin{lstlisting}[frame=none]
 public class Cluster
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Cluster(int, long, long)}{{\bf Cluster(int, long, long)}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Cluster.getLat()}{{\bf getLat()}} \\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Cluster.getLon()}{{\bf getLon()}} \\
@@ -3163,12 +3143,12 @@ public class EntitiyRemovedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.OBSERVER_CODE}{{\bf OBSERVER\_CODE}} Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll.\\
 \end{verse}
 }
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver()}{{\bf EntitiyRemovedObserver()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der update()-methode des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der update()-methode des Observers.\\
@@ -3314,12 +3294,12 @@ public class EntityAddedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.OBSERVER_CODE}{{\bf OBSERVER\_CODE}} Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll.\\
 \end{verse}
 }
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver()}{{\bf EntityAddedObserver()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der Update-Methode des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der Update-Methode des Observers.\\
@@ -3465,12 +3445,12 @@ public class EntityChangedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.OBSERVER_CODE}{{\bf OBSERVER\_CODE}} Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll.\\
 \end{verse}
 }
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver()}{{\bf EntityChangedObserver()}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der Methode update() des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der Methode update() des Observers.\\
@@ -3611,12 +3591,12 @@ In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus impl
 \begin{lstlisting}[frame=none]
 public class GoClusterStrategy
  extends java.lang.Object implements ClusterStrategy\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy(int)}{{\bf GoClusterStrategy(int)}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy.calculateCluster(java.util.List)}{{\bf calculateCluster(List)}} Methode des Interfaces, die hier implementiert wird.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy.getThreshold()}{{\bf getThreshold()}} \\
@@ -3682,12 +3662,12 @@ Diese Klasse bietet eine Schnittstelle für den GOrestController, an die Anfrage
 \begin{lstlisting}[frame=none]
 public class LocationService
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService()}{{\bf LocationService()}} Der einzige Konstruktor diser Klasse nimmt keine Argumente entgegen.\\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService.getGroupLocation(long)}{{\bf getGroupLocation(long)}} Gibt die aktuelle GroupLocation des spezifizierten GOs an den Aufrufer zurück.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService.setUserLocation(long, java.lang.String, long, long)}{{\bf setUserLocation(long, String, long, long)}} Diese Methode speichert eine UserLocation in der acitveUsers Liste des entsprechenden GOs.\\
@@ -3773,12 +3753,12 @@ Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clusterin
 \begin{lstlisting}[frame=none]
 public class UserLocation
  extends java.lang.Object\end{lstlisting}
-\subsubsection{Constructor summary}{
+\subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.UserLocation(java.lang.String, long, long)}{{\bf UserLocation(String, long, long)}} \\
 \end{verse}
 }
-\subsubsection{Method summary}{
+\subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.UserLocation.getLat()}{{\bf getLat()}} \\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.UserLocation.getLon()}{{\bf getLon()}} \\
