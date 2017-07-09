@@ -19,6 +19,9 @@ public class UserRepository extends Repository<User>{
 
     private final TomcatRestApi webService;
     private final SharedPreferences sharedPrefManager;
+    /*
+    * Wird wie Thread benutzt, um die UI nicht anzuhalten
+    * */
     private final Executor executor;
 
     public UserRepository(TomcatRestApi webService, SharedPreferences sharedPrefManager, Executor executor) {
@@ -36,7 +39,9 @@ public class UserRepository extends Repository<User>{
     public LiveData<User> getUpdatedData() {
         return null;
     }
-
+    /*
+    * Lösche den User mit uid.
+    * */
     public void deleteUser(String uid){
         executor.; //Tomcat deleteUser request
     }

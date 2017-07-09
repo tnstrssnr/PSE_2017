@@ -18,7 +18,7 @@ import edu.kit.pse17.go_app.R;
 public class GoDetailActivityOwner extends GoDetailActivity {
 
     /**
-     * zusätzliche Schaltflöche, um die GoEditView aufzurufen
+     * zusätzliche Schaltflöche, um die EditGoView aufzurufen
      */
     private ImageView edit;
 

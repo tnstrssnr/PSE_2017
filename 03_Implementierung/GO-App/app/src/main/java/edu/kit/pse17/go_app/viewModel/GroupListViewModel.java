@@ -51,10 +51,20 @@ public class GroupListViewModel extends ViewModel {
         this.data = groupRepo.getGroupsForUser(uId);
     }
     /*
-    * return a list of groups of the current user
+    * Gibt zurück eine Liste aller Gruppen für ein User
     * */
-    public LiveData<List<Group>> getGroups() {
+    public LiveData<List<Group>> getGroups(String userId) {
         return this.data;
+    }
+    /*
+    * Erzeugt eine neue Gruppe und leitet das weiter, damit die Daten auf dem Server persistiert werden
+    * group.id wird nicht berücksichtigt bei der Erstellung.
+    * */
+    public void createGroup(Group group){}
+    /*
+    * Gibt zurück die Instanz des Viewmodels
+    * */
+    public static GroupListViewModel getCurrentGroupListViewModel(){
     }
 
 }

@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.location.Location;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -8,6 +9,7 @@ import java.util.concurrent.Executor;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 
@@ -44,25 +46,6 @@ public class GoRepository extends Repository<List<Go>>{
         this.executor = executor;
     }
 
-    public LiveData<Go> getGo(long goId) {
-        refreshGo(goId);
-        //return LiveData directly from database
-        return goDao.load(goId);
-    }
-
-    private void refreshGo(long groupId) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                //fetch data from server
-            }
-        });
-    }
-
-    public LiveData<List<Go>> getGosForUser(String uid) {
-
-        return null;
-    }
 
     @Override
     public LiveData<List<Go>> fetchData() {
@@ -73,4 +56,16 @@ public class GoRepository extends Repository<List<Go>>{
     public LiveData<List<Go>> getUpdatedData() {
         return null;
     }
+    /*
+    * Ändert den teilnahmestatus von dem User mit id userId für die go mit id goId
+    * */
+    public void changeStatus(Status status, String goId, String userId){}
+    /*
+    * Erhält die Locations zu dem go mit Id goId, und schickt gleich eigene Location
+    * */
+    public LiveData<List<Cluster>> getLocations(String goId, Location location){}
+    /*
+    * Ändert die Informationen von Go mit goid - go.goid
+    * */
+    public void editGo(Go go){}
 }

@@ -301,16 +301,37 @@ Für GO-Verantwortliche und Gruppenadmins werden GroupDetailActivity oder GoDeta
 \begin{itemize}
 \item \textit{GroupDetailActivity} \\
 Activity, wo die Gruppendetails angezeigt werden. Ist eine Oberklasse von GroupDetailActivityOwner.
-\item \textit{GroupDetailActivityOwner}
+\item \textit{GroupDetailActivityOwner}\\
 Erweitert die Oberklasse um Funktionen für die Admins.
-\item \textit{GoDetailActivity}
+\item \textit{GoDetailActivity}\\
 Activity, wo Go-Details angezeigt werden. Oberklasse von GoDetailActivityOwner.
-\item \textit{GoDetailActivityOwner}
+\item \textit{GoDetailActivityOwner}\\
 Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
 \end{itemize}
 
 
-%\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+Mit dem Command Muster haben wir die Bearbeitung der Messages von den Messages selbst getrennt. Messages kommen vom Server zu Client mit Hilfe von Firbase. Auf der Client Seite wird das Message vom MessageReceiver empfangen und zu einer der ServerCommand Unterklassen gemappt. Das erlaubt uns auch den Message Flow zu loggen z.B. In dem Command selbst wird schon entschieden, was der Client mit dem Message macht und was ausgeführt wird.
+
+\textbf{beteiligte Klassen}
+\begin{itemize}
+\item \textit{FcmClient} \\
+Verschickt die Messages an die Clients.
+\item \textit{MessageReceiver}\\
+Empfängt die Messages und mappt diese zu einem ServerCommand.
+\item \textit{ServerCommand}\\
+Kümmert sich um die Ausführung des Befehls, ändert die Daten auf dem Client entsprechend.
+\end{itemize}
+
+\subsection{Singleton in UserViewModel}
+Benutzer Daten werden im UserViewModel gespeichert. Also ist es sinnvoll ein Singleton Muster da zu implementieren, da es nur ein User per Session gibt. Andere Klassen können dann die UserId kriegen und man ist sicher, dass UserId eindeutig ist.
+
+\textbf{beteiligte Klasse}
+\begin{itemize}
+\item \textit{UserViewModel} \\
+Singleton.
+\end{itemize}
+
 
 
 \newpage
@@ -4176,5 +4197,21 @@ Danach wird die Anfrage über die GroupRepository und das Rest API an den Server
 
 Der Observer baut ein Message-Objekt aus der erhaltenen Gruppe und extrahiert eine Liste aller Gruppenmitglieder aus dem Gruppenobjekt. Diese Daten werden weitergegeben an dem FcmClient über die Methode send(). Dadurch werden die Nachrichten über die Löschung der Gruppe an die Gruppenmitglieder geschickt, damit diese ihre lokalen Daten anpassen können.
 % ------- textdoclet_include/finish.tex end
+
+\subsection{Teilnahmestatus ändern}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Sequenzdiagramme/Change_status.jpg}
+	\caption{Sequenzdiagramm - Teilnahmestatus des Benutzers innerhalb eines GOs ändern}
+\end{figure}
+
+Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms passiert, wenn ein Benutzer seinen Teilnahmestatus innerhalb eines GOs ändert. Das User Interface stellt dem Benutzer ein Button in der GO-Detail-Ansicht zur Verfügung. Beim Anklicken des Buttons wird dem Benutzer ein Feld mit der Wahlmöglichkeit eines Status gezeigt. Activity-Klasse extrahiert den neuen Status und übergibt diesen an das GoViewModel über den Methodenaufruf 'changeStatus()' mit userId, goId und status als Arguments enthalten. Das ViewModel überprüft zunächst ob es ein gültiger Status für diesen Benutzer ist. Falls ja, wird die Anfrage an das GoRepository weitergeleitet und von dort über die Klasse TomcatRestApi (RestAPI) an den Server gesendet.
+
+Die Anfrage kommt durch den Methodenaufruf 'changeStatus()' in der GoRestController-Klasse an und wird dann an das GoEntityDAO weitergegeben, wobei die Methode 'changeStatus()' des GoEntityDAOs aufgerufen wird.  Der neue Status des Benutzers beim aktuellen GO wird in der Datenbank ('UserGoStatus' Entity Bean) gespeichert und es werden die Observer benachrichtigt, dass sich die Daten geändert haben.
+
+Der EntityChangedObserver merkt sich diese Änderung des betroffenen GOs, das er beim Aufruf der 'update()'-Methode bekommt. Der Observer baut ein Message-Objekt aus dem erhaltenen GO und extrahiert eine Liste aller GO-Teilnehmer. Diese Daten werden weitergegeben an dem FcmClient über die Methode 'send()'. Die Nachricht, die von dem Server, über dem Firebase Cloud Messaging Server, an den Client gesendet wird, löst einen Aufruf der Methode 'onMessageReceived()' in der Klasse MessageReceiver aus. Diese Klasse findet heraus, an welches ServerCommand-Objekt die Anfrage weitergeleitet werden muss.
+
+Nach Weiterleitung der Anfrage an den StatusChangedCommand  werden die neuen Daten (das GO) im GoRepository gespeichert. Danach schickt das StatusChangedCommand-Objekt einen Broadcast an alle ViewModels. Das GoViewModel erkennt, dass der Broadcast eine Änderung des GOs des Benutzers betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getCurrentData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
 \end{document}

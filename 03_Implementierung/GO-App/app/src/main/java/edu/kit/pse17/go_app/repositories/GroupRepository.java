@@ -9,6 +9,7 @@ import java.util.concurrent.Executor;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import retrofit2.Response;
@@ -89,5 +90,28 @@ public class GroupRepository extends Repository<List<Group>>{
     @Override
     public LiveData<List<Group>> getUpdatedData() {
         return null;
+    }
+    /*
+    * Ein Teilnehmer hinzufügen
+    * */
+    public void addMember(String Email, String groupid){}
+    /*
+    * Ändert die daten von der Group mit der Id group.Id, weil group.Id hier schon richtig sein muss
+    * wegen der Wegwerfens der Id in ViewModels
+    * */
+    public void editGroup(Group group){}
+    /*
+    * Erzeugt eine Gruppe, group.Id wird danach intern auf dem Server vergeben
+    * */
+    public void createGroup(Group group){}
+    /*
+    *  Erzeugt ein neues GO in der Gruppe mit groupId
+    * */
+    public void createGo(Go go, String groupId){}
+    /*
+    * Beantworte die Anfrage für eine Gruppe, answer True - Ja, answer False - Nein
+    * */
+    public void answerGroupRequest(String groupId, boolean answer){
+
     }
 }

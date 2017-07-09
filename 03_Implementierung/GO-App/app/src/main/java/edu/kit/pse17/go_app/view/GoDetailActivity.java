@@ -4,10 +4,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import edu.kit.pse17.go_app.model.entities.Go;
+import android.support.design.widget.FloatingActionButton;
+import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
+import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.viewModel.GoListViewModel;
 
 /**
@@ -18,6 +19,15 @@ import edu.kit.pse17.go_app.viewModel.GoListViewModel;
  */
 
 public class GoDetailActivity extends BaseActivity {
+    private TextView title;
+    private TextView description;
+    private TextView startTime;
+    private TextView endTime;
+    private TextView memberCount;
+    /*
+    * Knopf um den Teilnahmestatus in dem GO zu ändern.
+    * */
+    private FloatingActionButton changeStatus;
 
     /**
      * Viewmodel Instanz, in der die dargestellten Daten der Aktivität gespeichert werden, um sie bei

@@ -16,50 +16,131 @@
 			<WarningOptions CreateORMClassInDefaultPackage="true"/>
 			<PORepository>
 				<POUserIDFormats>
-					<POUserIDFormat Digits="2" Guid="false" Id="RCp2OLqFYFDaSwT3" LastNumericValue="0" ModelType="BPMNElement" Prefix="BP" Suffix=""/>
-					<POUserIDFormat Digits="2" Guid="false" Id="xCp2OLqFYFDaSwT4" LastNumericValue="0" ModelType="Actor" Prefix="AC" Suffix=""/>
-					<POUserIDFormat Digits="2" Guid="false" Id="xCp2OLqFYFDaSwT5" LastNumericValue="0" ModelType="UseCase" Prefix="UC" Suffix=""/>
-					<POUserIDFormat Digits="3" Guid="false" Id="xCp2OLqFYFDaSwT6" LastNumericValue="0" ModelType="Requirement" Prefix="REQ" Suffix=""/>
-					<POUserIDFormat Digits="3" Guid="false" Id="xCp2OLqFYFDaSwT7" LastNumericValue="0" ModelType="BusinessRule" Prefix="BR" Suffix=""/>
-					<POUserIDFormat Digits="3" Guid="false" Id="xCp2OLqFYFDaSwT8" LastNumericValue="0" ModelType="PERTTask" Prefix="" Suffix=""/>
-					<POUserIDFormat Digits="-1" Guid="false" Id="JCp2OLqFYFDaSwT9" LastNumericValue="0" ModelType="BusinessProcessDiagram" Prefix="" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="2cOnZLqFYFDaSwT3" LastNumericValue="0" ModelType="BPMNElement" Prefix="BP" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="OcOnZLqFYFDaSwT4" LastNumericValue="0" ModelType="Actor" Prefix="AC" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="ucOnZLqFYFDaSwT5" LastNumericValue="0" ModelType="UseCase" Prefix="UC" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="ucOnZLqFYFDaSwT6" LastNumericValue="0" ModelType="Requirement" Prefix="REQ" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="ucOnZLqFYFDaSwT7" LastNumericValue="0" ModelType="BusinessRule" Prefix="BR" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="ucOnZLqFYFDaSwT8" LastNumericValue="0" ModelType="PERTTask" Prefix="" Suffix=""/>
+					<POUserIDFormat Digits="-1" Guid="false" Id="ucOnZLqFYFDaSwT9" LastNumericValue="0" ModelType="BusinessProcessDiagram" Prefix="" Suffix=""/>
 				</POUserIDFormats>
 			</PORepository>
 		</ProjectOptions>
 	</ProjectInfo>
 	<Models>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="cHJ2OLqFYFDaSwAH" Name="boolean" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.783" PmLastModified="2017-07-07T11:44:26.417" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="DnJ2OLqFYFDaSwAI" Name="byte" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.811" PmLastModified="2017-07-07T11:44:26.470" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="jnJ2OLqFYFDaSwAJ" Name="char" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.811" PmLastModified="2017-07-07T11:44:26.354" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="jnJ2OLqFYFDaSwAK" Name="double" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.812" PmLastModified="2017-07-07T11:44:26.354" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="jnJ2OLqFYFDaSwAL" Name="float" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.812" PmLastModified="2017-07-07T11:44:26.354" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="TnJ2OLqFYFDaSwAM" Name="int" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.813" PmLastModified="2017-07-07T11:44:26.352" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="TnJ2OLqFYFDaSwAN" Name="long" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.814" PmLastModified="2017-07-07T11:44:26.352" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="znJ2OLqFYFDaSwAO" Name="short" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.814" PmLastModified="2017-07-07T11:44:26.468" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="znJ2OLqFYFDaSwAP" Name="void" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.815" PmLastModified="2017-07-07T11:44:26.468" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<DataType BacklogActivityId="0" Documentation_plain="" Id="znJ2OLqFYFDaSwAQ" Name="string" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.815" PmLastModified="2017-07-07T11:44:26.467" QualityScore="-1" UserIDLastNumericValue="0"/>
-		<Frame BacklogActivityId="0" BaseY="40" Documentation_plain="" Id="QSe5OLqFYFDaSw7X" Name="DeleteProfile" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:34:56.002" PmLastModified="2017-07-07T12:34:56.011" QualityScore="-1" Type="sd" UserIDLastNumericValue="0">
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="q72nZLqFYFDaSwAH" Name="boolean" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.783" PmLastModified="2017-07-07T11:44:26.417" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="ZH2nZLqFYFDaSwAI" Name="byte" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.811" PmLastModified="2017-07-07T11:44:26.470" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="5H2nZLqFYFDaSwAJ" Name="char" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.811" PmLastModified="2017-07-07T11:44:26.354" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="5H2nZLqFYFDaSwAK" Name="double" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.812" PmLastModified="2017-07-07T11:44:26.354" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="5H2nZLqFYFDaSwAL" Name="float" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.812" PmLastModified="2017-07-07T11:44:26.354" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="FH2nZLqFYFDaSwAM" Name="int" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.813" PmLastModified="2017-07-07T11:44:26.352" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="FH2nZLqFYFDaSwAN" Name="long" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.814" PmLastModified="2017-07-07T11:44:26.352" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="FH2nZLqFYFDaSwAO" Name="short" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.814" PmLastModified="2017-07-07T11:44:26.468" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="lH2nZLqFYFDaSwAP" Name="void" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.815" PmLastModified="2017-07-07T11:44:26.468" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="lH2nZLqFYFDaSwAQ" Name="string" PmAuthor="tina" PmCreateDateTime="2017-06-18T10:39:00.815" PmLastModified="2017-07-07T11:44:26.467" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="9HhjXTqD.AACAQal" Name="relationships" PmAuthor="tina" PmCreateDateTime="2017-06-18T12:36:05.039" PmLastModified="2017-07-09T14:18:58.301" QualityScore="-1" UserIDLastNumericValue="0">
 			<ModelChildren>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="SettingsActivity" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="us.5OLqFYFDaSw7g" MultiObject="false" Multiplicity="Unspecified" Name="settings" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:34:59.805" PmLastModified="2017-07-07T12:35:11.013" QualityScore="-1" Stopped="true" UserIDLastNumericValue="0">
+				<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="LjuS5LqFYFDaSw6t" Name="Message" PmAuthor="Vovas" PmCreateDateTime="2017-07-09T14:18:58.292" PmLastModified="2017-07-09T14:33:33.302" QualityScore="-1" UserIDLastNumericValue="0">
+					<ModelChildren>
+						<Message Asynchronous="false" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="us.5OLqFYFDaSw7g" FromActivation="dbR5OLqFYFDaSw7n" Id="TbR5OLqFYFDaSw7r" Name="deleteProfile()" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.738" PmLastModified="2017-07-09T14:33:33.313" QualityScore="-1" SequenceNumber="1" ToActivation="dbR5OLqFYFDaSw7n" Type="Self Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="TbR5OLqFYFDaSw7s" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.738" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="TbR5OLqFYFDaSw7t" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.738" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="HbR5OLqFYFDaSw7u" Name="deleteProfile()"/>
+							</MasterView>
+						</Message>
+						<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="3nRFOLqFYFDaSw.M" FromActivation="dbR5OLqFYFDaSw7n" Id="sXRFOLqFYFDaSw.P" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.101" PmLastModified="2017-07-09T14:33:33.307" QualityScore="-1" SequenceNumber="2" ToActivation=".XRFOLqFYFDaSw.e" Type="Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="sXRFOLqFYFDaSw.Q" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.101" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="3nRFOLqFYFDaSw.M" Id="sXRFOLqFYFDaSw.R" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.101" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="yXRFOLqFYFDaSw.S" Name="deleteUser(uId)"/>
+							</MasterView>
+						</Message>
+						<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="3nRFOLqFYFDaSw.M" EndRelationshipToMetaModelElement="NJdFOLqFYFDaSw_F" FromActivation=".XRFOLqFYFDaSw.e" Id="wjLFOLqFYFDaSw_Q" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.243" PmLastModified="2017-07-09T14:33:33.312" QualityScore="-1" SequenceNumber="2.1" ToActivation="8jLFOLqFYFDaSw_X" Type="Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="3nRFOLqFYFDaSw.M" Id="wjLFOLqFYFDaSw_R" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.243" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NJdFOLqFYFDaSw_F" Id="wjLFOLqFYFDaSw_S" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.243" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="kjLFOLqFYFDaSw_T" Name="deleteUser(uId)"/>
+							</MasterView>
+						</Message>
+						<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="NJdFOLqFYFDaSw_F" EndRelationshipToMetaModelElement="NDQlOLqFYFDaSxAp" FromActivation="8jLFOLqFYFDaSw_X" Id="Uq4lOLqFYFDaSxA0" Name="delete(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.282" PmLastModified="2017-07-09T14:33:33.317" QualityScore="-1" SequenceNumber="2.1.1" ToActivation="Bq4lOLqFYFDaSxBD" Type="Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NJdFOLqFYFDaSw_F" Id="Uq4lOLqFYFDaSxA1" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.282" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NDQlOLqFYFDaSxAp" Id="Uq4lOLqFYFDaSxA2" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.282" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="Cq4lOLqFYFDaSxA3" Name="delete(uId)"/>
+							</MasterView>
+						</Message>
+						<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="NDQlOLqFYFDaSxAp" EndRelationshipToMetaModelElement="reMlOLqFYFDaSxBY" FromActivation="Bq4lOLqFYFDaSxBD" Id="NSalOLqFYFDaSxCU" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.564" PmLastModified="2017-07-09T14:33:33.316" QualityScore="-1" SequenceNumber="2.1.1.1" ToActivation="HSalOLqFYFDaSxCb" Type="Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NDQlOLqFYFDaSxAp" Id="NSalOLqFYFDaSxCV" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.564" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="reMlOLqFYFDaSxBY" Id="NSalOLqFYFDaSxCW" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.564" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="TSalOLqFYFDaSxCX" Name="deleteUser(uId)"/>
+							</MasterView>
+						</Message>
+						<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="reMlOLqFYFDaSxBY" EndRelationshipToMetaModelElement="F5plOLqFYFDaSxDi" FromActivation="HSalOLqFYFDaSxCb" Id="j5plOLqFYFDaSxDl" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.353" PmLastModified="2017-07-09T14:33:33.309" QualityScore="-1" SequenceNumber="2.1.1.1.1" ToActivation="IFplOLqFYFDaSxD0" Type="Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="reMlOLqFYFDaSxBY" Id="j5plOLqFYFDaSxDm" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.353" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="F5plOLqFYFDaSxDi" Id="j5plOLqFYFDaSxDn" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.353" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="b5plOLqFYFDaSxDo" Name="deleteUser(uId)"/>
+							</MasterView>
+						</Message>
+						<Message Asynchronous="false" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="s7AAuLqFYFDaSxRU" FromActivation="dbR5OLqFYFDaSw7n" Id="67AAuLqFYFDaSxRX" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.111" PmLastModified="2017-07-09T14:33:33.307" QualityScore="-1" SequenceNumber="3" Type="Create Message" UserIDLastNumericValue="0">
+							<FromEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="67AAuLqFYFDaSxRY" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.111" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</FromEnd>
+							<ToEnd>
+								<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="s7AAuLqFYFDaSxRU" Id="67AAuLqFYFDaSxRZ" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.111" QualityScore="-1" UserIDLastNumericValue="0"/>
+							</ToEnd>
+							<MasterView>
+								<Message Idref="u7AAuLqFYFDaSxRa"/>
+							</MasterView>
+						</Message>
+					</ModelChildren>
+				</ModelRelationshipContainer>
+			</ModelChildren>
+		</ModelRelationshipContainer>
+		<Frame BacklogActivityId="0" BaseY="40" Documentation_plain="" Id="QSe5OLqFYFDaSw7X" Name="DeleteProfile" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:34:56.002" PmLastModified="2017-07-09T14:33:33.305" QualityScore="-1" Type="sd" UserIDLastNumericValue="0">
+			<ModelChildren>
+				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="SettingsActivity" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="us.5OLqFYFDaSw7g" MultiObject="false" Multiplicity="Unspecified" Name="settings" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:34:59.805" PmLastModified="2017-07-09T14:33:33.315" QualityScore="-1" Stopped="true" UserIDLastNumericValue="0">
 					<Activations>
 						<Activation BacklogActivityId="0" Documentation_plain="" Id="dbR5OLqFYFDaSw7n" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.734" QualityScore="-1" UserIDLastNumericValue="0">
-							<Activations>
-								<Activation BacklogActivityId="0" Documentation_plain="" Id="n5iAuLqFYFDaSxVj" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:23:17.753" QualityScore="-1" UserIDLastNumericValue="0">
-									<MasterView>
-										<Activation Idref="P5iAuLqFYFDaSxVl" Name="Activation"/>
-									</MasterView>
-								</Activation>
-							</Activations>
 							<MasterView>
 								<Activation Idref="jbR5OLqFYFDaSw7p" Name="Activation"/>
 							</MasterView>
 						</Activation>
 					</Activations>
+					<FromSimpleRelationships>
+						<Anchor Idref="xZwG5LqFYFDaSxBE" Name=""/>
+					</FromSimpleRelationships>
 					<MasterView>
 						<InteractionLifeLine Idref="us.5OLqFYFDaSw7f" Name="settings"/>
 					</MasterView>
 				</InteractionLifeLine>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="UserViewModel" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="3nRFOLqFYFDaSw.M" MultiObject="false" Multiplicity="Unspecified" Name="uvm" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.083" PmLastModified="2017-07-07T12:39:54.597" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
+				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="UserViewModel" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="3nRFOLqFYFDaSw.M" MultiObject="false" Multiplicity="Unspecified" Name="uvm" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.083" PmLastModified="2017-07-09T14:33:33.315" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
 					<Activations>
 						<Activation BacklogActivityId="0" Documentation_plain="" Id=".XRFOLqFYFDaSw.e" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.119" QualityScore="-1" UserIDLastNumericValue="0">
 							<MasterView>
@@ -71,7 +152,7 @@
 						<InteractionLifeLine Idref="3nRFOLqFYFDaSw.L" Name="uvm"/>
 					</MasterView>
 				</InteractionLifeLine>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="UserRepository" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="NJdFOLqFYFDaSw_F" MultiObject="false" Multiplicity="Unspecified" Name="userRepo" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:24.876" PmLastModified="2017-07-07T12:40:35.852" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
+				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="UserRepository" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="NJdFOLqFYFDaSw_F" MultiObject="false" Multiplicity="Unspecified" Name="userRepo" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:24.876" PmLastModified="2017-07-09T14:33:33.317" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
 					<Activations>
 						<Activation BacklogActivityId="0" Documentation_plain="" Id="8jLFOLqFYFDaSw_X" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.255" QualityScore="-1" UserIDLastNumericValue="0">
 							<MasterView>
@@ -83,7 +164,7 @@
 						<InteractionLifeLine Idref="NJdFOLqFYFDaSw_E" Name="userRepo"/>
 					</MasterView>
 				</InteractionLifeLine>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="NDQlOLqFYFDaSxAp" MultiObject="false" Multiplicity="Unspecified" Name="RestAPI" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:41:47.564" PmLastModified="2017-07-07T12:41:52.465" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
+				<InteractionLifeLine Active="false" BacklogActivityId="0" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="NDQlOLqFYFDaSxAp" MultiObject="false" Multiplicity="Unspecified" Name="RestAPI" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:41:47.564" PmLastModified="2017-07-09T14:33:33.317" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
 					<Activations>
 						<Activation BacklogActivityId="0" Documentation_plain="" Id="Bq4lOLqFYFDaSxBD" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.304" QualityScore="-1" UserIDLastNumericValue="0">
 							<MasterView>
@@ -95,7 +176,7 @@
 						<InteractionLifeLine Idref="1DQlOLqFYFDaSxAo" Name="RestAPI"/>
 					</MasterView>
 				</InteractionLifeLine>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="RestController" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="reMlOLqFYFDaSxBY" MultiObject="false" Multiplicity="Unspecified" Name="rc" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:27.381" PmLastModified="2017-07-07T12:42:56.478" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
+				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="RestController" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="reMlOLqFYFDaSxBY" MultiObject="false" Multiplicity="Unspecified" Name="rc" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:27.381" PmLastModified="2017-07-09T14:33:33.317" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
 					<Activations>
 						<Activation BacklogActivityId="0" Documentation_plain="" Id="HSalOLqFYFDaSxCb" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.576" QualityScore="-1" UserIDLastNumericValue="0">
 							<MasterView>
@@ -107,7 +188,7 @@
 						<InteractionLifeLine Idref="LeMlOLqFYFDaSxBX" Name="rc"/>
 					</MasterView>
 				</InteractionLifeLine>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="UserDAO" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="F5plOLqFYFDaSxDi" MultiObject="false" Multiplicity="Unspecified" Name="udao" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.344" PmLastModified="2017-07-07T12:45:20.272" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
+				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="UserDAO" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="F5plOLqFYFDaSxDi" MultiObject="false" Multiplicity="Unspecified" Name="udao" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.344" PmLastModified="2017-07-09T14:33:33.309" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
 					<Activations>
 						<Activation BacklogActivityId="0" Documentation_plain="" Id="IFplOLqFYFDaSxD0" Name="Activation" OverlappingExecutionOccurrence="false" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.372" QualityScore="-1" UserIDLastNumericValue="0">
 							<MasterView>
@@ -119,104 +200,29 @@
 						<InteractionLifeLine Idref="F5plOLqFYFDaSxDh" Name="udao"/>
 					</MasterView>
 				</InteractionLifeLine>
-				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="SignInActivity" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="s7AAuLqFYFDaSxRU" MultiObject="false" Multiplicity="Unspecified" Name="signIn" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.101" PmLastModified="2017-07-07T14:22:27.718" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
+				<InteractionLifeLine Active="false" BacklogActivityId="0" BaseClassifier="SignInActivity" Class="false" ClassLevelStereotype="false" Documentation_plain="" Id="s7AAuLqFYFDaSxRU" MultiObject="false" Multiplicity="Unspecified" Name="signIn" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.101" PmLastModified="2017-07-09T14:33:33.307" QualityScore="-1" Stopped="false" UserIDLastNumericValue="0">
 					<MasterView>
 						<InteractionLifeLine Idref="M7AAuLqFYFDaSxRT" Name="signIn"/>
 					</MasterView>
 				</InteractionLifeLine>
+				<NOTE BacklogActivityId="0" Documentation="&lt;head&gt;&#13;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Dialog; font-size: 12px }&#10;      --&gt;&#10;    &lt;/style&gt;&#13;&#10;    &#13;&#10;  &lt;/head&gt;&#13;&#10;  &lt;body&gt;&#13;&#10;    &lt;p&gt;&#13;&#10;      &amp;lt;&amp;lt;ref&amp;gt;&amp;gt; SignOut&#13;&#10;    &lt;/p&gt;&#13;&#10;  &lt;/body&gt;" Documentation_plain="&lt;&lt;ref&gt;&gt; SignOut" Id="cZwG5LqFYFDaSxBA" Name="" PmAuthor="Vovas" PmCreateDateTime="2017-07-09T14:43:23.918" PmLastModified="2017-07-09T14:43:23.918" QualityScore="-1" UserIDLastNumericValue="0">
+					<ToSimpleRelationships>
+						<Anchor Idref="xZwG5LqFYFDaSxBE" Name=""/>
+					</ToSimpleRelationships>
+					<MasterView>
+						<NOTE Idref="cZwG5LqFYFDaSxA_" Name=""/>
+					</MasterView>
+				</NOTE>
 			</ModelChildren>
 		</Frame>
-		<Message Asynchronous="false" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="us.5OLqFYFDaSw7g" FromActivation="dbR5OLqFYFDaSw7n" Id="TbR5OLqFYFDaSw7r" Name="deleteProfile()" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.738" PmLastModified="2017-07-07T12:39:05.590" QualityScore="-1" SequenceNumber="1" ToActivation="dbR5OLqFYFDaSw7n" Type="Self Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="TbR5OLqFYFDaSw7s" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.738" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="TbR5OLqFYFDaSw7t" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:35:14.738" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
+		<Anchor BacklogActivityId="0" Documentation_plain="" From="us.5OLqFYFDaSw7g" Id="xZwG5LqFYFDaSxBE" PmAuthor="Vovas" PmCreateDateTime="2017-07-09T14:43:23.939" PmLastModified="2017-07-09T14:43:23.940" QualityScore="-1" To="cZwG5LqFYFDaSxBA" UserIDLastNumericValue="0">
 			<MasterView>
-				<Message Idref="HbR5OLqFYFDaSw7u" Name="deleteProfile()"/>
+				<Anchor Idref="FZwG5LqFYFDaSxBF"/>
 			</MasterView>
-		</Message>
-		<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="3nRFOLqFYFDaSw.M" FromActivation="dbR5OLqFYFDaSw7n" Id="sXRFOLqFYFDaSw.P" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.101" PmLastModified="2017-07-07T12:40:59.809" QualityScore="-1" SequenceNumber="2" ToActivation=".XRFOLqFYFDaSw.e" Type="Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="sXRFOLqFYFDaSw.Q" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.101" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="3nRFOLqFYFDaSw.M" Id="sXRFOLqFYFDaSw.R" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:39:37.101" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="yXRFOLqFYFDaSw.S" Name="deleteUser(uId)"/>
-			</MasterView>
-		</Message>
-		<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="3nRFOLqFYFDaSw.M" EndRelationshipToMetaModelElement="NJdFOLqFYFDaSw_F" FromActivation=".XRFOLqFYFDaSw.e" Id="wjLFOLqFYFDaSw_Q" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.243" PmLastModified="2017-07-07T12:41:06.368" QualityScore="-1" SequenceNumber="2.1" ToActivation="8jLFOLqFYFDaSw_X" Type="Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="3nRFOLqFYFDaSw.M" Id="wjLFOLqFYFDaSw_R" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.243" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NJdFOLqFYFDaSw_F" Id="wjLFOLqFYFDaSw_S" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:40:50.243" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="kjLFOLqFYFDaSw_T" Name="deleteUser(uId)"/>
-			</MasterView>
-		</Message>
-		<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="NJdFOLqFYFDaSw_F" EndRelationshipToMetaModelElement="NDQlOLqFYFDaSxAp" FromActivation="8jLFOLqFYFDaSw_X" Id="Uq4lOLqFYFDaSxA0" Name="delete(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.282" PmLastModified="2017-07-07T12:42:21.828" QualityScore="-1" SequenceNumber="2.1.1" ToActivation="Bq4lOLqFYFDaSxBD" Type="Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NJdFOLqFYFDaSw_F" Id="Uq4lOLqFYFDaSxA1" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.282" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NDQlOLqFYFDaSxAp" Id="Uq4lOLqFYFDaSxA2" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:42:06.282" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="Cq4lOLqFYFDaSxA3" Name="delete(uId)"/>
-			</MasterView>
-		</Message>
-		<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="NDQlOLqFYFDaSxAp" EndRelationshipToMetaModelElement="reMlOLqFYFDaSxBY" FromActivation="Bq4lOLqFYFDaSxBD" Id="NSalOLqFYFDaSxCU" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.564" PmLastModified="2017-07-07T12:43:10.441" QualityScore="-1" SequenceNumber="2.1.1.1" ToActivation="HSalOLqFYFDaSxCb" Type="Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="NDQlOLqFYFDaSxAp" Id="NSalOLqFYFDaSxCV" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.564" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="reMlOLqFYFDaSxBY" Id="NSalOLqFYFDaSxCW" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:43:07.564" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="TSalOLqFYFDaSxCX" Name="deleteUser(uId)"/>
-			</MasterView>
-		</Message>
-		<Message Asynchronous="true" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="reMlOLqFYFDaSxBY" EndRelationshipToMetaModelElement="F5plOLqFYFDaSxDi" FromActivation="HSalOLqFYFDaSxCb" Id="j5plOLqFYFDaSxDl" Name="deleteUser(uId)" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.353" PmLastModified="2017-07-07T12:45:20.272" QualityScore="-1" SequenceNumber="2.1.1.1.1" ToActivation="IFplOLqFYFDaSxD0" Type="Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="reMlOLqFYFDaSxBY" Id="j5plOLqFYFDaSxDm" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.353" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="F5plOLqFYFDaSxDi" Id="j5plOLqFYFDaSxDn" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:44:10.353" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="b5plOLqFYFDaSxDo" Name="deleteUser(uId)"/>
-			</MasterView>
-		</Message>
-		<Message Asynchronous="false" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="s7AAuLqFYFDaSxRU" FromActivation="dbR5OLqFYFDaSw7n" Id="67AAuLqFYFDaSxRX" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.111" PmLastModified="2017-07-07T14:22:27.718" QualityScore="-1" SequenceNumber="4" Type="Create Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="67AAuLqFYFDaSxRY" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.111" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="s7AAuLqFYFDaSxRU" Id="67AAuLqFYFDaSxRZ" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:22:09.111" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="u7AAuLqFYFDaSxRa"/>
-			</MasterView>
-		</Message>
-		<Message Asynchronous="false" BacklogActivityId="0" Documentation_plain="" DurationHeight="30" EndRelationshipFromMetaModelElement="us.5OLqFYFDaSw7g" EndRelationshipToMetaModelElement="us.5OLqFYFDaSw7g" FromActivation="dbR5OLqFYFDaSw7n" Id="N5iAuLqFYFDaSxVc" Name="signOut()" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:23:17.740" PmLastModified="2017-07-07T14:23:28.077" QualityScore="-1" SequenceNumber="3" ToActivation="n5iAuLqFYFDaSxVj" Type="Recursive Message" UserIDLastNumericValue="0">
-			<FromEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="N5iAuLqFYFDaSxVd" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:23:17.740" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</FromEnd>
-			<ToEnd>
-				<MessageEnd BacklogActivityId="0" Documentation_plain="" EndModelElement="us.5OLqFYFDaSw7g" Id="N5iAuLqFYFDaSxVe" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T14:23:17.740" QualityScore="-1" UserIDLastNumericValue="0"/>
-			</ToEnd>
-			<MasterView>
-				<Message Idref="z5iAuLqFYFDaSxVf" Name="signOut()"/>
-			</MasterView>
-		</Message>
+		</Anchor>
 	</Models>
 	<Diagrams>
-		<InteractionDiagram AlignToGrid="false" AutoExtendActivations="true" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorStyle="1" DiagramBackground="rgb(255, 255, 255)" DisplayLifeLinesAsRobustnessAnalysisIcon="0" Editable="true" FollowDiagramParentElement="true" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="773" HideEmptyTaggedValues="false" Id="Hie5OLqFYFDaSw7T" ImageHeight="0" ImageScale="1.0" ImageWidth="0" InitializeDiagramForCreate="true" InteractionLifeLinePresentationOption="0" Maximized="true" ModelElementNameAlignment="4" Name="DeleteProfile" PaintConnectorThroughLabel="1" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:34:55.992" PmLastModified="2017-07-07T14:24:06.647" PointConnectorEndToCompartmentMember="true" QualityScore="-1" RequestValidateSnapToGrid="false" SequenceNumberHandling="0" SequenceNumbering="0" ShapePresentationOption="0" ShowActivations="true" ShowActivityStateNodeCaption="65535" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowArgumentsInMessagesOperationSignature="true" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="false" ShowInformationItemOption="2" ShowLegend="false" ShowMessageName="true" ShowMessageStereotype="true" ShowMessagesOperationSignature="true" ShowPMAuthor="false" ShowPMDifficulty="false" ShowPMDiscipline="false" ShowPMIteration="false" ShowPMPhase="false" ShowPMPriority="false" ShowPMStatus="false" ShowPMVersion="false" ShowPackageNameStyle="0" ShowParameterNamesInMessageOperationSignature="true" ShowParameterTypesInMessageOperationSignature="true" ShowSequenceNumbers="true" ShowShapeStereotypeIconName="true" ShowStereotypes="true" ShowTaggedValues="false" TeamworkCreateDateTime="0" TrimmedHeight="0" TrimmedWidth="0" Width="1918" X="0" Y="0" ZoomRatio="1.0" _globalPaletteOption="true" _requestFixDiagramForRoseImport="false" _requestRecalculateSequenceNumbers="false" _rootFrame="QSe5OLqFYFDaSw7X" documentation="&lt;html&gt;&#13;&#10;  &lt;head&gt;&#13;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Dialog; font-size: 12px }&#10;      --&gt;&#10;    &lt;/style&gt;&#13;&#10;    &#13;&#10;  &lt;/head&gt;&#13;&#10;  &lt;body&gt;&#13;&#10;    &lt;p&gt;&#13;&#10;      &#13;&#10;    &lt;/p&gt;&#13;&#10;  &lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;">
+		<InteractionDiagram AlignToGrid="false" AutoExtendActivations="true" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorStyle="1" DiagramBackground="rgb(255, 255, 255)" DisplayLifeLinesAsRobustnessAnalysisIcon="0" Editable="true" FollowDiagramParentElement="true" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="773" HideEmptyTaggedValues="false" Id="Hie5OLqFYFDaSw7T" ImageHeight="0" ImageScale="1.0" ImageWidth="0" InitializeDiagramForCreate="true" InteractionLifeLinePresentationOption="0" Maximized="true" ModelElementNameAlignment="4" Name="DeleteProfile" PaintConnectorThroughLabel="1" PmAuthor="Vovas" PmCreateDateTime="2017-07-07T12:34:55.992" PmLastModified="2017-07-09T14:44:08.788" PointConnectorEndToCompartmentMember="true" QualityScore="-1" RequestValidateSnapToGrid="false" SequenceNumberHandling="0" SequenceNumbering="0" ShapePresentationOption="0" ShowActivations="true" ShowActivityStateNodeCaption="65535" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowArgumentsInMessagesOperationSignature="true" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="false" ShowInformationItemOption="2" ShowLegend="false" ShowMessageName="true" ShowMessageStereotype="true" ShowMessagesOperationSignature="true" ShowPMAuthor="false" ShowPMDifficulty="false" ShowPMDiscipline="false" ShowPMIteration="false" ShowPMPhase="false" ShowPMPriority="false" ShowPMStatus="false" ShowPMVersion="false" ShowPackageNameStyle="0" ShowParameterNamesInMessageOperationSignature="true" ShowParameterTypesInMessageOperationSignature="true" ShowSequenceNumbers="true" ShowShapeStereotypeIconName="true" ShowStereotypes="true" ShowTaggedValues="false" TeamworkCreateDateTime="0" TrimmedHeight="0" TrimmedWidth="0" Width="1918" X="0" Y="0" ZoomRatio="1.0" _globalPaletteOption="true" _requestFixDiagramForRoseImport="false" _requestRecalculateSequenceNumbers="false" _rootFrame="QSe5OLqFYFDaSw7X" documentation="&lt;html&gt;&#13;&#10;  &lt;head&gt;&#13;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Dialog; font-size: 12px }&#10;      --&gt;&#10;    &lt;/style&gt;&#13;&#10;    &#13;&#10;  &lt;/head&gt;&#13;&#10;  &lt;body&gt;&#13;&#10;    &lt;p&gt;&#13;&#10;      &#13;&#10;    &lt;/p&gt;&#13;&#10;  &lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;">
 			<Shapes>
 				<InteractionLifeLine Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" Foreground="rgb(0, 0, 0)" Height="354" Id="us.5OLqFYFDaSw7f" MetaModelElement="us.5OLqFYFDaSw7g" Model="us.5OLqFYFDaSw7g" ModelElementNameAlignment="1" Name="settings" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" ParentFrame="QSe5OLqFYFDaSw7X" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowClassifier="true" ShowStereotypeIconName="0" Width="142" X="94" Y="40" ZOrder="28">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
@@ -322,14 +328,14 @@
 					<Caption Height="30" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="89" X="7" Y="323"/>
 					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
 				</InteractionLifeLine>
-				<Activation Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" Foreground="rgb(0, 0, 0)" Height="12" Id="P5iAuLqFYFDaSxVl" MetaModelElement="n5iAuLqFYFDaSxVj" Model="n5iAuLqFYFDaSxVj" ModelElementNameAlignment="9" Name="Activation" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="8" X="165" Y="308" ZOrder="2">
-					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+				<NOTE Angle="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CreatorDiagramType="InteractionDiagram" Foreground="rgb(0, 0, 0)" Height="65" Id="cZwG5LqFYFDaSxA_" MetaModelElement="cZwG5LqFYFDaSxBA" Model="cZwG5LqFYFDaSxBA" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="83" X="169" Y="267" ZOrder="2">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="12" Style="0"/>
 					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
 						<Stroke/>
 					</Line>
-					<Caption Height="12" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Invisible" Visible="false" Width="8" X="0" Y="0"/>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="68" X="0" Y="0"/>
 					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
-				</Activation>
+				</NOTE>
 			</Shapes>
 			<Connectors>
 				<Message Background="rgb(0, 0, 0)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Folded="false" Foreground="rgb(0, 0, 0)" From="us.5OLqFYFDaSw7f" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="120" Id="HbR5OLqFYFDaSw7u" MetaModelElement="TbR5OLqFYFDaSw7r" Model="TbR5OLqFYFDaSw7r" Name="deleteProfile()" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowArgumentsInMessageOperationSignature="0" ShowConnectorName="2" ShowMessageName="0" ShowMessageOperationSignature="0" ShowParameterNamesInMessageOperationSignature="0" ShowParameterTypesInMessageOperationSignature="0" To="us.5OLqFYFDaSw7f" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="130" X="119" Y="76" ZOrder="30">
@@ -400,7 +406,7 @@
 						<Point X="1109.0" Y="366.0"/>
 					</Points>
 				</Message>
-				<Message Background="rgb(0, 0, 0)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Folded="false" Foreground="rgb(0, 0, 0)" From="us.5OLqFYFDaSw7f" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="u7AAuLqFYFDaSxRa" MetaModelElement="67AAuLqFYFDaSxRX" Model="67AAuLqFYFDaSxRX" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowArgumentsInMessageOperationSignature="0" ShowConnectorName="2" ShowMessageName="0" ShowMessageOperationSignature="0" ShowParameterNamesInMessageOperationSignature="0" ShowParameterTypesInMessageOperationSignature="0" To="M7AAuLqFYFDaSxRT" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="165" X="46" Y="290" ZOrder="44">
+				<Message Background="rgb(0, 0, 0)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Folded="false" Foreground="rgb(0, 0, 0)" From="us.5OLqFYFDaSw7f" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="u7AAuLqFYFDaSxRa" MetaModelElement="67AAuLqFYFDaSxRX" Model="67AAuLqFYFDaSxRX" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowArgumentsInMessageOperationSignature="0" ShowConnectorName="2" ShowMessageName="0" ShowMessageOperationSignature="0" ShowParameterNamesInMessageOperationSignature="0" ShowParameterTypesInMessageOperationSignature="0" To="M7AAuLqFYFDaSxRT" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="165" X="46" Y="290" ZOrder="42">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
 					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
 						<Stroke/>
@@ -411,19 +417,17 @@
 						<Point X="96.0" Y="340.0"/>
 					</Points>
 				</Message>
-				<Message Background="rgb(0, 0, 0)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Folded="false" Foreground="rgb(0, 0, 0)" From="us.5OLqFYFDaSw7f" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="120" Id="z5iAuLqFYFDaSxVf" MetaModelElement="N5iAuLqFYFDaSxVc" Model="N5iAuLqFYFDaSxVc" Name="signOut()" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowArgumentsInMessageOperationSignature="0" ShowConnectorName="2" ShowMessageName="0" ShowMessageOperationSignature="0" ShowParameterNamesInMessageOperationSignature="0" ShowParameterTypesInMessageOperationSignature="0" To="us.5OLqFYFDaSw7f" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="130" X="119" Y="238" ZOrder="46">
+				<Anchor Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="InteractionDiagram" Foreground="rgb(0, 0, 0)" From="us.5OLqFYFDaSw7f" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="FZwG5LqFYFDaSxBF" MetaModelElement="xZwG5LqFYFDaSxBE" Model="xZwG5LqFYFDaSxBE" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" To="cZwG5LqFYFDaSxA_" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="118" Y="260" ZOrder="44">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
 					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
 						<Stroke/>
 					</Line>
-					<Caption Height="15" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="78" X="199" Y="287"/>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="178" Y="330"/>
 					<Points>
-						<Point X="169.0" Y="288.0"/>
-						<Point X="199.0" Y="288.0"/>
-						<Point X="199.0" Y="308.0"/>
-						<Point X="173.0" Y="308.0"/>
+						<Point X="168.0" Y="310.0"/>
+						<Point X="168.0" Y="310.0"/>
 					</Points>
-				</Message>
+				</Anchor>
 			</Connectors>
 		</InteractionDiagram>
 	</Diagrams>
