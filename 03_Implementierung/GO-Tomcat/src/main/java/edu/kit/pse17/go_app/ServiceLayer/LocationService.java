@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+
 import java.util.List;
 import java.util.Map;
 
@@ -66,21 +68,21 @@ public class LocationService {
     private int userCounter;
 
     /**
-     * Der einzige Konstruktor diser Klasse nimmt keine Argumente entgegen. Sämtliche Attribute werden nur innerhalb dieser Klasse gesetzt und verändert.
+     * Der einzige Konstruktor diser Klasse nimmt eine Go-Entity entgegen. Sämtliche Attribute werden nur innerhalb dieser Klasse gesetzt und verändert.
      * Die default-Werte der Attribute sind:
      *
      * - activeUsers: leere Liste
      * - groupLocation: leere Liste
-     * - strat: Objekt einer Klasse, die ClusterStrategy implementiert. Als threshold-Wert wird dem Konstruktor 5 übergeben.
+     * - strat: Objekt einer Klasse, die ClusterStrategy implementiert. Als threshold-Wert wird dem Konstruktor der Wert aus dem Go-Argument übergeben.
      * - newLocationCounter: 0
      * - userCounter: 0
      */
-    public LocationService() {
+    public LocationService(GoEntity go) {
         this.activeUsers = activeUsers;
         this.groupLocation = groupLocation;
-        this.newLocationCounter = newLocationCounter;
-        this.userCounter = userCounter;
-        this.strat = new GoClusterStrategy(5);
+        this.newLocationCounter = 0;
+        this.userCounter = 0;
+        this.strat = new GoClusterStrategy();
     }
 
     /**

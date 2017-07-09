@@ -15,22 +15,25 @@ public class GoClusterStrategy implements ClusterStrategy {
 
     /**
      * Ein Schwellwert für die Genauigkeit, mit der der Clustering-Algorithmus ausgeführt wird. Der Wert liegt zwischen 1 (sehr ungenau) und 10 (sehr
-     * genau). Der Wert kann jederzeit verändert werden, durch eine setter-Methode.  Wird der Wert nicht wenigstens einmal spezifiziert wird default-mäßig
+     * genau). Dieser Wert kann nach der Instanziierung des GoClusterStrategy-Objekts
+     * nicht mehr verändert werden. Wird der Wert nicht wenigstens einmal spezifiziert wird default-mäßig
      * ein Wert von 5 benutzt.
      */
     private int threshold;
 
+    /**
+     *Ein Konstruktor, der den Wert des Clustering-Schwellwerts entgegen nimmt. Dieser Wert kann nach der Instanziierung des GoClusterStrategy-Objekts
+     * nicht mehr verändert werden.
+     * @param threshold Eine Zahl zwischen 1 (sehr genaues Clustering) und 10 (sehr ungenaues Clustering)
+     */
     public GoClusterStrategy(int threshold) {
         this.threshold = threshold;
     }
 
-    public int getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(int threshold) {
-        this.threshold = threshold;
-    }
+    /**
+     * Ein Konstruktor, für den Fall, dass der Clustering-Schwellwert nicht spezifiziert wurde. Hier wird der default-Wert von 5 eingesetzt.
+     */
+    public GoClusterStrategy(){}
 
     /**
      * Methode des Interfaces, die hier implementiert wird. Der Aufruf deiser Methode stößt die Ausfühtung des Algorithmus an und sie liefert die Ergebnisse

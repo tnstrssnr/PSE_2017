@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 
@@ -24,6 +25,21 @@ public class EntitiyRemovedObserver implements Observer {
      * wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.
      */
     public static final String OBSERVER_CODE = "remove";
+
+    /**
+     * Eine Instanz eines FcmClients, der dafür verwendet wird, Nachrichten an die Clients zu schicken. Das Attribut wird bei der Erzeugun eines OBserver
+     * Objekts automatisch instanziiert (durch Benutzung des einzigen, argumentlosen Konstruktors der FcmClient-Klasse). Danach kann das von außen Attribut nicht
+     * mehr verändert werden.
+     */
+    private FcmClient fcmClient;
+
+    /**
+     * Die Klasse verfügt lediglich über einen Kosntruktor, der keine Argumente entgegen nimmt. In dem Konstruktor wird das Attribut fcmClient
+     * instanziiert.
+     */
+    public EntityRemovedObserver() {
+
+    }
 
     /**
      * Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen Ereignisse, auf die dieser Observer reagieren kann zu unterscheiden.

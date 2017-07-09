@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Die Klasse GORestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der
+ * Die Klasse GoRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der
  * Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische
  * Anfragen beinhalten. Dazu gehört:
  * - das Empfangen und Senden von HTTP-Requests
@@ -30,7 +30,10 @@ import java.util.List;
  * Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt
  * (mithilfe der Gson Library) und dem Client in der Antwort zugesendet.
  *
- * Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????
+ * Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument
+ *
+ * Die Klasse verfügt nur über den Standard-Konstruktor (der implizit gegeben ist). Es muss nirgends im Programm eine Instanz dieser Klasse erzeugt werden. Um die Instanziierung und
+ * Objektverwaltung dieser Klasse kümmert sich das Spring-Framework.
  */
 
 @RestController
@@ -44,7 +47,7 @@ public class GoRestController {
     private GoDao goDao;
 
     /**
-     * Da die Standorte bei er Standortverfolgung eines GOs immer nur für kurze Zeit persistiert werden müssen, werden diese nicht in der Datenbank gespeichert,
+     * Da die Standorte bei der Standortverfolgung eines GOs immer nur für kurze Zeit persistiert werden müssen, werden diese nicht in der Datenbank gespeichert,
      * sondern temporär in einem Location-Objekt. Die Klasse locationService kümmert sich um die Verwaltung dieser Location-Objekte.
      *
      * Das Objekt kann in dieser Klasse für einen Methodenaufruf verwendet werden, der die aktuelle Location eines Benutzers in das Location-Objekt einfügt und

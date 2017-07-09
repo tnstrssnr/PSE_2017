@@ -28,6 +28,14 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
     @Autowired
     SessionFactory sessionFactory;
 
+    /**
+     * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
+     * der verwendetetn MySQL Datenbank.
+     */
+    public GoDaoImp() {
+
+    }
+
 
     /**
      *

@@ -26,7 +26,11 @@ import java.util.List;
  * Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt
  * (mithilfe der Gson Library) und dem Client in der Antwort zugesendet.
  *
- * Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????
+ * Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument
+ *
+ * Die Klasse verfügt nur über den Standard-Konstruktor (der implizit gegeben ist). Es muss nirgends im Programm eine Instanz dieser Klasse erzeugt werden. Um die Instanziierung und
+ * Objektverwaltung dieser Klasse kümmert sich das Spring-Framework.
+ *
  */
 
 @org.springframework.web.bind.annotation.RestController
@@ -67,7 +71,6 @@ public class UserRestController {
     public List<GroupEntity> getData(@PathVariable("userId") String userId) {
         return null;
     }
-
 
     /**
      * Diese Methode wird aufgerufen, wenn ein Benutzer sich zum ersten Mal in der App anmeldet. Die Methode veranlasst das userDAO

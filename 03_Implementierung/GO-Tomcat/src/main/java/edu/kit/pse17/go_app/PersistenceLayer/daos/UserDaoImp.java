@@ -48,6 +48,13 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      */
     private List<Observer> observer;
 
+    /**
+     * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
+     * der verwendetetn MySQL Datenbank.
+     */
+    public UserDaoImp() {
+
+    }
 
     /**
      *

@@ -29,6 +29,14 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GoDao, Obser
     SessionFactory sessionFactory;
 
     /**
+     * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
+     * der verwendetetn MySQL Datenbank.
+     */
+    public GroupDaoImp() {
+
+    }
+
+    /**
      *
      * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
      */

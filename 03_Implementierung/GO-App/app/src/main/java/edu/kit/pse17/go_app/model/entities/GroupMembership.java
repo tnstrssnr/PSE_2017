@@ -3,9 +3,6 @@ package edu.kit.pse17.go_app.model.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 
-/**
- * Created by tina on 02.07.17.
- */
 
 /**
  * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die GroupMembership-Objekte persistiert.

@@ -24,6 +24,14 @@ public class Cluster {
      */
     private long lon;
 
+    /**
+     * Ein Konstruktor, der sämtliche Attribute der Klasse entgegen nimmt.
+     * @param size Die Anzahl der Personen in diesem Cluster. Es handelt sich dabei um eine Zahl twischen 1 und 50
+     * @param lat Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad interpretierbar sein,
+     * muss also zwischen +90 und -90 liegen.
+     * @param lon Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar sein,
+     * muss also zwischen +180 und -180 liegen.
+     */
     public Cluster(int size, long lat, long lon) {
         this.size = size;
         this.lat = lat;

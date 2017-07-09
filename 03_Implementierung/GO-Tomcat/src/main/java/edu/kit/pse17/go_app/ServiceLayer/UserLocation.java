@@ -24,6 +24,15 @@ public class UserLocation {
      */
     private long lon;
 
+    /**
+     * Ein Konstruktor, der sämtliche Attribute der Klasse als Argumente entgegennimmt und daraus ein Objekt erzeugt.
+     * @param userId Die ID des Benutzers, um dessen Standort es sich handelt. Es handelt sich um eine gültige Benutzer-ID, die von anderen Klassen der anwendung erkannt
+     * werden kann.
+     * @param lat Der geographische Breitengrad des Standorts des Benutzers. Der Wert muss als Breitengrad interpretierbar sein,
+     * muss also zwischen +90 und -90 liegen.
+     * @param lon Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad interpretierbar sein,
+     * muss also zwischen +180 und -180 liegen.
+     */
     public UserLocation(String userId, long lat, long lon) {
         this.userId = userId;
         this.lat = lat;
