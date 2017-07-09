@@ -93,7 +93,7 @@
 \begin{abstract}
 Die Android App GO! ist eine mobile Applikation, die speziell zur Organisation von Treffen (z. B. gemeinsames Essen im Café oder in der Mensa) entwickelt wird. Beim erfolgreichen gemeinsamen Losgehen wird der gemittelte GPS-Standort von Mitgliedern der Gruppe angezeigt.\\
 
-Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts. Dazu wird zunächst die Modulstruktur und der Architekturstil erläutert. Danach werden die Klassen, Attribute und Methooden der Anwendung detailliert beschreiben. Das Zusammenspiel der einzelnen Klassen wird dargestellt im Klassendiagramm. Weitere Abschnitte erläutern die Client-Server SChnittstelle, das Datenbankschema er Applikation sowie typische Ausführungsabläufe.
+Dieses Dokument erläutert den Entwurf des Systems auf der Grundlage des Pflichtenhefts. Dazu wird zunächst die Modulstruktur und der Architekturstil erläutert. Danach werden die Klassen, Attribute und Methoden der Anwendung detailliert beschreiben. Das Zusammenspiel der einzelnen Klassen wird dargestellt im Klassendiagramm. Weitere Abschnitte erläutern die Client-Server Schnittstelle, das Datenbankschema er Applikation sowie typische Ausführungsabläufe.
 \end{abstract}
 
 \newpage
@@ -111,7 +111,7 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 	\item \textbf{Produktdaten - Benutzer} \\
 	Es werden in den Produktdaten zusätzlich eine (von Firebase automatisch generierte) InstanceID gespeichert, die es dem Server erlaubt, Daten an das Android-Gerät eines bestimmten Benutzers zu senden.
 	\item \textbf{Detailansicht der GOs} \\
-	Es ist jedem Mitglied einer Gruppen (unabhängig von Teilnahmestatus) möglich, die Detailansicht eines GOs aufzurufen. Um den Karten-Tab öffnen zu können, um die Standorte der anderen Teilnahmer zu verfolgen, gilt weiterhin, dass der Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lauten muss.
+	Es ist jedem Mitglied einer Gruppen (unabhängig von Teilnahmestatus) möglich, die Detailansicht eines GOs aufzurufen. Um den Karten-Tab öffnen zu können, um die Standorte der anderen Teilnehmer zu verfolgen, gilt weiterhin, dass der Teilnahmestatus 'Bestätigt' oder 'Unterwegs' lauten muss.
 	\item \textbf{Profil- und Gruppenbilder} \\
 	Das Wunschkriterium der Profil- und Gruppenbilder wurde im Entwurf nicht berücksichtigt. Stattdessen werden in der App definierte Standardbilder dazu angezeigt.
 \end{enumerate}
@@ -119,61 +119,63 @@ Es wurden im Entwurf folgende Änderungen gegenüber dem Pflichtenheft vorgenomm
 \newpage
 
 \section{Architekturstil und Paketstruktur}
-Dieses Kapitel erläutert den Architekturstil und die Paketstruktur des Systems. es wird noch nicht auf einzelne Klassen eingegangen sondern lediglich die Zusammenarbeit der module beschrieben und die Abhängigkeiten untereinander.
+Dieses Kapitel erläutert den Architekturstil und die Paketstruktur des Systems. es wird noch nicht auf einzelne Klassen eingegangen sondern lediglich die Zusammenarbeit der Module beschrieben und die Abhängigkeiten untereinander.
 
 Aufgebaut ist das System mit einer Client-Server-Architektur, d.h. es gibt eine Client-Applikation, die auf den Android-Geräten der Benutzer läuft und Services des Servers in Anspruch nimmt und eine Server-Anwendung, die auf dem Tomcat-Server läuft, der diese Services bereitstellt und auf Anfrage eines Clients seine Dienste erfüllt.
 
 \subsection{Client}
-Die Architektur der Client-Applikation orientiert sich am Model-View-ViewModel (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. Das untenstehende Paketdiagramm zeigt den groben Aufbau der Client-Applikation, welche Abhängigkeiten bestehen und welche Aufgaben jedes Paket übernimmt. Genauere erläuterungen hierzu finden sich in den darauffolgenden Abschnitten.
+Die Architektur der Client-Applikation orientiert sich am Model-View-View-Model (MVVM) Muster. Dies wird auf Android-Systemen durch die, auch hier eingesetzten, Architecture Components unterstützt. Das untenstehende Paketdiagramm zeigt den groben Aufbau der Client-Applikation, welche Abhängigkeiten bestehen und welche Aufgaben jedes Paket übernimmt. Genauere Erläuterungen hierzu finden sich in den darauffolgenden Abschnitten.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{../Klassendiagramme/paketdiagramm_client.png}
+	\includegraphics[scale=0.3]{../Klassendiagramme/Client_PackageDiagram.jpg}
 	\caption{Paketdiagramm der Clientanwendung}
 \end{figure}
 
 \subsubsection{Views}
-Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Das sind sämtliche Activities, Fragments und dazugehörige .xml-Layouts. Das Modul ist für die Präsentation der Appdaten sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) zuständig.
+Das Paket Views enthält alle Klassen, die am User Interface des Benutzers beteiligt sind. Das sind sämtliche Activities, Fragments und dazugehörige .xml-Layouts. Das Modul ist für die Präsentation der Appdaten sowie die Implementierung der Präsentationslogik (Umsetzung der Eigenschaften der Daten und Weiterleitung von Benutzereingaben) zuständig.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen:}\\
-Das Paket Views kann die Informationen, die dem Benutzer angezeigt werden, nicht selbst generieren, sondern bekommt diese bereitgestellt von den entsprechenden ViewModells.
+Das Paket Views kann die Informationen, die dem Benutzer angezeigt werden, nicht selbst generieren, sondern bekommt diese bereitgestellt von den entsprechenden ViewModels. Es kennt ebenfalls nicht die Funktionen, die ein User in einer bestimmten Ansicht ausführen kann. Es besteht also eine Abhängigkeit zu dem Paket ViewModels. Von anderen Paketen weiß die VIew nichts und wird auch nicht von ihnen angesprochen.\\
 
 \textbf{Unterpakete:}\\
-das Paket enthält das Unterpaket 'RecyclerView'. Da in der Applikation viele (verschiedene) RecyclerViews verwendet werden, gibt es für die Erstellung derselben ein eigenes Paket, dessen Aufgabe es ist, von den Datenobjekten die das Model liefert die gewünschten Informationen zu extrahieren und diese mit dem richtigen Layout zusammenzuführen. Innerhalb des Pakets besteht eine Abhängigkeit derjenigen View-Klassen, die einen RecyclerView verwenden zu dem Unterpaket RecyclerViews. Das Unterpaket RecyclerViews selbst ist nocht von anderen Klassen und Paketen abhängig.
+das Paket enthält das Unterpaket 'RecyclerView'. Da in der Applikation viele (verschiedene) RecyclerViews verwendet werden, gibt es für die Erstellung derselben ein eigenes Paket, dessen Aufgabe es ist, von den Datenobjekten die das Model liefert die gewünschten Informationen zu extrahieren und diese mit dem richtigen Layout zusammenzuführen. Innerhalb des Pakets besteht eine Abhängigkeit derjenigen View-Klassen, die einen RecyclerView verwenden zu dem Unterpaket RecyclerViews. Das Unterpaket RecyclerViews selbst ist nicht von anderen Klassen und Paketen abhängig.\\
 
-\subsubsection{Modell}
-Das Modell ist die Datenzugriffsschicht der Applikation, d.h. sie kapselt den Zugriff auf persistente Daten, die in einer lokalen SQLite Datenbank gehalten werden.Darüber hinaus enthält das Paket die Geschäftslogik der App, das hei?t hier werden die om ViewModel aufbereiteten und weitergeleiteten Befehle umgesetzt und anschließend die sich ergebenden Datenänderungen an das ViewModell zurückgegeben. Die Modellklassen, die sich lokal in der Applikation befinden, werden erweitert durch das Datenmodell, welches sich auf dem Server befindet. Es muss stets die Datenkonsistenz dieser zwei Modellteile sichergestellt werden (vgl. Paket Repository).
+\subsubsection{Entities}
+Das Modell enthält die Entity-Klassen der App, die die reale Objekte und Konzepte als Java-Objekte abbilden. Sie bilden das Modell im Modell-View-ViewModell-Konzept. Die Entities dienen hauptsächlich zur Kapselung der Daten in der App. Darüber hinaus gibt die Struktur der Entites (die mit der Struktur der Entity-Klassen auf dem Server übereinstimmt) den Aufbau der Datenbank, sowie der JSON-Objekte, die zur Kommunikation zwischen Client und Server verwendet werden vor.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
-Der Aufbau und die Operationen, die auf der lokalen Datenbank durchgeführt werden, werden mittels des Frameworks \textit{Room} realisiert.
-
-\textbf{Unterpakete:}\\
-Das Modell enthält das Unterpaket 'Entities'. Dies enthält die Java Entitäten, die von Room zu den Relationen der Datenbank umgesetzt werden. Die Datenbank kann von Room auch ohne eine Implementierung der Zugriffslogik aufgebaut werden. Die Entities haben demnach keine Anhängigkeiten zu anderen Klassen innerhalb des Programms. DIe Zugriffslogik der DAOs setzt hingegen die Existenz der Datenbank voraus, es gibt eine Abhängigkeit vom Modell zu den Entities.
+Das Paket Entities hat keine Abhängigkeiten zu anderen Paketen. Da die Objekte allerdings an allen Use Cases beteiligt sind, gibt es viele Pakete die Abhängigkeiten zu den Entities haben.\\
 
 \subsubsection{ViewModell}
-Das ViewModell ist das Bindeglied zwischen View und Modell. Es tauscht Informationen mit dem Modell aus und stellt so der View öffentliche Eigenschaften und Befehle zur Verfügung, die an die Steuerungselemente der UI angebunden werden können. Dabei hat as ViewModell keine Referenz auf die View. Durch diese lose Kopplung kann die View jederzeit ausgetauscht werden, ohne dass das ViewModell verändert werden muss.
+Das ViewModell ist das Bindeglied zwischen View und Entites. Es tauscht Informationen mit dem Modell aus und stellt so der View öffentliche Eigenschaften und Befehle zur Verfügung, die an die Steuerungselemente der UI angebunden werden können. Dabei hat das ViewModell keine Referenz auf die View. Durch diese lose Kopplung kann die View jederzeit ausgetauscht werden, ohne dass das ViewModell verändert werden muss.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
-Das ViewModell benötigt eine Referenz zum Modell, um die von der View empfangenen Befehle weiterleiten und die richtigen Daten von Modell anfordern zu können. Um diese Abhängigkeit zu entkoppeln und das Ansprechen der richtigen Modellkomponente zu erleichtern, wird diese Abhängigkeit über einen Vermittler ("Repository") geleitet. Dies ermöglicht das einfache Austauschen des Modells, ohne dass das ViewModell verändert werden muss.
+Das ViewModell benötigt eine Referenz zum Modell, um die von der View empfangenen Befehle weiterleiten und die richtigen Daten von Modell anfordern zu können. Um diese Abhängigkeit zu entkoppeln und das Ansprechen der richtigen Modellkomponente zu erleichtern, wird diese Abhängigkeit über einen Vermittler ("Repository") geleitet. Dies ermöglicht das einfache Austauschen des Modells, ohne dass das ViewModell verändert werden muss.\\
 
 \subsubsection{ServerCommunication}
-Das Paket ServerCommunication übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holen von Daten von dem Server. Darüber hinaus werden in diesem Paket auch Nachrichten, die vom Server gesendet werden empfangen und an das Modell zur Verarbeitung weitergeleitet.
+Das Paket ServerCommunication übernimmt die Kommunikation der App mit dem Server, also das Speichern von Daten auf dem Server bzw. das Holen von Daten von dem Server. Darüber hinaus werden in diesem Paket auch Nachrichten, die vom Server gesendet werden empfangen und an das Modell zur Verarbeitung weitergeleitet.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen}\\
-Das Paket hat keine Abhängigkeiten zu anderen Paketen der Applikation. Die Implementierung des REST-Clients erfolgt über das Framework \textit{Retrofit 2}. Hier besteht also eine Abhängigkeit zu einem externen Framework. Außerdem benötigt das Modukl zur fehlerfreien Ausführung seiner Aufgaben ein funktionierendes Backend (REST-Api, das die entsprechenden Ressourcen bereitstellt) des Systems.
+Das Paket hat keine Abhängigkeiten zu anderen Paketen der Applikation. Die Implementierung des REST-Clients erfolgt über das Framework \textit{Retrofit 2}. Hier besteht also eine Abhängigkeit zu einem externen Framework. Außerdem benötigt das Modul zur fehlerfreien Ausführung seiner Aufgaben ein funktionierendes Backend (REST-Api, das die entsprechenden Ressourcen bereitstellt) des Systems.\\
 
 \textbf{Unterpakete:}\\
-Das Modul ServerCommunication setzt sich aus zwei Untermodulen zusammen. Das Modul \textit{Upstream} implementiert die Kommunikation, die über die REST-Api des Tomcat-Servers läuft, also jegliche Kommunikation, die von einem Client initiiert wird. Das Modul \textit{Downstream} hingegen ist dafür zuständig Kommunikationsströme zu empfangen, die vom Server initiiert werden und diese den Vermittlern zur Verbreitung weiterzuleiten.
+Das Modul ServerCommunication setzt sich aus zwei Untermodulen zusammen. Das Modul \textit{Downstream} implementiert die Kommunikation, die über die REST-Api des Tomcat-Servers läuft, also jegliche Kommunikation, die von einem Client initiiert wird. Das Modul \textit{Upstream} hingegen ist dafür zuständig Kommunikationsströme zu empfangen, die vom Server initiiert werden und diese den Vermittlern zur Verbreitung weiterzuleiten.\\
+
+\subsubsection{ServerCommands}
+Das Paket ServerCommands kapselt alle Server-Nachrichten, die ein CLient bekommen kann in einem Befehlsmuster. Die Aufgabe dieses Moduls ist es die ankommenden Nachrichten zu analysieren und die Änderungen an die Repositories zu geben und anschließend die ViewModells zu benachrichtigen, sich die aktuellen Daten bei den ViewModells abzuholen.\\
+
+\textbf{Anhängigkeiten zu anderen Paketen}\\
+Das Paket ServerCommands ist abhängig von dem Paket Repositories. Ohne dieses Paket können die einzelnen Commands ihre Aufgabe, aktualisierte Daten dort abzulegen, wo die ViewModels sie finden, nicht erfüllen. Die Nachrichten, die an die Commands von dem ServerCommunication Package kommen, können leicht simuliert werden, weshalb für die Implementierung keine Abhängigkeit zu diesem Modul besteht.\\
 
 \subsubsection{Repositories}
-Wie in den vorherigen Abschnitten erläutert, ist die Geschäftslogik der App aufgeteilt auf den lokalen Teil (Modell) und einen Remote-Teil (ServerCommunication), die miteinander synchronisiert werden müssen. Zusätzlich müssen die ViewModells nach sämtlichen Änderungen mit den aktuellsten Daten versorgt werden. Dise Abhängigkeiten der einzelnen Komponenten werden in den Repository-Klassen zusammengefasst. Genauere Erläuterungen zur Funktionsweise finden sich in Abschnitt \ref{Vermittler}.
+Wie in den vorherigen Abschnitten erläutert, ist die Geschäftslogik der App aufgeteilt auf den lokalen Teil (Entities und ServerCommands) und einen Remote-Teil (ServerCommunication), die miteinander synchronisiert werden müssen. Zusätzlich müssen die ViewModells nach sämtlichen Änderungen mit den aktuellsten Daten versorgt werden. Diese Abhängigkeiten der einzelnen Komponenten werden in den Repository-Klassen zusammengefasst. Genauere Erläuterungen zur Funktionsweise finden sich in Abschnitt \ref{Vermittler}.\\
 
 \textbf{Abhängigkeiten zu anderen Paketen:}\\
-...
+Damit die Repositories ihren Zweck erfüllen können, müssen alle Kollegen des Vermittler-Musters implementiert sein. Für die Implementierung selbst, ist es wichtig, dass das ServerCommunication Modul und die Entities implementiert werden, bevor die Repositories implementiert werden.\\
 
 \subsection{Server}
-Die Architektur ser Servers orientiert sich an einer Schichten-Architektur. Dabei handelt es sich nicht um eine klassische Schichtenarchitektur, bei der nur obere Schichten Dienste der unteren Schichten aufrufen darf. Stattdessen sind die oberen Schichten in zwei Unterpakete unterteilt. In einer Hälfte jeder Schicht gehen die Methodenaufrufe von oben nach unten, in der anderen von unten nach oben. Durch diese zwei Säulen in der Anwendung ist die Implementierung, trotz Verletzung des Schichtenmodells, leicht realisierbar, da die Unterpakete immernoch topologisch sortiebar sind, sodass
-eine Implementierungsreihenfolge gefunden werden kann, bei der zu jeder Zeit die Abhängigkeiten des gerade entwickelten Moduls bereits implementiert sind.
+Die Architektur des Servers orientiert sich an einer Schichten-Architektur. Dabei handelt es sich nicht um eine klassische Schichtenarchitektur, bei der nur obere Schichten Dienste der unteren Schichten aufrufen darf. Stattdessen sind die oberen Schichten in zwei Unterpakete unterteilt. In einer Hälfte jeder Schicht gehen die Methodenaufrufe von oben nach unten, in der anderen von unten nach oben. Durch diese zwei Säulen in der Anwendung ist die Implementierung, trotz Verletzung des Schichtenmodells, leicht realisierbar, da die Unterpakete immer noch topologisch sortierbar sind, sodass eine Implementierungsreihenfolge gefunden werden kann, bei der zu jeder Zeit die Abhängigkeiten des gerade entwickelten Moduls bereits implementiert sind.\\
 
 \begin{figure}[H]
 	\centering
@@ -189,23 +191,23 @@ Das Programm des Servers ist in folgende Pakete aufgeteilt:
 \end{itemize}
 
 \subsubsection{CommunicationLayer}
-Dieses Paket bildet die oberste Schicht der Serveranwendung und ist die einzige Schicht, die für die Clients sichtbar ist. Die CommunicationLayer vereint alle Klassen, die an der Kommunikation mit den Clients beteiligt sind. Es besteht aus den Unterpaketn Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierf"ur wird der Firebase Cloud Messaging Service benutzt.
+Dieses Paket bildet die oberste Schicht der Serveranwendung und ist die einzige Schicht, die für die Clients sichtbar ist. Die CommunicationLayer vereint alle Klassen, die an der Kommunikation mit den Clients beteiligt sind. Es besteht aus den Unterpaketen Upstream und Downstream. Die Klassen des Pakets Upstream sind dafür zuständig, ein REST-API zur Verfügung zu stellen und auf Anfragen der Clients zu antworten, d.h. die Kommunikation wird von den Clients initiiert. Das Downstream-Paket hingegen schickt Nachrichten an Clients, ohne vorher von diesen angesprochen worden zu sein. Hierfür wird der Firebase Cloud Messaging Service benutzt.\\
 
-Das Untermodul Upstream nimmt die Dineste der unteren Schichten in Anspruch. Dabei handelt es sich um eine transparente Schichtenarchitektur, das bedeutet das Modul nimmt nicht nur die Dienste der mittleren, sondern auch die Dienste der unteren Schicht in Anspruch.
+Das Untermodul Upstream nimmt die Dienste der unteren Schichten in Anspruch. Dabei handelt es sich um eine transparente Schichtenarchitektur, das bedeutet das Modul nimmt nicht nur die Dienste der mittleren, sondern auch die Dienste der unteren Schicht in Anspruch.\\
 
-Das Untermodul Downstream hingegen bietet Dienste an, nämlich das versenden von Nachrichten an Clients, die von den unteren Schichten der Serverandwendung verwendet wird.
+Das Untermodul Downstream hingegen bietet Dienste an, nämlich das versenden von Nachrichten an Clients, die von den unteren Schichten der Serveranwendung verwendet wird.\\
 
 \subsubsection{BusinessLayer}
-Die BusinessLayer ist die mittlere Schicht und beinhaltet den Großteil der Anwendungslogik der Serveranwendung. Wie die anderen Schichten des Server, besteht auch die BusinessLayer aus zwei Untermodulen: LocationService und DataObserver.
+Die BusinessLayer ist die mittlere Schicht und beinhaltet den Großteil der Anwendungslogik der Serveranwendung. Wie die anderen Schichten des Server, besteht auch die BusinessLayer aus zwei Untermodulen: LocationService und DataObserver.\\
 
-Das Modul LocationService kümmert sich um alle Angelegenheiten, die mit der Erfassung, der kurzzeitigen Persistierung und dem Clustering von Standortdaten zusammenhängen. Dieser Dienst wird von der oberen Schicht in Anspruch genommen. Zur unteren Schicht bestehen keine Abhängigkeiten, da Standortdaten nicht in der datenbank gespeichert weden. Dieses Untermodul aht selbst also keine Abhängigkeiten zu anderen Paketen.
+Das Modul LocationService kümmert sich um alle Angelegenheiten, die mit der Erfassung, der kurzzeitigen Persistierung und dem Clustering von Standortdaten zusammenhängen. Dieser Dienst wird von der oberen Schicht in Anspruch genommen. Zur unteren Schicht bestehen keine Abhängigkeiten, da Standortdaten nicht in der Datenbank gespeichert werden. Dieses Untermodul hat selbst also keine Abhängigkeiten zu anderen Paketen.\\
 
-Das zweite Untermodul der BusinessLayer ist das DataObserver-Modul. Dieses Modul wird bei Anderungen in der Datenbasis von der PersistenceLayer angesprochen und kümmert sich folgend darum, die Änderungen zu analysieren, herauszufinden welche Clients von der Änderung erfahren müssen und diese Informationen an die obere Schicht weiterzuleiten, um eine Nachricht an genau diese Clients zu schicken. Dementsrechend bietet dieses Untermodul einen Dienst, der von der PersistenceLayer in Anspruch genommen wird und nimmt einen Dienst in Ansprcu der von der CommunicationLayer angeboten wird.
+Das zweite Untermodul der BusinessLayer ist das DataObserver-Modul. Dieses Modul wird bei Änderungen in der Datenbasis von der PersistenceLayer angesprochen und kümmert sich folgend darum, die Änderungen zu analysieren, herauszufinden welche Clients von der Änderung erfahren müssen und diese Informationen an die obere Schicht weiterzuleiten, um eine Nachricht an genau diese Clients zu schicken. Dementsprechend bietet dieses Untermodul einen Dienst, der von der PersistenceLayer in Anspruch genommen wird und nimmt einen Dienst in Anspruch der von der CommunicationLayer angeboten wird.\\
 
 \subsubsection{PersistenceLayer}
-Die PersistenceLayer kapselt das Datenmodellder Anwendung in sich. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung der Daten an die Communicationlayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.
+Die PersistenceLayer kapselt das Datenmodell der Anwendung in sich. Sie ist für die Speicherung der Daten zuständig, sowie für die Weiterleitung der Daten an die CommunicationLayer und somit an die Clients. Die PersistenceLayer setzt sich zusammen aus einer MySQL-Datenbank, die mit dem ORM-Framework Hibernate verwaltet wird und DAO-Klassen, in denen die Datenbankzugriffe gekapselt werden.\\
 
-Im Gegensatz zu den zwei anderen Schichten gibt es in dieser Schicht keine Untermodule. Der Dienst des Moduls wird von dem Upstream-Modul der CommunicationLayer in Anspruch genommen. Geschieht dies, wird aus der PersistenceLayer der Dienst der DataObserver angestoßen, um die Änderungen in dem Datenbestand wieder durch die Schichten nach oben und schließlich zu den Clients zu leiten.
+Im Gegensatz zu den zwei anderen Schichten gibt es in dieser Schicht keine Untermodule. Der Dienst des Moduls wird von dem Upstream-Modul der CommunicationLayer in Anspruch genommen. Geschieht dies, wird aus der PersistenceLayer der Dienst der DataObserver angestoßen, um die Änderungen in dem Datenbestand wieder durch die Schichten nach oben und schließlich zu den Clients zu leiten.\\
 
 \newpage
 
@@ -213,17 +215,18 @@ Im Gegensatz zu den zwei anderen Schichten gibt es in dieser Schicht keine Unter
 \section{verwendete Entwurfsmuster}
 
 \subsection{Schablonenmethode für SignInHelper}
-Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über die signIn()-Methode angesto"sen werden. Der spezifische Ablauf der Anmelde-Aktivität wird in den Unterklassen durch die primitiven Methoden definiert. \\
+Die verschiedenen Anmelde-Aktivitäten aller Loginhelper-Klassen können über die signIn()-Methode angestoßenen werden. Der spezifische Ablauf der Anmelde-Aktivität wird in den Unterklassen durch die primitiven Methoden definiert. \\
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
-	\item SignInHelper: besitzt die Methode signIn(), die als Schablonenmethode dient und bei der Ausführung die primitiven Methoden configureSignIn() und startSignInProcess() aufruft
-	\item FirebaseSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
-	\item GoSignInHelper: Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
+	\item \textit{SignInHelper}\\ besitzt die Methode signIn(), die als Schablonenmethode dient und bei der Ausführung die primitiven Methoden configureSignIn() und startSignInProcess() aufruft
+	\item \textit{FirebaseSignInHelper}\\ Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
+	\item \textit{GoSignInHelper}\\ Unterklasse von SignInHelper, die die primitiven Methoden configureSignIn() und startSignInProcess() implementiert
 \end{itemize}
 
 \subsection{Beobachter zum Aktualisieren des UI}
-Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderungen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die Livedata-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
+Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderungen in den Daten kommen, die eine Änderung des aktuellen Views anderer Benutzer erfordern. Diese 1-zu-n Abhängigkeit wird durch ein Beobachter-muster behandelt. Die dafür benötigte Funktionalität wird von der Architecture-Components Framework Klasse LiveData<> bereitgestellt. Ein Objekt dieser Klasse kann von einem LifeCycleOwner (z.B. eine Lifecycle-Activity oder ein LifecycleFragment) beobachtet werden und löst bei Änderung den Methodenaufruf \textit{onChanged()} aus. Die LiveData-Objekte sind Lifecycle-Aware, das bedeutet eine Benachrichtigung über eine Änderung wird nur dann an einen Beobachter weitergeleitet, wenn er sich in einem aktiven Stadium seines Lifecycles befindet.\\
+
 \textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{LiveData<>:}\\ das beobachtete Subjekt
@@ -231,10 +234,10 @@ Durch das Ausführen von Befehlen von einem Benutzer, kann es zu Änderungen in 
 \end{itemize}
 
 \subsection{Beobachter zum Weiterleiten von Änderungen der Datenbasis}
-Werden von einem Client Daten der App geändret (z.B. eine GO erstellt, ein Benutzer zu einer Gruppe hinzugefügt) betrifft dies in vielen auch die Daten, die ein anderer Client bei sich gespeichert hat und benutzt. Dementsprechend müssen Clients vom Server über Änderungen in der DAtenbasis informaiert werden können. Es ergibt sich eine 1-zu-n-Abhängigkeit: n Clients sind von 1 Datenbasis abhängig.
+Werden von einem Client Daten der App geändert (z.B. eine GO erstellt, ein Benutzer zu einer Gruppe hinzugefügt) betrifft dies in vielen auch die Daten, die ein anderer Client bei sich gespeichert hat und benutzt. Dementsprechend müssen Clients vom Server über Änderungen in der Datenbasis informiert werden können. Es ergibt sich eine 1-zu-n-Abhängigkeit: n Clients sind von 1 Datenbasis abhängig.
 
 Zur Auflösung dieser Abhängigkeit wird in der Anwendung eine Beobachter-Muster verwendet. Die Datenbasis wird beobachtet und bei Änderungen leiten die Beobachter die Benachrichtigung der Clients
-ein. Da ein Beobachter nicht ein einzelnes Objekt, sondern eine gesamte Datenbanktabelle beobachet, ist es schwierig, den aktuellen Zustand des Subjekts im Beobachter zu speichern. Aus idesem Grund verwenden die beobachter eine push-Methodik, bei der die Änderungen bei der Benachrichtigung der Beobachter mit übergeben werden.
+ein. Da ein Beobachter nicht ein einzelnes Objekt, sondern eine gesamte Datenbanktabelle beobachtet, ist es schwierig, den aktuellen Zustand des Subjekts im Beobachter zu speichern. Aus diesem Grund verwenden die Beobachter eine push-Methodik, bei der die Änderungen bei der Benachrichtigung der Beobachter mit übergeben werden.
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
@@ -245,43 +248,45 @@ ein. Da ein Beobachter nicht ein einzelnes Objekt, sondern eine gesamte Datenban
 \end{itemize}
 
 \subsection{DAO-Pattern zur Persistierung von Daten}
-Die Daten der App werden in eine MySQL-Datenbank persistiert. Für den Zugriff auf diese Datenbank wird ein Data Access Object Entwurfsmuster verwendet. Dabei werden zum Einen Java Beans verwendet, die die Struktur der Datenbankrelationen festlegen. Zum Anderen gibt es spezielle DAO-Klassen die alle Datenbankzugriffe in sich kapseln. So können zusätzliche Zugriffsmethoden für die Datenbank hinzugefügt werden, ohne die Entity-Klassen verändern zu müssen. Andersherum kann der Aufbau der Datenbank verändert werden, ohne dass die DAO-klasseni ihre Schnittstelle nach außen verändern.
+Die Daten der App werden in eine MySQL-Datenbank persistiert. Für den Zugriff auf diese Datenbank wird ein Data Access Object Entwurfsmuster verwendet. Dabei werden zum Einen Java Beans verwendet, die die Struktur der Datenbankrelationen festlegen. Zum Anderen gibt es spezielle DAO-Klassen die alle Datenbankzugriffe in sich kapseln. So können zusätzliche Zugriffsmethoden für die Datenbank hinzugefügt werden, ohne die Entity-Klassen verändern zu müssen. Andersherum kann der Aufbau der Datenbank verändert werden, ohne dass die DAO-Klassen ihre Schnittstelle nach außen verändern.
 Die Umsetzung der Datenbank und der SQL-Queries wird mithilfe des Frameworks Hibernate realisiert.\\
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{UserEntity, GoEntity, GroupEntity}\\ Entity-Beans, die die Struktur der Datenbankrelationen darstellen
-	\item \textit{AbstractDAO}\\ INterface für eine DAO-Klasse, wleches Zugriffsmethoden definiert, die auf jeder Datenbanktabelle durchgeführt werden müssen (CRUD)
+	\item \textit{AbstractDAO}\\ Interface für eine DAO-Klasse, welches Zugriffsmethoden definiert, die auf jeder Datenbanktabelle durchgeführt werden müssen (CRUD)
 	\item \textit{UserDao, GoDao, GroupDao}\\ Data-Access-Object Interfaces, die spezielle Zugriffsmethoden enthalten, die nur für bestimmte Datenbanktabellen gebraucht werden.
-	\item \textit{UserDaoImp, GoDapImp, GroupDaoImp}\\ konkrete IMplementierungen der DAO Interfaces. Hier werden die Zugriffsmethoden anhand des von den Entity-Klassen definierten Datenbankschemas
+	\item \textit{UserDaoImp, GoDapImp, GroupDaoImp}\\ konkrete Implementierungen der DAO Interfaces. Hier werden die Zugriffsmethoden anhand des von den Entity-Klassen definierten Datenbankschemas
 	implementiert.
 \end{itemize}
 
+\newpage
+
 \subsection{Vermittler zur Koordination von Datenzugriffen}\label{Vermittler}
-Viele Apps Nutzen eine lokale Datenbank, um eine Benutzung der App, zumindest ansatzweise, auch ohne Internetverbindung zu ermöglichen. Auch wenn in diesem Entwurf keine lokale Datenbank auf den CLients vorgesehen ist, soll dieses Feature leicht erweiterbar sein. Zu diesem Zweck ist bei der Aktualisierung/Beschaffung der Daten für die ViewModels eine zusätzliche Indirektionsstufe eingebaut: Die Repositories. Diese übernehmen im Zusammenspiel der App-Komponenten eine Vermittler-Funktion: Während die ViewModels wissen WAS gemacht werden muss (da diese die aktuellen Daten und Funktionen für den User speichern), wissen die Repositories WO dies getan werden muss - in der lokalen Datenbank, in den SharedPreferences des Andorid-Geräts oder auf dem Remote Server.
+Viele Apps Nutzen eine lokale Datenbank, um eine Benutzung der App, zumindest ansatzweise, auch ohne Internetverbindung zu ermöglichen. Auch wenn in diesem Entwurf keine lokale Datenbank auf den Clients vorgesehen ist, soll dieses Feature leicht erweiterbar sein. Zu diesem Zweck ist bei der Aktualisierung/Beschaffung der Daten für die ViewModells eine zusätzliche Indirektionsstufe eingebaut: Die Repositories. Diese übernehmen im Zusammenspiel der App-Komponenten eine Vermittler-Funktion: Während die ViewModells wissen WAS gemacht werden muss (da diese die aktuellen Daten und Funktionen für den User speichern), wissen die Repositories WO dies getan werden muss - in der lokalen Datenbank, in den SharedPreferences des Android-Geräts oder auf dem Remote Server.\\
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{GoRepositor, GroupRepository, UserRepository:}\\
 	 Die Vermittler die die Koordination der Kollegen übernehmen
-	\item \textit{ViewModell, TomcatRestApi, lokale Datenbank, SharedPreferences:}\\ Kollegen, die nichts voneinander wissen, sondern bei allen Aufrufen vom vermittler angesprochen werden, bzw. den Vermittler ansprechen.
+	\item \textit{ViewModell, TomcatRestApi, lokale Datenbank, SharedPreferences:}\\ Kollegen, die nichts voneinander wissen, sondern bei allen Aufrufen vom Vermittler angesprochen werden, bzw. den Vermittler ansprechen.
 \end{itemize}
 
-\subsection{Strategiemuster zur Kapselung des Clustering-Alogithmus}
-Das Clustern der Standorte der Teilnehmer eines GOs wird von der Klasse GoClusterStrategy übernommen. Diese Klasse ist mittels eines Strategy-Patterns in das Programm eingebunden. Dies entkoppelt den Algorithmus von seinem Kontext und erkann dynamisch durch andere Clustering-Alogirthmen ersetzt oder ergänzt werden. \\
+\subsection{Strategiemuster zur Kapselung des Clustering-Algorithmus}
+Das Clustern der Standorte der Teilnehmer eines GOs wird von der Klasse GoClusterStrategy übernommen. Diese Klasse ist mittels eines Strategy-Patterns in das Programm eingebunden. Dies entkoppelt den Algorithmus von seinem Kontext und er kann dynamisch durch andere Clustering-Algorithmen ersetzt oder ergänzt werden. \\
 
 \textbf{beteiligte Klassen:}
 \begin{itemize}
 	\item \textit{LocationService} \\
 	Die Klasse ist der Kontext der Clustering-Strategie. Von hier aus wird die Ausführung des Algorithmus angestoßen.
 	\item \textit{ClusterStrategy} \\
-	ClusterStrategy ist ein Interface, das von jedem Cluster-Algorithmus implementiert werden muss. Es definiert eine \textit{caluculateCluster()} Methode, die eine Liste an einzelnen User-Standorten entgegen nimmt und eine Liste an User-Clustern zurückgibt.
+	ClusterStrategy ist ein Interface, das von jedem Cluster-Algorithmus implementiert werden muss. Es definiert eine \textit{calculateCluster()} Methode, die eine Liste an einzelnen User-Standorten entgegen nimmt und eine Liste an User-Clustern zurückgibt.
 	\item \textit{GoClusterStrategy} \\
 	In dieser Klasse wird der Clustering-Algorithmus implementiert, der angewendet werden soll. Die Klasse erweitert das Interface ClusterStrategy.
 \end{itemize}
 
 \subsection{Fassade zur Vereinfachung des Server Interfaces}
-Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST Interface an. Das Ansprechen der verschiedenen REST Ressourcen ist in der App hinter dem Interface \textit{TomcatRestApi}. Das Interface bietet den aufrufenden Klassen Methoden zum aufrufen der REST Ressourcen an, ohne das ein Aufrufer etwas von der eigentlichen Kommunikation mit dem Server wissen muss. \\
+Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST Interface an. Das Ansprechen der verschiedenen REST Resourcen ist in der App hinter dem Interface \textit{TomcatRestApi}. Das Interface bietet den aufrufenden Klassen Methoden zum aufrufen der REST Resourcen an, ohne das ein Aufrufer etwas von der eigentlichen Kommunikation mit dem Server wissen muss. \\
 
 \textbf{beteiligte Klassen}
 \begin{itemize}
@@ -290,11 +295,11 @@ Der verwendete Tomcat-Server bietet seinem Clients zur Kommunikation ein REST In
 \end{itemize}
 
 \subsection{Dekorierer zur Erweiterung der Aktivitäten für Sonderbenutzer}
-Für GO-Verantwortliche und Gruppenadmins werden GroupDetailActivity oder GoDetailActivity entschprechend erweitert. Zusätzliche Buttons und Methoden werden hinzugefügt.(z.B. Name der Gruppe ändern, Mitglieder hinzufügen usw.) Dazu haben wir eine Android-Version von Dekorierer benutzt. Die spezielle Unterklassen (GroupDetailActivitzOwner bzw. GoDetailActivityOwner) von oben genannten Activities benutzen fertige Oberklassen Activities und fügen darauf die benötigte Funktionalität hinzu.
+Für GO-Verantwortliche und Gruppenadmins werden GroupDetailActivity oder GoDetailActivity entsprechend erweitert. Zusätzliche Buttons und Methoden werden hinzugefügt.(z.B. Name der Gruppe ändern, Mitglieder hinzufügen usw.) Dazu haben wir eine Android-Version von Dekorierer benutzt. Die spezielle Unterklassen (GroupDetailActivityOwner bzw. GoDetailActivityOwner) von oben genannten Activities benutzen fertige Oberklassen Activities und fügen darauf die benötigte Funktionalität hinzu.\\
 
 \textbf{beteiligte Klassen}
 \begin{itemize}
-\item \textit{GroupdetailActivity} \\
+\item \textit{GroupDetailActivity} \\
 Activity, wo die Gruppendetails angezeigt werden. Ist eine Oberklasse von GroupDetailActivityOwner.
 \item \textit{GroupDetailActivityOwner}
 Erweitert die Oberklasse um Funktionen für die Admins.
@@ -305,18 +310,16 @@ Erweitert die Oberklasse um Funktionen für den GO-Verantwortlichen
 \end{itemize}
 
 
-\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
+%\subsection{Command Muster zur Bearbeitung der Server Messages auf der Client Seite}
 
 
 \newpage
 
-\section{Klassenbeschreibungen}
+\section{Klassenübersicht}
 
 % ------- textdoclet_include/intro.tex end
 
 \thispagestyle{empty}
-\markboth{Class Hierarchy}{Class Hierarchy}
-\addcontentsline{toc}{section}{Class Hierarchy}
 \subsection*{Classes}
 {\raggedright
 \hspace{0.0cm} $\bullet$ java.lang.Object {\tiny \refdefined{java.lang.Object}} \\
@@ -681,10 +684,10 @@ public void setRequests(java.util.List requests)\end{lstlisting} %end signature
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.Status}Class Status}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.Status}Enum Status}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.Status}{}\vskip .1in 
 Dieses Enum definiert die verschiedenen Teilnahmestatus, die ein Benutzer in einem GO innehaben kann.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public final class Status
  extends java.lang.Enum\end{lstlisting}
@@ -718,7 +721,7 @@ bedeutet, dass der Benutzer nicht an dem GO teilnehmen wird. Er teilt seinen Sta
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-bedeutet, dass der Benutzer an dem GO teilnehmen wird. Er ist in dem GO allerdings noch nicht aktiv, d.h. er teilt seinen Standort nicht mit anderen. Gibt es andere Teilnehmer in dem GO, die bereits "UNTERWEGS" sind, kann der Benutzer deren Standorte sehen. Dieser Teilnahemstatus ist der default-Status für den Ersteller eines GOs.}
+bedeutet, dass der Benutzer an dem GO teilnehmen wird. Er ist in dem GO allerdings noch nicht aktiv, d.h. er teilt seinen Standort nicht mit anderen. Gibt es andere Teilnehmer in dem GO, die bereits "UNTERWEGS" sind, kann der Benutzer deren Standorte sehen. Dieser Teilnahmestatus ist der default-Status für den Ersteller eines GOs.}
 \end{itemize}
 }
 \item{
@@ -727,7 +730,7 @@ bedeutet, dass der Benutzer an dem GO teilnehmen wird. Er ist in dem GO allerdin
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-bedeutet, dass der Benutzer an dem GO teilnimmt und bereits aktiv ist, d.h. er teilt gerade seinen Standort mit anderen GO-Teilnehmern. Dieser kann von Benutzern mit dem Status "UNTERWEGS" oder "BESTÄTIGT" angesehen werden. Er selbst kann den Standort von anderen aktiven Go-Teilnehnehmern sehen.}
+bedeutet, dass der Benutzer an dem GO teilnimmt und bereits aktiv ist, d.h. er teilt gerade seinen Standort mit anderen GO-Teilnehmern. Dieser kann von Benutzern mit dem Status "UNTERWEGS" oder "BESTÄTIGT" angesehen werden. Er selbst kann den Standort von anderen aktiven Go-Teilnehmern sehen.}
 \end{itemize}
 }
 \end{itemize}
@@ -923,22 +926,22 @@ public void setUid(java.lang.String uid)\end{lstlisting} %end signature
 \vskip .1in
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao}Interface AbstractDao}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao}{}\vskip .1in 
-Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt. Dieses Interface definiert Methoden auf einer Datenbank, die standarmäßig für jede Tabelle zur Verfügung stehen sollten (CRUD). daher wird dieses Interface von jeder DAO-Klasse implementiert. Das Interface beihaltet zwei Genreics. Das Generic T definiert den entity-Typen, der in der jeweilgen Tabelle verwaltet wird. Das Generic PK ist der Datentyps des Primärschlüssels der Datenbanktabelle. Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar. Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients gestellt werden, an die Persistence-Klassen weitergeleitet.\vskip .1in 
-\subsubsection{Declaration}{
+Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt. Dieses Interface definiert Methoden auf einer Datenbank, die standardmäßig für jede Tabelle zur Verfügung stehen sollten (CRUD). daher wird dieses Interface von jeder DAO-Klasse implementiert. Das Interface beinhaltet zwei Generics. Das Generic T definiert den entity-Typen, der in der jeweiligen Tabelle verwaltet wird. Das Generic PK ist der Datentyps des Primärschlüssels der Datenbanktabelle. Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar. Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients gestellt werden, an die Persistence-Klassen weitergeleitet.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface AbstractDao
 \end{lstlisting}
-\subsubsection{All known subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
-\subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
+\subsubsection{Subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
+\subsubsection{Klassen, die das Interface implementieren}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.delete(PK)}{{\bf delete(PK)}} Diese Methode löscht ein Entity-Objekt aus der Datenbank.\\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.get(PK)}{{\bf get(PK)}} Diese Methode gibt ein Entity-Objekt zurück, das anhand seines Primärschlüssels aus der Datenbank geholt wurde.\\
-\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.persist(T)}{{\bf persist(T)}} Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. dabei wird das Entity-Objekt vor dem Methodenaufruf erzeugt und der methode "fertig" übergeben.\\
+\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.persist(T)}{{\bf persist(T)}} Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. dabei wird das Entity-Objekt vor dem Methodenaufruf erzeugt und der Methode "fertig" übergeben.\\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.AbstractDao.update(T)}{{\bf update(T)}} Diese Methode ändert Attributwerte eines bereits bestehenden Entity-Objekts.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -950,13 +953,13 @@ void delete(java.lang.Object key) throws EntityNotFoundException\end{lstlisting}
 \item{
 {\bf  Description}
 
-Diese Methode löscht ein Entity-Objekt aus der Datenbank. Es werden außerdem automatisch alle Entities gelöscht, die mit der gelöschten Entity assoziiert sind (Auch in anderen Datenbanktabellen, sodass der datenbestand nach der Ausführung der Methode konsistent ist)
+Diese Methode löscht ein Entity-Objekt aus der Datenbank. Es werden außerdem automatisch alle Entities gelöscht, die mit der gelöschten Entity assoziiert sind (Auch in anderen Datenbanktabellen, sodass der Datenbestand nach der Ausführung der Methode konsistent ist)
 }
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
+\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
   \end{itemize}
 }%end item
 \item{{\bf  Throws}
@@ -998,7 +1001,7 @@ void persist(java.lang.Object entity)\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. dabei wird das Entity-Objekt vor dem Methodenaufruf erzeugt und der methode "fertig" übergeben.
+Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. dabei wird das Entity-Objekt vor dem Methodenaufruf erzeugt und der Methode "fertig" übergeben.
 }
 \item{
 {\bf  Parameters}
@@ -1040,18 +1043,18 @@ Diese Methode ändert Attributwerte eines bereits bestehenden Entity-Objekts. Da
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao}Interface GoDao}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao}{}\vskip .1in 
 Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt. Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar. Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients gestellt werden, an die Persistence-Klassen weitergeleitet.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface GoDao
 \end{lstlisting}
-\subsubsection{All known subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
+\subsubsection{Subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} Mit dieser Methode wird der Teilnahmestatus eines GO-Teilnehnmers geändert.\\
+\hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao.changeStatus(java.lang.String, long, edu.kit.pse17.go_app.PersistenceLayer.Status)}{{\bf changeStatus(String, long, Status)}} Mit dieser Methode wird der Teilnahmestatus eines GO-Teilnehmers geändert.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1084,7 +1087,7 @@ Mit dieser Methode wird der Teilnahmestatus eines GO-Teilnehnmers geändert. Der
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao}Interface GroupDao}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao}{}\vskip .1in 
 Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt. Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar. Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients gestellt werden, an die Persistence-Klassen weitergeleitet.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface GroupDao
 \end{lstlisting}
@@ -1097,7 +1100,7 @@ public interface GroupDao
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao.removeGroupRequest(java.lang.String, long)}{{\bf removeGroupRequest(String, long)}} Diese Methode entfernt eine Gruppenmitgliedschaftsanfrage aus der Datenbank.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1109,7 +1112,7 @@ void addAdmin(java.lang.String userId,java.lang.String groupId) throws EntityNot
 \item{
 {\bf  Description}
 
-Diese Methode fügt einen Administrator bei einer Gruppe hinzu. Anfrage zu dieser methode sollte nur von anderen Adminsitratoren dieser Gruppe kommen. Es muss vor dem Aufruf der Methode sichergestellt werden, dass es sich bei dem Benutzer um ein vollwertiges Gruppenmitglied handelt und dieser nicht bereits ein Administrator ist.
+Diese Methode fügt einen Administrator bei einer Gruppe hinzu. Anfrage zu dieser Methode sollte nur von anderen Administratoren dieser Gruppe kommen. Es muss vor dem Aufruf der Methode sichergestellt werden, dass es sich bei dem Benutzer um ein vollwertiges Gruppenmitglied handelt und dieser nicht bereits ein Administrator ist.
 }
 \item{
 {\bf  Parameters}
@@ -1163,7 +1166,7 @@ void addGroupRequest(java.lang.String userId,long groupId) throws EntityNotFound
 \item{
 {\bf  Description}
 
-Mit dieser Methode lässt sich eine neue Gruppenanfrage in der Datenbank speichern. Sie muss also aufgerufen werden, wenn ein Administrator einen Benutzer zur Gruppe einlädt. Vor dem Aufruf der Methode muss ischergestellt werden, dass der Empfänger der Anfrage kein gruppenmitglied ist und auch noch keine Anfrage erhalten hat.
+Mit dieser Methode lässt sich eine neue Gruppenanfrage in der Datenbank speichern. Sie muss also aufgerufen werden, wenn ein Administrator einen Benutzer zur Gruppe einlädt. Vor dem Aufruf der Methode muss sichergestellt werden, dass der Empfänger der Anfrage kein Gruppenmitglied ist und auch noch keine Anfrage erhalten hat.
 }
 \item{
 {\bf  Parameters}
@@ -1241,12 +1244,12 @@ Diese Methode entfernt eine Gruppenmitgliedschaftsanfrage aus der Datenbank. Sie
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao}Interface UserDao}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao}{}\vskip .1in 
 Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die die Datenbankzugriffe in sich kapselt. Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar. Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients gestellt werden, an die Persistence-Klassen weitergeleitet.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface UserDao
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}}
-\subsubsection{All classes known to implement interface}{UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}}
+\subsubsection{Klassen, die das Interface implementieren}{UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}}
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao.addUser(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf addUser(UserEntity)}} Die Methode fügt eine neue UserEntity in die Datenbank ein.\\
@@ -1256,7 +1259,7 @@ public interface UserDao
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao.getUserByEmail(java.lang.String)}{{\bf getUserByEmail(String)}} Diese Methode sucht ein User-Objekt anhand einer E-Mailadresse und gibt, falls die Suche erfolgreich ist, dieses Objekt zurück.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1288,7 +1291,7 @@ void deleteUser(java.lang.String userId)\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Diese Methode entfernt eine Entity aus der Datenbank. Zusätzlich werden alle mit diesem Benutzer assoziierten Objekte ebenfallse entfernt. Dazu gehören: - GOs, bei denen der Benutzer der GO-Verantwortliche war - Gruppen, bei denen der Benutzer der einzige Administrator war - Gruppenmitgliedschaften des Benutzers - unbeantwortete Gruppenanfragen, die an den Benutzer gestellt wurden
+Diese Methode entfernt eine Entity aus der Datenbank. Zusätzlich werden alle mit diesem Benutzer assoziierten Objekte ebenfalls entfernt. Dazu gehören: - GOs, bei denen der Benutzer der GO-Verantwortliche war - Gruppen, bei denen der Benutzer der einzige Administrator war - Gruppenmitgliedschaften des Benutzers - unbeantwortete Gruppenanfragen, die an den Benutzer gestellt wurden
 }
 \item{
 {\bf  Parameters}
@@ -1318,7 +1321,7 @@ Diese Methode gibt eine Liste mit allen Gruppen zurück, in denen der Benutzer M
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um vollständige, gültige GroupEntity Objekte. 
+Eine Liste mit GroupEntities. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um vollständige, gültige GroupEntity Objekte. 
 }%end item
 \end{itemize}
 }%end item
@@ -1337,11 +1340,11 @@ Diese Methode gibt eine Liste von Gruppen zurück, zu denen der Benutzer eine Gr
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{userId} -- Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der Methode um eine gültige userid handelt.}
+\texttt{userId} -- Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der Methode um eine gültige userId handelt.}
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um vollständige, gültige GroupEntity Objekte. 
+Eine Liste mit GroupEntities. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um vollständige, gültige GroupEntity Objekte. 
 }%end item
 \end{itemize}
 }%end item
@@ -1364,17 +1367,17 @@ Diese Methode sucht ein User-Objekt anhand einer E-Mailadresse und gibt, falls d
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-Die Methode gibt das gefundene UserEntity Objekt zurück. Gibt es keinen Benutzer mit der übergegebenen E-mailadresse, gibt die Methode null zurück. 
+Die Methode gibt das gefundene UserEntity Objekt zurück. Gibt es keinen Benutzer mit der übergebenen E-mailadresse, gibt die Methode null zurück. 
 }%end item
 \end{itemize}
 }%end item
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}Class GoDaoImp}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}Klasse GoDaoImp}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}{}\vskip .1in 
 Created by tina on 30.06.17.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GoDaoImp
  extends java.lang.Object implements AbstractDao, GoDao, edu.kit.pse17.go_app.ServiceLayer.Observable\end{lstlisting}
@@ -1395,7 +1398,7 @@ public class GoDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.update(edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(GoEntity)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1406,7 +1409,7 @@ public GoDaoImp()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1438,7 +1441,7 @@ public void delete(java.lang.Long key) throws EntityNotFoundException\end{lstlis
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
+\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
   \end{itemize}
 }%end item
 \item{{\bf  Throws}
@@ -1478,7 +1481,7 @@ public void notify(java.lang.String impCode,edu.kit.pse17.go_app.ServiceLayer.Ob
    \item{
 \texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
    \item{
-\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der Observer, von wo er eine Benachrichtigung bekommen hat.}
    \item{
 \texttt{goEntity} -- Das Go an dem Änderungen vorgenommen wurden}
   \end{itemize}
@@ -1553,10 +1556,10 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.GoEntity goEntity) thro
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}Class GroupDaoImp}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}Klasse GroupDaoImp}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}{}\vskip .1in 
 Created by tina on 30.06.17.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GroupDaoImp
  extends java.lang.Object implements AbstractDao, GoDao, edu.kit.pse17.go_app.ServiceLayer.Observable\end{lstlisting}
@@ -1577,7 +1580,7 @@ public class GroupDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.update(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(GroupEntity)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1588,7 +1591,7 @@ public GroupDaoImp()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1620,7 +1623,7 @@ public void delete(java.lang.Long key) throws EntityNotFoundException\end{lstlis
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
+\texttt{key} -- Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird durch das Generic PK bei der Implementierung der Klasse spezifiziert.}
   \end{itemize}
 }%end item
 \item{{\bf  Throws}
@@ -1660,7 +1663,7 @@ public void notify(java.lang.String impCode,edu.kit.pse17.go_app.ServiceLayer.Ob
    \item{
 \texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
    \item{
-\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der Observer, von wo er eine Benachrichtigung bekommen hat.}
    \item{
 \texttt{groupEntity} -- }
   \end{itemize}
@@ -1735,10 +1738,10 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity groupEntity
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}Class UserDaoImp}{
+\subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}Klasse UserDaoImp}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}{}\vskip .1in 
-Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable. Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server ein Anfrage zur manipulation seiner Daten geschickt hat. Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die rolle des Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die Änderung eine Folgeaktion auslöst oder nicht.\vskip .1in 
-\subsubsection{Declaration}{
+Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable. Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server ein Anfrage zur Manipulation seiner Daten geschickt hat. Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die rolle des Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die Änderung eine Folgeaktion auslöst oder nicht.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class UserDaoImp
  extends java.lang.Object implements UserDao, AbstractDao, edu.kit.pse17.go_app.ServiceLayer.Observable\end{lstlisting}
@@ -1763,7 +1766,7 @@ public class UserDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf update(UserEntity)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1774,7 +1777,7 @@ public UserDaoImp()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -1873,7 +1876,7 @@ public java.util.List getRequests(java.lang.String userId)\end{lstlisting} %end 
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{userId} -- Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der Methode um eine gültige userid handelt.}
+\texttt{userId} -- Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der Methode um eine gültige userId handelt.}
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
@@ -1911,7 +1914,7 @@ public void notify(java.lang.String impCode,edu.kit.pse17.go_app.ServiceLayer.Ob
    \item{
 \texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
    \item{
-\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der Observer, von wo er eine Benachrichtigung bekommen hat.}
    \item{
 \texttt{userEntity} -- }
   \end{itemize}
@@ -1973,7 +1976,7 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity) 
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{userEntity} -- Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity handeln, ansonsten schlägt ide Ausführung der Methode fehl.}
+\texttt{userEntity} -- Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity handeln, ansonsten schlägt die Ausführung der Methode fehl.}
   \end{itemize}
 }%end item
 \item{{\bf  Throws}
@@ -1987,7 +1990,7 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity) 
 }
 }
 }
-\section{Package edu.kit.pse17.go\_app.ClientCommunication.Downstream}{
+\section{ClientCommunication.Downstream}{
 \label{edu.kit.pse17.go_app.ClientCommunication.Downstream}\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
@@ -1997,14 +2000,14 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity) 
 \entityintro{FcmClient}{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}{Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}Class EventArg}{
+\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}Enum EventArg}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg}{}\vskip .1in 
 Dieses Enum enthält String-Konstanten, die vom FcmClient in die Nachrichten an Clients eingefügt werden, damit der Client anhand der Nachricht feststellen kann, welches Ereignis eingetreten ist.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public final class EventArg
  extends java.lang.Enum\end{lstlisting}
-\subsubsection{Field summary}{
+\subsubsection{Attribute}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg.ADMIN_ADDED_EVENT}{{\bf ADMIN\_ADDED\_EVENT}} Event wird ausgelöst, wenn ein Adminsitrator zu einer Gruppe hinzugefügt wurde.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg.GO_ADDED_EVENT}{{\bf GO\_ADDED\_EVENT}} Event wird ausgelöst, wenn ein neues GO in einer Gruppe erstellt wurde.\\
@@ -2024,7 +2027,7 @@ public final class EventArg
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg.values()}{{\bf values()}} \\
 \end{verse}
 }
-\subsubsection{Fields}{
+\subsubsection{Felder}{
 \begin{itemize}
 \item{
 \index{GROUP\_REMOVED\_EVENT}
@@ -2041,7 +2044,7 @@ Event wird ausgelöst, falls eine Gruppenentität gelöscht wird. Das Event wird
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Event wird ausgelöst, falls ein Mitglied aus einer Gruppe gelöscht wird. Dies ist auch der Fall, wenn ein Benutzer seinen Benutzeraccount gelöscht hat. Das Event wird an alle Mitglieder der gruppe gesendet und an Benutzer, die eine Anfrage für die Gruppe erhalten haben.}
+Event wird ausgelöst, falls ein Mitglied aus einer Gruppe gelöscht wird. Dies ist auch der Fall, wenn ein Benutzer seinen Benutzeraccount gelöscht hat. Das Event wird an alle Mitglieder der Gruppe gesendet und an Benutzer, die eine Anfrage für die Gruppe erhalten haben.}
 \end{itemize}
 }
 \item{
@@ -2050,7 +2053,7 @@ Event wird ausgelöst, falls ein Mitglied aus einer Gruppe gelöscht wird. Dies 
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Event wird ausgelöst, falls eine Go-Entität gelöscht wird. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe des Gos sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
+Event wird ausgelöst, falls eine Go-Entität gelöscht wird. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe des GOs sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
 \end{itemize}
 }
 \item{
@@ -2059,7 +2062,7 @@ Event wird ausgelöst, falls eine Go-Entität gelöscht wird. Die Benachrichtigu
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Event wird ausgelöst, falls ein neues Mitglied zu einer Gruppe hinzugefügt wurde (also ein Benutzer ein gruppenanfrage bestätigt hat). Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
+Event wird ausgelöst, falls ein neues Mitglied zu einer Gruppe hinzugefügt wurde (also ein Benutzer ein Gruppenanfrage bestätigt hat). Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
 \end{itemize}
 }
 \item{
@@ -2095,7 +2098,7 @@ Event wird ausgelöst, wenn die Daten in einem GO verändert werden. Die Benachr
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Event wird ausgelöst, wenn die Daten in einer gruppe verändert werden. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
+Event wird ausgelöst, wenn die Daten in einer Gruppe verändert werden. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
 \end{itemize}
 }
 \item{
@@ -2104,7 +2107,7 @@ Event wird ausgelöst, wenn die Daten in einer gruppe verändert werden. Die Ben
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Event wird ausgelöst, wenn ein Adminsitrator zu einer Gruppe hinzugefügt wurde. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
+Event wird ausgelöst, wenn ein Administrator zu einer Gruppe hinzugefügt wurde. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für diese Gruppe haben.}
 \end{itemize}
 }
 \item{
@@ -2118,7 +2121,7 @@ Event wird ausgelöst, wenn ein GO-Teilnehmer seinen Teilnehmerstatus verändert
 }
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2135,7 +2138,7 @@ public static EventArg[] values()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Members inherited from class Enum }{
+\subsubsection{von Enum geerbte Methoden}{
 \texttt{java.lang.Enum} {\small 
 \refdefined{java.lang.Enum}}
 {\small 
@@ -2186,10 +2189,10 @@ public static EventArg[] values()\end{lstlisting} %end signature
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}Class FcmClient}{
+\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}Klasse FcmClient}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient}{}\vskip .1in 
-Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird. dadurch kann der Server eine Nachricht an einen Client schicken, ohne dass dieser zuvor den Server angesprochen haben muss. Die Methoden der Klasse werden aufgerufen von den Observer-Klassen der Anwendung. Dabei werden die Nachrichten, die an die Clients gesendet werden müssen sowie die Addressaten bereits in den aufrufenden Methoden bestimmt. Diese klasse muss sich nur um das eingentliche Senden der HTTP-Requests kümmern, der Inhalt der Nachricht spielt dabei keine Rolle.\vskip .1in 
-\subsubsection{Declaration}{
+Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird. Dadurch kann der Server eine Nachricht an einen Client schicken, ohne dass dieser zuvor den Server angesprochen haben muss. Die Methoden der Klasse werden aufgerufen von den Observer-Klassen der Anwendung. Dabei werden die Nachrichten, die an die Clients gesendet werden müssen, sowie die Adressdaten bereits in den aufrufenden Methoden bestimmt. Diese Klasse muss sich nur um das eigentliche Senden der HTTP-Requests kümmern, der Inhalt der Nachricht spielt dabei keine Rolle.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class FcmClient
  extends java.lang.Object\end{lstlisting}
@@ -2203,7 +2206,7 @@ public class FcmClient
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send(JsonObject, java.lang.String, java.util.List)}{{\bf send(JsonObject, String, List)}} Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet.\\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2215,13 +2218,13 @@ public FcmClient()\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die Konfikuration des HttpClients standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL schicken kann.
+Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die Konfiguration des HttpClients standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL schicken kann.
 }
 \end{itemize}
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2233,7 +2236,7 @@ public void send(JsonObject data,java.lang.String command,java.util.List receive
 \item{
 {\bf  Description}
 
-Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der HttpClient der FcmClient-Instanz benutzt. Diese Methode wird von den Observer-Klassen aufgerufen, um die Änderungen, die dort behandlet wurden mithilde dieser Klasse an die Clients zu schicken. Es wird vorausgesetzt, dass die Daten und vor allem die InstanceIDs, die dieser Methode übergeben werden, gültig sind.
+Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der HttpClient der FcmClient-Instanz benutzt. Diese Methode wird von den Observer-Klassen aufgerufen, um die Änderungen, die dort behandelt wurden mithilfe dieser Klasse an die Clients zu schicken. Es wird vorausgesetzt, dass die Daten und vor allem die InstanceIDs, die dieser Methode übergeben werden, gültig sind.
 }
 \item{
 {\bf  Parameters}
@@ -2252,7 +2255,7 @@ Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerä
 }
 }
 }
-\section{Package edu.kit.pse17.go\_app.ClientCommunication.Upstream}{
+\section{Package ClientCommunication.Upstream}{
 \label{edu.kit.pse17.go_app.ClientCommunication.Upstream}\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
@@ -2263,10 +2266,10 @@ Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerä
 \entityintro{UserRestController}{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}{Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}Class GoRestController}{
+\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}Klasse GoRestController}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}{}\vskip .1in 
-Die Klasse GORestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/gos gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
-\subsubsection{Declaration}{
+Die Klasse GORestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden REST Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/gos gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GoRestController
  extends java.lang.Object\end{lstlisting}
@@ -2281,11 +2284,11 @@ public class GoRestController
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.createGo(java.lang.String, java.lang.String, java.util.Date, java.util.Date, double, double, int, long, java.lang.String)}{{\bf createGo(String, String, Date, Date, double, double, int, long, String)}} Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.deleteGo(java.lang.String)}{{\bf deleteGo(String)}} Diese Methode wird von einem Client aufgerufen, wenn er ein GO löschen möchte.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.editGo(java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.util.Date, long, long, int)}{{\bf editGo(String, String, String, Date, Date, long, long, int)}} Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten eines GOs ändern will.\\
-\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.getLocation(java.lang.String)}{{\bf getLocation(String)}} Die Methode gibt eine Liste mit Cluster-Objketen zurück, die die aktuellen Positionen der Go-Mitglieder beschreiben.\\
+\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.getLocation(java.lang.String)}{{\bf getLocation(String)}} Die Methode gibt eine Liste mit Cluster-Objekten zurück, die die aktuellen Positionen der Go-Mitglieder beschreiben.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.setLocation(java.lang.String, long, long, java.lang.String)}{{\bf setLocation(String, long, long, String)}} Diese Methode wird von einem Client aufgerufen, um seinen Standort für das Clustering dem Server mitzuteilen.\\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2296,7 +2299,7 @@ public GoRestController()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2308,7 +2311,7 @@ public void changeStatus(long goId,java.lang.String userId,edu.kit.pse17.go_app.
 \item{
 {\bf  Description}
 
-Diese Methode wird von einem Client aufgerufen, um seinen Teilnahmerstatus in einem Go zu ändern. IN der Methode werden die Anfrage- daten aus dem Request Body ausgewertet und an das goDao weitergegeben, um die entsprechenden Änderungen in der Datenbank vorzunehmen. Es ist garantiert, dass der Benutzer ein Mitglied des GOs ist und das er die geforderte Statusänderung vornehmen darf. Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL \{Base\_URL\}/gos/status.
+Diese Methode wird von einem Client aufgerufen, um seinen Teilnehmerstatus in einem Go zu ändern. IN der Methode werden die Anfrage-Daten aus dem Request Body ausgewertet und an das goDao weitergegeben, um die entsprechenden Änderungen in der Datenbank vorzunehmen. Es ist garantiert, dass der Benutzer ein Mitglied des GOs ist und das er die geforderte Statusänderung vornehmen darf. Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL \{Base\_URL\}/gos/status.
 }
 \item{
 {\bf  Parameters}
@@ -2332,7 +2335,7 @@ public long createGo(java.lang.String name,java.lang.String description,java.uti
 \item{
 {\bf  Description}
 
-Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das goDao zur Erzeugung des GOs in der Datenbank. Zusätzlich zur Erzeugung des GOs wird der Ersteller als Verantwortlicher des GOs gespeichert und für jedes Gruppenmitglied der Teilnahmestatus 'Abgelehnt' gespeichert. es ist garantiert, dass dder Client, der die Methode aufruft eine Mitglied in der Gruppe ist, in der das GO erstellt werden soll. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/gos.
+Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das goDao zur Erzeugung des GOs in der Datenbank. Zusätzlich zur Erzeugung des GOs wird der Ersteller als Verantwortlicher des GOs gespeichert und für jedes Gruppenmitglied der Teilnahmestatus 'Abgelehnt' gespeichert. es ist garantiert, dass der Client, der die Methode aufruft eine Mitglied in der Gruppe ist, in der das GO erstellt werden soll. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/gos.
 }
 \item{
 {\bf  Parameters}
@@ -2397,7 +2400,7 @@ Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten eines GOs ä
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{goId} -- Die ID des GOs, das gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss gülti sein und zu einem Long-Datentyp gecastet werden können.}
+\texttt{goId} -- Die ID des GOs, das gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss gültig sein und zu einem Long-Datentyp gecastet werden können.}
    \item{
 \texttt{name} -- Der Name des GOs. Es handelt sich um einen String, der bis zu 50 Zeichen enthält.}
    \item{
@@ -2425,7 +2428,7 @@ public java.util.List getLocation(java.lang.String goId)\end{lstlisting} %end si
 \item{
 {\bf  Description}
 
-Die Methode gibt eine Liste mit Cluster-Objketen zurück, die die aktuellen Positionen der Go-Mitglieder beschreiben. Diese Methode, wird von Clients periodisch aufgerufen, um während eines GOs die Standorte der anderen mitglieder zu erfahren. Um den eigenen Standort mit den anderen Mitgliedern zu teilen, wird nicht diese Methode verwendet, sondern die Methode setLocation(). Im Gegensatz zu den meisten anderen Methoden der restController-Klassen, wird diese Anfrage nicht an eine DAO Objekt weitergeleitet. Da die Standort-Daten nicht langfristig gespeichert werden müssen, wird die Anfrage an ein locationService Objekt gegeben und dort behandelt. Es ist garantiert, dass der Benutzer, der diese Methode aufruft, dazu berechtigt ist, die Standorte der anderen Mitglieder zu erfahren. Der Aufruf dieser Methode entspricht einem HTTP GET-Request an den Server an die URL \{Base\_URL\}/gos/location/\{goId\}.
+Die Methode gibt eine Liste mit Cluster-Objekten zurück, die die aktuellen Positionen der Go-Mitglieder beschreiben. Diese Methode, wird von Clients periodisch aufgerufen, um während eines GOs die Standorte der anderen Mitglieder zu erfahren. Um den eigenen Standort mit den anderen Mitgliedern zu teilen, wird nicht diese Methode verwendet, sondern die Methode setLocation(). Im Gegensatz zu den meisten anderen Methoden der restController-Klassen, wird diese Anfrage nicht an eine DAO Objekt weitergeleitet. Da die Standort-Daten nicht langfristig gespeichert werden müssen, wird die Anfrage an ein locationService Objekt gegeben und dort behandelt. Es ist garantiert, dass der Benutzer, der diese Methode aufruft, dazu berechtigt ist, die Standorte der anderen Mitglieder zu erfahren. Der Aufruf dieser Methode entspricht einem HTTP GET-Request an den Server an die URL \{Base\_URL\}/gos/location/\{goId\}.
 }
 \item{
 {\bf  Parameters}
@@ -2435,7 +2438,7 @@ Die Methode gibt eine Liste mit Cluster-Objketen zurück, die die aktuellen Posi
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-Eine Liste mit Clustern. Ein Cluster besteht dabei aus drei Feldern: Der Längen- und Breitengrad der Position des Clusters und der größe, also der Anzahl an Personen, die sich in diesem Cluster befinden. Der rückgabewert dieser Methode kann auch null sein, z.B. dann wenn für das Clustering zu wenig Personen an dem GO teilnehmen. Maximal besteht die Liste aus 50 Clustern, da die Anzahl der Gruppenmitglieder auf 50 beschränkt ist. 
+Eine Liste mit Clustern. Ein Cluster besteht dabei aus drei Feldern: Der Längen- und Breitengrad der Position des Clusters und der Größe, also der Anzahl an Personen, die sich in diesem Cluster befinden. Der Rückgabewert dieser Methode kann auch null sein, z.B. dann wenn für das Clustering zu wenig Personen an dem GO teilnehmen. Maximal besteht die Liste aus 50 Clustern, da die Anzahl der Gruppenmitglieder auf 50 beschränkt ist. 
 }%end item
 \end{itemize}
 }%end item
@@ -2454,7 +2457,7 @@ Diese Methode wird von einem Client aufgerufen, um seinen Standort für das Clus
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{userId} -- Die ID des Benutzers, der seinen Standort teilen will. Dabei muss es sich um eine gültige, im System registrierte BenutzerID handeln.}
+\texttt{userId} -- Die ID des Benutzers, der seinen Standort teilen will. Dabei muss es sich um eine gültige, im System registrierte UserID handeln.}
    \item{
 \texttt{lat} -- Der geographische Breitengrad des Standorts des Benutzers. Der Wert muss als Breitengrad interpretierbar sein, muss also zwischen +90 und -90 liegen.}
    \item{
@@ -2468,10 +2471,10 @@ Diese Methode wird von einem Client aufgerufen, um seinen Standort für das Clus
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}Class GroupRestController}{
+\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}Klasse GroupRestController}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}{}\vskip .1in 
-Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die Gruppen-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das GroupDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/groups gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
-\subsubsection{Declaration}{
+Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die Gruppen-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das GroupDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/groups gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GroupRestController
  extends java.lang.Object\end{lstlisting}
@@ -2486,13 +2489,13 @@ public class GroupRestController
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.addAdmin(java.lang.String, java.lang.String)}{{\bf addAdmin(String, String)}} Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes Gruppenmitglied zu administrator ernennen will.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.createGroup(java.lang.String, java.lang.String, java.lang.String)}{{\bf createGroup(String, String, String)}} Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.deleteGroup(java.lang.Long)}{{\bf deleteGroup(Long)}} Diese Methode wird von einem Client aufgerufen, wenn er eine Gruppe löschen möchte.\\
-\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.denyRequest(java.lang.String, java.lang.String)}{{\bf denyRequest(String, String)}} Diese Methode wird aufgerufen, wenn ein Benutzer eine gruppenmitgliedschaftsanfrage ablehnt.\\
+\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.denyRequest(java.lang.String, java.lang.String)}{{\bf denyRequest(String, String)}} Diese Methode wird aufgerufen, wenn ein Benutzer eine Gruppenmitgliedschaftsanfrage ablehnt.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.editGroup(java.lang.Long, java.lang.String, java.lang.String)}{{\bf editGroup(Long, String, String)}} Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten der Gruppe ändern will.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.inviteMember(java.lang.Long, java.lang.String)}{{\bf inviteMember(Long, String)}} Diese Methode wird von einem Client aufgerufen, der einen Benutzer zu einer Gruppe einladen will.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.removeMember(java.lang.String, java.lang.String)}{{\bf removeMember(String, String)}} Diese Methode kann von einem Client aufgerufen werden, wenn ein Gruppenmitglied aus einer Gruppe entfernt werden soll.\\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2503,7 +2506,7 @@ public GroupRestController()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2537,7 +2540,7 @@ public void addAdmin(java.lang.String groupId,java.lang.String userId)\end{lstli
 \item{
 {\bf  Description}
 
-Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes Gruppenmitglied zu administrator ernennen will. In der Methode wird eine Methode des groupDaos aufgerufen, die einen Datenbankzugriff ausführt und den entsprechenden Benutzer zu den Administratoren der Gruppe hinzufügt. Es ist garantiert, dass der aufrufende Client ein Administrator der Gruppe ist und der neue Administrator bereits ein Gruppenmitglied ist. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/admins/\{groupId\}/\{userId\}.
+Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes Gruppenmitglied zu Administrator ernennen will. In der Methode wird eine Methode des groupDaos aufgerufen, die einen Datenbankzugriff ausführt und den entsprechenden Benutzer zu den Administratoren der Gruppe hinzufügt. Es ist garantiert, dass der aufrufende Client ein Administrator der Gruppe ist und der neue Administrator bereits ein Gruppenmitglied ist. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/admins/\{groupId\}/\{userId\}.
 }
 \item{
 {\bf  Parameters}
@@ -2545,7 +2548,7 @@ Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes G
    \item{
 \texttt{groupId} -- Die ID der Gruppe, in der der neue Administrator hinzugefügt werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
    \item{
-\texttt{userId} -- Die ID des Benutzer, der zum Adminsitrator ernannt wird. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.}
+\texttt{userId} -- Die ID des Benutzer, der zum Administrator ernannt wird. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2559,7 +2562,7 @@ public long createGroup(java.lang.String name,java.lang.String description,java.
 \item{
 {\bf  Description}
 
-Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das groupDao zur Erzeugung der Gruppe in der Datenbank. Zusätzlich zur Erzeugung derGruppe wird der Ersteller als Gruppenmitglied und Administrator zur Gruppe hinzugefügt. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups.
+Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das groupDao zur Erzeugung der Gruppe in der Datenbank. Zusätzlich zur Erzeugung der Gruppe wird der Ersteller als Gruppenmitglied und Administrator zur Gruppe hinzugefügt. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups.
 }
 \item{
 {\bf  Parameters}
@@ -2567,13 +2570,13 @@ Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt w
    \item{
 \texttt{name} -- Der Name, den die Gruppe haben soll. Der String darf bis zu 50 Zeichen lang sein.}
    \item{
-\texttt{description} -- Eine Gruppenbeschreibung. Dieser Wert ist möglicherweise nicht im Body der HTTP NAchricht enthalten. Das bedeutet der Benutzer hat keine Beschreibung eingegeben. Die Variable wird daraufhin auf null gesetzt. ist der Wert nicht null, darf der String maximal 140 Zeichen enthalten.}
+\texttt{description} -- Eine Gruppenbeschreibung. Dieser Wert ist möglicherweise nicht im Body der HTTP Nachricht enthalten. Das bedeutet der Benutzer hat keine Beschreibung eingegeben. Die Variable wird daraufhin auf null gesetzt. ist der Wert nicht null, darf der String maximal 140 Zeichen enthalten.}
    \item{
 \texttt{userId} -- Die ID des Benutzers, der die Gruppe erstellt hat.}
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-Die global eindeutige ID, die dier Gruppe zugewiesen wurde. Diese wird im Header der HTTP-Response im Location-Feld an den Client zurückgesendet, also : \{Base\_URL\}/gos/\{goId\}\ und kann dort vom Client ausgelesen werden. Der Wert ist eine positive ganze Zahl, die im Wertebereich des primitiven Datentyps long liegt. 
+Die global eindeutige ID, die der Gruppe zugewiesen wurde. Diese wird im Header der HTTP-Response im Location-Feld an den Client zurückgesendet, also : \{Base\_URL\}/gos/\{goId\}\ und kann dort vom Client ausgelesen werden. Der Wert ist eine positive ganze Zahl, die im Wertebereich des primitiven Datentyps long liegt. 
 }%end item
 \end{itemize}
 }%end item
@@ -2586,13 +2589,13 @@ public void deleteGroup(java.lang.Long groupId)\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Diese Methode wird von einem Client aufgerufen, wenn er eine Gruppe löschen möchte. Durch einen Methodenaufruf bei dem groupDao wird die Gruppe entsprechend aus der datenbank entfernt. Durch konsistenzkriterien in der Datenbank werden zusätzlich alle GOs, die es in der Gruppe gab ebenfalls entfernt. Es ist garantiert, dass der Client, der die Gruppe aufruft dazu berechtigt ist, d.h. er ein Administrator der Gruppe ist. Der Aufruf dieser Methode entspricht einem HTTP DELETE-Request an den Server an die URL \{Base\_URL\}/groups/\{groupId\}.
+Diese Methode wird von einem Client aufgerufen, wenn er eine Gruppe löschen möchte. Durch einen Methodenaufruf bei dem groupDao wird die Gruppe entsprechend aus der Datenbank entfernt. Durch Konsistenzkriterien in der Datenbank werden zusätzlich alle GOs, die es in der Gruppe gab ebenfalls entfernt. Es ist garantiert, dass der Client, der die Gruppe aufruft dazu berechtigt ist, d.h. er ein Administrator der Gruppe ist. Der Aufruf dieser Methode entspricht einem HTTP DELETE-Request an den Server an die URL \{Base\_URL\}/groups/\{groupId\}.
 }
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{groupId} -- Die ID der gruppe, die gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
+\texttt{groupId} -- Die ID der Gruppe, die gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2606,15 +2609,15 @@ public void denyRequest(java.lang.String groupId,java.lang.String userId)\end{ls
 \item{
 {\bf  Description}
 
-Diese Methode wird aufgerufen, wenn ein Benutzer eine gruppenmitgliedschaftsanfrage ablehnt. Beim Aufruf wird das groupDAO dazu veranlasst, die Anfrage aus der Datenbank zu löschen. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/requests/\{groupId\}/\{userId\}.
+Diese Methode wird aufgerufen, wenn ein Benutzer eine Gruppenmitgliedschaftsanfrage ablehnt. Beim Aufruf wird das groupDAO dazu veranlasst, die Anfrage aus der Datenbank zu löschen. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/requests/\{groupId\}/\{userId\}.
 }
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{groupId} -- Die ID der Gruppe, zu der der Benutzer eingeladen war. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
+\texttt{groupId} -- Die ID der Gruppe, zu die der Benutzer eingeladen war. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
    \item{
-\texttt{userId} -- Die ID des Benutzers, der die Anfrage abgeleht hat. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.}
+\texttt{userId} -- Die ID des Benutzers, der die Anfrage abgelehnt hat. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2628,7 +2631,7 @@ public void editGroup(java.lang.Long groupId,java.lang.String name,java.lang.Str
 \item{
 {\bf  Description}
 
-Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten der Gruppe ändern will. Zu den daten, die mit dieser Methode geändert werden können, gehören: - der Gruppenname - die Gruppenbeschreibung Es ist garantiert, dass dieser Aufruf nur von einem Administrator der zu ändernden gruppe kommt. Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL \{Base\_URL\}/groups/\{groupId\}.
+Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten der Gruppe ändern will. Zu den Daten, die mit dieser Methode geändert werden können, gehören: - der Gruppenname - die Gruppenbeschreibung Es ist garantiert, dass dieser Aufruf nur von einem Administrator der zu ändernden Gruppe kommt. Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL \{Base\_URL\}/groups/\{groupId\}.
 }
 \item{
 {\bf  Parameters}
@@ -2652,15 +2655,15 @@ public void inviteMember(java.lang.Long groupId,java.lang.String userId)\end{lst
 \item{
 {\bf  Description}
 
-Diese Methode wird von einem Client aufgerufen, der einen Benutzer zu einer Gruppe einladen will. Bei Aufruf dieser Methode wird mittels des groupDAOs die Information über den Group Request in der Datenbank gespeicert. Es ist garantiert, dass der Client, der diese Methode aufruft ein Administrator sit und der eingeladene Benutzer nicht bereits Mitglied der Gruppe ist. Diese Vorbedingungen müssen in der Methode nicht überprüft werden. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/requests/\{groupId\}/\{userId\}.
+Diese Methode wird von einem Client aufgerufen, der einen Benutzer zu einer Gruppe einladen will. Bei Aufruf dieser Methode wird mittels des groupDAOs die Information über den Group Request in der Datenbank gespeichert. Es ist garantiert, dass der Client, der diese Methode aufruft ein Administrator ist und der eingeladene Benutzer nicht bereits Mitglied der Gruppe ist. Diese Vorbedingungen müssen in der Methode nicht überprüft werden. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/requests/\{groupId\}/\{userId\}.
 }
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{groupId} -- Die ID der Gruppe, zu der der Benutzer eingladen werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
+\texttt{groupId} -- Die ID der Gruppe, zu der der Benutzer eingeladen werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.}
    \item{
-\texttt{userId} -- Die ID des Benutzers, der zu der gruppe eingeladen werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.}
+\texttt{userId} -- Die ID des Benutzers, der zu der Gruppe eingeladen werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2674,7 +2677,7 @@ public void removeMember(java.lang.String userId,java.lang.String groupId)\end{l
 \item{
 {\bf  Description}
 
-Diese Methode kann von einem Client aufgerufen werden, wenn ein Gruppenmitglied aus einer Gruppe entfernt werden soll. Dies kann der Fall sein, wenn ein Benutzer freiwillig aus einer Gruppe austritt oder wenn er von einem Administrator aus der Gruppe entfernt wird. Bei einem Aufruf leitet die Methode die Anfrage an die entsprechende Methode des groupDAOs weiter. Dieses entfernt den Benutzer aus der Gruppe. Durch Foreign Key Constraints in der DAtenbank wird der Benutzer auch aus allen GOs der Gruppe entfernt. Darum muss sich diese Methode demnach nicht kümmern. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/members/\{groupId\}/\{userId\}.
+Diese Methode kann von einem Client aufgerufen werden, wenn ein Gruppenmitglied aus einer Gruppe entfernt werden soll. Dies kann der Fall sein, wenn ein Benutzer freiwillig aus einer Gruppe austritt oder wenn er von einem Administrator aus der Gruppe entfernt wird. Bei einem Aufruf leitet die Methode die Anfrage an die entsprechende Methode des groupDAOs weiter. Dies entfernt den Benutzer aus der Gruppe. Durch Foreign Key Constraints in der Datenbank wird der Benutzer auch aus allen GOs der Gruppe entfernt. Darum muss sich diese Methode demnach nicht kümmern. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL \{Base\_URL\}/groups/members/\{groupId\}/\{userId\}.
 }
 \item{
 {\bf  Parameters}
@@ -2690,10 +2693,10 @@ Diese Methode kann von einem Client aufgerufen werden, wenn ein Gruppenmitglied 
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}Class UserRestController}{
+\subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}Klasse UserRestController}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}{}\vskip .1in 
-Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/user gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
-\subsubsection{Declaration}{
+Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/user gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class UserRestController
  extends java.lang.Object\end{lstlisting}
@@ -2707,10 +2710,10 @@ public class UserRestController
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.createUser(java.lang.String, java.lang.String)}{{\bf createUser(String, String)}} Diese Methode wird aufgerufen, wenn ein Benutzer sich zum ersten Mal in der App anmeldet.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.deleteUser(java.lang.String)}{{\bf deleteUser(String)}} Diese Methode wird aufgerufen, wenn ein Benutzer seinen Benutzeraccount löschen möchte.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.getData(java.lang.String)}{{\bf getData(String)}} Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID \{userId\}\ Mitglied ist, bzw. zu denen er eine Anfrage bekommen hat.\\
-\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.registerDevice(java.lang.String)}{{\bf registerDevice(String)}} Diese Methoe wird aufgerufen, um das Gerät, dass ein Benutzer aktuell benutzt auf dem Server mit seiner InstanceId zu registrieren.\\
+\hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.registerDevice(java.lang.String)}{{\bf registerDevice(String)}} Diese Methode wird aufgerufen, um das Gerät, dass ein Benutzer aktuell benutzt auf dem Server mit seiner InstanceId zu registrieren.\\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2721,7 +2724,7 @@ public UserRestController()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2733,7 +2736,7 @@ public void createUser(java.lang.String email,java.lang.String userId)\end{lstli
 \item{
 {\bf  Description}
 
-Diese Methode wird aufgerufen, wenn ein Benutzer sich zum ersten Mal in der App anmeldet. Die Methode veranlasst das userDAO einen neuen eintrag in der Datenbank anzulegen. Dazu überträgt der Client die benötigten Daten im Request Body der HTTP-Anfrage, verpackt als JSON-Objekt. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an die URL \{base\_URL\}/user/\{userId\}. Die Methode besitzt keinen Rückgabewert, lediglich einen Statuscode in der HTTP-Antwort, die an den Anfragenden gesendet wird. Der Statuscode gibt an, ob die Transaktion erfolgreich war.
+Diese Methode wird aufgerufen, wenn ein Benutzer sich zum ersten Mal in der App anmeldet. Die Methode veranlasst das userDAO einen neuen Eintrag in der Datenbank anzulegen. Dazu überträgt der Client die benötigten Daten im Request Body der HTTP-Anfrage, verpackt als JSON-Objekt. Der Aufruf dieser Methode entspricht einem HTTP POST-Request an die URL \{base\_URL\}/user/\{userId\}. Die Methode besitzt keinen Rückgabewert, lediglich einen Statuscode in der HTTP-Antwort, die an den Anfragenden gesendet wird. Der Statuscode gibt an, ob die Transaktion erfolgreich war.
 }
 \item{
 {\bf  Parameters}
@@ -2775,7 +2778,7 @@ public java.util.List getData(java.lang.String userId)\end{lstlisting} %end sign
 \item{
 {\bf  Description}
 
-Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID \{userId\}\ Mitglied ist, bzw. zu denen er eine Anfrage bekommen hat. Sie wird genau dann von einem Client aufgerufen, wenn ein Benutzer sich in der App anmeldet. Der Aufruf dieser Methode entspricht einem HTTP GET-Request an den Server an die URL \{Base\_URL\}/user/\{userId\}, die \{userId\}\ Da in den Gruppen die einzelnen Gos dieser Gruppe gespeichert sind, erhält der Anfragende mit dem Aufruf dieser Methode sämtliche Daten, die den Benutzer mit der User ID \{userID\}\ betreffen und für das Navigieren und Benutzen der App benötigt werden (angesehen von Änderungen der Daten, die zu einem späteren Zeitpunkt stattfinden).
+Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID \{userId\}\ Mitglied ist, bzw. zu denen er eine Anfrage bekommen hat. Sie wird genau dann von einem Client aufgerufen, wenn ein Benutzer sich in der App anmeldet. Der Aufruf dieser Methode entspricht einem HTTP GET-Request an den Server an die URL \{Base\_URL\}/user/\{userId\}, die \{userId\}\ Da in den Gruppen die einzelnen GOs dieser Gruppe gespeichert sind, erhält der Anfragende mit dem Aufruf dieser Methode sämtliche Daten, die den Benutzer mit der User ID \{userID\}\ betreffen und für das Navigieren und Benutzen der App benötigt werden (angesehen von Änderungen der Daten, die zu einem späteren Zeitpunkt stattfinden).
 }
 \item{
 {\bf  Parameters}
@@ -2785,7 +2788,7 @@ Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benut
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-eine Liste aller Gruppen von Gruppenobjekten. Der Rückgabewert dieser Methode wird innerhalb der Methode in ein JSON-Objekt geparst und in der empfangenden Methode des Clients zu Java Objekten konvertiert. Die Konvertierung nach JSON und zurück ändert nicht den Inhalt der Daten. Die Liste kann leer sein, für den Fall dass ein Benutzer nicht Mitglied in irgendeiner Gruppe ist. In diesem Fall wird in dem JSON-Objekt ein leerer data-Block übertragen. Die Länge der Liste ist auf 300 Gruppen beschränkt (dies ist die Gesamtanzahl an Gruppen, die von dem System unterstützt werden) 
+eine Liste aller Gruppen von Gruppenobjekten. Der Rückgabewert dieser Methode wird innerhalb der Methode in ein JSON-Objekt geparst und in der empfangenden Methode des Clients zu Java Objekten konvertiert. Die Konvertierung nach JSON und zurück ändert nicht den Inhalt der Daten. Die Liste kann leer sein, für den Fall dass ein Benutzer nicht Mitglied in irgendeiner Gruppe ist. In diesem Fall wird in dem JSON-Objekt ein leerer Data-Block übertragen. Die Länge der Liste ist auf 300 Gruppen beschränkt (dies ist die Gesamtanzahl an Gruppen, die von dem System unterstützt werden) 
 }%end item
 \end{itemize}
 }%end item
@@ -2798,7 +2801,7 @@ public void registerDevice(java.lang.String instanceId)\end{lstlisting} %end sig
 \item{
 {\bf  Description}
 
-Diese Methoe wird aufgerufen, um das Gerät, dass ein Benutzer aktuell benutzt auf dem Server mit seiner InstanceId zu registrieren. Die InstanceId wird vom Server benötigt, um das Gerät des Benutzers identifizieren zu können, um Kommunikaiotnsströme zu initiieren. Da diese InstanceId sich von Gerät zu Gerät unterscheidet bzw. sich durch Konfiguationsänderungen ändern kann, sollte diese Methode zusätzlich zu getData() bei jeder Anmeldung von dem Client aufgerufen werden. Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an die URL \{base\_URL\}/user/device/\{instanceId\}.
+Diese Methode wird aufgerufen, um das Gerät, dass ein Benutzer aktuell benutzt auf dem Server mit seiner InstanceId zu registrieren. Die InstanceId wird vom Server benötigt, um das Gerät des Benutzers identifizieren zu können, um Kommunikationsströme zu initiieren. Da diese InstanceId sich von Gerät zu Gerät unterscheidet bzw. sich durch Konfigurationsänderungen ändern kann, sollte diese Methode zusätzlich zu getData() bei jeder Anmeldung von dem Client aufgerufen werden. Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an die URL \{base\_URL\}/user/device/\{instanceId\}.
 }
 \item{
 {\bf  Parameters}
@@ -2822,10 +2825,10 @@ Diese Methoe wird aufgerufen, um das Gerät, dass ein Benutzer aktuell benutzt a
 \entityintro{Main}{edu.kit.pse17.go_app.Main}{Created by tina on 29.06.17.}
 \vskip .1in
 \vskip .1in
-\subsection{\label{edu.kit.pse17.go_app.Main}Class Main}{
+\subsection{\label{edu.kit.pse17.go_app.Main}Klasse Main}{
 \hypertarget{edu.kit.pse17.go_app.Main}{}\vskip .1in 
 Created by tina on 29.06.17.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class Main
  extends java.lang.Object\end{lstlisting}
@@ -2839,7 +2842,7 @@ public class Main
 \hyperlink{edu.kit.pse17.go_app.Main.main(java.lang.String[])}{{\bf main(String\lbrack \rbrack )}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2850,7 +2853,7 @@ public Main()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2863,7 +2866,7 @@ public static void main(java.lang.String[] args)\end{lstlisting} %end signature
 }
 }
 }
-\section{Package edu.kit.pse17.go\_app.ServiceLayer}{
+\section{ServiceLayer}{
 \label{edu.kit.pse17.go_app.ServiceLayer}\hypertarget{edu.kit.pse17.go_app.ServiceLayer}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
@@ -2874,10 +2877,10 @@ public static void main(java.lang.String[] args)\end{lstlisting} %end signature
 \entityintro{Observer}{edu.kit.pse17.go_app.ServiceLayer.Observer}{Dieses Interface gehört zu einer Implementierung des Entwurfsmusters Beobachter.}
 \vskip .13in
 \hbox{{\bf  Classes}}
-\entityintro{Cluster}{edu.kit.pse17.go_app.ServiceLayer.Cluster}{Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den Standorten erleichtert.}
-\entityintro{EntitiyRemovedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces.}
-\entityintro{EntityAddedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces.}
-\entityintro{EntityChangedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Oberver interfaces. dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers.}
+\entityintro{Cluster}{edu.kit.pse17.go_app.ServiceLayer.Cluster}{Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clustering-Algorithmus das hantieren mit den Standorten erleichtert.}
+\entityintro{EntitiyRemovedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer-Interfaces.}
+\entityintro{EntityAddedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer-Interfaces.}
+\entityintro{EntityChangedObserver}{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}{Bei dieser Klasse handelt es sich um eine Implementierung des Observer-Interfaces. Dementsprechend ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers.}
 \entityintro{GoClusterStrategy}{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}{In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus implementiert.}
 \entityintro{LocationService}{edu.kit.pse17.go_app.ServiceLayer.LocationService}{Diese Klasse bietet eine Schnittstelle für den GOrestController, an die Anfragen, die den User- bzw.}
 \entityintro{UserLocation}{edu.kit.pse17.go_app.ServiceLayer.UserLocation}{Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clustering-Algorithmus das hantieren mit den Standorten erleichtert.}
@@ -2885,19 +2888,19 @@ public static void main(java.lang.String[] args)\end{lstlisting} %end signature
 \vskip .1in
 \subsection{\label{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy}Interface ClusterStrategy}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy}{}\vskip .1in 
-Dieses Interface definiert die Schnittstelle, die eine Klasse, die einen Clustering-Algorithmus implementiert, anbieten. muss. Die Anzahl der Teilnehmer eines GOs liegt zwischen 3 und 50. Der imlpementierende Algorithmus muss mit dieser Anzahl an Benutzern umgehen können. Das Interface ist Teil eines Stategie-Entwurfsmusters und übernimmt die Rolle der allgemeinen Strategie.\vskip .1in 
-\subsubsection{Declaration}{
+Dieses Interface definiert die Schnittstelle, die eine Klasse, die einen Clustering-Algorithmus implementiert, anbieten. muss. Die Anzahl der Teilnehmer eines GOs liegt zwischen 3 und 50. Der implementierende Algorithmus muss mit dieser Anzahl an Benutzern umgehen können. Das Interface ist Teil eines Strategie-Entwurfsmusters und übernimmt die Rolle der allgemeinen Strategie.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface ClusterStrategy
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{GoClusterStrategy\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}}}
-\subsubsection{All classes known to implement interface}{GoClusterStrategy\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}}}
+\subsubsection{Klassen, die das Interface implementieren}{GoClusterStrategy\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}}}
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.ClusterStrategy.calculateCluster(java.util.List)}{{\bf calculateCluster(List)}} Diese Methode muss von jeder konkreten Algorithmus-Klasse implementiert werden.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2909,7 +2912,7 @@ java.util.List calculateCluster(java.util.List userLocationList)\end{lstlisting}
 \item{
 {\bf  Description}
 
-Diese Methode muss von jeder konkreten Algorithmus-Klasse implementiert werden. Ein Aufruf dieser Methode führt zu einer Ausführung des konkreten Algorithmus. Dabei ist es egal, wied der Algorithmus beim Clustering konkret vorgeht. In dem Entwurfsmuster Strategie übernimmt diese Methode die Rolle der "führeAus()" Methode in der abstrakten Strategie.
+Diese Methode muss von jeder konkreten Algorithmus-Klasse implementiert werden. Ein Aufruf dieser Methode führt zu einer Ausführung des konkreten Algorithmus. Dabei ist es egal, wie der Algorithmus beim Clustering konkret vorgeht. In dem Entwurfsmuster Strategie übernimmt diese Methode die Rolle der "führeAus()" Methode in der abstrakten Strategie.
 }
 \item{
 {\bf  Parameters}
@@ -2919,7 +2922,7 @@ Diese Methode muss von jeder konkreten Algorithmus-Klasse implementiert werden. 
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-eine Liste von Cluster-Objekten, die den aktuellen Standort der Gruppe beschreiben. Die Länge der Liste liegt zwis 
+eine Liste von Cluster-Objekten, die den aktuellen Standort der Gruppe beschreiben. (Die Länge der Liste liegt zwischen...)
 }%end item
 \end{itemize}
 }%end item
@@ -2928,13 +2931,13 @@ eine Liste von Cluster-Objekten, die den aktuellen Standort der Gruppe beschreib
 }
 \subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Observable}Interface Observable}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observable}{}\vskip .1in 
-Dieses Interface ist Teil einer Implementierung eines Beobachter-Entwurfsmusters. Es übernimmt die Rolle des abstrakten Subjekts. Es muss von allen Klassen, die beobachtet werden müssen implementiert werden. In dieser Anwendung sind dies die DAO Klassen. Diese werden beobachtet, um Änderungen am Datenbestand zu bemerken und diese Änderungen an betroffene Clients weiterleiten zu können. Das bedeutet bei jeder Änderung an dem Datenbestand muss anschließend die notify()-Methode aufgerufen werden, um den Beobachtern die Änderungen zu übergeben. Das Generic T gibt an, welcher Datentyp von den Änderungen betroffen ist und von den Beobachtern an die Clients weitergeleitet weden muss.\vskip .1in 
-\subsubsection{Declaration}{
+Dieses Interface ist Teil einer Implementierung eines Beobachter-Entwurfsmusters. Es übernimmt die Rolle des abstrakten Subjekts. Es muss von allen Klassen, die beobachtet werden müssen implementiert werden. In dieser Anwendung sind dies die DAO Klassen. Diese werden beobachtet, um Änderungen am Datenbestand zu bemerken und diese Änderungen an betroffene Clients weiterleiten zu können. Das bedeutet bei jeder Änderung an dem Datenbestand muss anschließend die notify()-Methode aufgerufen werden, um den Beobachtern die Änderungen zu übergeben. Das Generic T gibt an, welcher Datentyp von den Änderungen betroffen ist und von den Beobachtern an die Clients weitergeleitet werden muss.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface Observable
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
-\subsubsection{All classes known to implement interface}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
+\subsubsection{Klassen, die das Interface implementieren}{GoDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}}, UserDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}}, GroupDaoImp\small{\refdefined{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}}}
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.notify(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, T)}{{\bf notify(String, Observable, T)}} Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst.\\
@@ -2942,7 +2945,7 @@ public interface Observable
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observable.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -2954,7 +2957,7 @@ void notify(java.lang.String impCode,Observable observable,java.lang.Object t)\e
 \item{
 {\bf  Description}
 
-Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst. Die Methode löst nur dann eine Aktion bei einem der Observer aus, wenn zuvor ein zu der Ändeurng passender Observer registriert wurde.
+Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst. Die Methode löst nur dann eine Aktion bei einem der Observer aus, wenn zuvor ein zu der Änderung passender Observer registriert wurde.
 }
 \item{
 {\bf  Parameters}
@@ -2962,7 +2965,7 @@ Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. 
    \item{
 \texttt{impCode} -- Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.}
    \item{
-\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine Benachrichtigung bekommen hat.}
+\texttt{observable} -- Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der Observer, von wo er eine Benachrichtigung bekommen hat.}
    \item{
 \texttt{t} -- Das Objekt das die Änderung enthält bzw. an dem die Änderung durchgeführt wurde.}
   \end{itemize}
@@ -2978,7 +2981,7 @@ void register(Observer observer)\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von observern hinzugefügt, falls diese Liste noch nicht vorhanden ist, wird sie erstellt. Der Beobachter ist nach dem Hinzufügen zu der Liste funktionsfähig.
+Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von Observern hinzugefügt, falls diese Liste noch nicht vorhanden ist, wird sie erstellt. Der Beobachter ist nach dem Hinzufügen zu der Liste funktionsfähig.
 }
 \item{
 {\bf  Parameters}
@@ -2998,7 +3001,7 @@ void unregister(Observer observer)\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird. Er wird aus der Liste entfernt.
+Ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird. Er wird aus der Liste entfernt.
 }
 \item{
 {\bf  Parameters}
@@ -3014,19 +3017,19 @@ ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Method
 }
 \subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Observer}Interface Observer}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.Observer}{}\vskip .1in 
-Dieses Interface gehört zu einer Implementierung des Entwurfsmusters Beobachter. Es übernimmt dabei die Rolle des abstrakten Beobachters. Jede konkrete Beobachter-Klasse muss dieses Interface implementieren und über eine update-Methode verfügen. Die Aufgabe der Beobachter in dieser Anwendung ist das Beobachten der DAO-Klassen und bei Änderungen im Datenbestand, diese Ändeurngen an die Clients der betroffenen Benutzer weiterzuleiten. Dazu werden aus dem übergebenen Pbjekt die wichtigen Daten extrahiert und in ein JSON-Objekt umgewandelt. Dieses kann an das Downstream-ClientCommunication Modul übergeben werden, wo es an die betroffenen Clients geschickt wird. Die Implementierung des Entuwrfsmusters benutzt ein push-Modell, d.h. die Änderungen werden den Beobachtern bei einem notify()-Aufruf gliech mit übergeben. Die Beobachter müssen sich diese Änderungen nicht selbst holen.\vskip .1in 
-\subsubsection{Declaration}{
+Dieses Interface gehört zu einer Implementierung des Entwurfsmusters Beobachter. Es übernimmt dabei die Rolle des abstrakten Beobachters. Jede konkrete Beobachter-Klasse muss dieses Interface implementieren und über eine update-Methode verfügen. Die Aufgabe der Beobachter in dieser Anwendung ist das Beobachten der DAO-Klassen und bei Änderungen im Datenbestand, diese Änderungen an die Clients der betroffenen Benutzer weiterzuleiten. Dazu werden aus dem übergebenen Objekt die wichtigen Daten extrahiert und in ein JSON-Objekt umgewandelt. Dieses kann an das Downstream-ClientCommunication Modul übergeben werden, wo es an die betroffenen Clients geschickt wird. Die Implementierung des Entwurfsmusters benutzt ein push-Modell, d.h. die Änderungen werden den Beobachtern bei einem notify()-Aufruf gleich mit übergeben. Die Beobachter müssen sich diese Änderungen nicht selbst holen.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public interface Observer
 \end{lstlisting}
 \subsubsection{All known subinterfaces}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
-\subsubsection{All classes known to implement interface}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
+\subsubsection{Klassen, die das Interface implementieren}{EntitiyRemovedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}}, EntityChangedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}}, EntityAddedObserver\small{\refdefined{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}}}
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observer.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die Clients weitergeben.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.Observer.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Die update()-Methode, mit der die Beobachter die beobachteten Änderungen an die Clients weitergeben.\\
 \end{verse}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3038,7 +3041,7 @@ void update(java.lang.String arg,Observable observable,java.lang.Object o)\end{l
 \item{
 {\bf  Description}
 
-Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die Clients weitergeben. Wie dieses Update genau aussieht, wird von der konkreten Implementierung des Beobachters bestimmt.
+Die update()-Methode, mit der die Beobachter die beobachteten Änderungen an die Clients weitergeben. Wie dieses Update genau aussieht, wird von der konkreten Implementierung des Beobachters bestimmt.
 }
 \item{
 {\bf  Parameters}
@@ -3048,7 +3051,7 @@ Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die
    \item{
 \texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
    \item{
-\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere ähnliche Ereignisse beobachten kann.}
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichtert auch das Überladen der Methode, wodurch ein Beobachter mehrere ähnliche Ereignisse beobachten kann.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3056,10 +3059,10 @@ Die update()-Methode, mit der die Beobachtre die beobachteten Änderungen an die
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Cluster}Class Cluster}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.Cluster}Klasse Cluster}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.Cluster}{}\vskip .1in 
-Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den Standorten erleichtert. Ein Objekt dieser Klasse beschreibt dabei ein Cluster, bestehend aus mehreren GO-Teilnehmern, die sich nahe genug beieinander befinden, um von dem benutzten Clustering-Algorithmus als Cluster erkannt worden zu sein.\vskip .1in 
-\subsubsection{Declaration}{
+Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den Standorten erleichtert. Ein Objekt dieser Klasse beschreibt dabei ein Cluster, bestehend aus mehreren GO-Teilnehmern, die sich nahe genug beieinander befinden, um von dem benutzten Clustering-Algorithmus als Cluster erkannt worden zu sein.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class Cluster
  extends java.lang.Object\end{lstlisting}
@@ -3078,7 +3081,7 @@ public class Cluster
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Cluster.setSize(int)}{{\bf setSize(int)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3089,7 +3092,7 @@ public Cluster(int size,long lat,long lon)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3131,10 +3134,10 @@ public void setSize(int size)\end{lstlisting} %end signature
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}Class EntitiyRemovedObserver}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}Klasse EntitiyRemovedObserver}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver}{}\vskip .1in 
-Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces. Dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Entfernen von Entitäten zu reagieren. Dies schließt folgende Ereignisse mit ein: - Entfernen eines GOs - Entfernen eines Gruppenmitglieds / einer Gruppenanfrage - Entfernen einer Gruppe Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
-\subsubsection{Declaration}{
+Bei dieser Klasse handelt es sich um eine Implementierung des Observer-Interfaces. Dementsprechend ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Entfernen von Entitäten zu reagieren. Dies schließt folgende Ereignisse mit ein: - Entfernen eines GOs - Entfernen eines Gruppenmitglieds / einer Gruppenanfrage - Entfernen einer Gruppe Um auf diese verschiedenen Änderungen reagieren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class EntitiyRemovedObserver
  extends java.lang.Object implements Observer\end{lstlisting}
@@ -3150,8 +3153,8 @@ public class EntitiyRemovedObserver
 }
 \subsubsection{Methoden Auflistung}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der update()-methode des Observers.\\
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der update()-methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der update()-Methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der update()-Methode des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.util.List)}{{\bf update(String, Observable, List)}} Überladung der update()-Methode des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
 \end{verse}
@@ -3164,12 +3167,12 @@ public class EntitiyRemovedObserver
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
+Der Code anhand dessen der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder Observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
 \end{itemize}
 }
 \end{itemize}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3180,7 +3183,7 @@ public EntitiyRemovedObserver()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3192,7 +3195,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \item{
 {\bf  Description}
 
-Überladung der update()-methode des Observers. Diese Methode kümmert sich um das Entfernen eines GOs. Die Daten des GOs werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+Überladung der update()-Methode des Observers. Diese Methode kümmert sich um das Entfernen eines GOs. Die Daten des GOs werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3216,7 +3219,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \item{
 {\bf  Description}
 
-Überladung der update()-methode des Observers. Diese Methode kümmert sich um das Entfernen einer Gruppe. Die Daten der Gruppe werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+Überladung der update()-Methode des Observers. Diese Methode kümmert sich um das Entfernen einer Gruppe. Die Daten der Gruppe werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3274,7 +3277,7 @@ Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen 
    \item{
 \texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
    \item{
-\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichtert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3282,10 +3285,10 @@ Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen 
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}Class EntityAddedObserver}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}Klasse EntityAddedObserver}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver}{}\vskip .1in 
-Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces. Dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf das Erstellen neuer Entitäten zu reagieren. Dies schließt folgende Ereignisse mit ein: - Hinzufügen eines GOs - Hinzufügen einer Gruppenanfrage - Hinzufügen eines Gruppenmitglieds Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
-\subsubsection{Declaration}{
+Bei dieser Klasse handelt es sich um eine Implementierung des Observer-Interfaces. Dementsprechend ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf das Erstellen neuer Entitäten zu reagieren. Dies schließt folgende Ereignisse mit ein: - Hinzufügen eines GOs - Hinzufügen einer Gruppenanfrage - Hinzufügen eines Gruppenmitglieds Um auf diese verschiedenen Änderungen reagieren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class EntityAddedObserver
  extends java.lang.Object implements Observer\end{lstlisting}
@@ -3304,7 +3307,7 @@ public class EntityAddedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(String, Observable, GoEntity)}} Überladung der Update-Methode des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(String, Observable, GroupEntity)}} Überladung der Update-Methode des Observers.\\
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf update(String, Observable, UserEntity)}} Überladung der Update-Methode des Observers.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf update(String, Observable, UserEntity)}} Überladung der update-Methode des Observers.\\
 \end{verse}
 }
 \subsubsection{Fields}{
@@ -3315,12 +3318,12 @@ public class EntityAddedObserver
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
+Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder Observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
 \end{itemize}
 }
 \end{itemize}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3331,7 +3334,7 @@ public EntityAddedObserver()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3343,7 +3346,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \item{
 {\bf  Description}
 
-Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn ein neues GO in einer Gruppe erstellt wurde. Die Methode wandelt das GO daraufhin in ein passendes JSON-objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn ein neues GO in einer Gruppe erstellt wurde. Die Methode wandelt das GO daraufhin in ein passendes JSON-Objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3353,7 +3356,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
    \item{
 \texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
    \item{
-\texttt{go} -- Das Go das neu erstellt wurde. Es enthält alle Daten die wichtig sind für das GO und die an die Clients weitergegeben werden müssen.}
+\texttt{go} -- Das Go, das neu erstellt wurde. Es enthält alle Daten die wichtig sind für das GO und die an die Clients weitergegeben werden müssen.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3401,7 +3404,7 @@ Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen 
    \item{
 \texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
    \item{
-\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichtert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3415,7 +3418,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \item{
 {\bf  Description}
 
-Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn ein neuer Bernutzer zu einer Gruppe hinzugefügt wurde. Die Methode wandelt die Änderung daraufhin in ein passendes JSON-Objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen User-Entity ermittelt werden.
+Überladung der Update-Methode des Observers. Diese Implementierung der Methode wird aufgerufen, wenn ein neuer Benutzer zu einer Gruppe hinzugefügt wurde. Die Methode wandelt die Änderung daraufhin in ein passendes JSON-Objekt um, um es an den FcmClient weiterzugeben, der es wiederum an die passenden Clients schickt. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen User-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3425,7 +3428,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
    \item{
 \texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
    \item{
-\texttt{user} -- Der Benutzer, der der Gruppe hinzugefügt wurde. Die Entität enthält alle Daten die wichtig sind für die Änderung und die an die Clients weitergegeben werden müssen. Da die gruppenmitgliedschaften in einer Liste gespeichert werden, wird immer das letzte Listenelement als die neu hinzugefügte Gruppe betrachtet. Darauf muss geachtet werden, wenn in der DAO-Klasse eine neue Anfrage angelegt wird.}
+\texttt{user} -- Der Benutzer, der der Gruppe hinzugefügt wurde. Die Entität enthält alle Daten die wichtig sind für die Änderung und die an die Clients weitergegeben werden müssen. Da die Gruppenmitgliedschaften in einer Liste gespeichert werden, wird immer das letzte Listenelement als die neu hinzugefügte Gruppe betrachtet. Darauf muss geachtet werden, wenn in der DAO-Klasse eine neue Anfrage angelegt wird.}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3433,10 +3436,10 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}Class EntityChangedObserver}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}Klasse EntityChangedObserver}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver}{}\vskip .1in 
-Bei dieser Klasse handelt es sich um eine Implementierung des Oberver interfaces. dementsprechned ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Änderungen einer bestehenden Entität zu reagieren. Dies schließt folgende Ereignisse mit ein: - Änderung von GO-Daten - Änderung von Gruppendaten - Änderung des Teilnahmestatus - Änderung der Adminsitratoren einer Gruppe Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
-\subsubsection{Declaration}{
+Bei dieser Klasse handelt es sich um eine Implementierung des Oberver-Interfaces. Dementsprechend ist diese Klasse Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers. Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Änderungen einer bestehenden Entität zu reagieren. Dies schließt folgende Ereignisse mit ein: - Änderung von GO-Daten - Änderung von Gruppendaten - Änderung des Teilnahmestatus - Änderung der Administratoren einer Gruppe Um auf diese verschiedenen Änderungen reagieren zu können, muss bei der Implementierung die update()-Methode überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere Vorgehensweise gewählt werden muss.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class EntityChangedObserver
  extends java.lang.Object implements Observer\end{lstlisting}
@@ -3466,12 +3469,12 @@ public class EntityChangedObserver
 }
 \begin{itemize}
 \item{\vskip -.9ex 
-Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
+Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird jeder Observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes Argument der update()-Methode verwendet.}
 \end{itemize}
 }
 \end{itemize}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3482,7 +3485,7 @@ public EntityChangedObserver()\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3494,7 +3497,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \item{
 {\bf  Description}
 
-Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einem GO behandelt. Das geänderte Go wird in ein JSON-Objekt umgewandelt und an den FcmClient weiteregegeben, um es an die entsprechenden Clients weiterzuleiten. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
+Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einem GO behandelt. Das geänderte Go wird in ein JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um es an die entsprechenden Clients weiterzuleiten. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3518,7 +3521,7 @@ public void update(java.lang.String arg,Observable observable,edu.kit.pse17.go_a
 \item{
 {\bf  Description}
 
-Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einer Gruppe behandelt. Die geänderte gruppe wird in ein JSON-Objekt umgewandelt und an den FcmClient weiteregegeben, um es an die entsprechenden Clients weiterzuleiten. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity ermittelt werden.
+Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einer Gruppe behandelt. Die geänderte gruppe wird in ein JSON-Objekt umgewandelt und an den FcmClient weitergegeben, um es an die entsprechenden Clients weiterzuleiten. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3542,7 +3545,7 @@ public void update(java.lang.String arg,Observable observable,java.util.List cha
 \item{
 {\bf  Description}
 
-Überladung der Methode update() des Observers. In dieser Methode wird das ereignis eines neu hinzugefügten Admins behandelt und an die entsprechenden Clients weitergeleitet. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity ermittelt werden.
+Überladung der Methode update() des Observers. In dieser Methode wird das Ereignis eines neu hinzugefügten Admins behandelt und an die entsprechenden Clients weitergeleitet. Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity ermittelt werden.
 }
 \item{
 {\bf  Parameters}
@@ -3576,7 +3579,7 @@ Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen 
    \item{
 \texttt{observable} -- Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.}
    \item{
-\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
+\texttt{o} -- Ein Objekt, das die Änderungen, um die der Beobachter sich kümmern muss enthält. Da es sich um den Datentyp "Object" handelt, ist der Beobachter sehr flexibel, welche Änderungen ihm übergeben werden können. Dies erleichtert auch das Überladen der Methode, wodurch ein Beobachter mehrere}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -3584,10 +3587,10 @@ Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen 
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}Class GoClusterStrategy}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}Klasse GoClusterStrategy}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy}{}\vskip .1in 
-In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus implementiert. Die Ausführung des Algorithmus wird von der Klasse LocationService aufgerufen. Diese Klasse ist Teil einer Implementierung des Entwurfsmusters "Strategie" und übernimmt dabei die Rolle der konkreten Strategie. Das Interface der abstrakten Strategie, in diesem Fall "ClsuterStrategy" wird implementiert. Die "führeAus()"-Methode der Strategie ist die Methode "calculateCluster()"\vskip .1in 
-\subsubsection{Declaration}{
+In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus implementiert. Die Ausführung des Algorithmus wird von der Klasse LocationService aufgerufen. Diese Klasse ist Teil einer Implementierung des Entwurfsmusters "Strategie" und übernimmt dabei die Rolle der konkreten Strategie. Das Interface der abstrakten Strategie, in diesem Fall "ClusterStrategy" wird implementiert. Die "führeAus()"-Methode der Strategie ist die Methode "calculateCluster()"\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GoClusterStrategy
  extends java.lang.Object implements ClusterStrategy\end{lstlisting}
@@ -3603,7 +3606,7 @@ public class GoClusterStrategy
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy.setThreshold(int)}{{\bf setThreshold(int)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3614,7 +3617,7 @@ public GoClusterStrategy(int threshold)\end{lstlisting} %end signature
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3626,7 +3629,7 @@ public java.util.List calculateCluster(java.util.List userLocationList)\end{lstl
 \item{
 {\bf  Description}
 
-Methode des Interfaces, die hier implementiert wird. Der Aufruf deiser Methode stößt die Ausfühtung des Algorithmus an und sie liefert die Ergebnisse des Clsutering-Vorgangs an denAufrufer zurück.
+Methode des Interfaces, die hier implementiert wird. Der Aufruf dieser Methode stößt die Ausführung des Algorithmus an und sie liefert die Ergebnisse des Clustering-Vorgangs an den Aufrufer zurück.
 }
 \item{
 {\bf  Parameters}
@@ -3655,16 +3658,16 @@ public void setThreshold(int threshold)\end{lstlisting} %end signature
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.LocationService}Class LocationService}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.LocationService}Klasse LocationService}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.LocationService}{}\vskip .1in 
-Diese Klasse bietet eine Schnittstelle für den GOrestController, an die Anfragen, die den User- bzw. Gruppenstandort betreffen, weitergeleitet werden können. Die Aufgabe dieser Klassen ist das Verwalten und Bearbeiten dieser Anfragen. Um die Anfragen bearbeiten zu können, bedient sich die die Klasse dem Clustering Algorithmus, der implementiert ist mit der Schnittstellt, wie sie in dem Interface ClusterStrategy beschrieben ist. Alle Programmteile, die Funktioalitäten aus dieser Klasse benötigen, stellen ihre Anfragen an statische Methoden. Erst innerhalb der Klasse wird die anfrage dem richtigen LocationService-Objekt zugeordnet. Dies erlaubt eine klare Trennung der Teile des GOs, die in der Datenbank verwaltet werden und denen, die in dieser Klasse verwaltet werden. Diese Klasse ist Teil einer Implementierung des Entwurfsmusters "Strategie". Sie übernimmt die Rolle des Aufrufers, d.h. sie ruft eine Implementierung einer abstrakten Strategie (hier: eine Implementierung von ClusterStrategie) auf, ohne dass des dabei eine Rolle spielt, wie genau die Implementierung aussieht.\vskip .1in 
-\subsubsection{Declaration}{
+Diese Klasse bietet eine Schnittstelle für den GOrestController, an die Anfragen, die den User- bzw. Gruppenstandort betreffen, weitergeleitet werden können. Die Aufgabe dieser Klassen ist das Verwalten und Bearbeiten dieser Anfragen. Um die Anfragen bearbeiten zu können, bedient sich die die Klasse dem Clustering Algorithmus, der implementiert ist mit der Schnittstelle, wie sie in dem Interface ClusterStrategy beschrieben ist. Alle Programmteile, die Funktionalitäten aus dieser Klasse benötigen, stellen ihre Anfragen an statische Methoden. Erst innerhalb der Klasse wird die anfrage dem richtigen LocationService-Objekt zugeordnet. Dies erlaubt eine klare Trennung der Teile des GOs, die in der Datenbank verwaltet werden und denen, die in dieser Klasse verwaltet werden. Diese Klasse ist Teil einer Implementierung des Entwurfsmusters "Strategie". Sie übernimmt die Rolle des Aufrufers, d.h. sie ruft eine Implementierung einer abstrakten Strategie (hier: eine Implementierung von ClusterStrategie) auf, ohne dass des dabei eine Rolle spielt, wie genau die Implementierung aussieht.\vskip .1in 
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class LocationService
  extends java.lang.Object\end{lstlisting}
 \subsubsection{Konstruktoren Auflistung}{
 \begin{verse}
-\hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService()}{{\bf LocationService()}} Der einzige Konstruktor diser Klasse nimmt keine Argumente entgegen.\\
+\hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService()}{{\bf LocationService()}} Der einzige Konstruktor dieser Klasse nimmt keine Argumente entgegen.\\
 \end{verse}
 }
 \subsubsection{Methoden Auflistung}{
@@ -3673,7 +3676,7 @@ public class LocationService
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService.setUserLocation(long, java.lang.String, long, long)}{{\bf setUserLocation(long, String, long, long)}} Diese Methode speichert eine UserLocation in der acitveUsers Liste des entsprechenden GOs.\\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3685,13 +3688,13 @@ public LocationService()\end{lstlisting} %end signature
 \item{
 {\bf  Description}
 
-Der einzige Konstruktor diser Klasse nimmt keine Argumente entgegen. Sämtliche Attribute werden nur innerhalb dieser Klasse gesetzt und verändert. Die default-Werte der Attribute sind: - activeUsers: leere Liste - groupLocation: leere Liste - strat: Objekt einer Klasse, die ClusterStrategy implementiert. Als threshold-Wert wird dem Konstruktor 5 übergeben. - newLocationCounter: 0 - userCounter: 0
+Der einzige Konstruktor dieser Klasse nimmt keine Argumente entgegen. Sämtliche Attribute werden nur innerhalb dieser Klasse gesetzt und verändert. Die default-Werte der Attribute sind: - activeUsers: leere Liste - groupLocation: leere Liste - strat: Objekt einer Klasse, die ClusterStrategy implementiert. Als threshold-Wert wird dem Konstruktor 5 übergeben. - newLocationCounter: 0 - userCounter: 0
 }
 \end{itemize}
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3703,17 +3706,17 @@ public static java.util.List getGroupLocation(long goId)\end{lstlisting} %end si
 \item{
 {\bf  Description}
 
-Gibt die aktuelle GroupLocation des spezifizierten GOs an den Aufrufer zurück. Aufgerufen wird diese Methode von einem GoRestController, der von einem Client eine Anfrage nach der groupLocation eines GOs bekommen hat. Bei einem Methodenaufruf wird das entsprechende GO aus der Map activeGos anhand der goId herausgesucht. Es ist dabei garantiert, dass das GO in der Map zu finden ist. Aus dem locationService-Objekts des Gos wird zuerst der Wert des newLocationCounters betrachtet. Ist dieser größer oder gleich 5, wird die ClusterStrategy aufgerufen und die groupLocation neu berechnet. Anschließend wird der newLocationCounter zurückgesetzt und die groupLocation wird zurückgegeben.
+Gibt die aktuelle GroupLocation des spezifizierten GOs an den Aufrufer zurück. Aufgerufen wird diese Methode von einem GoRestController, der von einem Client eine Anfrage nach der groupLocation eines GOs bekommen hat. Bei einem Methodenaufruf wird das entsprechende GO aus der Map activeGos anhand der goId herausgesucht. Es ist dabei garantiert, dass das GO in der Map zu finden ist. Aus dem locationService-Objekts des GOs wird zuerst der Wert des newLocationCounters betrachtet. Ist dieser größer oder gleich 5, wird die ClusterStrategy aufgerufen und die groupLocation neu berechnet. Anschließend wird der newLocationCounter zurückgesetzt und die groupLocation wird zurückgegeben.
 }
 \item{
 {\bf  Parameters}
   \begin{itemize}
    \item{
-\texttt{goId} -- Die ID des GOs, dessen groupLocation gesucht wird. Dabei handelt es sich um eine gültige GO-ID, die ein Schlüssel in der Map acitve GOs ist.}
+\texttt{goId} -- Die ID des GOs, dessen groupLocation gesucht wird. Dabei handelt es sich um eine gültige GO-ID, die ein Schlüssel in der Map active GOs ist.}
   \end{itemize}
 }%end item
 \item{{\bf  Returns} -- 
-Eine Liste mit Cluster-Objekten. Diese stellt den aktuellen Standort der GO-Teilnehmer dar. Dabei ist die Länge der Liste zwischen 0 und 50. Ist die Liste leer, hei?t das, dass noch nicht genügend Teilnehmer ihren Standort übermittelt haben, um eine groupLocation ausrechnen zu können, ohne die Anonymisierungs-Vorschriften der Anwendung zu verletzen. 
+Eine Liste mit Cluster-Objekten. Diese stellt den aktuellen Standort der GO-Teilnehmer dar. Dabei ist die Länge der Liste zwischen 0 und 50. Ist die Liste leer, heißt das, dass noch nicht genügend Teilnehmer ihren Standort übermittelt haben, um eine groupLocation ausrechnen zu können, ohne die Anonymisierungs-Vorschriften der Anwendung zu verletzen. 
 }%end item
 \end{itemize}
 }%end item
@@ -3726,7 +3729,7 @@ public static void setUserLocation(long goId,java.lang.String userId,long lat,lo
 \item{
 {\bf  Description}
 
-Diese Methode speichert eine UserLocation in der acitveUsers Liste des entsprechenden GOs. Sie wird aufgerufen von der GoRestController Klasse, wenn diese eine setLocation-Anfrage von einem Benutzer bekommt. Bei einem Methodenaufruf wird aus der Liste der activeGos das richtige locationService Objekt ausgewählt und dort die userLocation in der activeUsers Liste aktualisert. Sollte dieses Objekt in der Liste nicht existierten, wird es erzeugt und der Liste hinzugefügt. In diesem Fall wird die Variable userCounter um eines erhöht, da ein neuer Benutzer angefangen hat, seinen Standort zu teilen. Bei jedem Aufruf dieser Methode wird außerdem der Wert von newLocationCounter um 1 erhöht. Sollte das GO in der Map activeGos nicht zu finden sein, wird ein neues LocationService-Objekt erzeugt und der Map hinzugefügt.
+Diese Methode speichert eine UserLocation in der activeUsers Liste des entsprechenden GOs. Sie wird aufgerufen von der GoRestController Klasse, wenn diese eine setLocation-Anfrage von einem Benutzer bekommt. Bei einem Methodenaufruf wird aus der Liste der activeGos das richtige locationService Objekt ausgewählt und dort die userLocation in der activeUsers Liste aktualisiert. Sollte dieses Objekt in der Liste nicht existierten, wird es erzeugt und der Liste hinzugefügt. In diesem Fall wird die Variable userCounter um eines erhöht, da ein neuer Benutzer angefangen hat, seinen Standort zu teilen. Bei jedem Aufruf dieser Methode wird außerdem der Wert von newLocationCounter um 1 erhöht. Sollte das GO in der Map activeGos nicht zu finden sein, wird ein neues LocationService-Objekt erzeugt und der Map hinzugefügt.
 }
 \item{
 {\bf  Parameters}
@@ -3746,10 +3749,10 @@ Diese Methode speichert eine UserLocation in der acitveUsers Liste des entsprech
 \end{itemize}
 }
 }
-\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.UserLocation}Class UserLocation}{
+\subsection{\label{edu.kit.pse17.go_app.ServiceLayer.UserLocation}Klasse UserLocation}{
 \hypertarget{edu.kit.pse17.go_app.ServiceLayer.UserLocation}{}\vskip .1in 
 Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clustering-Algorithmus das hantieren mit den Standorten erleichtert. Ein Objekt dieser Klasse beschreibt dabei einen Benutzerstandort.\vskip .1in 
-\subsubsection{Declaration}{
+\subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class UserLocation
  extends java.lang.Object\end{lstlisting}
@@ -3768,7 +3771,7 @@ public class UserLocation
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.UserLocation.setUserId(java.lang.String)}{{\bf setUserId(String)}} \\
 \end{verse}
 }
-\subsubsection{Constructors}{
+\subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3779,7 +3782,7 @@ public UserLocation(java.lang.String userId,long lat,long lon)\end{lstlisting} %
 }%end item
 \end{itemize}
 }
-\subsubsection{Methods}{
+\subsubsection{Methoden}{
 \vskip -2em
 \begin{itemize}
 \item{ 
@@ -3824,10 +3827,10 @@ public void setUserId(java.lang.String userId)\end{lstlisting} %end signature
 }
 % ------- textdoclet_include/finish.tex
 
+\newpage
 
-
-\section{verwendetes Datenbankschema}
-Das System persistiert Daten in einer zentralen MySQL-Datenbank auf dem Tomcat-Server und zusätzlich auf einer lokalen SQLite-Datenbank auf den Clients. Beide Datenbanken verwenden das gleiche Schema.\\
+%\section{verwendetes Datenbankschema}
+%Das System persistiert Daten in einer zentralen MySQL-Datenbank auf dem Tomcat-Server und zusätzlich auf einer lokalen SQLite-Datenbank auf den Clients. Beide Datenbanken verwenden das gleiche Schema.\\
 
 \section{Client-Server-Schnittstelle}
 Dieser Abschnitt erläutert die Schnittstelle zwischen dem Client und dem Server. Diese Schnittstelle besteht aus zwei Teilen:
@@ -3847,7 +3850,7 @@ Bei den Methoden POST und PUT, sowie bei Antworten des Servers, die einen Conten
 Bei sämtlichen Requests kann der Client anhand des HTTP-Statuscodes der Server-Response erkennen, ob die Anfrage erfolgreich ausgeführt werden konnte.
 
 \subsection{FCM Schnittstelle}
-Die Schnittstelle zwischen Server und Client, die zum Senden von Downstream-Nachrichten verwenet werden kann, wird über Firease Cloud Messaging realisiert. Der Server sendet einen HTTP Post Request an den Firebase Server. Dabei besteht der Content-Body dieser HTTP-Anfrage aus einem JSON-Objekt indem der Empfänger und die zu übermittlenden Daten spezifiziert sind.
+Die Schnittstelle zwischen Server und Client, die zum Senden von Downstream-Nachrichten verwendet werden kann, wird über Firebase Cloud Messaging realisiert. Der Server sendet einen HTTP Post Request an den Firebase Server. Dabei besteht der Content-Body dieser HTTP-Anfrage aus einem JSON-Objekt indem der Empfänger und die zu übermittelnden Daten spezifiziert sind.
 
 Folgende Grafik \footnote{Quelle: https://firebase.google.com/docs/cloud-messaging/send-message} zeigt den Aufbau eines HTTP-Requests, wie er an den FCM Server gesendet werden muss für eine erfolgreiche Weiterleitung der Nachricht:
 
@@ -3870,13 +3873,13 @@ Zunächst enthalten sämtliche Nachrichten unter dem Tag "tag" einen String der 
 	\item \textit{Go Removed}\\
 	Die ID des entfernten Gos unter dem Tag 'id'
 	\item \textit{Group Edited}\\
-	Ein aus einer Group-Entität erzeugtes JSON-Objekt unter dem Tag 'group'. Dieses wird automatisch durch das Framework Gson erzeugt. Es werden allerdings die Listen der Gruppenmitgleider und Administratoren aus dem Objekt entfernt, da Änderungen derselben von diesem Anwendungsfall nicht betroffen sind und die Daten somit nicht übertragen werden müssen.
+	Ein aus einer Group-Entität erzeugtes JSON-Objekt unter dem Tag 'group'. Dieses wird automatisch durch das Framework Gson erzeugt. Es werden allerdings die Listen der Gruppenmitglieder und Administratoren aus dem Objekt entfernt, da Änderungen derselben von diesem Anwendungsfall nicht betroffen sind und die Daten somit nicht übertragen werden müssen.
 	\item \textit{Group Removed}\\
 	Die ID der entfernten Gruppe unter dem Tag 'id'
 	\item \textit{Group Request Received}\\
 	Ein aus einer Group-Entität erzeugtes JSON-Objekt unter dem Tag 'group'. Dieses wird automatisch durch das Framework Gson erzeugt
 	\item \textit{Member Added}\\
-	Die ID der Gruppe zu der der Benutzer hinzugefügt werden soll unter dem Tag 'id'. Unter dem Tag 'user' ist ein JSON-Objekt gespeichert, das aus einer User-Entität erzeigt wurde. Dies geschieht automatisch durch das Framework Gson.
+	Die ID der Gruppe zu der der Benutzer hinzugefügt werden soll unter dem Tag 'id'. Unter dem Tag 'user' ist ein JSON-Objekt gespeichert, das aus einer User-Entität erzeugt wurde. Dies geschieht automatisch durch das Framework Gson.
 	\item \textit{Member Removed}\\
 	Die ID des Benutzers, der aus der Gruppe entfernt werden soll unter dem Tag 'user\_id' und die ID der Gruppe, aus der der Benutzer entfernt werden soll unter dem Tag 'group\_id'.
 	\item \textit{Admin Added}\\
@@ -3887,9 +3890,19 @@ Zunächst enthalten sämtliche Nachrichten unter dem Tag "tag" einen String der 
 
 Bei den Clients kommt die gesendete Nachricht als remoteMessage-Objekt an. Durch die getData()-Methode kann auf den Content-Body, also das JSON-Objekt, das den eigentlichen Inhalte der Nachricht entält zugegriffen werden.
 
-
+\newpage
 
 \section{Klassendiagramme}
+
+\subsection{Server}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Klassendiagramme/server.jpg}
+	\caption{Klassendiagramm der Serveranwendung}
+\end{figure}
+
+Bemerkung: Die Argumente der Funktionen wurden im Klassendiagramm zur besseren Übersichtlichkeit ausgelassen. Sie können den Klassenbeschreibungen entnommen werden.
 
 \section{Sequenzdiagramme}
 
@@ -3903,9 +3916,9 @@ Bei den Clients kommt die gesendete Nachricht als remoteMessage-Objekt an. Durch
 
 Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms passiert, wenn ein Benutzer die Funktion "inviteMember" ausführt. Das User Interface stellt dem Benutzer ein Textfeld zur Eingabe der E-Mailadresse und einen Button zum Bestätigen zur Verfügung. Bei Klick dieses Buttons extrahiert die Activity-Klasse die eingegebene Mail-Adresse aus dem Textfeld und übergibt diese an das ViewModel über den Methodenaufruf "inviteMember". Das ViewModel überprüft zunächst ob es bereits einen Benutzer in Gruppe gibt, der diese E-Mailadresse besitzt. Falls nicht, wird die Gruppeneinladung an die Grouprepository weitergeleitet und von dort über die Klasse TomcatrestApi an den Server gesendet.
 
-Empfängt der Server eine Anfrage, einen User zu einer Gruppe hinzuzufügen, wird diese Anfrage zunächst an das UserDao weitergegeben. Dort wird zuerst die Methode getUserByMail() aufgerufen, um den richtigen Benutzer aus der Datenbank zu finden. Danach wird die addGroupmember-methode des GroupDaos aufgerufen. In dieser methode wird die neue gruppenanfrage in der Datenbank gespeichert und es werden die Observer benachrichtigt, dass sich Daten geändert haben.
+Empfängt der Server eine Anfrage, einen User zu einer Gruppe hinzuzufügen, wird diese Anfrage zunächst an das UserDao weitergegeben. Dort wird zuerst die Methode getUserByMail() aufgerufen, um den richtigen Benutzer aus der Datenbank zu finden. Danach wird die addGroupmember-methode des GroupDaos aufgerufen. In dieser Methode wird die neue Gruppenanfrage in der Datenbank gespeichert und es werden die Observer benachrichtigt, dass sich Daten geändert haben.
 
-Der AddEntityObserver erkennt, dass es sich um eine Änderung handelt, die seinen Veratnwortlichkeitsbereich betrifft. Er bekommt beim Aufruf der update()-Methode die Gruppe mit der zusätzlichen Gruppenanfrage übergeben. Der Observer extrahiert alle Gruppenmitglieder aus dem Gruppenobjekt und ruft die send()-methode des FcmClients auf, um das geänderte Gruppenobjekt an alle Gruppenmitglieder zu senden. Danach wird die send()-Methode ein zweites Mal aufgerufen, um dem neuen Gruppenmitglied die neue Gruppenanfrage zu übermitteln.
+Der AddEntityObserver erkennt, dass es sich um eine Änderung handelt, die seinen Verantwortungsbereich betrifft. Er bekommt beim Aufruf der update()-Methode die Gruppe mit der zusätzlichen Gruppenanfrage übergeben. Der Observer extrahiert alle Gruppenmitglieder aus dem Gruppenobjekt und ruft die send()-Methode des FcmClients auf, um das geänderte Gruppenobjekt an alle Gruppenmitglieder zu senden. Danach wird die send()-Methode ein zweites Mal aufgerufen, um dem neuen Gruppenmitglied die neue Gruppenanfrage zu übermitteln.
 
 \begin{figure}[H]
 	\centering
@@ -3915,7 +3928,7 @@ Der AddEntityObserver erkennt, dass es sich um eine Änderung handelt, die seine
 
 Das zweite Sequenzdiagramm zeigt, was passiert, wenn an einen Benutzer eine Gruppenmitgliedschaftsanfrage gesendet wird. Die Nachricht, die von dem Server, über dem Firebase Cloud Messaging Server, an den Client gesendet wird, löst einen Aufruf der Methode onMessageReceived() in der Klasse MessageReceiver aus. Diese Klasse extrahiert das JSON-Feld COMMAND\_CODE aus dem empfangenen JSON-Objekt und findet so heraus, an welches ServerCommand-Objekt die Anfrage weitergeleitet werden muss.
 
-Nach Weiterleitung der Anfrage an den GroupRequestReceivedCommand wird dort das Datenfeld aus der JSON-Nachricht extrahiert. dort ist die Gruppe gespeichert, zu der er Benutzer eingeladen wurde. Diese Gruppe wird in dem öffentlichen "CurrentData" Field des GroupRepository gespeichert. Danach schickt das GroupRequestReceivedCommand-Objekt einen Broadcast an alle ViewModels. Das GroupViewModel erkennt, dass der Broadcast eine Änderung der Gruppen des Benutzers betrifft. Daher wird dort die onBroadcastReceived()-Methode auferufen. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoupRepository ab, durch einen Aufruf der getCurrentData()-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
+Nach Weiterleitung der Anfrage an den GroupRequestReceivedCommand wird dort das Datenfeld aus der JSON-Nachricht extrahiert. dort ist die Gruppe gespeichert, zu der er Benutzer eingeladen wurde. Diese Gruppe wird in dem öffentlichen "CurrentData" Field des GroupRepository gespeichert. Danach schickt das GroupRequestReceivedCommand-Objekt einen Broadcast an alle ViewModels. Das GroupViewModel erkennt, dass der Broadcast eine Änderung der Gruppen des Benutzers betrifft. Daher wird dort die onBroadcastReceived()-Methode aufgerufen. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoupRepository ab, durch einen Aufruf der getCurrentData()-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
 \subsection{Entfernen einer Gruppe}
 
@@ -3925,15 +3938,27 @@ Nach Weiterleitung der Anfrage an den GroupRequestReceivedCommand wird dort das 
 	\caption{Sequenzdiagramm - Entfernen einer Gruppe}
 \end{figure}
 
-Das obige Sequenzdiagramm zeigt den Programmablauf, nachdem ein Benutzer die "Gruppe löschen"-Funktion ausgelöst hat. Das UI gibt den Button Press an das GroupViewModel weiter. Dort wird die Gruppe zunächst in den lokaeln Daten gelöscht. Dabei muss sichergestellt werden, dass die Daten nach dem Löschen konsistent sind, also z.B. auch alle GOs der Gruppe gelöscht wurden.
+Das obige Sequenzdiagramm zeigt den Programmablauf, nachdem ein Benutzer die "Gruppe löschen"-Funktion ausgelöst hat. Das UI gibt den Button Press an das GroupViewModel weiter. Dort wird die Gruppe zunächst in den lokalen Daten gelöscht. Dabei muss sichergestellt werden, dass die Daten nach dem Löschen konsistent sind, also z.B. auch alle GOs der Gruppe gelöscht wurden.
 
-Danahc wird die Anfrage über die GroupRepository und das Rest API an den Server übergeben, wo sie durch den Methodenaufruf deleteGroup() in der GroupRestController-Klasse ankommt. Von dort aus wird die Anfrage an das GroupDao gegeben, welches die Gruppe in der Datenbank löscht. Auch hier muss auf die Konsistenz der Daten geachtet werden. Danach werden die Observer des GroupDaos benachrichtigt, dass eine Ändeurng stattgefunden hat. Da die Änderung nur den EntityRemovedObserver betrifft, wird bei diesem Objekt die Methode update() aufgerufen. Mit dem Methodenaufruf wird auch die gelöschte Gruppe übergeben.
+Danach wird die Anfrage über die GroupRepository und das Rest API an den Server übergeben, wo sie durch den Methodenaufruf deleteGroup() in der GroupRestController-Klasse ankommt. Von dort aus wird die Anfrage an das GroupDao gegeben, welches die Gruppe in der Datenbank löscht. Auch hier muss auf die Konsistenz der Daten geachtet werden. Danach werden die Observer des GroupDaos benachrichtigt, dass eine Änderung stattgefunden hat. Da die Änderung nur den EntityRemovedObserver betrifft, wird bei diesem Objekt die Methode update() aufgerufen. Mit dem Methodenaufruf wird auch die gelöschte Gruppe übergeben.
 
-Der Observer baut ein Message-Objekt aus der erhaltenen Gruppe und extrahiert eine Listse aller Gruppenmitglieder aus dem Gruppenobjekt. Diese Daten werden witergegeben an dem FcmClient über die Methode send(). Dadurch werden die Nachrichten über die Löschung der Gruppe an die Gruppenmitglieder geschickt, damit diese ihre lokalen Daten anpassen können.
-
-\section{Finish}{
-
-}
+Der Observer baut ein Message-Objekt aus der erhaltenen Gruppe und extrahiert eine Liste aller Gruppenmitglieder aus dem Gruppenobjekt. Diese Daten werden weitergegeben an dem FcmClient über die Methode send(). Dadurch werden die Nachrichten über die Löschung der Gruppe an die Gruppenmitglieder geschickt, damit diese ihre lokalen Daten anpassen können.
 % ------- textdoclet_include/finish.tex end
+
+\subsection{Teilnahmestatus ändern}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Sequenzdiagramme/Change_status.jpg}
+	\caption{Sequenzdiagramm - Teilnahmestatus des Benutzers innerhalb eines GOs ändern}
+\end{figure}
+
+Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms passiert, wenn ein Benutzer seinen Teilnahmestatus innerhalb eines GOs ändert. Das User Interface stellt dem Benutzer ein Button in der GO-Detail-Ansicht zur Verfügung. Beim Anklicken des Buttons wird dem Benutzer ein Feld mit der Wahlmöglichkeit eines Status gezeigt. Activity-Klasse extrahiert den neuen Status und übergibt diesen an das GoViewModel über den Methodenaufruf 'changeStatus()' mit userId, goId und status als Arguments enthalten. Das ViewModel überprüft zunächst ob es ein gültiger Status für diesen Benutzer ist. Falls ja, wird die Anfrage an das GoRepository weitergeleitet und von dort über die Klasse TomcatRestApi (RestAPI) an den Server gesendet.
+
+Die Anfrage kommt durch den Methodenaufruf 'changeStatus()' in der GoRestController-Klasse an und wird dann an das GoEntityDAO weitergegeben, wobei die Methode 'changeStatus()' des GoEntityDAOs aufgerufen wird.  Der neue Status des Benutzers beim aktuellen GO wird in der Datenbank ('UserGoStatus' Entity Bean) gespeichert und es werden die Observer benachrichtigt, dass sich die Daten geändert haben.
+
+Der EntityChangedObserver merkt sich diese Änderung des betroffenen GOs, das er beim Aufruf der 'update()'-Methode bekommt. Der Observer baut ein Message-Objekt aus dem erhaltenen GO und extrahiert eine Liste aller GO-Teilnehmer. Diese Daten werden weitergegeben an dem FcmClient über die Methode 'send()'. Die Nachricht, die von dem Server, über dem Firebase Cloud Messaging Server, an den Client gesendet wird, löst einen Aufruf der Methode 'onMessageReceived()' in der Klasse MessageReceiver aus. Diese Klasse findet heraus, an welches ServerCommand-Objekt die Anfrage weitergeleitet werden muss.
+
+Nach Weiterleitung der Anfrage an den StatusChangedCommand  werden die neuen Daten (das GO) im GoRepository gespeichert. Danach schickt das StatusChangedCommand-Objekt einen Broadcast an alle ViewModels. Das GoViewModel erkennt, dass der Broadcast eine Änderung des GOs des Benutzers betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getCurrentData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
 \end{document}
