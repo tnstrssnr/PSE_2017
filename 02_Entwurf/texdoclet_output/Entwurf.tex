@@ -404,6 +404,51 @@ public class GoEntity
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GoEntity.setStart(java.util.Date)}{{\bf setStart(Date)}} \\
 \end{verse}
 }
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private long id}} Eine global eindeutige Nummer, anhand derer ein Go-Objekt eindeutig identifiziert werden kann. Die ID ist eine positive ganze Zahl im Wertebereich des Datentyps long. Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden.\\[0.5em]
+
+{{\bf private long groupId}} Die ID der Gruppe, in der dieses GO angelegt wurde. Es muss sich dabei um eine gültige Gruppen-ID handeln. Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.\\[0.5em]
+
+{{\bf private String owner}} Die userId des Benutzer der das GO erstellt hat und somit der Go-Verantwortliche ist. Es muss sich dabei um eine gültige UserId handeln. Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.\\[0.5em]
+
+{{\bf private String name}} Der Name des GOs. Dieser muss nicht eindeutig sein. Es handelt sich dabei um einen String, der weniger als 50 Zeichen enthält. Der Name eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.\\[0.5em]
+
+{{\bf private String description}} Eine textuelle Ebschreibung des GOs. Diese muss nicht eindeutig sein.
+     Es handelt sich dabei um einen String, der weniger als 140 Zeichen enthält.
+     Die Beschreibung eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+     
+{{\bf private Date start}} Der Startzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestartet wird. Dabei darf der Zeitpunkt
+      bei der Zuweisung der Variable nicht in der Vergangenheit befinden.
+      Der Startzeitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+      
+{{\bf private Date end}} Der Endzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestoppt wird. Dabei darf der Zeitpunkt
+      nie vor dem Startzeitpunkt befinden.
+     
+     Der Endzeitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+     
+{{\bf private long lat}} Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Breitengrad des Zielorts gespeichert. Der Wert muss als Breitengrad interpretierbar sein,
+     muss also zwischen +90 und -90 liegen.
+     Wurde kein Zielort für das GO bestimmt, kann der Wert dieses Feldes auch null sein. Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+     
+{{\bf private long lon}} Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Längengrad des Zielorts gespeichert. Der Wert muss als Längengrad interpretierbar sein, muss also zwischen +180 und -180 liegen.
+     
+      Wurde kein Zielort für das GO bestimmt, kann der Wert dieses Feldes auch null sein.
+     
+      Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+      
+{{\bf private Map<UserEntity, Status> userStatus}} Eine Map mit allen Teilnehmern des GOs, um ihnen ihren Teilnahmestatus zuzuweisen.
+     
+      Bei Erzeugung eines Objekts dieser Klasse wird dem GO-Verantwortlichen automatisch der Status BESTÄTIGT zugewiesen, allen anderen Gruppenmitgliedern der Status
+      ABGELEHNT.
+      Es besteht keine Abhängigkeit dieser Liste zur LocationService-Klasse oder anderen Klassen, die von LocationService
+      benutzt werden.
+     
+      Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde. Jedes Mitglied der Gruppe des GOs muss in der Liste enthalten sein.
+     
+      Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementiert werden, um Objekte zu der Liste hinzufügen und entfernen zu können.
+\end{verse}
+}
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
@@ -514,12 +559,7 @@ public void setGoingUsers(java.util.List goingUsers)\end{lstlisting} %end signat
 \begin{lstlisting}[frame=none]
 public void setGoneUsers(java.util.List goneUsers)\end{lstlisting} %end signature
 }%end item
-\item{ 
-\index{setID(long)}
-\hypertarget{edu.kit.pse17.go_app.PersistenceLayer.GoEntity.setID(long)}{{\bf  setID}\\}
-\begin{lstlisting}[frame=none]
-public void setID(long ID)\end{lstlisting} %end signature
-}%end item
+
 \item{ 
 \index{setLat(long)}
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.GoEntity.setLat(long)}{{\bf  setLat}\\}
@@ -581,6 +621,49 @@ public class GroupEntity
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity.setMembers(java.util.List)}{{\bf setMembers(List)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity.setName(java.lang.String)}{{\bf setName(String)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.GroupEntity.setRequests(java.util.List)}{{\bf setRequests(List)}} \\
+\end{verse}
+}
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private long id}} Eine im gesamten System eindeutige ID-Nummer, anhand derer eine Gruppe eindeutig identifiziert werden kann.
+      Die ID ist eine positive ganze Zahl im Wertebereich des Datentyps long.
+      Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts
+      in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.\\[0.5em]
+{{\bf private String name}} Der Name der Gruppe. Dieser muss nicht eindeutig sein.
+      Es handelt sich dabei um einen String, der weniger als 50 Zeichen enthält.
+      Der Name einer Gruppe kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+{{\bf private String description}} Eine textuelle Beschreibung der Gruppe. Diese muss nicht eindeutig sein.
+      Es handelt sich dabei um einen String, der weniger als 140 Zeichen enthält.
+      Die Beschreibung einer Gruppe kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.\\[0.5em]
+{{\bf private List<UserEntity> members}} Eine Liste, die alle Benutzer enthält, die vollwertige Mitglieder der Gruppe sind, also Benutzer die eine Mitgliedsanfrage erhalten und diese bestätigt haben,
+      plus der Ersteller der Gruppe, sollte er noch nicht ausgetreten sein.
+     
+     Bei der Erzeugung eines Objekts dieser Klasse, wird der Ersteller automatisch diser Liste hinzugefügt.
+     
+      Die Länge der Liste liegt zwischen 1 und 50. Sie kann niemals komplett leer sein. Gruppen mit 0 Mitgliedern werden automatisch gelöscht.
+     
+      Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.\\[0.5em]
+{{\bf private List<UserEntity> requests}} Eine Liste, die alle Benutzer enthält, die eine Mitgliedschaftsanfrage zu dieser Gruppe erhalten haben, diese aber noch nicht beantwortet
+      haben.
+     
+      Bei Erzeugung dieses Objekts ist die Liste leer. Die Länge der Liste kann zwischen 0 und 50 liegen. Dabei hängt die maximale Länge auch
+      von der aktuellen Mitgliederanzahl ab. Die Summe von beidem darf 50 nicht übersteigen.
+     
+     Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.\\[0.5em]
+{{\bf private List<UserEntity> admins}} Eine Liste mit allen Admins der Gruppe. Jeder Benutzer, der Teil dieser Liste ist, muss auch teil der members-Liste sein, da nur ein
+     Gruppenmitglied Administrator einer Gruppe sein kann.
+     
+      Bei der Erzeugung eines Objekts dieser Klasse, wird der Ersteller automatisch diser Liste hinzugefügt.
+    
+      Die Länge der Liste liegt zwischen 1 und 50. Sie kann niemals komplett leer sein. Gruppen mit 0 Mitgliedern werden automatisch gelöscht.
+     
+     Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.\\[0.5em]
+{{\bf private List<GoEntity> gos}} Eine Liste mit allen GOs, die in dieser Gruppe erstellt wurden. DAbei handelt es sich nur um GOs, die gerade aktiv sind, oder in Zukunft
+     noch aktiv sein werden. GOs, die schon vüruber sind werden automatisch aus dieser Liste gelöscht.
+     
+     Bei Erstellung eines Objekts dieser Klasse ist diese Liste leer. Die Länge der Liste liegt zwischen 0 und 10 GOs.
+     
+      Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -691,7 +774,7 @@ Dieses Enum definiert die verschiedenen Teilnahmestatus, die ein Benutzer in ein
 \begin{lstlisting}[frame=none]
 public final class Status
  extends java.lang.Enum\end{lstlisting}
-\subsubsection{Field summary}{
+\subsubsection{Attribute}{
 \begin{verse}
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.Status.ABGELEHNT}{{\bf ABGELEHNT}} bedeutet, dass der Benutzer nicht an dem GO teilnehmen wird.\\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.Status.BESTÄTIGT}{{\bf BESTÄTIGT}} bedeutet, dass der Benutzer an dem GO teilnehmen wird.\\
@@ -829,6 +912,31 @@ public class UserEntity
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.UserEntity.setUid(java.lang.String)}{{\bf setUid(String)}} \\
 \end{verse}
 }
+\begin{verse}
+{{\bf private String uid}} Eine im System eindeutige UserID. Diese ID wird generiert von dem Firebase Authentication Service und von dieser Andwendung unverändert
+     übernommen. Die ID wird nach der Registrierung nicht mehr verändert, bis der User seinen Account löscht.\\[0.5em]
+     
+{{\bf private String instanceID}} Ein String, mit dem das Gerät, das der Benutzer im Augenblick benutzt identifiziert werden kann. Diese ID wird vom Firebease Cloud
+      Messaging Service benötigt und erlaubt es dem Server eine Nachricht an einen Client zu schicken, ohne dass dieser Client vorher den Server angesprochen
+      haben muss.
+     
+      Da sich durch Gerätewechsel oder Konfigurationsänderungen am Gerät die InstanceId ändern kann, muss die DAO-Klasse eine Methode zur Änderung der InstanceId
+      besitzen.\\[0.5em]
+      
+{{\bf private String name}} Der Benutzername des Users. Dieser muss nicht eindeutig sein. Er kann vom User nicht selbst bestimmt werden, sondern wird übernommen,
+      von dem Google-Account mit dem sich der User in der App angemeldet hat. Da der Benutzer nach der Regsitrierun diesen Account nicht wechseln kann,
+      bleibt auch der Benutzername die ganze Zeit unverändert.\\[0.5em]
+      
+{{\bf private String email}} Die Email-Adresse, die mit dem Google-Account asoziiert ist, mit dem sich der Benutzer registriert hat.
+      Da der Benutzer nach der Registrierung diesen Account nicht wechseln kann, bleibt auch der Benutzername die ganze Zeit unverändert.\\[0.5em]
+      
+{{\bf private List<GroupEntity> groups}} Eine Liste mit allen Gruppen, in denen der Benutzer Mitglied ist. Dieses Feld enthält einen ForeignKeyConstraint: Die IDs der Gruppenobjekte der Liste
+      sind die Primärschlüssel in der Gruppenrelation. Für dieses Feld müssen Methoden zum Ändern der Liste vorhanden sein, da sich die Gruppen, in den der Benutzer
+      Mitglied ist verändern können.\\[0.5em]
+\end{verse}
+}
+
+
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
@@ -1376,7 +1484,8 @@ Die Methode gibt das gefundene UserEntity Objekt zurück. Gibt es keinen Benutze
 }
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}Klasse GoDaoImp}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp}{}\vskip .1in 
-Created by tina on 30.06.17.\vskip .1in 
+Diese Klasse implementiert die Interfaces GoDao, AbstractDao und Observable. Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "gos". Dazu werden alle Methoden aus den DAO Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server eine
+Anfrage zur Manipulation seiner Daten geschickt hat. Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die Rolle des konkreten Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst oder nicht.\vskip .1in 
 \subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GoDaoImp
@@ -1396,6 +1505,17 @@ public class GoDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp.update(edu.kit.pse17.go_app.PersistenceLayer.GoEntity)}{{\bf update(GoEntity)}} \\
+\end{verse}
+}
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private SessionFactory sessionFactory}} Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der Datenbank
+      kommunizieren kann und dort die Änderungen vornehmen. Das Attribut ist mit "@Autowired" annotiert, damit es automatisch
+     mit einem gültigen Objekt instanziiert wird.
+     
+      Auf dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. Nach der Instanzizerung ist diese Objekt unveränderbar und
+      bleibt bestehen, bis die Instanz dieser Klasse wieder zerstört wird.\\[0.5em]
+{{\bf private List<Observer> observer}} Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die auch die Daten anderer Benutzer betrifft.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -1558,7 +1678,8 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.GoEntity goEntity) thro
 }
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}Klasse GroupDaoImp}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp}{}\vskip .1in 
-Created by tina on 30.06.17.\vskip .1in 
+Diese Klasse implementiert die Interfaces GroupDao, AbstractDao und Observable. Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "groups". Dazu werden alle Methoden aus den DAO Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server eine
+Anfrage zur Manipulation seiner Daten geschickt hat. Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die Rolle des konkreten Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst oder nicht.\vskip .1in 
 \subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GroupDaoImp
@@ -1578,6 +1699,18 @@ public class GroupDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp.update(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity)}{{\bf update(GroupEntity)}} \\
+\end{verse}
+}
+
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private SessionFactory sessionFactory}} Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der Datenbank
+      kommunizieren kann und dort die Änderungen vornehmen. Das Attribut ist mit "@Autowired" annotiert, damit es automatisch
+     mit einem gültigen Objekt instanziiert wird.
+     
+      Auf dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. Nach der Instanzizerung ist diese Objekt unveränderbar und
+      bleibt bestehen, bis die Instanz dieser Klasse wieder zerstört wird.\\[0.5em]
+{{\bf private List<Observer> observer}} Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die auch die Daten anderer Benutzer betrifft.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -1740,7 +1873,8 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.GroupEntity groupEntity
 }
 \subsection{\label{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}Klasse UserDaoImp}{
 \hypertarget{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp}{}\vskip .1in 
-Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable. Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server ein Anfrage zur Manipulation seiner Daten geschickt hat. Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die rolle des Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die Änderung eine Folgeaktion auslöst oder nicht.\vskip .1in 
+Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable. Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server eine
+Anfrage zur Manipulation seiner Daten geschickt hat. Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die Rolle des konkreten Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst oder nicht.\vskip .1in 
 \subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class UserDaoImp
@@ -1764,6 +1898,17 @@ public class UserDaoImp
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.register(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf register(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.unregister(edu.kit.pse17.go_app.ServiceLayer.Observer)}{{\bf unregister(Observer)}} \\
 \hyperlink{edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp.update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf update(UserEntity)}} \\
+\end{verse}
+}
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private SessionFactory sessionFactory}} Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der Datenbank
+      kommunizieren kann und dort die Änderungen vornehmen. Das Attribut ist mit "@Autowired" annotiert, damit es automatisch
+     mit einem gültigen Objekt instanziiert wird.
+     
+      Auf dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. Nach der Instanzizerung ist diese Objekt unveränderbar und
+      bleibt bestehen, bis die Instanz dieser Klasse wieder zerstört wird.\\[0.5em]
+{{\bf private List<Observer> observer}} Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die auch die Daten anderer Benutzer betrifft.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -1990,7 +2135,7 @@ public void update(edu.kit.pse17.go_app.PersistenceLayer.UserEntity userEntity) 
 }
 }
 }
-\section{ClientCommunication.Downstream}{
+\section{Package ClientCommunication.Downstream}{
 \label{edu.kit.pse17.go_app.ClientCommunication.Downstream}\hypertarget{edu.kit.pse17.go_app.ClientCommunication.Downstream}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
@@ -2206,6 +2351,12 @@ public class FcmClient
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient.send(JsonObject, java.lang.String, java.util.List)}{{\bf send(JsonObject, String, List)}} Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet.\\
 \end{verse}
 }
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private static final String BASE\_URL}} Base URL des FCM-Servers an den die Requests geschickt werden müssen. Dieser Wert darf sich nicht ändern.\\[0.5em]
+{{\bf private HttpClinet httpClient}} Ein Http-Client, der für das Senden der HTTP-Requests zuständig ist. Die Konfiguration des HttpClients wird bei der Erstellung des FcmClient-Objekts vorgenommen. Die Konfiguration wird von dem Firebase Cloud Messaging Service vorgegeben.\\[0.5em]
+\end{verse}
+}
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
@@ -2268,7 +2419,7 @@ Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerä
 \vskip .1in
 \subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}Klasse GoRestController}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController}{}\vskip .1in 
-Die Klasse GORestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden REST Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/gos gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
+Die Klasse GORestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden REST Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/gos gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument.\vskip .1in 
 \subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GoRestController
@@ -2286,6 +2437,11 @@ public class GoRestController
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.editGo(java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.util.Date, long, long, int)}{{\bf editGo(String, String, String, Date, Date, long, long, int)}} Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten eines GOs ändern will.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.getLocation(java.lang.String)}{{\bf getLocation(String)}} Die Methode gibt eine Liste mit Cluster-Objekten zurück, die die aktuellen Positionen der Go-Mitglieder beschreiben.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController.setLocation(java.lang.String, long, long, java.lang.String)}{{\bf setLocation(String, long, long, String)}} Diese Methode wird von einem Client aufgerufen, um seinen Standort für das Clustering dem Server mitzuteilen.\\
+\end{verse}
+}
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private GoDao goDao}} Ein Objekt einer Klasse, die das Interface GoDao implementiert. Dieses Objekt besitzt Methoden, um auf die Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die REST Calls an den Server gestellt werden, umzusetzen.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -2473,7 +2629,7 @@ Diese Methode wird von einem Client aufgerufen, um seinen Standort für das Clus
 }
 \subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}Klasse GroupRestController}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController}{}\vskip .1in 
-Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die Gruppen-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das GroupDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/groups gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
+Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die Gruppen-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das GroupDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/groups gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument.\vskip .1in 
 \subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class GroupRestController
@@ -2493,6 +2649,11 @@ public class GroupRestController
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.editGroup(java.lang.Long, java.lang.String, java.lang.String)}{{\bf editGroup(Long, String, String)}} Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten der Gruppe ändern will.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.inviteMember(java.lang.Long, java.lang.String)}{{\bf inviteMember(Long, String)}} Diese Methode wird von einem Client aufgerufen, der einen Benutzer zu einer Gruppe einladen will.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.removeMember(java.lang.String, java.lang.String)}{{\bf removeMember(String, String)}} Diese Methode kann von einem Client aufgerufen werden, wenn ein Gruppenmitglied aus einer Gruppe entfernt werden soll.\\
+\end{verse}
+}
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private GroupDao groupDao}} Ein Objekt einer Klasse, die das Interface GroupDao implementiert. Dieses Objekt besitzt Methoden, um auf die Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die REST Calls an den Server gestellt werden, umzusetzen.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -2695,7 +2856,7 @@ Diese Methode kann von einem Client aufgerufen werden, wenn ein Gruppenmitglied 
 }
 \subsection{\label{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}Klasse UserRestController}{
 \hypertarget{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController}{}\vskip .1in 
-Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/user gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich in Abschnitt ????\vskip .1in 
+Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests, die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige Stelle im Programm (das UserDAO) Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL \{Base\_URL\}/user gemappt. Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des Systems verwendet wird. Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort erwartet). Danach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem Client in der Antwort zugesendet. Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument.\vskip .1in 
 \subsubsection{Deklaration}{
 \begin{lstlisting}[frame=none]
 public class UserRestController
@@ -2711,6 +2872,11 @@ public class UserRestController
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.deleteUser(java.lang.String)}{{\bf deleteUser(String)}} Diese Methode wird aufgerufen, wenn ein Benutzer seinen Benutzeraccount löschen möchte.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.getData(java.lang.String)}{{\bf getData(String)}} Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID \{userId\}\ Mitglied ist, bzw. zu denen er eine Anfrage bekommen hat.\\
 \hyperlink{edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController.registerDevice(java.lang.String)}{{\bf registerDevice(String)}} Diese Methode wird aufgerufen, um das Gerät, dass ein Benutzer aktuell benutzt auf dem Server mit seiner InstanceId zu registrieren.\\
+\end{verse}
+}
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private UserDao userDao}} Ein Objekt einer Klasse, die das Interface UserDao implementiert. Dieses Objekt besitzt Methoden, um auf die Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die REST Calls an den Server gestellt werden, umzusetzen.
 \end{verse}
 }
 \subsubsection{Konstruktoren}{
@@ -2866,7 +3032,7 @@ public static void main(java.lang.String[] args)\end{lstlisting} %end signature
 }
 }
 }
-\section{ServiceLayer}{
+\section{Package ServiceLayer}{
 \label{edu.kit.pse17.go_app.ServiceLayer}\hypertarget{edu.kit.pse17.go_app.ServiceLayer}{}
 \hskip -.05in
 \hbox to \hsize{\textit{ Package Contents\hfil Page}}
@@ -3081,6 +3247,15 @@ public class Cluster
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.Cluster.setSize(int)}{{\bf setSize(int)}} \\
 \end{verse}
 }
+\subsubsection{Attribute}{
+\begin{verse}
+{{\bf private int size}} Anzahl an Personen, die sich in dem Cluster befinden. Der Wert liegt zwischen 1 und 60 Teilnehmern.\\[0.5em]
+{{\bf private int lat}} Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad interpretierbar sein,
+     muss also zwischen +90 und -90 liegen.\\[0.5em]
+{{\bf private int long}}  Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar sein,
+     muss also zwischen +180 und -180 liegen.
+\end{verse}
+}
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
@@ -3159,7 +3334,7 @@ public class EntitiyRemovedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntitiyRemovedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
 \end{verse}
 }
-\subsubsection{Fields}{
+\subsubsection{statische Felder}{
 \begin{itemize}
 \item{
 \index{OBSERVER\_CODE}
@@ -3171,6 +3346,12 @@ Der Code anhand dessen der Observer erkennt, dass er auf ein notify() reagieren 
 \end{itemize}
 }
 \end{itemize}
+}
+\subsubsection{Attribute}
+\begin{verse}
+{{\bf private FcmClient fcmClient}} Eine Instanz eines FcmClients, der dafür verwendet wird, Nachrichten an die Clients zu schicken. Das Attribut wird bei der Erzeugung eines Observer
+    Objekts automatisch instanziiert (durch Benutzung des einzigen, argumentlosen Konstruktors der FcmClient-Klasse). Danach kann das von außen Attribut nicht mehr verändert werden.
+\end{verse}
 }
 \subsubsection{Konstruktoren}{
 \vskip -2em
@@ -3310,7 +3491,7 @@ public class EntityAddedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityAddedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, edu.kit.pse17.go_app.PersistenceLayer.UserEntity)}{{\bf update(String, Observable, UserEntity)}} Überladung der update-Methode des Observers.\\
 \end{verse}
 }
-\subsubsection{Fields}{
+\subsubsection{statische Felder}{
 \begin{itemize}
 \item{
 \index{OBSERVER\_CODE}
@@ -3322,6 +3503,12 @@ Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren sol
 \end{itemize}
 }
 \end{itemize}
+}
+\subsubsection{Attribute}
+\begin{verse}
+{{\bf private FcmClient fcmClient}} Eine Instanz eines FcmClients, der dafür verwendet wird, Nachrichten an die Clients zu schicken. Das Attribut wird bei der Erzeugung eines Observer
+    Objekts automatisch instanziiert (durch Benutzung des einzigen, argumentlosen Konstruktors der FcmClient-Klasse). Danach kann das von außen Attribut nicht mehr verändert werden.
+\end{verse}
 }
 \subsubsection{Konstruktoren}{
 \vskip -2em
@@ -3461,7 +3648,7 @@ public class EntityChangedObserver
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.EntityChangedObserver.update(java.lang.String, edu.kit.pse17.go_app.ServiceLayer.Observable, java.lang.Object)}{{\bf update(String, Observable, Object)}} Implementierung der update()-Methode.\\
 \end{verse}
 }
-\subsubsection{Fields}{
+\subsubsection{statische Felder}{
 \begin{itemize}
 \item{
 \index{OBSERVER\_CODE}
@@ -3473,6 +3660,12 @@ Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren sol
 \end{itemize}
 }
 \end{itemize}
+}
+\subsubsection{Attribute}
+\begin{verse}
+{{\bf private FcmClient fcmClient}} Eine Instanz eines FcmClients, der dafür verwendet wird, Nachrichten an die Clients zu schicken. Das Attribut wird bei der Erzeugung eines Observer
+    Objekts automatisch instanziiert (durch Benutzung des einzigen, argumentlosen Konstruktors der FcmClient-Klasse). Danach kann das von außen Attribut nicht mehr verändert werden.
+\end{verse}
 }
 \subsubsection{Konstruktoren}{
 \vskip -2em
@@ -3606,6 +3799,14 @@ public class GoClusterStrategy
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.GoClusterStrategy.setThreshold(int)}{{\bf setThreshold(int)}} \\
 \end{verse}
 }
+\subsubsection{Attribute}
+\begin{verse}
+{{\bf private int threshold}} Ein Schwellwert für die Genauigkeit, mit der der Clustering-Algorithmus ausgeführt wird. Der Wert liegt zwischen 1 (sehr ungenau) und 10 (sehr
+     genau). Dieser Wert kann nach der Instanziierung des GoClusterStrategy-Objekts
+    nicht mehr verändert werden. Wird der Wert nicht wenigstens einmal spezifiziert wird default-mäßig
+     ein Wert von 5 benutzt.
+\end{verse}
+}
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
@@ -3676,6 +3877,29 @@ public class LocationService
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.LocationService.setUserLocation(long, java.lang.String, long, long)}{{\bf setUserLocation(long, String, long, long)}} Diese Methode speichert eine UserLocation in der acitveUsers Liste des entsprechenden GOs.\\
 \end{verse}
 }
+\subsubsection{Attribute}
+\begin{verse}
+{{\bf private static List<LocationService> activeServices}} Diese Map enthält für jedes gerade aktive GO ein LocationService Objekt, welches die alle dieses GO betreffende
+     Anfragen übernimmt.
+      Der Schlüssel der Map ist die ID des GOs zu dem das LocationService-Objekt gehört. Die maximale Länge der Map beträgt 3000 Wertepaare.
+      Ein neues Objekt wird in die Liste eingefügt, wenn die getLocationService()-Methode aufgerufen wird, und dabei kein passender Service gefunden wird. Die
+      Erstellung der LocationService-Objekte findet ausschließlich in dieser Klasse statt.\\[0.5em]
+      
+{{\bf private final ClusterStrategy strat}} Ein Clustering-Strategie, die den Algorithmus, der für das Clustering benutzt wird festlegt.
+     Das Attribut ist final, da es, nachdem es einmal festgelegt wurde nicht mehr verändert werden sollte. Ein GO sollte stattdessen immer den gleichen
+     Algorithmus benutzen.\\[0.5em]
+     
+{{\bf private List<UserLocation> activeUsers}}Eine Liste mit den UserLocations aller Benutzer, die momentan ihren Standort mit den anderen teilen.
+     Die Länge der Liste liegt zwischen 0 und 50 UserLocation-Objekten.\\[0.5em]
+     
+{{\bf private List<Cluster> groupLocation}} Eine Liste mit den aktuellen Clustern der Standorte des GOs. Diese Liste repräsentiert die Ergebnisse des Clustering für den Input
+      "activeUsers". Die Länge der Liste liegt zwischen 0 und 50 Cluster-Objekten.\\[0.5em]
+{{\bf private private int newLocationCounter}} Eine Zählvariable, um sich zu merken, wie viele neue Locations übermittelt wurden, seit das letzte Mal die groupLocation
+     des GOs berechnet wurde. Die Berechnung findet nur statt, wenn diese Variable einen Wert größer als 5 hat. Danach wird der Zähler wieder auf 0 gesetzt.
+     Sämtliche Manipulationen an diesem Attribut finden innerhalb dieser Klasse statt. Nach außen hin sit diese Variable nicht sichtbar und insbesondere nicht veränderbar.\\[0.5em]
+     
+{{\bf private private int userCounter}} Eine Zählvariable, um sich zu merken, wie viele verschiedene Benutzer bereits ihren Standort geteilt haben. Ist diese Zahl kleienr als 3, so wird keine groupLocation berechnet. Dies dient der Anonymisierung der einzelnen Benutzer, was bei einer Anzahl von UserLocations kleiner als 3 nicht mehr garantiert werden kann.
+\end{verse}
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
@@ -3771,6 +3995,14 @@ public class UserLocation
 \hyperlink{edu.kit.pse17.go_app.ServiceLayer.UserLocation.setUserId(java.lang.String)}{{\bf setUserId(String)}} \\
 \end{verse}
 }
+\subsubsection{Attribute}
+\begin{verse}
+{{\bf private String userId}} Die ID des Benutzers, um dessen Standort es sich handelt. Es handelt sich um eine gültige Benutzer-ID, die von anderen Klassen der anwendung erkannt werden kann.\\[0.5em]
+{{\bf private long lat}} Der geographische Breitengrad des Standorts des Benutzers. Der Wert muss als Breitengrad interpretierbar sein,
+      muss also zwischen +90 und -90 liegen.\\[0.5em]
+{{\bf private long lon}} Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad interpretierbar sein,
+     muss also zwischen +180 und -180 liegen.
+\end{verse}
 \subsubsection{Konstruktoren}{
 \vskip -2em
 \begin{itemize}
