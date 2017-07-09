@@ -7853,7 +7853,7 @@ Die Anfrage kommt durch den Methodenaufruf 'changeStatus()' in der GoRestControl
 
 Der EntityChangedObserver merkt sich diese Änderung des betroffenen GOs, das er beim Aufruf der 'update()'-Methode bekommt. Der Observer baut ein Message-Objekt aus dem erhaltenen GO und extrahiert eine Liste aller GO-Teilnehmer. Diese Daten werden weitergegeben an dem FcmClient über die Methode 'send()'. Die Nachricht, die von dem Server, über dem Firebase Cloud Messaging Server, an den Client gesendet wird, löst einen Aufruf der Methode 'onMessageReceived()' in der Klasse MessageReceiver aus. Diese Klasse findet heraus, an welches ServerCommand-Objekt die Anfrage weitergeleitet werden muss.
 
-Nach Weiterleitung der Anfrage an den StatusChangedCommand  werden die neuen Daten (das GO) im GoRepository gespeichert. Danach schickt das StatusChangedCommand-Objekt einen Broadcast an alle ViewModels. Das GoViewModel erkennt, dass der Broadcast eine Änderung des GOs des Benutzers betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getCurrentData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
+Nach Weiterleitung der Anfrage an den StatusChangedCommand  werden die neuen Daten (das GO) im GoRepository gespeichert. Danach schickt das StatusChangedCommand-Objekt einen Broadcast an alle ViewModels. Das GoViewModel erkennt, dass der Broadcast eine Änderung des GOs des Benutzers betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getUpdatedData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
 
 
 \subsection{GPS-Standort ermitteln}
@@ -7869,6 +7869,22 @@ Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms pass
 Die Anfrage kommt durch den Methodenaufruf 'getLocation()' in der GoRestController-Klasse an und wird dann an das LocationService weitergegeben. LocationService spielt dabei die Rolle von Context des Strategie-Entwurfsmusters. Die konkrete Strategie 'GoClusterStrategy' wird benutzt, um mithilfe der Methode 'calculate()' das Cluster aus den GPS-Standorten aller Teilnehmer des GOs zu berechnen und zurückzugeben.
 
 Das berechnete Cluster wird weiter zurückgegeben, bis die neuen Daten (Cluster der Standorte) im GoRepository gespeichert werden. Danach wird ein Broadcast an alle ViewModels geschickt, dabei erkennt das GoViewModel, dass der Broadcast eine Änderung des GOs (also GPS-Standort aller Teilnehmer) betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository durch einen Aufruf der 'getUpdatedData()'-Methode ab. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert und zeigt die neuen Daten an.
+
+\subsection{Erstellen eines GOs}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../Sequenzdiagramme/Create_Go.jpg}
+	\caption{Sequenzdiagramm - Ein neues GO in der Gruppe erstellen}
+\end{figure}
+
+Das obige Sequenzdiagramm zeigt, was während der Ausführung des Programms passiert, wenn ein Benutzer ein neues GO in der Gruppe erstellt. Das User Interface stellt dem Benutzer ein Button in der Group-Detail-Ansicht zur Verfügung. Beim Anklicken des Buttons wird dem Benutzer ein Textfeld gezeigt, wobei der Benutzer folgende Details von GO angeben kann: Name des GOs, Beschreibung, Start- und Endezeitpunkt, Ziel des GOs und einen Schwellwert für Clustering. Activity-Klasse erstellt ein neues GO-Objekt mit diesen und noch mit IDs der Gruppe und des Benutzers als Parameter und übergibt dieses an das GoListViewModel über den Methodenaufruf 'createGo()'. Das ViewModel überprüft zunächst ob alle Daten gültig sind. Falls ja, wird die Anfrage an das GoRepository weitergeleitet und von dort über die Klasse TomcatRestApi (RestAPI) an den Server gesendet.
+
+Die Anfrage kommt durch den Methodenaufruf 'createGo()' in der GoRestController-Klasse an und wird dann an das GoEntityDAO weitergegeben, wobei die Methode 'createGo()' des GoEntityDAOs aufgerufen wird. Das neue GO wird in der Datenbank ('GO' Entity Bean) gespeichert und es werden die Observer benachrichtigt, dass sich die Daten geändert haben.
+
+Der EntityCreatedObserver erkennt das Erstellen des neuen GOs, das er beim Aufruf der 'update()'-Methode bekommt. Der Observer baut ein Message-Objekt aus dem neuen GO und extrahiert eine Liste aller Mitglieder der Gruppe, zu der das GO gehört. Diese Daten werden weitergegeben an dem FcmClient über die Methode 'send()'. Die Nachricht, die von dem Server, über dem Firebase Cloud Messaging Server, an den Client gesendet wird, löst einen Aufruf der Methode 'onMessageReceived()' in der Klasse MessageReceiver aus. Diese Klasse findet heraus, an welches ServerCommand-Objekt die Anfrage weitergeleitet werden muss.
+
+Nach Weiterleitung der Anfrage an den GoAddedCommand  werden die neuen Daten (das erstellte GO) im GoRepository gespeichert. Danach schickt das GoAddedCommand-Objekt einen Broadcast an alle ViewModels. Das GoListViewModel erkennt, dass der Broadcast die Erstellung des neuen GOs für den Mitglied dieser Gruppe betrifft. Daraufhin holt sich das ViewModel die aktualisierten Daten von der GoRepository ab, durch einen Aufruf der 'getUpdatedData()'-Methode. Da das UI die LiveData der ViewModels beobachtet, wird automatisch bei einer Aktualisierung des ViewModels auch das UI aktualisiert. Dabei wird die aktuelle GroupDetailActivity gelöscht und eine neue GoDetailActivity (zum neuen GO) erstellt und gezeigt.
 
 \end{document}
 \grid
