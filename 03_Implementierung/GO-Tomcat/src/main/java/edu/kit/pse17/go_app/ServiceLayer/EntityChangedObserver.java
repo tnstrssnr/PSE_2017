@@ -37,10 +37,11 @@ public class EntityChangedObserver implements Observer {
     /**
      * Die Klasse verfügt lediglich über einen Kosntruktor, der keine Argumente entgegen nimmt. In dem Konstruktor wird das Attribut fcmClient
      * instanziiert.
-     */
+
     public EntityRemovedObserver() {
 
     }
+     */
 
     /**
      * Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen Ereignisse, auf die dieser Observer reagieren kann zu unterscheiden.
@@ -122,8 +123,9 @@ public class EntityChangedObserver implements Observer {
      *                2. GoEntity -- Go, um die es sich handelt
      *                3. UserEntity -- Benutzer, der seinen Status geändert hat.
      *                4. Status -- neuer Status des Benutzers
-     */
+
     public void update(String arg, Observable observable, List<Object> changes) {
 
     }
+    */
 }

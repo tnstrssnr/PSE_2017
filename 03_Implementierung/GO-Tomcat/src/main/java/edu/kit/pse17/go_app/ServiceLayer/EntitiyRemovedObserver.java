@@ -36,10 +36,11 @@ public class EntitiyRemovedObserver implements Observer {
     /**
      * Die Klasse verfügt lediglich über einen Kosntruktor, der keine Argumente entgegen nimmt. In dem Konstruktor wird das Attribut fcmClient
      * instanziiert.
-     */
+
     public EntityRemovedObserver() {
 
     }
+    */
 
     /**
      * Implementierung der update()-Methode. Wird überladen, um die unterschiedlichen Ereignisse, auf die dieser Observer reagieren kann zu unterscheiden.

@@ -5,7 +5,6 @@ import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
-import retrofit2.http.POST;
 
 import java.util.Collection;
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="edu.kit.pse17.go_app.PersistenceLayer.GoEntity" table="gos">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="ID" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="java.lang.String" length="50"></property>
+        <property name="description" column="description" type="java.lang.String" length="140"></property>
+        <property name="start" column="start" type="java.util.Date"></property>
+        <property name="end" column="end" type="java.util.Date"></property>
+        <property name="lat" column="lat" type="java.lang.Long"></property>
+        <property name="lon" column="lon" type="java.lang.Long"></property>
+        <one-to-one name="owner" cascade="save-update" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></one-to-one>
+        <set name="goingUsers" cascade="save-update" table="GOING_USERS">
+            <key column="id"></key>
+            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></many-to-many>
+        </set>
+        <set name="notGoingUsers" cascade="save-update" table="NOT_GOING_USERS">
+            <key column="id"></key>
+            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></many-to-many>
+        </set>
+        <set name="goneUsers" cascade="save-update" table="GONE_USERS">
+            <key column="id"></key>
+            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

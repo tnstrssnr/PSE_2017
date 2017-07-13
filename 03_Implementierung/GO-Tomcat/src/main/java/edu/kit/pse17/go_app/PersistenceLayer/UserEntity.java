@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen.
@@ -49,7 +50,7 @@ public class UserEntity {
      * sind die Primärschlüssel in der Gruppenrelation. Für dieses Feld müssen Methoden zum Ändern der Liste vorhanden sein, da sich die Gruppen, in den der Benutzer
      * Mitglied ist verändern können.
      */
-    private List<GroupEntity> groups;
+    private Set<GroupEntity> groups;
 
 
     public UserEntity() {
@@ -87,6 +88,13 @@ public class UserEntity {
         this.email = email;
     }
 
+    public Set<GroupEntity> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<GroupEntity> groups) {
+        this.groups = groups;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -100,15 +108,16 @@ public class UserEntity {
             return false;
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
         if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) return false;
-        return groups != null ? groups.equals(that.groups) : that.groups == null;
+        return getGroups() != null ? getGroups().equals(that.getGroups()) : that.getGroups() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getUid().hashCode();
-        result = 31 * result + getInstanceId().hashCode();
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getEmail().hashCode();
+        int result = getUid() != null ? getUid().hashCode() : 0;
+        result = 31 * result + (getInstanceId() != null ? getInstanceId().hashCode() : 0);
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getGroups() != null ? getGroups().hashCode() : 0);
         return result;
     }
 }

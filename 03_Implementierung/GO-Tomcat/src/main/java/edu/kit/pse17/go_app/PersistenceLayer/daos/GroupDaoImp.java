@@ -4,8 +4,6 @@ import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -25,8 +23,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GoDao, Obser
      * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
      * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
-    @Autowired
-    SessionFactory sessionFactory;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen

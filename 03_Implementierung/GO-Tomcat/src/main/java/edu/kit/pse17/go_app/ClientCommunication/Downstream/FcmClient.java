@@ -1,9 +1,7 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
-import com.google.gson.JsonObject;
 import org.apache.http.client.HttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 import java.util.List;
 
@@ -32,10 +30,11 @@ public class FcmClient {
     /**
      * Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die Konfikuration des HttpClients
      * standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL schicken kann.
-     */
+
     public FcmClient() {
 
     }
+     */
 
     /**
      * Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der HttpClient
@@ -50,8 +49,9 @@ public class FcmClient {
      *                String bestimmt, an welche Command-Klasse auf dem Client die Nachricht weitergeleitet wird.
      * @param receiver Eine Liste mit den InstaceIds der Clients,an die die Nachricht geschickt werden soll. dabei muss es sich um gültige
      *                 InstanceIds handeln, sonst kann die Methode nicht fehlerfrei ausgeführt werden.
-     */
+
     public void send(JsonObject data, String command, List<String> receiver) {
 
     }
+    */
 }

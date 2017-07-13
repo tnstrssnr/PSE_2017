@@ -4,12 +4,9 @@ import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -24,8 +21,7 @@ import java.util.List;
  * die  Änderung eine Folgeaktion auslöst oder nicht.
  */
 
-@Repository
-@Transactional
+
 public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Observable<UserEntity> {
 
     /**
@@ -39,8 +35,6 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
      * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
-    @Autowired
-    SessionFactory sessionFactory;
 
     /**
      * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die auch die Daten
@@ -104,7 +98,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      */
     @Override
     public void addUser(UserEntity user) {
-
+        
     }
 
     /**

@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.PersistenceLayer;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen.
@@ -103,7 +104,12 @@ public class GoEntity {
      *
      * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der Liste hinzufügen und Entfernen zu können.
      */
-    private Map<UserEntity, Status> userStatus;
+
+    private Set<UserEntity> goingUsers;
+
+    private Set<UserEntity> notGoingUsers;
+
+    private Set<UserEntity> goneUsers;
 
     public GoEntity() {
 
@@ -165,27 +171,43 @@ public class GoEntity {
         this.lon = lon;
     }
 
-    public List<UserEntity> getNotGoingUsers() {
-        return notGoingUsers;
+    public long getGroupId() {
+        return groupId;
     }
 
-    public void setNotGoingUsers(List<UserEntity> notGoingUsers) {
-        this.notGoingUsers = notGoingUsers;
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
     }
 
-    public List<UserEntity> getGoingUsers() {
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Set<UserEntity> getGoingUsers() {
         return goingUsers;
     }
 
-    public void setGoingUsers(List<UserEntity> goingUsers) {
+    public void setGoingUsers(Set<UserEntity> goingUsers) {
         this.goingUsers = goingUsers;
     }
 
-    public List<UserEntity> getGoneUsers() {
+    public Set<UserEntity> getNotGoingUsers() {
+        return notGoingUsers;
+    }
+
+    public void setNotGoingUsers(Set<UserEntity> notGoingUsers) {
+        this.notGoingUsers = notGoingUsers;
+    }
+
+    public Set<UserEntity> getGoneUsers() {
         return goneUsers;
     }
 
-    public void setGoneUsers(List<UserEntity> goneUsers) {
+    public void setGoneUsers(Set<UserEntity> goneUsers) {
         this.goneUsers = goneUsers;
     }
 
@@ -197,29 +219,36 @@ public class GoEntity {
         GoEntity goEntity = (GoEntity) o;
 
         if (getID() != goEntity.getID()) return false;
+        if (getGroupId() != goEntity.getGroupId()) return false;
         if (getLat() != goEntity.getLat()) return false;
         if (getLon() != goEntity.getLon()) return false;
-        if (!getName().equals(goEntity.getName())) return false;
-        if (!getDescription().equals(goEntity.getDescription())) return false;
-        if (!getStart().equals(goEntity.getStart())) return false;
-        if (!getEnd().equals(goEntity.getEnd())) return false;
-        if (!getNotGoingUsers().equals(goEntity.getNotGoingUsers())) return false;
-        if (!getGoingUsers().equals(goEntity.getGoingUsers())) return false;
-        return getGoneUsers().equals(goEntity.getGoneUsers());
+        if (getOwner() != null ? !getOwner().equals(goEntity.getOwner()) : goEntity.getOwner() != null) return false;
+        if (getName() != null ? !getName().equals(goEntity.getName()) : goEntity.getName() != null) return false;
+        if (getDescription() != null ? !getDescription().equals(goEntity.getDescription()) : goEntity.getDescription() != null)
+            return false;
+        if (getStart() != null ? !getStart().equals(goEntity.getStart()) : goEntity.getStart() != null) return false;
+        if (getEnd() != null ? !getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() != null) return false;
+        if (getGoingUsers() != null ? !getGoingUsers().equals(goEntity.getGoingUsers()) : goEntity.getGoingUsers() != null)
+            return false;
+        if (getNotGoingUsers() != null ? !getNotGoingUsers().equals(goEntity.getNotGoingUsers()) : goEntity.getNotGoingUsers() != null)
+            return false;
+        return getGoneUsers() != null ? getGoneUsers().equals(goEntity.getGoneUsers()) : goEntity.getGoneUsers() == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (getID() ^ (getID() >>> 32));
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getDescription().hashCode();
-        result = 31 * result + getStart().hashCode();
-        result = 31 * result + getEnd().hashCode();
+        result = 31 * result + (int) (getGroupId() ^ (getGroupId() >>> 32));
+        result = 31 * result + (getOwner() != null ? getOwner().hashCode() : 0);
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
+        result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
         result = 31 * result + (int) (getLat() ^ (getLat() >>> 32));
         result = 31 * result + (int) (getLon() ^ (getLon() >>> 32));
-        result = 31 * result + getNotGoingUsers().hashCode();
-        result = 31 * result + getGoingUsers().hashCode();
-        result = 31 * result + getGoneUsers().hashCode();
+        result = 31 * result + (getGoingUsers() != null ? getGoingUsers().hashCode() : 0);
+        result = 31 * result + (getNotGoingUsers() != null ? getNotGoingUsers().hashCode() : 0);
+        result = 31 * result + (getGoneUsers() != null ? getGoneUsers().hashCode() : 0);
         return result;
     }
 }

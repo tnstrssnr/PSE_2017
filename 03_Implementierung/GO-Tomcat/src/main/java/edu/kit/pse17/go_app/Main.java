@@ -1,5 +1,12 @@
 package edu.kit.pse17.go_app;
 
+
+
+import org.hibernate.SessionFactory;
+
+import javax.security.auth.login.AppConfigurationEntry;
+import javax.security.auth.login.Configuration;
+
 /**
  * Die Main-Klasse der Server-Anwendung. In ihr wird keine Anwendungslogik ausgeführt.
  *
@@ -18,6 +25,6 @@ public class Main {
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
      */
     public static void main(String[] args) {
-
+        SessionFactory sf = new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
+        }
     }
-}

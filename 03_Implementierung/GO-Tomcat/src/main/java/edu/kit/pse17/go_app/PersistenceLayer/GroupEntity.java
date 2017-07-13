@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen.
@@ -46,7 +47,7 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
-    private List<UserEntity> members;
+    private Set<UserEntity> members;
 
     /**
      * Eine Liste mit allen Admins der Gruppe. Jeder Benutzer, der Teil dieser Liste ist, muss auch teil der members-Liste sein, da nur ein
@@ -58,7 +59,7 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
-    private List<UserEntity> admins;
+    private Set<UserEntity> admins;
 
     /**
      * Eine Liste, die alle Benutzer enthält, die eine Mitgliedschaftsanfrage zu dieser Gruppe erhalten haben, diese aber noch nicht beantwortet
@@ -69,7 +70,7 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
-    private List<UserEntity> requests;
+    private Set<UserEntity> requests;
 
     /**
      * Eine Liste mit allen GOs, die in dieser Gruppe erstellt wurden. DAbei handelt es sich nur um GOs, die gerade aktiv sind, oder in Zukunft
@@ -79,7 +80,7 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
-    private List<GoEntity> gos;
+    private Set<GoEntity> gos;
 
     public GroupEntity() {
     }
@@ -108,28 +109,36 @@ public class GroupEntity {
         this.description = description;
     }
 
-    public List<UserEntity> getMembers() {
+    public Set<UserEntity> getMembers() {
         return members;
     }
 
-    public void setMembers(List<UserEntity> members) {
+    public void setMembers(Set<UserEntity> members) {
         this.members = members;
     }
 
-    public List<UserEntity> getAdmins() {
+    public Set<UserEntity> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(List<UserEntity> admins) {
+    public void setAdmins(Set<UserEntity> admins) {
         this.admins = admins;
     }
 
-    public List<UserEntity> getRequests() {
+    public Set<UserEntity> getRequests() {
         return requests;
     }
 
-    public void setRequests(List<UserEntity> requests) {
+    public void setRequests(Set<UserEntity> requests) {
         this.requests = requests;
+    }
+
+    public Set<GoEntity> getGos() {
+        return gos;
+    }
+
+    public void setGos(Set<GoEntity> gos) {
+        this.gos = gos;
     }
 
     @Override
@@ -147,7 +156,7 @@ public class GroupEntity {
         if (getAdmins() != null ? !getAdmins().equals(that.getAdmins()) : that.getAdmins() != null) return false;
         if (getRequests() != null ? !getRequests().equals(that.getRequests()) : that.getRequests() != null)
             return false;
-        return gos != null ? gos.equals(that.gos) : that.gos == null;
+        return getGos() != null ? getGos().equals(that.getGos()) : that.getGos() == null;
     }
 
     @Override
@@ -158,7 +167,7 @@ public class GroupEntity {
         result = 31 * result + (getMembers() != null ? getMembers().hashCode() : 0);
         result = 31 * result + (getAdmins() != null ? getAdmins().hashCode() : 0);
         result = 31 * result + (getRequests() != null ? getRequests().hashCode() : 0);
-        result = 31 * result + (gos != null ? gos.hashCode() : 0);
+        result = 31 * result + (getGos() != null ? getGos().hashCode() : 0);
         return result;
     }
 }
