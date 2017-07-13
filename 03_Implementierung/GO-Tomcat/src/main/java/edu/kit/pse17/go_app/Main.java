@@ -1,7 +1,7 @@
 package edu.kit.pse17.go_app;
 
-
-
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.*;
 import org.hibernate.SessionFactory;
 
 import javax.security.auth.login.AppConfigurationEntry;
@@ -25,6 +25,21 @@ public class Main {
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
      */
     public static void main(String[] args) {
-        SessionFactory sf = new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
+
+        org.hibernate.cfg.Configuration config = new org.hibernate.cfg.Configuration();
+        SessionFactory sf = config.configure().buildSessionFactory();
+        UserEntity user = new UserEntity();
+
+        UserDao userDao = new UserDaoImp(sf);
+        GroupDao groupDao = (GroupDao) new GroupDaoImp(sf);
+        GoDao goDao = (GoDao) new GoDaoImp(sf);
+
+        user.setEmail("bob@test.com");
+        user.setName("bob");
+        user.setUid("testid");
+        user.setInstanceId("instanceId");
+        user.setGroups(null);
+
+        userDao.addUser(user);
         }
     }

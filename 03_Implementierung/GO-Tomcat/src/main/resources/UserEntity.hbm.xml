@@ -16,6 +16,10 @@
             <key column="uid"></key>
             <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"></one-to-many>
         </set>
+        <set name="requests" cascade="save-update">
+            <key column="uid"></key>
+            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"></one-to-many>
+        </set>
 
     </class>
 </hibernate-mapping>

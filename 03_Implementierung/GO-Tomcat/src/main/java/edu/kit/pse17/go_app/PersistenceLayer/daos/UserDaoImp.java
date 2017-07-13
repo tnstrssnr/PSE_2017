@@ -4,6 +4,13 @@ import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.persistence.EntityNotFoundException;
@@ -21,7 +28,8 @@ import java.util.List;
  * die  Änderung eine Folgeaktion auslöst oder nicht.
  */
 
-
+@Repository
+@Transactional
 public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Observable<UserEntity> {
 
     /**
@@ -42,12 +50,16 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      */
     private List<Observer> observer;
 
+
+    private SessionFactory sf;
+
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
      * der verwendetetn MySQL Datenbank.
      */
-    public UserDaoImp() {
 
+    public UserDaoImp(SessionFactory sf) {
+        this.sf = sf;
     }
 
     /**
@@ -98,7 +110,18 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      */
     @Override
     public void addUser(UserEntity user) {
-        
+        Session session = sf.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.save(user);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            session.close();
+        }
     }
 
     /**
@@ -106,7 +129,20 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      */
     @Override
     public void deleteUser(String userId) {
+        Session session = sf.openSession();
+        Transaction tx = null;
 
+        UserEntity user = get(userId);
+
+        try {
+            tx = session.beginTransaction();
+            session.delete(user);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            session.close();
+        }
     }
 
     /**
@@ -139,7 +175,20 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      */
     @Override
     public UserEntity get(String key) {
-        return null;
+        Session session = sf.openSession();
+        Transaction tx = null;
+        UserEntity user = null;
+
+        try {
+            tx = session.beginTransaction();
+            user = (UserEntity) session.get(UserEntity.class, key);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            session.close();
+            return user;
+        }
     }
 
     /**
@@ -173,4 +222,13 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
     public void update(UserEntity userEntity) throws EntityNotFoundException {
 
     }
+
+    private void handleHibernateException(HibernateException e, Transaction tx) {
+        e.printStackTrace();
+        if (tx != null) {
+            tx.rollback();
+        }
+    }
+
+
 }

@@ -52,6 +52,8 @@ public class UserEntity {
      */
     private Set<GroupEntity> groups;
 
+    private Set<GroupEntity> requests;
+
 
     public UserEntity() {
     }
@@ -94,6 +96,14 @@ public class UserEntity {
 
     public void setGroups(Set<GroupEntity> groups) {
         this.groups = groups;
+    }
+
+    public Set<GroupEntity> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<GroupEntity> requests) {
+        this.requests = requests;
     }
 
     @Override
