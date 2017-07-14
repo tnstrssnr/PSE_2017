@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+
 import javax.persistence.EntityNotFoundException;
 
 /**
@@ -10,7 +12,7 @@ import javax.persistence.EntityNotFoundException;
  * Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients
  * gestellt werden, an die Persistence-Klassen weitergeleitet.
  */
-public interface GroupDao {
+public interface GroupDao extends AbstractDao<GroupEntity, Long> {
 
     /**
      * Fügt der Gruppe mit der Id groupId den Benutzer mit der Id userId hinzu.

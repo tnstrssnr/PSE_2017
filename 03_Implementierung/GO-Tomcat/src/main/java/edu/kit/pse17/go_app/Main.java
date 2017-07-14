@@ -1,15 +1,15 @@
 package edu.kit.pse17.go_app;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.*;
 import org.hibernate.SessionFactory;
 
-import javax.security.auth.login.AppConfigurationEntry;
-import javax.security.auth.login.Configuration;
+import java.util.HashSet;
 
 /**
  * Die Main-Klasse der Server-Anwendung. In ihr wird keine Anwendungslogik ausgeführt.
- *
+ * <p>
  * Sie enthält die main-methode, wo die Ausführung des Programms gestartet wird und danach die Kontrolle
  * über die Ausführung an andere Klassen abgegeben wird.
  */
@@ -17,22 +17,23 @@ public class Main {
 
     /**
      * Die Main-Methode, wo die Ausführung des Programms gestartet wird.
-     *
-     * In ihr werden alle wichtigen Objekte des Programms instanziiert, die zur Audführung benötigt werden (Starten der Spring-Applikation,
-     * aufbauen einer Verbindung zur Datenbank,...)
-     *
+     * <p>
+     * In ihr werden alle wichtigen Objekte des Programms instanziiert, die zur Audführung benötigt werden (Starten der
+     * Spring-Applikation, aufbauen einer Verbindung zur Datenbank,...)
+     * <p>
      * Danach wird an diese objekte due Kontrolle über den Programmablauf übergeben.
+     *
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
-        org.hibernate.cfg.Configuration config = new org.hibernate.cfg.Configuration();
-        SessionFactory sf = config.configure().buildSessionFactory();
-        UserEntity user = new UserEntity();
+        final org.hibernate.cfg.Configuration config = new org.hibernate.cfg.Configuration();
+        final SessionFactory sf = config.configure().buildSessionFactory();
+        final UserEntity user = new UserEntity();
 
-        UserDao userDao = new UserDaoImp(sf);
-        GroupDao groupDao = (GroupDao) new GroupDaoImp(sf);
-        GoDao goDao = (GoDao) new GoDaoImp(sf);
+        final UserDao userDao = new UserDaoImp(sf);
+        final GroupDao groupDao = new GroupDaoImp(sf);
+        final GoDao goDao = new GoDaoImp(sf);
 
         user.setEmail("bob@test.com");
         user.setName("bob");
@@ -40,6 +41,19 @@ public class Main {
         user.setInstanceId("instanceId");
         user.setGroups(null);
 
-        userDao.addUser(user);
-        }
+        userDao.persist(user);
+
+        final GroupEntity group = new GroupEntity();
+        group.setName("TestGruppe");
+        group.setDescription("sdfgkslödfkspäerk");
+        group.setMembers(new HashSet<>());
+        group.setAdmins(new HashSet<>());
+
+        groupDao.persist(group);
+        groupDao.addGroupMember(user.getUid(), group.getID());
+
+        final UserEntity user2 = userDao.get(user.getUid());
+        final GroupEntity group2 = (GroupEntity) user2.getGroups().toArray()[0];
+        System.out.println(group2.getName());
     }
+}

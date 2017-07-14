@@ -3,22 +3,22 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping>
+<hibernate-mapping default-lazy="false">
     <class name="edu.kit.pse17.go_app.PersistenceLayer.UserEntity" table="users">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
-        <id name="uid" column="uid" type="java.lang.String" length="48" />
-        <property name="name" column="name"  type="java.lang.String" length="50" />
-        <property name="instanceId" column="instance_id" type="java.lang.String" length="48" />
-        <property name="email" column="email" type="java.lang.String" length="100" />
-        <set name="groups" cascade="save-update">
-            <key column="uid" />
-            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity" />
+        <id name="uid" column="uid" type="java.lang.String" length="48"/>
+        <property name="name" column="name" type="java.lang.String" length="50"/>
+        <property name="instanceId" column="instance_id" type="java.lang.String" length="48"/>
+        <property name="email" column="email" type="java.lang.String" length="100"/>
+        <set name="groups" cascade="save-update" table="MEMBERS" fetch="join" inverse="true">
+            <key column="uid"/>
+            <many-to-many column="id" class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"/>
         </set>
-        <set name="requests" cascade="save-update">
-            <key column="uid" />
-            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity" />
+        <set name="requests" cascade="save-update" fetch="join" inverse="true" lazy="true">
+            <key column="uid"/>
+            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"/>
         </set>
 
     </class>
