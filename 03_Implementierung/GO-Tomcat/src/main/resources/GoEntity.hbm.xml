@@ -11,24 +11,24 @@
         <id name="ID" type="long" column="id">
             <generator class="native"/>
         </id>
-        <property name="name" column="name" type="java.lang.String" length="50"></property>
-        <property name="description" column="description" type="java.lang.String" length="140"></property>
-        <property name="start" column="start" type="java.util.Date"></property>
-        <property name="end" column="end" type="java.util.Date"></property>
-        <property name="lat" column="lat" type="java.lang.Long"></property>
-        <property name="lon" column="lon" type="java.lang.Long"></property>
-        <one-to-one name="owner" cascade="save-update" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></one-to-one>
+        <property name="name" column="name" type="java.lang.String" length="50" />
+        <property name="description" column="description" type="java.lang.String" length="140" />
+        <property name="start" column="start" type="java.util.Date" />
+        <property name="end" column="end" type="java.util.Date" />
+        <property name="lat" column="lat" type="java.lang.Long" />
+        <property name="lon" column="lon" type="java.lang.Long" />
+        <one-to-one name="owner" cascade="save-update" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity" />
         <set name="goingUsers" cascade="save-update" table="GOING_USERS">
-            <key column="id"></key>
-            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></many-to-many>
+            <key column="id" />
+            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity" />
         </set>
         <set name="notGoingUsers" cascade="save-update" table="NOT_GOING_USERS">
-            <key column="id"></key>
-            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></many-to-many>
+            <key column="id" />
+            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity" />
         </set>
         <set name="goneUsers" cascade="save-update" table="GONE_USERS">
-            <key column="id"></key>
-            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"></many-to-many>
+            <key column="id" />
+            <many-to-many column="uid" class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity" />
         </set>
     </class>
 </hibernate-mapping>

@@ -3,7 +3,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die
@@ -27,27 +27,6 @@ public interface UserDao {
     public UserEntity getUserByEmail(String mail);
 
     /**
-     * Die Methode fügt eine neue UserEntity in die Datenbank ein.
-     *
-     * @param user Die Entity, die in die Datenbank eingefügt werden soll. Dieses Objekt muss eine in der Datenbank noch nicht
-     *             vorhandene ID enthalten, sonst schlägt die Ausführung fehl.
-     */
-    public void addUser(UserEntity user);
-
-    /**
-     * Diese Methode entfernt eine Entity aus der Datenbank. Zusätzlich werden alle mit diesem Benutzer assoziierten Objekte
-     * ebenfallse entfernt. Dazu gehören:
-     * - GOs, bei denen der Benutzer der GO-Verantwortliche war
-     * - Gruppen, bei denen der Benutzer der einzige Administrator war
-     * - Gruppenmitgliedschaften des Benutzers
-     * - unbeantwortete Gruppenanfragen, die an den Benutzer gestellt wurden
-     *
-     * @param userId Die userId des Benutzers, dessen Account gelöscht werden soll. Es wird garantiert, dass es sich beim Aufruf
-     *               der Methode, um eine gültige ID handelt.
-     */
-    public void deleteUser(String userId);
-
-    /**
      * Diese Methode gibt eine Liste mit allen Gruppen zurück, in denen der Benutzer Mitglied ist. Dies schließt Gruppen nicht mit ein,
      * zu denen der Benutzer eingeladen wurde, er die Gruppenanfrage aber noch nicht beantwortet hat.
      *
@@ -56,7 +35,7 @@ public interface UserDao {
      * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um
      * vollständige, gültige GroupEntity Objekte.
      */
-    public List<GroupEntity> getGroups(String userId);
+    public Set<GroupEntity> getGroups(String userId);
 
     /**
      * Diese Methode gibt eine Liste von Gruppen zurück, zu denen der Benutzer eine Gruppenanfrage erhalten hat, die er noch nicht
@@ -67,6 +46,6 @@ public interface UserDao {
      * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um
      * vollständige, gültige GroupEntity Objekte.
      */
-    public List<GroupEntity> getRequests(String userId);
+    public Set<GroupEntity> getRequests(String userId);
 
 }

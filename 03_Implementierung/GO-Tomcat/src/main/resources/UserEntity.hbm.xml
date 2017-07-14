@@ -8,17 +8,17 @@
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
-        <id name="uid" column="uid" type="java.lang.String" length="48"></id>
-        <property name="name" column="name"  type="java.lang.String" length="50"></property>
-        <property name="instanceId" column="instance_id" type="java.lang.String" length="48"></property>
-        <property name="email" column="email" type="java.lang.String" length="100"></property>
+        <id name="uid" column="uid" type="java.lang.String" length="48" />
+        <property name="name" column="name"  type="java.lang.String" length="50" />
+        <property name="instanceId" column="instance_id" type="java.lang.String" length="48" />
+        <property name="email" column="email" type="java.lang.String" length="100" />
         <set name="groups" cascade="save-update">
-            <key column="uid"></key>
-            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"></one-to-many>
+            <key column="uid" />
+            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity" />
         </set>
         <set name="requests" cascade="save-update">
-            <key column="uid"></key>
-            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"></one-to-many>
+            <key column="uid" />
+            <one-to-many class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity" />
         </set>
 
     </class>

@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
 
-/**
- * Created by tina on 30.06.17.
- */
+
 public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<GoEntity> {
 
     /**
