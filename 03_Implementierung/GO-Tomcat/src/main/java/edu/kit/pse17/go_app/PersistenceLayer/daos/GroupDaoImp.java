@@ -2,8 +2,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.Observable;
-import edu.kit.pse17.go_app.ServiceLayer.Observer;
+import edu.kit.pse17.go_app.ServiceLayer.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +27,7 @@ import java.util.List;
  * Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst
  * oder nicht.
  */
-public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Observable<GroupEntity> {
+public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Observable<Object> {
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
@@ -78,18 +77,17 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
     }
 
     /**
-     * @param impCode     Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei
-     *                    handelt es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt
-     *                    es sich um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify()
-     *                    reagieren.
-     * @param observable  Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
-     *                    weiß der observer, von wo er eine Benachrichtigung bekommen hat.
-     * @param groupEntity Die veränderte GroupEntity, die zur Weiterverarbeitung an die Observer weitergereicht wird.
+     * @param impCode    Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt
+     *                   es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich
+     *                   um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.
+     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
+     *                   weiß der observer, von wo er eine Benachrichtigung bekommen hat.
+     * @param o          Die veränderte GroupEntity, die zur Weiterverarbeitung an die Observer weitergereicht wird.
      */
     @Override
-    public void notify(final String impCode, final Observable observable, final GroupEntity groupEntity) {
+    public void notify(final String impCode, final Observable observable, final Object o) {
         for (final Observer observer : this.observer) {
-            observer.update(impCode, observable, groupEntity);
+            observer.update(impCode, observable, o);
         }
     }
 
@@ -127,11 +125,14 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
     @Override
     public void persist(final GroupEntity entity) {
         Transaction tx = null;
+        final Long id;
 
         try (Session session = sf.openSession()) {
             tx = session.beginTransaction();
-            session.save(entity);
+            id = (Long) session.save(entity);
             tx.commit();
+            entity.setID(id);
+            notify(EntityAddedObserver.OBSERVER_CODE, this, entity);
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -150,6 +151,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
             tx = session.beginTransaction();
             session.delete(group);
             tx.commit();
+            notify(EntityRemovedObserver.OBSERVER_CODE, this, group);
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -167,11 +169,15 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
         try (Session session = sf.openSession()) {
             tx = session.beginTransaction();
             oldData = session.get(GroupEntity.class, groupEntity.getID());
+
             oldData.setDescription(groupEntity.getDescription());
             oldData.setName(groupEntity.getName());
             oldData.setGos(groupEntity.getGos());
+
             session.update(oldData);
             tx.commit();
+            notify(EntityChangedObserver.OBSERVER_CODE, this, groupEntity);
+
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -190,6 +196,8 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
                 group.getMembers().add(user);
             }
             tx.commit();
+            notify(EntityAddedObserver.OBSERVER_CODE, this, user);
+
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -208,6 +216,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
                 group.getRequests().remove(user);
             }
             tx.commit();
+            //notify??
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -226,6 +235,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
                 group.getRequests().add(user);
             }
             tx.commit();
+
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }

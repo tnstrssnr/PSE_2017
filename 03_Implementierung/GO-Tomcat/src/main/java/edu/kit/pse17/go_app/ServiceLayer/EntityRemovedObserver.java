@@ -7,25 +7,25 @@ import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import java.util.List;
 
 /**
- * Bei dieser Klasse handelt es sich um eine Implementierung des Oberver interfaces. dementsprechned ist diese Klasse
+ * Bei dieser Klasse handelt es sich um eine Implementierung des Observer interfaces. Dementsprechned ist diese Klasse
  * Teil des Observer- Entwurfsmusters und übernimmt die Rolle des konkreten Observers.
  * <p>
- * Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Änderungen einer bestehenden Entität zu
- * reagieren. Dies schließt folgende Ereignisse mit ein: - Änderung von GO-Daten - Änderung von Gruppendaten - Änderung
- * des Teilnahmestatus - Änderung der Adminsitratoren einer Gruppe
+ * Die Aufgabe dieser Klasse ist das Beobachten der DAO-Klassen und auf Entfernen von Entitäten zu reagieren. Dies
+ * schließt folgende Ereignisse mit ein: - Entfernen eines GOs - Entfernen eines Gruppenmitglieds / einer Gruppenanfrage
+ * - Entfernen einer Gruppe
  * <p>
  * Um auf diese verschiedenen Änderungen regiaeren zu können, muss bei der Implementierung die update()-Methode
  * überladen werden oder innerhalb der Methode anhand der übergebenen Änderung entschieden werden, welche weitere
  * Vorgehensweise gewählt werden muss.
  */
-public class EntityChangedObserver implements Observer {
+public class EntityRemovedObserver implements Observer {
 
     /**
      * Der Code anhand dem der Observer erkennt, dass er auf ein notify() reagieren soll. Bei jeglichen Änderungen wird
      * jeder observer benachrichtigt, wer regieren muss wird anhand dieses Codes entschieden. Er wird als erstes
      * Argument der update()-Methode verwendet.
      */
-    public static final String OBSERVER_CODE = "edit";
+    public static final String OBSERVER_CODE = "remove";
 
     /**
      * Eine Instanz eines FcmClients, der dafür verwendet wird, Nachrichten an die Clients zu schicken. Das Attribut
@@ -63,10 +63,11 @@ public class EntityChangedObserver implements Observer {
 
     }
 
+
     /**
-     * Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einem GO behandelt.
-     * Das geänderte Go wird in ein JSON-Objekt umgewandelt und an den FcmClient weiteregegeben, um es an die
-     * entsprechenden Clients weiterzuleiten.
+     * Überladung der update()-methode des Observers. Diese Methode kümmert sich um das Entfernen einer Gruppe. Die
+     * Daten der Gruppe werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient
+     * weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden.
      * <p>
      * Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity
      * ermittelt werden.
@@ -76,70 +77,49 @@ public class EntityChangedObserver implements Observer {
      *                   besitzt übereinstimmt.
      * @param observable Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der
      *                   Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.
-     * @param go         Das Go, dessen Daten verändert wurden.
-     */
-    public void update(final String arg, final Observable observable, final GoEntity go) {
-
-    }
-
-    /**
-     * Überladung der Methode update() des Observers. In dieser Methode werden Datenänderungen an einer Gruppe
-     * behandelt. Die geänderte gruppe wird in ein JSON-Objekt umgewandelt und an den FcmClient weiteregegeben, um es an
-     * die entsprechenden Clients weiterzuleiten.
-     * <p>
-     * Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity
-     * ermittelt werden.
-     *
-     * @param arg        Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf
-     *                   die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER_CODE, das jeder Beobachter
-     *                   besitzt übereinstimmt.
-     * @param observable Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der
-     *                   Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.
-     * @param group      Die Gruppe, deren Daten verändert wurden.
+     * @param group      Die Gruppe, die aus der Datenbank entfernt wurde.
      */
     public void update(final String arg, final Observable observable, final GroupEntity group) {
 
     }
 
     /**
-     * Überladung der Methode update() des Observers. In dieser Methode wird das Ereignis eines neu hinzugefügten Admins
-     * behandelt und an die entsprechenden Clients weitergeleitet.
+     * Überladung der update()-methode des Observers. Diese Methode kümmert sich um das Entfernen eines GOs. Die Daten
+     * des GOs werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und an den FcmClient weitergegeben,
+     * um von dort an die entsprechenden Clients geschickt zu werden.
      * <p>
-     * Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Group-Entity
+     * Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity
      * ermittelt werden.
      *
-     * @param arg        Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf
-     *                   die Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER_CODE, das jeder Beobachter
+     * @param arg        in Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die
+     *                   Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER_CODE, das jeder Beobachter
      *                   besitzt übereinstimmt.
      * @param observable Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der
      *                   Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.
-     * @param changes    Eine Liste von Objekten, die die Änderung beschreiben. Dabei muss die Liste folgende Struktur
-     *                   haben: 1. String -- "ADMIN" 2. GroupEntity -- Gruppe, um die es sich handelt 3. UserEntity --
-     *                   Benutzer, der zum Administrator gemacht wurde.
+     * @param go         Das GO, das aus der Datenbank entfernt wurde.
      */
-    public void update(final String arg, final Observable observable, final List<Object> changes) {
+    public void update(final String arg, final Observable observable, final GoEntity go) {
 
     }
 
     /**
-     * Überladung der Methode update() des Observers. In dieser Methode werden Statusänderungen von GO-Teilnehmern behandelt und die Änderung an die Clients
-     * weitergeleitet. Dazu wandelt die Methode die Änderung in ein passendes JSON-Objekt um und ruft anschließend den
-     * FCM-Client auf, um eine Nachricht zu verschicken.
+     * Überladung der update()-Methode des Observers. Diese Methode kümmert sich um das Entfernen eines
+     * Gruppenmitglieds. Die Daten der Änderung werden in dieser Methode zu einem passenden JSON-Objekt umgewandelt und
+     * an den FcmClient weitergegeben, um von dort an die entsprechenden Clients geschickt zu werden.
+     * <p>
+     * Wer diese Clients sind wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen übergebenen
+     * Daten ermittelt werden.
      *
-     * An wen die Nachricht geschickt werden muss, wird ebenfalls in dieser Methode bestimmt und kann anhand der übergebenen Go-Entity ermittelt werden.
-     *
-     * @param arg Ein Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die Änderung, wenn dieses Argument
-     *            mit dem statischen Feld OBSERVER_CODE, das jeder Beobachter besitzt übereinstimmt.
-     * @param observable Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der Beobachter zurückverfolgen
-     *                   von wo in der Anwendung er benachrichtigt wurde.
-     * @param changes Eine Liste von Objekten, die die Änderung beschreiben. Dabei muss die Liste folgende Struktur haben:
-     *                1. String -- "STATUS"
-     *                2. GoEntity -- Go, um die es sich handelt
-     *                3. UserEntity -- Benutzer, der seinen Status geändert hat.
-     *                4. Status -- neuer Status des Benutzers
-
-    public void update(String arg, Observable observable, List<Object> changes) {
+     * @param arg        in Argument, das die aufgetretene Änderung beschreibt. Ein Beobachter reagiert nur dann auf die
+     *                   Änderung, wenn dieses Argument mit dem statischen Feld OBSERVER_CODE, das jeder Beobachter
+     *                   besitzt übereinstimmt.
+     * @param observable Eine Instanz des Observable-Objekts, dass den Beobachter benachrichtigt hat. Dadurch kann der
+     *                   Beobachter zurückverfolgen von wo in der Anwendung er benachrichtigt wurde.
+     * @param changes    Eine Liste mit Objekten, die die Änderungen beschreiben. Dabei muss die Liste folgenden Aufbau
+     *                   haben: 1. GroupEntity -- Gruppe, aus der der Benutzer entfernt werden soll 2. UserEntity --
+     *                   Benutzer, der aus der Gruppe entfernt werden soll
+     */
+    public void update(final String arg, final Observable observable, final List<Object> changes) {
 
     }
-     */
 }

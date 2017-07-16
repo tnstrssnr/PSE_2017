@@ -209,8 +209,6 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
             oldUser.setEmail(userEntity.getEmail());
             oldUser.setInstanceId(userEntity.getInstanceId());
             oldUser.setName(userEntity.getName());
-            oldUser.setGroups(userEntity.getGroups());
-            oldUser.setRequests(userEntity.getRequests());
 
             session.update(oldUser);
             tx.commit();

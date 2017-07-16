@@ -51,9 +51,15 @@ public class Main {
 
         groupDao.persist(group);
         groupDao.addGroupMember(user.getUid(), group.getID());
+        final GroupEntity groupP = groupDao.get((long) 1);
+
+        groupP.setName("NewName");
+        groupDao.update(groupP);
 
         final UserEntity user2 = userDao.get(user.getUid());
         final GroupEntity group2 = (GroupEntity) user2.getGroups().toArray()[0];
         System.out.println(group2.getName());
+
+        sf.close();
     }
 }
