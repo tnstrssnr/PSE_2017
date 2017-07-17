@@ -19,7 +19,7 @@
             root
         </property>
         <property name="connection.password">
-            69h97jnv
+            dell
         </property>
 
         <property name="hbm2ddl.auto">create-drop</property>
