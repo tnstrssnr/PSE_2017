@@ -29,5 +29,10 @@
       <user-name>root</user-name>
       <introspection-schemas>*:pse_development</introspection-schemas>
     </data-source>
+    <data-source name="testing.cfg.xml/Hibernate" uuid="0cc21804-875a-4f21-8277-ea9526ee26c9">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+    </data-source>
   </component>
 </project>
