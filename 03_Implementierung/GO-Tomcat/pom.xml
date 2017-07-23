@@ -178,7 +178,6 @@
             <version>2.5.6</version>
         </dependency>
         <!-- Hibernate library dependecy end -->
-
         </dependencies>
 
     

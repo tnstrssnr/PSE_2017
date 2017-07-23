@@ -1,9 +1,10 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.sun.istack.internal.Nullable;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
+
+import javax.persistence.*;
+import java.util.*;
 
 /**
  * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen.
@@ -15,104 +16,156 @@ import java.util.Set;
  * Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden.
  * Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.
  */
+@Entity
+@Table(name = "GOS")
 public class GoEntity {
 
     /**
-     * Eine global eindeutige Nummer, anhand derer ein Go-Ovjekt eindeutig identifiziert werden kann.
-     * Die ID ist eine positive ganze Zahl im Wertebereich des Datentyps long. Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden.
+     * Eine global eindeutige Nummer, anhand derer ein Go-Ovjekt eindeutig identifiziert werden kann. Die ID ist eine
+     * positive ganze Zahl im Wertebereich des Datentyps long. Nach Erzeugung des Objekts kann sie bis zu seiner
+     * Zerstörung nicht verändert werden.
      */
+    @Column(name = "go_id")
+    @Id
+    @GeneratedValue
     private long ID;
 
     /**
      * Die ID der Gruppe, in der dieses GO angelegt wurde.
      * Es muss sich dabei um eine gültige Gruppen-ID handeln.
-     *
+     * <p>
      * Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.
      */
-    private long groupId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id", unique = true, nullable = false)
+    private GroupEntity group;
 
 
     /**
      * Die userId des Benutzer der das GO erstellt hat und somit der Go-Verantwortliche ist.
      * Es muss sich dabei um eine gültige Userid handeln.
-     *
+     * <p>
      * Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.
      */
-    private String owner;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner", unique = true)
+    private UserEntity owner;
 
     /**
-     * Der Name des GOs. Dieser muss nicht eindeutig sein.
-     * Es handelt sich dabei um einen String, der weniger als 50 Zeichen enthält.
-     * Der Name eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts
-     * in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
+     * Der Name des GOs. Dieser muss nicht eindeutig sein. Es handelt sich dabei um einen String, der weniger als 50
+     * Zeichen enthält. Der Name eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind
+     * entsprechende Methoden zu implementieren. Generiert wird die Id automatisch bei der Persistierung des
+     * Entity-Objekts in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
      */
+    @Column(name = "name")
     private String name;
 
     /**
-     * Eine textuelle Ebschreibung des GOs. Diese muss nicht eindeutig sein.
-     * Es handelt sich dabei um einen String, der weniger als 140 Zeichen enthält.
-     * Die Beschreibung eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
+     * Eine textuelle Ebschreibung des GOs. Diese muss nicht eindeutig sein. Es handelt sich dabei um einen String, der
+     * weniger als 140 Zeichen enthält. Die Beschreibung eines GOs kann nachträglich (nach Erzeugung des Objekts)
+     * geändert werden, es sind entsprechende Methoden zu implementieren.
      */
+    @Column(name = "description")
     private String description;
 
     /**
-     * Der Startzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestartet wird. Dabei darf der zeitpunkt
-     * bei der Zuweisung der Variable nicht in der Vergangenheit befinden.
-     *
-     * Der Startzeitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
+     * Der Startzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestartet wird. Dabei darf
+     * der zeitpunkt bei der Zuweisung der Variable nicht in der Vergangenheit befinden.
+     * <p>
+     * Der Startzeitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind
+     * entsprechende Methoden zu implementieren.
      */
+    @Column(name = "start")
     private Date start;
 
     /**
-     * Der Endzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestoppt wird. Dabei darf der Zeitpunkt
-     * nie vor dem Startzeitpunkt befinden.
-     *
-     * Der Endzwitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
+     * Der Endzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestoppt wird. Dabei darf der
+     * Zeitpunkt nie vor dem Startzeitpunkt befinden.
+     * <p>
+     * Der Endzwitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende
+     * Methoden zu implementieren.
      */
+    @Column(name = "end")
     private Date end;
 
     /**
-     * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Breitengrad des Zielorts gespeichert. Der Wert muss als Breitengrad interpretierbar sein,
-     * muss also zwischen +90 und -90 liegen.
-     *
+     * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Breitengrad des Zielorts
+     * gespeichert. Der Wert muss als Breitengrad interpretierbar sein, muss also zwischen +90 und -90 liegen.
+     * <p>
      * Wurde kein Zielort für das GO bestimmt, kann der Wert dieses Feldes auch null sein.
-     *
-     * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
+     * <p>
+     * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu
+     * implementieren.
      */
+    @Column(name = "lat")
     private long lat;
 
     /**
-     * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Längengrad des Zielorts gespeichert. Der Wert muss als Längengrad interpretierbar sein,
-     * muss also zwischen +180 und -180 liegen.
-     *
+     * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Längengrad des Zielorts gespeichert.
+     * Der Wert muss als Längengrad interpretierbar sein, muss also zwischen +180 und -180 liegen.
+     * <p>
      * Wurde kein Zielort für das GO bestimmt, kann der Wert dieses Feldes auch null sein.
-     *
-     * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
+     * <p>
+     * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu
+     * implementieren.
      */
+    @Column(name = "lon")
     private long lon;
 
     /**
      * Eine Map mit allen Teilnehmern des GOs, um ihnen ihren Teilnahmestatus zuzuweisen.
-     *
-     * Bei Erzeugung eines Objekts dieser Klasse wird dem GO-Verantwortlichen automatisch der Status BESTÄTIGT zugewiesen, allen anderen Gruppenmitgliedern der Status
-     * ABGELEHNT.
-     * .
-     * Es besteht keine Abhängigkeit dieser Liste zur LocationService-Klasse oder anderen Klassen, die von LocationService
-     * benutzt werden.
-     *
-     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde. Jedes Mitglied der Gruppe des GOs muss in der liste enthalten sein.
-     *
-     * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der Liste hinzufügen und Entfernen zu können.
+     * <p>
+     * Bei Erzeugung eines Objekts dieser Klasse wird dem GO-Verantwortlichen automatisch der Status BESTÄTIGT
+     * zugewiesen, allen anderen Gruppenmitgliedern der Status ABGELEHNT. . Es besteht keine Abhängigkeit dieser Liste
+     * zur LocationService-Klasse oder anderen Klassen, die von LocationService benutzt werden.
+     * <p>
+     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde. Jedes
+     * Mitglied der Gruppe des GOs muss in der liste enthalten sein.
+     * <p>
+     * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der
+     * Liste hinzufügen und Entfernen zu können.
      */
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "GOING_USERS", joinColumns = {
+            @JoinColumn(name = "go_id", nullable = false)
+    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> goingUsers;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "NOT_GOING_USERS", joinColumns = {
+            @JoinColumn(name = "go_id", nullable = false)
+    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> notGoingUsers;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "GONE_USERS", joinColumns = {
+            @JoinColumn(name = "go_id", nullable = false)
+    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> goneUsers;
 
     public GoEntity() {
 
+    }
+
+    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, Date start, Date end, long lat, long lon) {
+        this.group = group;
+        this.owner = owner;
+        this.name = name;
+        this.description = description;
+        this.start = start;
+        this.end = end;
+        this.lat = lat;
+        this.lon = lon;
+        this.goingUsers = new HashSet<>();
+        goingUsers.add(owner);
+        this.notGoingUsers = new HashSet<>();
+        for(UserEntity user: group.getMembers()) {
+            if(!user.equals(owner)) {
+                notGoingUsers.add(user);
+            }
+        }
+        this.goneUsers = new HashSet<>();
     }
 
     public long getID() {
@@ -121,6 +174,14 @@ public class GoEntity {
 
     public void setID(long ID) {
         this.ID = ID;
+    }
+
+    public GroupEntity getGroup() {
+        return group;
+    }
+
+    public void setGroup(GroupEntity group) {
+        this.group = group;
     }
 
     public String getName() {
@@ -171,22 +232,6 @@ public class GoEntity {
         this.lon = lon;
     }
 
-    public long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
     public Set<UserEntity> getGoingUsers() {
         return goingUsers;
     }
@@ -211,6 +256,14 @@ public class GoEntity {
         this.goneUsers = goneUsers;
     }
 
+    public UserEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -219,9 +272,9 @@ public class GoEntity {
         GoEntity goEntity = (GoEntity) o;
 
         if (getID() != goEntity.getID()) return false;
-        if (getGroupId() != goEntity.getGroupId()) return false;
         if (getLat() != goEntity.getLat()) return false;
         if (getLon() != goEntity.getLon()) return false;
+        if (getGroup() != null ? !getGroup().equals(goEntity.getGroup()) : goEntity.getGroup() != null) return false;
         if (getOwner() != null ? !getOwner().equals(goEntity.getOwner()) : goEntity.getOwner() != null) return false;
         if (getName() != null ? !getName().equals(goEntity.getName()) : goEntity.getName() != null) return false;
         if (getDescription() != null ? !getDescription().equals(goEntity.getDescription()) : goEntity.getDescription() != null)
@@ -238,7 +291,7 @@ public class GoEntity {
     @Override
     public int hashCode() {
         int result = (int) (getID() ^ (getID() >>> 32));
-        result = 31 * result + (int) (getGroupId() ^ (getGroupId() >>> 32));
+        result = 31 * result + (getGroup() != null ? getGroup().hashCode() : 0);
         result = 31 * result + (getOwner() != null ? getOwner().hashCode() : 0);
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);

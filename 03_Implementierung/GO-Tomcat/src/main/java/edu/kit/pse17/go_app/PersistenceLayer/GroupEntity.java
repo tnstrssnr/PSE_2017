@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import java.util.Set;
  * Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden.
  * Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.
  */
+@Entity
+@Table(name = "GROUPS")
 public class GroupEntity {
 
     /**
@@ -21,6 +24,9 @@ public class GroupEntity {
      * Nach Erzeugung des Objekts kann sie bis zu seiner Zerstörung nicht verändert werden. Generiert wird die Id automatisch bei der Persistierung des Entity-Objekts
      * in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
      */
+    @Column(name = "group_id")
+    @Id
+    @GeneratedValue
     private long ID;
 
     /**
@@ -28,6 +34,7 @@ public class GroupEntity {
      * Es handelt sich dabei um einen String, der weniger als 50 Zeichen enthält.
      * Der Name einer Gruppe kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
      */
+    @Column(name = "name")
     private String name;
 
     /**
@@ -35,6 +42,7 @@ public class GroupEntity {
      * Es handelt sich dabei um einen String, der weniger als 140 Zeichen enthält.
      * Die Beschreibung einer Gruppe kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu implementieren.
      */
+    @Column(name = "description")
     private String description;
 
     /**
@@ -47,6 +55,10 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "MEMBERS", joinColumns = {
+            @JoinColumn(name = "group_id", nullable = false)
+    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> members;
 
     /**
@@ -59,6 +71,10 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "ADMINS", joinColumns = {
+            @JoinColumn(name = "group_id", nullable = false)
+    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> admins;
 
     /**
@@ -70,6 +86,10 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "REQUESTS", joinColumns = {
+            @JoinColumn(name = "group_id", nullable = false)
+    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> requests;
 
     /**
@@ -80,6 +100,9 @@ public class GroupEntity {
      *
      * Die Liste muss auch nach der Erzeugung des Objekts veränderbar sein, entsprechende Methoden sind zu implementieren.
      */
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
     private Set<GoEntity> gos;
 
     public GroupEntity() {
@@ -162,12 +185,6 @@ public class GroupEntity {
     @Override
     public int hashCode() {
         int result = (int) (getID() ^ (getID() >>> 32));
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
-        result = 31 * result + (getMembers() != null ? getMembers().hashCode() : 0);
-        result = 31 * result + (getAdmins() != null ? getAdmins().hashCode() : 0);
-        result = 31 * result + (getRequests() != null ? getRequests().hashCode() : 0);
-        result = 31 * result + (getGos() != null ? getGos().hashCode() : 0);
         return result;
     }
 }

@@ -2,13 +2,15 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.Observer;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<GoEntity> {
@@ -27,20 +29,27 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
     private SessionFactory sf;
 
     /**
+     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
+     * auch die Daten anderer Benutzer betrifft.
+     */
+    private List<Observer> observer;
+
+    /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
      * der verwendetetn MySQL Datenbank.
      */
     public GoDaoImp(SessionFactory sf) {
         this.sf = sf;
+        this.observer = new ArrayList<>();
     }
 
 
     /**
-     *
      * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
      */
     @Override
     public void register(Observer observer) {
+        this.observer.add(observer);
 
     }
 
@@ -50,7 +59,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      */
     @Override
     public void unregister(Observer observer) {
-
+        this.observer.remove(observer);
     }
 
     /**
@@ -64,18 +73,40 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      */
     @Override
     public void notify(String impCode, Observable observable, GoEntity goEntity) {
-
+        for(Observer observer: this.observer) {
+            observer.update(impCode, this, goEntity);
+        }
     }
 
     /**
      *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem Generic PK bestimmt,
      *            mit dem das Interface implementiert wird.
-     * @return
+     * @return Die GoEntity mit dem entsprechenden Schlüssel. Exisitert eine solche Entity nicht, wird null zurückgegeben.
      */
     @Override
     public GoEntity get(Long key) {
-        return null;
+        Transaction tx = null;
+        GoEntity go = null;
+
+        try(Session session = sf.openSession()) {
+            tx = session.beginTransaction();
+            go = session.get(GoEntity.class, key);
+            Hibernate.initialize(go.getGoingUsers());
+            Hibernate.initialize(go.getGoneUsers());
+            Hibernate.initialize(go.getNotGoingUsers());
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
+        return go;
+    }
+
+    private void handleHibernateException(HibernateException e, Transaction tx) {
+        e.printStackTrace();
+        if ( tx != null) {
+            tx.rollback();
+        }
     }
 
     /**
@@ -84,28 +115,54 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      */
     @Override
     public void persist(GoEntity entity) {
+        Transaction tx = null;
 
+        try(Session session = sf.openSession()) {
+            tx = session.beginTransaction();
+            entity.getGroup().getGos().add(entity);
+            entity.getOwner().getGos().add(entity);
+            session.save(entity);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
     }
 
     /**
      *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der
      *            Implementierung der Klasse spezifiziert.
-     *
-     * @throws EntityNotFoundException
      */
     @Override
-    public void delete(Long key) throws EntityNotFoundException {
+    public void delete(Long key) {
+        Transaction tx = null;
+        GoEntity go = get(key);
+
+        try(Session session = sf.openSession()) {
+            tx = session.beginTransaction();
+            session.delete(go);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
 
     }
 
     /**
-     *
-     * @param goEntity
-     * @throws EntityNotFoundException
+     * @param goEntity Die GoEntity, die geupdated werden soll. Das Objekt enthält bereits die neuen Daten.
      */
     @Override
-    public void update(GoEntity goEntity) throws EntityNotFoundException {
+    public void update(GoEntity goEntity)  {
+        Transaction tx = null;
+        //GoEntity oldData = get(goEntity.getID());
+
+        try(Session session = sf.openSession()) {
+            tx = session.beginTransaction();
+            session.update(goEntity);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
 
     }
 
@@ -119,6 +176,39 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      */
     @Override
     public void changeStatus(String userId, long goId, Status status) {
+        Transaction tx = null;
+        GoEntity go = get(goId);
+        UserEntity user = new UserDaoImp(this.sf).get(userId);
+        List<Set<UserEntity>> statusLists = new ArrayList<>();
+        statusLists.add(go.getGoingUsers());
+        statusLists.add(go.getGoneUsers());
+        statusLists.add(go.getNotGoingUsers());
 
+        for (Set<UserEntity> set: statusLists) {
+            if (set.contains(user)) {
+                set.remove(user);
+                break;
+            }
+        }
+
+        switch (status) {
+            case ABGELEHNT:
+                go.getGoneUsers().add(user);
+                break;
+            case BESTÄTIGT:
+                go.getGoingUsers().add(user);
+                break;
+            case UNTERWEGS:
+                go.getGoneUsers().add(user);
+                break;
+        }
+
+        try (Session session = sf.openSession()){
+            tx = session.beginTransaction();
+            session.update(go);
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
     }
 }

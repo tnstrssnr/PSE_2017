@@ -116,4 +116,5 @@ public class GoEntityTest {
     public void hashCode() throws Exception {
     }*/
 
+
 }

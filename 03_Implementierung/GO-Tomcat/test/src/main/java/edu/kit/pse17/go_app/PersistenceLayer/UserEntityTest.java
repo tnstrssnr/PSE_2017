@@ -1,5 +1,7 @@
 package main.java.edu.kit.pse17.go_app.PersistenceLayer;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -50,7 +52,7 @@ public class UserEntityTest {
     public void getGroups() throws Exception {
     }
 
-    @org.junit.Test
+    @Test
     public void setGroups() throws Exception {
     }
 

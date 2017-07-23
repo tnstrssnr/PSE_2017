@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.*;
@@ -57,9 +58,17 @@ public class Main {
         groupDao.update(groupP);
 
         final UserEntity user2 = userDao.get(user.getUid());
-        final GroupEntity group2 = (GroupEntity) user2.getGroups().toArray()[0];
-        System.out.println(group2.getName());
+        GroupEntity group2 = (GroupEntity) user2.getGroups().toArray()[0];
+        System.out.println(group2.getMembers().toArray()[0]);
 
-        sf.close();
+
+        GoEntity go = new GoEntity(group2, user2, "testgo", "sdfsdfsdf", null, null, (long) 12, (long) 12);
+        goDao.persist(go);
+        GroupEntity group3 = groupDao.get(group2.getID());
+        System.out.println(group3.getGos().size());
+
+        System.out.println(userDao.get(user2.getUid()).getGos().toArray().length);
+
+        //sf.close();
     }
 }

@@ -108,6 +108,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
             final Query query = session.createQuery(hql);
             query.setParameter("mail", mail);
             user = (List<UserEntity>) query.list();
+            Hibernate.initialize(user);
         } catch (final HibernateException e) {
             handleHibernateException(e, null);
         }
@@ -152,6 +153,12 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
         try (Session session = sf.openSession()) {
             tx = session.beginTransaction();
             user = session.get(UserEntity.class, key);
+            Hibernate.initialize(user.getGroups());
+            for(GroupEntity group: user.getGroups()) {
+                Hibernate.initialize(group.getMembers());
+            }
+            Hibernate.initialize(user.getGos());
+            Hibernate.initialize(user.getRequests());
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
@@ -205,12 +212,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
 
         try (Session session = sf.openSession()) {
             tx = session.beginTransaction();
-            final UserEntity oldUser = (UserEntity) session.get(userEntity.getUid(), UserEntity.class);
-            oldUser.setEmail(userEntity.getEmail());
-            oldUser.setInstanceId(userEntity.getInstanceId());
-            oldUser.setName(userEntity.getName());
-
-            session.update(oldUser);
+            session.update(userEntity);
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);

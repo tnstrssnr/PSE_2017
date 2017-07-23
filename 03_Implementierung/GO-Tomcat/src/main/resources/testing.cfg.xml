@@ -24,9 +24,9 @@
 
         <property name="hbm2ddl.auto">create-drop</property>
 
-        <mapping resource="UserEntity.hbm.xml"/>
-        <mapping resource="GroupEntity.hbm.xml"/>
-        <mapping resource="GoEntity.hbm.xml"/>
+        <mapping class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"/>
+        <mapping class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"/>
+        <mapping class="edu.kit.pse17.go_app.PersistenceLayer.GoEntity"/>
 
     </session-factory>
 </hibernate-configuration>

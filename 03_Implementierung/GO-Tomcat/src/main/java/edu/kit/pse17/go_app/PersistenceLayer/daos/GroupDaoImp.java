@@ -3,10 +3,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.*;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,6 +94,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
      * @return Die GroupEntity, mit der ID "key". Existiert keine Entity mit dieser ID, gibt die Methode null zurück.
      */
     @Override
+    @Transactional
     public GroupEntity get(final Long key) {
         Transaction tx = null;
         GroupEntity group = null;
@@ -104,6 +102,10 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
         try (Session session = sf.openSession()) {
             tx = session.beginTransaction();
             group = session.get(GroupEntity.class, key);
+            Hibernate.initialize(group.getAdmins());
+            Hibernate.initialize(group.getGos());
+            Hibernate.initialize(group.getMembers());
+            Hibernate.initialize(group.getRequests());
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
@@ -164,17 +166,12 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
     @Override
     public void update(final GroupEntity groupEntity) {
         Transaction tx = null;
-        final GroupEntity oldData;
+        //final GroupEntity oldData;
 
         try (Session session = sf.openSession()) {
             tx = session.beginTransaction();
-            oldData = session.get(GroupEntity.class, groupEntity.getID());
 
-            oldData.setDescription(groupEntity.getDescription());
-            oldData.setName(groupEntity.getName());
-            oldData.setGos(groupEntity.getGos());
-
-            session.update(oldData);
+            session.update(groupEntity);
             tx.commit();
             notify(EntityChangedObserver.OBSERVER_CODE, this, groupEntity);
 

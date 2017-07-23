@@ -1,5 +1,8 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -13,6 +16,8 @@ import java.util.Set;
  * Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API
  * empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.
  */
+@Entity
+@Table(name = "USERS")
 public class UserEntity {
 
     /**
@@ -20,6 +25,9 @@ public class UserEntity {
      * Andwendung unverändert übernommen. Die ID wird nach der Registrierung nicht mehr verändert, bis der user seinen
      * Account löscht.
      */
+
+    @Column(name = "uid")
+    @Id
     private String uid;
 
     /**
@@ -30,6 +38,7 @@ public class UserEntity {
      * Da sich durch Gerätewechsel oder Konfigurationsänderungen am Gerät die InstanceId ändern kann, muss die
      * DAO-Klasse eine Methode zur Änderung der InstanceId besitzen.
      */
+    @Column(name = "instance_id")
     private String instanceId;
 
     /**
@@ -38,6 +47,7 @@ public class UserEntity {
      * nach der Regsitrierun diesen Account nicht wechseln kann, bleibt auch der Benutzername die ganze Zeit
      * unverändert.
      */
+    @Column(name = "name")
     private String name;
 
     /**
@@ -45,6 +55,7 @@ public class UserEntity {
      * Da der Benutzer nach der Registrierung diesen Account nicht wechseln kann,
      * bleibt auch der Benutzername die ganze Zeit unverändert.
      */
+    @Column(name = "email")
     private String email;
 
     /**
@@ -53,10 +64,23 @@ public class UserEntity {
      * Methoden zum Ändern der Liste vorhanden sein, da sich die Gruppen, in den der Benutzer Mitglied ist verändern
      * können.
      */
+
+    @ManyToMany(mappedBy = "members")
     private Set<GroupEntity> groups;
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "requests")
     private Set<GroupEntity> requests;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
+    private Set<GoEntity> gos;
+
+    public Set<GoEntity> getGos() {
+        return gos;
+    }
+
+    public void setGos(Set<GoEntity> gos) {
+        this.gos = gos;
+    }
 
     public UserEntity() {
     }
@@ -110,18 +134,26 @@ public class UserEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserEntity)) return false;
 
-        final UserEntity that = (UserEntity) o;
+        UserEntity that = (UserEntity) o;
 
         if (getUid() != null ? !getUid().equals(that.getUid()) : that.getUid() != null) return false;
         if (getInstanceId() != null ? !getInstanceId().equals(that.getInstanceId()) : that.getInstanceId() != null)
             return false;
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
         if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) return false;
-        return getGroups() != null ? getGroups().equals(that.getGroups()) : that.getGroups() == null;
+        if (getGroups() != null ? !getGroups().equals(that.getGroups()) : that.getGroups() != null) return false;
+        if (getRequests() != null ? !getRequests().equals(that.getRequests()) : that.getRequests() != null)
+            return false;
+        return getGos() != null ? getGos().equals(that.getGos()) : that.getGos() == null;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int result = getUid() != null ? getUid().hashCode() : 0;
+        return result;
+    }
 }
