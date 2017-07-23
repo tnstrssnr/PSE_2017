@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="@pse">
+<dataSource name="hibernate.cfg.xml/Hibernate">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
     <root id="1"/>
     <schema id="2" parent="1" name="pse_development">
@@ -9,9 +9,7 @@
     <schema id="3" parent="1" name="information_schema"/>
     <schema id="4" parent="1" name="mysql"/>
     <schema id="5" parent="1" name="performance_schema"/>
-    <schema id="6" parent="1" name="sys"/>
-    <schema id="7" parent="1" name="information"/>
-    <schema id="8" parent="1" name="sakila"/>
-    <schema id="9" parent="1" name="world"/>
+    <schema id="6" parent="1" name="pse_testing"/>
+    <schema id="7" parent="1" name="sys"/>
   </database-model>
 </dataSource>

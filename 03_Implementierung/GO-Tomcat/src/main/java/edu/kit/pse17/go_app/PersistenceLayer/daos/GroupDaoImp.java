@@ -55,6 +55,14 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
         this.observer = new ArrayList<>();
     }
 
+    public SessionFactory getSf() {
+        return sf;
+    }
+
+    public List<Observer> getObserver() {
+        return observer;
+    }
+
     /**
      * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
      *                 eines
