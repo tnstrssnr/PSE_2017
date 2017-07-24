@@ -15,6 +15,9 @@
     <SUITE FILE_PATH="coverage/GO_Tomcat$Main.coverage" NAME="Main Coverage Results" MODIFIED="1500383556404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>edu.kit.pse17.go_app.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserDaoImpTest_getUserByEmail.coverage" NAME="UserDaoImpTest.getUserByEmail Coverage Results" MODIFIED="1500915483791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.PersistenceLayer.daos.*</FILTER>
+    </SUITE>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -45,213 +48,75 @@
       </PATH_ELEMENT>
     </PATH>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="UserDaoImpTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImpTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="28" column="2" lean-forward="false" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GoDaoImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1840">
+              <caret line="187" column="37" lean-forward="false" selection-start-line="187" selection-start-column="37" selection-end-line="187" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="UserEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1500799680794" expanded="false" signature="3325:3336" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3347:3353" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3396:3407" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3422:3428" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3489:3500" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3511:3517" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3559:3570" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3585:3591" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3626:3637" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3655:3661" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3717:3728" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3757:3763" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3792:3803" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3815:3821" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3865:3876" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3893:3899" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3929:3940" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3953:3959" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4005:4016" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4035:4041" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4082:4093" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4107:4113" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4171:4182" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4203:4209" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4252:4263" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4279:4285" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4347:4358" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4383:4389" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-              <folding>
-                <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupDaoImp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-              <folding>
-                <element signature="e#2828#2829#0" expanded="true" />
-                <element signature="e#2871#2872#0" expanded="true" />
-                <element signature="e#2902#2903#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupDaoImpTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#902#903#0" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#966#967#0" expanded="true" />
-                <element signature="e#1036#1037#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Observer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="13" column="51" lean-forward="true" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+            <state relative-caret-position="252">
+              <caret line="15" column="51" lean-forward="false" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Observable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observable.java">
+      <file leaf-file-name="UserEntityTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/UserEntityTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="200" column="21" lean-forward="false" selection-start-line="200" selection-start-column="21" selection-end-line="200" selection-end-column="21" />
+            <state relative-caret-position="306">
+              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="GoEntityTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java">
+        <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2380">
-              <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
+            <state relative-caret-position="411">
+              <caret line="119" column="7" lean-forward="false" selection-start-line="119" selection-start-column="7" selection-end-line="119" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
+      <file leaf-file-name="GroupEntityTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/GroupEntityTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="50" column="45" lean-forward="false" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
+            <state relative-caret-position="411">
+              <caret line="79" column="7" lean-forward="false" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupDaoImpTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImpTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-95">
+              <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -263,8 +128,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Arquillian JUnit Test Class" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -272,6 +138,8 @@
     <findStrings>
       <find>Fetch</find>
       <find>FetchType.LAZY</find>
+      <find>notify</find>
+      <find>junit</find>
     </findStrings>
     <replaceStrings>
       <replace>EAGER</replace>
@@ -287,7 +155,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntityTest.java" />
-        <option value="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
@@ -301,9 +168,17 @@
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImpTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/AbstractObserver.java" />
         <option value="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java" />
+        <option value="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java" />
+        <option value="$PROJECT_DIR$/test/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImpTest.java" />
+        <option value="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserDaoImpTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java" />
+        <option value="$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/GroupEntityTest.java" />
+        <option value="$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImpTest.java" />
+        <option value="$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImpTest.java" />
+        <option value="$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/UserEntityTest.java" />
       </list>
     </option>
   </component>
@@ -321,9 +196,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="27" />
-    <option name="width" value="1920" />
-    <option name="height" value="1053" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1932" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -341,201 +217,127 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PersistenceLayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="go_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GO-Tomcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="go_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServiceLayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="go_app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="go_app" type="462c0819:PsiDirectoryNode" />
+              <item name="PersistenceLayer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="PersistenceLayer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="PersistenceLayer" type="462c0819:PsiDirectoryNode" />
+              <item name="daos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GO-Tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: xml-apis:xml-apis:1.4.01" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="GO-Tomcat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: xml-apis:xml-apis:1.4.01" type="70bed36:NamedLibraryElementNode" />
+              <item name="xml-apis-1.4.01.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="project.scopes" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/test/edu/kit/pse17/go_app/PersistenceLayer" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="edu.kit.pse17.go_app.PersistenceLayer" />
       <recent name="edu.kit.pse17.go_app.PersistenceLayer.daos" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.kit.pse17.go_app.PersistenceLayer.daos" />
+      <recent name="" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -559,33 +361,287 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserEntityTest.equals">
+    <configuration name="GroupDaoImpTest.register" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="edu.kit.pse17.go_app.*" />
+          <option name="PATTERN" value="edu.kit.pse17.go_app.PersistenceLayer.daos.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.Main" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <module name="test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.daos" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImpTest" />
+      <option name="METHOD_NAME" value="register" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="UserDaoImpTest.getUserByEmail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.kit.pse17.go_app.PersistenceLayer.daos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="GO-Tomcat" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.daos" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImpTest" />
+      <option name="METHOD_NAME" value="getUserByEmail" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="UserDaoImpTest.register" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.kit.pse17.go_app.PersistenceLayer.daos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="main.java.edu.kit.pse17.go_app.PersistenceLayer" />
+      <option name="MAIN_CLASS_NAME" value="main.java.edu.kit.pse17.go_app.PersistenceLayer.UserDaoImpTest" />
+      <option name="METHOD_NAME" value="register" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="UserDaoImpTest.unregister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.kit.pse17.go_app.PersistenceLayer.daos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="GO-Tomcat" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.daos" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImpTest" />
+      <option name="METHOD_NAME" value="unregister" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="UserEntityTest.equals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.kit.pse17.go_app.PersistenceLayer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="GO-Tomcat" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.PersistenceLayer" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.PersistenceLayer.UserEntityTest" />
+      <option name="METHOD_NAME" value="equals" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GO-Tomcat" />
+      <module name="" />
       <envs />
-      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="test" />
+      <envs />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
-      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="" />
@@ -640,29 +696,6 @@
         <option name="SUPPORT_LIB_ENABLED" value="true" />
         <option name="INSTRUMENTATION_ENABLED" value="true" />
       </Profilers>
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <module />
-      <method />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -746,55 +779,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -809,36 +793,6 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="passParentEnv" value="true" />
-      <setting name="launchBrowser" value="true" />
-      <setting name="launchBrowserUrl" value="" />
-      <setting name="depsClasspath" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -878,19 +832,6 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="test" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="filePath" />
@@ -906,92 +847,9 @@
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
       <envs />
       <method />
     </configuration>
@@ -1021,31 +879,20 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.GroupDaoImpTest.register" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.UserDaoImpTest.register" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.UserDaoImpTest.unregister" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.UserDaoImpTest.getUserByEmail" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.UserEntityTest.equals" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.UserEntityTest.equals" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.UserDaoImpTest.getUserByEmail" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.UserDaoImpTest.unregister" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.UserDaoImpTest.register" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.GroupDaoImpTest.register" />
       </list>
     </recent_temporary>
   </component>
@@ -1070,96 +917,96 @@
       <workItem from="1500386522974" duration="2064000" />
       <workItem from="1500753068247" duration="4122000" />
       <workItem from="1500796449853" duration="7894000" />
+      <workItem from="1500905102774" duration="3291000" />
+      <workItem from="1500908447972" duration="125000" />
+      <workItem from="1500908921574" duration="4688000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="GoEntityTest_equals - 2017.07.24 at 18h 52m 57s.xml">
+      <configuration name="GoEntityTest.equals" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GroupDaoImpTest_register - 2017.07.24 at 18h 35m 43s.xml">
+      <configuration name="GroupDaoImpTest.register" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GroupDaoImpTest_register - 2017.07.24 at 18h 41m 17s.xml">
+      <configuration name="GroupDaoImpTest.register" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GroupDaoImpTest_register - 2017.07.24 at 18h 55m 27s.xml">
+      <configuration name="GroupDaoImpTest.register" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GroupEntityTest_equals - 2017.07.24 at 18h 54m 26s.xml">
+      <configuration name="GroupEntityTest.equals" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GroupEntityTest_getGos - 2017.07.24 at 18h 55m 13s.xml">
+      <configuration name="GroupEntityTest.getGos" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserDaoImpTest_getUserByEmail - 2017.07.24 at 18h 58m 05s.xml">
+      <configuration name="UserDaoImpTest.getUserByEmail" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserDaoImpTest_register - 2017.07.24 at 18h 55m 37s.xml">
+      <configuration name="UserDaoImpTest.register" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserDaoImpTest_unregister - 2017.07.24 at 18h 57m 55s.xml">
+      <configuration name="UserDaoImpTest.unregister" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserEntityTest_equals - 2017.07.24 at 19h 37m 12s.xml">
+      <configuration name="UserEntityTest.equals" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20989000" />
+    <option name="totallyTimeSpent" value="29093000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1932" height="1048" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.49447078" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.49447078" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39956093" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.5055292" order="4" side_tool="true" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.49447078" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1677116" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25914314" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1167,147 +1014,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="29" />
-          <folding>
-            <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1900">
-          <caret line="107" column="52" lean-forward="false" selection-start-line="107" selection-start-column="52" selection-end-line="107" selection-end-column="52" />
-          <folding>
-            <element signature="e#2828#2829#0" expanded="true" />
-            <element signature="e#2871#2872#0" expanded="true" />
-            <element signature="e#2902#2903#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="96" column="54" lean-forward="false" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="54" column="58" lean-forward="true" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="20" lean-forward="true" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="920">
-          <caret line="52" column="29" lean-forward="false" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
@@ -1328,16 +1034,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3740">
-          <caret line="187" column="45" lean-forward="false" selection-start-line="187" selection-start-column="45" selection-end-line="187" selection-end-column="45" />
           <folding />
         </state>
       </provider>
@@ -1350,94 +1046,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="87" lean-forward="true" selection-start-line="18" selection-start-column="87" selection-end-line="18" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1220">
           <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500799680794" expanded="false" signature="3325:3336" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3347:3353" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3396:3407" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3422:3428" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3489:3500" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3511:3517" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3559:3570" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3585:3591" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3626:3637" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3655:3661" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3717:3728" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3757:3763" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3792:3803" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3815:3821" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3865:3876" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3893:3899" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3929:3940" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3953:3959" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4005:4016" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4035:4041" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4082:4093" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4107:4113" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4171:4182" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4203:4209" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4252:4263" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4279:4285" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4347:4358" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4383:4389" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" column="109" lean-forward="false" selection-start-line="17" selection-start-column="109" selection-end-line="17" selection-end-column="109" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1445,57 +1068,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3640">
           <caret line="233" column="37" lean-forward="false" selection-start-line="233" selection-start-column="37" selection-end-line="233" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1506,48 +1079,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="20" column="32" lean-forward="false" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3580">
@@ -1579,13 +1122,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntityTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-434">
-          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntityTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-694">
@@ -1593,14 +1129,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/main.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="640">
@@ -1612,7 +1141,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="107" column="76" lean-forward="true" selection-start-line="107" selection-start-column="76" selection-end-line="107" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1620,19 +1148,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="125" lean-forward="false" selection-start-line="19" selection-start-column="125" selection-end-line="19" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
@@ -1640,30 +1160,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2872">
-          <caret line="206" column="81" lean-forward="false" selection-start-line="206" selection-start-column="81" selection-end-line="206" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/resources/testing.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="28" column="73" lean-forward="false" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="535">
@@ -1672,220 +1169,187 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="955">
-          <caret line="69" column="82" lean-forward="false" selection-start-line="69" selection-start-column="82" selection-end-line="69" selection-end-column="82" />
+        <state relative-caret-position="1029">
+          <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3135#3136#0" expanded="false" />
+            <element signature="e#3178#3179#0" expanded="false" />
+            <element signature="e#3428#3429#0" expanded="false" />
+            <element signature="e#3474#3475#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="93" column="50" lean-forward="false" selection-start-line="93" selection-start-column="50" selection-end-line="93" selection-end-column="50" />
+        <state relative-caret-position="252">
+          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/AbstractObserver.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/resources/testing.cfg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="28" column="73" lean-forward="false" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/ClassLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="423" column="0" lean-forward="false" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.0.0-M5/junit-jupiter-engine-5.0.0-M5.jar!/org/junit/jupiter/engine/descriptor/ClassTestDescriptor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="65" column="1" lean-forward="false" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="837">
+          <caret line="69" column="82" lean-forward="false" selection-start-line="69" selection-start-column="82" selection-end-line="69" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="245" column="29" lean-forward="false" selection-start-line="245" selection-start-column="29" selection-end-line="245" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
+        <state relative-caret-position="537">
           <caret line="50" column="45" lean-forward="false" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="504">
           <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-          <folding>
-            <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserDaoImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="53" column="7" lean-forward="false" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="98" column="35" lean-forward="false" selection-start-line="98" selection-start-column="35" selection-end-line="98" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="28" column="2" lean-forward="false" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1840">
+          <caret line="187" column="37" lean-forward="false" selection-start-line="187" selection-start-column="37" selection-end-line="187" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="80" column="1" lean-forward="false" selection-start-line="80" selection-start-column="1" selection-end-line="80" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
+        <state relative-caret-position="147">
+          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-95">
+          <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/GroupEntityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="79" column="7" lean-forward="false" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="119" column="7" lean-forward="false" selection-start-line="119" selection-start-column="7" selection-end-line="119" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500799680794" expanded="false" signature="3325:3336" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3347:3353" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3396:3407" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3422:3428" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3489:3500" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3511:3517" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3559:3570" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3585:3591" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3626:3637" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3655:3661" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3717:3728" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3757:3763" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3792:3803" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3815:3821" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3865:3876" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3893:3899" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3929:3940" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3953:3959" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4005:4016" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4035:4041" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4082:4093" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4107:4113" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4171:4182" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4203:4209" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4252:4263" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4279:4285" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4347:4358" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4383:4389" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-          <folding>
-            <element signature="e#2828#2829#0" expanded="true" />
-            <element signature="e#2871#2872#0" expanded="true" />
-            <element signature="e#2902#2903#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="200" column="21" lean-forward="false" selection-start-line="200" selection-start-column="21" selection-end-line="200" selection-end-column="21" />
+        <state relative-caret-position="252">
+          <caret line="15" column="51" lean-forward="false" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observable.java">
+    <entry file="file://$PROJECT_DIR$/tests/edu/kit/pse17/go_app/PersistenceLayer/UserEntityTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        <state relative-caret-position="306">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/AbstractObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="13" column="51" lean-forward="true" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#902#903#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#966#967#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
