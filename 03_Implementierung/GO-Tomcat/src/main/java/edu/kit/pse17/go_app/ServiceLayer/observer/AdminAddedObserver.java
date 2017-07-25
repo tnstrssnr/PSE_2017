@@ -8,7 +8,9 @@ import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AdminAddedObserver implements Observer {
 
@@ -38,7 +40,10 @@ public class AdminAddedObserver implements Observer {
         jsonObject.put("group_id", entity_ids.get(1));
         String data = jsonObject.toJSONString();
 
-        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getMembers());
-        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getRequests());
+        Set<UserEntity> receiver = new HashSet<>();
+        receiver.addAll(changedGroup.getMembers());
+        receiver.addAll(changedGroup.getRequests());
+
+        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, receiver);
     }
 }
