@@ -35,17 +35,19 @@ public class UserViewModel {
     * Gibt zurück die einzige Instanz der UserViewModel
     * */
     public static User getUserInstance(){
-
+        return null;
     }
 
     public LiveData<User> getUserData(String uId){
-
+        return null;
     }
     /*
     * Steht für andere VievModel Klassen zur Verfügung, wenn sie current UserId brauchen.
     *
     * */
-    public String getUserId(){}
+    public String getUserId(){
+        return null;
+    }
     /*
     * Löscht die User Daten aus dem Gerät und gibt weiter, dass, die Daten aus den
     * Datenbanken gelöscht werden

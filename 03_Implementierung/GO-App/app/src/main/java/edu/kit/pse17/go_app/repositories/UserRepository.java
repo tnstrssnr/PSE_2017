@@ -1,6 +1,5 @@
 package edu.kit.pse17.go_app.repositories;
 
-import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
 
 import java.util.concurrent.Executor;
@@ -31,18 +30,17 @@ public class UserRepository extends Repository<User>{
     }
 
     @Override
-    public LiveData<User> fetchData() {
+    public User fetchData() {
         return null;
     }
 
     @Override
-    public LiveData<User> getUpdatedData() {
+    public User getUpdatedData() {
         return null;
     }
     /*
     * Lösche den User mit uid.
     * */
-    public void deleteUser(String uid){
-        executor.; //Tomcat deleteUser request
+    public void deleteUser(String uid){//Tomcat deleteUser request
     }
 }

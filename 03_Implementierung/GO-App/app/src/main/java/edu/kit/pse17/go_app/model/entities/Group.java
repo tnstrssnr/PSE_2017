@@ -3,9 +3,12 @@ package edu.kit.pse17.go_app.model.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.graphics.drawable.Icon;
+import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import edu.kit.pse17.go_app.view.GroupListActivity;
 
 /**
  * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Gruppen-Objekte persistiert.
@@ -39,7 +42,7 @@ public class Group {
      * Das Bild der Gruppe
      */
     @Ignore
-    public Icon icon;
+    public Drawable icon;
 
     /**
      * Eine Liste mit allen Mitgliedern der Gruppe + Information ob das Mitglied ein Administrator ist
@@ -54,7 +57,12 @@ public class Group {
 
 
     public Group() {
-
+        this.name = "Default Name";
+        this.description = "Default Description";
+        this.memberCount = 0;
+        this.icon = GroupListActivity.default_group_icon;
+        this.membershipList = new ArrayList<>();
+        this.currentGos = new ArrayList<>();
     }
 
 
@@ -82,11 +90,11 @@ public class Group {
         this.description = description;
     }
 
-    public Icon getIcon() {
+    public Drawable getIcon() {
         return icon;
     }
 
-    public void setIcon(Icon icon) {
+    public void setIcon(Drawable icon) {
         this.icon = icon;
     }
 

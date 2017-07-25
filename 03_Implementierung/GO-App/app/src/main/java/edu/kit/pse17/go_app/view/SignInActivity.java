@@ -2,20 +2,21 @@ package edu.kit.pse17.go_app.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
 import edu.kit.pse17.go_app.login.GoSignInHelper;
 import edu.kit.pse17.go_app.login.SignInHelper;
-import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.User;
 
 /**
@@ -32,14 +33,19 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ID", FirebaseInstanceId.getInstance().getToken());
+        //Log.d("ID", FirebaseInstanceId.getInstance().getToken());
+        if(getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).contains("uid")){
+            GroupListActivity.start(this, retrieveUserDataFromSharedPreferences());
+        } else {
         setContentView(R.layout.simple_firebase_login);
+        //Log.d("REACHED","");
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
         //check for compatible Google Play Services APK!
 
         signInBtn = (SignInButton) this.findViewById(R.id.sign_in_button);
         signInBtn.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -57,7 +63,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         if (v.getId() == this.signInBtn.getId()) {
             FirebaseSignInHelper.signIn(this, FIREBASE_REQUEST_CODE, null, FirebaseSignInHelper.class);
-
+            FirebaseSignInHelper.signIn(this, GO_REQUEST_CODE, null, FirebaseSignInHelper.class);
         }
     }
 
@@ -69,16 +75,24 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             String[] accountData  = (String[]) data.getSerializableExtra(SignInHelper.ACCOUNT_DATA_CODE);
             String uid = accountData[0];
             String email = accountData[1];
+            FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
             Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
 
             //safe UID in local SharedPreferences!
-
+            getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).edit()
+                    .putString(getString(R.string.user_id), uid).putString(getString(R.string.user_email),email).apply();
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            User user = (User) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
-
-            GroupListActivity.start(this, user);
+            String[] accountData = (String[]) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
+            GroupListActivity.start(this, new User(accountData[0], accountData[1], accountData[1]));
 
         }
+    }
+
+    private User retrieveUserDataFromSharedPreferences(){
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE);
+        String uid = prefs.getString(getString(R.string.user_id), null);
+        String email = prefs.getString(getString(R.string.user_email),null);
+        return new User(uid, email, email);
     }
 }

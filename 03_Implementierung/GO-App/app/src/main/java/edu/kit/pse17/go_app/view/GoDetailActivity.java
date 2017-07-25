@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Go;
-import edu.kit.pse17.go_app.viewModel.GoListViewModel;
+import edu.kit.pse17.go_app.viewModel.GoViewModel;
 
 /**
  * die Activity ist zusammen mit der Layout File go_detail.xml Teil des Views, der dem user die Details eines Gos anzeigt.
@@ -24,6 +24,7 @@ public class GoDetailActivity extends BaseActivity {
     private TextView startTime;
     private TextView endTime;
     private TextView memberCount;
+    private static final String INDEX_INTENT_CODE = "index";
     /*
     * Knopf um den Teilnahmestatus in dem GO zu ändern.
     * */
@@ -33,7 +34,7 @@ public class GoDetailActivity extends BaseActivity {
      * Viewmodel Instanz, in der die dargestellten Daten der Aktivität gespeichert werden, um sie bei
      * Konfigurationsänderungen zu erhalten.
      */
-    private GoListViewModel viewModel;
+    private GoViewModel viewModel;
 
     /**
      * Lifecycle-Methode der Activity, die beim Erzeugen aufgreufen wird. Dem ContentView der App wird das richtige
@@ -48,13 +49,13 @@ public class GoDetailActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.go_details);
-
-        viewModel = ViewModelProviders.of(this).get(GoListViewModel.class);
-
-        viewModel.getGo().observe(this, new Observer<Go>() {
+        int index = getIntent().getIntExtra(INDEX_INTENT_CODE, -1);
+        viewModel = ViewModelProviders.of(this).get(GoViewModel.class);
+        viewModel.getGo(index).observe(this, new Observer<Go>() {
 
             @Override
-            public void onChanged(@Nullable Go go) {
+            public void onChanged(@Nullable Go  go) {
+                //update UI
                 displayData(go);
             }
         });
@@ -67,5 +68,6 @@ public class GoDetailActivity extends BaseActivity {
      */
     private void displayData(Go go) {
         //TODO: make XML elements display Go Daata
+
     }
 }

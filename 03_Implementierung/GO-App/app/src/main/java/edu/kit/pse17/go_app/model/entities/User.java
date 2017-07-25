@@ -1,9 +1,7 @@
 package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.graphics.drawable.Icon;
 
 import java.io.Serializable;
 
@@ -40,16 +38,21 @@ public class User implements Serializable {
 
     /**
      * Profilbild des Benutzers.
-     */
+     *//*
     @Ignore
-    private Icon icon;
+    private Drawable icon;*/
 
-    public User(String uid, String instanceId, String name, String email, Icon icon) {
+    public User(String uid, String name, String email) {
+        this.uid = uid;
+        this.name = name;
+        this.email = email;
+    }
+
+    public User(String uid, String instanceId, String name, String email) {
         this.uid = uid;
         this.instanceId = instanceId;
         this.name = name;
         this.email = email;
-        this.icon = icon;
     }
 
     public String getUid() {
@@ -84,11 +87,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Icon getIcon() {
+    /*public Drawable getIcon() {
         return icon;
     }
 
-    public void setIcon(Icon icon) {
+    public void setIcon(Drawable icon) {
         this.icon = icon;
-    }
+    }*/
 }

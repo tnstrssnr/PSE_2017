@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.viewModel;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.location.Location;
 
@@ -20,7 +21,7 @@ public class GoViewModel extends ViewModel{
     /*
     * Liste der Cluster. Wird benutzt um die Standorte anzuzeigen.
     * */
-    private LiveData<List<Cluster>> location;
+    private LiveData<Go> go;
     /*
     * Go Repository
     * */
@@ -39,9 +40,19 @@ public class GoViewModel extends ViewModel{
     * Anfrage für die Standoerte der Go-Teilnehmer, eigener Standort wird gleich in der
     * Methode auch geschickt.
     * */
-    public LiveData<List<Cluster>> getCluster(String userId,String groupId, Location location){}
+    public LiveData<List<Cluster>> getCluster(String userId,String groupId, Location location){
+        return null;
+    }
     /*
     * Ändere Daten für Go mit Id goid, id selbst darf nicht geändert werden.
     * */
     public void editGo(String goid, Go go){}
+
+    public LiveData<Go> getGo(int index){
+        Go goData = GroupViewModel.getCurrentViewModel().getGroup().getCurrentGos().get(index);
+        MutableLiveData<Go> liveGo = new MutableLiveData<>();
+        liveGo.postValue(goData);
+        go = liveGo;
+        return liveGo;
+    }
 }

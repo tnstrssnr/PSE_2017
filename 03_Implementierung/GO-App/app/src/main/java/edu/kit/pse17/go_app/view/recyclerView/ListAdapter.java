@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.view.recyclerView;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,6 @@ import java.util.List;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
-import edu.kit.pse17.go_app.view.recyclerView.ListViewHolder;
-import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**
  * Abstrakte Klasse, die Schablone für konkrete Adapter-Klassen bietet.
@@ -24,12 +23,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     /**
      * ListItems, die in dem RecyclerView angezeigt werden sollen
      */
-    protected List<ListItem> data;
+    private List<ListItem> data;
 
     /**
      * ClickListener für die Listenelemente
      */
-    protected final OnListItemClicked onListItemClicked;
+    private final OnListItemClicked onListItemClicked;
 
     /**
      * Konstruktor
@@ -62,7 +61,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         ListItem item = data.get(position);
         holder.title.setText(item.getTitle());
         holder.subtitle.setText(item.getSubtitle());
-        holder.icon.setImageIcon(item.getIcon());
+        //holder.icon.setImageDrawable(item.getIcon());
+
     }
 
     @Override
@@ -84,4 +84,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         data.add(item);
     }
 
+    public void clickRedirect(Activity activity, int position){
+
+    }
 }

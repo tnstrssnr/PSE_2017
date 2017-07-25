@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.view;
 
 import android.arch.lifecycle.LifecycleActivity;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * Die Base-Activity ist Oberklasse für alle weiteren Activities und kümmert sich um Funktionalität,
@@ -15,5 +14,7 @@ public class BaseActivity extends LifecycleActivity {
 
     //TODO implement
     // handle ProgressDialogs
-
+    public Class getNextActivity(){
+        return null;
+    };
 }

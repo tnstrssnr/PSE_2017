@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app;
+package edu.kit.pse17.go_app.сommand;
 
 /**
  * Created by tina on 06.07.17.
@@ -6,15 +6,14 @@ package edu.kit.pse17.go_app;
 
 /**
  * Diese Klasse implementiert einen Befehl, der bei der Veränderung der Daten
- * eines GOs ausgeführt wird.
+ * einer Gruppe ausgeführt wird.
  */
-public class GoEditedCommand extends ServerCommand {
+public class GroupEditedCommand extends ServerCommand {
 
     /**
      * Diese Methode ändert folgende Daten in Repositorien der App:
      *
-     * -Alle Mitglieder der Gruppe werden über die neuen Daten des GOs
-     * benachrichtigt.
+     * -Alle Mitglieder der Gruppe werden über die neuen Daten benachrichtigt.
      */
     @Override
     public void onCommandReceived() {

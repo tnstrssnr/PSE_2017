@@ -9,6 +9,7 @@ import java.util.concurrent.Executor;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
@@ -32,7 +33,7 @@ public class GoRepository extends Repository<List<Go>>{
     /**
      * Eine DAO zum komminizieren mit der lokalen go-Datenbankrelation
      */
-    private final GoDao goDao;
+    // private final GoDao goDao;
 
     /**
      * Ein executor-objekt, um Anfragen auf einem separaten Hintergrundthread ausführen zu können.
@@ -40,20 +41,19 @@ public class GoRepository extends Repository<List<Go>>{
     private final Executor executor;
 
     @Inject
-    public GoRepository(TomcatRestApi webService, GoDao goDao, Executor executor) {
+    public GoRepository(TomcatRestApi webService, /*GoDao godao*/ Executor executor) {
         this.webService = webService;
-        this.goDao = goDao;
         this.executor = executor;
     }
 
 
     @Override
-    public LiveData<List<Go>> fetchData() {
+    public List<Go> fetchData() {
         return null;
     }
 
     @Override
-    public LiveData<List<Go>> getUpdatedData() {
+    public List<Go> getUpdatedData() {
         return null;
     }
     /*
@@ -63,7 +63,9 @@ public class GoRepository extends Repository<List<Go>>{
     /*
     * Erhält die Locations zu dem go mit Id goId, und schickt gleich eigene Location
     * */
-    public LiveData<List<Cluster>> getLocations(String goId, Location location){}
+    public LiveData<List<Cluster>> getLocations(String goId, Location location){
+        return null;
+    }
     /*
     * Ändert die Informationen von Go mit goid - go.goid
     * */

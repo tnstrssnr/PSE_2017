@@ -1,12 +1,15 @@
 package edu.kit.pse17.go_app.view.recyclerView;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
+import edu.kit.pse17.go_app.view.BaseActivity;
 
-import static android.support.v7.widget.RecyclerView.*;
+import static android.support.v7.widget.RecyclerView.ViewHolder;
 
 /**
  * Die Klasse erzeugt ViewHolder-Objekte, die die Datenobjekt für die RecyclerView enthalten
@@ -31,6 +34,8 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener {
      */
     public ImageView icon;
 
+    private BaseActivity activity;
+
     /**
      * Konstruktor
      * @param itemView View, in der die Items angezeigt werden sollen
@@ -39,9 +44,11 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener {
     public ListViewHolder(View itemView, OnListItemClicked onListItemClicked) {
         super(itemView);
         this.onListItemClicked = onListItemClicked;
+        itemView.setOnClickListener(this);
         this.title = (TextView) itemView.findViewById(R.id.list_item_title);
         this.subtitle = (TextView) itemView.findViewById(R.id.list_item_subtitle);
         this.icon = (ImageView) itemView.findViewById(R.id.list_item_icon);
+        activity = (BaseActivity)itemView.getContext();
     }
 
     public ListViewHolder(View itemView) {
@@ -50,6 +57,12 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        onListItemClicked.onItemClicked(getAdapterPosition());
+        Log.d("CLICKED", "clicked at " + getAdapterPosition());
+        v.getId();
+        //if(v.getId() == )
+        Intent intent = new Intent(activity, activity.getNextActivity());
+        intent.putExtra("index", getAdapterPosition());
+        activity.startActivity(intent);
+        //GroupDetailActivity.start(activity, getAdapterPosition());
     }
 }

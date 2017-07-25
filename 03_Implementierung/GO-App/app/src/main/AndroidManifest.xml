@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.kit.pse17.go_app">
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>
+    <uses-sdk android:minSdkVersion="8"
+        android:targetSdkVersion="25"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
@@ -16,7 +17,6 @@
         <activity android:name=".view.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,6 +26,7 @@
         <activity android:name=".view.GroupDetailActivity" />
         <activity android:name=".view.GoDetailActivity" />
         <activity android:name=".view.SettingsActivity" />
+        <activity android:name=".view.GroupDetailsActivity"/>
 
         <uses-permission android:name="android.permission.INTERNET" />
 
@@ -44,8 +45,8 @@
             </intent-filter>
 
         </service>
-        <service android:name=".commands.ServiceCommand" />
-        <service android:name=".commands.DeleteUserCommand" />
+        <service android:name=".command.ServerCommand" />
+        <service android:name=".command.UserDeletedCommand" />
     </application>
 
 </manifest>

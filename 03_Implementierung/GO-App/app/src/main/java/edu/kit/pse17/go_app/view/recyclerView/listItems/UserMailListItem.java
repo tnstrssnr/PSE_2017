@@ -1,6 +1,6 @@
 package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
-import android.graphics.drawable.Icon;
+import android.graphics.drawable.Drawable;
 
 import edu.kit.pse17.go_app.model.entities.User;
 
@@ -14,18 +14,17 @@ public class UserMailListItem implements ListItem<String> {
 
     private String title;
     private String email;
-    private Icon icon;
+    /*private Drawable icon;*/
 
     /**
      * Konstruktor
      * @param title Benutzername
      * @param email EMail-Adresse, die zur Anmeldung verwendet wurde
-     * @param icon Profilbild
      */
-    public UserMailListItem(String title, String email, Icon icon) {
+    public UserMailListItem(String title, String email) {
         this.title = title;
         this.email = email;
-        this.icon = icon;
+
     }
 
     /**
@@ -35,7 +34,6 @@ public class UserMailListItem implements ListItem<String> {
     public UserMailListItem(User user) {
         title = user.getName();
         email = user.getEmail();
-        icon = user.getIcon();
     }
 
     @Override
@@ -58,13 +56,13 @@ public class UserMailListItem implements ListItem<String> {
         this.email = s;
     }
 
-    @Override
-    public Icon getIcon() {
+    /*@Override
+    public Drawable getIcon() {
         return icon;
     }
 
     @Override
-    public void setIcon(Icon icon) {
+    public void setIcon(Drawable icon) {
         this.icon = icon;
-    }
+    }*/
 }

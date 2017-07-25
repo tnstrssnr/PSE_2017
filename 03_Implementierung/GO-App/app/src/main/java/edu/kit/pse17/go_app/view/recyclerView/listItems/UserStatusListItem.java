@@ -1,9 +1,9 @@
 package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
-import android.graphics.drawable.Icon;
+import android.graphics.drawable.Drawable;
 
-import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.Status;
+import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.User;
 
 /**
@@ -21,7 +21,7 @@ public class UserStatusListItem implements ListItem<Status> {
 
     private String title;
     private Status status;
-    private Icon icon;
+    private Drawable icon;
 
     /**
      * Konstruktor
@@ -29,7 +29,7 @@ public class UserStatusListItem implements ListItem<Status> {
      * @param status Status des Users
      * @param icon Profilbild
      */
-    public UserStatusListItem(String title, Status status, Icon icon) {
+    public UserStatusListItem(String title, Status status, Drawable icon) {
         title = title;
         status = status;
         icon = icon;
@@ -37,8 +37,8 @@ public class UserStatusListItem implements ListItem<Status> {
 
     public UserStatusListItem(User user, Go go) {
         this.title = user.getName();
-        this.icon = user.getIcon();
-        this.status = go.getUserStatus(user);
+        //this.icon = user.getIcon();
+        this.status = go.getUserStatus();
     }
 
 
@@ -62,13 +62,13 @@ public class UserStatusListItem implements ListItem<Status> {
         this.status = s;
     }
 
-    @Override
-    public Icon getIcon() {
+    /*@Override
+    public Drawable getIcon() {
         return icon;
     }
 
     @Override
-    public void setIcon(Icon icon) {
+    public void setIcon(Drawable icon) {
         this.icon = icon;
-    }
+    }*/
 }

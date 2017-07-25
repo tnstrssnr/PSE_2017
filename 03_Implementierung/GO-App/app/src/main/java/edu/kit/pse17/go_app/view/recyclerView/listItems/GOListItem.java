@@ -1,6 +1,6 @@
 package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
-import android.graphics.drawable.Icon;
+import android.graphics.drawable.Drawable;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class GOListItem implements ListItem<Date> {
 
     private String name;
     private Date start;
-    private Icon icon;
+    private Drawable icon;
 
     /**
      * Konstruktor
@@ -27,7 +27,7 @@ public class GOListItem implements ListItem<Date> {
      * @param start Startzeitpunkt des GOs
      * @param icon Go-Icon
      */
-    public GOListItem(String name, Date start, Icon icon) {
+    public GOListItem(String name, Date start, Drawable icon) {
         this.name = name;
         this.start = start;
         this.icon = icon;
@@ -63,13 +63,13 @@ public class GOListItem implements ListItem<Date> {
         this.start = date;
     }
 
-    @Override
-    public Icon getIcon() {
+    /*@Override
+    public Drawable getIcon() {
         return null;
     }
 
     @Override
-    public void setIcon(Icon icon) {
+    public void setIcon(Drawable icon) {
 
-    }
+    }*/
 }

@@ -55,7 +55,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/go_name"
+                android:text="@string/event_name"
                 android:textAppearance="@android:style/TextAppearance.Material.Title"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"

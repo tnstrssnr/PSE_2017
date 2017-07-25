@@ -3,11 +3,22 @@
     <string name="heading">Deine Gruppen</string>
     <string name="members">Members</string>
     <string name="multi_line_group_description">multi line group description ansdjlfvbjldeqbernjbfnqjlenljbqeljbrngjlqrebjnqjenrl sdnfjlqnjgblqe</string>
-    <string name="go_name">Event Name</string>
+    <string name="event_name">Event Name</string>
     <string name="einstellungen">Einstellungen</string>
     <string name="profildaten_ndern">Profildaten ändern</string>
     <string name="go_info">Über GO</string>
     <string name="lizenzinformationen">Lizenzinformationen</string>
     <string name="abmelden">Abmelden</string>
     <string name="profil_l_schen">Profil löschen</string>
+    <string name="shared_pref_name">USER_DATA</string>
+    <string name="user_id">uid</string>
+    <string name="user_email">email</string>
+    <string name="create_group">Create group</string>
+    <string name="group_description">Group description</string>
+    <string name="group_name">Group name</string>
+    <string name="go_name">Go name</string>
+    <string name="go_description">Go description</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="go_added_intent_action">go_added</string>
 </resources>

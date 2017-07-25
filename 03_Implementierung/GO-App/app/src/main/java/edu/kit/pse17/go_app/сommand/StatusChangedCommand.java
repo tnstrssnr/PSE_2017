@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app;
+package edu.kit.pse17.go_app.сommand;
 
 /**
  * Created by Сеня on 09.07.2017.

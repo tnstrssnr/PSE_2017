@@ -35,7 +35,6 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
-
     /**
      * Implementierung gehört zur Schablonenmethode signIn()
      */
@@ -94,6 +93,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
 
     private void firebaseAuth(GoogleSignInAccount acct) {
         AuthCredential cred = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
         mAuth.signInWithCredential(cred)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

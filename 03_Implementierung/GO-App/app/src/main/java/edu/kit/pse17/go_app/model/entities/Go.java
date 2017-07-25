@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.model.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,8 +78,12 @@ public class Go {
      * Eine Liste mit dem UserStatus jedes Gruppenmitglieds der Gruppe des GOs
      */
     private List<UserGoStatus> participantsList;
+    private List<Cluster> locations;
 
     public Go() {
+        this.name = "Default Go Name";
+        this.participantsList = new ArrayList<>();
+        this.locations = new ArrayList<>();
     }
 
     public long getId() {
