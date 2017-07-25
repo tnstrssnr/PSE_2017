@@ -37,7 +37,7 @@ public class GoEntity {
      * Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "group_id", unique = true, nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private GroupEntity group;
 
 
@@ -48,7 +48,7 @@ public class GoEntity {
      * Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner", unique = true)
+    @JoinColumn(name = "owner")
     private UserEntity owner;
 
     /**

@@ -48,210 +48,41 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
+      <file leaf-file-name="FcmClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
+            <state relative-caret-position="1000">
+              <caret line="56" column="53" lean-forward="false" selection-start-line="56" selection-start-column="53" selection-end-line="56" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1700">
+              <caret line="106" column="27" lean-forward="false" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MemberRemovedObserver.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="766">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1500799680794" expanded="false" signature="3325:3336" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3347:3353" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3396:3407" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3422:3428" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3489:3500" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3511:3517" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3559:3570" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3585:3591" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3626:3637" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3655:3661" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3717:3728" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3757:3763" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3792:3803" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3815:3821" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3865:3876" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3893:3899" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="3929:3940" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="3953:3959" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4005:4016" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4035:4041" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4082:4093" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4107:4113" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4171:4182" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4203:4209" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4252:4263" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4279:4285" ph=" }" />
-                <marker date="1500799680794" expanded="false" signature="4347:4358" ph=" { " />
-                <marker date="1500799680794" expanded="false" signature="4383:4389" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-              <folding>
-                <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-                <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-                <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupDaoImp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-              <folding>
-                <element signature="e#2828#2829#0" expanded="true" />
-                <element signature="e#2871#2872#0" expanded="true" />
-                <element signature="e#2902#2903#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupDaoImpTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#902#903#0" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#966#967#0" expanded="true" />
-                <element signature="e#1036#1037#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Observer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="13" column="51" lean-forward="true" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Observable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="200" column="21" lean-forward="false" selection-start-line="200" selection-start-column="21" selection-end-line="200" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoEntityTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntityTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2380">
-              <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="50" column="45" lean-forward="false" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-                <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-                <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
+                <element signature="e#686#687#0" expanded="true" />
+                <element signature="e#717#718#0" expanded="true" />
+                <element signature="e#767#768#0" expanded="true" />
+                <element signature="e#807#808#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -292,18 +123,30 @@
         <option value="$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java" />
         <option value="$PROJECT_DIR$/src/main/resources/testing.cfg.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImpTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/AbstractObserver.java" />
         <option value="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java" />
+        <option value="$PROJECT_DIR$/dataset.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/Observer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java" />
       </list>
     </option>
   </component>
@@ -340,9 +183,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -376,6 +218,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -519,8 +379,175 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="go_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ServiceLayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="observer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="go_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PersistenceLayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="go_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PersistenceLayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="daos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="go_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ClientCommunication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Upstream" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GO-Tomcat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="go_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ClientCommunication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Downstream" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -903,6 +930,28 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
       <method />
     </configuration>
@@ -1069,12 +1118,18 @@
       <workItem from="1500378289646" duration="5900000" />
       <workItem from="1500386522974" duration="2064000" />
       <workItem from="1500753068247" duration="4122000" />
-      <workItem from="1500796449853" duration="7894000" />
+      <workItem from="1500796449853" duration="8250000" />
+      <workItem from="1500887795181" duration="3425000" />
+      <workItem from="1500896902870" duration="943000" />
+      <workItem from="1500904409189" duration="2777000" />
+      <workItem from="1500915909075" duration="3072000" />
+      <workItem from="1500920110608" duration="690000" />
+      <workItem from="1500968431604" duration="247000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20989000" />
+    <option name="totallyTimeSpent" value="32499000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -1093,27 +1148,27 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.5055292" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1167,277 +1222,11 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="29" />
-          <folding>
-            <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1900">
-          <caret line="107" column="52" lean-forward="false" selection-start-line="107" selection-start-column="52" selection-end-line="107" selection-end-column="52" />
-          <folding>
-            <element signature="e#2828#2829#0" expanded="true" />
-            <element signature="e#2871#2872#0" expanded="true" />
-            <element signature="e#2902#2903#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="96" column="54" lean-forward="false" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="54" column="58" lean-forward="true" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="20" lean-forward="true" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="920">
-          <caret line="52" column="29" lean-forward="false" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3740">
-          <caret line="187" column="45" lean-forward="false" selection-start-line="187" selection-start-column="45" selection-end-line="187" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4200">
-          <caret line="224" column="5" lean-forward="true" selection-start-line="224" selection-start-column="5" selection-end-line="224" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="87" lean-forward="true" selection-start-line="18" selection-start-column="87" selection-end-line="18" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1220">
-          <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500799680794" expanded="false" signature="3325:3336" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3347:3353" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3396:3407" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3422:3428" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3489:3500" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3511:3517" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3559:3570" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3585:3591" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3626:3637" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3655:3661" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3717:3728" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3757:3763" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3792:3803" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3815:3821" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3865:3876" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3893:3899" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3929:3940" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3953:3959" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4005:4016" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4035:4041" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4082:4093" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4107:4113" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4171:4182" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4203:4209" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4252:4263" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4279:4285" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4347:4358" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4383:4389" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" column="109" lean-forward="false" selection-start-line="17" selection-start-column="109" selection-end-line="17" selection-end-column="109" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1445,57 +1234,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3640">
           <caret line="233" column="37" lean-forward="false" selection-start-line="233" selection-start-column="37" selection-end-line="233" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1506,48 +1244,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="20" column="32" lean-forward="false" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3580">
@@ -1567,7 +1277,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2380">
           <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1575,7 +1284,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1593,14 +1301,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/main.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="640">
@@ -1608,180 +1309,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/EntityAddedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="107" column="76" lean-forward="true" selection-start-line="107" selection-start-column="76" selection-end-line="107" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/persistence.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="125" lean-forward="false" selection-start-line="19" selection-start-column="125" selection-end-line="19" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2872">
-          <caret line="206" column="81" lean-forward="false" selection-start-line="206" selection-start-column="81" selection-end-line="206" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GoEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserEntity.hbm.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/GroupEntity.hbm.xml" />
     <entry file="file://$PROJECT_DIR$/test/resources/testing.cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="28" column="73" lean-forward="false" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="955">
-          <caret line="69" column="82" lean-forward="false" selection-start-line="69" selection-start-column="82" selection-end-line="69" selection-end-column="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="93" column="50" lean-forward="false" selection-start-line="93" selection-start-column="50" selection-end-line="93" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="50" column="45" lean-forward="false" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500800255436" expanded="false" signature="7369:7380" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7390:7396" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7428:7439" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7452:7458" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7493:7504" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7517:7523" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7568:7579" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7598:7604" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7633:7644" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7656:7662" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7700:7711" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7728:7734" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7770:7781" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7800:7806" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7858:7869" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7900:7906" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="7934:7945" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="7958:7964" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8002:8013" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8032:8038" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8064:8075" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8086:8092" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8126:8137" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8152:8158" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8184:8195" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8206:8212" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8246:8257" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8272:8278" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8304:8315" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8326:8332" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8366:8377" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8392:8398" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8442:8453" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8471:8477" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8536:8547" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8576:8582" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8629:8640" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8661:8667" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8732:8743" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8778:8784" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8827:8838" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8855:8861" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8918:8929" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="8956:8962" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="8996:9007" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9020:9026" ph=" }" />
-            <marker date="1500800255436" expanded="false" signature="9070:9081" ph=" { " />
-            <marker date="1500800255436" expanded="false" signature="9100:9106" ph=" }" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="480">
           <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-          <folding>
-            <marker date="1500800336354" expanded="false" signature="5589:5600" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5610:5616" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5648:5659" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5672:5678" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5707:5718" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5730:5736" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5774:5785" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5802:5808" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5844:5855" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5874:5880" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="5932:5943" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="5974:5980" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6021:6032" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6047:6053" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6106:6117" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6140:6146" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6186:6197" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6211:6217" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6268:6279" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6300:6306" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6348:6359" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6375:6381" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6436:6447" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6472:6478" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6513:6524" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6535:6541" ph=" }" />
-            <marker date="1500800336354" expanded="false" signature="6584:6595" ph=" { " />
-            <marker date="1500800336354" expanded="false" signature="6610:6616" ph=" }" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1789,102 +1337,199 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2380">
           <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
+        <state relative-caret-position="720">
           <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500799680794" expanded="false" signature="3325:3336" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3347:3353" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3396:3407" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3422:3428" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3489:3500" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3511:3517" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3559:3570" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3585:3591" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3626:3637" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3655:3661" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3717:3728" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3757:3763" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3792:3803" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3815:3821" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3865:3876" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3893:3899" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="3929:3940" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="3953:3959" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4005:4016" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4035:4041" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4082:4093" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4107:4113" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4171:4182" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4203:4209" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4252:4263" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4279:4285" ph=" }" />
-            <marker date="1500799680794" expanded="false" signature="4347:4358" ph=" { " />
-            <marker date="1500799680794" expanded="false" signature="4383:4389" ph=" }" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/AbstractObserver.java" />
+    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-          <folding>
-            <element signature="e#2828#2829#0" expanded="true" />
-            <element signature="e#2871#2872#0" expanded="true" />
-            <element signature="e#2902#2903#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="280">
+          <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="200" column="21" lean-forward="false" selection-start-line="200" selection-start-column="21" selection-end-line="200" selection-end-column="21" />
+        <state relative-caret-position="620">
+          <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/resources/dataset.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="16" column="40" lean-forward="false" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="39" column="34" lean-forward="false" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
+        <state relative-caret-position="180">
           <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/EntityAddedObserver.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GroupAddedObserver.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoAddedObserver.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/EventArg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="42" column="81" lean-forward="false" selection-start-line="42" selection-start-column="81" selection-end-line="42" selection-end-column="81" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/AbstractObserver.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        <state relative-caret-position="100">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4500">
+          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/Observer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="13" column="51" lean-forward="true" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupDaoImpTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+        <state relative-caret-position="440">
+          <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#902#903#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#966#967#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3700">
+          <caret line="202" column="0" lean-forward="false" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="74" column="47" lean-forward="false" selection-start-line="74" selection-start-column="47" selection-end-line="74" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1000">
+          <caret line="56" column="53" lean-forward="false" selection-start-line="56" selection-start-column="53" selection-end-line="56" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="740">
+          <caret line="41" column="83" lean-forward="false" selection-start-line="41" selection-start-column="83" selection-end-line="41" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="40" column="90" lean-forward="false" selection-start-line="40" selection-start-column="90" selection-end-line="40" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="35" column="90" lean-forward="false" selection-start-line="35" selection-start-column="90" selection-end-line="35" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="36" column="81" lean-forward="false" selection-start-line="36" selection-start-column="81" selection-end-line="36" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-374">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="40" column="86" lean-forward="false" selection-start-line="40" selection-start-column="86" selection-end-line="40" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="740">
+          <caret line="41" column="79" lean-forward="true" selection-start-line="41" selection-start-column="79" selection-end-line="41" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="106" column="27" lean-forward="false" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="766">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#717#718#0" expanded="true" />
+            <element signature="e#767#768#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1948,7 +1593,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

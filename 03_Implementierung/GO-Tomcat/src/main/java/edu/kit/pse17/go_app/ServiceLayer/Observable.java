@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
+
 /**
  * Dieses Interface ist Teil einer Implementierung eines Beobachter-Entwurfsmusters. Es übernimmt die Rolle
  * des abstrakten Subjekts. Es muss von allen Klassen, die beobachtet werden müssen implementiert werden.

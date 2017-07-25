@@ -3,7 +3,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
-import edu.kit.pse17.go_app.ServiceLayer.Observer;
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,7 +88,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
     @Override
     public void notify(final String impCode, final Observable observable, final UserEntity userEntity) {
         for (final Observer observer : this.observer) {
-            observer.update(impCode, observable, userEntity);
+
         }
     }
 

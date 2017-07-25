@@ -1,9 +1,12 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import org.apache.http.client.HttpClient;
+import org.json.simple.JSONObject;
 
 
 import java.util.List;
+import java.util.Set;
 
 /**
  *Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird.
@@ -49,9 +52,10 @@ public class FcmClient {
      *                String bestimmt, an welche Command-Klasse auf dem Client die Nachricht weitergeleitet wird.
      * @param receiver Eine Liste mit den InstaceIds der Clients,an die die Nachricht geschickt werden soll. dabei muss es sich um gültige
      *                 InstanceIds handeln, sonst kann die Methode nicht fehlerfrei ausgeführt werden.
+     */
 
-    public void send(JsonObject data, String command, List<String> receiver) {
+    public void send(String data, EventArg command, Set<UserEntity> receiver) {
 
     }
-    */
+
 }

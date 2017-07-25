@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.*;
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,7 +93,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
     @Override
     public void notify(final String impCode, final Observable observable, final Object o) {
         for (final Observer observer : this.observer) {
-            observer.update(impCode, observable, o);
         }
     }
 
@@ -142,7 +142,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
             id = (Long) session.save(entity);
             tx.commit();
             entity.setID(id);
-            notify(EntityAddedObserver.OBSERVER_CODE, this, entity);
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -161,7 +160,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
             tx = session.beginTransaction();
             session.delete(group);
             tx.commit();
-            notify(EntityRemovedObserver.OBSERVER_CODE, this, group);
+
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         }
@@ -181,7 +180,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
 
             session.update(groupEntity);
             tx.commit();
-            notify(EntityChangedObserver.OBSERVER_CODE, this, groupEntity);
+
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
@@ -201,7 +200,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
                 group.getMembers().add(user);
             }
             tx.commit();
-            notify(EntityAddedObserver.OBSERVER_CODE, this, user);
+
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);

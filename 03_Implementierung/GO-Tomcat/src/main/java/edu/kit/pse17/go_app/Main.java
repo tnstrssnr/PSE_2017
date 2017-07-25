@@ -1,12 +1,27 @@
 package edu.kit.pse17.go_app;
 
+import com.google.gson.Gson;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.*;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.database.QueryDataSet;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.hibernate.SessionFactory;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Die Main-Klasse der Server-Anwendung. In ihr wird keine Anwendungslogik ausgeführt.
@@ -26,49 +41,107 @@ public class Main {
      *
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws DatabaseUnitException, FileNotFoundException {
 
         final org.hibernate.cfg.Configuration config = new org.hibernate.cfg.Configuration();
         final SessionFactory sf = config.configure().buildSessionFactory();
-        final UserEntity user = new UserEntity();
 
         final UserDao userDao = new UserDaoImp(sf);
         final GroupDao groupDao = new GroupDaoImp(sf);
         final GoDao goDao = new GoDaoImp(sf);
 
-        user.setEmail("bob@test.com");
-        user.setName("bob");
-        user.setUid("testid");
-        user.setInstanceId("instanceId");
-        user.setGroups(null);
+        UserEntity bob = new UserEntity();
+        bob.setName("Bob");
+        bob.setInstanceId("testInstance_1");
+        bob.setEmail("bob@testmail.com");
+        bob.setUid("testid_1");
+        bob.setGos(new HashSet<>());
 
-        userDao.persist(user);
+        UserEntity alice = new UserEntity();
+        alice.setName("Alice");
+        alice.setUid("testid_2");
+        alice.setEmail("alice@testmail.com");
+        alice.setInstanceId("testInstance_2");
+        alice.setGos(new HashSet<>());
 
-        final GroupEntity group = new GroupEntity();
-        group.setName("TestGruppe");
-        group.setDescription("sdfgkslödfkspäerk");
-        group.setMembers(new HashSet<>());
-        group.setAdmins(new HashSet<>());
+        userDao.persist(bob);
+        userDao.persist(alice);
 
-        groupDao.persist(group);
-        groupDao.addGroupMember(user.getUid(), group.getID());
-        final GroupEntity groupP = groupDao.get((long) 1);
+        GroupEntity foo = new GroupEntity();
+        foo.setName("Foo");
+        foo.setDescription("Test Descritpion");
+        Set<UserEntity> admins = new HashSet<>();
+        admins.add(bob);
+        Set<UserEntity> members = new HashSet<>();
+        members.add(alice);
+        members.add(bob);
+        foo.setAdmins(admins);
+        foo.setMembers(members);
+        foo.setGos(new HashSet<>());
 
-        groupP.setName("NewName");
-        groupDao.update(groupP);
+        GroupEntity bar = new GroupEntity();
+        bar.setName("Bar");
+        bar.setDescription("Test Description");
+        HashSet<UserEntity> barAdmins = new HashSet<>();
+        barAdmins.add(alice);
+        Set<UserEntity> requests = new HashSet<>();
+        Set<UserEntity> barMembers = new HashSet<>();
+        barMembers.add(alice);
+        requests.add(bob);
+        bar.setAdmins(barAdmins);
+        bar.setMembers(barMembers);
+        bar.setRequests(requests);
+        bar.setGos(new HashSet<>());
 
-        final UserEntity user2 = userDao.get(user.getUid());
-        GroupEntity group2 = (GroupEntity) user2.getGroups().toArray()[0];
-        System.out.println(group2.getMembers().toArray()[0]);
+        groupDao.persist(foo);
+        groupDao.persist(bar);
 
+        GoEntity lunch = new GoEntity(foo, bob, "lunch", "test description", new Date(2017, 7, 30), new Date(2017, 8, 1), 0l, 0l);
+        GoEntity dinner = new GoEntity(foo, alice, "dinner", "test description", new Date(2017, 7, 30), new Date(2017, 8, 1), 0l, 0l);
+        goDao.persist(lunch);
+        goDao.persist(dinner);
+        lunch.setNotGoingUsers(null);
+        lunch.setGoneUsers(null);
+        lunch.setGoingUsers(null);
+        lunch.setOwner(null);
+        lunch.setGroup(null);
+        System.out.println(new Gson().toJson(lunch));
 
-        GoEntity go = new GoEntity(group2, user2, "testgo", "sdfsdfsdf", null, null, (long) 12, (long) 12);
-        goDao.persist(go);
-        GroupEntity group3 = groupDao.get(group2.getID());
-        System.out.println(group3.getGos().size());
+        /**
+        Class driverClass;
+        try {
+            driverClass =  Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection jdbcConnection = null;
+        try {
+            jdbcConnection = DriverManager.getConnection("jdbc:mysql://localhost/pse_development", "root", "69h97jnv");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-        System.out.println(userDao.get(user2.getUid()).getGos().toArray().length);
+        QueryDataSet dataSet = null;
 
-        //sf.close();
+            dataSet = new QueryDataSet(connection);
+            dataSet.addTable("USERS");
+            dataSet.addTable("GOS");
+            dataSet.addTable("GROUPS");
+            dataSet.addTable("ADMINS");
+            dataSet.addTable("GOING_USERS");
+            dataSet.addTable("GONE_USERS");
+            dataSet.addTable("NOT_GOING_USERS");
+            dataSet.addTable("MEMBERS");
+            dataSet.addTable("REQUESTS");
+            dataSet.addTable("hibernate_sequence");
+
+        try {
+            FlatXmlDataSet.write(dataSet, new FileOutputStream("dataset.xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         */
+
     }
 }

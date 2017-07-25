@@ -1,7 +1,7 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
-import edu.kit.pse17.go_app.ServiceLayer.Observer;
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

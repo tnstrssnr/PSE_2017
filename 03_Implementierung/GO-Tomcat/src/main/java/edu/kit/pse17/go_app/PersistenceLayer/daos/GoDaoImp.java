@@ -4,10 +4,9 @@ import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
-import edu.kit.pse17.go_app.ServiceLayer.Observer;
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -74,7 +73,6 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
     @Override
     public void notify(String impCode, Observable observable, GoEntity goEntity) {
         for(Observer observer: this.observer) {
-            observer.update(impCode, this, goEntity);
         }
     }
 
