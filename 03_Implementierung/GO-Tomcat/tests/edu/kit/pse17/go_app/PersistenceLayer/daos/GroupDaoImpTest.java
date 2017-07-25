@@ -1,5 +1,6 @@
-package edu.kit.pse17.go_app.PersistenceLayer;
+package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.SessionFactory;
