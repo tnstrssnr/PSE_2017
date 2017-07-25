@@ -1,0 +1,114 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage{ifpdf}
+\usepackage[headings]{fullpage}
+\usepackage{listings}
+\lstset{language=Java,breaklines=true}
+\ifpdf \usepackage[pdftex, pdfpagemode={UseOutlines},bookmarks,colorlinks,linkcolor={blue},plainpages=false,pdfpagelabels,citecolor={red},breaklinks=true]{hyperref}
+  \usepackage[pdftex]{graphicx}
+  \pdfcompresslevel=9
+  \DeclareGraphicsRule{*}{mps}{*}{}
+\else
+  \usepackage[dvips]{graphicx}
+\fi
+
+\newcommand{\entityintro}[3]{%
+  \hbox to \hsize{%
+    \vbox{%
+      \hbox to .2in{}%
+    }%
+    {\bf  #1}%
+    \dotfill\pageref{#2}%
+  }
+  \makebox[\hsize]{%
+    \parbox{.4in}{}%
+    \parbox[l]{5in}{%
+      \vspace{1mm}%
+      #3%
+      \vspace{1mm}%
+    }%
+  }%
+}
+\newcommand{\refdefined}[1]{
+\expandafter\ifx\csname r@#1\endcsname\relax
+\relax\else
+{$($in \ref{#1}, page \pageref{#1}$)$}\fi}
+\date{\today}
+\chardef\textbackslash=`\\
+\usepackage{pdfpages}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{fancyhdr}%<-------------to control headers and footers
+\usepackage[a4paper,margin=1in,footskip=.25in]{geometry}
+\fancyhf{}
+\fancyfoot[C]{\thepage} %<----to get page number below text
+\pagestyle{fancy} %<-------the page style itself
+
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{220,220,220}
+\usepackage{float}
+
+
+\title{Android GO! App - Implementierung}
+\author{Gruppe 3}
+\date{20.08.17}
+
+% define custom lists
+\usepackage{enumitem}
+\usepackage{lipsum}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+	{\scshape\LARGE \bfseries Implementierungsbericht \par}
+	\vspace{1cm}
+	{\scshape\Large Praktikum der Softwareentwicklung \\ Sommersemester 2017\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Android GO! App\par}
+	\vspace{2cm}
+	{\Large\itshape - Gruppe 3 -\par}
+	\vfill
+	{\bfseries erstellt von:\par}
+	Arsenii Dunaev \\
+	Florian Kröger \\
+	Tina Maria Strößner \\
+	Volodymyr Shpylka \\	
+	\vfill
+	% Bottom of the page
+	{\large 20.08.17 \par}	
+	\end{center}
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Änderungen zum Pflichtenheft und Entwurf}
+
+\newpage
+
+\section{Ablauf}
+
+\newpage
+
+\section{Unittests}
+
+\subsection{Server}
+
+\subsubsection*{Tests für Observer-Klassen}
+
+\end{document}
+\grid
