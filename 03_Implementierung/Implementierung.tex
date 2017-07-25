@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,a4paper]{scrartcl}
 \usepackage{color}
 \usepackage{ifthen}
 \usepackage{ifpdf}
@@ -108,7 +108,23 @@
 
 \subsection{Server}
 
-\subsubsection*{Tests für Observer-Klassen}
+\subsubsection{Testdaten}\label{Testdaten}
+Für die Unittests des Servers wurden testdaten verwendet, die sowohl in eine Testdatenbank gespeichert wurden, als auch als Java-Objekte über die Klasse 'TestData'.
+
+\subsubsection{Tests für Observer-Klassen}
+Die Tests der Observer-Klassen sind in der Testklasse 'ObserverTest' zusammengefasst. Für jede Observer-Klasse muss die öffentliche Methode \textit{update()} getestset werden.
+Um die Korrektheit der Methode zu überprüfen, wird getestet, ob der Methodenaufruf \textit{send(String data, EventArg arg, Set<UserEntity> receiver)} korrekt ausgeführt wird. Korrekt hei"st in diesem Fall, dass der Methodenaufruf erfolgt und die übergebenen Argumente den Vorgaben entsprechen.
+
+Das Argument \textit{data} ist ein Json-String, der wie im Entwurfsdokunment beschrieben aufgebaut ist. Das Argument \textit{arg} ist ein Element des Enums \textit{EventArg} und repräsentiert, die aufgetretene Änderung. Das Set \textit{receiver} enthält alle user, an die eine Benachrichtigung geschickt werden soll.\\
+
+\textbf{Testressourcen}\\
+Für die Tests der Klasse 'ObserverTest' werden Mock-Objekte der Dao-Klassen verwerndet. Diese sind mit dem Framework 'Mockito' erstellt und so konfiguriert, das bei Aufruf der Methode \textit{get({Long | String} key)} (Methode des AbstractDao Interfaces) ein zuvor definiertes TestObjekt zurückgegeben wird. Die verwendeten Testobjekte stammen aus der Klasse 'TestData', die für die Bereitstellung von Testobjekten zuständig ist (siehe \ref{Testdaten}).\\
+
+Das FcmClient-Attribut der Observer-Klassen wird in den test ebenfalls gemockt und so konfiguriert, das bei einem Methodenaufruf von \textit{send(...)} die übergebenen Argumente in Feldern der ObserverTest-Klasse gespeichert werden, so dass diese anschließend mit den erwarteten Werten verglichen werden können.\\
+
+\textbf{Erwartete Ergebnisse}\\
+Die Ergebnisse, die bei Testausführung erwartet werden, sind als statische Felder in der Testklasse gespeichert. Dazu gehören die erwarteten Json-Strings und die Receiver der send()-Methode.
+Die erwarteten Ergebniss wurden, teils händisch, anhand des Entwurfsdokuments aus den in TestData definierten Testdaten generiert. Sie sind nur gültig, solange keine Änderungen an diesen Daten vorgenommen werden.
 
 \end{document}
 \grid
