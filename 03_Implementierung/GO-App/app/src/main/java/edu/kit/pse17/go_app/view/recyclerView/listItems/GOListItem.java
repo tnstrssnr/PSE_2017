@@ -2,8 +2,6 @@ package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
 import android.graphics.drawable.Drawable;
 
-import java.util.Date;
-
 import edu.kit.pse17.go_app.model.entities.Go;
 
 
@@ -13,12 +11,12 @@ import edu.kit.pse17.go_app.model.entities.Go;
  * Created by tina on 17.06.17.
  */
 
-public class GOListItem implements ListItem<Date> {
+public class GOListItem implements ListItem<String> {
 
     private static final String SUBTITLE_TEXT = "Startzeitpunkt: ";
 
     private String name;
-    private Date start;
+    private String start;
     private Drawable icon;
 
     /**
@@ -27,7 +25,7 @@ public class GOListItem implements ListItem<Date> {
      * @param start Startzeitpunkt des GOs
      * @param icon Go-Icon
      */
-    public GOListItem(String name, Date start, Drawable icon) {
+    public GOListItem(String name, String start, Drawable icon) {
         this.name = name;
         this.start = start;
         this.icon = icon;
@@ -59,7 +57,7 @@ public class GOListItem implements ListItem<Date> {
     }
 
     @Override
-    public void setSubtitle(Date date) {
+    public void setSubtitle(String date) {
         this.start = date;
     }
 

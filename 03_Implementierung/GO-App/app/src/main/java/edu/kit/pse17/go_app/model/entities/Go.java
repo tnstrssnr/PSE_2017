@@ -4,7 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.kit.pse17.go_app.model.Status;
@@ -37,12 +36,12 @@ public class Go {
     /**
      * Startdatum und -zeitpunkt des GOs
      */
-    private Date start;
+    private String start;
 
     /**
      * Enddatum und -zeitpunkt des GOs
      */
-    private Date end;
+    private String end;
 
     /**
      *  Die Gruppe, zu der das Go gehört
@@ -110,19 +109,19 @@ public class Go {
         this.description = description;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

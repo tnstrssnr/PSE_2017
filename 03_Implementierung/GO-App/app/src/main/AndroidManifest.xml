@@ -26,7 +26,8 @@
         <activity android:name=".view.GroupDetailActivity" />
         <activity android:name=".view.GoDetailActivity" />
         <activity android:name=".view.SettingsActivity" />
-        <activity android:name=".view.GroupDetailsActivity"/>
+        <activity android:name=".view.GroupDetailsActivity" />
+        <activity android:name=".view.AddGoActivity" />
 
         <uses-permission android:name="android.permission.INTERNET" />
 

@@ -103,13 +103,18 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
                 displayData(groups);
             }
         });
-        receiver = new GroupAddedBroadcastReceiver();
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("group_added"));
         addGroup = (FloatingActionButton) findViewById(R.id.addGroupBtn);
         addGroup.setOnClickListener(this);
         //TODO get all user groups
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        receiver = new GroupAddedBroadcastReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("group_added"));
     }
 
     @Override

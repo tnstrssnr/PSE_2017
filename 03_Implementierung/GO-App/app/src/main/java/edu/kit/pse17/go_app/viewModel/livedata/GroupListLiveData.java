@@ -11,6 +11,7 @@ import edu.kit.pse17.go_app.model.entities.Group;
  */
 
 public class GroupListLiveData extends LiveData<List<Group>> {
+
     @Override
     public void setValue(List<Group> value) {
         super.setValue(value);

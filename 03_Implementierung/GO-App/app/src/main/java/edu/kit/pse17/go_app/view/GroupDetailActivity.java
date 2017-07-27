@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.view;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
@@ -14,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +28,7 @@ import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.GOListItem;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
+import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
 import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 
 /**
@@ -92,23 +93,29 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
         createGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                AddGoDialogFragment addGoDialogFragment = new AddGoDialogFragment();
-                addGoDialogFragment.show(fm,"NO_TAG");
+                startActivity(new Intent(v.getContext(), AddGoActivity.class));
             }
         });
         viewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
-        viewModel.init();
-        viewModel.getGroup(index).observe(this, new Observer<Group>() {
+        viewModel.init(index, GroupListViewModel.getCurrentGroupListViewModel());
+        viewModel.getGroups().observe(this, new Observer<Group>() {
                     @Override
                     public void onChanged(@Nullable Group group) {
+                        Log.d("GroupDetailActivity", "Broadcast data changed in VM");
                         displayData(group);
                     }
                 });
 
         //displayData(viewModel.getGos(index).getValue());
         receiver = new GoAddedBroadcastReceiver();
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("go_added"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.go_added_intent_action)));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //we register it in resume, because we need it to register on every resume
+
     }
 
     /**
@@ -132,7 +139,12 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
     @Override
     protected void onStop() {
         super.onStop();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getParent()).unregisterReceiver(receiver);
     }
 
     @Override
@@ -149,12 +161,18 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("GroupDetailActivity", "Go added broadcast received");
             Go go = new Go();
-            String goName = intent.getStringExtra(getString(R.string.go_name));
+            String goName = intent.getStringExtra("go_name");
             go.setName(goName);
-            String goDescription = intent.getStringExtra(getString(R.string.go_description));
+            String goDescription = intent.getStringExtra("go_description");
             go.setDescription(goDescription);
-            String start_time = intent.getStringExtra(getString(R.string.start_time));
+            String start_time = intent.getStringExtra("start_date");
+            go.setStart(start_time);
+            String end_time = intent.getStringExtra("end_date");
+            go.setEnd(end_time);
+            viewModel.createGo(go);
+
         }
     }
 }

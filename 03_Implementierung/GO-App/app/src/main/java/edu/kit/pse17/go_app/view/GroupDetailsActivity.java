@@ -20,6 +20,7 @@ import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.UserMailListItem;
+import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
 import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 
 /**
@@ -47,8 +48,8 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
         ImageView add_member = (ImageView) findViewById(R.id.add_member);
         add_member.setVisibility(View.INVISIBLE);
         viewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
-        viewModel.init();
-        viewModel.getGroup(getIntent().getIntExtra("index", -1)).observe(this, new Observer<Group>() {
+        viewModel.init(getIntent().getIntExtra("index", -1), GroupListViewModel.getCurrentGroupListViewModel());
+        viewModel.getGroups().observe(this, new Observer<Group>() {
             @Override
             public void onChanged(@Nullable Group group) {
                 displayData(group);
@@ -66,6 +67,12 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
         }
         membersAdapter = new ListAdapter(data, this);
         members.setAdapter(membersAdapter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //wee need to notify
     }
 
     @Override

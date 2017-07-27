@@ -1,6 +1,8 @@
 package edu.kit.pse17.go_app.viewModel;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.List;
@@ -17,23 +19,42 @@ import edu.kit.pse17.go_app.viewModel.livedata.GroupLiveData;
 public class GroupViewModel extends ViewModel {
     private static GroupViewModel currentViewModel;
     private String groupId;
+    private Observer<List<Group>> observer;
     /*
     * Liste aller Gos für eine Gruppe
     * */
     private GroupLiveData data;
     private GroupRepository groupRepo;
+    private int index;
 
     public GroupViewModel(){
         currentViewModel = this;
+        if(data == null)
+            data = new GroupLiveData();
+
     }
-    public void init(){
-        data = new GroupLiveData();
+    public void init(final int index, GroupListViewModel mainViewModel){
+
+        this.observer = new Observer<List<Group>>() {
+
+            @Override
+            public void onChanged(@Nullable List<Group> groups) {
+                Log.d("GO ADDED GroupVM", "I got called so observer should function");
+                data.setValue(groups.get(index));
+
+            }
+        };
+        mainViewModel.getGroups().observeForever(observer);
+        this.index = index;
+        if(data == null)
+            data = new GroupLiveData();
+        this.groupRepo = GroupRepository.getInstance();
     }
     /*
     * gibt alle Gos für die Gruppe zurück
     * loads every time on demand
     * */
-    public GroupLiveData getGroup(int index){
+    public GroupLiveData getGroups(){
         Group group = GroupListViewModel.getCurrentGroupListViewModel().getData().get(index);
         Log.d("INDEX", "getGos at index " + index);
         data.setValue(group);
@@ -50,11 +71,8 @@ public class GroupViewModel extends ViewModel {
      * go.goid wird hier nicht benutzt
     * */
     public void createGo(Go go){
-        Group group = data.getValue();
-        List<Go> goList = group.getCurrentGos();
-        goList.add(go);
-        group.setCurrentGos(goList);
-        data.setValue(group);
+        groupRepo.createGo(go, data.getValue().getId());
+
     }
 
     /*

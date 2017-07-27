@@ -1,22 +1,17 @@
 package edu.kit.pse17.go_app.viewModel;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
-import edu.kit.pse17.go_app.model.Status;
-import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
-import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
-import retrofit2.Call;
 
 /**
  * Stellt die Daten für die GroupDetailActivity View-Komponente zur Verfügung und übernimmt
@@ -34,7 +29,7 @@ public class GroupListViewModel extends ViewModel {
     * zugreifbar sind
     * */
 
-    public static GroupListViewModel currentViewModel;
+    private static GroupListViewModel currentViewModel;
     /**
      * Die Id des Benutzers, die in dem ViewModel gespeichert ist.
      */
@@ -45,112 +40,40 @@ public class GroupListViewModel extends ViewModel {
      * wodurch es für die View observable ist.
      */
     private GroupListLiveData data;
-
+    /*boolean which says if an Observer in Groupviewmodel was already added, for the data of this
+    in order to avoid adding the same observer multiple times
+    might also do it later in GroupListLiveData class
+    */
+    private boolean alreadyAdded = false;
     /**
      * Das Grouprepository, das für die beschaffung der Daten zuständig ist.
      */
     private GroupRepository groupRepo;
+    private Observer<List<Group>> observer ;
 
 
     @Inject
     public GroupListViewModel() {
-        this.groupRepo = new GroupRepository(new TomcatRestApi() {
-            @Override
-            public Call<List<Group>> getData(String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> createUser(String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> deleteUser(String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> registerDevice(String instanceId) {
-                return null;
-            }
-
-            @Override
-            public Call<Long> createGroup(String name, String description, String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> editGroup(long groupId, String name, String description) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> deleteGroup(Long groupId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> acceptRequest(long groupId, String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> removeMember(String userId, long groupId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> inviteMember(long groupId, String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> denyRequest(String userId, String groupId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> addAdmin(String groupId, String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Long> createGo(String name, String description, Date start, Date end, double lat, double lon, int threshold, long groupId, String userId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> changeStatus(long goId, String userId, Status status) {
-                return null;
-            }
-
-            @Override
-            public Call<List<Cluster>> getLocation(String goId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> setLocation(String userId, long lat, long lon, String goId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> deleteGo(String goId) {
-                return null;
-            }
-
-            @Override
-            public Call<Void> editGo(String goId, String name, String description, Date start, Date end, long lat, long lon, int threshold) {
-                return null;
-            }
-        }, new Executor() {
-            @Override
-            public void execute(@NonNull Runnable command) {
-
-            }
-        });
         currentViewModel = this;
+
+        this.observer = new Observer<List<Group>>() {
+
+            @Override
+            public void onChanged(@Nullable List<Group> groups) {
+                Log.d("GO ADDED GroupListVM", "I got called so observer should function");
+                /*if(GroupViewModel.getCurrentViewModel() != null && !alreadyAdded) {
+                    data.observeForever(GroupViewModel.getCurrentViewModel().getObserver());
+                    alreadyAdded = true;
+                }*/
+                data.setValue(groups);
+                //for now need to check with a custom boolean if an observer was added to data, to not add multiple observers later
+
+
+            }
+        };
+        this.groupRepo = GroupRepository.getInstance();
+        groupRepo.getData().observeForever(observer);
+
     }
 
     public void init(String uId) {
