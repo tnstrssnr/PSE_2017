@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.view.recyclerView.listItems;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Interface für ListItems, die die Datenobjekt in den verschiedenen RecyclerViews der App sind
  *
@@ -32,13 +34,13 @@ public interface ListItem<T> {
      */
     void setSubtitle(T t);
 
-    /**
+    /*
      * getter-Methode für Icon des ListItems
      * @return Icon des Datenobjekts
-     *//*
+     */
     Drawable getIcon();
 
-    *//**
+    /**
      * setter-Methode für icon des ListItems
      * @param icon das neue Icon
      *//*

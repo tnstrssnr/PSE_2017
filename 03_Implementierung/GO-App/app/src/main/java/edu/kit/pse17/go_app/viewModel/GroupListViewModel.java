@@ -121,4 +121,9 @@ public class GroupListViewModel extends ViewModel {
         return currentViewModel;
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        groupRepo.getData().removeObserver(observer);
+    }
 }

@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.view.recyclerView.listItems;
 import android.graphics.drawable.Drawable;
 
 import edu.kit.pse17.go_app.model.entities.User;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 
 /**
  *  Diese Klasse repräsentiert ListItems, die Informationen über einen User in einem RecyclerView darstellen sollen
@@ -14,7 +15,7 @@ public class UserMailListItem implements ListItem<String> {
 
     private String title;
     private String email;
-    /*private Drawable icon;*/
+    private Drawable icon;
 
     /**
      * Konstruktor
@@ -24,7 +25,7 @@ public class UserMailListItem implements ListItem<String> {
     public UserMailListItem(String title, String email) {
         this.title = title;
         this.email = email;
-
+        this.icon = GroupListActivity.default_user_icon;
     }
 
     /**
@@ -56,11 +57,11 @@ public class UserMailListItem implements ListItem<String> {
         this.email = s;
     }
 
-    /*@Override
+    @Override
     public Drawable getIcon() {
         return icon;
     }
-
+/*
     @Override
     public void setIcon(Drawable icon) {
         this.icon = icon;

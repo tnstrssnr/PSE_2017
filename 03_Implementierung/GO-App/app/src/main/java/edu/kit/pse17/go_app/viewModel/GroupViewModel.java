@@ -54,18 +54,13 @@ public class GroupViewModel extends ViewModel {
     * gibt alle Gos für die Gruppe zurück
     * loads every time on demand
     * */
-    public GroupLiveData getGroups(){
+    public GroupLiveData getGroup(){
         Group group = GroupListViewModel.getCurrentGroupListViewModel().getData().get(index);
         Log.d("INDEX", "getGos at index " + index);
         data.setValue(group);
         return data;
     }
-    /*
-    * return data of current group
-    */
-    public Group getGroup(){
-        return data.getValue();
-    }
+
     /*
     * Erzeugt ein Neues Go in der Gruppe mit Id groupId,
      * go.goid wird hier nicht benutzt
@@ -92,5 +87,11 @@ public class GroupViewModel extends ViewModel {
 
     public static GroupViewModel getCurrentViewModel(){
         return currentViewModel;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        groupRepo.getData().removeObserver(observer);
     }
 }

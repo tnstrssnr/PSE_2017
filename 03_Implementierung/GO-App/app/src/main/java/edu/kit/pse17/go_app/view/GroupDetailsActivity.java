@@ -49,7 +49,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
         add_member.setVisibility(View.INVISIBLE);
         viewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
         viewModel.init(getIntent().getIntExtra("index", -1), GroupListViewModel.getCurrentGroupListViewModel());
-        viewModel.getGroups().observe(this, new Observer<Group>() {
+        viewModel.getGroup().observe(this, new Observer<Group>() {
             @Override
             public void onChanged(@Nullable Group group) {
                 displayData(group);

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.view.GroupDetailActivity;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 
 /**
@@ -41,7 +42,7 @@ public class GroupListItem implements ListItem<Integer>, OnListItemClicked {
     public GroupListItem(Group group) {
         this.name = group.getName();
         this.memberCount = group.getMemberCount();
-        this.icon = group.getIcon();
+        this.icon = GroupListActivity.default_group_icon;//group.getIcon();
         this.group = group;
     }
 
@@ -66,11 +67,11 @@ public class GroupListItem implements ListItem<Integer>, OnListItemClicked {
         this.memberCount = memberCount;
     }
 
-    /*@Override
+    @Override
     public Drawable getIcon() {
         return icon;
     }
-
+/*
     @Override
     public void setIcon(Drawable icon) {
         this.icon = icon;

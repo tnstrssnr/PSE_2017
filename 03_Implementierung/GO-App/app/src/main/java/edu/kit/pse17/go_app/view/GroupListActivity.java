@@ -51,6 +51,8 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private ImageView settings;
     private RecyclerView groupList;
     public static Drawable default_group_icon;
+    public static Drawable default_user_icon;
+    public static Drawable default_go_icon;
     private Toolbar toolbar;
     private TextView toolbarTitle;
     private ActionBar actionBar;
@@ -77,7 +79,9 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_list_activity);
-        default_group_icon = getDrawable(R.drawable.ic_group_white_24dp);
+        default_group_icon = getDrawable(R.drawable.ic_group_blue_24dp);
+        default_go_icon = getDrawable(R.drawable.go96);
+        default_user_icon = getDrawable(R.drawable.ic_person_outline_black_24dp);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView) findViewById(R.id.heading);
         toolbarTitle.setText("ZHOPA");

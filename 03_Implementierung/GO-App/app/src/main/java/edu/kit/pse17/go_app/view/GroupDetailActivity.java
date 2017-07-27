@@ -98,7 +98,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
         });
         viewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
         viewModel.init(index, GroupListViewModel.getCurrentGroupListViewModel());
-        viewModel.getGroups().observe(this, new Observer<Group>() {
+        viewModel.getGroup().observe(this, new Observer<Group>() {
                     @Override
                     public void onChanged(@Nullable Group group) {
                         Log.d("GroupDetailActivity", "Broadcast data changed in VM");
@@ -109,13 +109,6 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
         //displayData(viewModel.getGos(index).getValue());
         receiver = new GoAddedBroadcastReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.go_added_intent_action)));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //we register it in resume, because we need it to register on every resume
-
     }
 
     /**
@@ -134,11 +127,6 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
 
         adapter = new ListAdapter(data, this);
         goList.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     @Override

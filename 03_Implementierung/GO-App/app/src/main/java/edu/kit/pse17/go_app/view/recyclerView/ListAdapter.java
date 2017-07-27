@@ -61,7 +61,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         ListItem item = data.get(position);
         holder.title.setText(item.getTitle());
         holder.subtitle.setText(item.getSubtitle());
-        //holder.icon.setImageDrawable(item.getIcon());
+        holder.icon.setImageDrawable(item.getIcon());
 
     }
 

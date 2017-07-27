@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.view.recyclerView.listItems;
 import android.graphics.drawable.Drawable;
 
 import edu.kit.pse17.go_app.model.entities.Go;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 
 
 /**
@@ -38,6 +39,7 @@ public class GOListItem implements ListItem<String> {
     public GOListItem(Go go) {
         this.name = go.getName();
         this.start = go.getStart();
+        this.icon = GroupListActivity.default_group_icon;
     }
 
 
@@ -61,11 +63,11 @@ public class GOListItem implements ListItem<String> {
         this.start = date;
     }
 
-    /*@Override
+    @Override
     public Drawable getIcon() {
         return null;
     }
-
+/*
     @Override
     public void setIcon(Drawable icon) {
 

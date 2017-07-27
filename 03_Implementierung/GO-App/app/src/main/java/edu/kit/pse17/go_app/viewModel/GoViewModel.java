@@ -1,16 +1,19 @@
 package edu.kit.pse17.go_app.viewModel;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.location.Location;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
+import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GoRepository;
+import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 
 /**
  * Die ViewModel Klasse, die alle Daten für ein GO beinhaltet, und die Bearbeitungsaufrufe
@@ -18,18 +21,45 @@ import edu.kit.pse17.go_app.repositories.GoRepository;
  */
 
 public class GoViewModel extends ViewModel{
+
+    private static GoViewModel currentViewModel;
+
     /*
     * Liste der Cluster. Wird benutzt um die Standorte anzuzeigen.
     * */
-    private LiveData<Go> go;
+    private GoLiveData go;
     /*
     * Go Repository
     * */
     private GoRepository goRepo;
 
+    private int index;
+
+    private Observer<Group> observer;
+
     private String goId;
 
-    public void init(){}
+    public GoViewModel(){
+        if(go == null)
+            go = new GoLiveData();
+        currentViewModel = this;
+    }
+
+    public void init(final int index, GroupViewModel groupViewModel){
+        this.index = index;
+        this.observer = new Observer<Group>() {
+            @Override
+            public void onChanged(@Nullable Group group) {
+                go.setValue(group.getCurrentGos().get(index));
+            }
+        };
+
+        groupViewModel.getGroup().observeForever(observer);
+        if(go == null)
+            go = new GoLiveData();
+        this.goRepo = GoRepository.getInstance();
+
+    }
     /*
     * Teilnahmestatus in einem GO ändern
     * */
@@ -48,11 +78,11 @@ public class GoViewModel extends ViewModel{
     * */
     public void editGo(String goid, Go go){}
 
-    public LiveData<Go> getGo(int index){
-        Go goData = GroupViewModel.getCurrentViewModel().getGroup().getCurrentGos().get(index);
-        MutableLiveData<Go> liveGo = new MutableLiveData<>();
-        liveGo.postValue(goData);
-        go = liveGo;
-        return liveGo;
+    public GoLiveData getGo(){
+        return go;
+    }
+
+    public  static GoViewModel getInstance(){
+        return currentViewModel;
     }
 }
