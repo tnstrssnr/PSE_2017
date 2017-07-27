@@ -161,11 +161,13 @@
             <version>${hibernate.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.7.5</version>
         </dependency>
+
 
         <!-- Hibernate library dependecy start -->
         <dependency>
