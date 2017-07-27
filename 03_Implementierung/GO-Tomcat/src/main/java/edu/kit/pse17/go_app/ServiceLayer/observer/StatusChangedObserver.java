@@ -3,7 +3,6 @@ package edu.kit.pse17.go_app.ServiceLayer.observer;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
@@ -19,9 +18,10 @@ public class StatusChangedObserver implements Observer{
     private GoDao goDao;
     private UserDao userDao;
 
-    public StatusChangedObserver(FcmClient messenger, GoDao goDao) {
+    public StatusChangedObserver(FcmClient messenger, GoDao goDao, UserDao userDao) {
         this.messenger = messenger;
         this.goDao = goDao;
+        this.userDao = userDao;
     }
 
     public GoDao getGoDao() {

@@ -4,9 +4,12 @@ import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GoEditedObserver implements Observer {
 
@@ -29,6 +32,11 @@ public class GoEditedObserver implements Observer {
     @Override
     public void update(List<String> entity_ids) {
         GoEntity goEntity = goDao.get(Long.valueOf(entity_ids.get(0)));
+
+        Set<UserEntity> receiver = new HashSet<>();
+        receiver.addAll(goEntity.getGroup().getMembers());
+        receiver.addAll(goEntity.getGroup().getRequests());
+
         goEntity.setGoingUsers(null);
         goEntity.setGoneUsers(null);
         goEntity.setNotGoingUsers(null);
@@ -37,8 +45,10 @@ public class GoEditedObserver implements Observer {
         Gson gson = new Gson();
         String data = gson.toJson(goEntity);
 
-        messenger.send(data, EventArg.GO_EDITED_COMMAND, goEntity.getGroup().getMembers());
-        messenger.send(data, EventArg.GO_EDITED_COMMAND, goEntity.getGroup().getRequests());
+
+
+        messenger.send(data, EventArg.GO_EDITED_COMMAND, receiver);
+
 
     }
 }

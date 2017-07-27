@@ -4,10 +4,13 @@ import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
 import org.json.simple.JSONObject;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupRemovedObserver implements Observer {
 
@@ -35,7 +38,11 @@ public class GroupRemovedObserver implements Observer {
 
         GroupEntity groupEntity = groupDao.get(Long.valueOf(entity_ids.get(0)));
 
-        messenger.send(data, EventArg.GO_REMOVED_EVENT, groupEntity.getMembers());
-        messenger.send(data, EventArg.GO_REMOVED_EVENT, groupEntity.getRequests());
+        Set<UserEntity> receiver = new HashSet<>();
+        receiver.addAll(groupEntity.getRequests());
+        receiver.addAll(groupEntity.getMembers());
+
+        messenger.send(data, EventArg.GROUP_REMOVED_EVENT, receiver);
+
     }
 }

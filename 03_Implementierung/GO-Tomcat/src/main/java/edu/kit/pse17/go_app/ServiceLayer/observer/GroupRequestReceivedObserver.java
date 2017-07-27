@@ -40,24 +40,44 @@ public class GroupRequestReceivedObserver implements Observer{
         GroupEntity group = groupDao.get(Long.valueOf(entity_ids.get(1)));
         UserEntity user = userDao.get(entity_ids.get(0));
 
-        List<Set<UserEntity>> userLists = new ArrayList<>();
-        userLists.add(group.getAdmins());
-        userLists.add(group.getMembers());
-
-        for (GoEntity go : group.getGos()) {
-            userLists.add(go.getNotGoingUsers());
-            userLists.add(go.getGoneUsers());
-            userLists.add(go.getGoingUsers());
-            Set<UserEntity> owner = new HashSet<>();
-            owner.add(go.getOwner());
-            userLists.add(owner);
+        for(UserEntity usr: group.getAdmins()) {
+            usr.setGos(null);
+            usr.setGroups(null);
+            usr.setGroups(null);
         }
 
-        for(Set<UserEntity> userSet: userLists) {
-            for(UserEntity member: userSet) {
-                member.setGroups(null);
-                member.setRequests(null);
-                member.setGos(null);
+        for(UserEntity usr: group.getMembers()) {
+            usr.setGos(null);
+            usr.setGroups(null);
+            usr.setGroups(null);
+        }
+
+        for(UserEntity usr: group.getRequests()) {
+            usr.setGos(null);
+            usr.setGroups(null);
+            usr.setGroups(null);
+        }
+
+        for(GoEntity go: group.getGos()) {
+            go.setGroup(null);
+            go.getOwner().setGroups(null);
+            go.getOwner().setGos(null);
+            go.getOwner().setRequests(null);
+
+            for(UserEntity usr: go.getNotGoingUsers()) {
+                usr.setGos(null);
+                usr.setGroups(null);
+                usr.setGroups(null);
+            }
+            for(UserEntity usr: go.getGoingUsers()) {
+                usr.setGos(null);
+                usr.setGroups(null);
+                usr.setGroups(null);
+            }
+            for(UserEntity usr: go.getGoneUsers()) {
+                usr.setGos(null);
+                usr.setGroups(null);
+                usr.setGroups(null);
             }
         }
 

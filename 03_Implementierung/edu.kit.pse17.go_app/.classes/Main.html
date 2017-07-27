@@ -1,0 +1,281 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Main</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">edu.kit.pse17.go_app</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Main (edu.kit.pse17.go_app)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96,7%
+  </span>
+  <span class="absValue">
+    (29/ 30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package edu.kit.pse17.go_app;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.google.gson.Gson;
+<i>4</i>&nbsp;import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+<i>5</i>&nbsp;import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+<i>6</i>&nbsp;import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+<i>7</i>&nbsp;import edu.kit.pse17.go_app.PersistenceLayer.daos.*;
+<i>8</i>&nbsp;import org.dbunit.DatabaseUnitException;
+<i>9</i>&nbsp;import org.dbunit.database.DatabaseConnection;
+<i>10</i>&nbsp;import org.dbunit.database.IDatabaseConnection;
+<i>11</i>&nbsp;import org.dbunit.database.QueryDataSet;
+<i>12</i>&nbsp;import org.dbunit.dataset.IDataSet;
+<i>13</i>&nbsp;import org.dbunit.dataset.xml.FlatXmlDataSet;
+<i>14</i>&nbsp;import org.hibernate.SessionFactory;
+<i>15</i>&nbsp;import org.json.simple.JSONObject;
+<i>16</i>&nbsp;
+<b class="nc"><i>17</i>&nbsp;import java.io.FileNotFoundException;</b>
+<i>18</i>&nbsp;import java.io.FileOutputStream;
+<i>19</i>&nbsp;import java.io.IOException;
+<i>20</i>&nbsp;import java.sql.Connection;
+<i>21</i>&nbsp;import java.sql.DriverManager;
+<i>22</i>&nbsp;import java.sql.SQLException;
+<i>23</i>&nbsp;import java.util.*;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;/**
+<i>26</i>&nbsp; * Die Main-Klasse der Server-Anwendung. In ihr wird keine Anwendungslogik ausgeführt.
+<i>27</i>&nbsp; * &lt;p&gt;
+<i>28</i>&nbsp; * Sie enthält die main-methode, wo die Ausführung des Programms gestartet wird und danach die Kontrolle
+<i>29</i>&nbsp; * über die Ausführung an andere Klassen abgegeben wird.
+<i>30</i>&nbsp; */
+<b class="fc"><i>31</i>&nbsp;public class Main {</b>
+<b class="fc"><i>32</i>&nbsp;</b>
+<b class="fc"><i>33</i>&nbsp;    /**</b>
+<i>34</i>&nbsp;     * Die Main-Methode, wo die Ausführung des Programms gestartet wird.
+<b class="fc"><i>35</i>&nbsp;     * &lt;p&gt;</b>
+<b class="fc"><i>36</i>&nbsp;     * In ihr werden alle wichtigen Objekte des Programms instanziiert, die zur Audführung benötigt werden (Starten der</b>
+<b class="fc"><i>37</i>&nbsp;     * Spring-Applikation, aufbauen einer Verbindung zur Datenbank,...)</b>
+<i>38</i>&nbsp;     * &lt;p&gt;
+<b class="fc"><i>39</i>&nbsp;     * Danach wird an diese objekte due Kontrolle über den Programmablauf übergeben.</b>
+<b class="fc"><i>40</i>&nbsp;     *</b>
+<b class="fc"><i>41</i>&nbsp;     * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.</b>
+<b class="fc"><i>42</i>&nbsp;     */</b>
+<b class="fc"><i>43</i>&nbsp;    public static void main(final String[] args) throws DatabaseUnitException, FileNotFoundException {</b>
+<i>44</i>&nbsp;        List&lt;String&gt; entity_ids = new ArrayList&lt;&gt;();
+<b class="fc"><i>45</i>&nbsp;</b>
+<i>46</i>&nbsp;        UserEntity bob = new UserEntity();
+<b class="fc"><i>47</i>&nbsp;        bob.setName(&quot;Bob&quot;);</b>
+<b class="fc"><i>48</i>&nbsp;        bob.setInstanceId(&quot;testInstance_1&quot;);</b>
+<b class="fc"><i>49</i>&nbsp;        bob.setEmail(&quot;bob@testmail.com&quot;);</b>
+<b class="fc"><i>50</i>&nbsp;        bob.setUid(&quot;testid_1&quot;);</b>
+<b class="fc"><i>51</i>&nbsp;        bob.setGos(new HashSet&lt;&gt;());</b>
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;        UserEntity alice = new UserEntity();</b>
+<b class="fc"><i>54</i>&nbsp;        alice.setName(&quot;Alice&quot;);</b>
+<b class="fc"><i>55</i>&nbsp;        alice.setUid(&quot;testid_2&quot;);</b>
+<i>56</i>&nbsp;        alice.setEmail(&quot;alice@testmail.com&quot;);
+<b class="fc"><i>57</i>&nbsp;        alice.setInstanceId(&quot;testInstance_2&quot;);</b>
+<b class="fc"><i>58</i>&nbsp;        alice.setGos(new HashSet&lt;&gt;());</b>
+<i>59</i>&nbsp;
+<b class="fc"><i>60</i>&nbsp;        //userDao.persist(bob);</b>
+<b class="fc"><i>61</i>&nbsp;        //userDao.persist(alice);</b>
+<b class="fc"><i>62</i>&nbsp;</b>
+<i>63</i>&nbsp;        GroupEntity foo = new GroupEntity();
+<b class="fc"><i>64</i>&nbsp;        foo.setName(&quot;Foo&quot;);</b>
+<b class="fc"><i>65</i>&nbsp;        foo.setDescription(&quot;Test Descritpion&quot;);</b>
+<b class="fc"><i>66</i>&nbsp;        Set&lt;UserEntity&gt; admins = new HashSet&lt;&gt;();</b>
+<i>67</i>&nbsp;        admins.add(bob);
+<i>68</i>&nbsp;        Set&lt;UserEntity&gt; members = new HashSet&lt;&gt;();
+<b class="fc"><i>69</i>&nbsp;        members.add(alice);</b>
+<i>70</i>&nbsp;        members.add(bob);
+<i>71</i>&nbsp;        foo.setAdmins(admins);
+<i>72</i>&nbsp;        foo.setMembers(members);
+<i>73</i>&nbsp;        foo.setGos(new HashSet&lt;&gt;());
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;        GoEntity go = new GoEntity(foo, bob, &quot;lunch&quot;, &quot;test description&quot;, new Date(2017, 7, 30), new Date(2017, 8, 1), 0l, 0l);
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;        GroupEntity group = foo;
+<i>78</i>&nbsp;        UserEntity user = alice;
+<i>79</i>&nbsp;        entity_ids.add(String.valueOf(alice.getUid()));
+<i>80</i>&nbsp;        entity_ids.add(String.valueOf(foo.getID()));
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;        int newStatus = 1;
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;        //create JSON Object to send to clients
+<i>85</i>&nbsp;        JSONObject json = new JSONObject();
+<i>86</i>&nbsp;        json.put(&quot;user_id&quot;, user.getUid());
+<i>87</i>&nbsp;        json.put(&quot;go_id&quot;, go.getID());
+<i>88</i>&nbsp;        json.put(&quot;status&quot;, newStatus);
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;        String data = json.toJSONString();
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;        System.out.println(data);
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;        /**
+<i>97</i>&nbsp;        final org.hibernate.cfg.Configuration config = new org.hibernate.cfg.Configuration();
+<i>98</i>&nbsp;        final SessionFactory sf = config.configure().buildSessionFactory();
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;        final UserDao userDao = new UserDaoImp(sf);
+<i>101</i>&nbsp;        final GroupDao groupDao = new GroupDaoImp(sf);
+<i>102</i>&nbsp;        final GoDao goDao = new GoDaoImp(sf);
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;        UserEntity bob = new UserEntity();
+<i>105</i>&nbsp;        bob.setName(&quot;Bob&quot;);
+<i>106</i>&nbsp;        bob.setInstanceId(&quot;testInstance_1&quot;);
+<i>107</i>&nbsp;        bob.setEmail(&quot;bob@testmail.com&quot;);
+<i>108</i>&nbsp;        bob.setUid(&quot;testid_1&quot;);
+<i>109</i>&nbsp;        bob.setGos(new HashSet&lt;&gt;());
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;        UserEntity alice = new UserEntity();
+<i>112</i>&nbsp;        alice.setName(&quot;Alice&quot;);
+<i>113</i>&nbsp;        alice.setUid(&quot;testid_2&quot;);
+<i>114</i>&nbsp;        alice.setEmail(&quot;alice@testmail.com&quot;);
+<i>115</i>&nbsp;        alice.setInstanceId(&quot;testInstance_2&quot;);
+<i>116</i>&nbsp;        alice.setGos(new HashSet&lt;&gt;());
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;        userDao.persist(bob);
+<i>119</i>&nbsp;        userDao.persist(alice);
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;        GroupEntity foo = new GroupEntity();
+<i>122</i>&nbsp;        foo.setName(&quot;Foo&quot;);
+<i>123</i>&nbsp;        foo.setDescription(&quot;Test Descritpion&quot;);
+<i>124</i>&nbsp;        Set&lt;UserEntity&gt; admins = new HashSet&lt;&gt;();
+<i>125</i>&nbsp;        admins.add(bob);
+<i>126</i>&nbsp;        Set&lt;UserEntity&gt; members = new HashSet&lt;&gt;();
+<i>127</i>&nbsp;        members.add(alice);
+<i>128</i>&nbsp;        members.add(bob);
+<i>129</i>&nbsp;        foo.setAdmins(admins);
+<i>130</i>&nbsp;        foo.setMembers(members);
+<i>131</i>&nbsp;        foo.setGos(new HashSet&lt;&gt;());
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;        GroupEntity bar = new GroupEntity();
+<i>134</i>&nbsp;        bar.setName(&quot;Bar&quot;);
+<i>135</i>&nbsp;        bar.setDescription(&quot;Test Description&quot;);
+<i>136</i>&nbsp;        HashSet&lt;UserEntity&gt; barAdmins = new HashSet&lt;&gt;();
+<i>137</i>&nbsp;        barAdmins.add(alice);
+<i>138</i>&nbsp;        Set&lt;UserEntity&gt; requests = new HashSet&lt;&gt;();
+<i>139</i>&nbsp;        Set&lt;UserEntity&gt; barMembers = new HashSet&lt;&gt;();
+<i>140</i>&nbsp;        barMembers.add(alice);
+<i>141</i>&nbsp;        requests.add(bob);
+<i>142</i>&nbsp;        bar.setAdmins(barAdmins);
+<i>143</i>&nbsp;        bar.setMembers(barMembers);
+<i>144</i>&nbsp;        bar.setRequests(requests);
+<i>145</i>&nbsp;        bar.setGos(new HashSet&lt;&gt;());
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;        groupDao.persist(foo);
+<i>148</i>&nbsp;        groupDao.persist(bar);
+<i>149</i>&nbsp;
+<i>150</i>&nbsp;        GoEntity lunch = new GoEntity(foo, bob, &quot;lunch&quot;, &quot;test description&quot;, new Date(2017, 7, 30), new Date(2017, 8, 1), 0l, 0l);
+<i>151</i>&nbsp;        GoEntity dinner = new GoEntity(foo, alice, &quot;dinner&quot;, &quot;test description&quot;, new Date(2017, 7, 30), new Date(2017, 8, 1), 0l, 0l);
+<i>152</i>&nbsp;        goDao.persist(lunch);
+<i>153</i>&nbsp;        goDao.persist(dinner);
+<i>154</i>&nbsp;        lunch.setNotGoingUsers(null);
+<i>155</i>&nbsp;        lunch.setGoneUsers(null);
+<i>156</i>&nbsp;        lunch.setGoingUsers(null);
+<i>157</i>&nbsp;        lunch.setOwner(null);
+<i>158</i>&nbsp;        lunch.setGroup(null);
+<i>159</i>&nbsp;        System.out.println(new Gson().toJson(lunch));
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;        Class driverClass;
+<i>163</i>&nbsp;        try {
+<i>164</i>&nbsp;            driverClass =  Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+<i>165</i>&nbsp;        } catch (ClassNotFoundException e) {
+<i>166</i>&nbsp;            e.printStackTrace();
+<i>167</i>&nbsp;        }
+<i>168</i>&nbsp;        Connection jdbcConnection = null;
+<i>169</i>&nbsp;        try {
+<i>170</i>&nbsp;            jdbcConnection = DriverManager.getConnection(&quot;jdbc:mysql://localhost/pse_development&quot;, &quot;root&quot;, &quot;69h97jnv&quot;);
+<i>171</i>&nbsp;        } catch (SQLException e) {
+<i>172</i>&nbsp;            e.printStackTrace();
+<i>173</i>&nbsp;        }
+<i>174</i>&nbsp;        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;        QueryDataSet dataSet = null;
+<i>177</i>&nbsp;
+<i>178</i>&nbsp;            dataSet = new QueryDataSet(connection);
+<i>179</i>&nbsp;            dataSet.addTable(&quot;USERS&quot;);
+<i>180</i>&nbsp;            dataSet.addTable(&quot;GOS&quot;);
+<i>181</i>&nbsp;            dataSet.addTable(&quot;GROUPS&quot;);
+<i>182</i>&nbsp;            dataSet.addTable(&quot;ADMINS&quot;);
+<i>183</i>&nbsp;            dataSet.addTable(&quot;GOING_USERS&quot;);
+<i>184</i>&nbsp;            dataSet.addTable(&quot;GONE_USERS&quot;);
+<i>185</i>&nbsp;            dataSet.addTable(&quot;NOT_GOING_USERS&quot;);
+<i>186</i>&nbsp;            dataSet.addTable(&quot;MEMBERS&quot;);
+<i>187</i>&nbsp;            dataSet.addTable(&quot;REQUESTS&quot;);
+<i>188</i>&nbsp;            dataSet.addTable(&quot;hibernate_sequence&quot;);
+<i>189</i>&nbsp;
+<i>190</i>&nbsp;        try {
+<i>191</i>&nbsp;            FlatXmlDataSet.write(dataSet, new FileOutputStream(&quot;dataset.xml&quot;));
+<i>192</i>&nbsp;        } catch (IOException e) {
+<i>193</i>&nbsp;            e.printStackTrace();
+<i>194</i>&nbsp;        }
+<i>195</i>&nbsp;         */
+<i>196</i>&nbsp;
+<i>197</i>&nbsp;    }
+<i>198</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-07-27 10:31</div>
+</div>
+</body>
+</html>

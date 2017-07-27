@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Observable</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">edu.kit.pse17.go_app.ServiceLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Observable (edu.kit.pse17.go_app.ServiceLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">Observable</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package edu.kit.pse17.go_app.ServiceLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Dieses Interface ist Teil einer Implementierung eines Beobachter-Entwurfsmusters. Es übernimmt die Rolle
+<i>7</i>&nbsp; * des abstrakten Subjekts. Es muss von allen Klassen, die beobachtet werden müssen implementiert werden.
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * In dieser Anwendung sind dies die DAO Klassen. Diese werden beobachtet, um Änderungen am Datenbestand zu bemerken
+<i>10</i>&nbsp; * und diese Änderungen an betroffene Clients weiterleiten zu können. Das bedeutet bei jeder Änderung an dem Datenbestand muss anschließend die notify()-Methode
+<i>11</i>&nbsp; * aufgerufen werden, um den Beobachtern die Änderungen zu übergeben.
+<i>12</i>&nbsp; *
+<i>13</i>&nbsp; * Das Generic T gibt an, welcher Datentyp von den Änderungen betroffen ist und von den Beobachtern an die Clients weitergeleitet weden muss.
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public interface Observable&lt;T&gt; {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von observern hinzugefügt,
+<i>19</i>&nbsp;     * falls diese Liste noch nicht vorhanden ist, wird sie erstellt. Der Beobachter ist nach dem Hinzufügen zu der Liste
+<i>20</i>&nbsp;     * funktionsfähig.
+<i>21</i>&nbsp;     * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
+<i>22</i>&nbsp;     *                  Observers es sich handelt.
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    public void register(Observer observer);
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird. Er wird aus der Liste entfernt.
+<i>28</i>&nbsp;     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass
+<i>29</i>&nbsp;     *                 es sich bei dem Objekt um einen vorher registrierten, noch existenten Observer handelt.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    public void unregister(Observer observer);
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben werden, welche
+<i>35</i>&nbsp;     * Änderung vorgenommen wurde, dies wissen die Observer selbst. Die Methode löst nur dann eine Aktion bei einem der Observer aus,
+<i>36</i>&nbsp;     * wenn zuvor ein zu der Ändeurng passender Observer registriert wurde.
+<i>37</i>&nbsp;     *
+<i>38</i>&nbsp;     * @param impCode Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein
+<i>39</i>&nbsp;     *                öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird
+<i>40</i>&nbsp;     *                kein Observer auf das notify() reagieren.
+<i>41</i>&nbsp;     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine
+<i>42</i>&nbsp;     *                   Benachrichtigung bekommen hat.
+<i>43</i>&nbsp;     * @param t Das Objekt das die Änderung enthält bzw. an dem die Änderung durchgeführt wurde.
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    public void notify(String impCode, Observable observable, T t);
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-07-27 10:31</div>
+</div>
+</body>
+</html>

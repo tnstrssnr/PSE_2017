@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: EventArg</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">edu.kit.pse17.go_app.ClientCommunication.Downstream</a> ]
+</div>
+
+<h1>Coverage Summary for Class: EventArg (edu.kit.pse17.go_app.ClientCommunication.Downstream)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EventArg</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package edu.kit.pse17.go_app.ClientCommunication.Downstream;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * Dieses Enum enthält String-Konstanten, die vom FcmClient in die Nachrichten an Clients eingefügt werden, damit der Client anhand der Nachricht
+<i>5</i>&nbsp; * feststellen kann, welches Ereignis eingetreten ist.
+<i>6</i>&nbsp; */
+<b class="nc"><i>7</i>&nbsp;public enum EventArg {</b>
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    /**
+<i>10</i>&nbsp;     * Event wird ausgelöst, falls eine Gruppenentität gelöscht wird. Das Event wird nur an Clients gesendet, die Mitglied
+<i>11</i>&nbsp;     * in der Gruppe waren bzw. eine Anfrage für diese Gruppe erhalten haben.
+<i>12</i>&nbsp;     */
+<b class="nc"><i>13</i>&nbsp;    GROUP_REMOVED_EVENT,</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * Event wird ausgelöst, falls ein Mitglied aus einer Gruppe gelöscht wird. Dies ist auch der Fall, wenn ein Benutzer seinen
+<i>17</i>&nbsp;     * Benutzeraccount gelöscht hat. Das Event wird an alle Mitglieder der gruppe gesendet und an Benutzer,
+<i>18</i>&nbsp;     * die eine Anfrage für die Gruppe erhalten haben.
+<i>19</i>&nbsp;     */
+<b class="nc"><i>20</i>&nbsp;    MEMBER_REMOVED_EVENT,</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Event wird ausgelöst, falls eine Go-Entität gelöscht wird. Die Benachrichtigung muss an alle Benutzer geschickt werden,
+<i>24</i>&nbsp;     * die Mitglied in der Gruppe des Gos sind bzw. eine Gruppenanfrage für diese Gruppe haben.
+<i>25</i>&nbsp;     */
+<b class="nc"><i>26</i>&nbsp;    GO_REMOVED_EVENT,</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Event wird ausgelöst, falls ein neues Mitglied zu einer Gruppe hinzugefügt wurde (also ein  Benutzer ein gruppenanfrage
+<i>30</i>&nbsp;     * bestätigt hat). Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für
+<i>31</i>&nbsp;     * diese Gruppe haben.
+<i>32</i>&nbsp;     */
+<b class="nc"><i>33</i>&nbsp;    MEMBER_ADDED_EVENT,</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Event wird ausgelöst, wenn ein Benutzer eine Anfrage für eine Gruppe bekommen hat. Die Benachrichtigung wird an diesen Benutzer
+<i>37</i>&nbsp;     * und an alle Mitglieder der Gruppe gesendet bzw. Benutzer, die eine Gruppenanfrage für
+<i>38</i>&nbsp;     * diese Gruppe haben.
+<i>39</i>&nbsp;     */
+<b class="nc"><i>40</i>&nbsp;    GROUP_REQUEST_RECEIVED_EVENT,</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Event wird ausgelöst, wenn ein neues GO in einer Gruppe erstellt wurde. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für
+<i>44</i>&nbsp;     * diese Gruppe haben.
+<i>45</i>&nbsp;     */
+<b class="nc"><i>46</i>&nbsp;    GO_ADDED_EVENT,</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Event wird ausgelöst, wenn die Daten in einem GO verändert werden. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für
+<i>50</i>&nbsp;     * diese Gruppe haben.
+<i>51</i>&nbsp;     */
+<b class="nc"><i>52</i>&nbsp;    GO_EDITED_COMMAND,</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Event wird ausgelöst, wenn die Daten in einer gruppe verändert werden. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für
+<i>56</i>&nbsp;     * diese Gruppe haben.
+<i>57</i>&nbsp;     */
+<b class="nc"><i>58</i>&nbsp;    GROUP_EDITED_COMMAND,</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * Event wird ausgelöst, wenn ein Adminsitrator zu einer Gruppe hinzugefügt wurde. Die Benachrichtigung muss an alle Benutzer geschickt werden, die Mitglied in der Gruppe sind bzw. eine Gruppenanfrage für
+<i>62</i>&nbsp;     * diese Gruppe haben.
+<i>63</i>&nbsp;     */
+<b class="nc"><i>64</i>&nbsp;    ADMIN_ADDED_EVENT,</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Event wird ausgelöst, wenn ein GO-Teilnehmer seinen Teilnehmerstatus verändert hat. Die Benachrichtigung muss an alle Benutzer geschickt werden,
+<i>68</i>&nbsp;     * die Mitglied in der Gruppe des GOs sind bzw. eine Gruppenanfrage für diese Gruppe haben.
+<i>69</i>&nbsp;     */
+<b class="nc"><i>70</i>&nbsp;    STATUS_CHANGED_COMMAND</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-07-27 10:31</div>
+</div>
+</body>
+</html>

@@ -16,9 +16,10 @@ public class MemberAddedObserver implements Observer{
     private UserDao userDao;
     private GroupDao groupdao;
 
-    public MemberAddedObserver(FcmClient messenger, UserDao userDao) {
+    public MemberAddedObserver(FcmClient messenger, UserDao userDao, GroupDao groupdao) {
         this.messenger = messenger;
         this.userDao = userDao;
+        this.groupdao = groupdao;
     }
 
     public UserDao getUserDao() {
