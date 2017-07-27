@@ -1,8 +1,5 @@
 package edu.kit.pse17.go_app.ServiceLayer.observer;
 
-import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
-import edu.kit.pse17.go_app.ServiceLayer.Observable;
-
 import java.util.List;
 
 /**

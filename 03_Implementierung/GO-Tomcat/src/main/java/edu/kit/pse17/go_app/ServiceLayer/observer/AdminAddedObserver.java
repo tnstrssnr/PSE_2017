@@ -5,9 +5,9 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
-import edu.kit.pse17.go_app.ServiceLayer.Observable;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import org.json.simple.JSONObject;
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +19,11 @@ public class AdminAddedObserver implements Observer {
 
     public AdminAddedObserver(FcmClient messenger, GroupDao groupDao) {
         this.messenger = messenger;
+        this.groupDao = groupDao;
+    }
+
+    public AdminAddedObserver(GroupDao groupDao) {
+        this.messenger = new FcmClient();
         this.groupDao = groupDao;
     }
 

@@ -1,4 +1,4 @@
-package edu.kit.pse17.go_app.ServiceLayer.observer;
+package edu.kit.pse17.go_app.ServiceLayer;
 
 
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
@@ -9,6 +9,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
+import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import edu.kit.pse17.go_app.TestData;
 import org.junit.After;
 import org.junit.Before;

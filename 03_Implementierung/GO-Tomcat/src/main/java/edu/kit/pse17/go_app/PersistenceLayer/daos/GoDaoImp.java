@@ -1,20 +1,24 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.Observable;
+import edu.kit.pse17.go_app.ServiceLayer.IObservable;
+import edu.kit.pse17.go_app.ServiceLayer.observer.GoEditedObserver;
+import edu.kit.pse17.go_app.ServiceLayer.observer.GoRemovedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
+import edu.kit.pse17.go_app.ServiceLayer.observer.StatusChangedObserver;
 import org.hibernate.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 
-public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<GoEntity> {
+public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable<GoEntity> {
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der Datenbank
@@ -24,7 +28,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      * Auf dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanziierung ist diese Objekt unveränderbar und
      * bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
      *
-     * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
+     * Diese Klasse implementiert darüber hinaus das Interface IObservable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
      * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
     private SessionFactory sf;
@@ -33,7 +37,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
      * auch die Daten anderer Benutzer betrifft.
      */
-    private List<Observer> observer;
+    private HashMap<EventArg, Observer> observer;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
@@ -41,16 +45,21 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      */
     public GoDaoImp(SessionFactory sf) {
         this.sf = sf;
-        this.observer = new ArrayList<>();
+        this.observer = new HashMap<>();
+        register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
+        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
+        register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
     }
 
-
+    public SessionFactory getSessionFactory() {
+        return this.sf;
+    }
     /**
      * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
      */
     @Override
-    public void register(Observer observer) {
-        this.observer.add(observer);
+    public void register(EventArg arg, Observer observer) {
+        this.observer.put(arg, observer);
 
     }
 
@@ -73,9 +82,8 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
      * @param goEntity Das Go an dem Änderungen vorgenommen wurden
      */
     @Override
-    public void notify(String impCode, Observable observable, GoEntity goEntity) {
-        for(Observer observer: this.observer) {
-        }
+    public void notify(String impCode, IObservable observable, GoEntity goEntity) {
+
     }
 
     /**

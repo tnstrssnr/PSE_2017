@@ -6,7 +6,9 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 
 import java.util.List;
 
@@ -20,6 +22,12 @@ public class MemberAddedObserver implements Observer{
         this.messenger = messenger;
         this.userDao = userDao;
         this.groupdao = groupdao;
+    }
+
+    public MemberAddedObserver(GroupDao groupDao) {
+        this.messenger = new FcmClient();
+        this.groupdao = groupDao;
+        this.userDao = new UserDaoImp(((GroupDaoImp) groupDao).getSf());
     }
 
     public UserDao getUserDao() {

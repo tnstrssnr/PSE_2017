@@ -5,7 +5,10 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
+import org.hibernate.SessionFactory;
 import org.json.simple.JSONObject;
 
 import java.util.HashSet;
@@ -22,6 +25,12 @@ public class StatusChangedObserver implements Observer{
         this.messenger = messenger;
         this.goDao = goDao;
         this.userDao = userDao;
+    }
+
+    public StatusChangedObserver(GoDao goDao) {
+        this.messenger = new FcmClient();
+        this.goDao = goDao;
+        this.userDao = new UserDaoImp(((GoDaoImp) goDao).getSessionFactory());
     }
 
     public GoDao getGoDao() {

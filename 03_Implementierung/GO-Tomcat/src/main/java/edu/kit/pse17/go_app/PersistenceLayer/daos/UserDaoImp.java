@@ -2,18 +2,15 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.Observable;
-import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
- * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable.
+ * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und IObservable.
  * <p>
  * Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO
  * Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen,
@@ -27,7 +24,7 @@ import java.util.Set;
 
 @Repository
 @Transactional
-public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Observable<UserEntity> {
+public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
@@ -37,17 +34,11 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
      * Aud dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt
      * unveränderbar und bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
      * <p>
-     * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die
+     * Diese Klasse implementiert darüber hinaus das Interface IObservable. Das heißt die Klasse besitzt Beobachter, die
      * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
     private final SessionFactory sf;
-
-    /**
-     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
-     * auch die Daten anderer Benutzer betrifft.
-     */
-    private final List<Observer> observer;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
@@ -56,47 +47,13 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Obs
 
     public UserDaoImp(final SessionFactory sf) {
         this.sf = sf;
-        this.observer = new ArrayList<>();
-    }
-
-    /**
-     * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
-     *                 eines
-     */
-    @Override
-    public void register(final Observer observer) {
-        this.observer.add(observer);
-    }
-
-    /**
-     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode
-     *                 sichergestellt werden, dass
-     */
-    @Override
-    public void unregister(final Observer observer) {
-        this.observer.remove(observer);
-    }
-
-    /**
-     * @param impCode    Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt
-     *                   es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich
-     *                   um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.
-     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
-     *                   weiß der observer, von wo er eine Benachrichtigung bekommen hat.
-     * @param userEntity Die veränderte UserEntity wird zur Weiterverarbeitung an den Observer übergeben.
-     */
-    @Override
-    public void notify(final String impCode, final Observable observable, final UserEntity userEntity) {
-        for (final Observer observer : this.observer) {
-
-        }
     }
 
 
     /**
      * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
      *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.
-     * @return Das gefundene UserEntity_objekt aus der Datenbank. Wurde kein passender user gefunden gibt diese Methode
+     * @return Das gefundene UserEtity_objekt aus der Datenbank. Wurde kein passender user gefunden gibt diese Methode
      * null zurück.
      */
     @Override

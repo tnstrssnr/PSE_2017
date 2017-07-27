@@ -5,6 +5,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 
 import java.util.List;
 
@@ -18,6 +19,11 @@ public class GroupEditedObserver implements Observer {
         this.messenger = messenger;
         this.groupDao = groupDao;
         this.gson = new Gson();
+    }
+
+    public GroupEditedObserver(GroupDao groupDao) {
+        this.messenger = new FcmClient();
+        this.groupDao = groupDao;
     }
 
     public GroupDao getGroupDao() {

@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 
 /**
@@ -12,7 +13,7 @@ import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
  *
  * Das Generic T gibt an, welcher Datentyp von den Änderungen betroffen ist und von den Beobachtern an die Clients weitergeleitet weden muss.
  */
-public interface Observable<T> {
+public interface IObservable<T> {
 
     /**
      * Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von observern hinzugefügt,
@@ -21,7 +22,7 @@ public interface Observable<T> {
      * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
      *                  Observers es sich handelt.
      */
-    public void register(Observer observer);
+    public void register(EventArg arg, Observer observer);
 
     /**
      * ein zuvor registrierter Observer kann wieder entfernt werden, indem diese Methode aufgerufen wird. Er wird aus der Liste entfernt.
@@ -42,6 +43,6 @@ public interface Observable<T> {
      *                   Benachrichtigung bekommen hat.
      * @param t Das Objekt das die Änderung enthält bzw. an dem die Änderung durchgeführt wurde.
      */
-    public void notify(String impCode, Observable observable, T t);
+    public void notify(String impCode, IObservable observable, T t);
 
 }

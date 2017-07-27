@@ -8,7 +8,9 @@ import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,6 +27,12 @@ public class GroupRequestReceivedObserver implements Observer{
         this.messenger = messenger;
         this.groupDao = groupDao;
         this.userDao = userDao;
+    }
+
+    public GroupRequestReceivedObserver(GroupDao groupDao) {
+        this.messenger = new FcmClient();
+        this.groupDao = groupDao;
+        this.userDao = new UserDaoImp(((GroupDaoImp) groupDao).getSf());
     }
 
     public GroupDao getGroupDao() {
