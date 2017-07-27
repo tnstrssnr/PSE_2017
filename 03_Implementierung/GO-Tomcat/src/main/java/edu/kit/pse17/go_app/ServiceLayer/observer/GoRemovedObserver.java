@@ -30,7 +30,9 @@ public class GoRemovedObserver implements Observer {
     @Override
     public void update(List<String> entity_ids) {
         GoEntity removedGo = goDao.get(Long.valueOf(entity_ids.get(0)));
-        String data = JSONObject.toString("id", entity_ids.get(0));
+        JSONObject json = new JSONObject();
+        json.put("id", entity_ids.get(0));
+        String data = json.toJSONString();
 
         messenger.send(data, EventArg.GO_REMOVED_EVENT, removedGo.getGroup().getMembers());
         messenger.send(data, EventArg.GO_REMOVED_EVENT, removedGo.getGroup().getRequests());

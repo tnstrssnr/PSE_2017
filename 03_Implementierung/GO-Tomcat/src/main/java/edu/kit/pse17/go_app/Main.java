@@ -12,6 +12,7 @@ import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.hibernate.SessionFactory;
+import org.json.simple.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,9 +20,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Die Main-Klasse der Server-Anwendung. In ihr wird keine Anwendungslogik ausgeführt.
@@ -42,7 +41,59 @@ public class Main {
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
      */
     public static void main(final String[] args) throws DatabaseUnitException, FileNotFoundException {
+        List<String> entity_ids = new ArrayList<>();
 
+        UserEntity bob = new UserEntity();
+        bob.setName("Bob");
+        bob.setInstanceId("testInstance_1");
+        bob.setEmail("bob@testmail.com");
+        bob.setUid("testid_1");
+        bob.setGos(new HashSet<>());
+
+        UserEntity alice = new UserEntity();
+        alice.setName("Alice");
+        alice.setUid("testid_2");
+        alice.setEmail("alice@testmail.com");
+        alice.setInstanceId("testInstance_2");
+        alice.setGos(new HashSet<>());
+
+        //userDao.persist(bob);
+        //userDao.persist(alice);
+
+        GroupEntity foo = new GroupEntity();
+        foo.setName("Foo");
+        foo.setDescription("Test Descritpion");
+        Set<UserEntity> admins = new HashSet<>();
+        admins.add(bob);
+        Set<UserEntity> members = new HashSet<>();
+        members.add(alice);
+        members.add(bob);
+        foo.setAdmins(admins);
+        foo.setMembers(members);
+        foo.setGos(new HashSet<>());
+
+        GoEntity go = new GoEntity(foo, bob, "lunch", "test description", new Date(2017, 7, 30), new Date(2017, 8, 1), 0l, 0l);
+
+        GroupEntity group = foo;
+        UserEntity user = alice;
+        entity_ids.add(String.valueOf(alice.getUid()));
+        entity_ids.add(String.valueOf(foo.getID()));
+
+        int newStatus = 1;
+
+        //create JSON Object to send to clients
+        JSONObject json = new JSONObject();
+        json.put("user_id", user.getUid());
+        json.put("go_id", go.getID());
+        json.put("status", newStatus);
+
+        String data = json.toJSONString();
+
+
+        System.out.println(data);
+
+
+        /**
         final org.hibernate.cfg.Configuration config = new org.hibernate.cfg.Configuration();
         final SessionFactory sf = config.configure().buildSessionFactory();
 
@@ -107,7 +158,7 @@ public class Main {
         lunch.setGroup(null);
         System.out.println(new Gson().toJson(lunch));
 
-        /**
+
         Class driverClass;
         try {
             driverClass =  Class.forName("com.mysql.jdbc.Driver");

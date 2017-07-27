@@ -29,7 +29,9 @@ public class GroupRemovedObserver implements Observer {
 
     @Override
     public void update(List<String> entity_ids) {
-        String data = JSONObject.toString("id", entity_ids.get(0));
+        JSONObject json = new JSONObject();
+        json.put("id", entity_ids.get(0));
+        String data = json.toJSONString();
 
         GroupEntity groupEntity = groupDao.get(Long.valueOf(entity_ids.get(0)));
 

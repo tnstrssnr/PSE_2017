@@ -199,6 +199,9 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
             if (!group.getMembers().contains(user)) {
                 group.getMembers().add(user);
             }
+
+            //adds users status to gos -- is 'not going' by default
+            new GoDaoImp(this.sf).onGroupMemberAdded(user, group);
             tx.commit();
 
 
@@ -256,6 +259,9 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
             group = session.get(GroupEntity.class, groupId);
             if (group.getMembers().contains(user)) {
                 group.getMembers().remove(user);
+            }
+            if(group.getAdmins().contains(user)) {
+                group.getAdmins().remove(user);
             }
             tx.commit();
         } catch (final HibernateException e) {

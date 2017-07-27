@@ -1,11 +1,13 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.Observable;
 import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,6 +207,18 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, Observable<
             tx = session.beginTransaction();
             session.update(go);
             tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
+    }
+
+    public void onGroupMemberAdded(UserEntity user, GroupEntity group) {
+        Transaction tx = null;
+
+        try(Session session = sf.openSession()) {
+            for (GoEntity go: group.getGos()) {
+                go.getNotGoingUsers().add(user);
+            }
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
         }

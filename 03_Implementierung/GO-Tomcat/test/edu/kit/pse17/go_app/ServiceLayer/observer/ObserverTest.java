@@ -26,17 +26,17 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 
-public class OberverTest {
+public class ObserverTest {
 
-    private static final String GEO_JSON = "";
-    private static final String AAO_JSON = "";
-    private static final String GORO_JSON = "";
-    private static final String GOEO_JSON = "";
-    private static final String GRO_JSON = "";
-    private static final String GRRO_JSON = "";
-    private static final String MAO_JSON = "";
-    private static final String MRO_JSON = "";
-    private static final String SCO_JSON = "";
+    private static final String GOEO_JSON = "{\"ID\":0,\"name\":\"lunch\",\"description\":\"test description\",\"start\":\"Aug 30, 3917 12:00:00 AM\",\"end\":\"Sep 1, 3917 12:00:00 AM\",\"lat\":0,\"lon\":0}";
+    private static final String AAO_JSON = "{\"user_id\":\"testid_1\",\"group_id\":\"0\"}";
+    private static final String GORO_JSON = "{\"id\":\"0\"}";
+    private static final String GEO_JSON = "{\"ID\":0,\"name\":\"Foo\",\"description\":\"Test Descritpion\"}\n";
+    private static final String GRO_JSON = "{\"id\":\"0\"}";
+    private static final String GRRO_JSON = "{\"ID\":0,\"name\":\"Foo\",\"description\":\"Test Descritpion\",\"members\":[{\"uid\":\"testid_1\",\"instanceId\":\"testInstance_1\",\"name\":\"Bob\",\"email\":\"bob@testmail.com\"},{\"uid\":\"testid_2\",\"instanceId\":\"testInstance_2\",\"name\":\"Alice\",\"email\":\"alice@testmail.com\"}],\"admins\":[{\"uid\":\"testid_1\",\"instanceId\":\"testInstance_1\",\"name\":\"Bob\",\"email\":\"bob@testmail.com\"}],\"gos\":[]}";
+    private static final String MAO_JSON = "{\"uid\":\"testid_2\",\"instanceId\":\"testInstance_2\",\"name\":\"Alice\",\"email\":\"alice@testmail.com\"}";
+    private static final String MRO_JSON = "{\"user_id\":\"testid_2\",\"group_id\":0}";
+    private static final String SCO_JSON = "{\"user_id\":\"testid_2\",\"go_id\":0,\"status\":1}";
 
     private static Set<UserEntity> allGroupMembers;
     private static Set<UserEntity> adminsPlusNewMember;

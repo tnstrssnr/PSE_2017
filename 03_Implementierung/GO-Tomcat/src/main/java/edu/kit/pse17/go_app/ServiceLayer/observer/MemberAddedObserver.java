@@ -36,6 +36,7 @@ public class MemberAddedObserver implements Observer{
 
         newUser.setRequests(null);
         newUser.setGroups(null);
+        newUser.setGos(null);
 
         String data = new Gson().toJson(newUser);
         messenger.send(data, EventArg.MEMBER_ADDED_EVENT, group.getMembers());
