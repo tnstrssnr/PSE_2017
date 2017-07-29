@@ -3,6 +3,9 @@ package edu.kit.pse17.go_app.model.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 
 /**
  * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die GroupMembership-Objekte persistiert.
@@ -16,22 +19,30 @@ public class GroupMembership {
     /**
      * Mitglied der Gruppe.
      */
+    @SerializedName("user")
+    @Expose
     private User user;
 
     /**
      * Gruppe, zu der der Mitglied gehört.
      */
+    @SerializedName("group")
+    @Expose
     private Group group;
 
     /**
      * Boolean-Wert der angibt, ob der Benutzer ein Administrator der Gruppe ist.
      */
+    @SerializedName("isAdmin")
+    @Expose
     private boolean isAdmin;
 
     /**
      * Boolean-Wert, der angibt, ob es sich bei der Mitgliedschaft des Benutzers um eine "ordentliche Mitgliedschaft"
      * oder um eine unbeantwortete Gruppenanfrage handelt.
      */
+    @SerializedName("isRequest")
+    @Expose
     private boolean isRequest;
 
     public GroupMembership(User user, Group group, boolean isAdmin, boolean isRequest) {

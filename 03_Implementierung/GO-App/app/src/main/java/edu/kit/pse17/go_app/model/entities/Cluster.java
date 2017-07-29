@@ -1,5 +1,8 @@
 package edu.kit.pse17.go_app.model.entities;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Die Objekte dieser Klasse repräsentieren die Cluster, die dem Benutzer während eines GOs auf der Karte
  * angezeigt werden.
@@ -15,16 +18,22 @@ public class Cluster {
     /**
      * Der geographische Breitengrad der Position des Clusters
      */
+    @SerializedName("lat")
+    @Expose
     private long lat;
 
     /**
      * Der geogrgaphische Längengrad der Position des Clusters
      */
+    @SerializedName("lon")
+    @Expose
     private long lon;
 
     /**
      * Die Größe des Clusters, sprich die Anzahl der Personen, die zu diesem Cluster gezählt werden
      */
+    @SerializedName("size")
+    @Expose
     private int size;
 
     public Cluster(long lat, long lon, int size) {

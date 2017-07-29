@@ -3,10 +3,12 @@ package edu.kit.pse17.go_app.model.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import edu.kit.pse17.go_app.model.Status;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *  Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Go-Objekte persistiert.
@@ -21,63 +23,94 @@ public class Go {
      * ID des GOs. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig
      */
     @PrimaryKey
+    @SerializedName("goId")
     private long id;
 
     /**
      * GO-Bezeichnug (frei wählbar, muss nicht eindeutig sein)
      */
+    @SerializedName("name")
+    @Expose
     private String name;
 
     /**
      * Beschreibungstext des GOs
      */
+    @SerializedName("description")
+    @Expose
     private String description;
 
     /**
      * Startdatum und -zeitpunkt des GOs
      */
-    private String start;
+    @SerializedName("start")
+    @Expose
+    private Date start;
 
     /**
      * Enddatum und -zeitpunkt des GOs
      */
-    private String end;
+    @SerializedName("end")
+    @Expose
+    private Date end;
 
     /**
      *  Die Gruppe, zu der das Go gehört
      */
+    @SerializedName("group")
+    @Expose
     private Group group;
 
     /**
      * Breitengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
+    @SerializedName("lat")
     private long desLat;
 
     /**
      * Längengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
+    @SerializedName("lon")
     private long desLon;
 
     /**
      * Die User-ID des GO-Verantwortlichen
      */
-    private String owner;
+    @SerializedName("userId")
+    private String ownerId;
 
     /**
      * Der Benutzername des GO-Verantwortlichen
      */
+    @SerializedName("ownerName")
+    @Expose
     private String ownerName;
-
-    /**
-     * Der Teilnahmestatus des Benutzers
-     */
-    private Status userStatus;
 
     /**
      * Eine Liste mit dem UserStatus jedes Gruppenmitglieds der Gruppe des GOs
      */
+    @SerializedName("participantsList")
+    @Expose
     private List<UserGoStatus> participantsList;
+
+    @SerializedName("locations")
+    @Expose
     private List<Cluster> locations;
+
+    public Go(long id, String name, String description, Date start, Date end, Group group, long desLat, long desLon, String ownerId, String ownerName, List<UserGoStatus> participantsList, List<Cluster> locations) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.start = start;
+        this.end = end;
+        this.group = group;
+        this.desLat = desLat;
+        this.desLon = desLon;
+        this.ownerId = ownerId;
+        this.ownerName = ownerName;
+        this.participantsList = participantsList;
+        this.locations = locations;
+    }
 
     public Go() {
         this.name = "Default Go Name";
@@ -109,19 +142,19 @@ public class Go {
         this.description = description;
     }
 
-    public String getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 
@@ -142,11 +175,11 @@ public class Go {
     }
 
     public String getOwner() {
-        return owner;
+        return ownerId;
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.ownerId = owner;
     }
 
     public String getOwnerName() {
@@ -157,19 +190,27 @@ public class Go {
         this.ownerName = ownerName;
     }
 
-    public Status getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(Status userStatus) {
-        this.userStatus = userStatus;
-    }
-
     public List<UserGoStatus> getParticipantsList() {
         return participantsList;
     }
 
     public void setParticipantsList(List<UserGoStatus> participantsList) {
         this.participantsList = participantsList;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public List<Cluster> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Cluster> locations) {
+        this.locations = locations;
     }
 }

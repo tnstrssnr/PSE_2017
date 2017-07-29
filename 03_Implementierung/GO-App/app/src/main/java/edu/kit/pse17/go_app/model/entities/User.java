@@ -1,7 +1,12 @@
 package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.drawable.Icon;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
@@ -18,28 +23,37 @@ public class User implements Serializable {
      * von Firebase Authentication Service übernommen.
      */
     @PrimaryKey
+    @SerializedName("userId")
     private String uid;
 
     /**
      * Die Instance-ID eines Benutzers bzw. Android-Endgeräts wird vom Tomcat-Server verwendet, um Benachrichtigungen an das Gerät zu schicken.
      * Die wird von Firebase Cloud Messaging Service generiert.
      */
+    @SerializedName("instanceId")
+    @Expose
     private String instanceId;
 
     /**
      * Benutzername des Users. Dieser kann frei gewählt werden und muss nicht eindeutig sein. Der default-Wert ist die Email-Adresse des Benutzers.
      */
+    @SerializedName("name")
+    @Expose
     private String name;
 
     /**
      * Die Email-Adresse, mit der sich der Benutzer in der App registriert hat.
      */
+    @SerializedName("email")
+    @Expose
     private String email;
 
     /**
      * Profilbild des Benutzers.
      *//*
     @Ignore
+    @SerializedName("icon")
+    @Expose
     private Drawable icon;*/
 
     public User(String uid, String name, String email) {

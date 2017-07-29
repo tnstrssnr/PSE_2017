@@ -1,12 +1,16 @@
 package edu.kit.pse17.go_app.serverCommunication.upstream;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Group;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.PUT;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * das Interface ist die Schnittstelle des Clients zur REST-API des Tomcat-Servers. Die Kommunikation mit der Rest-API des Servers
@@ -18,45 +22,167 @@ import retrofit2.Call;
  * Aufgerufen werden diese Methoden in der Klassen des Repository Moduls.
  *
  * Genauere Beschreibungen zur Funktion, den Argumenten und Rueckgabetypen der Methoden sind in den Implementierungen der REST-API zu finden. dabei stimmen die Rueckgabetypen
- * der Methoden dieses Interface mit den Rueckgabetypen der Rest-Methoden des Servers ueberein, sind jedoch in einem Call_Objket gewrappt, wie es bei der Benutzung des Retrofit Frameworks ueblich ist.
+ * der Methoden dieses Interface mit den Rueckgabetypen der Rest-Methoden des Servers ueberein, sind jedoch in einem Call_Objekt gewrappt, wie es bei der Benutzung des Retrofit Frameworks ueblich ist.
  */
 
 
 public interface TomcatRestApi {
 
-    public Call<List<Group>> getData(String userId);
+    /**
+     *
+     * @param parameters:
+     *                  String userId
+     *                  String email
+     *                  String instanceId
+     * @return
+     */
+    @GET("user/get")
+    public Call<List<Group>> getData(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> createUser(String userId);
+    @PUT("user/create")
+    public Call<Void> createUser(@Query("userId") String userId);
 
-    public Call<Void> deleteUser(String userId);
+    @DELETE("user/delete")
+    public Call<Void> deleteUser(@Query("userId") String userId);
 
-    public Call<Void> registerDevice(String instanceId);
+    @PUT("user/register")
+    public Call<Void> registerDevice(@Query("instanceId") String instanceId);
 
-    public Call<Long> createGroup(String name, String description, String userId);
+    /**
+     *
+     * @param parameters:
+     *                  String name
+     *                  String description
+     *                  String userId
+     * @return Long groupId
+     */
+    @PUT("group/create")
+    public Call<Long> createGroup(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> editGroup(long groupId, String name, String description);
+    /**
+     *
+     * @param parameters:
+     *                  long groupId
+     *                  String name
+     *                  String description
+     * @return
+     */
+    @PUT("group/edit")
+    public Call<Void> editGroup(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> deleteGroup(Long groupId);
+    @DELETE("group/delete")
+    public Call<Void> deleteGroup(@Query("groupId") long groupId);
 
-    public Call<Void> acceptRequest(long groupId, String userId);
+    /**
+     *
+     * @param parameters:
+     *                  long groupId
+     *                  String userId
+     * @return
+     */
+    @PUT("group/accept")
+    public Call<Void> acceptRequest(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> removeMember(String userId, long groupId);
+    /**
+     *
+     * @param parameters:
+     *                  long groupId
+     *                  String userId
+     * @return
+     */
+    @DELETE("group/remove")
+    public Call<Void> removeMember(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> inviteMember(long groupId, String userId);
+    /**
+     *
+     * @param parameters:
+     *                  long groupId
+     *                  String email
+     * @return
+     */
+    @PUT("group/invite")
+    public Call<Void> inviteMember(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> denyRequest(String userId, String groupId);
+    /**
+     *
+     * @param parameters:
+     *                  long groupId
+     *                  String userId
+     * @return
+     */
+    @PUT("group/deny")
+    public Call<Void> denyRequest(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> addAdmin(String groupId, String userId);
+    /**
+     *
+     * @param parameters:
+     *                  long groupId
+     *                  String userId
+     * @return
+     */
+    @PUT("group/add")
+    public Call<Void> addAdmin(@QueryMap Map<String, String> parameters);
 
-    public Call<Long> createGo(String name, String description, Date start, Date end, double lat, double lon, int threshold, long groupId, String userId);
+    /**
+     *
+     * @param parameters:
+     *                  String name
+     *                  String description
+     *                  Date start
+     *                  Date end
+     *                  double lat
+     *                  double lon
+     *                  int threshold
+     *                  long groupId
+     *                  String userId
+     * @return Long goId
+     */
+    @PUT("go/create")
+    public Call<Long> createGo(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> changeStatus(long goId, String userId, Status status);
+    /**
+     *
+     * @param parameters:
+     *                  String userId
+     *                  long goId
+     *                  Status status
+     * @return
+     */
+    @PUT("go/change")
+    public Call<Void> changeStatus(@QueryMap Map<String, String> parameters);
 
-    public Call<List<Cluster>> getLocation(String goId);
+    /**
+     *
+     * @param parameters:
+     *                  String userId
+     *                  long goId
+     *                  double lat
+     *                  double lon
+     * @return
+     */
+    @GET("go/get")
+    public Call<List<Cluster>> getLocation(@QueryMap Map<String, String> parameters);
 
-    public Call<Void> setLocation(String userId, long lat, long lon, String goId);
+    //public Call<Void> setLocation(String userId, long lat, long lon, String goId);
 
-    public Call<Void> deleteGo(String goId);
+    @DELETE("go/delete")
+    public Call<Void> deleteGo(@Query("goId") long goId);
 
-    public Call<Void> editGo(String goId, String name, String description, Date start, Date end, long lat, long lon, int threshold);
+    /**
+     *
+     * @param parameters:
+     *                  long goId
+     *                  long groupId
+     *                  String userId
+     *                  String name
+     *                  String description
+     *                  Date start
+     *                  Date end
+     *                  double lat
+     *                  double lon
+     *                  int threshold
+     * @return
+     */
+    @PUT("go/edit")
+    public Call<Void> editGo(@QueryMap Map<String, String> parameters);
 }

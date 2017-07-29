@@ -2,6 +2,9 @@ package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import edu.kit.pse17.go_app.model.Status;
 
 /**
@@ -19,17 +22,23 @@ public class UserGoStatus {
     /**
      * Teilnehmer eines GOs.
      */
+    @SerializedName("user")
+    @Expose
     private User user;
 
     /**
      * GO, bei dem ein Benutzer Teilnehmer ist.
      */
+    @SerializedName("go")
+    @Expose
     private Go go;
 
     /**
      * Status eines Benutzers bei einem GO.
      * Kann entweder NOT_GOING (Abgelehnt), oder GOING (Bestätigt) oder GONE (Unterwegs) lauten.
      */
+    @SerializedName("status")
+    @Expose
     private Status status;
 
     public UserGoStatus(User user, Go go, Status status) {

@@ -5,6 +5,9 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.drawable.Drawable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,39 +25,63 @@ public class Group {
      * ID der Gruppe. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig.
      */
     @PrimaryKey
+    @SerializedName("groupId")
     private long id;
 
     /**
      * Der Name der Gruppe. Dieser muss nicht eindeutig sein
      */
+    @SerializedName("name")
+    @Expose
     private String name;
 
     /**
      * Der Beschreibungstext der Gruppe
      */
+    @SerializedName("description")
+    @Expose
     private String description;
 
     /**
      * Die Anzahl der Gruppenmitglieder
      */
+    @SerializedName("memberCount")
+    @Expose
     private int memberCount;
+
     /**
-     * Das Bild der Gruppe
+     * Bild der Gruppe
      */
     @Ignore
+    @SerializedName("icon")
+    @Expose
     public Drawable icon;
 
     /**
      * Eine Liste mit allen Mitgliedern der Gruppe + Information ob das Mitglied ein Administrator ist
      * oder ob es sich bei der Mitgliedschaft lediglich um eine offene Grupppenanfrage handelt.
      */
+    @SerializedName("membershipList")
+    @Expose
     private List<GroupMembership> membershipList;
 
     /**
      * Eine Liste mit allen GOs der Gruppe.
      */
+    @SerializedName("currentGos")
+    @Expose
     private List<Go> currentGos;
 
+
+    public Group(long id, String name, String description, int memberCount, Drawable icon, List<GroupMembership> membershipList, List<Go> currentGos) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.memberCount = memberCount;
+        this.icon = icon;
+        this.membershipList = membershipList;
+        this.currentGos = currentGos;
+    }
 
     public Group() {
         this.name = "Default Name";
@@ -90,14 +117,6 @@ public class Group {
         this.description = description;
     }
 
-    public Drawable getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-
     public List<GroupMembership> getMembershipList() { return membershipList; }
 
     public void setMembershipList(List<GroupMembership> membershipList) {
@@ -122,4 +141,11 @@ public class Group {
     }
 
 
+    public Drawable getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Drawable icon) {
+        this.icon = icon;
+    }
 }

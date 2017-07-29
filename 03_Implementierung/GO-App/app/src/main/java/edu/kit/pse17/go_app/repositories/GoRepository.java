@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -17,6 +18,8 @@ import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import retrofit2.Call;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine
@@ -79,8 +82,9 @@ public class GoRepository extends Repository<List<Go>>{
     public static GoRepository getInstance(){
         if(goRepo == null){
             goRepo = new GoRepository(new TomcatRestApi() {
+
                 @Override
-                public Call<List<Group>> getData(String userId) {
+                public Call<List<Group>> getData(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
@@ -100,74 +104,70 @@ public class GoRepository extends Repository<List<Go>>{
                 }
 
                 @Override
-                public Call<Long> createGroup(String name, String description, String userId) {
+                public Call<Long> createGroup(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> editGroup(long groupId, String name, String description) {
+                public Call<Void> editGroup(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> deleteGroup(Long groupId) {
+                public Call<Void> deleteGroup(@Query("groupId") long groupId) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> acceptRequest(long groupId, String userId) {
+                public Call<Void> acceptRequest(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> removeMember(String userId, long groupId) {
+                public Call<Void> removeMember(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> inviteMember(long groupId, String userId) {
+                public Call<Void> inviteMember(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> denyRequest(String userId, String groupId) {
+                public Call<Void> denyRequest(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> addAdmin(String groupId, String userId) {
+                public Call<Void> addAdmin(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Long> createGo(String name, String description, Date start, Date end, double lat, double lon, int threshold, long groupId, String userId) {
+                public Call<Long> createGo(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> changeStatus(long goId, String userId, Status status) {
+                public Call<Void> changeStatus(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<List<Cluster>> getLocation(String goId) {
+                public Call<List<Cluster>> getLocation(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> setLocation(String userId, long lat, long lon, String goId) {
+                public Call<Void> deleteGo(@Query("goId") long goId) {
                     return null;
                 }
 
                 @Override
-                public Call<Void> deleteGo(String goId) {
+                public Call<Void> editGo(@QueryMap Map<String, String> parameters) {
                     return null;
                 }
 
-                @Override
-                public Call<Void> editGo(String goId, String name, String description, Date start, Date end, long lat, long lon, int threshold) {
-                    return null;
-                }
             }, new Executor() {
                 @Override
                 public void execute(@NonNull Runnable command) {
