@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -9,36 +8,44 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.unitils.UnitilsJUnit4;
+import org.unitils.dbunit.annotation.DataSet;
+import org.unitils.dbunit.datasetloadstrategy.impl.CleanInsertLoadStrategy;
 import org.unitils.orm.hibernate.HibernateUnitils;
 import org.unitils.orm.hibernate.annotation.HibernateSessionFactory;
 
+import javax.sql.DataSource;
+
 import static org.junit.Assert.assertEquals;
 
-class GroupDaoImpTest extends UnitilsJUnit4 {
+public class GroupDaoImpTest extends UnitilsJUnit4 {
 
     @HibernateSessionFactory("testing.cfg.xml")
     private SessionFactory sf;
+
+    private DataSource dataSource;
+
+
     private GroupDaoImp dao;
     private GroupEntity testGroup;
 
     @Before
-    void setUp() {
+    public void setUp() {
         dao = new GroupDaoImp(sf);
         testGroup = new GroupEntity();
     }
 
     @After
-    void tearDown() {
+    public void tearDown() {
         dao = null;
     }
 
     @Test
-    void testDbMapping() {
+    public void testDbMapping() {
         HibernateUnitils.assertMappingWithDatabaseConsistent();
     }
 
     @Test
-    void register() {
+    public void register() {
         assertEquals(0, dao.getObserver().size());
         Observer mockObserver = Mockito.mock(Observer.class);
         dao.register(mockObserver);
@@ -47,7 +54,7 @@ class GroupDaoImpTest extends UnitilsJUnit4 {
     }
 
     @Test
-    void unregister() {
+    public void unregister() {
         Observer mockObserver = Mockito.mock(Observer.class);
         dao.getObserver().add(mockObserver);
         assertEquals(1, dao.getObserver().size());
@@ -56,41 +63,41 @@ class GroupDaoImpTest extends UnitilsJUnit4 {
     }
 
     @Test
-    void get() {
+    public void get() {
         GroupEntity result = dao.get(1l);
         assertEquals(testGroup, result);
     }
 
     @Test
-    void persist() {
+    public void persist() {
     }
 
     @Test
-    void delete() {
+    public void delete() {
     }
 
     @Test
-    void update() {
+    public void update() {
     }
 
     @Test
-    void addGroupMember() {
+    public void addGroupMember() {
     }
 
     @Test
-    void removeGroupRequest() {
+    public void removeGroupRequest() {
     }
 
     @Test
-    void addGroupRequest() {
+    public void addGroupRequest() {
     }
 
     @Test
-    void removeGroupMember() {
+    public void removeGroupMember() {
     }
 
     @Test
-    void addAdmin() {
+    public void addAdmin() {
     }
 
 }

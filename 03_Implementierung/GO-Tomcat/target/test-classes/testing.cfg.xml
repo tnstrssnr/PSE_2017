@@ -13,7 +13,7 @@
         </property>
 
         <property name="connection.url">
-            jdbc:mysql://localhost/pse_testing;
+            jdbc:mysql://localhost/pse_testing
         </property>
         <property name="connection.username">
             root

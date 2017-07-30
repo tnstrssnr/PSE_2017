@@ -22,6 +22,11 @@ public class GoRemovedObserver implements Observer {
         this.goDao = goDao;
     }
 
+    public GoRemovedObserver(GoDao goDao) {
+        this.messenger = new FcmClient();
+        this.goDao = goDao;
+    }
+
     @Override
     public void update(List<String> entity_ids) {
         GoEntity removedGo = goDao.get(Long.valueOf(entity_ids.get(0)));

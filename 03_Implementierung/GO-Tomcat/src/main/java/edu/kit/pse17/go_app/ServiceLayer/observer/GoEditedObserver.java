@@ -21,6 +21,11 @@ public class GoEditedObserver implements Observer {
         this.goDao = goDao;
     }
 
+    public GoEditedObserver(GoDao dao) {
+        this.messenger = new FcmClient();
+        this.goDao = dao;
+    }
+
     public GoDao getGoDao() {
         return goDao;
     }

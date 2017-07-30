@@ -6,6 +6,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import org.json.simple.JSONObject;
 
 import java.util.HashSet;
@@ -19,6 +20,11 @@ public class GroupRemovedObserver implements Observer {
 
     public GroupRemovedObserver(FcmClient messenger, GroupDao groupDao) {
         this.messenger = messenger;
+        this.groupDao = groupDao;
+    }
+
+    public GroupRemovedObserver(GroupDao groupDao) {
+        this.messenger = new FcmClient();
         this.groupDao = groupDao;
     }
 

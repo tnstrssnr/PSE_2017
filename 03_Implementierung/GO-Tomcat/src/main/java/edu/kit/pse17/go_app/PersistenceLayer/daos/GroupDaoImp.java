@@ -1,20 +1,22 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.*;
-import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
+import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
 @Transactional
 /**
- * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable.
+ * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und IObservable.
  * <p>
  * Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "groups". Dazu werden alle Methoden aus den DAO
  * Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen,
@@ -25,7 +27,7 @@ import java.util.List;
  * Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst
  * oder nicht.
  */
-public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Observable<Object> {
+public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IObservable<Object> {
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
@@ -35,7 +37,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
      * Auch dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt
      * unveränderbar und bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
      * <p>
-     * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die
+     * Diese Klasse implementiert darüber hinaus das Interface IObservable. Das heißt die Klasse besitzt Beobachter, die
      * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
@@ -45,7 +47,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
      * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
      * auch die Daten anderer Benutzer betrifft.
      */
-    private final List<Observer> observer;
+    private final HashMap<EventArg, Observer> observer;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
@@ -53,14 +55,20 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
      */
     public GroupDaoImp(final SessionFactory sf) {
         this.sf = sf;
-        this.observer = new ArrayList<>();
+        this.observer = new HashMap<>();
+        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
+        register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
+        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
+        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
+        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
+        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
     }
 
     public SessionFactory getSf() {
         return sf;
     }
 
-    public List<Observer> getObserver() {
+    public HashMap<EventArg, Observer> getObserver() {
         return observer;
     }
 
@@ -68,9 +76,11 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
      * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
      *                 eines
      */
+
+
     @Override
-    public void register(final Observer observer) {
-        this.observer.add(observer);
+    public void register(EventArg arg, Observer observer) {
+        this.observer.put(arg, observer);
     }
 
     /**
@@ -91,9 +101,8 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, Ob
      * @param o          Die veränderte GroupEntity, die zur Weiterverarbeitung an die Observer weitergereicht wird.
      */
     @Override
-    public void notify(final String impCode, final Observable observable, final Object o) {
-        for (final Observer observer : this.observer) {
-        }
+    public void notify(final String impCode, final IObservable observable, final Object o) {
+
     }
 
     /**
