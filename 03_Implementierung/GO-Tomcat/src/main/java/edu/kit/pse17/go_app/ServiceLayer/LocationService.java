@@ -1,7 +1,10 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import net.sf.javaml.core.Dataset;
+import net.sf.javaml.core.DefaultDataset;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +41,7 @@ public class LocationService {
      * Das Attribut ist final, da es, nachdem es einmal festgelegt wurde nicht mehr verändert werden sollte. Ein GO sollte stattdessen immer den gleichen
      * Algorithmus benutzen.
      */
-    private final ClusterStrategy strat;
+    //private final ClusterStrategy strat;
 
     /**
      * Eine Liste mit den UserLocations aller Benutzer, die momentan ihren Standort mit den anderen teilen.
@@ -77,12 +80,12 @@ public class LocationService {
      * - newLocationCounter: 0
      * - userCounter: 0
      */
-    public LocationService(GoEntity go) {
+    public LocationService(GoEntity go) throws IOException {
         this.activeUsers = activeUsers;
         this.groupLocation = groupLocation;
         this.newLocationCounter = 0;
         this.userCounter = 0;
-        this.strat = new GoClusterStrategy();
+        //this.strat = new GoClusterStrategy();
     }
 
     /**
@@ -127,5 +130,6 @@ public class LocationService {
     public static List<Cluster> getGroupLocation(long goId) {
         return null;
     }
+    
 
 }

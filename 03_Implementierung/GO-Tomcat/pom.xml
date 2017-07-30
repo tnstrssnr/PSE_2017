@@ -232,8 +232,20 @@
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>unitils-dbunit</artifactId>
+            <version>3.4.2</version>
+        </dependency>
         <!-- JUNIT5 & JUPITER -->
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+
+        <!-- https://mvnrepository.com/artifact/de.lmu.ifi.dbs.elki/elki -->
+        <dependency>
+            <groupId>de.lmu.ifi.dbs.elki</groupId>
+            <artifactId>elki</artifactId>
+            <version>0.7.1</version>
+        </dependency>
 </dependencies>
     
 </project>

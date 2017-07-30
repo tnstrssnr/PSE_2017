@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import net.sf.javaml.core.Dataset;
+
 import java.util.List;
 
 /**
@@ -23,6 +25,6 @@ public interface ClusterStrategy {
      *                         Objekte und maximal 50 Objekte.
      * @return eine Liste von Cluster-Objekten, die den aktuellen Standort der Gruppe beschreiben. Die Länge der Liste liegt zwis
      */
-    List<Cluster> calculateCluster(List<UserLocation> userLocationList);
+    Dataset[] calculateCluster(List<UserLocation> userLocationList);
 
 }
