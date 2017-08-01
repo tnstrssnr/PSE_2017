@@ -11,6 +11,7 @@ import edu.kit.pse17.go_app.ServiceLayer.observer.GoRemovedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import edu.kit.pse17.go_app.ServiceLayer.observer.StatusChangedObserver;
 import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * Diese Klasse implementiert darüber hinaus das Interface IObservable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
      * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
+    @Autowired
     private SessionFactory sf;
 
     /**
@@ -43,8 +45,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
      * der verwendetetn MySQL Datenbank.
      */
-    public GoDaoImp(SessionFactory sf) {
-        this.sf = sf;
+    public GoDaoImp() {
         this.observer = new HashMap<>();
         register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
         register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
@@ -95,11 +96,13 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
     @Override
     public GoEntity get(Long key) {
         Transaction tx = null;
+        Session session = null;
         GoEntity go = null;
 
-        try(Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            go = session.get(GoEntity.class, key);
+            go = (GoEntity) session.get(GoEntity.class, key);
             Hibernate.initialize(go.getGoingUsers());
             Hibernate.initialize(go.getGoneUsers());
             Hibernate.initialize(go.getNotGoingUsers());
@@ -124,8 +127,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
     @Override
     public void persist(GoEntity entity) {
         Transaction tx = null;
+        Session session = null;
 
-        try(Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             entity.getGroup().getGos().add(entity);
             entity.getOwner().getGos().add(entity);
@@ -133,6 +138,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -144,14 +153,20 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
     @Override
     public void delete(Long key) {
         Transaction tx = null;
+        Session session = null;
         GoEntity go = get(key);
 
-        try(Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.delete(go);
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
     }
@@ -162,14 +177,20 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
     @Override
     public void update(GoEntity goEntity)  {
         Transaction tx = null;
+        Session session = null;
         //GoEntity oldData = get(goEntity.getID());
 
-        try(Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.update(goEntity);
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
     }
@@ -185,6 +206,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
     @Override
     public void changeStatus(String userId, long goId, Status status) {
         Transaction tx = null;
+        Session session = null;
         GoEntity go = get(goId);
         UserEntity user = new UserDaoImp(this.sf).get(userId);
         List<Set<UserEntity>> statusLists = new ArrayList<>();
@@ -211,7 +233,8 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
                 break;
         }
 
-        try (Session session = sf.openSession()){
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.update(go);
             tx.commit();
@@ -222,13 +245,19 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
 
     public void onGroupMemberAdded(UserEntity user, GroupEntity group) {
         Transaction tx = null;
+        Session session = null;
 
-        try(Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             for (GoEntity go: group.getGos()) {
                 go.getNotGoingUsers().add(user);
             }
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 }

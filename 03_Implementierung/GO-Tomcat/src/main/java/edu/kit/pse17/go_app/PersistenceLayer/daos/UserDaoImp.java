@@ -1,8 +1,10 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.Main;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,8 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
+
+    @Autowired
     private final SessionFactory sf;
 
     /**
@@ -49,7 +53,6 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
         this.sf = sf;
     }
 
-
     /**
      * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
      *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.
@@ -58,16 +61,22 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      */
     @Override
     public UserEntity getUserByEmail(final String mail) {
+        Session session = null;
         List<UserEntity> user = null;
         final String hql = "FROM UserEntity WHERE UserEntity.email = :mail";
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             final Query query = session.createQuery(hql);
             query.setParameter("mail", mail);
             user = (List<UserEntity>) query.list();
             Hibernate.initialize(user);
         } catch (final HibernateException e) {
             handleHibernateException(e, null);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         return (user != null) ? user.get(0) : null;
@@ -105,11 +114,13 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public UserEntity get(final String key) {
         Transaction tx = null;
+        Session session = null;
         UserEntity user = null;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            user = session.get(UserEntity.class, key);
+            user = (UserEntity) session.get(UserEntity.class, key);
             Hibernate.initialize(user.getGroups());
             for(GroupEntity group: user.getGroups()) {
                 Hibernate.initialize(group.getMembers());
@@ -129,14 +140,20 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      */
     @Override
     public void persist(final UserEntity entity) {
+        Session session = null;
         Transaction tx = null;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.save(entity);
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -147,15 +164,20 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public void delete(final String key) {
         Transaction tx = null;
-
+        Session session = null;
         final UserEntity user = get(key);
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.delete(user);
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -166,13 +188,19 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public void update(final UserEntity userEntity) {
         Transaction tx = null;
+        Session session = null;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.update(userEntity);
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 

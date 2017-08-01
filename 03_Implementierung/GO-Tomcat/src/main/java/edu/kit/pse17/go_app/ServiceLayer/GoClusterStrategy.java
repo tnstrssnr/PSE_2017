@@ -1,12 +1,12 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-import net.sf.javaml.clustering.Clusterer;
-import net.sf.javaml.clustering.OPTICS;
-import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.core.SparseInstance;
-import org.unitils.dbunit.annotation.DataSet;
+//import net.sf.javaml.clustering.Clusterer;
+//import net.sf.javaml.clustering.OPTICS;
+//import net.sf.javaml.core.Dataset;
+//import net.sf.javaml.core.DefaultDataset;
+//import net.sf.javaml.core.Instance;
+//import net.sf.javaml.core.SparseInstance;
+//import org.unitils.dbunit.annotation.DataSet;
 
 import java.util.Iterator;
 import java.util.List;
@@ -52,8 +52,11 @@ public class GoClusterStrategy implements ClusterStrategy {
      *                         Objekte und maximal 50 Objekte.
      * @return ein Dataset von Clustern, die den aktuellen Standort der Gruppe beschreiben.
      */
+
+    /**
     @Override
     public Dataset[] calculateCluster(List<UserLocation> userLocationList) {
+
         Clusterer clusterer = new OPTICS();
         DefaultDataset initialDataset = new DefaultDataset();
         Iterator<UserLocation> iterator = userLocationList.iterator();
@@ -67,4 +70,5 @@ public class GoClusterStrategy implements ClusterStrategy {
         }
         return clusterer.cluster(initialDataset);
     }
+    */
 }

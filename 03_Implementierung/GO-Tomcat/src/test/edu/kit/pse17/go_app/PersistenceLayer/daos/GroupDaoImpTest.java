@@ -48,7 +48,7 @@ public class GroupDaoImpTest extends UnitilsJUnit4 {
     public void register() {
         assertEquals(0, dao.getObserver().size());
         Observer mockObserver = Mockito.mock(Observer.class);
-        dao.register(mockObserver);
+        //dao.register(mockObserver);
         assertEquals(1, dao.getObserver().size());
         assertEquals(mockObserver, dao.getObserver().get(0));
     }
@@ -56,7 +56,7 @@ public class GroupDaoImpTest extends UnitilsJUnit4 {
     @Test
     public void unregister() {
         Observer mockObserver = Mockito.mock(Observer.class);
-        dao.getObserver().add(mockObserver);
+        //dao.getObserver().add(mockObserver);
         assertEquals(1, dao.getObserver().size());
         dao.unregister(mockObserver);
         assertEquals(0, dao.getObserver().size());

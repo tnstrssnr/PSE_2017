@@ -1,12 +1,20 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der
@@ -41,6 +49,8 @@ public class UserRestController {
      * Ein Objekt einer Klasse, die das Interface UserDAo implementiert. Dieses Objekt besitzt Methoden, um auf die Datenbank
      * des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die REST Calls an den Server gestellt werden, umzusetzen.
      */
+
+    @Autowired
     private UserDao userDao;
 
     /**
@@ -65,11 +75,60 @@ public class UserRestController {
 
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{userId}"
-
+            value = "/{userId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<GroupEntity> getData(@PathVariable("userId") String userId) {
-        return null;
+    public Set<GroupEntity> getData(@PathVariable("userId") String userId) {
+        Set<GroupEntity> groups = userDao.getGroups(userId);
+
+        groups = new HashSet<>();
+        groups.add(TestData.getTestGroupBar());
+        groups.add(TestData.getTestGroupFoo());
+
+        for(GroupEntity group: groups) {
+            for(UserEntity usr: group.getAdmins()) {
+                usr.setGos(null);
+                usr.setGroups(null);
+                usr.setGroups(null);
+            }
+
+            for(UserEntity usr: group.getMembers()) {
+                usr.setGos(null);
+                usr.setGroups(null);
+                usr.setGroups(null);
+            }
+
+            for(UserEntity usr: group.getRequests()) {
+                usr.setGos(null);
+                usr.setGroups(null);
+                usr.setGroups(null);
+            }
+
+            for(GoEntity go: group.getGos()) {
+                go.setGroup(null);
+                go.getOwner().setGroups(null);
+                go.getOwner().setGos(null);
+                go.getOwner().setRequests(null);
+
+                for(UserEntity usr: go.getNotGoingUsers()) {
+                    usr.setGos(null);
+                    usr.setGroups(null);
+                    usr.setGroups(null);
+                }
+                for(UserEntity usr: go.getGoingUsers()) {
+                    usr.setGos(null);
+                    usr.setGroups(null);
+                    usr.setGroups(null);
+                }
+                for(UserEntity usr: go.getGoneUsers()) {
+                    usr.setGos(null);
+                    usr.setGroups(null);
+                    usr.setGroups(null);
+                }
+            }
+        }
+
+        return groups;
     }
 
     /**

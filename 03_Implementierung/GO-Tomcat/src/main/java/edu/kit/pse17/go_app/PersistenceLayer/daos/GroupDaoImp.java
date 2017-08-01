@@ -6,6 +6,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.*;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +42,8 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
-    private final SessionFactory sf;
+    @Autowired
+    private SessionFactory sf;
 
     /**
      * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
@@ -53,8 +55,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
      * erzeugt, anhand der Spezifikationen der verwendetetn MySQL Datenbank.
      */
-    public GroupDaoImp(final SessionFactory sf) {
-        this.sf = sf;
+    public GroupDaoImp() {
         this.observer = new HashMap<>();
         register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
         register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
@@ -76,7 +77,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
      *                 eines
      */
-
 
     @Override
     public void register(EventArg arg, Observer observer) {
@@ -114,11 +114,13 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     @Transactional
     public GroupEntity get(final Long key) {
         Transaction tx = null;
+        Session session = null;
         GroupEntity group = null;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            group = session.get(GroupEntity.class, key);
+            group = (GroupEntity) session.get(GroupEntity.class, key);
             Hibernate.initialize(group.getAdmins());
             Hibernate.initialize(group.getGos());
             Hibernate.initialize(group.getMembers());
@@ -126,6 +128,10 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return group;
     }
@@ -145,14 +151,20 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     public void persist(final GroupEntity entity) {
         Transaction tx = null;
         final Long id;
+        Session session = null;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             id = (Long) session.save(entity);
             tx.commit();
             entity.setID(id);
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -164,14 +176,20 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     public void delete(final Long key) {
         Transaction tx = null;
         final GroupEntity group = get(key);
+        Session session = null;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
             session.delete(group);
             tx.commit();
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -182,9 +200,11 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     @Override
     public void update(final GroupEntity groupEntity) {
         Transaction tx = null;
+        Session session = null;
         //final GroupEntity oldData;
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
 
             session.update(groupEntity);
@@ -193,6 +213,10 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -200,34 +224,42 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     public void addGroupMember(final String userId, final long groupId) {
         Transaction tx = null;
         final GroupEntity group;
+        Session session = null;
         final UserEntity user = new UserDaoImp(sf).get(userId);
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            group = session.get(GroupEntity.class, groupId);
+            group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (!group.getMembers().contains(user)) {
                 group.getMembers().add(user);
             }
 
             //adds users status to gos -- is 'not going' by default
-            new GoDaoImp(this.sf).onGroupMemberAdded(user, group);
+            new GoDaoImp().onGroupMemberAdded(user, group);
             tx.commit();
 
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public void removeGroupRequest(final String userId, final long groupId) {
         Transaction tx = null;
+        Session session = null;
         final GroupEntity group;
         final UserEntity user = new UserDaoImp(sf).get(userId);
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            group = session.get(GroupEntity.class, groupId);
+            group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (group.getRequests().contains(user)) {
                 group.getRequests().remove(user);
             }
@@ -235,18 +267,24 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             //notify??
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public void addGroupRequest(final String userId, final long groupId) {
         Transaction tx = null;
+        Session session = null;
         final GroupEntity group;
         final UserEntity user = new UserDaoImp(sf).get(userId);
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            group = session.get(GroupEntity.class, groupId);
+            group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (!group.getRequests().contains(user)) {
                 group.getRequests().add(user);
             }
@@ -254,18 +292,24 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public void removeGroupMember(final String userId, final long groupId) {
         Transaction tx = null;
+        Session session = null;
         final GroupEntity group;
         final UserEntity user = new UserDaoImp(sf).get(userId);
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            group = session.get(GroupEntity.class, groupId);
+            group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (group.getMembers().contains(user)) {
                 group.getMembers().remove(user);
             }
@@ -275,24 +319,34 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public void addAdmin(final String userId, final String groupId) {
         Transaction tx = null;
+        Session session = null;
         final GroupEntity group;
         final UserEntity user = new UserDaoImp(sf).get(userId);
 
-        try (Session session = sf.openSession()) {
+        try {
+            session = sf.openSession();
             tx = session.beginTransaction();
-            group = session.get(GroupEntity.class, groupId);
+            group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (group.getMembers().contains(user) && !group.getAdmins().contains(user)) {
                 group.getAdmins().add(user);
             }
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 }
