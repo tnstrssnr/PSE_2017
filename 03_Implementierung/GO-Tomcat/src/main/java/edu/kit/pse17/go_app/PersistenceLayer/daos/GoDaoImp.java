@@ -12,13 +12,14 @@ import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import edu.kit.pse17.go_app.ServiceLayer.observer.StatusChangedObserver;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-
+@Repository
 public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable<GoEntity> {
 
     /**

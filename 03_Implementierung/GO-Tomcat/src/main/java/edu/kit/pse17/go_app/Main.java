@@ -1,14 +1,12 @@
 package edu.kit.pse17.go_app;
 
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import org.hibernate.SessionFactory;
-import org.hibernate.ejb.HibernateEntityManagerFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.orm.toplink.LocalSessionFactory;
-import org.springframework.orm.toplink.LocalSessionFactoryBean;
-
-import javax.security.auth.login.Configuration;
 
 /**
  * Die Main-Klasse der Server-Anwendung. In ihr wird keine Anwendungslogik ausgeführt.
@@ -16,6 +14,7 @@ import javax.security.auth.login.Configuration;
  * Sie enthält die main-methode, wo die Ausführung des Programms gestartet wird und danach die Kontrolle
  * über die Ausführung an andere Klassen abgegeben wird.
  */
+
 
 @SpringBootApplication
 public class Main {
@@ -34,15 +33,17 @@ public class Main {
 
         SpringApplication.run(Main.class, args);
 
-        while(true) {
-
-        }
-
     }
 
     @Bean
-    public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf){
-        return hemf.getSessionFactory();
+    public SessionFactory sessionFactory() {
+        Configuration config = new Configuration();
+        return config.configure().buildSessionFactory();
+    }
+
+    @Bean
+    public UserDao userDao() {
+        return new UserDaoImp();
     }
 
 }

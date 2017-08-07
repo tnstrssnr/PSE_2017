@@ -3,19 +3,15 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.*;
+import edu.kit.pse17.go_app.ServiceLayer.IObservable;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @Repository
-@Transactional
 /**
  * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und IObservable.
  * <p>
@@ -111,7 +107,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      * @return Die GroupEntity, mit der ID "key". Existiert keine Entity mit dieser ID, gibt die Methode null zurück.
      */
     @Override
-    @Transactional
     public GroupEntity get(final Long key) {
         Transaction tx = null;
         Session session = null;

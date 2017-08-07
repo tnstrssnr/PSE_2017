@@ -1,12 +1,10 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import edu.kit.pse17.go_app.Main;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -25,7 +23,6 @@ import java.util.Set;
  */
 
 @Repository
-@Transactional
 public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
@@ -42,7 +39,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      */
 
     @Autowired
-    private final SessionFactory sf;
+    private SessionFactory sf;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
@@ -51,6 +48,9 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     public UserDaoImp(final SessionFactory sf) {
         this.sf = sf;
+    }
+
+    public UserDaoImp() {
     }
 
     /**

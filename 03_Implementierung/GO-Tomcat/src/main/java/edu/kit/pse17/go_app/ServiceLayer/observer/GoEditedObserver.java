@@ -50,8 +50,6 @@ public class GoEditedObserver implements Observer {
         Gson gson = new Gson();
         String data = gson.toJson(goEntity);
 
-
-
         messenger.send(data, EventArg.GO_EDITED_COMMAND, receiver);
 
 

@@ -7,10 +7,12 @@ import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -41,7 +43,7 @@ import java.util.Set;
  *
  */
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping("/user")
 public class UserRestController {
 
@@ -75,11 +77,10 @@ public class UserRestController {
 
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{userId}",
-            produces = MediaType.APPLICATION_JSON_VALUE
+            value = "/{userId}"
     )
     public Set<GroupEntity> getData(@PathVariable("userId") String userId) {
-        Set<GroupEntity> groups = userDao.getGroups(userId);
+        Set<GroupEntity> groups; // = userDao.getGroups(userId);
 
         groups = new HashSet<>();
         groups.add(TestData.getTestGroupBar());

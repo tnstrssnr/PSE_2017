@@ -96,6 +96,7 @@ public class GoEntity {
      * <p>
      * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu
      * implementieren.
+     *
      */
     @Column(name = "lat")
     private long lat;
