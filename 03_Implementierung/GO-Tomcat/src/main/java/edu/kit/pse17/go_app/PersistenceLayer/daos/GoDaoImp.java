@@ -6,10 +6,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.IObservable;
-import edu.kit.pse17.go_app.ServiceLayer.observer.GoEditedObserver;
-import edu.kit.pse17.go_app.ServiceLayer.observer.GoRemovedObserver;
-import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
-import edu.kit.pse17.go_app.ServiceLayer.observer.StatusChangedObserver;
+import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,6 +48,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
         register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
         register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
         register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
+        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
     }
 
     public SessionFactory getSessionFactory() {
