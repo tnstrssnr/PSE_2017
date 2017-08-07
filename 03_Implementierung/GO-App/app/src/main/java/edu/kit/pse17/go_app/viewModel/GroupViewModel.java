@@ -65,8 +65,8 @@ public class GroupViewModel extends ViewModel {
     * Erzeugt ein Neues Go in der Gruppe mit Id groupId,
      * go.goid wird hier nicht benutzt
     * */
-    public void createGo(Go go){
-        groupRepo.createGo(go, data.getValue().getId());
+    public void onGoCreated(Go go){
+        groupRepo.onGoCreated(go, data.getValue().getId());
 
     }
 

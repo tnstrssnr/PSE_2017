@@ -45,14 +45,14 @@ public class Go {
      */
     @SerializedName("start")
     @Expose
-    private Date start;
+    private String start;
 
     /**
      * Enddatum und -zeitpunkt des GOs
      */
     @SerializedName("end")
     @Expose
-    private Date end;
+    private String end;
 
     /**
      *  Die Gruppe, zu der das Go gehört
@@ -97,7 +97,7 @@ public class Go {
     @Expose
     private List<Cluster> locations;
 
-    public Go(long id, String name, String description, Date start, Date end, Group group, long desLat, long desLon, String ownerId, String ownerName, List<UserGoStatus> participantsList, List<Cluster> locations) {
+    public Go(long id, String name, String description, String start, String end, Group group, long desLat, long desLon, String ownerId, String ownerName, List<UserGoStatus> participantsList, List<Cluster> locations) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -142,19 +142,19 @@ public class Go {
         this.description = description;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

@@ -5,7 +5,7 @@ package edu.kit.pse17.go_app.repositories;
  * Hier wird entschieden, wen man anspricht um bestimmte Daten zu laden
  */
 
-public abstract class Repository <T>{
+public abstract class Repository<T> {
     /*
     * ViewModel beim ersten Laden der Daten lädt mit der Methode alle Daten runter
     * */

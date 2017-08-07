@@ -36,7 +36,7 @@ public interface TomcatRestApi {
      *                  String instanceId
      * @return
      */
-    @GET("user/get")
+    @GET("group/get")
     public Call<List<Group>> getData(@QueryMap Map<String, String> parameters);
 
     @PUT("user/create")
@@ -56,7 +56,7 @@ public interface TomcatRestApi {
      *                  String userId
      * @return Long groupId
      */
-    @PUT("group/create")
+    @PUT("group/createGroup")
     public Call<Long> createGroup(@QueryMap Map<String, String> parameters);
 
     /**
@@ -128,8 +128,8 @@ public interface TomcatRestApi {
      * @param parameters:
      *                  String name
      *                  String description
-     *                  Date start
-     *                  Date end
+     *                  String start
+     *                  String end
      *                  double lat
      *                  double lon
      *                  int threshold
@@ -137,7 +137,7 @@ public interface TomcatRestApi {
      *                  String userId
      * @return Long goId
      */
-    @PUT("go/create")
+    @PUT("group/createGo")
     public Call<Long> createGo(@QueryMap Map<String, String> parameters);
 
     /**
@@ -176,8 +176,8 @@ public interface TomcatRestApi {
      *                  String userId
      *                  String name
      *                  String description
-     *                  Date start
-     *                  Date end
+     *                  String start
+     *                  String end
      *                  double lat
      *                  double lon
      *                  int threshold
