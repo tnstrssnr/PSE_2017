@@ -1,9 +1,11 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;
 import edu.kit.pse17.go_app.ServiceLayer.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +46,7 @@ public class GoRestController {
      * Ein Objekt einer Klasse, die das Interface GoDao implementiert. Dieses Objekt besitzt Methoden, um auf die Datenbank
      * des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die REST Calls an den Server gestellt werden, umzusetzen.
      */
+    @Autowired
     private GoDao goDao;
 
     /**
@@ -55,7 +58,6 @@ public class GoRestController {
      */
     private LocationService locationService;
 
-
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die Argumente aus dem Request Body
      * der HTTP Anfrage aus und übergibt diese an das goDao zur Erzeugung des GOs in der Datenbank.
@@ -66,19 +68,6 @@ public class GoRestController {
      *
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL {Base_URL}/gos.
      *
-     * @param name Der Name des GOs. Es handelt sich um einen String, der bis zu 50 Zeichen enthält.
-     * @param description Eine Beschreibung für das GO. Diese Argument dar den wert null annehmen. Ist der Wert nicht null, darf der String
-     *                    bis zu 140 Zeichen enthalten.
-     * @param start Ein Datum mit Uhrzeit an dem das GO beginnt. Dieses Datum darf nicht in der Vergangenheit liegen.
-     * @param end Ein Datum mit Uhrzeit an dem das GO zu Ende ist. Dieses Datum darf nicht vor dem Startdatum liegen.
-     * @param lat Der geographische Breitengrad des Zielorts des GOs. Der Wert muss als Breitengrad interpretierbar sein,
-     *            muss also zwischen +90 und -90 liegen. Der Wert darf außerdem "null" sein, falls kein Zielort für das GO ausgewählt wurde.
-     * @param lon Der geographische Längengrad des Zielorts des GOs. Der Wert muss als Breitengrad interpretierbar sein,
-     *            muss also zwischen +180 und -180 liegen. Der Wert darf außerdem "null" sein, falls kein Zielort für das GO ausgewählt wurde.
-     * @param threshold Ein Schwellwert für die Genauigkeit, mit der der Clustering-Algorithmus ausgeführt wird. Der Wert liegt zwischen 1 (sehr ungenau) und 10 (sehr
-     *                  genau). Wird der Wert in dem Request Body nicht spezifiziert wird default-mäßig ein Wert von 5 gespeichert.
-     * @param groupId Die ID der Gruppe, in der das GO angelegt werden soll. Der Wert muss eine gültige Group-ID sein und sich zu einem Long casten lassen.
-     * @param userId Die ID des Benutzers, der das GO erstellt. Der Wert muss eine gültige UserID sein. Dieser Benutzer wird als GO-Verantwortlicher gespeichert.
      * @return Die Methode gibt in der Antwort die im System eindeutige ID des Gos zurück. Diese wird im Header der HTTP-Response im Location-Feld
      * an den Client zurückgesendet, also : {Base_URL}/gos/{goId} und kann dort vom Client ausgelesen werden. Der Wert ist eine positive ganze Zahl,
      * die im Wertebereich des primitiven Datentyps long liegt.
@@ -87,8 +76,8 @@ public class GoRestController {
             method = RequestMethod.POST,
             value = "/"
     )
-    public long createGo(String name, String description, Date start, Date end, double lat, double lon, int threshold, long groupId, String userId) {
-        return -1;
+    public long createGo(GoEntity go) {
+        return goDao.persist(go);
     }
 
     /**
@@ -109,7 +98,7 @@ public class GoRestController {
             value = "/status"
     )
     public void changeStatus(long goId, String userId, Status status) {
-
+        goDao.changeStatus(userId, goId, status);
     }
 
     /**
@@ -136,6 +125,7 @@ public class GoRestController {
             value = "/location/{goId}"
     )
     public List<Cluster> getLocation(@PathVariable("goId") String goId) {
+        //bitte implementieren
         return null;
     }
 
@@ -163,7 +153,7 @@ public class GoRestController {
             value = "/location/{goId}"
     )
     public void setLocation(String userId, long lat, long lon, @PathVariable("goId") String goId) {
-
+        //bitte implementieren
     }
 
     /**
@@ -183,8 +173,8 @@ public class GoRestController {
             method = RequestMethod.DELETE,
             value = "/{goId}"
     )
-    public void deleteGo(@PathVariable("goId") String goId) {
-
+    public void deleteGo(@PathVariable("goId") long goId) {
+        goDao.delete(goId);
     }
 
     /**

@@ -143,9 +143,9 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      *               Objekt, welches der Methode
      */
     @Override
-    public void persist(final GroupEntity entity) {
+    public Long persist(final GroupEntity entity) {
         Transaction tx = null;
-        final Long id;
+        Long id = -1l;
         Session session = null;
 
         try {
@@ -161,6 +161,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
                 session.close();
             }
         }
+        return id;
     }
 
     /**
@@ -322,7 +323,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     }
 
     @Override
-    public void addAdmin(final String userId, final String groupId) {
+    public void addAdmin(final String userId, final Long groupId) {
         Transaction tx = null;
         Session session = null;
         final GroupEntity group;

@@ -124,16 +124,17 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das Objekt, welches der Methode
      */
     @Override
-    public void persist(GoEntity entity) {
+    public Long persist(GoEntity entity) {
         Transaction tx = null;
         Session session = null;
+        long id = -1;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
             entity.getGroup().getGos().add(entity);
             entity.getOwner().getGos().add(entity);
-            session.save(entity);
+            id = (long) session.save(entity);
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
@@ -142,6 +143,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
                 session.close();
             }
         }
+        return id;
     }
 
     /**

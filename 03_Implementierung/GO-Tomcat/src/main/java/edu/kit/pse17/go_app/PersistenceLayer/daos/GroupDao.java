@@ -98,6 +98,6 @@ public interface GroupDao extends AbstractDao<GroupEntity, Long> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void addAdmin(String userId, String groupId) throws EntityNotFoundException;
+    public void addAdmin(String userId, Long groupId) throws EntityNotFoundException;
 
 }

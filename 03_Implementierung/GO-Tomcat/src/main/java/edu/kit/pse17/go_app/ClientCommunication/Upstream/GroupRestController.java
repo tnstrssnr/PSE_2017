@@ -2,11 +2,12 @@ package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
 
 /**
  *Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der
@@ -40,7 +41,8 @@ public class GroupRestController {
      * Ein Objekt einer Klasse, die das Interface GroupDao implementiert. Dieses Objekt besitzt Methoden, um auf die Datenbank
      * des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die REST Calls an den Server gestellt werden, umzusetzen.
      */
-    private GroupDao groupDAO;
+    @Autowired
+    private GroupDao groupDao;
 
 
     /**
@@ -50,11 +52,6 @@ public class GroupRestController {
      *
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL {Base_URL}/groups.
      *
-     * @param name Der Name, den die Gruppe haben soll. Der String darf bis zu 50 Zeichen lang sein.
-     * @param description Eine Gruppenbeschreibung. Dieser Wert ist möglicherweise nicht im Body der HTTP NAchricht enthalten. Das bedeutet
-     *                    der Benutzer hat keine Beschreibung eingegeben. Die Variable wird daraufhin auf null gesetzt. ist der Wert nicht null, darf der String
-     *                    maximal 140 Zeichen enthalten.
-     * @param userId Die ID des Benutzers, der die Gruppe erstellt hat.
      * @return Die global eindeutige ID, die dier Gruppe zugewiesen wurde. Diese wird im Header der HTTP-Response im Location-Feld
      * an den Client zurückgesendet, also : {Base_URL}/gos/{goId} und kann dort vom Client ausgelesen werden. Der Wert ist eine positive ganze Zahl,
      * die im Wertebereich des primitiven Datentyps long liegt.
@@ -64,8 +61,8 @@ public class GroupRestController {
             value = "/",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public long createGroup(String name, String description, String userId) {
-        return -1;
+    public long createGroup(GroupEntity group) {
+        return groupDao.persist(group);
     }
 
     /**
@@ -81,16 +78,12 @@ public class GroupRestController {
      *
      * @param groupId Die ID der Gruppe, die geändert werden soll. Der Wert dieses Arguments ist Teil der URL der REST Resource
      *               und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.
-     * @param description Die neue Beschreibung, die die Gruppe erhalten soll. Dieser Wert kann null sein, falls die Beschreibung nicht geändert wird. Der Wert
-     *                    des Attributs ist im request Body der Anfrage gespeichert und wird von Spring ausgelesen und der Methode zur Verfügung gestellt.
-     * @param name Der neue Name, den die Gruppe erhalten soll. Dieser Wert kann null sein, falls der Name nicht geändert wird. Der Wert
-     *                    des Attributs ist im request Body der Anfrage gespeichert und wird von Spring ausgelesen und der Methode zur Verfügung gestellt.
      */
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/{groupId}")
-    public void editGroup(@PathVariable Long groupId, String name, String description) {
-
+    public void editGroup(@PathVariable Long groupId, GroupEntity group) {
+        groupDao.update(group);
     }
 
     /**
@@ -109,6 +102,7 @@ public class GroupRestController {
             method = RequestMethod.DELETE,
             value = "/{groupId}")
     public void deleteGroup(@PathVariable Long groupId) {
+        groupDao.delete(groupId);
 
     }
 
@@ -130,7 +124,8 @@ public class GroupRestController {
             method = RequestMethod.PUT,
             value = "/members/{groupId}/{userId}")
     public void acceptRequest(@PathVariable Long groupId, @PathVariable String userId) {
-
+        groupDao.removeGroupMember(userId, groupId);
+        groupDao.addGroupMember(userId, groupId);
     }
 
     /**
@@ -152,7 +147,8 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/members/{groupId}/{userId}")
-    public void removeMember(@PathVariable String userId, @PathVariable("groupId") String groupId) {
+    public void removeMember(@PathVariable String userId, @PathVariable("groupId") Long groupId) {
+        groupDao.removeGroupMember(userId, groupId);
     }
 
     /**
@@ -173,7 +169,7 @@ public class GroupRestController {
             method = RequestMethod.POST,
             value = "/requests/{groupId}/{userId}")
     public void inviteMember(@PathVariable Long groupId, @PathVariable String userId) {
-
+        groupDao.addGroupRequest(userId, groupId);
     }
 
     /**
@@ -191,8 +187,8 @@ public class GroupRestController {
             method = RequestMethod.DELETE,
             value = "/requests/{groupId}/{userId}"
     )
-    public void denyRequest(@PathVariable("groupId") String groupId, @PathVariable("userId") String userId) {
-
+    public void denyRequest(@PathVariable("groupId") Long groupId, @PathVariable("userId") String userId) {
+        groupDao.removeGroupRequest(userId, groupId);
     }
 
 
@@ -214,8 +210,8 @@ public class GroupRestController {
             method = RequestMethod.POST,
             value = "/admins/{groupId}/{userId}"
     )
-    public void addAdmin(@PathVariable("groupId") String groupId, @PathVariable("userId") String userId) {
-
+    public void addAdmin(@PathVariable("groupId") Long groupId, @PathVariable("userId") String userId) {
+        groupDao.addAdmin(userId, groupId);
     }
 
 

@@ -35,7 +35,7 @@ public interface AbstractDao<T, PK> {
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das Objekt, welches der Methode
      *               übergeben wird gültig ist (alle Konsistenzbedingungen der Datenbank werden erfüllt).
      */
-    public void persist(T entity);
+    public PK persist(T entity);
 
     /**
      * Diese Methode löscht ein Entity-Objekt aus der Datenbank. Es werden außerdem automatisch alle Entities gelöscht, die mit der gelöschten

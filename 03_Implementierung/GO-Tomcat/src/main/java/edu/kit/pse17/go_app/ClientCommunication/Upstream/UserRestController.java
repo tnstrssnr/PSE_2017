@@ -4,17 +4,12 @@ import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,7 +75,7 @@ public class UserRestController {
             value = "/{userId}"
     )
     public Set<GroupEntity> getData(@PathVariable("userId") String userId) {
-        Set<GroupEntity> groups; // = userDao.getGroups(userId);
+        Set<GroupEntity> groups; //= userDao.getGroups(userId);
 
         groups = new HashSet<>();
         groups.add(TestData.getTestGroupBar());
@@ -141,19 +136,16 @@ public class UserRestController {
      *
      * Die Methode besitzt keinen Rückgabewert, lediglich einen Statuscode in der HTTP-Antwort, die an den Anfragenden gesendet wird. Der Statuscode
      * gibt an, ob die Transaktion erfolgreich war.
-     *
-     * @param userId Die ID des Benutzers, der sich registriert. Diese muss eindeutig sein. Die ID wird generiert von dem Firebase
-     *               Authentication Service, der auch die Eindeutigkeit derselben sicherstellt. Diese wird von Spring aus der URL extrahiert
-     *               und als Argument der Methode verwendet.
-     * @param email Die E-Mailadresse des Benutzers, die mit dem Google-Account assoziiert ist, mit dem er sich angemeldet hat.
      */
     @RequestMapping(
             method = RequestMethod.POST,
             value = "/{userId}"
     )
-    public void createUser(String email, @PathVariable("userId") String userId) {
-
+    public void createUser(UserEntity user) {
+        userDao.persist(user);
     }
+
+    //TODO: wie wird das übergeben???
 
     /**
      * Diese Methode wird aufgerufen, wenn ein Benutzer seinen Benutzeraccount löschen möchte.
@@ -176,7 +168,7 @@ public class UserRestController {
             value = "/{userId}"
     )
     public void deleteUser(String userId) {
-
+        userDao.delete(userId);
     }
 
     /**
@@ -195,8 +187,11 @@ public class UserRestController {
 
     @RequestMapping(
             method = RequestMethod.PUT,
-            value = "/device/{instanceId}"
+            value = "{userId}/device/{instanceId}"
     )
-    public void registerDevice(@PathVariable("instanceId") String instanceId) {
+    public void registerDevice(@PathVariable("userId") String uid, @PathVariable("instanceId") String instanceId) {
+        UserEntity user = userDao.get(uid);
+        user.setInstanceId(instanceId);
+        userDao.update(user);
     }
 }
