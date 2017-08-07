@@ -139,14 +139,15 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      *               Objekt, welches der Methode
      */
     @Override
-    public void persist(final UserEntity entity) {
+    public String persist(final UserEntity entity) {
         Session session = null;
         Transaction tx = null;
+        String id = null;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
-            session.save(entity);
+            id = (String) session.save(entity);
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
@@ -155,6 +156,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
                 session.close();
             }
         }
+        return id;
     }
 
     /**
