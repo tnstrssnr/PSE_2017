@@ -1,12 +1,11 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-//import net.sf.javaml.clustering.Clusterer;
-//import net.sf.javaml.clustering.OPTICS;
-//import net.sf.javaml.core.Dataset;
-//import net.sf.javaml.core.DefaultDataset;
-//import net.sf.javaml.core.Instance;
-//import net.sf.javaml.core.SparseInstance;
-//import org.unitils.dbunit.annotation.DataSet;
+import net.sf.javaml.clustering.Clusterer;
+import net.sf.javaml.clustering.OPTICS;
+import net.sf.javaml.core.Dataset;
+import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.core.SparseInstance;
 
 import java.util.Iterator;
 import java.util.List;

@@ -41,7 +41,7 @@ public class LocationService {
      * Das Attribut ist final, da es, nachdem es einmal festgelegt wurde nicht mehr verändert werden sollte. Ein GO sollte stattdessen immer den gleichen
      * Algorithmus benutzen.
      */
-    //private final ClusterStrategy strat;
+     private final ClusterStrategy strat;
 
     /**
      * Eine Liste mit den UserLocations aller Benutzer, die momentan ihren Standort mit den anderen teilen.
@@ -85,7 +85,7 @@ public class LocationService {
         this.groupLocation = groupLocation;
         this.newLocationCounter = 0;
         this.userCounter = 0;
-        //this.strat = new GoClusterStrategy();
+        this.strat = new GoClusterStrategy();
     }
 
     /**
