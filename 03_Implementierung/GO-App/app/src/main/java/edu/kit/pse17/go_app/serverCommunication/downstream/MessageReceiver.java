@@ -35,7 +35,6 @@ public class MessageReceiver extends FirebaseMessagingService {
     private static final String SENDER = "https://i43pc164.ipd.kit.edu/";
 
     private ServerCommand command;
-    //private CommandProvider provider = CommandProvider.getInstance();
 
     /**
      * Diese Methode wird aufgerufen, wenn die App eine Nachricht vom FCM Server erhaelt waehrend sie im Vordergrund laeuft. Die Nachricht sollte spaetestens 10s nach ihrer Ankunft
@@ -56,7 +55,6 @@ public class MessageReceiver extends FirebaseMessagingService {
                 tag = eventData.getString("tag");
 
                 command = Command.valueOf(tag).getCommand();
-                //command = provider.getCommands().get(tag);
                 command.setMessage(eventData);
                 command.onCommandReceived();
             } catch (JSONException e) {
