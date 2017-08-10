@@ -61,6 +61,7 @@ public class GroupRepository extends Repository<List<Group>> {
     private ArrayList<Group> list;
     private GroupListLiveData data;
 
+
     //@Inject
     private GroupRepository(Observer<List<Group>> observer) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
@@ -101,6 +102,9 @@ public class GroupRepository extends Repository<List<Group>> {
         data.setValue(list);
     }
 
+    /*
+    * Erzeugt eine Gruppe, group.Id wird danach intern auf dem Server vergeben
+    * */
     public void createGroup(String name, String description, String userId) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("name", name);
@@ -122,6 +126,10 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /*
+    * Ändert die daten von der Group mit der Id group.Id, weil group.Id hier schon richtig sein muss
+    * wegen der Wegwerfens der Id in ViewModels
+    * */
     public void editGroup(long groupId, String name, String description) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("groupId", Long.toString(groupId));
@@ -230,6 +238,9 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /*
+    * Ein Teilnehmer hinzufügen
+    * */
     public void inviteMember(long groupId, String email) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("groupId", Long.toString(groupId));
@@ -280,7 +291,7 @@ public class GroupRepository extends Repository<List<Group>> {
         parameters.put("latitude", Double.toString(lat));
         parameters.put("longitude", Double.toString(lon));
         parameters.put("threshold", Integer.toString(threshold));
-        parameters.put("groupId", Double.toString(groupId));
+        parameters.put("groupId", Long.toString(groupId));
         parameters.put("userId", userId);
 
         Call<Long> call = apiService.createGo(parameters);
@@ -296,6 +307,180 @@ public class GroupRepository extends Repository<List<Group>> {
                 Log.e("create_go", t.toString());
             }
         });
+    }
+
+    //----------------------------------------------------------------------
+
+    public void onAdminAdded(String userId, long groupId) {
+        for (Group group : list) {
+            if (group.getId() == groupId) {
+                List<GroupMembership> oldList = group.getMembershipList();
+
+                for (GroupMembership member : oldList) {
+                    if (member.getUser().getUid().equals(userId)) {
+                        member.setAdmin(true);
+                        break;
+                    }
+                }
+
+                List<GroupMembership> newList = oldList;
+                group.setMembershipList(newList);
+                break;
+            }
+        }
+
+        data.setValue(list);
+    }
+
+    /*
+    *  Erzeugt ein neues GO in der Gruppe mit groupId
+    * */
+    public void onGoAdded(Go go, long groupId /*, String userId*/) {
+        for (Group group : list) {
+            if (group.getId() == groupId) {
+                //go.setGroup(group);
+                //go.setOwner("TODO bla bla");
+
+                List<Go> old = group.getCurrentGos();
+                old.add(go);
+                List<Go> newGos = old;
+                group.setCurrentGos(newGos);
+                data.setValue(list);
+                Log.d("GroupRepo", "Should call observer right now");
+                break;
+            }
+        }
+    }
+
+    public void onGoEdited(Go go) {
+        for (Group group : list) {
+            List<Go> old = group.getCurrentGos();
+
+            for (Go currentGo : old) {
+                if (go.getId() == currentGo.getId()) {
+                    go.setGroup(currentGo.getGroup());
+                    go.setOwner(currentGo.getOwner());
+                    go.setParticipantsList(currentGo.getParticipantsList());
+
+                    old.remove(currentGo);
+                    old.add(go);
+                    List<Go> newGos = old;
+                    group.setCurrentGos(newGos);
+                    break;
+                }
+            }
+
+            data.setValue(list);
+            Log.d("GroupRepo", "Should call observer right now");
+            break;
+        }
+    }
+
+    public void onGoRemoved(long goId) {
+        for (Group group : list) {
+            List<Go> old = group.getCurrentGos();
+
+            for (Go go : old) {
+                if (go.getId() == goId) {
+                    old.remove(go);
+                    List<Go> newGos = old;
+                    group.setCurrentGos(newGos);
+                    break;
+                }
+            }
+
+            data.setValue(list);
+            break;
+        }
+    }
+
+    public void onGroupEdited(Group group) {
+        for (Group currentGroup : list) {
+            if (group.getId() == currentGroup.getId()) {
+                group.setCurrentGos(currentGroup.getCurrentGos());
+                group.setMembershipList(currentGroup.getMembershipList());
+
+                list.remove(currentGroup);
+                list.add(group);
+                data.setValue(list);
+                break;
+            }
+        }
+    }
+
+    public void onGroupRemoved(long groupId) {
+        for (Group group : list) {
+            if (group.getId() == groupId) {
+                list.remove(group);
+                data.setValue(list);
+                break;
+            }
+        }
+    }
+
+    public void onGroupRequestReceived(Group group) {
+        //TODO ?!?!?!
+    }
+
+    public void onMemberAdded(User user) {
+        //TODO ?!?!?!?
+    }
+
+    public void onMemberRemoved(String userId, long groupId) {
+        for (Group group : list) {
+            if (group.getId() == groupId) {
+                List<GroupMembership> old = group.getMembershipList();
+
+                for (GroupMembership membership : old) {
+                    if (membership.getUser().getUid().equals(userId)) {
+                        old.remove(membership);
+                        group.setMemberCount(group.getMemberCount() - 1);
+                        List<GroupMembership> newMemberList = old;
+                        group.setMembershipList(newMemberList);
+                        break;
+                    }
+                }
+
+                data.setValue(list);
+                break;
+            }
+        }
+    }
+
+    public void onRequestDenied() {
+        //TODO !!!!!!!!!!!
+    }
+
+    public void onStatusChanged(String userId, long goId, int status) {
+        for (Group group : list) {
+            List<Go> old = group.getCurrentGos();
+
+            for (Go go : old) {
+                if (go.getId() == goId) {
+                    List<UserGoStatus> statusList = go.getParticipantsList();
+
+                    for (UserGoStatus userStatus : statusList) {
+                        if (userStatus.getUser().getUid().equals(userId)) {
+                            userStatus.setStatus(Status.values()[status]);
+                            List<UserGoStatus> newStatusList = statusList;
+                            go.setParticipantsList(newStatusList);
+                            break;
+                        }
+                    }
+
+                    List<Go> newGos = old;
+                    group.setCurrentGos(newGos);
+                    break;
+                }
+            }
+
+            data.setValue(list);
+            break;
+        }
+    }
+
+    public void onUserDeleted() {
+        //TODO !!!!!!!!!!!!
     }
 
     private void refreshGroup(long groupId) {
@@ -363,42 +548,6 @@ public class GroupRepository extends Repository<List<Group>> {
     @Override
     public List<Group> getUpdatedData() {
         return list;
-    }
-
-    /*
-    * Ein Teilnehmer hinzufügen
-    * */
-    public void addMember(String Email, String groupid) {
-    }
-
-    /*
-    * Ändert die daten von der Group mit der Id group.Id, weil group.Id hier schon richtig sein muss
-    * wegen der Wegwerfens der Id in ViewModels
-    * */
-    public void editGroup(Group group) {
-    }
-
-    /*
-    * Erzeugt eine Gruppe, group.Id wird danach intern auf dem Server vergeben
-    * */
-    public void createGroup(Group group) {
-        list.add(group);
-    }
-
-    /*
-    *  Erzeugt ein neues GO in der Gruppe mit groupId
-    * */
-    public void onGoCreated(Go go, long groupId) {
-        for (Group group : list) {
-            if (group.getId() == groupId) {
-                List<Go> old = group.getCurrentGos();
-                old.add(go);
-                List<Go> newGos = old;
-                group.setCurrentGos(newGos);
-                data.setValue(list);
-                Log.d("GroupRepo", "Should call observer right now");
-            }
-        }
     }
 
 

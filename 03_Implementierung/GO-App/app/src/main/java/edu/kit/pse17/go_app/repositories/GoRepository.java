@@ -47,7 +47,7 @@ public class GoRepository extends Repository<List<Go>>{
      */
     private final TomcatRestApi apiService;
 
-    private ArrayList<Go> list;
+    private Go go;
     private GoLiveData data;
 
     /**
@@ -60,7 +60,7 @@ public class GoRepository extends Repository<List<Go>>{
      */
     //private final Executor executor;
 
-    @Inject
+    //@Inject
     private GoRepository(/*GoDao godao Executor executor*/) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
         //this.executor = executor;
@@ -145,21 +145,19 @@ public class GoRepository extends Repository<List<Go>>{
             @Override
             public void run() {
                 Call<List<Cluster>> call = apiService.getLocation(parameters);
-                for (Go go: list) {
-                    if (go.getId() == goId) {
-                        try {
-                            go.setLocations(call.execute().body());
-                            data.setValue(go);
-                            break;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                try {
+                    go.setLocations(call.execute().body());
+                    data.setValue(go);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
         t.start();
     }
+
+    //-------------------------------------------------------------------
+
 
     @Override
     public List<Go> fetchData() {
@@ -179,13 +177,6 @@ public class GoRepository extends Repository<List<Go>>{
         return goRepo;
     }
 
-    public ArrayList<Go> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<Go> list) {
-        this.list = list;
-    }
 
     public GoLiveData getData() {
         return data;
@@ -193,5 +184,13 @@ public class GoRepository extends Repository<List<Go>>{
 
     public void setData(GoLiveData data) {
         this.data = data;
+    }
+
+    public Go getGo() {
+        return go;
+    }
+
+    public void setGo(Go go) {
+        this.go = go;
     }
 }

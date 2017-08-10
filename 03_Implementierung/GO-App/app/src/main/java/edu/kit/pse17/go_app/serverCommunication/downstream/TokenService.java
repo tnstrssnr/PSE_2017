@@ -35,7 +35,7 @@ public class TokenService extends FirebaseInstanceIdService {
      * onTokenRefresh() aufgerufen wird.
      *
      * @param refreshedToken Die neue InstanceID. Es muss vor Aufruf dieser Methode garantiert sein, dass es sich um eine aktuelle,
-     *                       gueltige InstaceID handelt.
+     *                       gueltige InstanceID handelt.
      */
     private void sendTokenToServer(String refreshedToken) {
         //TODO implement

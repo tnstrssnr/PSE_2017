@@ -52,7 +52,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
     private TextView groupName;
     private ImageView groupIcon;
     private TextView groupDescription;
-    private FloatingActionButton onGoCreated;
+    private FloatingActionButton onGoAdded;
     private GoAddedBroadcastReceiver receiver;
     private int index;//index of this group in the list it was selected
     /*
@@ -89,8 +89,8 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
                 startActivity(new Intent(v.getContext(), GroupDetailsActivity.class).putExtra("index", index));
             }
         });
-        onGoCreated = (FloatingActionButton) findViewById(R.id.add_go_button);
-        onGoCreated.setOnClickListener(new View.OnClickListener() {
+        onGoAdded = (FloatingActionButton) findViewById(R.id.add_go_button);
+        onGoAdded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), AddGoActivity.class));
@@ -159,7 +159,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
             go.setStart(start_time);
             String end_time = intent.getStringExtra("end_date");
             go.setEnd(end_time);
-            viewModel.onGoCreated(go);
+            viewModel.onGoAdded(go);
 
         }
     }

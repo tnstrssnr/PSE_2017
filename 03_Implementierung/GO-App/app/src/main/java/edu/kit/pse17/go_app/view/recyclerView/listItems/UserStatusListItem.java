@@ -39,7 +39,7 @@ public class UserStatusListItem implements ListItem<Status> {
     public UserStatusListItem(User user, Go go) {
         this.title = user.getName();
         //this.icon = user.getIcon();
-        this.status = go.getUserStatus();
+        //this.status = go.getUserStatus();
     }
 
 

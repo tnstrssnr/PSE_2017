@@ -4,6 +4,13 @@ package edu.kit.pse17.go_app.сommand;
  * Created by tina on 06.07.17.
  */
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+
+import edu.kit.pse17.go_app.model.entities.User;
+import edu.kit.pse17.go_app.repositories.GroupRepository;
+
 /**
  * Diese Klasse implementiert einen Befehl, der bei dem Beitreten einer Gruppe
  * vom Benutzer ausgeführt wird.
@@ -19,6 +26,15 @@ public class MemberAddedCommand extends ServerCommand {
      */
     @Override
     public void onCommandReceived() {
+        Gson gson = new Gson();
+        User user = null;
 
+        try {
+            user = gson.fromJson(getMessage().getString("data"), User.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        GroupRepository.getInstance().onMemberAdded(user);
     }
 }

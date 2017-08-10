@@ -1,9 +1,16 @@
 package edu.kit.pse17.go_app.serverCommunication.downstream;
 
-import android.util.Log;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
+
+import edu.kit.pse17.go_app.repositories.GroupRepository;
+import edu.kit.pse17.go_app.сommand.ServerCommand;
 
 /**
  * Dies Klasse ist eine Unterklasse von FirebaseMessagingService, die auf den Go Tomcat-Server hoert. DAs heisst, schickt der Server via FCM eine Nachricht an
@@ -25,8 +32,10 @@ public class MessageReceiver extends FirebaseMessagingService {
      * URL des Servers, von dem die Nachrichten kommen sollen (in diesem Fall der Tomcat_server der Anwendung).
      * Nachrichten von anderen Absendern werden ignoriert.
      */
+    private static final String SENDER = "https://i43pc164.ipd.kit.edu/";
 
-    private static final String SENDER = "Platzhalter";
+    private ServerCommand command;
+    //private CommandProvider provider = CommandProvider.getInstance();
 
     /**
      * Diese Methode wird aufgerufen, wenn die App eine Nachricht vom FCM Server erhaelt waehrend sie im Vordergrund laeuft. Die Nachricht sollte spaetestens 10s nach ihrer Ankunft
@@ -37,9 +46,22 @@ public class MessageReceiver extends FirebaseMessagingService {
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
         if (remoteMessage.getFrom() == SENDER) {
+            String tag = null;
+            Map<String, String> map = remoteMessage.getData();
+            JSONObject data = new JSONObject(map);
 
+            try {
+                JSONObject eventData = data.getJSONObject("data");
+                tag = eventData.getString("tag");
+
+                command = Command.valueOf(tag).getCommand();
+                //command = provider.getCommands().get(tag);
+                command.setMessage(eventData);
+                command.onCommandReceived();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         } else {
             //do nothing
         }
@@ -52,6 +74,6 @@ public class MessageReceiver extends FirebaseMessagingService {
      */
     @Override
     public void onDeletedMessages() {
-        super.onDeletedMessages();
+        GroupRepository.getInstance().getData();
     }
 }
