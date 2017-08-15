@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import org.hibernate.*;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -63,13 +64,15 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     public UserEntity getUserByEmail(final String mail) {
         Session session = null;
         List<UserEntity> user = null;
-        final String hql = "FROM UserEntity WHERE UserEntity.email = :mail";
+        final String sql = "SELECT * FROM USERS WHERE email = :mail ;";
 
         try {
             session = sf.openSession();
-            final Query query = session.createQuery(hql);
+            final SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(UserEntity.class);
             query.setParameter("mail", mail);
-            user = (List<UserEntity>) query.list();
+            user = query.list();
+            System.out.println(user.size());
             Hibernate.initialize(user);
         } catch (final HibernateException e) {
             handleHibernateException(e, null);
@@ -79,7 +82,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             }
         }
 
-        return (user != null) ? user.get(0) : null;
+        return (user.size() != 0) ? user.get(0) : null;
     }
 
     /**
@@ -114,7 +117,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public UserEntity get(final String key) {
         Transaction tx = null;
-        Session session = null;
+        Session session;
         UserEntity user = null;
 
         try {
@@ -122,7 +125,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             tx = session.beginTransaction();
             user = (UserEntity) session.get(UserEntity.class, key);
             Hibernate.initialize(user.getGroups());
-            for(GroupEntity group: user.getGroups()) {
+            for (final GroupEntity group : user.getGroups()) {
                 Hibernate.initialize(group.getMembers());
             }
             Hibernate.initialize(user.getGos());
@@ -149,6 +152,8 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             tx = session.beginTransaction();
             id = (String) session.save(entity);
             tx.commit();
+        } catch (final ConstraintViolationException c) {
+            throw c;
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
@@ -167,11 +172,11 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     public void delete(final String key) {
         Transaction tx = null;
         Session session = null;
-        final UserEntity user = get(key);
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+            final UserEntity user = (UserEntity) session.get(UserEntity.class, key);
             session.delete(user);
             tx.commit();
         } catch (final HibernateException e) {
@@ -195,7 +200,10 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
-            session.update(userEntity);
+            final UserEntity oldUser = (UserEntity) session.get(UserEntity.class, userEntity.getUid());
+            oldUser.setInstanceId(userEntity.getInstanceId());
+            oldUser.setName(userEntity.getName());
+            session.update(oldUser);
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
@@ -212,6 +220,5 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             tx.rollback();
         }
     }
-
 
 }

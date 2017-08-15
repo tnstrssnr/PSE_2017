@@ -1,20 +1,20 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
-import com.sun.istack.internal.Nullable;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank zu mappen.
- * Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann somit überall mit Java-Objekten
- * hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern.
- *
- * Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface GoDao implementiert.
- *
- * Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API empfangen und gesendet werden.
- * Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.
+ * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank
+ * zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann
+ * somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern.
+ * <p>
+ * Der Zugriff auf die Datenbank erfolgt nicht in dieser Klasse, sondern nur über eine DAO Klasse, die das Interface
+ * GoDao implementiert.
+ * <p>
+ * Zusätzlich dient diese Klasse als Vorlage des Frameworks Gson zum Parsen von JSON-Objekten, die von der REST API
+ * empfangen und gesendet werden. Die Attribute der Klasse bestimmen dabei die Struktur des JSON-Objekts.
  */
 @Entity
 @Table(name = "GOS")
@@ -96,7 +96,6 @@ public class GoEntity {
      * <p>
      * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu
      * implementieren.
-     *
      */
     @Column(name = "lat")
     private long lat;
@@ -130,19 +129,19 @@ public class GoEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "GOING_USERS", joinColumns = {
             @JoinColumn(name = "go_id", nullable = false)
-    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
+    }, inverseJoinColumns = {@JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> goingUsers;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "NOT_GOING_USERS", joinColumns = {
             @JoinColumn(name = "go_id", nullable = false)
-    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
+    }, inverseJoinColumns = {@JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> notGoingUsers;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "GONE_USERS", joinColumns = {
             @JoinColumn(name = "go_id", nullable = false)
-    }, inverseJoinColumns = { @JoinColumn(name = "uid", nullable = false)})
+    }, inverseJoinColumns = {@JoinColumn(name = "uid", nullable = false)})
     private Set<UserEntity> goneUsers;
 
     public GoEntity() {
@@ -161,8 +160,8 @@ public class GoEntity {
         this.goingUsers = new HashSet<>();
         goingUsers.add(owner);
         this.notGoingUsers = new HashSet<>();
-        for(UserEntity user: group.getMembers()) {
-            if(!user.equals(owner)) {
+        for (UserEntity user : group.getMembers()) {
+            if (!user.equals(owner)) {
                 notGoingUsers.add(user);
             }
         }
@@ -300,9 +299,9 @@ public class GoEntity {
         result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
         result = 31 * result + (int) (getLat() ^ (getLat() >>> 32));
         result = 31 * result + (int) (getLon() ^ (getLon() >>> 32));
-        result = 31 * result + (getGoingUsers() != null ? getGoingUsers().hashCode() : 0);
-        result = 31 * result + (getNotGoingUsers() != null ? getNotGoingUsers().hashCode() : 0);
-        result = 31 * result + (getGoneUsers() != null ? getGoneUsers().hashCode() : 0);
+        //result = 31 * result + (getGoingUsers() != null ? getGoingUsers().hashCode() : 0);
+        //result = 31 * result + (getNotGoingUsers() != null ? getNotGoingUsers().hashCode() : 0);
+        //result = 31 * result + (getGoneUsers() != null ? getGoneUsers().hashCode() : 0);
         return result;
     }
 }

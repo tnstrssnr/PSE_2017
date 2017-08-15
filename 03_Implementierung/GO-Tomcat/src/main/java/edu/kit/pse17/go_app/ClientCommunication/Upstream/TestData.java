@@ -42,12 +42,12 @@ public class TestData {
             foo.setID(0l);
             foo.setName("Foo");
             foo.setDescription("Test Descritpion");
-            Set<UserEntity> admins = new HashSet<>();
+            final Set<UserEntity> admins = new HashSet<>();
             admins.add(bob);
-            Set<UserEntity> members = new HashSet<>();
+            final Set<UserEntity> members = new HashSet<>();
             members.add(alice);
             members.add(bob);
-            Set<UserEntity> fooRequests = new HashSet<>();
+            final Set<UserEntity> fooRequests = new HashSet<>();
             foo.setRequests(fooRequests);
             foo.setAdmins(admins);
             foo.setMembers(members);
@@ -57,10 +57,10 @@ public class TestData {
             bar.setID(1l);
             bar.setName("Bar");
             bar.setDescription("Test Description");
-            HashSet<UserEntity> barAdmins = new HashSet<>();
+            final HashSet<UserEntity> barAdmins = new HashSet<>();
             barAdmins.add(alice);
-            Set<UserEntity> requests = new HashSet<>();
-            Set<UserEntity> barMembers = new HashSet<>();
+            final Set<UserEntity> requests = new HashSet<>();
+            final Set<UserEntity> barMembers = new HashSet<>();
             barMembers.add(alice);
             requests.add(bob);
             bar.setAdmins(barAdmins);
@@ -76,15 +76,14 @@ public class TestData {
             lunch.setGoingUsers(new HashSet<>());
             lunch.setGoneUsers(new HashSet<>());
 
-            foo.getGos().add(lunch);
-            foo.getGos().add(dinner);
+            //foo.getGos().add(lunch);
+            //foo.getGos().add(dinner);
         }
 
     }
 
     public static GroupEntity getTestGroupFoo() {
         setUpData();
-        System.out.println(foo.getName());
         return foo;
     }
 

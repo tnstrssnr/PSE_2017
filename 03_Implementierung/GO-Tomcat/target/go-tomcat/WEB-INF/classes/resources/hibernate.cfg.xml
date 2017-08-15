@@ -13,7 +13,7 @@
         </property>
 
         <property name="connection.url">
-            jdbc:mysql://localhost/pse_development?useSSL=false
+            jdbc:mysql://localhost/pse_development
         </property>
         <property name="connection.username">
             root
@@ -22,7 +22,7 @@
             69h97jnv
         </property>
 
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create-drop</property>
 
         <mapping class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"/>
         <mapping class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"/>

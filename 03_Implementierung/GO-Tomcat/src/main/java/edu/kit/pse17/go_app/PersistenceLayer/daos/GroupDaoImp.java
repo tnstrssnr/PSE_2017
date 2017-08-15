@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
-@Repository
+
 /**
  * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und IObservable.
  * <p>
@@ -24,8 +25,14 @@ import java.util.HashMap;
  * Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst
  * oder nicht.
  */
+@Repository
 public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IObservable<Object> {
 
+    /**
+     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
+     * auch die Daten anderer Benutzer betrifft.
+     */
+    private final HashMap<EventArg, Observer> observer;
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
      * Datenbank kommunizieren kann und dort die Änderungen vorhnehmen. Das Attribut ist mit "@Autowired" annotiert,
@@ -40,12 +47,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      */
     @Autowired
     private SessionFactory sf;
-
-    /**
-     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
-     * auch die Daten anderer Benutzer betrifft.
-     */
-    private final HashMap<EventArg, Observer> observer;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
@@ -75,7 +76,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      */
 
     @Override
-    public void register(EventArg arg, Observer observer) {
+    public void register(final EventArg arg, final Observer observer) {
         this.observer.put(arg, observer);
     }
 
@@ -116,6 +117,8 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             session = sf.openSession();
             tx = session.beginTransaction();
             group = (GroupEntity) session.get(GroupEntity.class, key);
+
+            //initialze all Sets of the object to avoid lazy-loading errors
             Hibernate.initialize(group.getAdmins());
             Hibernate.initialize(group.getGos());
             Hibernate.initialize(group.getMembers());
@@ -143,14 +146,27 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      *               Objekt, welches der Methode
      */
     @Override
-    public Long persist(final GroupEntity entity) {
+    public Long persist(GroupEntity entity) {
         Transaction tx = null;
         Long id = -1l;
         Session session = null;
 
+        //when group is created, there is only 1 member --> the creator of the group
+        UserEntity creator = (UserEntity) entity.getMembers().toArray()[0];
+
+        //clear all sets from the object, otherwise hibernate will throw NonUniqueObjectException.
+        // GOs and Requests are null by default
+        entity.setAdmins(new HashSet<>());
+        entity.setMembers(new HashSet<>());
+
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+
+            //get the creator-object from the database, otherwise hibernate will not recognize that this object is persisted already and will throw an exception
+            UserEntity persistedCreator = (UserEntity) session.get(UserEntity.class, creator.getUid());
+            entity.getMembers().add(persistedCreator);
+            entity.getAdmins().add(persistedCreator);
             id = (Long) session.save(entity);
             tx.commit();
             entity.setID(id);
@@ -171,12 +187,15 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     @Override
     public void delete(final Long key) {
         Transaction tx = null;
-        final GroupEntity group = get(key);
         Session session = null;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+            GroupEntity group = (GroupEntity) session.get(GroupEntity.class, key);
+            group.setMembers(null);
+            group.setRequests(null);
+            group.setAdmins(null);
             session.delete(group);
             tx.commit();
 
@@ -197,13 +216,20 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
     public void update(final GroupEntity groupEntity) {
         Transaction tx = null;
         Session session = null;
-        //final GroupEntity oldData;
+        GroupEntity oldData;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
 
-            session.update(groupEntity);
+            //get object that is already persisted --> needs to be retrieved and updated in the same session
+            oldData = (GroupEntity) session.get(GroupEntity.class, groupEntity.getID());
+
+            //change data
+            oldData.setName(groupEntity.getName());
+            oldData.setDescription(groupEntity.getDescription());
+
+            session.update(oldData);
             tx.commit();
 
 
@@ -221,18 +247,18 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         Transaction tx = null;
         final GroupEntity group;
         Session session = null;
-        final UserEntity user = new UserDaoImp(sf).get(userId);
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+            UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (!group.getMembers().contains(user)) {
                 group.getMembers().add(user);
             }
 
             //adds users status to gos -- is 'not going' by default
-            new GoDaoImp().onGroupMemberAdded(user, group);
+            new GoDaoImp(this.getSf()).onGroupMemberAdded(user.getUid(), group.getID());
             tx.commit();
 
 
@@ -250,12 +276,14 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         Transaction tx = null;
         Session session = null;
         final GroupEntity group;
-        final UserEntity user = new UserDaoImp(sf).get(userId);
+        final UserEntity user;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+            user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
             if (group.getRequests().contains(user)) {
                 group.getRequests().remove(user);
             }
@@ -275,11 +303,13 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         Transaction tx = null;
         Session session = null;
         final GroupEntity group;
-        final UserEntity user = new UserDaoImp(sf).get(userId);
+        final UserEntity user;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+
+            user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
             if (!group.getRequests().contains(user)) {
                 group.getRequests().add(user);
@@ -300,16 +330,19 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         Transaction tx = null;
         Session session = null;
         final GroupEntity group;
-        final UserEntity user = new UserDaoImp(sf).get(userId);
+        final UserEntity user;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+
+            user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
             if (group.getMembers().contains(user)) {
                 group.getMembers().remove(user);
             }
-            if(group.getAdmins().contains(user)) {
+            if (group.getAdmins().contains(user)) {
                 group.getAdmins().remove(user);
             }
             tx.commit();
@@ -327,12 +360,18 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         Transaction tx = null;
         Session session = null;
         final GroupEntity group;
-        final UserEntity user = new UserDaoImp(sf).get(userId);
+        final UserEntity user;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+
+            //retrieve persisted objects
+            user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
+
+            //add the new admin to the list
             if (group.getMembers().contains(user) && !group.getAdmins().contains(user)) {
                 group.getAdmins().add(user);
             }
