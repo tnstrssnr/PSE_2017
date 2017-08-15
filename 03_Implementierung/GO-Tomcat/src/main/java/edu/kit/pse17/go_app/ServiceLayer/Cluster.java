@@ -1,9 +1,10 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 /**
- * Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den Standorten erleichtert.
- * Ein Objekt dieser Klasse beschreibt dabei ein Cluster, bestehend aus mehreren GO-Teilnehmern, die sich nahe genug beieinander befinden, um von
- * dem benutzten Clustering-Algorithmus als Cluster erkannt worden zu sein.
+ * Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den
+ * Standorten erleichtert. Ein Objekt dieser Klasse beschreibt dabei ein Cluster, bestehend aus mehreren GO-Teilnehmern,
+ * die sich nahe genug beieinander befinden, um von dem benutzten Clustering-Algorithmus als Cluster erkannt worden zu
+ * sein.
  */
 public class Cluster {
 
@@ -16,23 +17,24 @@ public class Cluster {
      * Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad interpretierbar sein,
      * muss also zwischen +90 und -90 liegen.
      */
-    private long lat;
+    private double lat;
 
     /**
      * Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar sein,
      * muss also zwischen +180 und -180 liegen.
      */
-    private long lon;
+    private double lon;
 
     /**
      * Ein Konstruktor, der sämtliche Attribute der Klasse entgegen nimmt.
+     *
      * @param size Die Anzahl der Personen in diesem Cluster. Es handelt sich dabei um eine Zahl twischen 1 und 50
-     * @param lat Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad interpretierbar sein,
-     * muss also zwischen +90 und -90 liegen.
-     * @param lon Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar sein,
-     * muss also zwischen +180 und -180 liegen.
+     * @param lat  Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad
+     *             interpretierbar sein, muss also zwischen +90 und -90 liegen.
+     * @param lon  Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar
+     *             sein, muss also zwischen +180 und -180 liegen.
      */
-    public Cluster(int size, long lat, long lon) {
+    public Cluster(int size, double lat, double lon) {
         this.size = size;
         this.lat = lat;
         this.lon = lon;
@@ -46,19 +48,19 @@ public class Cluster {
         this.size = size;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public long getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 }

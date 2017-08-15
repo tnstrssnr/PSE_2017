@@ -154,9 +154,8 @@ public class GoRestController {
             method = RequestMethod.GET,
             value = "/location/{goId}"
     )
-    public List<Cluster> getLocation(@PathVariable("goId") String goId) {
-        //bitte implementieren
-        return null;
+    public List<Cluster> getLocation(@PathVariable("goId") Long goId) {
+        return LocationService.getGroupLocation(goId);
     }
 
 
@@ -186,8 +185,8 @@ public class GoRestController {
             method = RequestMethod.PUT,
             value = "/location/{goId}"
     )
-    public void setLocation(String userId, long lat, long lon, @PathVariable("goId") String goId) {
-        //bitte implementieren
+    public void setLocation(String userId, double lat, double lon, @PathVariable("goId") Long goId) {
+        LocationService.setUserLocation(goId, userId, lat, lon);
     }
 
     /**

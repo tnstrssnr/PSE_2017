@@ -109,7 +109,7 @@ public class LocationService {
      * @param lon    Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad
      *               interpretierbar sein, muss also zwischen +180 und -180 liegen.
      */
-    public static void setUserLocation(final long goId, final String userId, final long lat, final long lon) {
+    public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) {
 
     }
 

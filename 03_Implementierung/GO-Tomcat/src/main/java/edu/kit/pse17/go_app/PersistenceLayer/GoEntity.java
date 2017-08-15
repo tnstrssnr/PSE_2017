@@ -98,7 +98,7 @@ public class GoEntity {
      * implementieren.
      */
     @Column(name = "lat")
-    private long lat;
+    private double lat;
 
     /**
      * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Längengrad des Zielorts gespeichert.
@@ -110,7 +110,7 @@ public class GoEntity {
      * implementieren.
      */
     @Column(name = "lon")
-    private long lon;
+    private double lon;
 
     /**
      * Eine Map mit allen Teilnehmern des GOs, um ihnen ihren Teilnahmestatus zuzuweisen.
@@ -148,7 +148,7 @@ public class GoEntity {
 
     }
 
-    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, Date start, Date end, long lat, long lon) {
+    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, Date start, Date end, double lat, double lon) {
         this.group = group;
         this.owner = owner;
         this.name = name;
@@ -216,19 +216,19 @@ public class GoEntity {
         this.end = end;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public long getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 
@@ -290,15 +290,19 @@ public class GoEntity {
 
     @Override
     public int hashCode() {
-        int result = (int) (getID() ^ (getID() >>> 32));
+        int result;
+        long temp;
+        result = (int) (getID() ^ (getID() >>> 32));
         result = 31 * result + (getGroup() != null ? getGroup().hashCode() : 0);
         result = 31 * result + (getOwner() != null ? getOwner().hashCode() : 0);
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
         result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
-        result = 31 * result + (int) (getLat() ^ (getLat() >>> 32));
-        result = 31 * result + (int) (getLon() ^ (getLon() >>> 32));
+        temp = Double.doubleToLongBits(getLat());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getLon());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         //result = 31 * result + (getGoingUsers() != null ? getGoingUsers().hashCode() : 0);
         //result = 31 * result + (getNotGoingUsers() != null ? getNotGoingUsers().hashCode() : 0);
         //result = 31 * result + (getGoneUsers() != null ? getGoneUsers().hashCode() : 0);
