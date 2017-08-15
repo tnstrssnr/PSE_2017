@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="go-tomcat">
+    <output-path>$PROJECT_DIR$/out/artifacts/go_tomcat</output-path>
+    <root id="archive" name="go-tomcat.war" />
+  </artifact>
+</component>

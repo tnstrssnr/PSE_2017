@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GroupDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">edu.kit.pse17.go_app.PersistenceLayer.daos</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GroupDao (edu.kit.pse17.go_app.PersistenceLayer.daos)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">GroupDao</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package edu.kit.pse17.go_app.PersistenceLayer.daos;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.EntityNotFoundException;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die
+<i>9</i>&nbsp; * die Datenbankzugriffe in sich kapselt.
+<i>10</i>&nbsp; * &lt;p&gt;
+<i>11</i>&nbsp; * Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar.
+<i>12</i>&nbsp; * Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients
+<i>13</i>&nbsp; * gestellt werden, an die Persistence-Klassen weitergeleitet.
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public interface GroupDao extends AbstractDao&lt;GroupEntity, Long&gt; {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Fügt der Gruppe mit der Id groupId den Benutzer mit der Id userId hinzu.
+<i>19</i>&nbsp;     * &lt;p&gt;
+<i>20</i>&nbsp;     * Vor dem Aufruf dieser Methode, muss der Aufrufer sicherstellen, dass der Benutzer nicht bereits ein Mitglied in
+<i>21</i>&nbsp;     * der Gruppe ist und, dass der Benutzer zuvor eine Mitgliedschaftsanfrage zu der Gruppe bekommen hat bzw. es sich
+<i>22</i>&nbsp;     * um dem Ersteller einer neuen Gruppe handelt.
+<i>23</i>&nbsp;     *
+<i>24</i>&nbsp;     * @param groupId Die ID der Gruppe, zu der der Benutzer hinzugefügt werden soll. Dabei handelt es sich um eine
+<i>25</i>&nbsp;     *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>26</i>&nbsp;     * @param userId  Die ID des Benutzers, der der Gruppe hinzugefügt werden soll. Dabei handelt es sich um eine
+<i>27</i>&nbsp;     *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>28</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
+<i>29</i>&nbsp;     *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
+<i>30</i>&nbsp;     *                                 muss.
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    public void addGroupMember(String userId, long groupId) throws EntityNotFoundException;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Diese Methode entfernt eine Gruppenmitgliedschaftsanfrage aus der Datenbank. Sie wird aufgerufen, wenn ein
+<i>36</i>&nbsp;     * Benutzer eine Gruppenmitgliedschaftsanfrage beantwortet hat.
+<i>37</i>&nbsp;     *
+<i>38</i>&nbsp;     * @param groupId die ID der Gruppe, zu der der Benutzer eingeladen war. Dabei handelt es sich um eine gültige Id,
+<i>39</i>&nbsp;     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>40</i>&nbsp;     * @param userId  Die ID des Benutzers, der zu der Gruppe eingeladen war. Dabei handelt es sich um eine gültige Id,
+<i>41</i>&nbsp;     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>42</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
+<i>43</i>&nbsp;     *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
+<i>44</i>&nbsp;     *                                 muss.
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public void removeGroupRequest(String userId, long groupId) throws EntityNotFoundException;
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Mit dieser Methode lässt sich eine neue Gruppenanfrage in der Datenbank speichern. Sie muss also aufgerufen
+<i>50</i>&nbsp;     * werden, wenn ein Administrator einen Benutzer zur Gruppe einlädt.
+<i>51</i>&nbsp;     * &lt;p&gt;
+<i>52</i>&nbsp;     * Vor dem Aufruf der Methode muss ischergestellt werden, dass der Empfänger der Anfrage kein gruppenmitglied ist
+<i>53</i>&nbsp;     * und auch noch keine Anfrage erhalten hat.
+<i>54</i>&nbsp;     *
+<i>55</i>&nbsp;     * @param userId  Die ID des Benutzers, der zu der Gruppe eingeladen wird. Dabei handelt es sich um eine gültige Id,
+<i>56</i>&nbsp;     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>57</i>&nbsp;     * @param groupId die ID der Gruppe, zu der der Benutzer eingeladen wird. Dabei handelt es sich um eine gültige Id,
+<i>58</i>&nbsp;     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>59</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
+<i>60</i>&nbsp;     *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
+<i>61</i>&nbsp;     *                                 muss.
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    public void addGroupRequest(String userId, long groupId) throws EntityNotFoundException;
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * Diese Methode entfernt ein Gruppenmitglied aus einer Gruppe. Sie wird aufgerufen, wenn entweder ein
+<i>67</i>&nbsp;     * Gruppenmitglied aus einer Gruppe austritt oder ein Administrator ein gruppenmitglied entfernt.
+<i>68</i>&nbsp;     * &lt;p&gt;
+<i>69</i>&nbsp;     * Vor dem Aufruf der Methode muss sichergestellt werden, dass es sich bei dem Benutzer um ein Mitglied der Gruppe
+<i>70</i>&nbsp;     * handelt. Diese Methode kann nicht dazu verwendet werden, eine Gruppenanfrage zu löschen.
+<i>71</i>&nbsp;     * &lt;p&gt;
+<i>72</i>&nbsp;     * Sämtliche GOs, die dem entfernten Gruppenmitglied gehören werden automatisch gelöscht bei Aufruf der Methode, um
+<i>73</i>&nbsp;     * die Konsistenz des Datenbestands zu erhalten.
+<i>74</i>&nbsp;     *
+<i>75</i>&nbsp;     * @param groupId die ID der Gruppe, aus der der Benutzer entfernt werden soll. Dabei handelt es sich um eine
+<i>76</i>&nbsp;     *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>77</i>&nbsp;     * @param userId  Die ID des Benutzers, der aus der Gruppe entfernt werden soll. Dabei handelt es sich um eine
+<i>78</i>&nbsp;     *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>79</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
+<i>80</i>&nbsp;     *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
+<i>81</i>&nbsp;     *                                 muss.
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    public void removeGroupMember(String userId, long groupId) throws EntityNotFoundException;
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;    /**
+<i>87</i>&nbsp;     * Diese Methode fügt einen Administrator bei einer Gruppe hinzu. Anfrage zu dieser methode sollte nur von anderen
+<i>88</i>&nbsp;     * Adminsitratoren dieser Gruppe kommen.
+<i>89</i>&nbsp;     * &lt;p&gt;
+<i>90</i>&nbsp;     * Es muss vor dem Aufruf der Methode sichergestellt werden, dass es sich bei dem Benutzer um ein vollwertiges
+<i>91</i>&nbsp;     * Gruppenmitglied handelt und dieser nicht bereits ein Administrator ist.
+<i>92</i>&nbsp;     *
+<i>93</i>&nbsp;     * @param userId  Die ID des Benutzers, der als Administrator hinzugefügt werden soll. Dabei handelt es sich um eine
+<i>94</i>&nbsp;     *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>95</i>&nbsp;     * @param groupId die ID der Gruppe, zu der der Administrator hinzugefügt werden soll. Dabei handelt es sich um eine
+<i>96</i>&nbsp;     *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+<i>97</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
+<i>98</i>&nbsp;     *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
+<i>99</i>&nbsp;     *                                 muss.
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    public void addAdmin(String userId, String groupId) throws EntityNotFoundException;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-07-27 10:31</div>
+</div>
+</body>
+</html>

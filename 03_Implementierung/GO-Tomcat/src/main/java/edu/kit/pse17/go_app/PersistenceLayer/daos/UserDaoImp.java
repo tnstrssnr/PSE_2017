@@ -2,181 +2,223 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.Observable;
-import edu.kit.pse17.go_app.ServiceLayer.Observer;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und Observable.
- *
- * Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO Interfaces
- * entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen, wenn ein Client dem Server ein
- * Anfrage zur manipulation seiner Daten geschickt hat.
- *
- * Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die rolle des Subjekts. Die Klasse hat eine Liste
- * von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob
- * die  Änderung eine Folgeaktion auslöst oder nicht.
+ * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und IObservable.
+ * <p>
+ * Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO
+ * Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen,
+ * wenn ein Client dem Server ein Anfrage zur manipulation seiner Daten geschickt hat.
+ * <p>
+ * Die Klasse gehört außerdem zu einer Implementierung des Beobachter-Entwurfsmusters und übernimmt dabei die rolle des
+ * Subjekts. Die Klasse hat eine Liste von Beobachtern, die benachrichtigt werden, wenn sich in der Datenbank eine
+ * Änderung ergibt. Es ist die Verantwortung der Beobachter zu entscheiden, ob die  Änderung eine Folgeaktion auslöst
+ * oder nicht.
  */
 
 @Repository
-@Transactional
-public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String>, Observable<UserEntity> {
+public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
-     * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der Datenbank
-     * kommunizieren kann und dort die Änderungen vorhnehmen. Das Attribut ist mit "@Autowired" annotiert, damit es automatisch
-     * mit einem gültigen Objekt instanziiert wird.
-     *
-     * Aud dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt unveränderbar und
-     * bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
-     *
-     * Diese Klasse implementiert darüber hinaus das Interface Observable. Das heißt die Klasse besitzt Beobachter, die bei Ändeurngen des Datenbestands
-     * benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
+     * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
+     * Datenbank kommunizieren kann und dort die Änderungen vorhnehmen. Das Attribut ist mit "@Autowired" annotiert,
+     * damit es automatisch mit einem gültigen Objekt instanziiert wird.
+     * <p>
+     * Aud dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt
+     * unveränderbar und bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
+     * <p>
+     * Diese Klasse implementiert darüber hinaus das Interface IObservable. Das heißt die Klasse besitzt Beobachter, die
+     * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
+     * diese Klasse die Rolle des konkreten Subjekts.
      */
+
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sf;
 
     /**
-     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die auch die Daten
-     * anderer Benutzer betrifft.
+     * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
+     * erzeugt, anhand der Spezifikationen der verwendetetn MySQL Datenbank.
      */
-    private List<Observer> observer;
 
-    /**
-     * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory erzeugt, anhand der Spezifikationen
-     * der verwendetetn MySQL Datenbank.
-     */
+    public UserDaoImp(final SessionFactory sf) {
+        this.sf = sf;
+    }
+
     public UserDaoImp() {
-
     }
 
     /**
-     *
-     * @param observer  der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung eines
+     * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
+     *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.
+     * @return Das gefundene UserEtity_objekt aus der Datenbank. Wurde kein passender user gefunden gibt diese Methode
+     * null zurück.
      */
     @Override
-    public void register(Observer observer) {
+    public UserEntity getUserByEmail(final String mail) {
+        Session session = null;
+        List<UserEntity> user = null;
+        final String sql = "SELECT * FROM USERS WHERE email = :mail ;";
 
+        try {
+            session = sf.openSession();
+            final SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(UserEntity.class);
+            query.setParameter("mail", mail);
+            user = query.list();
+            System.out.println(user.size());
+            Hibernate.initialize(user);
+        } catch (final HibernateException e) {
+            handleHibernateException(e, null);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return (user.size() != 0) ? user.get(0) : null;
     }
 
     /**
-     *
-     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode sichergestellt werden, dass
+     * @param userId Die ID des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
+     *               beim Aufruf der Methode um eine gültige userid handelt.
+     * @return Ein Set mit allen Gruppen, in denen der Benutzer Mitglied ist.
      */
     @Override
-    public void unregister(Observer observer) {
-
+    public Set<GroupEntity> getGroups(final String userId) {
+        final UserEntity user = get(userId);
+        return user.getGroups();
     }
 
     /**
-     *
-     * @param impCode Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt es sich immer um ein
-     *                öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich um keinen gültigen Implementierungs-Code, wird
-     *                kein Observer auf das notify() reagieren.
-     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz weiß der observer, von wo er eine
-     *                   Benachrichtigung bekommen hat.
-     * @param userEntity
+     * @param userId Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
+     *               es sich beim Aufruf der Methode um eine gültige userid handelt.
+     * @return Ein Set mit allen Gruppen zu denen der Benutzer mit der ID "userId" eine Gruppenanfrage bekommen hat. In
+     * keinen dieser Gruppen ist der Benutzer bereits Mitglied.
      */
     @Override
-    public void notify(String impCode, Observable observable, UserEntity userEntity) {
-
-    }
-
-
-    /**
-     * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen Muster entsprechen,
-     *             damit diese Methode fehlerfrei ausgeführt werden kann.
-     * @return
-     */
-    @Override
-    public UserEntity getUserByEmail(String mail) {
-        return null;
+    public Set<GroupEntity> getRequests(final String userId) {
+        final UserEntity user = get(userId);
+        return user.getRequests();
     }
 
     /**
-     * @param user Die Entity, die in die Datenbank eingefügt werden soll. Dieses Objekt muss eine in der Datenbank noch nicht
+     * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem
+     *            Generic PK bestimmt, mit dem das Interface implementiert wird.
+     * @return Der Benutzer mit der ID "key". Gibt null zurück, falls kein passender Benutzer in der Datenbank gefunden
+     * wurde.
      */
     @Override
-    public void addUser(UserEntity user) {
+    public UserEntity get(final String key) {
+        Transaction tx = null;
+        Session session;
+        UserEntity user = null;
 
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+            user = (UserEntity) session.get(UserEntity.class, key);
+            Hibernate.initialize(user.getGroups());
+            for (final GroupEntity group : user.getGroups()) {
+                Hibernate.initialize(group.getMembers());
+            }
+            Hibernate.initialize(user.getGos());
+            Hibernate.initialize(user.getRequests());
+            tx.commit();
+        } catch (final HibernateException e) {
+            handleHibernateException(e, tx);
+        }
+        return user;
     }
 
     /**
-     * @param userId Die userId des Benutzers, dessen Account gelöscht werden soll. Es wird garantiert, dass es sich beim Aufruf
+     * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das
+     *               Objekt, welches der Methode
      */
     @Override
-    public void deleteUser(String userId) {
+    public String persist(final UserEntity entity) {
+        Session session = null;
+        Transaction tx = null;
+        String id = null;
 
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+            id = (String) session.save(entity);
+            tx.commit();
+        } catch (final ConstraintViolationException c) {
+            throw c;
+        } catch (final HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return id;
     }
 
     /**
-     *
-     * @param userId Die ID des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der
-     *               Methode um eine gültige userid handelt.
-     * @return
+     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird
+     *            durch das Generic PK bei der Implementierung der Klasse spezifiziert.
      */
     @Override
-    public List<GroupEntity> getGroups(String userId) {
-        return null;
+    public void delete(final String key) {
+        Transaction tx = null;
+        Session session = null;
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+            final UserEntity user = (UserEntity) session.get(UserEntity.class, key);
+            session.delete(user);
+            tx.commit();
+        } catch (final HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     /**
-     *
-     * @param userId Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der
-     *               Methode um eine gültige userid handelt.
-     * @return
+     * @param userEntity Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity
+     *                   handeln, ansonsten schlägt ide Ausführung der Methode fehl.
      */
     @Override
-    public List<GroupEntity> getRequests(String userId) {
-        return null;
+    public void update(final UserEntity userEntity) {
+        Transaction tx = null;
+        Session session = null;
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+            final UserEntity oldUser = (UserEntity) session.get(UserEntity.class, userEntity.getUid());
+            oldUser.setInstanceId(userEntity.getInstanceId());
+            oldUser.setName(userEntity.getName());
+            session.update(oldUser);
+            tx.commit();
+        } catch (final HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
-    /**
-     *
-     * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem Generic PK bestimmt,
-     *            mit dem das Interface implementiert wird.
-     * @return
-     */
-    @Override
-    public UserEntity get(String key) {
-        return null;
+    private void handleHibernateException(final HibernateException e, final Transaction tx) {
+        e.printStackTrace();
+        if (tx != null) {
+            tx.rollback();
+        }
     }
 
-    /**
-     *
-     * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das Objekt, welches der Methode
-     */
-    @Override
-    public void persist(UserEntity entity) {
-
-    }
-
-    /**
-     *
-     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird durch das Generic PK bei der
-     *            Implementierung der Klasse spezifiziert.
-     *
-     * @throws EntityNotFoundException
-     */
-    @Override
-    public void delete(String key) throws EntityNotFoundException {
-
-    }
-
-    /**
-     *
-     * @param userEntity Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity handeln,
-     *                   ansonsten schlägt ide Ausführung der Methode fehl.
-     * @throws EntityNotFoundException
-     */
-    @Override
-    public void update(UserEntity userEntity) throws EntityNotFoundException {
-
-    }
 }

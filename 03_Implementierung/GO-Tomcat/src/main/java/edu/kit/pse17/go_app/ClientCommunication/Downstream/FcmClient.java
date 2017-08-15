@@ -1,11 +1,11 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
-import com.google.gson.JsonObject;
-import org.apache.http.client.HttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.squareup.okhttp.*;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import org.json.simple.JSONObject;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.Set;
 
 /**
  *Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät weitergeleitet wird.
@@ -21,21 +21,26 @@ public class FcmClient {
     /**
      * Base URL des FCM-Servers an den die Requests geschickt werden müssen. Dieser Wert darf sich nicht ändern.
      */
-    private static final String BASE_URL = "https://fcm.googleapis.com/";
+    private static final String BASE_URL = "https://fcm.googleapis.com/send";
+
+    private static final String SERVER_KEY = "AAAAjalbaUE:APA91bHDguerPdnJ9fOLxvXynowziqVzgw5HB0ug0ZIEFDaFE0AezmBZoD1gcaRROMfriNi7IRKrC5ROVpdOz2Ohegcoj-X4Wphpii1QSgHvRRm6JTxdLi_QUv8GRcenNrMbGEYDEKWC";
+
+    private static final MediaType JSON = MediaType.parse("application/json");
 
     /**
      * Ein Http-Client, der für das Senden der HTTP-Requests zuständig ist. Die Konfiguration des HttpClients wird bei der Erstellung des FcmClient-Objekts
      * vorgenommen. Die Konfiguration wird von dem Firebase Cloud Messaging Service vorgegeben.
      */
-    private HttpClient httpClient;
+    private OkHttpClient httpClient;
 
     /**
      * Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die Konfikuration des HttpClients
      * standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL schicken kann.
      */
     public FcmClient() {
-
+        this.httpClient = new OkHttpClient();
     }
+
 
     /**
      * Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der HttpClient
@@ -51,7 +56,37 @@ public class FcmClient {
      * @param receiver Eine Liste mit den InstaceIds der Clients,an die die Nachricht geschickt werden soll. dabei muss es sich um gültige
      *                 InstanceIds handeln, sonst kann die Methode nicht fehlerfrei ausgeführt werden.
      */
-    public void send(JsonObject data, String command, List<String> receiver) {
+
+    public void send(String data, EventArg command, Set<UserEntity> receiver) {
+
+        for(UserEntity msg: receiver) {
+
+            JSONObject eventData = new JSONObject();
+            eventData.put("tag", command);
+            eventData.put("data", data);
+
+            JSONObject json = new JSONObject();
+            json.put("to", msg.getInstanceId());
+            json.put("data", eventData);
+
+            String jsonString = json.toJSONString();
+            RequestBody body = RequestBody.create(JSON, jsonString);
+            Request request = new Request.Builder()
+                    .header("Authorization", SERVER_KEY)
+                    .url(BASE_URL)
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = httpClient.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //TODO: do something w/ response
+        }
+
 
     }
+
 }

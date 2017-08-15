@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+
+        <property name="connection.url">
+            jdbc:mysql://localhost/pse_testing;
+        </property>
+        <property name="connection.username">
+            root
+        </property>
+        <property name="connection.password">
+            69h97jnv
+        </property>
+
+        <property name="hbm2ddl.auto">create-drop</property>
+
+        <mapping class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"/>
+        <mapping class="edu.kit.pse17.go_app.PersistenceLayer.GroupEntity"/>
+        <mapping class="edu.kit.pse17.go_app.PersistenceLayer.GoEntity"/>
+
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,147 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Cluster</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">edu.kit.pse17.go_app.ServiceLayer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Cluster (edu.kit.pse17.go_app.ServiceLayer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Cluster</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package edu.kit.pse17.go_app.ServiceLayer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * Bei dieser Klasse handelt es sich um eien Datenhaltungsklasse, die dem Clustering-Algoeithmus das hantieren mit den Standorten erleichtert.
+<i>5</i>&nbsp; * Ein Objekt dieser Klasse beschreibt dabei ein Cluster, bestehend aus mehreren GO-Teilnehmern, die sich nahe genug beieinander befinden, um von
+<i>6</i>&nbsp; * dem benutzten Clustering-Algorithmus als Cluster erkannt worden zu sein.
+<i>7</i>&nbsp; */
+<i>8</i>&nbsp;public class Cluster {
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    /**
+<i>11</i>&nbsp;     * Anzahl an Personen, die sich in dem Cluster befinden. Der Wert liegt zwischen 1 und 60 Teilnehmern.
+<i>12</i>&nbsp;     */
+<i>13</i>&nbsp;    private int size;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad interpretierbar sein,
+<i>17</i>&nbsp;     * muss also zwischen +90 und -90 liegen.
+<i>18</i>&nbsp;     */
+<i>19</i>&nbsp;    private long lat;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar sein,
+<i>23</i>&nbsp;     * muss also zwischen +180 und -180 liegen.
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    private long lon;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Ein Konstruktor, der sämtliche Attribute der Klasse entgegen nimmt.
+<i>29</i>&nbsp;     * @param size Die Anzahl der Personen in diesem Cluster. Es handelt sich dabei um eine Zahl twischen 1 und 50
+<i>30</i>&nbsp;     * @param lat Der geographische Breitengrad des Standorts des Clusters. Der Wert muss als Breitengrad interpretierbar sein,
+<i>31</i>&nbsp;     * muss also zwischen +90 und -90 liegen.
+<i>32</i>&nbsp;     * @param lon Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar sein,
+<i>33</i>&nbsp;     * muss also zwischen +180 und -180 liegen.
+<i>34</i>&nbsp;     */
+<b class="nc"><i>35</i>&nbsp;    public Cluster(int size, long lat, long lon) {</b>
+<b class="nc"><i>36</i>&nbsp;        this.size = size;</b>
+<b class="nc"><i>37</i>&nbsp;        this.lat = lat;</b>
+<b class="nc"><i>38</i>&nbsp;        this.lon = lon;</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    public int getSize() {
+<b class="nc"><i>42</i>&nbsp;        return size;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    public void setSize(int size) {
+<b class="nc"><i>46</i>&nbsp;        this.size = size;</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    public long getLat() {
+<b class="nc"><i>50</i>&nbsp;        return lat;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    public void setLat(long lat) {
+<b class="nc"><i>54</i>&nbsp;        this.lat = lat;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public long getLon() {
+<b class="nc"><i>58</i>&nbsp;        return lon;</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public void setLon(long lon) {
+<b class="nc"><i>62</i>&nbsp;        this.lon = lon;</b>
+<i>63</i>&nbsp;    }
+<i>64</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-07-27 10:31</div>
+</div>
+</body>
+</html>

@@ -2,71 +2,51 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die
  * die Datenbankzugriffe in sich kapselt.
- *
+ * <p>
  * Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar.
  * Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients
  * gestellt werden, an die Persistence-Klassen weitergeleitet.
  */
-public interface UserDao {
+public interface UserDao extends AbstractDao<UserEntity, String> {
 
     /**
      * Diese Methode sucht ein User-Objekt anhand einer E-Mailadresse und gibt, falls die Suche erfolgreich ist, dieses
      * Objekt zurück.
      *
-     * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen Muster entsprechen,
-     *             damit diese Methode fehlerfrei ausgeführt werden kann.
-     * @return Die Methode gibt das gefundene UserEntity Objekt zurück. Gibt es keinen Benutzer mit der übergegebenen E-mailadresse, gibt die
-     * Methode null zurück.
+     * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
+     *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.
+     * @return Die Methode gibt das gefundene UserEntity Objekt zurück. Gibt es keinen Benutzer mit der übergegebenen
+     * E-mailadresse, gibt die Methode null zurück.
      */
     public UserEntity getUserByEmail(String mail);
 
     /**
-     * Die Methode fügt eine neue UserEntity in die Datenbank ein.
+     * Diese Methode gibt eine Liste mit allen Gruppen zurück, in denen der Benutzer Mitglied ist. Dies schließt Gruppen
+     * nicht mit ein, zu denen der Benutzer eingeladen wurde, er die Gruppenanfrage aber noch nicht beantwortet hat.
      *
-     * @param user Die Entity, die in die Datenbank eingefügt werden soll. Dieses Objekt muss eine in der Datenbank noch nicht
-     *             vorhandene ID enthalten, sonst schlägt die Ausführung fehl.
+     * @param userId Die ID des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
+     *               beim Aufruf der Methode um eine gültige userid handelt.
+     * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen
+     * handelt es sich um vollständige, gültige GroupEntity Objekte.
      */
-    public void addUser(UserEntity user);
+    public Set<GroupEntity> getGroups(String userId);
 
     /**
-     * Diese Methode entfernt eine Entity aus der Datenbank. Zusätzlich werden alle mit diesem Benutzer assoziierten Objekte
-     * ebenfallse entfernt. Dazu gehören:
-     * - GOs, bei denen der Benutzer der GO-Verantwortliche war
-     * - Gruppen, bei denen der Benutzer der einzige Administrator war
-     * - Gruppenmitgliedschaften des Benutzers
-     * - unbeantwortete Gruppenanfragen, die an den Benutzer gestellt wurden
+     * Diese Methode gibt eine Liste von Gruppen zurück, zu denen der Benutzer eine Gruppenanfrage erhalten hat, die er
+     * noch nicht beantwortet hat.
      *
-     * @param userId Die userId des Benutzers, dessen Account gelöscht werden soll. Es wird garantiert, dass es sich beim Aufruf
-     *               der Methode, um eine gültige ID handelt.
+     * @param userId Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
+     *               es sich beim Aufruf der Methode um eine gültige userid handelt.
+     * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen
+     * handelt es sich um vollständige, gültige GroupEntity Objekte.
      */
-    public void deleteUser(String userId);
-
-    /**
-     * Diese Methode gibt eine Liste mit allen Gruppen zurück, in denen der Benutzer Mitglied ist. Dies schließt Gruppen nicht mit ein,
-     * zu denen der Benutzer eingeladen wurde, er die Gruppenanfrage aber noch nicht beantwortet hat.
-     *
-     * @param userId Die ID des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der
-     *               Methode um eine gültige userid handelt.
-     * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um
-     * vollständige, gültige GroupEntity Objekte.
-     */
-    public List<GroupEntity> getGroups(String userId);
-
-    /**
-     * Diese Methode gibt eine Liste von Gruppen zurück, zu denen der Benutzer eine Gruppenanfrage erhalten hat, die er noch nicht
-     * beantwortet hat.
-     *
-     * @param userId Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass es sich beim Aufruf der
-     *               Methode um eine gültige userid handelt.
-     * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen handelt es sich um
-     * vollständige, gültige GroupEntity Objekte.
-     */
-    public List<GroupEntity> getRequests(String userId);
+    public Set<GroupEntity> getRequests(String userId);
 
 }

@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+
 /**
  * Bei dieser Klasse handelt es sich um eine Datenhaltungsklasse, die dem Clustering-Algorithmus das hantieren mit den Standorten erleichtert.
  * Ein Objekt dieser Klasse beschreibt dabei einen Benutzerstandort.

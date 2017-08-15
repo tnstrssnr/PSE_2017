@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AbstractDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">edu.kit.pse17.go_app.PersistenceLayer.daos</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AbstractDao (edu.kit.pse17.go_app.PersistenceLayer.daos)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">AbstractDao</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package edu.kit.pse17.go_app.PersistenceLayer.daos;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javax.persistence.EntityNotFoundException;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Bei diesem Interface handelt es sich um ein Interface für eine Data Access Object Klasse, die
+<i>7</i>&nbsp; * die Datenbankzugriffe in sich kapselt.
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * Dieses Interface definiert Methoden auf einer Datenbank, die standarmäßig für jede Tabelle zur Verfügung stehen sollten (CRUD).
+<i>10</i>&nbsp; * daher wird dieses Interface von jeder DAO-Klasse implementiert.
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * Das Interface beihaltet zwei Genreics. Das Generic T definiert den entity-Typen, der in der jeweilgen Tabelle verwaltet wird.
+<i>13</i>&nbsp; * Das Generic PK ist der Datentyps des Primärschlüssels der Datenbanktabelle.
+<i>14</i>&nbsp; *
+<i>15</i>&nbsp; * Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar.
+<i>16</i>&nbsp; * Sie werden aufgerufen, von den RestController-Klassen, denn von dort werden die Server-Anfragen, die von Clients
+<i>17</i>&nbsp; * gestellt werden, an die Persistence-Klassen weitergeleitet.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;public interface AbstractDao&lt;T, PK&gt; {
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * Diese Methode gibt ein Entity-Objekt zurück, das anhand seines Primärschlüssels aus der Datenbank geholt wurde.
+<i>23</i>&nbsp;     *
+<i>24</i>&nbsp;     * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem Generic PK bestimmt,
+<i>25</i>&nbsp;     *            mit dem das Interface implementiert wird.
+<i>26</i>&nbsp;     * @return Ein Entity-Objekt, das durch den Schlüssel identifiziert wurde. Konnte keine passende Entity in der Datenbank gefunden werden, gibt die Methode
+<i>27</i>&nbsp;     * null zurück.
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    public T get(PK key);
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. dabei wird das Entity-Objekt vor dem Methodenaufruf
+<i>33</i>&nbsp;     * erzeugt und der methode &quot;fertig&quot; übergeben.
+<i>34</i>&nbsp;     *
+<i>35</i>&nbsp;     * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das Objekt, welches der Methode
+<i>36</i>&nbsp;     *               übergeben wird gültig ist (alle Konsistenzbedingungen der Datenbank werden erfüllt).
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public void persist(T entity);
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Diese Methode löscht ein Entity-Objekt aus der Datenbank. Es werden außerdem automatisch alle Entities gelöscht, die mit der gelöschten
+<i>42</i>&nbsp;     * Entity assoziiert sind (Auch in anderen Datenbanktabellen, sodass der datenbestand nach der Ausführung der Methode konsistent ist)
+<i>43</i>&nbsp;     *
+<i>44</i>&nbsp;     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird durch das Generic PK bei der
+<i>45</i>&nbsp;     *            Implementierung der Klasse spezifiziert.
+<i>46</i>&nbsp;     *
+<i>47</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine EntityNotFoundException geworfen, die
+<i>48</i>&nbsp;     * von der aufrufenden Klasse behandelt werden muss.
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public void delete(PK key) throws EntityNotFoundException;
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Diese Methode ändert Attributwerte eines bereits bestehenden Entity-Objekts. Dabei können nicht in jeder Entity-Klasse alle Attribute geändert werden.
+<i>54</i>&nbsp;     * Welche Attribute geändert werden können ist in den Entity-Klassen und in den implementierenden Dao-Klassen spezifiziert.
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @param t Ein Entity-Objekt, dass die geänderten Daten enthält. Das Objekt enthält die ID der Entity, die geändert werden soll und die Werte der Attribute
+<i>57</i>&nbsp;     *          die neu zugewiesen werden sollen. Alle anderen Attribute sind null, was der Methode signalisiert, dass diese Werte nicht geändert werden müssen.
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine EntityNotFoundException geworfen, die
+<i>60</i>&nbsp;      * von der aufrufenden Klasse behandelt werden muss.
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public void update(T t) throws EntityNotFoundException;
+<i>63</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-07-27 10:31</div>
+</div>
+</body>
+</html>
