@@ -1,7 +1,5 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
-import org.hibernate.annotations.Proxy;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -65,14 +63,17 @@ public class UserEntity {
      * können.
      */
 
-    @ManyToMany(mappedBy = "members")
+    @ManyToMany(mappedBy = "members", cascade = CascadeType.ALL)
     private Set<GroupEntity> groups;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "requests")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "requests")
     private Set<GroupEntity> requests;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private Set<GoEntity> gos;
+
+    public UserEntity() {
+    }
 
     public Set<GoEntity> getGos() {
         return gos;
@@ -80,9 +81,6 @@ public class UserEntity {
 
     public void setGos(Set<GoEntity> gos) {
         this.gos = gos;
-    }
-
-    public UserEntity() {
     }
 
     public String getUid() {

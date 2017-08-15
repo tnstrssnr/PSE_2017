@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.IObservable;
@@ -61,6 +62,18 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
         register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
     }
+
+    public GroupDaoImp(SessionFactory sf) {
+        this.observer = new HashMap<>();
+        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
+        register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
+        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
+        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
+        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
+        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
+        this.sf = sf;
+    }
+
 
     public SessionFactory getSf() {
         return sf;
@@ -193,10 +206,19 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             session = sf.openSession();
             tx = session.beginTransaction();
             GroupEntity group = (GroupEntity) session.get(GroupEntity.class, key);
+
+            GoDao goDao = new GoDaoImp(this.sf);
+
+            for (GoEntity go : group.getGos()) {
+                goDao.delete(go.getID());
+            }
+
             group.setMembers(null);
             group.setRequests(null);
             group.setAdmins(null);
+
             session.delete(group);
+
             tx.commit();
 
         } catch (final HibernateException e) {
@@ -258,7 +280,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             }
 
             //adds users status to gos -- is 'not going' by default
-            new GoDaoImp(this.getSf()).onGroupMemberAdded(user.getUid(), group.getID());
+            new GoDaoImp(this.sf).onGroupMemberAdded(user.getUid(), group.getID());
             tx.commit();
 
 
@@ -339,17 +361,27 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
 
+            if (group.getAdmins().contains(user)) {
+                if (group.getAdmins().size() == 1) {
+                    //User is the only Admin --> stop transaction and delete the group
+                    tx.rollback();
+                    session.close();
+                    delete(group.getID());
+                    return;
+                }
+                group.getAdmins().remove(user);
+            }
             if (group.getMembers().contains(user)) {
                 group.getMembers().remove(user);
             }
-            if (group.getAdmins().contains(user)) {
-                group.getAdmins().remove(user);
-            }
             tx.commit();
+
+            new GoDaoImp(this.sf).onGroupMemberRemoved(userId, groupId);
+
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
-            if (session != null) {
+            if (session != null && session.isConnected()) {
                 session.close();
             }
         }

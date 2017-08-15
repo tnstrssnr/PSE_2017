@@ -29,7 +29,6 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
-
     @Autowired
     private SessionFactory sf;
 
@@ -43,7 +42,15 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
      * erzeugt, anhand der Spezifikationen der verwendetetn MySQL Datenbank.
      */
-    public GoDaoImp(final SessionFactory sf) {
+    public GoDaoImp() {
+        this.observer = new HashMap<>();
+        register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
+        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
+        register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
+        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
+    }
+
+    public GoDaoImp(SessionFactory sf) {
         this.observer = new HashMap<>();
         register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
         register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
@@ -187,13 +194,12 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
             tx = session.beginTransaction();
             GoEntity go = (GoEntity) session.get(GoEntity.class, key);
 
-            //remove associated entites, to avoid them being deleted
+            //remove associated entities, otherwise hibernate will throw ObjectDeletedException
             go.setGroup(null);
             go.setOwner(null);
-            go.setNotGoingUsers(null);
-            go.setGoingUsers(null);
-            go.setGoneUsers(null);
-
+            go.getNotGoingUsers().clear();
+            go.getGoingUsers().clear();
+            go.getGoneUsers().clear();
             session.delete(go);
             tx.commit();
         } catch (HibernateException e) {
@@ -286,15 +292,54 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
         Session session = null;
 
         try {
-            if (sf == null) {
-                System.out.println("Check");
-            }
             session = sf.openSession();
             tx = session.beginTransaction();
             UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
             GroupEntity group = (GroupEntity) session.get(GroupEntity.class, groupId);
             for (GoEntity go : group.getGos()) {
                 go.getNotGoingUsers().add(user);
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void onGroupMemberRemoved(String userId, Long groupId) {
+        Transaction tx = null;
+        Session session = null;
+
+        try {
+            if (sf == null) {
+                System.out.println("Check");
+            }
+            session = sf.openSession();
+            tx = session.beginTransaction();
+
+            UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
+            GroupEntity group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
+            for (GoEntity go : group.getGos()) {
+
+                if (go.getOwner().equals(user)) {
+                    //User is Go-Owner --> delete Go
+                    go.setGroup(null);
+                    go.setOwner(null);
+                    go.getNotGoingUsers().clear();
+                    go.getGoneUsers().clear();
+                    go.getGoingUsers().clear();
+                    session.delete(go);
+
+                } else {
+                    //remove User from Go
+                    go.getNotGoingUsers().remove(user);
+                    go.getGoingUsers().remove(user);
+                    go.getGoneUsers().remove(user);
+                }
             }
             tx.commit();
         } catch (HibernateException e) {

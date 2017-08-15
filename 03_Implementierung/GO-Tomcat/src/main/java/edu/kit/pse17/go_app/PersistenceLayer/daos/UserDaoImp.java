@@ -170,14 +170,49 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      */
     @Override
     public void delete(final String key) {
+        prepareForRemoval(key);
         Transaction tx = null;
         Session session = null;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
-            final UserEntity user = (UserEntity) session.get(UserEntity.class, key);
+
+            UserEntity user = (UserEntity) session.get(UserEntity.class, key);
             session.delete(user);
+
+            tx.commit();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    private void prepareForRemoval(final String key) {
+        Transaction tx = null;
+        Session session = null;
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+            GroupDao dao = new GroupDaoImp(this.sf);
+            final UserEntity user = (UserEntity) session.get(UserEntity.class, key);
+
+            for (GroupEntity group : user.getGroups()) {
+                dao.removeGroupMember(key, group.getID());
+            }
+
+            for (GroupEntity request : user.getRequests()) {
+                dao.removeGroupRequest(key, request.getID());
+            }
+
+            user.getGroups().clear();
+            user.getGroups().clear();
+            user.getGos().clear();
+
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
