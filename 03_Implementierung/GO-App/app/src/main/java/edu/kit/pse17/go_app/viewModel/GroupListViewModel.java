@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +14,7 @@ import javax.inject.Inject;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
+import edu.kit.pse17.go_app.viewModel.livedata.LocationLiveData;
 
 /**
  * Stellt die Daten für die GroupDetailActivity View-Komponente zur Verfügung und übernimmt
@@ -49,13 +52,13 @@ public class GroupListViewModel extends ViewModel {
      * Das Grouprepository, das für die beschaffung der Daten zuständig ist.
      */
     private GroupRepository groupRepo;
-    private Observer<List<Group>> observer ;
+    private Observer<List<Group>> observer;
+    private LocationLiveData deviceLocation;
 
 
     @Inject
     public GroupListViewModel() {
         currentViewModel = this;
-
         this.observer = new Observer<List<Group>>() {
 
             @Override
@@ -65,7 +68,8 @@ public class GroupListViewModel extends ViewModel {
                     data.observeForever(GroupViewModel.getCurrentViewModel().getObserver());
                     alreadyAdded = true;
                 }*/
-                data.setValue(groups);
+                if (data != null) //this line here removes a crash every second time after pushing back-button
+                    data.setValue(groups);
                 //for now need to check with a custom boolean if an observer was added to data, to not add multiple observers later
 
 
@@ -73,7 +77,7 @@ public class GroupListViewModel extends ViewModel {
         };
         this.groupRepo = GroupRepository.getInstance();
         groupRepo.getData().observeForever(observer);
-
+        deviceLocation = new LocationLiveData();
     }
 
     public void init(String uId) {
@@ -90,6 +94,12 @@ public class GroupListViewModel extends ViewModel {
         }
         return data;
 
+    }
+    public LocationLiveData getLocation(){
+        if(deviceLocation == null){
+            deviceLocation = new LocationLiveData();
+        }
+        return deviceLocation;
     }
     protected List<Group> getData(){
         return data.getValue();
@@ -125,5 +135,8 @@ public class GroupListViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         groupRepo.getData().removeObserver(observer);
+    }
+    public void updateLocation(LatLng location){
+        deviceLocation.setValue(location);
     }
 }

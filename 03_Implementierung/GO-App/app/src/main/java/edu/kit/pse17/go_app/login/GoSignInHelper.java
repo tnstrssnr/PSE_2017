@@ -7,7 +7,7 @@ package edu.kit.pse17.go_app.login;
 
 /**
  * Die Klasse ist für die Anmeldung eines Beutzers am Go-Server zuständig.
- * Sie implemetiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
+ * Sie implemetiert die Methoden configureSignOut() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
  */
 
 public class GoSignInHelper extends SignInHelper {

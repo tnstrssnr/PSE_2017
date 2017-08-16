@@ -7,58 +7,69 @@
     android:layout_height="match_parent"
     android:id="@+id/grop_list_constraint">
 
-    <android.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.constraint.ConstraintLayout
+        <android.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="8dp"
-            tools:layout_editor_absoluteX="0dp">
+            android:layout_height="56dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/heading"
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/heading"
-                android:textAppearance="@android:style/TextAppearance.Material.Title"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.018"
-                android:layout_marginStart="35dp" />
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="8dp">
 
-            <ImageView
-                android:id="@+id/options"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@+id/heading"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_more_vert_white_24dp" />
-        </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/heading"
+                    android:textAppearance="@android:style/TextAppearance.Material.Title"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.018" />
 
-    </android.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toRightOf="@+id/heading"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_more_vert_white_24dp" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addGroupBtn"
@@ -79,19 +90,16 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/group_recycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="369dp"
+        android:layout_height="549dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/list_item"
-        app:layout_constraintHorizontal_bias="0.502"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

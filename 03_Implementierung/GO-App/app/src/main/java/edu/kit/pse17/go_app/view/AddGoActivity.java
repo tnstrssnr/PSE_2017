@@ -17,6 +17,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
 import edu.kit.pse17.go_app.R;
 
 /**
@@ -24,20 +30,28 @@ import edu.kit.pse17.go_app.R;
  * because you can make a cleaner and more pleasant user interface inside an activity than in a dialog.
  */
 
-public class AddGoActivity extends BaseActivity {
+public class AddGoActivity extends BaseActivity implements View.OnClickListener {
+    private int PLACE_PICKER_REQUEST = 1;
+
     private EditText go_name;
     private EditText go_description;
     private TextView start_date_text;
     private Calendar start_date;
     private TextView end_date_text;
     private Calendar end_date;
+    private TextView locationText;
+
     private DateFormat format = new SimpleDateFormat();
+
+
     private Button start_date_button;
     private Button start_time_button;
     private Button end_date_button;
     private Button end_time_button;
     private Button performAddGo;
+    private Button pickLocation;
 
+    private LatLng destination;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +60,7 @@ public class AddGoActivity extends BaseActivity {
         go_name = (EditText) findViewById(R.id.go_name);
         go_description = (EditText) findViewById(R.id.go_description);
         start_date_text = (TextView) findViewById(R.id.start_date_text);
+        locationText = (TextView) findViewById(R.id.locationText);
 
         end_date_text = (TextView) findViewById(R.id.end_date_text);
         start_date_button = (Button) findViewById(R.id.start_date_button);
@@ -53,6 +68,8 @@ public class AddGoActivity extends BaseActivity {
         start_time_button = (Button) findViewById(R.id.start_time_button);
         end_time_button = (Button) findViewById(R.id.end_time_button);
         performAddGo = (Button) findViewById(R.id.perform_add_go);
+        pickLocation = (Button) findViewById(R.id.pickLocationButton);
+
 
         start_date = Calendar.getInstance();
         end_date = Calendar.getInstance();
@@ -118,24 +135,52 @@ public class AddGoActivity extends BaseActivity {
         performAddGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkAllFieldsRequired() && checkDates()){
+                if(checkAllFieldsRequired() && checkDates() && checkLocation()){
                     //if true then all fields passed the check
                     Intent goAdded = new Intent().setAction(getString(R.string.go_added_intent_action));
                     goAdded.putExtra("go_name", go_name.getText().toString())
                             .putExtra("go_description", go_description.getText().toString())
                             .putExtra("start_date", start_date_text.getText().toString())
-                            .putExtra("end_date", end_date_text.getText().toString());
+                            .putExtra("end_date", end_date_text.getText().toString())
+                            .putExtra("lat", destination.latitude)
+                            .putExtra("lng", destination.longitude);
                     LocalBroadcastManager.getInstance(getParent()).sendBroadcast(goAdded);
                     finish();
                 }
             }
         });
-
+        // we pass this as a parameter, because we do not want to hold a reference to the activity, because it is a bad practice
+        // and the method needs Activity instance
+        pickLocation.setOnClickListener(this);
     }
 
+
+
+    //method for catching the PlacePicker result
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this,data);
+                locationText.setText(place.getName());
+                destination = place.getLatLng();
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
     private void displayDates(){
         start_date_text.setText(format.format(start_date.getTime()));
         end_date_text.setText(format.format(end_date.getTime()));
+    }
+
+    private boolean checkLocation() {
+        if(locationText.getText().toString().equals(R.string.choose_your_location)){
+            Toast.makeText(this,"You should pick a destination place", Toast.LENGTH_LONG).show();
+            return false;
+        } else{
+            //if not Choose Location then it was overwritten by a location
+            return true;
+        }
     }
 
     private boolean checkDates(){
@@ -156,6 +201,18 @@ public class AddGoActivity extends BaseActivity {
         if(!condition)
             Toast.makeText(this,"All fields are required", Toast.LENGTH_LONG).show();
         return condition;
+    }
+
+    @Override
+    public void onClick(View v) {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.BaseActivity;
+import edu.kit.pse17.go_app.view.GroupDetailActivity;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 
 import static android.support.v7.widget.RecyclerView.ViewHolder;
 
@@ -17,7 +19,7 @@ import static android.support.v7.widget.RecyclerView.ViewHolder;
  * Created by tina on 17.06.17.
  */
 
-public class ListViewHolder extends ViewHolder implements View.OnClickListener {
+public class ListViewHolder extends ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     private OnListItemClicked onListItemClicked;
 
@@ -60,9 +62,15 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener {
         Log.d("CLICKED", "clicked at " + getAdapterPosition());
         v.getId();
         //if(v.getId() == )
+        if(activity.getClass() == GroupListActivity.class || activity.getClass() == GroupDetailActivity.class){
         Intent intent = new Intent(activity, activity.getNextActivity());
         intent.putExtra("index", getAdapterPosition());
-        activity.startActivity(intent);
+        activity.startActivity(intent);}
         //GroupDetailActivity.start(activity, getAdapterPosition());
+    }
+    //use for admin actions against users in recyclerView
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
     }
 }

@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.repositories;
 
 import android.arch.lifecycle.Observer;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
@@ -11,12 +10,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 import javax.inject.Singleton;
 
 import edu.kit.pse17.go_app.model.Status;
-import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.GroupMembership;
@@ -28,8 +25,6 @@ import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 /**
  * Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine
@@ -65,7 +60,8 @@ public class GroupRepository extends Repository<List<Group>> {
     //@Inject
     private GroupRepository(Observer<List<Group>> observer) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
-        this.data = new GroupListLiveData();
+        if(data == null)
+            this.data = new GroupListLiveData();
         data.observeForever(observer);
         Log.d("GroupRepoConstructor", "called");
     }
@@ -76,6 +72,8 @@ public class GroupRepository extends Repository<List<Group>> {
     * */
     public GroupRepository(/*GroupDao groupDao, Executor executor*/) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
+        if(data == null)
+            this.data = new GroupListLiveData();
         //this.executor = executor;
     }
 
@@ -519,7 +517,7 @@ public class GroupRepository extends Repository<List<Group>> {
         GroupMembership mem3 = new GroupMembership(user3, group1, false, false);
         memberships.add(mem3);
         group1.setName("Group 1");
-        group1.setDescription("Description");
+        group1.setDescription("DeScRiPtIoN");
         group1.setMembershipList(memberships);
         Go go1 = new Go();
         List<UserGoStatus> goStatusList = new ArrayList<>();

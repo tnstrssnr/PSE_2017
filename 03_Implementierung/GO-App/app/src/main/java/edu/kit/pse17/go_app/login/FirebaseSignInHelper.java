@@ -25,7 +25,7 @@ import edu.kit.pse17.go_app.R;
 
 /**
  * Diese Klasse ist für die Kommunikation mit Firebase und Google API während des Login-Prozesses zuständig.
- * Sie implementiert die Methoden configureSignIn() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
+ * Sie implementiert die Methoden configureSignOut() und startSignInProcess() zur Schablonenmethode signIn() der Oberklasse SignInHelper.
  *
  */
 
@@ -33,7 +33,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
 
     private static final int SIGN_IN_REQUEST_CODE = 9001;
 
-    private GoogleApiClient mGoogleApiClient;
+    private static GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
     /**
      * Implementierung gehört zur Schablonenmethode signIn()
@@ -62,7 +62,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) { // User already signed in
-            returnActivityResult(new String[]{currentUser.getUid(), currentUser.getEmail()});
+            returnActivityResult(new String[]{currentUser.getUid(), currentUser.getEmail(), currentUser.getDisplayName()});
         } else { // User not signed in
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, SIGN_IN_REQUEST_CODE);
@@ -115,13 +115,6 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
      */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-    /*
-    * Diese Methode wird bei dem Sign Out aufgerufen. User credentials (wie Tokens) sind nach
-    * der Ausführung nicht mehr gültig.
-    * */
-    public void signOut(){
 
     }
 

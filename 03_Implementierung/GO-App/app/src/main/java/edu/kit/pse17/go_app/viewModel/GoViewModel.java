@@ -3,8 +3,9 @@ package edu.kit.pse17.go_app.viewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.location.Location;
 import android.support.annotation.Nullable;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -34,10 +35,11 @@ public class GoViewModel extends ViewModel{
     private GoRepository goRepo;
 
     private int index;
-
+    private String userId;
     private Observer<Group> observer;
 
-    private String goId;
+    private Observer<LatLng> locationObserver;
+
 
     public GoViewModel(){
         if(go == null)
@@ -45,20 +47,26 @@ public class GoViewModel extends ViewModel{
         currentViewModel = this;
     }
 
-    public void init(final int index, GroupViewModel groupViewModel){
+    public void init(final int index, final String userId, GroupViewModel groupViewModel){
         this.index = index;
+        this.userId = userId;
         this.observer = new Observer<Group>() {
             @Override
             public void onChanged(@Nullable Group group) {
                 go.setValue(group.getCurrentGos().get(index));
             }
         };
-
+        this.locationObserver = new Observer<LatLng>() {
+            @Override
+            public void onChanged(@Nullable LatLng latLng) {
+                sendLocation(userId, go.getValue().getId(), latLng.latitude, latLng.longitude);
+            }
+        };
         groupViewModel.getGroup().observeForever(observer);
+        GroupListViewModel.getCurrentGroupListViewModel().getLocation().observeForever(locationObserver);
         if(go == null)
             go = new GoLiveData();
         this.goRepo = GoRepository.getInstance();
-
     }
     /*
     * Teilnahmestatus in einem GO ändern
@@ -70,8 +78,11 @@ public class GoViewModel extends ViewModel{
     * Anfrage für die Standoerte der Go-Teilnehmer, eigener Standort wird gleich in der
     * Methode auch geschickt.
     * */
-    public LiveData<List<Cluster>> getCluster(String userId,String groupId, Location location){
+    public LiveData<List<Cluster>> getCluster(String userId,long goId, LatLng location){
         return null;
+    }
+    private void sendLocation(String userId, long goId, double latitude, double longitude){
+        goRepo.getLocation(userId,goId,latitude, longitude);
     }
     /*
     * Ändere Daten für Go mit Id goid, id selbst darf nicht geändert werden.

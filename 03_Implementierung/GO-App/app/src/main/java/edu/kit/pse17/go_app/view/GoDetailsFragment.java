@@ -1,6 +1,5 @@
 package edu.kit.pse17.go_app.view;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,7 +18,6 @@ import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
 import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
-import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.ListItem;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.UserStatusListItem;
 import edu.kit.pse17.go_app.viewModel.GoViewModel;
@@ -83,12 +81,7 @@ public class GoDetailsFragment extends android.support.v4.app.Fragment {
             ListItem listItem = new UserStatusListItem(status.getUser().getName(), status.getStatus());
             list.add(listItem);
         }
-        adapter = new ListAdapter(list, new OnListItemClicked() {
-            @Override
-            public void onItemClicked(Activity activity, int position) {
-
-            }
-        });
+        adapter = new ListAdapter(list, null);
         members.setAdapter(adapter);
     }
 

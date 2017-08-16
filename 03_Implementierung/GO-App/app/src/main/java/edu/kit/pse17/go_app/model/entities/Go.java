@@ -7,7 +7,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,13 +64,13 @@ public class Go {
      * Breitengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
     @SerializedName("lat")
-    private long desLat;
+    private double desLat;
 
     /**
      * Längengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
      */
     @SerializedName("lon")
-    private long desLon;
+    private double desLon;
 
     /**
      * Die User-ID des GO-Verantwortlichen
@@ -97,7 +96,7 @@ public class Go {
     @Expose
     private List<Cluster> locations;
 
-    public Go(long id, String name, String description, String start, String end, Group group, long desLat, long desLon, String ownerId, String ownerName, List<UserGoStatus> participantsList, List<Cluster> locations) {
+    public Go(long id, String name, String description, String start, String end, Group group, double desLat, double desLon, String ownerId, String ownerName, List<UserGoStatus> participantsList, List<Cluster> locations) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -158,19 +157,19 @@ public class Go {
         this.end = end;
     }
 
-    public long getDesLat() {
+    public double getDesLat() {
         return desLat;
     }
 
-    public void setDesLat(long lat) {
+    public void setDesLat(double lat) {
         this.desLat = lat;
     }
 
-    public long getDesLon() {
+    public double getDesLon() {
         return desLon;
     }
 
-    public void setDesLon(long lon) {
+    public void setDesLon(double lon) {
         this.desLon = lon;
     }
 

@@ -131,6 +131,14 @@ public class Group {
         this.currentGos = currentGos;
     }
 
+    public boolean isRequest(String userId){
+        for(GroupMembership membership : membershipList){
+            if(membership.getUser().getUid().equals(userId)){
+                return membership.isRequest();
+            }
+        }
+        return false;
+    }
 
     public int getMemberCount() {
         return memberCount;

@@ -36,6 +36,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         //Log.d("ID", FirebaseInstanceId.getInstance().getToken());
         if(getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).contains("uid")){
             GroupListActivity.start(this, retrieveUserDataFromSharedPreferences());
+            this.finish();
         } else {
         setContentView(R.layout.simple_firebase_login);
         //Log.d("REACHED","");
@@ -65,6 +66,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             FirebaseSignInHelper.signIn(this, FIREBASE_REQUEST_CODE, null, FirebaseSignInHelper.class);
             FirebaseSignInHelper.signIn(this, GO_REQUEST_CODE, null, FirebaseSignInHelper.class);
         }
+
     }
 
     @Override
@@ -75,17 +77,18 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             String[] accountData  = (String[]) data.getSerializableExtra(SignInHelper.ACCOUNT_DATA_CODE);
             String uid = accountData[0];
             String email = accountData[1];
+            String displayName = accountData[2];
             FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
             Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
 
-            //safe UID in local SharedPreferences!
+            //save UID in local SharedPreferences!
             getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).edit()
-                    .putString(getString(R.string.user_id), uid).putString(getString(R.string.user_email),email).apply();
+                    .putString(getString(R.string.user_id), uid).putString(getString(R.string.user_email),email).putString(getString(R.string.user_display_name), displayName).apply();
 
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String[] accountData = (String[]) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
-            GroupListActivity.start(this, new User(accountData[0], accountData[1], accountData[1]));
-
+            GroupListActivity.start(this, new User(accountData[0], accountData[1], accountData[2]));
+            this.finish();
         }
     }
 

@@ -65,7 +65,7 @@ public class GOListItem implements ListItem<String> {
 
     @Override
     public Drawable getIcon() {
-        return null;
+        return icon;
     }
 /*
     @Override

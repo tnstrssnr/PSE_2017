@@ -1,10 +1,12 @@
 package edu.kit.pse17.go_app.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -78,6 +80,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.group_view);
         index = getIntent().getIntExtra(INDEX_INTENT_CODE, -1);
         goList = (RecyclerView) findViewById(R.id.gos_recycler_view);
@@ -105,10 +108,29 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
                         displayData(group);
                     }
                 });
-
+        String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid", null);
         //displayData(viewModel.getGos(index).getValue());
         receiver = new GoAddedBroadcastReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.go_added_intent_action)));
+        if(viewModel.getGroup().getValue().isRequest(userId)){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("asdfnkbnkqbelr")
+                    .setTitle("Do you accept the membership request to this group?");
+            builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    GroupDetailActivity.this.finish();
+                }
+            });
+            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
+
     }
 
     /**
@@ -159,6 +181,8 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
             go.setStart(start_time);
             String end_time = intent.getStringExtra("end_date");
             go.setEnd(end_time);
+            go.setDesLat(intent.getDoubleExtra("lat",0));
+            go.setDesLon(intent.getDoubleExtra("lng",0));
             viewModel.onGoAdded(go);
 
         }

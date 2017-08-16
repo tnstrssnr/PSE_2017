@@ -3,13 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-        android:title="Settings"
-        app:showAsAction="ifRoom"/>
+
+    <!-- Edit User is Wunsch, so not showing right now -->
+
+    <!--item android:id="@+id/edit_user"
+        android:title="@string/edit_user_data"/-->
+
     <item
-        android:id="@+id/about"
+        android:id="@+id/log_out_button"
+        android:title="@string/log_out" />
+
+    <item
+        android:id="@+id/delete_profile_button"
+        android:title="@string/delete_profile" />
+
+    <item android:id="@+id/license_menu_item"
+    android:title="@string/license"/>
+
+    <item
+        android:id="@+id/about_menu_item"
         android:title="About"
         app:showAsAction="ifRoom">
-
     </item>
+
 </menu>

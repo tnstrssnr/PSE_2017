@@ -7,6 +7,8 @@
     android:layout_height="wrap_content"
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp"
+    android:clickable="true"
+    android:background="?android:selectableItemBackground"
     >
 
     <ImageView

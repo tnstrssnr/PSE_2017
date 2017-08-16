@@ -13,9 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.kit.pse17.go_app.R;
@@ -46,6 +44,11 @@ public class GoDetailActivity extends BaseActivity {
     * */
     private FloatingActionButton changeStatus;
 
+    private FloatingActionButton gone;
+    private FloatingActionButton going;
+    private FloatingActionButton not_going;
+
+
     /**
      * Viewmodel Instanz, in der die dargestellten Daten der Aktivität gespeichert werden, um sie bei
      * Konfigurationsänderungen zu erhalten.
@@ -72,13 +75,49 @@ public class GoDetailActivity extends BaseActivity {
         setContentView(R.layout.go_details);
 
         details_frag = new GoDetailsFragment();
-        /*map_frag = new GoMapFragment();*/
+        map_frag = new GoMapFragment();
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // do nothing
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    //not the map so
+                    unHideFab();
+                } else if (position == 1) { // this is maps position
+                    hideFab();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //do nothing
+            }
+        });
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
+        changeStatus = (FloatingActionButton) findViewById(R.id.go_status_fab);
+        changeStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gone.getVisibility() == View.VISIBLE) {
+                    hideGoMenuButtons();
+                } else {
+                    showGoMenuButtons();
+                }
+            }
+        });
+        gone = (FloatingActionButton) findViewById(R.id.go_gone_fab);
+        going = (FloatingActionButton) findViewById(R.id.go_going_fab);
+        not_going = (FloatingActionButton) findViewById(R.id.go_not_going_fab);
+        hideGoMenuButtons();
         //details_frag.onCreateView(getLayoutInflater(),viewPager,null);
 
         title = (TextView) findViewById(R.id.go_name);
@@ -86,12 +125,17 @@ public class GoDetailActivity extends BaseActivity {
         endTime = (TextView) findViewById(R.id.end_time);
 
         index = getIntent().getIntExtra(INDEX_INTENT_CODE, -1);
+
+        String uid = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid",null);
+        if(uid == null){
+            throw new NullPointerException();
+        }
         viewModel = ViewModelProviders.of(this).get(GoViewModel.class);
-        viewModel.init(index, GroupViewModel.getCurrentViewModel());
+        viewModel.init(index, uid, GroupViewModel.getCurrentViewModel());
         viewModel.getGo().observe(this, new Observer<Go>() {
 
             @Override
-            public void onChanged(@Nullable Go  go) {
+            public void onChanged(@Nullable Go go) {
                 //update UI
                 displayData(go);
             }
@@ -109,12 +153,17 @@ public class GoDetailActivity extends BaseActivity {
         title.setText(go.getName());
         startTime.setText(go.getStart());
         endTime.setText(go.getEnd());
-
-
-
-
     }
-
+    private void hideGoMenuButtons(){
+        gone.setVisibility(View.GONE);
+        going.setVisibility(View.GONE);
+        not_going.setVisibility(View.GONE);
+    }
+    private void showGoMenuButtons(){
+        gone.setVisibility(View.VISIBLE);
+        going.setVisibility(View.VISIBLE);
+        not_going.setVisibility(View.VISIBLE);
+    }
     private class ViewPagerAdapter extends FragmentPagerAdapter{
 
         public ViewPagerAdapter(FragmentManager fm) {
@@ -152,14 +201,16 @@ public class GoDetailActivity extends BaseActivity {
             }
             return null;
         }
+
+    }
+    /*
+    * hide FloatingActionButton on MapView, so that it does not interfere with Google Maps UI underneath it
+    * */
+    private void hideFab(){
+        changeStatus.setVisibility(View.GONE);
     }
 
-    public static class GoMapFragment extends Fragment {
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.go_map_tab, container,false);
-            return view;
-        }
+    private void unHideFab(){
+        changeStatus.setVisibility(View.VISIBLE);
     }
 }

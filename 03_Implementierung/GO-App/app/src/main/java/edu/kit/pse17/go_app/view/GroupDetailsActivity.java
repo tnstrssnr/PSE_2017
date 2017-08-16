@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,8 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
     private ListAdapter membersAdapter;
     private GroupViewModel viewModel;
     private ImageView edit;
+    private TextView members_count;
+    private List<ListItem> data = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +45,10 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
         setContentView(R.layout.group_details);
         groupName = (TextView) findViewById(R.id.group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
-        members = (RecyclerView) findViewById(R.id.grou_details_members);
+        members = (RecyclerView) findViewById(R.id.group_details_members);
+        members.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        members_count = (TextView) findViewById(R.id.members_count);
+
         edit = (ImageView) findViewById(R.id.edit);
         edit.setVisibility(View.INVISIBLE);
         ImageView add_member = (ImageView) findViewById(R.id.add_member);
@@ -60,12 +66,15 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
     private void displayData(Group group) {
         groupName.setText(group.getName());
         groupDescription.setText(group.getDescription());
-        List<ListItem> data = new ArrayList<>();
+
+        data = new ArrayList<>();
         for (GroupMembership member : group.getMembershipList()) {
             ListItem item = new UserMailListItem(member.getUser().getName(), member.getUser().getEmail());
             data.add(item);
         }
-        membersAdapter = new ListAdapter(data, this);
+        members_count.setText(data.size() + " " + getResources().getString(R.string.limit_of_group_members));
+
+        membersAdapter = new ListAdapter(data, null);
         members.setAdapter(membersAdapter);
     }
 

@@ -21,4 +21,19 @@
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
     <string name="go_added_intent_action">go_added</string>
+    <string name="create_a_new_go">Create a new GO</string>
+    <string name="choose_your_location">Choose your location</string>
+    <string name="edit_user_data">Edit user data</string>
+    <string name="license">License</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_profile">Delete profile</string>
+    <string name="about_text">GO-App is an app designed for organizing meetings with people. It will manage your groups and events. It makes finding your friends easier by colelcting their locations and showing them on the map.</string>
+    <string name="license_text">Sample License text. I don\'t really know what should go in here. And it does not really matter right now.</string>
+    <string name="permission_required_toast">Permission required</string>
+    <string name="permission_rationale_location">Permission rationale</string>
+    <string name="location_permission_denied">Permission was denied</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="user_display_name">display_name</string>
+    <string name="limit_of_group_members"> of 50</string>
 </resources>

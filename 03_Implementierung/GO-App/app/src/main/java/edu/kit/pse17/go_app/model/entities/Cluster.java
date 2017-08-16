@@ -20,14 +20,14 @@ public class Cluster {
      */
     @SerializedName("lat")
     @Expose
-    private long lat;
+    private double lat;
 
     /**
      * Der geogrgaphische Längengrad der Position des Clusters
      */
     @SerializedName("lon")
     @Expose
-    private long lon;
+    private double lon;
 
     /**
      * Die Größe des Clusters, sprich die Anzahl der Personen, die zu diesem Cluster gezählt werden
@@ -36,25 +36,25 @@ public class Cluster {
     @Expose
     private int size;
 
-    public Cluster(long lat, long lon, int size) {
+    public Cluster(double lat, double lon, int size) {
         this.lat = lat;
         this.lon = lon;
         this.size = size;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public long getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 

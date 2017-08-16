@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.viewModel;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.repositories.UserRepository;
@@ -9,7 +10,7 @@ import edu.kit.pse17.go_app.repositories.UserRepository;
  * ViewModel, die alle Benutzerdaten beinhaltet. Ist als Singleton implementiert.
  */
 
-public class UserViewModel {
+public class UserViewModel extends ViewModel{
     /*
     * Die einzige Instanz der Klasse
     * */
@@ -52,8 +53,8 @@ public class UserViewModel {
     * Löscht die User Daten aus dem Gerät und gibt weiter, dass, die Daten aus den
     * Datenbanken gelöscht werden
     */
-    public void deleteUser(){
-        userRepo.deleteUser(uId);
+    public void deleteUser(String userId){
+        userRepo.deleteUser(userId);
     }
     /*
     * Wird von Firbase benutzt, um die Login Credentials zu speichern
@@ -61,7 +62,7 @@ public class UserViewModel {
     public void setUserCredentials(User user){}
 
     /*
-    * Wird bei dem SignOut Aufruf aus der SettingsActivity benötigt, um die gespeicherten
+    * Wird bei dem SignOut Aufruf benötigt, um die gespeicherten
     * Credentials lokal zu löschen.
     * */
     public void deleteUserCredentials(){
