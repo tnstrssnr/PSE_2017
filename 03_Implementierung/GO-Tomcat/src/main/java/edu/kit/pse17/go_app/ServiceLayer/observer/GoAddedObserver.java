@@ -5,7 +5,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
+import edu.kit.pse17.go_app.ServiceLayer.GoService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,29 +14,33 @@ import java.util.Set;
 public class GoAddedObserver implements Observer {
 
     private final FcmClient messenger;
-    private GoDao goDao;
+    private GoService goService;
 
-    public GoAddedObserver(FcmClient messenger, GoDao goDao) {
+    public GoAddedObserver(FcmClient messenger, GoService goService) {
         this.messenger = messenger;
-        this.goDao = goDao;
+        this.goService = goService;
     }
 
-    public GoAddedObserver(GoDao dao) {
+    public GoAddedObserver(GoService goService) {
         this.messenger = new FcmClient();
-        this.goDao = dao;
+        this.goService = goService;
     }
 
-    public GoDao getGoDao() {
-        return goDao;
+    public FcmClient getMessenger() {
+        return messenger;
     }
 
-    public void setGoDao(GoDao goDao) {
-        this.goDao = goDao;
+    public GoService getGoService() {
+        return goService;
+    }
+
+    public void setGoService(GoService goService) {
+        this.goService = goService;
     }
 
     @Override
     public void update(List<String> entity_ids) {
-        GoEntity goEntity = goDao.get(Long.valueOf(entity_ids.get(0)));
+        GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
 
         Set<UserEntity> receiver = new HashSet<>();
         receiver.addAll(goEntity.getGroup().getMembers());

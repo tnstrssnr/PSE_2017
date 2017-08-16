@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <!-- version number for spring, in case more speeing modules need to be included -->
+    <!-- version number for spring and hibernate, in case more modules need to be included -->
     <properties>
         <org.springframework.version>4.0.0.RELEASE</org.springframework.version>
         <hibernate.version>4.1.4.Final</hibernate.version>
@@ -72,11 +72,11 @@
         <!-- Spring framework -->
 
 
-        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
-            <groupId>com.squareup.okhttp</groupId>
+            <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>2.7.5</version>
+            <version>3.8.1</version>
         </dependency>
 
         <!-- Hibernate testing library -->
@@ -164,6 +164,19 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
+        </dependency>
+        <!-- Optional dependencies -->
+        <dependency>
+            <groupId>concurrent</groupId>
+            <artifactId>concurrent</artifactId>
+            <version>1.3.4</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>unitils-orm</artifactId>
+            <version>3.4.6</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

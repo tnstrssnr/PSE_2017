@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestData {
-    private static boolean isInitialized;
+    private static boolean isInitialized = false;
 
     private static UserEntity alice;
     private static UserEntity bob;
@@ -78,6 +78,8 @@ public class TestData {
 
             foo.getGos().add(lunch);
             foo.getGos().add(dinner);
+
+            isInitialized = true;
         }
 
     }

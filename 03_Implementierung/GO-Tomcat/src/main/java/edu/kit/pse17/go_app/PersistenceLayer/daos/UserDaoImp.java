@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Diese Klasse implementiert die Interfaces UserDao, AbstractDao und IObservable.
+ * Diese Klasse implementiert die Interfaces UserDao, AbstractDao
  * <p>
  * Sie übernimmt die konkreten Datenbankzugriffe auf die Tabelle "users". Dazu werden alle Methoden aus den DAO
  * Interfaces entsprechend implementiert. Aufgerufen werden die Methoden dieser Klasse von den RestController-Klassen,
@@ -25,6 +25,8 @@ import java.util.Set;
 
 @Repository
 public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
+
+    private static final String SQL_QUERY = "SELECT * FROM USERS WHERE email = :mail ;";
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
@@ -63,26 +65,26 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public UserEntity getUserByEmail(final String mail) {
         Session session = null;
-        List<UserEntity> user = null;
-        final String sql = "SELECT * FROM USERS WHERE email = :mail ;";
+        List<UserEntity> users = null;
 
         try {
             session = sf.openSession();
-            final SQLQuery query = session.createSQLQuery(sql);
+            final SQLQuery query = session.createSQLQuery(SQL_QUERY);
             query.addEntity(UserEntity.class);
             query.setParameter("mail", mail);
-            user = query.list();
-            System.out.println(user.size());
-            Hibernate.initialize(user);
+            users = query.list();
+            Hibernate.initialize(users);
+
         } catch (final HibernateException e) {
             handleHibernateException(e, null);
+
         } finally {
             if (session != null) {
                 session.close();
             }
         }
 
-        return (user.size() != 0) ? user.get(0) : null;
+        return (users != null && users.size() != 0) ? users.get(0) : null;
     }
 
     /**
@@ -170,13 +172,14 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      */
     @Override
     public void delete(final String key) {
-        prepareForRemoval(key);
         Transaction tx = null;
         Session session = null;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+
+            prepareForRemoval(key, session);
 
             UserEntity user = (UserEntity) session.get(UserEntity.class, key);
             session.delete(user);
@@ -191,36 +194,23 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
         }
     }
 
-    private void prepareForRemoval(final String key) {
-        Transaction tx = null;
-        Session session = null;
+    private void prepareForRemoval(final String key, Session session) {
 
-        try {
-            session = sf.openSession();
-            tx = session.beginTransaction();
-            GroupDao dao = new GroupDaoImp(this.sf);
-            final UserEntity user = (UserEntity) session.get(UserEntity.class, key);
+        GroupDao dao = new GroupDaoImp(this.sf);
+        final UserEntity user = (UserEntity) session.get(UserEntity.class, key);
 
-            for (GroupEntity group : user.getGroups()) {
-                dao.removeGroupMember(key, group.getID());
-            }
-
-            for (GroupEntity request : user.getRequests()) {
-                dao.removeGroupRequest(key, request.getID());
-            }
-
-            user.getGroups().clear();
-            user.getGroups().clear();
-            user.getGos().clear();
-
-            tx.commit();
-        } catch (final HibernateException e) {
-            handleHibernateException(e, tx);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+        for (GroupEntity group : user.getGroups()) {
+            dao.removeGroupMember(key, group.getID());
         }
+
+        for (GroupEntity request : user.getRequests()) {
+            dao.removeGroupRequest(key, request.getID());
+        }
+
+        user.getGroups().clear();
+        user.getGroups().clear();
+        user.getGos().clear();
+
     }
 
     /**

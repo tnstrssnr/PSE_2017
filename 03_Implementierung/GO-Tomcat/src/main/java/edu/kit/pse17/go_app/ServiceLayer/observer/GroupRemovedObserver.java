@@ -1,12 +1,10 @@
 package edu.kit.pse17.go_app.ServiceLayer.observer;
 
-import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.json.simple.JSONObject;
 
 import java.util.HashSet;
@@ -16,24 +14,24 @@ import java.util.Set;
 public class GroupRemovedObserver implements Observer {
 
     private final FcmClient messenger;
-    private GroupDao groupDao;
+    private GroupService groupService;
 
-    public GroupRemovedObserver(FcmClient messenger, GroupDao groupDao) {
+    public GroupRemovedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
-        this.groupDao = groupDao;
+        this.groupService = groupService;
     }
 
-    public GroupRemovedObserver(GroupDao groupDao) {
+    public GroupRemovedObserver(GroupService groupService) {
         this.messenger = new FcmClient();
-        this.groupDao = groupDao;
+        this.groupService = groupService;
     }
 
-    public GroupDao getGroupDao() {
-        return groupDao;
+    public GroupService getGroupService() {
+        return groupService;
     }
 
-    public void setGroupDao(GroupDao groupDao) {
-        this.groupDao = groupDao;
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
     }
 
     @Override
@@ -42,7 +40,7 @@ public class GroupRemovedObserver implements Observer {
         json.put("id", entity_ids.get(0));
         String data = json.toJSONString();
 
-        GroupEntity groupEntity = groupDao.get(Long.valueOf(entity_ids.get(0)));
+        GroupEntity groupEntity = groupService.getGroupById(Long.valueOf(entity_ids.get(0)));
 
         Set<UserEntity> receiver = new HashSet<>();
         receiver.addAll(groupEntity.getRequests());

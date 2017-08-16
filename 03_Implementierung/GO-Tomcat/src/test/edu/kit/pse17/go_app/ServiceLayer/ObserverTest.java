@@ -6,8 +6,6 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import edu.kit.pse17.go_app.TestData;
@@ -22,11 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.*;
 
 public class ObserverTest {
 
@@ -45,8 +40,8 @@ public class ObserverTest {
 
 
     private FcmClient mockMessenger;
-    private GroupDaoImp mockGroupDao;
-    private GoDaoImp mockGoDao;
+    private GroupService mockGroupService;
+    private GoService mockGoService;
     private UserDaoImp mockUserDao;
     private GroupEntity testGroup;
     private GoEntity testGo;
@@ -73,11 +68,11 @@ public class ObserverTest {
         this.testGo = TestData.getTestGoLunch();
         this.testUser = TestData.getTestUserBob();
 
-        this.mockGroupDao = Mockito.mock(GroupDaoImp.class);
-        Mockito.when(mockGroupDao.get(anyLong())).thenReturn(testGroup);
+        this.mockGroupService = Mockito.mock(GroupService.class);
+        Mockito.when(mockGroupService.getGroupById(anyLong())).thenReturn(testGroup);
 
-        this.mockGoDao = Mockito.mock(GoDaoImp.class);
-        Mockito.when(mockGoDao.get(anyLong())).thenReturn(testGo);
+        this.mockGoService = Mockito.mock(GoService.class);
+        Mockito.when(mockGoService.getGoById(anyLong())).thenReturn(testGo);
 
         this.mockUserDao = Mockito.mock(UserDaoImp.class);
         Mockito.when(mockUserDao.get(anyString())).thenReturn(this.testUser);
@@ -94,15 +89,15 @@ public class ObserverTest {
             }
         }).when(mockMessenger).send(anyString(), any(EventArg.class), any(Set.class));
 
-        this.aao = new AdminAddedObserver(mockMessenger, mockGroupDao);
-        this.geo = new GroupEditedObserver(mockMessenger, mockGroupDao);
-        this.goro = new GoRemovedObserver(mockMessenger, mockGoDao);
-        this.goeo = new GoEditedObserver(mockMessenger, mockGoDao);
-        this.gro = new GroupRemovedObserver(mockMessenger, mockGroupDao);
-        this.grro = new GroupRequestReceivedObserver(mockMessenger, mockGroupDao, mockUserDao);
-        this.mao = new MemberAddedObserver(mockMessenger, mockUserDao, mockGroupDao);
-        this.mro = new MemberRemovedObserver(mockMessenger, mockGroupDao);
-        this.sco= new StatusChangedObserver(mockMessenger, mockGoDao, mockUserDao);
+        this.aao = new AdminAddedObserver(mockMessenger, mockGroupService);
+        this.geo = new GroupEditedObserver(mockMessenger, mockGroupService);
+        this.goro = new GoRemovedObserver(mockMessenger, mockGoService);
+        this.goeo = new GoEditedObserver(mockMessenger, mockGoService);
+        this.gro = new GroupRemovedObserver(mockMessenger, mockGroupService);
+        this.grro = new GroupRequestReceivedObserver(mockGroupService);
+        this.mao = new MemberAddedObserver(mockMessenger, mockGroupService);
+        this.mro = new MemberRemovedObserver(mockMessenger, mockGroupService);
+        this.sco = new StatusChangedObserver(mockMessenger, mockGoService);
     }
 
     @After
@@ -118,7 +113,7 @@ public class ObserverTest {
         this.sco = null;
         this.testGroup = null;
         this.mockMessenger = null;
-        this.mockGroupDao = null;
+        this.mockGroupService = null;
         this.resultArg = null;
         this.resultData = null;
         this.resultReceiver = null;
@@ -194,7 +189,7 @@ public class ObserverTest {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(testUser.getUid());
         entity_ids.add(String.valueOf(testGroup.getID()));
-        System.out.println("Length"+ String.valueOf(entity_ids.size()));
+        System.out.println("Length" + String.valueOf(entity_ids.size()));
 
         mao.update(entity_ids);
         checkResults(MAO_JSON, EventArg.MEMBER_ADDED_EVENT, allGroupMembers);
@@ -219,7 +214,6 @@ public class ObserverTest {
         sco.update(entity_ids);
         checkResults(SCO_JSON, EventArg.STATUS_CHANGED_COMMAND, allGroupMembers);
     }
-
 
 
 }

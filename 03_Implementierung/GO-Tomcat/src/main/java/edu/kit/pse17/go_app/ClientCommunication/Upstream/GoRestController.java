@@ -1,9 +1,8 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.Status;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;
+import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import edu.kit.pse17.go_app.ServiceLayer.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,23 +42,9 @@ import java.util.List;
 @RequestMapping("/gos")
 public class GoRestController {
 
-    /**
-     * Ein Objekt einer Klasse, die das Interface GoDao implementiert. Dieses Objekt besitzt Methoden, um auf die
-     * Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die
-     * REST Calls an den Server gestellt werden, umzusetzen.
-     */
     @Autowired
-    private GoDao goDao;
+    private GoService goService;
 
-    /**
-     * Da die Standorte bei der Standortverfolgung eines GOs immer nur für kurze Zeit persistiert werden müssen, werden
-     * diese nicht in der Datenbank gespeichert, sondern temporär in einem Location-Objekt. Die Klasse locationService
-     * kümmert sich um die Verwaltung dieser Location-Objekte.
-     * <p>
-     * Das Objekt kann in dieser Klasse für einen Methodenaufruf verwendet werden, der die aktuelle Location eines
-     * Benutzers in das Location-Objekt einfügt und die geclustereten Locations der anderen Benutzer zurückgibt.
-     */
-    private LocationService locationService;
 
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
@@ -81,8 +66,8 @@ public class GoRestController {
             method = RequestMethod.POST,
             value = "/"
     )
-    public long createGo(@RequestBody GoEntity go) {
-        return goDao.persist(go);
+    public ResponseEntity<Long> createGo(@RequestBody GoEntity go) {
+        return new ResponseEntity<>(goService.createGo(go), HttpStatus.OK);
     }
 
     /**
@@ -100,29 +85,13 @@ public class GoRestController {
             value = "/{goId}/status",
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> changeStatus(@RequestBody String statusChangeContext, @PathVariable("goId") Long goId) {
-        String[] statusChangeArr = statusChangeContext.substring(1, statusChangeContext.length() - 1).split(" ");
-        String userId = statusChangeArr[0];
-        Status status;
-        System.out.println(statusChangeContext);
-        System.out.println(statusChangeArr[0]);
-        System.out.println(statusChangeArr[1]);
-
-        switch (statusChangeArr[1]) {
-            case "ABGELEHNT":
-                status = Status.ABGELEHNT;
-                break;
-            case "BESTÄTIGT":
-                status = Status.BESTÄTIGT;
-                break;
-            case "UNTERWEGS":
-                status = Status.UNTERWEGS;
-                break;
-            default:
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity changeStatus(@RequestBody String statusChangeContext, @PathVariable("goId") Long goId) {
+        if (goService.changeStatus(statusChangeContext, goId)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        goDao.changeStatus(userId, goId, status);
-        return ResponseEntity.status(HttpStatus.OK).build();
+
     }
 
     /**
@@ -154,8 +123,8 @@ public class GoRestController {
             method = RequestMethod.GET,
             value = "/location/{goId}"
     )
-    public List<Cluster> getLocation(@PathVariable("goId") Long goId) {
-        return LocationService.getGroupLocation(goId);
+    public ResponseEntity<List<Cluster>> getLocation(@PathVariable("goId") Long goId) {
+        return new ResponseEntity<>(LocationService.getGroupLocation(goId), HttpStatus.OK);
     }
 
 
@@ -185,8 +154,9 @@ public class GoRestController {
             method = RequestMethod.PUT,
             value = "/location/{goId}"
     )
-    public void setLocation(String userId, double lat, double lon, @PathVariable("goId") Long goId) {
+    public ResponseEntity setLocation(String userId, double lat, double lon, @PathVariable("goId") Long goId) {
         LocationService.setUserLocation(goId, userId, lat, lon);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -206,8 +176,9 @@ public class GoRestController {
             method = RequestMethod.DELETE,
             value = "/{goId}"
     )
-    public void deleteGo(@PathVariable("goId") long goId) {
-        goDao.delete(goId);
+    public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
+        goService.delete(goId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -232,7 +203,7 @@ public class GoRestController {
             value = "/{goId}"
     )
     public ResponseEntity<String> editGo(@PathVariable("goId") long goId, @RequestBody GoEntity goEntity) {
-        goDao.update(goEntity);
+        goService.update(goEntity);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
