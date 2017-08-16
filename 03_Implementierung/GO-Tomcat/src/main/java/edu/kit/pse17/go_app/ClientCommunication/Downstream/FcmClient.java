@@ -24,7 +24,7 @@ public class FcmClient {
      */
     private static final String BASE_URL = "https://fcm.googleapis.com/send";
 
-    private static final String SERVER_KEY = "AAAAjalbaUE:APA91bHDguerPdnJ9fOLxvXynowziqVzgw5HB0ug0ZIEFDaFE0AezmBZoD1gcaRROMfriNi7IRKrC5ROVpdOz2Ohegcoj-X4Wphpii1QSgHvRRm6JTxdLi_QUv8GRcenNrMbGEYDEKWC";
+    private static final String SERVER_KEY = "key=AAAAjalbaUE:APA91bHDguerPdnJ9fOLxvXynowziqVzgw5HB0ug0ZIEFDaFE0AezmBZoD1gcaRROMfriNi7IRKrC5ROVpdOz2Ohegcoj-X4Wphpii1QSgHvRRm6JTxdLi_QUv8GRcenNrMbGEYDEKWC";
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -69,10 +69,8 @@ public class FcmClient {
     public void send(String data, EventArg command, Set<UserEntity> receiver) {
 
         JSONObject eventData = new JSONObject();
-        System.out.println(command.toString());
         eventData.put("tag", command.toString());
         eventData.put("data", data);
-        System.out.println(eventData.toString());
 
         for (UserEntity msg : receiver) {
 
@@ -83,8 +81,9 @@ public class FcmClient {
             String jsonString = json.toString();
             RequestBody body = RequestBody.create(JSON, jsonString);
             Request request = new Request.Builder()
-                    .header("Authorization", SERVER_KEY)
                     .url(BASE_URL)
+                    .header("Content-Type", "application/json")
+                    .addHeader("Authorization", SERVER_KEY)
                     .post(body)
                     .build();
 

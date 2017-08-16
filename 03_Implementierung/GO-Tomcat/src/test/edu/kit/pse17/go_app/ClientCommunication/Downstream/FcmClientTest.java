@@ -60,7 +60,6 @@ public class FcmClientTest {
     @Test
     public void sendTest() throws Exception {
         testClient.send(testData, testEvent, testReceiver);
-        System.out.println();
     }
 
 }
