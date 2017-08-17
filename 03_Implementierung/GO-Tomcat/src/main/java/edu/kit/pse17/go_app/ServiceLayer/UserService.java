@@ -15,23 +15,41 @@ public class UserService {
     @Autowired
     private UserDaoImp userDao;
 
+    public UserService() {
+    }
+
+    public UserService(UserDaoImp userDao) {
+        this.userDao = userDao;
+    }
+
+
     public static void editUserForJson(UserEntity user) {
-        user.setGos(null);
-        user.setGroups(null);
-        user.setRequests(null);
+
+        //has to be checked, in case user is owner of a go --> this method is called for the user twice
+        if (user != null) {
+            user.setGos(null);
+            user.setGroups(null);
+            user.setRequests(null);
+        }
     }
 
 
     public UserEntity getData(String key) {
         UserEntity user = userDao.get(key);
+        System.out.println(user.getRequests().size());
+
 
         for (GroupEntity group : user.getGroups()) {
             GroupService.editGroupForJson(group);
         }
 
+        user.setRequests(userDao.get(key).getRequests());
+
         for (GroupEntity group : user.getRequests()) {
             GroupService.editGroupForJson(group);
         }
+
+        user.setGos(userDao.get(key).getGos());
 
         for (GoEntity go : user.getGos()) {
             GoService.editGoForJson(go, true);
@@ -46,7 +64,6 @@ public class UserService {
                 userDao.persist(user);
 
             } catch (final ConstraintViolationException e) {
-                e.printStackTrace();
                 return false;
             }
         }

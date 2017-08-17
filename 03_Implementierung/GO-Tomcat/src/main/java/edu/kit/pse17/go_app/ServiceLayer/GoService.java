@@ -29,7 +29,16 @@ public class GoService implements IObservable {
         register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
     }
 
-    public  static void editGoForJson(GoEntity go, boolean keepGroupInfo) {
+    public GoService(GoDaoImp godao) {
+        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
+        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
+        register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
+        register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
+        this.goDao = godao;
+    }
+
+
+    public static void editGoForJson(GoEntity go, boolean keepGroupInfo) {
 
         if (keepGroupInfo) {
             GroupService.editGroupForJson(go.getGroup());

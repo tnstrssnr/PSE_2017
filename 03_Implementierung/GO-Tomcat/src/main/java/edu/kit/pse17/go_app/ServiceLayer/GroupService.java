@@ -33,6 +33,18 @@ public class GroupService implements IObservable {
         register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
     }
 
+    public GroupService(GroupDaoImp groupDao) {
+        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
+        register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
+        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
+        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
+        register(EventArg.GROUP_REQUEST_DENIED_EVENT, new RequestDeniedObserver(this));
+        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
+        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
+        this.groupDao = groupDao;
+    }
+
+
     public static void editGroupForJson(GroupEntity group) {
 
         for (final UserEntity usr : group.getAdmins()) {
@@ -70,8 +82,6 @@ public class GroupService implements IObservable {
 
     public long createGroup(GroupEntity group) {
         long id = groupDao.persist(group);
-        List<String> entity_ids = new ArrayList<>();
-        entity_ids.add(String.valueOf(group.getID()));
         return id;
     }
 
@@ -123,6 +133,10 @@ public class GroupService implements IObservable {
 
     public void addAdmin(String userId, long groupId) {
         groupDao.addAdmin(userId, groupId);
+        List<String> entity_ids = new ArrayList<>();
+        entity_ids.add(userId);
+        entity_ids.add(String.valueOf(groupId));
+        notify(EventArg.ADMIN_ADDED_EVENT, this, entity_ids);
     }
 
     @Override

@@ -1,0 +1,108 @@
+package edu.kit.pse17.go_app.ServiceLayer;
+
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
+import edu.kit.pse17.go_app.TestData;
+import org.hibernate.exception.ConstraintViolationException;
+import org.junit.*;
+import org.mockito.Mockito;
+
+import java.util.HashSet;
+
+
+public class UserServiceTest {
+
+    private UserEntity testUser;
+    private UserService testService;
+    private UserDaoImp mockUserDao;
+
+    @Before
+    public void setUp() throws Exception {
+        mockUserDao = Mockito.mock(UserDaoImp.class);
+        testService = new UserService(mockUserDao);
+        testUser = TestData.getTestUserBob();
+        testUser.setGos(new HashSet<>());
+        testUser.setGroups(new HashSet<>());
+        testUser.setRequests(new HashSet<>());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        testService = null;
+        testUser = null;
+        mockUserDao = null;
+    }
+
+    @Test
+    public void editUserForJsonTest() throws Exception {
+        UserEntity alteredTestUser = addAssociationsToUser(testUser);
+
+        UserService.editUserForJson(alteredTestUser);
+        Assert.assertEquals(alteredTestUser, testUser);
+    }
+
+    @Ignore
+    @Test
+    public void getDataTest() throws Exception {
+        UserEntity alteredTestUser = addAssociationsToUser(testUser);
+
+        Mockito.when(mockUserDao.get(Mockito.anyString())).thenReturn(alteredTestUser);
+        UserEntity result = testService.getData(alteredTestUser.getUid());
+        Assert.assertEquals(testUser, result);
+
+    }
+
+    @Test
+    public void createUserSuccessfulTest() throws Exception {
+        boolean result = testService.createUser(testUser);
+        Mockito.verify(mockUserDao, Mockito.times(1)).persist(testUser);
+        Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void createUserFailTest() throws Exception {
+        Mockito.when(mockUserDao.persist(Mockito.any(UserEntity.class))).thenThrow(ConstraintViolationException.class);
+        boolean result = testService.createUser(testUser);
+        Mockito.verify(mockUserDao, Mockito.times(1)).persist(testUser);
+        Assert.assertEquals(false, result);
+    }
+
+    @Test
+    public void updateUserTest() throws Exception {
+        testService.updateUser(testUser);
+        Mockito.verify(mockUserDao, Mockito.times(1)).update(testUser);
+    }
+
+    @Test
+    public void deleteUserTest() throws Exception {
+        testService.deleteUser(testUser.getUid());
+        Mockito.verify(mockUserDao, Mockito.times(1)).delete(testUser.getUid());
+    }
+
+    @Test
+    public void registerDeviceTest() throws Exception {
+        Mockito.when(mockUserDao.get(Mockito.anyString())).thenReturn(testUser);
+        testService.registerDevice(testUser.getUid(), "new_instance_id");
+        testUser.setInstanceId("new_instance_id");
+        Mockito.verify(mockUserDao, Mockito.times(1)).update(testUser);
+    }
+
+    @Test
+    public void getUserbyMailTest() throws Exception {
+
+        final String testMail = "test@mail.com";
+        UserEntity alteredTestUser = addAssociationsToUser(testUser);
+        Mockito.when(mockUserDao.getUserByEmail(Mockito.anyString())).thenReturn(alteredTestUser);
+        UserEntity result = testService.getUserbyMail(testMail);
+        Mockito.verify(mockUserDao, Mockito.times(1)).getUserByEmail(testMail);
+        Assert.assertEquals(testUser, result);
+    }
+
+    private UserEntity addAssociationsToUser(UserEntity user) {
+        user.getGos().add(TestData.getTestGoLunch());
+        user.getRequests().add(TestData.getTestGroupBar());
+        user.getGroups().add(TestData.getTestGroupFoo());
+        return user;
+    }
+
+}
