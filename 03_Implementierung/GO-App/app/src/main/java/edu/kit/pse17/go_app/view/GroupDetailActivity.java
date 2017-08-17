@@ -89,14 +89,15 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
         groupName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), GroupDetailsActivity.class).putExtra("index", index));
+                startActivityForResult(new Intent(v.getContext(), GroupDetailsActivity.class).putExtra("index", index), 0);
             }
         });
         onGoAdded = (FloatingActionButton) findViewById(R.id.add_go_button);
         onGoAdded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), AddGoActivity.class));
+                startActivity(new Intent(v.getContext(), EditGoActivity.class)
+                        .putExtra(EditGoActivity.REQUEST_INTET_CODE,EditGoActivity.ADD_REQUEST));
             }
         });
         viewModel = ViewModelProviders.of(this).get(GroupViewModel.class);
@@ -108,29 +109,42 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
                         displayData(group);
                     }
                 });
-        String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid", null);
+
         //displayData(viewModel.getGos(index).getValue());
         receiver = new GoAddedBroadcastReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.go_added_intent_action)));
-        if(viewModel.getGroup().getValue().isRequest(userId)){
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("asdfnkbnkqbelr")
-                    .setTitle("Do you accept the membership request to this group?");
-            builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    GroupDetailActivity.this.finish();
-                }
-            });
-            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-        }
 
+        showRequestDialogIfNeeded();
+
+
+
+    }
+
+    private void showRequestDialogIfNeeded() {
+        String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid", null);
+        if(viewModel.getGroup().getValue().isRequest(userId)){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.accept_dialog_title)
+                .setMessage(R.string.dialog_explanation_message);
+        builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                GroupDetailActivity.this.finish();
+                //TODO send decline to server!
+            }
+        });
+        builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                //TODO send accept request to server
+            }
+        });
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     }
 
     /**
@@ -181,10 +195,24 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
             go.setStart(start_time);
             String end_time = intent.getStringExtra("end_date");
             go.setEnd(end_time);
-            go.setDesLat(intent.getDoubleExtra("lat",0));
-            go.setDesLon(intent.getDoubleExtra("lng",0));
-            viewModel.onGoAdded(go);
+            double goLat = intent.getDoubleExtra("lat",0);
+            go.setDesLat(goLat);
+            double goLon = intent.getDoubleExtra("lng",0);
+            go.setDesLon(goLon);
+            //viewModel.
+            String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_id),null);
+            viewModel.createGo(goName, goDescription, start_time, end_time,goLat, goLon,  viewModel.getGroup().getValue().getId(), userId);
+            //viewModel.onGoAdded(go);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 0){
+            if(resultCode == GroupDetailsActivity.EXITED){
+                this.finish();
+            }
         }
     }
 }

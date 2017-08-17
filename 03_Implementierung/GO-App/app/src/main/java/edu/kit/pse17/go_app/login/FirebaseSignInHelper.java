@@ -100,7 +100,7 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            returnActivityResult(new String[]{user.getUid(), user.getEmail()});
+                            returnActivityResult(new String[]{user.getUid(), user.getEmail(), user.getDisplayName()});
                         } else {
                             returnActivityResult(null);
                         }

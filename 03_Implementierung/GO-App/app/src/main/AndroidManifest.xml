@@ -36,7 +36,7 @@
         <activity android:name=".view.GroupDetailActivity" />
         <activity android:name=".view.GoDetailActivity" />
         <activity android:name=".view.GroupDetailsActivity" />
-        <activity android:name=".view.AddGoActivity" />
+        <activity android:name=".view.EditGoActivity" />
         <activity android:name=".view.InformationActivity"/>
 
 

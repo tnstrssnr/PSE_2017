@@ -39,6 +39,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     public ListAdapter(List<ListItem> data, OnListItemClicked onListItemClicked) {
         this.data = data;
         this.onListItemClicked = onListItemClicked;
+
     }
 
     /**

@@ -2,6 +2,8 @@ package edu.kit.pse17.go_app.view.recyclerView;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,7 +11,9 @@ import android.widget.TextView;
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.view.BaseActivity;
 import edu.kit.pse17.go_app.view.GroupDetailActivity;
+import edu.kit.pse17.go_app.view.GroupDetailsActivity;
 import edu.kit.pse17.go_app.view.GroupListActivity;
+import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 
 import static android.support.v7.widget.RecyclerView.ViewHolder;
 
@@ -19,7 +23,7 @@ import static android.support.v7.widget.RecyclerView.ViewHolder;
  * Created by tina on 17.06.17.
  */
 
-public class ListViewHolder extends ViewHolder implements View.OnClickListener, View.OnLongClickListener{
+public class ListViewHolder extends ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener{
 
     private OnListItemClicked onListItemClicked;
 
@@ -51,6 +55,7 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener, 
         this.subtitle = (TextView) itemView.findViewById(R.id.list_item_subtitle);
         this.icon = (ImageView) itemView.findViewById(R.id.list_item_icon);
         activity = (BaseActivity)itemView.getContext();
+        itemView.setOnCreateContextMenuListener(this);
     }
 
     public ListViewHolder(View itemView) {
@@ -68,9 +73,24 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener, 
         activity.startActivity(intent);}
         //GroupDetailActivity.start(activity, getAdapterPosition());
     }
-    //use for admin actions against users in recyclerView
+
     @Override
-    public boolean onLongClick(View v) {
-        return false;
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if(activity.getClass() == GroupDetailsActivity.class){
+            //subtitle.getText is Email of the user in this context
+
+            menu.add(R.string.remove_user).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    String email = subtitle.getText().toString();
+                    long groupId;
+                    GroupViewModel instance = GroupViewModel.getCurrentViewModel();
+                    groupId = instance.getGroup().getValue().getId();
+                    instance.deleteMember(groupId, email);
+                    return true;
+                }
+            });
+        }
     }
+
 }

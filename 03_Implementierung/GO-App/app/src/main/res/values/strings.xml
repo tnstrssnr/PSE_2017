@@ -36,4 +36,9 @@
     <string name="accept">Accept</string>
     <string name="user_display_name">display_name</string>
     <string name="limit_of_group_members"> of 50</string>
+    <string name="accept_dialog_title">Accept request?</string>
+    <string name="dialog_explanation_message">You have been invited to this group. Do you accept the request?</string>
+    <string name="remove_user">Remove user</string>
+    <string name="edit_dialog_current_group_name_key">Current text</string>
+    <string name="edit_dialog_current_descr_key">Current description</string>
 </resources>

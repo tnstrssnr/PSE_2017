@@ -70,6 +70,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private static String DIALOG_TAG = "dialog_tag";
     public static String ABOUT_ACTIVITY_CODE = "about";
     public static String LICENSE_ACTIVITY_CODE = "license";
+
     GoogleApiClient mGoogleApiClient;
     private ListAdapter adapter;
     private FloatingActionButton addGroup;
@@ -77,7 +78,11 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView groupList;
     public static Drawable default_group_icon;
     public static Drawable default_user_icon;
+    public static Drawable default_admin_icon;
     public static Drawable default_go_icon;
+    public static Drawable user_going_icon;
+    public static Drawable user_not_going_icon;
+    public static Drawable user_gone_icon;
     private Toolbar toolbar;
     private TextView toolbarTitle;
     private ActionBar actionBar;
@@ -90,6 +95,8 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private TextView locoloco;
+
+    private String uid;
     public static void start(Activity activity, User user) {
         Intent intent = new Intent(activity, GroupListActivity.class);
 
@@ -109,9 +116,9 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.group_list_activity);
         configureGoogleClient();
 
-        default_group_icon = getDrawable(R.drawable.ic_group_blue_24dp);
-        default_go_icon = getDrawable(R.drawable.go96);
-        default_user_icon = getDrawable(R.drawable.ic_person_outline_black_24dp);
+        initializeIconsFromResources();
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView) findViewById(R.id.heading);
         toolbarTitle.setText("Your Groups");
@@ -126,7 +133,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         groupList = (RecyclerView) findViewById(R.id.group_recycler);
         groupList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        String uid = getIntent().getStringExtra(USER_ID_INTENT_CODE);
+        uid = getIntent().getStringExtra(USER_ID_INTENT_CODE);
 
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
         viewModel.init(uid);
@@ -144,6 +151,16 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         seupLocationCallback();
         startPollingDeviceLocation();
 
+    }
+
+    private void initializeIconsFromResources() {
+        default_group_icon = getDrawable(R.drawable.ic_group_blue_24dp);
+        default_go_icon = getDrawable(R.drawable.go96);
+        default_user_icon = getDrawable(R.drawable.ic_person_outline_black_24dp);
+        default_admin_icon = getDrawable(R.drawable.ic_person_outline_red_24dp);
+        user_not_going_icon = getDrawable(R.drawable.ic_person_outline_red_24dp);
+        user_going_icon = getDrawable(R.drawable.ic_person_outline_green_24dp);
+        user_gone_icon = getDrawable(R.drawable.ic_person_outline_blue_24dp);
     }
 
     /*
@@ -202,8 +219,8 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(20000);
-        mLocationRequest.setFastestInterval(15000);
+        mLocationRequest.setInterval(8000);
+        mLocationRequest.setFastestInterval(6000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
@@ -242,7 +259,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
         } else if(item.getItemId() == R.id.delete_profile_button){
             UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-            String userId = getSharedPreferences(getString(R.string.shared_pref_name),MODE_PRIVATE).getString("uid",null);
+            String userId = getSharedPreferences(getString(R.string.shared_pref_name),MODE_PRIVATE).getString(getString(R.string.user_id),null);
             if(userId == null) {
                 throw new NullPointerException();
             }

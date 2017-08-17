@@ -22,10 +22,13 @@ public class UserMailListItem implements ListItem<String> {
      * @param title Benutzername
      * @param email EMail-Adresse, die zur Anmeldung verwendet wurde
      */
-    public UserMailListItem(String title, String email) {
+    public UserMailListItem(String title, String email, boolean isAdmin) {
         this.title = title;
         this.email = email;
-        this.icon = GroupListActivity.default_user_icon;
+        if(isAdmin)
+            this.icon = GroupListActivity.default_admin_icon;
+        else
+            this.icon = GroupListActivity.default_user_icon;
     }
 
     /**
@@ -33,8 +36,9 @@ public class UserMailListItem implements ListItem<String> {
      * @param user Das User-Objekt, das von dem ListItem repräsentiert werden soll
      */
     public UserMailListItem(User user) {
-        title = user.getName();
-        email = user.getEmail();
+        this.title = user.getName();
+        this.email = user.getEmail();
+
     }
 
     @Override

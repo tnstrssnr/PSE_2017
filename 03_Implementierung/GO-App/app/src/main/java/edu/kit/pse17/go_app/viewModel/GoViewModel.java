@@ -1,11 +1,8 @@
 package edu.kit.pse17.go_app.viewModel;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Nullable;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -38,8 +35,6 @@ public class GoViewModel extends ViewModel{
     private String userId;
     private Observer<Group> observer;
 
-    private Observer<LatLng> locationObserver;
-
 
     public GoViewModel(){
         if(go == null)
@@ -56,44 +51,48 @@ public class GoViewModel extends ViewModel{
                 go.setValue(group.getCurrentGos().get(index));
             }
         };
-        this.locationObserver = new Observer<LatLng>() {
-            @Override
-            public void onChanged(@Nullable LatLng latLng) {
-                sendLocation(userId, go.getValue().getId(), latLng.latitude, latLng.longitude);
-            }
-        };
-        groupViewModel.getGroup().observeForever(observer);
-        GroupListViewModel.getCurrentGroupListViewModel().getLocation().observeForever(locationObserver);
+
         if(go == null)
             go = new GoLiveData();
         this.goRepo = GoRepository.getInstance();
+        groupViewModel.getGroup().observeForever(observer);
     }
     /*
     * Teilnahmestatus in einem GO ändern
     * */
-    public void changeStatus(String userId, String goId, Status status){
-
+    public void changeStatus(String userId, long goId, Status status){
+        goRepo.changeStatus(userId, goId, status);
     }
     /*
     * Anfrage für die Standoerte der Go-Teilnehmer, eigener Standort wird gleich in der
     * Methode auch geschickt.
     * */
-    public LiveData<List<Cluster>> getCluster(String userId,long goId, LatLng location){
-        return null;
+    public List<Cluster> getClusters(){
+        return go.getValue().getLocations();
     }
-    private void sendLocation(String userId, long goId, double latitude, double longitude){
+    public void sendLocation(String userId, long goId, double latitude, double longitude){
         goRepo.getLocation(userId,goId,latitude, longitude);
     }
     /*
     * Ändere Daten für Go mit Id goid, id selbst darf nicht geändert werden.
     * */
-    public void editGo(String goid, Go go){}
+    public void editGo(long goid, Go newGo){
+        goRepo.editGo(goid,GroupViewModel.getCurrentViewModel().getGroup().getValue().getId(),userId,newGo.getName(),
+                newGo.getDescription(),newGo.getStart(),newGo.getEnd(), new double[]{newGo.getDesLat(),newGo.getDesLon()}, -1);
+    }
 
     public GoLiveData getGo(){
         return go;
     }
 
-    public  static GoViewModel getInstance(){
+    public  static GoViewModel getInstance() {
+        if(currentViewModel == null){
+            currentViewModel = new GoViewModel();
+        }
         return currentViewModel;
+    }
+
+    public void deleteGo(long goId, long groupId) {
+        goRepo.deleteGo(goId);
     }
 }

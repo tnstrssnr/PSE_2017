@@ -13,10 +13,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import edu.kit.pse17.go_app.R;
+import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.viewModel.GoViewModel;
 
@@ -28,17 +32,34 @@ public class GoMapFragment extends Fragment {
     private MapView mapView;
     private GoogleMap map;
     private LatLng destination;
+    private List<Cluster> clusters;
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //displayData(go);
+        displayMap();
+
+    }
+    private void displayMap(){
         GoViewModel.getInstance().getGo().observeForever(new Observer<Go>() {
             @Override
             public void onChanged(@Nullable Go go) {
                 Log.d("Fragement", "Fragment caught livedata change");
                 destination = new LatLng(go.getDesLat(),go.getDesLon());
+                // TODO add clusters
+                // TODO check if it really updates, might not work properly, data needs to be delivered and set in GoViewModel first
+                // here assuming it takes the updated data every time, i.e. data is correct
+                clusters = go.getLocations();
+                /*for (Cluster cluster : go.getLocations()) {
+                    LatLng latLng = new LatLng(cluster.getLat(),cluster.getLon());
+                    map.addMarker(new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                            .position(latLng)
+                            .title("Approx " + cluster.getSize() + " people here."));
+                }*/
+
             }
         });
     }
@@ -69,9 +90,17 @@ public class GoMapFragment extends Fragment {
                     map.addMarker(new MarkerOptions().position(destination).title("GO-Destination"));
                     map.moveCamera(CameraUpdateFactory.newLatLng(destination));
                     map.moveCamera(CameraUpdateFactory.zoomTo(17));
-
+                    displayMap();
+                    for (Cluster cluster : clusters) {
+                        LatLng latLng = new LatLng(cluster.getLat(),cluster.getLon());
+                        map.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                                .position(latLng)
+                                .title("Approx " + cluster.getSize() + " people here."));
+                    }
                 }
             });
         }
+
     }
 }

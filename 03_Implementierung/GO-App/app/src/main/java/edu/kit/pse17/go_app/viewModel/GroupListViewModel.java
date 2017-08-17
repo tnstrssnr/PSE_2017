@@ -7,11 +7,16 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import edu.kit.pse17.go_app.model.Status;
+import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
+import edu.kit.pse17.go_app.model.entities.UserGoStatus;
+import edu.kit.pse17.go_app.repositories.GoRepository;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import edu.kit.pse17.go_app.viewModel.livedata.LocationLiveData;
@@ -55,6 +60,8 @@ public class GroupListViewModel extends ViewModel {
     private Observer<List<Group>> observer;
     private LocationLiveData deviceLocation;
 
+    //active gos, where user of this phone is out already
+    private List<Go> activeGos = new ArrayList<>();
 
     @Inject
     public GroupListViewModel() {
@@ -64,20 +71,17 @@ public class GroupListViewModel extends ViewModel {
             @Override
             public void onChanged(@Nullable List<Group> groups) {
                 Log.d("GO ADDED GroupListVM", "I got called so observer should function");
-                /*if(GroupViewModel.getCurrentViewModel() != null && !alreadyAdded) {
-                    data.observeForever(GroupViewModel.getCurrentViewModel().getObserver());
-                    alreadyAdded = true;
-                }*/
                 if (data != null) //this line here removes a crash every second time after pushing back-button
                     data.setValue(groups);
-                //for now need to check with a custom boolean if an observer was added to data, to not add multiple observers later
 
 
             }
         };
         this.groupRepo = GroupRepository.getInstance();
         groupRepo.getData().observeForever(observer);
-        deviceLocation = new LocationLiveData();
+        if(deviceLocation == null) {
+            deviceLocation = new LocationLiveData();
+        }
     }
 
     public void init(String uId) {
@@ -91,16 +95,12 @@ public class GroupListViewModel extends ViewModel {
         if(data == null){
             data = new GroupListLiveData();
             data.setValue(groupRepo.fetchData());
+            findActiveGos();
         }
         return data;
 
     }
-    public LocationLiveData getLocation(){
-        if(deviceLocation == null){
-            deviceLocation = new LocationLiveData();
-        }
-        return deviceLocation;
-    }
+
     protected List<Group> getData(){
         return data.getValue();
     }
@@ -137,6 +137,33 @@ public class GroupListViewModel extends ViewModel {
         groupRepo.getData().removeObserver(observer);
     }
     public void updateLocation(LatLng location){
-        deviceLocation.setValue(location);
+        for(Go go : activeGos){
+            GoRepository.getInstance().getLocation(uId,go.getId(),location.latitude,location.longitude);
+        }
+        //deviceLocation.setValue(location);
+    }
+
+    public LocationLiveData getLocation(){
+        if(deviceLocation == null){
+            deviceLocation = new LocationLiveData();
+        }
+        return deviceLocation;
+    }
+
+    public List<Go> getActiveGos() {
+        return activeGos;
+    }
+    private void findActiveGos(){
+        //O(n*m) n - number of groups, m - number of GOs
+        //this is inefficient
+        for(Group group : data.getValue()){
+            for(Go go : group.getCurrentGos()){
+                for(UserGoStatus status : go.getParticipantsList()){
+                    if(status.getUser().getUid().equals(uId) && status.getStatus() == Status.GONE){
+                        activeGos.add(go);
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,34 +1,23 @@
 package edu.kit.pse17.go_app.repositories;
 
-import android.arch.lifecycle.LiveData;
-import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
-import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
 import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 /**
  * Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine
@@ -103,11 +92,13 @@ public class GoRepository extends Repository<List<Go>>{
             }
         });
     }
-
+    //using array latlon instead, because it won't accept more that 7 parameters... -_- wtf
     public void editGo(long goId, long groupId, String userId, String name,
                        String description, String start, String end,
-                       double lat, double lon, int threshold) {
+                       double[] latlon, int threshold) {
         final Map<String, String> parameters = new HashMap<String, String>();
+        double lat = latlon[0];
+        double lon = latlon[1];
         parameters.put("goId", Long.toString(goId));
         parameters.put("groupId", Long.toString(groupId));
         parameters.put("userId", userId);

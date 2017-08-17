@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,13 +13,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.kit.pse17.go_app.R;
+import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.viewModel.GoViewModel;
+import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
 import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 
 /**
@@ -29,21 +33,21 @@ import edu.kit.pse17.go_app.viewModel.GroupViewModel;
  */
 
 public class GoDetailActivity extends BaseActivity {
+    private String uid;
+
     private TextView title;
-    private TextView description;
     private TextView startTime;
     private TextView endTime;
-    private TextView memberCount;
-    private RecyclerView members;
     private int index;
     private GoDetailsFragment details_frag;
     private GoMapFragment map_frag;
     private static final String INDEX_INTENT_CODE = "index";
+    private ImageView edit;
+    private ImageView deleteGo;
     /*
     * Knopf um den Teilnahmestatus in dem GO zu ändern.
     * */
     private FloatingActionButton changeStatus;
-
     private FloatingActionButton gone;
     private FloatingActionButton going;
     private FloatingActionButton not_going;
@@ -114,11 +118,18 @@ public class GoDetailActivity extends BaseActivity {
                 }
             }
         });
+
+
         gone = (FloatingActionButton) findViewById(R.id.go_gone_fab);
         going = (FloatingActionButton) findViewById(R.id.go_going_fab);
         not_going = (FloatingActionButton) findViewById(R.id.go_not_going_fab);
+
+        gone.setOnClickListener(new StatusClickListener(Status.GONE));
+        going.setOnClickListener(new StatusClickListener(Status.GOING));
+        not_going.setOnClickListener(new StatusClickListener(Status.NOT_GOING));
+
         hideGoMenuButtons();
-        //details_frag.onCreateView(getLayoutInflater(),viewPager,null);
+
 
         title = (TextView) findViewById(R.id.go_name);
         startTime = (TextView) findViewById(R.id.start_time);
@@ -126,10 +137,14 @@ public class GoDetailActivity extends BaseActivity {
 
         index = getIntent().getIntExtra(INDEX_INTENT_CODE, -1);
 
-        String uid = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid",null);
+        uid = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid",null);
         if(uid == null){
             throw new NullPointerException();
         }
+        edit = (ImageView) findViewById(R.id.edit_go);
+        edit.setVisibility(View.GONE);
+        deleteGo = (ImageView) findViewById(R.id.delete_go);
+        deleteGo.setVisibility(View.GONE);
         viewModel = ViewModelProviders.of(this).get(GoViewModel.class);
         viewModel.init(index, uid, GroupViewModel.getCurrentViewModel());
         viewModel.getGo().observe(this, new Observer<Go>() {
@@ -141,6 +156,31 @@ public class GoDetailActivity extends BaseActivity {
             }
         });
 
+        if(isGoOwner()){
+            addOwnerFunctionality();
+        }
+    }
+
+    private void addOwnerFunctionality() {
+        edit.setVisibility(View.VISIBLE);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(GoDetailActivity.this,EditGoActivity.class)
+                        .putExtra(EditGoActivity.REQUEST_INTET_CODE,EditGoActivity.EDIT_REQUEST), EditGoActivity.EDIT_REQUEST);
+            }
+        });
+        deleteGo.setVisibility(View.VISIBLE);
+        deleteGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.deleteGo(viewModel.getGo().getValue().getId(), GroupViewModel.getCurrentViewModel().getGroup().getValue().getId());
+            }
+        });
+    }
+
+    private boolean isGoOwner() {
+        return viewModel.getGo().getValue().getOwner().equals(uid);
     }
 
     /**
@@ -212,5 +252,60 @@ public class GoDetailActivity extends BaseActivity {
 
     private void unHideFab(){
         changeStatus.setVisibility(View.VISIBLE);
+    }
+
+    private class StatusClickListener implements View.OnClickListener{
+        Status chosen;
+
+        public StatusClickListener(Status chosen){
+            this.chosen = chosen;
+        }
+        @Override
+        public void onClick(View v) {
+            Status status = viewModel.getGo().getValue().getStatus(uid).getStatus();
+            if(status == chosen){
+                Toast.makeText(GoDetailActivity.this, "You already have this status", Toast.LENGTH_SHORT).show();
+            } else if(status == Status.NOT_GOING && chosen== Status.GONE){
+                Toast.makeText(GoDetailActivity.this, "You should accept the event first, and only then move out. (green => blue)", Toast.LENGTH_LONG);
+            }else {
+                viewModel.changeStatus(uid, viewModel.getGo().getValue().getId(), chosen);
+                if(chosen == Status.GONE){
+                    GroupListViewModel.getCurrentGroupListViewModel().getActiveGos().add(viewModel.getGo().getValue());
+                } else {
+
+                }
+                hideGoMenuButtons();
+            }
+        }
+    }
+
+
+    /*
+    * catch EditGoActivity result where go was edited
+    * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == EditGoActivity.BACK_PRESSED_RESULT){
+            //do nothing, user just wanted to go back
+        }else if(requestCode == EditGoActivity.EDIT_REQUEST){
+            Go editedGo = new Go();
+            String goName = data.getStringExtra("go_name");
+            editedGo.setName(goName);
+            String goDescription = data.getStringExtra("go_description");
+            editedGo.setDescription(goDescription);
+            String start_time = data.getStringExtra("start_date");
+            editedGo.setStart(start_time);
+            String end_time = data.getStringExtra("end_date");
+            editedGo.setEnd(end_time);
+            double goLat = data.getDoubleExtra("lat",0);
+            editedGo.setDesLat(goLat);
+            double goLon = data.getDoubleExtra("lng",0);
+            editedGo.setDesLon(goLon);
+
+            String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_id),null);
+            //viewModel.createGo(goName, goDescription, start_time, end_time,goLat, goLon,  viewModel.getGroup().getValue().getId(), userId);
+            //viewModel.onGoAdded(go);
+            viewModel.editGo(viewModel.getGo().getValue().getId(),editedGo);
+        }
     }
 }

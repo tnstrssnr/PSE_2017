@@ -15,9 +15,9 @@ import edu.kit.pse17.go_app.view.GroupListActivity;
 
 public class UserStatusListItem implements ListItem<Status> {
 
-    private static final String going = "Bestätigt";
-    private static final String gone = "Unterwegs";
-    private static final String notGoing = "Abgelehnt";
+    private static final String going = "is going";
+    private static final String gone = "is out";
+    private static final String notGoing = "not going";
     private static final String[] statusArr = {notGoing, going, gone};
 
     private String title;
@@ -33,7 +33,16 @@ public class UserStatusListItem implements ListItem<Status> {
     public UserStatusListItem(String title, Status status) {
         this.title = title;
         this.status = status;
-        this.icon = GroupListActivity.default_user_icon;
+        if(status.ordinal() == 0){
+            //ie not going
+            this.icon = GroupListActivity.user_not_going_icon;
+        } else if(status.ordinal() == 1){
+            //ie going
+            this.icon = GroupListActivity.user_going_icon;
+        } else {
+            //ordinal 2, ie gone, user is out
+            this.icon = GroupListActivity.user_gone_icon;
+        }
     }
 
     public UserStatusListItem(User user, Go go) {

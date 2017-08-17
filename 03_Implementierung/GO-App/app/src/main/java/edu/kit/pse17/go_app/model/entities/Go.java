@@ -196,7 +196,15 @@ public class Go {
     public void setParticipantsList(List<UserGoStatus> participantsList) {
         this.participantsList = participantsList;
     }
-
+    public UserGoStatus getStatus(String userId){
+        for (UserGoStatus status: participantsList) {
+            if(status.getUser().getUid().equals(userId)){
+                return status;
+            }
+        }
+        throw new NullPointerException(); //THIS SHOULD NOT HAPPEN
+        //return null;
+    }
     public Group getGroup() {
         return group;
     }

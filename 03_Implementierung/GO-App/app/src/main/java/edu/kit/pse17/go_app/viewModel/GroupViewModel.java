@@ -73,11 +73,17 @@ public class GroupViewModel extends ViewModel {
     /*
     * Ein Teilnhemer zur Gruppe hinzufügen mit Hilfe der Email
     * */
-    public void addMember(String EMail){}
+    public void addMember(String EMail){
+        groupRepo.inviteMember(getGroup().getValue().getId(),EMail);
+    }
+
+    public void deleteMember( long groupId, String Email){
+        groupRepo.removeMember(groupId, Email);
+    }
     /*
     * Ändert die Daten von der Gruppe mit groupId, group.groupId wird nicht benutzt in der Methode
     * */
-    public void editGroup(Group group){
+    public void editGroup(long groupId, String name, String description){
     }
     /*
     * True - akzeptiere den Request für die Gruppe groupId
@@ -93,5 +99,12 @@ public class GroupViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         groupRepo.getData().removeObserver(observer);
+    }
+    public void deleteGroup(long groupId){
+        groupRepo.deleteGroup(groupId);
+    }
+
+    public void createGo(String name, String description, String start, String end, double lat, double lon, long groupId, String userId) {
+        groupRepo.createGo(name, description,start,end, lat, lon, -1,groupId,userId);
     }
 }

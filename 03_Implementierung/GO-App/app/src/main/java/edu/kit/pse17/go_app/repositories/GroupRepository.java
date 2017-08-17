@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.inject.Singleton;
 
 import edu.kit.pse17.go_app.model.Status;
+import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.GroupMembership;
@@ -508,10 +509,17 @@ public class GroupRepository extends Repository<List<Group>> {
         User user1 = new User("id", "User1", "user1@gmail.com");
         User user2 = new User("id", "User2", "user2@gmail.com");
         User user3 = new User("id", "User3", "user3@gmail.com");
+        User me = new User("MLsXON00mUPSQvKi7DggE6lTAsq1", "Vova", "vovaspilka1@gmail.com");
         List<GroupMembership> memberships = new ArrayList<>();
         Group group1 = new Group();
-        GroupMembership mem1 = new GroupMembership(user1, group1, false, false);
-        memberships.add(mem1);
+        group1.setId(1);
+        GroupMembership myMembership = new GroupMembership(me, group1,true,true);
+        memberships.add(myMembership);
+        for(int i = 0; i < 10; i++){
+            GroupMembership mem1 = new GroupMembership(user1, group1, false, false);
+            memberships.add(mem1);
+        }
+
         GroupMembership mem2 = new GroupMembership(user2, group1, false, false);
         memberships.add(mem2);
         GroupMembership mem3 = new GroupMembership(user3, group1, false, false);
@@ -520,23 +528,38 @@ public class GroupRepository extends Repository<List<Group>> {
         group1.setDescription("DeScRiPtIoN");
         group1.setMembershipList(memberships);
         Go go1 = new Go();
+        go1.setId(1);
         List<UserGoStatus> goStatusList = new ArrayList<>();
-        UserGoStatus userGoStatus1 = new UserGoStatus(user1, go1, Status.GOING);
-        goStatusList.add(userGoStatus1);
+        goStatusList.add(new UserGoStatus(user1, go1, Status.GOING));
+        goStatusList.add(new UserGoStatus(user2, go1, Status.NOT_GOING));
+        goStatusList.add(new UserGoStatus(me, go1, Status.GONE));
         go1.setParticipantsList(goStatusList);
         go1.setName("GO1");
+        go1.setOwner(me.getUid());
+
         go1.setDescription("GO DESCRIPTION");
         go1.setStart(new SimpleDateFormat().format(new Date()));
         go1.setEnd(new SimpleDateFormat().format(new Date()));
+        List<Cluster> clusters = new ArrayList<>();
+        clusters.add(new Cluster(49.012307, 8.402427,3));
+        clusters.add(new Cluster(49.012334, 8.405621,4));
+        clusters.add(new Cluster(49.011271, 8.404376,5));
+        go1.setLocations(clusters);
         ArrayList<Go> gos = new ArrayList<>();
         gos.add(go1);
         group1.setCurrentGos(gos);
         group1.setId(1);
         Group group2 = new Group();
+        List<GroupMembership> memberships2 = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            GroupMembership mem1 = new GroupMembership(user1, group2, true, true);
+            memberships2.add(mem1);
+        }
         group2.setId(2);
         group2.setName("Group 2");
         group2.setDescription("Description");
         group2.setCurrentGos(new ArrayList<Go>());
+        group2.setMembershipList(memberships2);
         list.add(group1);
         list.add(group2);
         data.setValue(list);

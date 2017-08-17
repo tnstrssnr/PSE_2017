@@ -140,6 +140,15 @@ public class Group {
         return false;
     }
 
+    public boolean isAdmin(String userId){
+        for(GroupMembership membership : membershipList){
+            if(membership.getUser().getUid().equals(userId)){
+                return membership.isAdmin();
+            }
+        }
+        return false;
+    }
+
     public int getMemberCount() {
         return memberCount;
     }
