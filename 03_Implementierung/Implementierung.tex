@@ -124,19 +124,27 @@ Um die Korrektheit der Methode zu überprüfen, wird getestet, ob der Methodenau
 
 Das Argument \textit{data} ist ein Json-String, der wie im Entwurfsdokunment beschrieben aufgebaut ist. Das Argument \textit{arg} ist ein Element des Enums \textit{EventArg} und repräsentiert, die aufgetretene Änderung. Das Set \textit{receiver} enthält alle user, an die eine Benachrichtigung geschickt werden soll.
 
-Für die Tests der Klasse 'ObserverTest' werden Mock-Objekte der Dao-Klassen verwerndet. Diese sind mit dem Framework 'Mockito' erstellt und so konfiguriert, das bei Aufruf der Methode \textit{get({Long | String} key)} (Methode des AbstractDao Interfaces) ein zuvor definiertes TestObjekt zurückgegeben wird. Die verwendeten Testobjekte stammen aus der Klasse 'TestData', die für die Bereitstellung von Testobjekten zuständig ist (siehe \ref{Testdaten}).
+Für die Tests der Klasse 'ObserverTest' werden Mock-Objekte der Dao-Klassen verwendet. Diese sind mit dem Framework 'Mockito' erstellt und so konfiguriert, das bei Aufruf der Methode \textit{get({Long | String} key)} (Methode des AbstractDao Interfaces) ein zuvor definiertes TestObjekt zurückgegeben wird. Die verwendeten Testobjekte stammen aus der Klasse 'TestData', die für die Bereitstellung von Testobjekten zuständig ist (siehe \ref{Testdaten}).
 
 Das FcmClient-Attribut der Observer-Klassen wird in den test ebenfalls gemockt und so konfiguriert, das bei einem Methodenaufruf von \textit{send(...)} die übergebenen Argumente in Feldern der ObserverTest-Klasse gespeichert werden, so dass diese anschließend mit den erwarteten Werten verglichen werden können.
 
 Die Ergebnisse, die bei Testausführung erwartet werden, sind als statische Felder in der Testklasse gespeichert. Dazu gehören die erwarteten Json-Strings und die Receiver der send()-Methode.
 Die erwarteten Ergebniss wurden, teils händisch, anhand des Entwurfsdokuments aus den in TestData definierten Testdaten generiert. Sie sind nur gültig, solange keine Änderungen an diesen Daten vorgenommen werden.
 
-\subsubsection{Test für RestController-Klassen}
+\subsubsection{Tests für RestController-Klassen}
 Die Tests der Klassen User-, Group- und GoRestController sind jeweils darauf zu überprüfen, ob die Calls an die Rest-Ressourcen richtig interpretiert und ausgeführt werden. Dazu gehört das korrekte Auslesen von Methodenparametern aus der URI der Rest-Ressource und JSON Strings aus dem Request-Body.
 
 Die Rest API wird bei dem Tests mithilfe des Spring Boot Starter Test-Frameworks simuliert. Dadurch kann sowohl das Mapping von Rest-Ressourcen, als auch die Methodenaufrufe in den Controller-Klassen getestet werden.
 
 Um die Korrektheit der Methodenaufrufe zu überprüfen, wird in jeder Testmethode der Methodenaufruf an die jeweilige Service-Klasse überprüft, die übergebenen Parameter, sowie die HTTP-Response, die zurückgegeben wird. Die dabei verwendeten Testdaten, die aus der TestData-Klasse stammen, wurden mithilfe eines Rest-Clients auf Korrektheit überprüft.
+
+\subsubsection{Tests für Service-Klassen}
+Für die Klassen User-, Go- und GroupService wurde je eine Testklasse erstellt, in denen sämtliche Methoden getestet werden. Da die meisten dieser Methoden \textit{void}-Methoden sind, kommt es vor allem darauf an, zu testen, ob der richtige Methodenaufrauf auf dem heweiligen Dao-Objekt erfolgt und ob jeweils er passende Observer benachrichtigt wird.
+
+Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten der \textit{TestData}-Klasse verwendet.
+
+\subsubsection{Tests für Entity-Klassen}
+Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Die einzigen Methoden, die aus den Entity-Klassen getestet werden, sind jeweils die Methoden \textit{equals()} und \textit{hashCode()}. Ob der \textit{equals()}/\textit{hashCode()} Contract eingehalten wird, wird mittels des EqualsVerifier getestet.
 
 \end{document}
 \grid

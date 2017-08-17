@@ -134,8 +134,8 @@
       <file leaf-file-name="EntityTests.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/PersistenceLayer/daos/EntityTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+            <state relative-caret-position="305">
+              <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -742,7 +742,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EntityTests.equalsContractGoTest">
+  <component name="RunManager" selected="JUnit.EntityTests.equalsContractUserTest">
     <configuration default="false" name="GoServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1467,9 +1467,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.EntityTests.equalsContractGoTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.EntityTests.equalsContractGroupTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.EntityTests.equalsContractUserTest" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.EntityTests.equalsContractUserTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.EntityTests.equalsContractGoTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.EntityTests.equalsContractGroupTest" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.UserServiceTest.getUserbyMailTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.GoServiceTest" />
       </list>
@@ -1547,9 +1547,6 @@
     <history-entry file="EntityTests_equalsContractGroupTest - 2017.08.17 at 19h 15m 24s.xml">
       <configuration name="EntityTests.equalsContractGroupTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntityTests_equalsContractUserTest - 2017.08.17 at 19h 08m 47s.xml">
-      <configuration name="EntityTests.equalsContractUserTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="EntityTests_equalsContractUserTest - 2017.08.17 at 19h 11m 20s.xml">
       <configuration name="EntityTests.equalsContractUserTest" configurationId="JUnit" />
     </history-entry>
@@ -1562,9 +1559,12 @@
     <history-entry file="EntityTests_equalsContractUserTest - 2017.08.17 at 19h 14m 32s.xml">
       <configuration name="EntityTests.equalsContractUserTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="EntityTests_equalsContractUserTest - 2017.08.17 at 19h 18m 47s.xml">
+      <configuration name="EntityTests.equalsContractUserTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180330000" />
+    <option name="totallyTimeSpent" value="180614000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -1589,7 +1589,7 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36122882" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36122882" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.57604164" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2003,14 +2003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-584">
@@ -2088,10 +2080,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/PersistenceLayer/daos/EntityTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+        <state relative-caret-position="305">
+          <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

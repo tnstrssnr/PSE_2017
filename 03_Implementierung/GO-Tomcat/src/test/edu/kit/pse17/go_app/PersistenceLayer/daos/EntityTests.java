@@ -39,6 +39,5 @@ public class EntityTests {
                 .withIgnoredFields("group", "owner", "goneUsers", "goingUsers", "notGoingUsers")
                 .verify();
     }
-
-
+    
 }
