@@ -142,16 +142,15 @@ public class UserEntity {
         if (getInstanceId() != null ? !getInstanceId().equals(that.getInstanceId()) : that.getInstanceId() != null)
             return false;
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
-        if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) return false;
-        if (getGroups() != null ? !getGroups().equals(that.getGroups()) : that.getGroups() != null) return false;
-        if (getRequests() != null ? !getRequests().equals(that.getRequests()) : that.getRequests() != null)
-            return false;
-        return getGos() != null ? getGos().equals(that.getGos()) : that.getGos() == null;
+        return getEmail() != null ? getEmail().equals(that.getEmail()) : that.getEmail() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getUid() != null ? getUid().hashCode() : 0;
+        result = 31 * result + (getInstanceId() != null ? getInstanceId().hashCode() : 0);
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
         return result;
     }
 }

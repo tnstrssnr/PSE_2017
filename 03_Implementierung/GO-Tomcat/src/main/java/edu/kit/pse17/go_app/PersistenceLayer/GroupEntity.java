@@ -183,26 +183,22 @@ public class GroupEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GroupEntity)) return false;
 
-        final GroupEntity that = (GroupEntity) o;
+        GroupEntity that = (GroupEntity) o;
 
         if (getID() != that.getID()) return false;
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
-        if (getDescription() != null ? !getDescription().equals(that.getDescription()) : that.getDescription() != null)
-            return false;
-        if (getMembers() != null ? !getMembers().equals(that.getMembers()) : that.getMembers() != null) return false;
-        if (getAdmins() != null ? !getAdmins().equals(that.getAdmins()) : that.getAdmins() != null) return false;
-        if (getRequests() != null ? !getRequests().equals(that.getRequests()) : that.getRequests() != null)
-            return false;
-        return getGos() != null ? getGos().equals(that.getGos()) : that.getGos() == null;
+        return getDescription() != null ? getDescription().equals(that.getDescription()) : that.getDescription() == null;
     }
 
     @Override
     public int hashCode() {
-        final int result = (int) (getID() ^ (getID() >>> 32));
+        int result = (int) (getID() ^ (getID() >>> 32));
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         return result;
     }
 }

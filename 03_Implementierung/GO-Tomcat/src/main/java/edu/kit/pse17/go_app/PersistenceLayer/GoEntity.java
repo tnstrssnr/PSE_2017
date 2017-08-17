@@ -272,20 +272,13 @@ public class GoEntity {
         GoEntity goEntity = (GoEntity) o;
 
         if (getID() != goEntity.getID()) return false;
-        if (getLat() != goEntity.getLat()) return false;
-        if (getLon() != goEntity.getLon()) return false;
-        if (getGroup() != null ? !getGroup().equals(goEntity.getGroup()) : goEntity.getGroup() != null) return false;
-        if (getOwner() != null ? !getOwner().equals(goEntity.getOwner()) : goEntity.getOwner() != null) return false;
+        if (Double.compare(goEntity.getLat(), getLat()) != 0) return false;
+        if (Double.compare(goEntity.getLon(), getLon()) != 0) return false;
         if (getName() != null ? !getName().equals(goEntity.getName()) : goEntity.getName() != null) return false;
         if (getDescription() != null ? !getDescription().equals(goEntity.getDescription()) : goEntity.getDescription() != null)
             return false;
         if (getStart() != null ? !getStart().equals(goEntity.getStart()) : goEntity.getStart() != null) return false;
-        if (getEnd() != null ? !getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() != null) return false;
-        if (getGoingUsers() != null ? !getGoingUsers().equals(goEntity.getGoingUsers()) : goEntity.getGoingUsers() != null)
-            return false;
-        if (getNotGoingUsers() != null ? !getNotGoingUsers().equals(goEntity.getNotGoingUsers()) : goEntity.getNotGoingUsers() != null)
-            return false;
-        return getGoneUsers() != null ? getGoneUsers().equals(goEntity.getGoneUsers()) : goEntity.getGoneUsers() == null;
+        return getEnd() != null ? getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() == null;
     }
 
     @Override
@@ -293,8 +286,6 @@ public class GoEntity {
         int result;
         long temp;
         result = (int) (getID() ^ (getID() >>> 32));
-        result = 31 * result + (getGroup() != null ? getGroup().hashCode() : 0);
-        result = 31 * result + (getOwner() != null ? getOwner().hashCode() : 0);
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
@@ -303,9 +294,6 @@ public class GoEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(getLon());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        //result = 31 * result + (getGoingUsers() != null ? getGoingUsers().hashCode() : 0);
-        //result = 31 * result + (getNotGoingUsers() != null ? getNotGoingUsers().hashCode() : 0);
-        //result = 31 * result + (getGoneUsers() != null ? getGoneUsers().hashCode() : 0);
         return result;
     }
 }
