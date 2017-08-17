@@ -45,6 +45,12 @@ public class GoRestController {
     @Autowired
     private GoService goService;
 
+    public GoRestController(GoService goService) {
+        this.goService = goService;
+    }
+
+    public GoRestController() {
+    }
 
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
@@ -139,22 +145,20 @@ public class GoRestController {
      * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL
      * {Base_URL}/gos/location/{goId}.
      *
-     * @param userId Die ID des Benutzers, der seinen Standort teilen will. Dabei muss es sich um eine gültige, im
-     *               System registrierte BenutzerID handeln.
-     * @param lat    Der geographische Breitengrad des Standorts des Benutzers. Der Wert muss als Breitengrad
-     *               interpretierbar sein, muss also zwischen +90 und -90 liegen.
-     * @param lon    Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad
-     *               interpretierbar sein, muss also zwischen +180 und -180 liegen.
-     * @param goId   Die ID des GOs, zu dessen Location-Daten der Standort des Benutzers gehört. Dabei muss es sich um
-     *               eine gültige GO ID handeln, die sich zu einem Long casten lässt. Der Wert dieses Arguments ist Teil
-     *               der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
-     *               bereitgestellt.
+     * @param goId Die ID des GOs, zu dessen Location-Daten der Standort des Benutzers gehört. Dabei muss es sich um
+     *             eine gültige GO ID handeln, die sich zu einem Long casten lässt. Der Wert dieses Arguments ist Teil
+     *             der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
+     *             bereitgestellt.
      */
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/location/{goId}"
     )
-    public ResponseEntity setLocation(String userId, double lat, double lon, @PathVariable("goId") Long goId) {
+    public ResponseEntity setLocation(@RequestBody String locationContext, @PathVariable("goId") Long goId) {
+        String[] locationContextArr = locationContext.substring(1, locationContext.length() - 1).split(" ");
+        String userId = locationContextArr[0];
+        double lat = Double.valueOf(locationContextArr[1]);
+        double lon = Double.valueOf(locationContextArr[2]);
         LocationService.setUserLocation(goId, userId, lat, lon);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

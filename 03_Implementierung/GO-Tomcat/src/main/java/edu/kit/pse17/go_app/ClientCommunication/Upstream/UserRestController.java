@@ -40,6 +40,10 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
+
     /**
      * Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID {userId}
      * Mitglied ist, bzw. zu denen er eine Anfrage bekommen hat. Sie wird genau dann von einem Client aufgerufen, wenn
@@ -62,6 +66,7 @@ public class UserRestController {
      * wird in dem JSON-Objekt ein leerer data-Block übertragen. Die Länge der Liste ist auf 300 Gruppen beschränkt
      * (dies ist die Gesamtanzahl an Gruppen, die von dem System unterstützt werden)
      */
+
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -157,6 +162,9 @@ public class UserRestController {
             value = "/search/{mail}"
     )
     public ResponseEntity<UserEntity> getUserbyMail(@PathVariable("mail") String mail) {
+
+        //Gmail adresses typically end w/ .com -- TLD is ignored in URI, has to be re-added to email address string
+        mail = mail + ".com";
         UserEntity user = userService.getUserbyMail(mail);
 
         if (user != null) {

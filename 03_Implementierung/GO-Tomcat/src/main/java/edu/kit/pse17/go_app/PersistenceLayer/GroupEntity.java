@@ -114,6 +114,15 @@ public class GroupEntity {
     @JoinColumn(name = "group_id")
     private Set<GoEntity> gos;
 
+    public GroupEntity(String name, String description, Set<UserEntity> members, Set<UserEntity> admins, Set<UserEntity> requests, Set<GoEntity> gos) {
+        this.name = name;
+        this.description = description;
+        this.members = members;
+        this.admins = admins;
+        this.requests = requests;
+        this.gos = gos;
+    }
+
     public GroupEntity() {
     }
 

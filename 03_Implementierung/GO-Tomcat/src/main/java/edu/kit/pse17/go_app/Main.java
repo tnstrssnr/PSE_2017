@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app;
 
 import com.google.gson.Gson;
-import edu.kit.pse17.go_app.ClientCommunication.Upstream.TestData;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import org.hibernate.SessionFactory;
@@ -40,12 +39,6 @@ public class Main {
         final Gson gson = new Gson();
         String newStatus = "testid_1 BESTÄTIGT";
         System.out.println(gson.toJson(newStatus));
-        System.out.println(gson.toJson(TestData.getTestUserBob()));
-        System.out.println(gson.toJson(TestData.getTestUserAlice()));
-        System.out.println(gson.toJson(TestData.getTestGroupBar()));
-        System.out.println(gson.toJson(TestData.getTestGroupFoo()));
-        System.out.println(gson.toJson(TestData.getTestGoDinner()));
-        System.out.println(gson.toJson(TestData.getTestGoLunch()));
         SpringApplication.run(Main.class, args);
 
     }

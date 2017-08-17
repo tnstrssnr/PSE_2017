@@ -43,6 +43,12 @@ public class GroupRestController {
     @Autowired
     private GroupService groupService;
 
+    public GroupRestController(GroupService groupService) {
+        this.groupService = groupService;
+    }
+
+    public GroupRestController() {
+    }
 
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die

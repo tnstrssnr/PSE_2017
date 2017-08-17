@@ -30,6 +30,8 @@ public class TestData {
             bob.setEmail("bob@testmail.com");
             bob.setUid("testid_1");
             bob.setGos(new HashSet<>());
+            bob.setRequests(new HashSet<>());
+            bob.setGroups(new HashSet<>());
 
             alice = new UserEntity();
             alice.setName("Alice");
