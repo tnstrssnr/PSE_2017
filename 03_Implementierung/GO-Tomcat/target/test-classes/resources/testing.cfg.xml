@@ -13,7 +13,11 @@
         </property>
 
         <property name="connection.url">
+<<<<<<< Updated upstream
             jdbc:mysql://localhost/pse_testing?useSSL=false
+=======
+            jdbc:mysql://localhost/pse_testing
+>>>>>>> Stashed changes
         </property>
         <property name="connection.username">
             root

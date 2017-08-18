@@ -59,7 +59,7 @@ public class GoClusterStrategy implements ClusterStrategy {
     @Override
     public Dataset[] calculateCluster(final List<UserLocation> userLocationList) {
 
-        final Clusterer clusterer = new OPTICS();
+        /*final Clusterer clusterer = new OPTICS();
         final DefaultDataset initialDataset = new DefaultDataset();
         final Iterator<UserLocation> iterator = userLocationList.iterator();
         int size = userLocationList.size();
@@ -70,7 +70,9 @@ public class GoClusterStrategy implements ClusterStrategy {
             initialDataset.add(dataInstance);
             size -= size;
         }
-        return clusterer.cluster(initialDataset);
+        return clusterer.cluster(initialDataset);*/
+        return null;
     }
+
 
 }

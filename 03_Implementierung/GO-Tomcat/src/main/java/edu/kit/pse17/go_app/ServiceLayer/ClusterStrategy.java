@@ -30,4 +30,5 @@ public interface ClusterStrategy {
      */
     Dataset[] calculateCluster(List<UserLocation> userLocationList);
 
+
 }
