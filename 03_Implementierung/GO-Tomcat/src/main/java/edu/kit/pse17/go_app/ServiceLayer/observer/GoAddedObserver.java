@@ -4,12 +4,9 @@ import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GoAddedObserver implements Observer {
 
@@ -42,10 +39,6 @@ public class GoAddedObserver implements Observer {
     public void update(List<String> entity_ids) {
         GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
 
-        Set<UserEntity> receiver = new HashSet<>();
-        receiver.addAll(goEntity.getGroup().getMembers());
-        receiver.addAll(goEntity.getGroup().getRequests());
-
         goEntity.setGoingUsers(null);
         goEntity.setGoneUsers(null);
         goEntity.setNotGoingUsers(null);
@@ -54,8 +47,9 @@ public class GoAddedObserver implements Observer {
         Gson gson = new Gson();
         String data = gson.toJson(goEntity);
 
-        messenger.send(data, EventArg.GO_ADDED_EVENT, receiver);
+        System.out.println(data);
 
-
+        messenger.send(data, EventArg.GO_ADDED_EVENT, goService.getGoById(Long.valueOf(entity_ids.get(0))).getGroup().getMembers());
+        messenger.send(data, EventArg.GO_ADDED_EVENT, goService.getGoById(Long.valueOf(entity_ids.get(0))).getGroup().getRequests());
     }
 }

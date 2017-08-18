@@ -37,7 +37,6 @@ public class GoService implements IObservable {
         this.goDao = godao;
     }
 
-
     public static void editGoForJson(GoEntity go, boolean keepGroupInfo) {
 
         if (keepGroupInfo) {

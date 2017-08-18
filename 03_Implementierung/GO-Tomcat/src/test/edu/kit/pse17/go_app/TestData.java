@@ -80,8 +80,7 @@ public class TestData {
 
             foo.getGos().add(lunch);
             foo.getGos().add(dinner);
-
-            isInitialized = true;
+            
         }
 
     }

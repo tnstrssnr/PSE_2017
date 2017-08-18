@@ -25,6 +25,8 @@ public class Cluster {
      */
     private double lon;
 
+    private double radius;
+
     /**
      * Ein Konstruktor, der sämtliche Attribute der Klasse entgegen nimmt.
      *
@@ -34,10 +36,11 @@ public class Cluster {
      * @param lon  Der geographische Längengrad des Standorts des Clusters. Der Wert muss als Längengrad interpretierbar
      *             sein, muss also zwischen +180 und -180 liegen.
      */
-    public Cluster(int size, double lat, double lon) {
+    public Cluster(int size, double lat, double lon, double radius) {
         this.size = size;
         this.lat = lat;
         this.lon = lon;
+        this.radius = radius;
     }
 
     public int getSize() {
@@ -63,4 +66,8 @@ public class Cluster {
     public void setLon(double lon) {
         this.lon = lon;
     }
+
+    public double getRadius() { return radius; }
+
+    public void setRadius(int radius) { this.radius = radius; }
 }

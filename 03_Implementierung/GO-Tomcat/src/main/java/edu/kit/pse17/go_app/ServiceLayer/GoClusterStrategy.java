@@ -1,14 +1,10 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-import net.sf.javaml.clustering.Clusterer;
-import net.sf.javaml.clustering.OPTICS;
-import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.core.SparseInstance;
-
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+
+import static java.lang.Math.sqrt;
 
 /**
  * In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus implementiert.
@@ -57,8 +53,35 @@ public class GoClusterStrategy implements ClusterStrategy {
 
 
     @Override
-    public Dataset[] calculateCluster(final List<UserLocation> userLocationList) {
+    public List<Cluster> calculateCluster(final List<UserLocation> userLocationList) {
 
+        final DBScan algorithm = new DBScan(userLocationList);
+        Vector<List> Clusterlist = algorithm.applyDbscan(threshold, 3, userLocationList);
+        List<Cluster> resultList = new ArrayList<Cluster>();
+        for (int i = 0; i < Clusterlist.size(); i++) {
+            int participants = 0;
+            double lat = 0;
+            double lon = 0;
+            double maxDistance= 0;
+
+            for (int j = 0; j < Clusterlist.get(i).size(); j++) {
+                UserLocation currentLocation = (UserLocation) Clusterlist.get(i).get(j);
+                lat = lat + currentLocation.getLat();
+                lon = lon + currentLocation.getLon();
+                participants++;
+            }
+            lat = lat / participants;
+            lon = lon / participants;
+            for (int j = 0; j < Clusterlist.get(i).size(); j++) {
+                UserLocation currentLocation = (UserLocation) Clusterlist.get(i).get(j);
+                double comparisonValue = Math.sqrt (lat * currentLocation.getLat() + lon * currentLocation.getLon());
+                if (comparisonValue > maxDistance) {maxDistance = comparisonValue;}
+            }
+
+            Cluster newCluster = new Cluster(participants, lat, lon, maxDistance);
+            resultList.add(newCluster);
+        }
+        return resultList;
         /*final Clusterer clusterer = new OPTICS();
         final DefaultDataset initialDataset = new DefaultDataset();
         final Iterator<UserLocation> iterator = userLocationList.iterator();
@@ -71,7 +94,6 @@ public class GoClusterStrategy implements ClusterStrategy {
             size -= size;
         }
         return clusterer.cluster(initialDataset);*/
-        return null;
     }
 
 

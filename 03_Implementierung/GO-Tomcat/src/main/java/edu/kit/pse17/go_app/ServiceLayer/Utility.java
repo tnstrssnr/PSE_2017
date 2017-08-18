@@ -2,6 +2,7 @@ package edu.kit.pse17.go_app.ServiceLayer;
 
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 public class Utility{
@@ -75,16 +76,16 @@ public class Utility{
 
 //  Returns PointsList to DBscan.java
 
-    public static Vector<UserLocation> getList() {
+    public static Vector<UserLocation> getList(List<UserLocation> userLocationList) {
 
         Vector<UserLocation> newList =new Vector<UserLocation>();
         newList.clear();
-        //newList.addAll(Gui.hset);
+        newList.addAll(userLocationList);
         return newList;
     }
 
     public static Boolean equalPoints(UserLocation m , UserLocation n) {
-        if((m.getLat()==n.getLat())&&(m.getLon()==n.getLon()))
+        if((m.getLat()==n.getLat())&&(m.getLat()==n.getLon()))
             return true;
         else
             return false;

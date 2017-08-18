@@ -1,3 +1,4 @@
+/home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserver.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDao.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDao.java
@@ -13,6 +14,7 @@
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestController.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/LocationService.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/ClusterStrategy.java
+/home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImp.java
@@ -28,7 +30,7 @@
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserver.java
-/home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/TestData.java
+/home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDao.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoClusterStrategy.java

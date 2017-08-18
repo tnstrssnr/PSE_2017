@@ -8,20 +8,22 @@ public class DBScan
 
     public static Vector<List> resultList = new Vector<List>();
 
-    public static Vector<UserLocation> pointList = Utility.getList();
+    public static Vector<UserLocation> pointList;
 
     public static Vector<UserLocation> Neighbours ;
 
+    public DBScan(List<UserLocation> userLocationList) {
+        this.pointList = Utility.getList(userLocationList);
+    }
 
 
 
-
-    public static Vector<List> applyDbscan(int tdistance, int minpt)
+    public Vector<List> applyDbscan(int tdistance, int minpt, List<UserLocation> userLocationList)
     {
         resultList.clear();
         pointList.clear();
         Utility.VisitList.clear();
-        pointList=Utility.getList();
+        pointList=Utility.getList(userLocationList);
 
         int index2 =0;
 

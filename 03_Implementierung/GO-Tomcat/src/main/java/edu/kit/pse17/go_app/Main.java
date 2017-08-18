@@ -1,8 +1,11 @@
 package edu.kit.pse17.go_app;
 
 import com.google.gson.Gson;
+import edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
+import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +13,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 
@@ -23,7 +28,9 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {JacksonAutoConfiguration.class})
-public class Main {
+public class Main extends SpringBootServletInitializer {
+
+    private static SessionFactory sf;
 
     /**
      * Die Main-Methode, wo die Ausführung des Programms gestartet wird.
@@ -36,17 +43,21 @@ public class Main {
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
      */
     public static void main(final String[] args) {
-        final Gson gson = new Gson();
-        String newStatus = "testid_1 BESTÄTIGT";
-        System.out.println(gson.toJson(newStatus));
         SpringApplication.run(Main.class, args);
+    }
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Main.class);
     }
 
     @Bean
     public SessionFactory sessionFactory() {
-        final Configuration config = new Configuration();
-        return config.configure().buildSessionFactory();
+        if (sf == null) {
+            final Configuration config = new Configuration();
+            sf = config.configure().buildSessionFactory();
+        }
+        return sf;
     }
 
     @Bean
@@ -60,5 +71,15 @@ public class Main {
         final GsonHttpMessageConverter converter = new GsonHttpMessageConverter();
         converter.setGson(gson);
         return converter;
+    }
+
+    @Bean
+    public GoRestController goRestController() {
+        return new GoRestController(goService());
+    }
+
+    @Bean
+    public GoService goService() {
+        return new GoService(new GoDaoImp(sessionFactory()));
     }
 }

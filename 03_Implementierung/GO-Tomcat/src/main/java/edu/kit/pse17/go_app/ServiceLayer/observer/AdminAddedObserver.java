@@ -48,6 +48,7 @@ public class AdminAddedObserver implements Observer {
         receiver.addAll(changedGroup.getMembers());
         receiver.addAll(changedGroup.getRequests());
 
-        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, receiver);
+        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getMembers());
+        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getRequests());
     }
 }
