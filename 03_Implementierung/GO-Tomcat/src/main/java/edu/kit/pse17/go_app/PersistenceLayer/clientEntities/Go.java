@@ -148,12 +148,12 @@ public class Go {
     }
 
     public void makeJsonable(boolean keepGroupInfo) {
-        if(keepGroupInfo) {
+        if (keepGroupInfo) {
             this.group.makeJsonable();
         } else {
             this.group = null;
         }
-        for(UserGoStatus userGoStatus: participantsList) {
+        for (UserGoStatus userGoStatus : participantsList) {
             userGoStatus.makeJsonable();
         }
     }

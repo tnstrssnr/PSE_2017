@@ -36,10 +36,10 @@ public class Group {
     }
 
     public void makeJsonable() {
-        for(GroupMembership membership: membershipList) {
+        for (GroupMembership membership : membershipList) {
             membership.makeJsonable();
         }
-        for(Go go: currentGos) {
+        for (Go go : currentGos) {
             go.makeJsonable(false);
         }
     }

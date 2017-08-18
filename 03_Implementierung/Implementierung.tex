@@ -101,7 +101,12 @@
 	\item \textbf{Hinzufügen von Service-Klassen in der Service-Layer des Servers}\\
 	Der Business-Layer des Servers wurden die Klassen \textit{userService, GroupService} und \textit{GoService} hinzugefügt. Diese dienen hauptsächlich der klareren Strukturierung zwischen den Aufgaben der restController und der Dao-Klassen. Anstatt direkt auf die Persistence-Layer zuzugreifen, interagieren die RestController-Klassen nur noch mit dem für sie zuständigen Service. In den Service-Klassen wird das Anpassen von Daten für die Umwandlung zu JSON oder zur Persistierung übernommen, sowie die benachrichtigung der Observer, die vorher in den DAO-Klassen stattgefunden hat.
 	
-Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch die DAO-Klassen nur noch einen Verantwortlichkeitsbereich, um den sie sich kümmern müssen. Jeglicher Code der nur zur Umwandlung und Verwaltung der Daten dient, kann an die Service-Klassen ausgelagert werden.	
+Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch die DAO-Klassen nur noch einen Verantwortlichkeitsbereich, um den sie sich kümmern müssen. Jeglicher Code der nur zur Umwandlung und Verwaltung der Daten dient, kann an die Service-Klassen ausgelagert werden.
+
+	\item \textbf{Zusätzliche Client-Entity Klassen}\\
+	Da sich die Anforderungen an die Datenmodellierung auf dem Server und auf dem Client satark unterscheiden, wurden jeweils unterschiedliche Entity-Klassen zur Modellierung der NEtitäten verwendet. Um die Anwendungen trotzdem miteinander kompatibel zu machen, verfügt der Server zusätzlich über ClientEntity-Klassen, die die Datenmodellierung auf den Clients entsprechen.
+	
+	Die Verwendung dieser Klassen erlaubt das einfache Parsen von Json-Objekten, die über die Client-Server Schnittstellen übertragen wurden. Die Umwandlung von ClientEntities zu ServerEntities übernehmen die entsprechenden Service-Klassen. Im Quellcode lassen sich Instanzen der ClientEntity-Klassen an dem Buchstaben c im Variablennamen erkennen (z.B. \textit{cGroup}).
 	
 \end{enumerate}
 
