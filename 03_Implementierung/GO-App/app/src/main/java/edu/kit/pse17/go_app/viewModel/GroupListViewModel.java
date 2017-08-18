@@ -73,6 +73,10 @@ public class GroupListViewModel extends ViewModel {
                 Log.d("GO ADDED GroupListVM", "I got called so observer should function");
                 if (data != null) //this line here removes a crash every second time after pushing back-button
                     data.setValue(groups);
+                //this here might be inefficient, but it should be ok for now
+                //it gets called on everychange, so not a good solution, but we need id :(
+                activeGos = new ArrayList<>();
+                findActiveGos();
 
 
             }

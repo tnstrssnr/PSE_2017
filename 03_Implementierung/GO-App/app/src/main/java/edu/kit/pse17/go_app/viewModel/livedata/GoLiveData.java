@@ -5,7 +5,7 @@ import android.arch.lifecycle.LiveData;
 import edu.kit.pse17.go_app.model.entities.Go;
 
 /**
- * Created by Vovas on 24.07.2017.
+ * Needed to override the setValue and make it public
  */
 
 public class GoLiveData extends LiveData<Go> {

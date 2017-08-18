@@ -5,7 +5,7 @@ import android.arch.lifecycle.LiveData;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by Vovas on 16.08.2017.
+ * Needed to override the setValue and make it public
  */
 
 public class LocationLiveData extends LiveData<LatLng> {
