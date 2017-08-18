@@ -1,13 +1,17 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.TestData;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.*;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 @Ignore
 public class UserServiceTest {
@@ -15,6 +19,8 @@ public class UserServiceTest {
     private UserEntity testUser;
     private UserService testService;
     private UserDaoImp mockUserDao;
+    private List<Group> testList;
+    private User testcUser;
 
     @Before
     public void setUp() throws Exception {
@@ -24,6 +30,10 @@ public class UserServiceTest {
         testUser.setGos(new HashSet<>());
         testUser.setGroups(new HashSet<>());
         testUser.setRequests(new HashSet<>());
+        testList = new ArrayList<>();
+        testList.add(TestData.getTestcFoo());
+        testList.add(TestData.getTestcBar());
+        testcUser = TestData.getTestcBob();
     }
 
     @After
@@ -31,6 +41,8 @@ public class UserServiceTest {
         testService = null;
         testUser = null;
         mockUserDao = null;
+        testList = null;
+        testcUser = null;
     }
 
     @Test
@@ -47,8 +59,8 @@ public class UserServiceTest {
         UserEntity alteredTestUser = addAssociationsToUser(testUser);
 
         Mockito.when(mockUserDao.get(Mockito.anyString())).thenReturn(alteredTestUser);
-        UserEntity result = testService.getData(alteredTestUser.getUid());
-        Assert.assertEquals(testUser, result);
+        List<Group> result = testService.getData(alteredTestUser.getUid(), alteredTestUser.getEmail());
+        Assert.assertEquals(testList, result);
 
     }
 
@@ -93,9 +105,9 @@ public class UserServiceTest {
         final String testMail = "test@mail.com";
         UserEntity alteredTestUser = addAssociationsToUser(testUser);
         Mockito.when(mockUserDao.getUserByEmail(Mockito.anyString())).thenReturn(alteredTestUser);
-        UserEntity result = testService.getUserbyMail(testMail);
+        User result = testService.getUserbyMail(testMail);
         Mockito.verify(mockUserDao, Mockito.times(1)).getUserByEmail(testMail);
-        Assert.assertEquals(testUser, result);
+        Assert.assertEquals(testcUser, result);
     }
 
     private UserEntity addAssociationsToUser(UserEntity user) {

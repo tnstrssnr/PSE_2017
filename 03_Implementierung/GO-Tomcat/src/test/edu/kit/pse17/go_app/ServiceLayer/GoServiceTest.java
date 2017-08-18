@@ -4,33 +4,40 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.GoAddedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.GoEditedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.GoRemovedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.StatusChangedObserver;
 import edu.kit.pse17.go_app.TestData;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Ignore
 public class GoServiceTest {
 
-    private static final String testStatusChangedContext = "\"test_id_user BESTÄTIGT\"";
     private static final String TEST_ID_USER = "test_id_user";
-    private static final long TEST_ID_GO = 1l;
+    private static final long TEST_ID_GO = 1;
     private GoService testService;
     private GoDaoImp mockDao;
     private GoEntity testGo;
+    private Go testcGo;
 
     @Before
     public void setUp() throws Exception {
         mockDao = Mockito.mock(GoDaoImp.class);
         testService = new GoService(mockDao);
         testGo = TestData.getTestGoLunch();
+        testcGo = TestData.getTestcLunch();
+
     }
 
     @After
@@ -38,6 +45,7 @@ public class GoServiceTest {
         mockDao = null;
         testService = null;
         testGo = null;
+        testcGo = null;
     }
 
     @Test
@@ -75,7 +83,7 @@ public class GoServiceTest {
         testService.getObserverMap().remove(EventArg.GO_ADDED_EVENT);
         testService.getObserverMap().put(EventArg.GO_ADDED_EVENT, mockObserver);
 
-        testService.createGo(testGo);
+        testService.createGo(testcGo);
         Mockito.verify(mockDao, Mockito.times(1)).persist(testGo);
         Mockito.verify(mockObserver, Mockito.times(1)).update(entity_ids);
     }
@@ -86,14 +94,18 @@ public class GoServiceTest {
         entity_ids.add(TEST_ID_USER);
         entity_ids.add(String.valueOf(TEST_ID_GO));
 
+        Map<String, String> testStatusChangedContext = new HashMap<>();
+        testStatusChangedContext.put("userid", TEST_ID_USER);
+        testStatusChangedContext.put("status", "GOING");
+
         StatusChangedObserver mockObserver = Mockito.mock(StatusChangedObserver.class);
         Mockito.doNothing().when(mockObserver).update(Mockito.anyListOf(String.class));
 
-        testService.getObserverMap().remove(EventArg.STATUS_CHANGED_COMMAND);
-        testService.getObserverMap().put(EventArg.STATUS_CHANGED_COMMAND, mockObserver);
+        testService.getObserverMap().remove(EventArg.STATUS_CHANGED_EVENT);
+        testService.getObserverMap().put(EventArg.STATUS_CHANGED_EVENT, mockObserver);
 
         testService.changeStatus(testStatusChangedContext, TEST_ID_GO);
-        Mockito.verify(mockDao, Mockito.times(1)).changeStatus(TEST_ID_USER, TEST_ID_GO, Status.BESTÄTIGT);
+        Mockito.verify(mockDao, Mockito.times(1)).changeStatus(TEST_ID_USER, TEST_ID_GO, Status.GOING);
         Mockito.verify(mockObserver, Mockito.times(1)).update(entity_ids);
 
     }
@@ -122,10 +134,10 @@ public class GoServiceTest {
         GoEditedObserver mockObserver = Mockito.mock(GoEditedObserver.class);
         Mockito.doNothing().when(mockObserver).update(Mockito.anyListOf(String.class));
 
-        testService.getObserverMap().remove(EventArg.GO_EDITED_COMMAND);
-        testService.getObserverMap().put(EventArg.GO_EDITED_COMMAND, mockObserver);
+        testService.getObserverMap().remove(EventArg.GO_EDITED_EVENT);
+        testService.getObserverMap().put(EventArg.GO_EDITED_EVENT, mockObserver);
 
-        testService.update(testGo);
+        testService.update(testcGo);
         Mockito.verify(mockDao, Mockito.times(1)).update(testGo);
         Mockito.verify(mockObserver, Mockito.times(1)).update(entity_ids);
 

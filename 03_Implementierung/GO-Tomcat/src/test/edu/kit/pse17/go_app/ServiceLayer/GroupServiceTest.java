@@ -4,7 +4,9 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import edu.kit.pse17.go_app.TestData;
 import org.junit.*;
 import org.mockito.Mockito;
@@ -21,12 +23,14 @@ public class GroupServiceTest {
     private GroupService testService;
     private GroupDaoImp mockGroupDao;
     private GroupEntity testGroup;
+    private Group testcGroup;
 
     @Before
     public void setUp() {
         mockGroupDao = Mockito.mock(GroupDaoImp.class);
         testService = new GroupService(mockGroupDao);
         testGroup = TestData.getTestGroupFoo();
+        testcGroup = TestData.getTestcFoo();
     }
 
     @After
@@ -34,6 +38,7 @@ public class GroupServiceTest {
         mockGroupDao = null;
         testService = null;
         testGroup = null;
+        testcGroup = null;
     }
 
     @Test
@@ -58,7 +63,7 @@ public class GroupServiceTest {
     @Test
     public void createGroupTest() throws Exception {
         Mockito.when(mockGroupDao.get(Mockito.anyLong())).thenReturn(testGroup);
-        long result = testService.createGroup(testGroup);
+        long result = testService.createGroup(testcGroup);
         Mockito.verify(mockGroupDao, Mockito.times(1)).persist(testGroup);
         Assert.assertEquals(testGroup.getID(), result);
     }
@@ -71,10 +76,10 @@ public class GroupServiceTest {
         GroupEditedObserver mockObserver = Mockito.mock(GroupEditedObserver.class);
         Mockito.doNothing().when(mockObserver).update(Mockito.anyListOf(String.class));
 
-        testService.getObserverMap().remove(EventArg.GROUP_EDITED_COMMAND);
-        testService.getObserverMap().put(EventArg.GROUP_EDITED_COMMAND, mockObserver);
+        testService.getObserverMap().remove(EventArg.GROUP_EDITED_EVENT);
+        testService.getObserverMap().put(EventArg.GROUP_EDITED_EVENT, mockObserver);
 
-        testService.editGroup(testGroup);
+        testService.editGroup(testcGroup);
         Mockito.verify(mockGroupDao, Mockito.times(1)).update(testGroup);
         Mockito.verify(mockObserver, Mockito.times(1)).update(entity_ids);
     }

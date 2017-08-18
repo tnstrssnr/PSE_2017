@@ -140,7 +140,7 @@ public class ObserverTest {
         entity_ids.add(String.valueOf(testGo.getID()));
 
         goeo.update(entity_ids);
-        checkResults(GOEO_JSON, EventArg.GO_EDITED_COMMAND, allGroupMembers);
+        checkResults(GOEO_JSON, EventArg.GO_EDITED_EVENT, allGroupMembers);
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ObserverTest {
         entity_ids.add(String.valueOf(testGroup.getID()));
 
         geo.update(entity_ids);
-        checkResults(GEO_JSON, EventArg.GROUP_EDITED_COMMAND, allGroupMembers);
+        checkResults(GEO_JSON, EventArg.GROUP_EDITED_EVENT, allGroupMembers);
 
     }
 
@@ -209,7 +209,7 @@ public class ObserverTest {
         entity_ids.add(String.valueOf(testGo.getID()));
 
         sco.update(entity_ids);
-        checkResults(SCO_JSON, EventArg.STATUS_CHANGED_COMMAND, allGroupMembers);
+        checkResults(SCO_JSON, EventArg.STATUS_CHANGED_EVENT, allGroupMembers);
     }
 
 

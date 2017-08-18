@@ -1,6 +1,8 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
 import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import edu.kit.pse17.go_app.TestData;
 import org.junit.*;
@@ -17,6 +19,9 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 
@@ -27,21 +32,25 @@ public class UserRestControllerTest {
 
     private static final String testUserJson = "{\"uid\":\"testid_1\",\"instanceId\":\"testInstance_1\",\"name\":\"Bob\",\"email\":\"bob@testmail.com\",\"groups\":[],\"requests\":[],\"gos\":[]}";
     private static UserEntity testUser;
+    private static User testcUser;
+    private static List<Group> testGroupList;
+
     @MockBean
     private UserService userService;
 
     @Autowired
     private MockMvc mockMvc;
 
-    @BeforeClass
-    public static void setUpTestclass() {
-        testUser = TestData.getTestUserBob();
-    }
-
     @Before
     public void setUp() throws Exception {
         userService = Mockito.mock(UserService.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new UserRestController(userService)).build();
+        testUser = TestData.getTestUserBob();
+        testcUser = TestData.getTestcAlice();
+        testGroupList = new ArrayList<>();
+        testGroupList.add(TestData.getTestcBar());
+        testGroupList.add(TestData.getTestcFoo());
+
     }
 
     @After
@@ -52,7 +61,7 @@ public class UserRestControllerTest {
 
     @Test
     public void getDataTest() throws Exception {
-        Mockito.when(userService.getData(Mockito.anyString())).thenReturn(testUser);
+        Mockito.when(userService.getData(Mockito.anyString(), Mockito.anyString())).thenReturn(testGroupList);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/testid_1").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -113,7 +122,7 @@ public class UserRestControllerTest {
 
     @Test
     public void getUserbyMail() throws Exception {
-        Mockito.when(userService.getUserbyMail(Mockito.anyString())).thenReturn(testUser);
+        Mockito.when(userService.getUserbyMail(Mockito.anyString())).thenReturn(testcUser);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/search/test@mail.com")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);

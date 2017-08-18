@@ -2,6 +2,7 @@ package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
 import com.google.gson.Gson;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.junit.*;
 import org.mockito.Mockito;
@@ -17,6 +18,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+
 import static org.mockito.Matchers.any;
 
 @Ignore
@@ -25,9 +28,10 @@ import static org.mockito.Matchers.any;
 public class GroupRestControllerTest {
 
     private static GroupEntity testGroup;
+    private static Group testcGroup;
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private GroupService groupService;
@@ -37,12 +41,14 @@ public class GroupRestControllerTest {
     @BeforeClass
     public static void setUpTestclass() {
         testGroup = new GroupEntity("Foo", "Test Description", null, null, null, null);
-        System.out.println(new Gson().toJson(testGroup));
+        testGroup.setID(0);
+        testcGroup = new Group(0, "Foo", "Test Description", 0, null, new ArrayList<>(), new ArrayList<>());
     }
 
 
     @Before
     public void setUp() throws Exception {
+        System.out.println(new Gson().toJson(testcGroup));
         groupService = Mockito.mock(GroupService.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new GroupRestController(groupService)).build();
     }
@@ -55,14 +61,14 @@ public class GroupRestControllerTest {
 
     @Test
     public void createGroupTest() throws Exception {
-        Mockito.when(groupService.createGroup(any(GroupEntity.class))).thenReturn(1l);
+        Mockito.when(groupService.createGroup(any(Group.class))).thenReturn(Long.valueOf(1));
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/group/")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(testGroupJson);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-        Mockito.verify(groupService, Mockito.times(1)).createGroup(testGroup);
+        Mockito.verify(groupService, Mockito.times(1)).createGroup(testcGroup);
 
         Assert.assertEquals(Long.valueOf(1), Long.valueOf(result.getResponse().getContentAsString()));
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -76,7 +82,7 @@ public class GroupRestControllerTest {
                 .content(testGroupJson)
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        GroupEntity group = new Gson().fromJson(testGroupJson, GroupEntity.class);
+        Group group = new Gson().fromJson(testGroupJson, Group.class);
         Mockito.verify(groupService, Mockito.times(1)).editGroup(group);
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
 
@@ -114,7 +120,7 @@ public class GroupRestControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/group/requests/1/user_id")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        Mockito.verify(groupService, Mockito.times(1)).addGroupRequest("user_id", 1l);
+        Mockito.verify(groupService, Mockito.times(1)).addGroupRequest("user_id", (long) 1);
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 

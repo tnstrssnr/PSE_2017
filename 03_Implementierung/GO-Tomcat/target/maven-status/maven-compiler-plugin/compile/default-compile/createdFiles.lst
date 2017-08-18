@@ -1,6 +1,8 @@
 edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Group.class
+edu/kit/pse17/go_app/ServiceLayer/Utility.class
 edu/kit/pse17/go_app/PersistenceLayer/clientEntities/UserGoStatus.class
 edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Go.class
 edu/kit/pse17/go_app/PersistenceLayer/clientEntities/User.class
 edu/kit/pse17/go_app/PersistenceLayer/clientEntities/GroupMembership.class
 edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserver.class
+edu/kit/pse17/go_app/ServiceLayer/DBScan.class
