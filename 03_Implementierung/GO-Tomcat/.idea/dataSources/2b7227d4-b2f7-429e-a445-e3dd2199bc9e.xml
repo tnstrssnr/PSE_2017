@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="resources:testing.cfg.xml/Hibernate">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.3">
     <root id="1"/>
     <schema id="2" parent="1" name="pse_testing">
       <Current>1</Current>
