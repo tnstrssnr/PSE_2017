@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
 
 import java.util.List;
@@ -38,14 +40,11 @@ public class GoAddedObserver implements Observer {
     @Override
     public void update(List<String> entity_ids) {
         GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
+        Go go = GoService.goEntityToGo(goEntity);
+        Group group = new Group(goEntity.getGroup().getID(), goEntity.getGroup().getName(), goEntity.getGroup().getDescription(), goEntity.getGroup().getMembers().size(), null, null, null);
 
-        goEntity.setGoingUsers(null);
-        goEntity.setGoneUsers(null);
-        goEntity.setNotGoingUsers(null);
-        goEntity.setGroup(null);
-        goEntity.setOwner(null);
         Gson gson = new Gson();
-        String data = gson.toJson(goEntity);
+        String data = gson.toJson(go);
 
         System.out.println(data);
 

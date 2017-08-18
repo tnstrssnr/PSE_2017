@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Matchers.any;
 
-
+@Ignore
 @WebMvcTest(value = GroupRestController.class, secure = false)
 @SpringBootTest
 public class GroupRestControllerTest {

@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.HashSet;
 
-
+@Ignore
 public class UserServiceTest {
 
     private UserEntity testUser;

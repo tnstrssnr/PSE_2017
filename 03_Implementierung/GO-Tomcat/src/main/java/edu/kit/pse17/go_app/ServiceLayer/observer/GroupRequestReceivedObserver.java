@@ -50,11 +50,12 @@ public class GroupRequestReceivedObserver implements Observer {
 
         GroupService.editGroupForJson(group);
 
-        String data = new Gson().toJson(group);
+        String data = new Gson().toJson(GroupService.groupEntityToGroup(group));
         Set<UserEntity> receiver = new HashSet<>();
         receiver.add(user);
         receiver.addAll(group.getAdmins());
 
+        //send group to invited member
         messenger.send(data, EventArg.GROUP_REQUEST_RECEIVED_EVENT, receiver);
 
         //Admins cant see requests

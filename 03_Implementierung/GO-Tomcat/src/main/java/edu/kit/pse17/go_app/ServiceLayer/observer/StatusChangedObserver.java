@@ -67,6 +67,6 @@ public class StatusChangedObserver implements Observer {
         receiver.addAll(go.getGoneUsers());
         receiver.addAll(go.getGoneUsers());
 
-        messenger.send(data, EventArg.STATUS_CHANGED_COMMAND, receiver);
+        messenger.send(data, EventArg.STATUS_CHANGED_EVENT, receiver);
     }
 }

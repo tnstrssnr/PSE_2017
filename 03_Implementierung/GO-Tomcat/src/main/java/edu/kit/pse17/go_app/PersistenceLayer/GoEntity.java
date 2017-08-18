@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,7 +75,7 @@ public class GoEntity {
      * entsprechende Methoden zu implementieren.
      */
     @Column(name = "start")
-    private Date start;
+    private String start;
 
     /**
      * Der Endzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestoppt wird. Dabei darf der
@@ -86,7 +85,7 @@ public class GoEntity {
      * Methoden zu implementieren.
      */
     @Column(name = "end")
-    private Date end;
+    private String end;
 
     /**
      * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Breitengrad des Zielorts
@@ -148,7 +147,7 @@ public class GoEntity {
 
     }
 
-    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, Date start, Date end, double lat, double lon) {
+    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, String start, String end, double lat, double lon) {
         this.group = group;
         this.owner = owner;
         this.name = name;
@@ -200,19 +199,19 @@ public class GoEntity {
         this.description = description;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

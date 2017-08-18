@@ -2,9 +2,14 @@ package edu.kit.pse17.go_app.ServiceLayer;
 
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.UserGoStatus;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,20 +25,23 @@ public class GoService implements IObservable {
     @Autowired
     private GoDaoImp goDao;
 
+    @Autowired
+    private GroupDaoImp groupDao;
+
+    @Autowired
+    private UserDaoImp userDao;
+
     private Map<EventArg, Observer> observerMap;
 
+    private boolean observerInitialized;
+
     public GoService() {
-        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
-        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
-        register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
-        register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
+        registerAll();
+        observerInitialized = true;
     }
 
     public GoService(GoDaoImp godao) {
-        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
-        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
-        register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
-        register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
+        registerAll();
         this.goDao = godao;
     }
 
@@ -58,6 +66,30 @@ public class GoService implements IObservable {
         }
     }
 
+    //Warning: group is null ! if group-information is required it needs to be added manually -- same for locations
+    public static Go goEntityToGo(GoEntity goEntity) {
+        Go go = new Go(goEntity.getID(), goEntity.getName(), goEntity.getDescription(), goEntity.getStart(), goEntity.getEnd(), null, goEntity.getLat(), goEntity.getLon(), goEntity.getOwner().getUid(), goEntity.getOwner().getName(), null, null);
+        List<UserGoStatus> statuses = new ArrayList<>();
+        for (UserEntity usr : goEntity.getGoingUsers()) {
+            statuses.add(new UserGoStatus(UserService.userEntityToUser(usr), go, Status.GOING));
+        }
+        for (UserEntity usr : goEntity.getGoneUsers()) {
+            statuses.add(new UserGoStatus(UserService.userEntityToUser(usr), go, Status.GONE));
+        }
+        for (UserEntity usr : goEntity.getNotGoingUsers()) {
+            statuses.add(new UserGoStatus(UserService.userEntityToUser(usr), go, Status.NOT_GOING));
+        }
+        return go;
+    }
+
+    public void registerAll() {
+        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
+        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
+        register(EventArg.GO_EDITED_EVENT, new GoEditedObserver(this));
+        register(EventArg.STATUS_CHANGED_EVENT, new StatusChangedObserver(this));
+        observerInitialized = true;
+    }
+
     public GoDaoImp getGoDao() {
         return goDao;
     }
@@ -74,29 +106,30 @@ public class GoService implements IObservable {
         this.observerMap = observerMap;
     }
 
-    public long createGo(GoEntity go) {
-        long id = goDao.persist(go);
+    public long createGo(Go go) {
+        UserEntity owner = userDao.get(go.getOwner());
+        GroupEntity groupEntity = groupDao.get(go.getGroup().getId());
+        GoEntity goEntity = new GoEntity(groupEntity, owner, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
+        long id = goDao.persist(goEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(id));
         notify(EventArg.GO_ADDED_EVENT, this, entity_ids);
         return id;
     }
 
-    public boolean changeStatus(String statusChangeContext, long goId) {
-        String[] statusChangeArr = statusChangeContext.substring(1, statusChangeContext.length() - 1).split(" ");
-        String userId = statusChangeArr[0];
+    public boolean changeStatus(Map<String, String> statusChangeContext, long goId) {
+        String userId = statusChangeContext.get("userId");
         Status status;
 
-        switch (statusChangeArr[1]) {
-            case "ABGELEHNT":
-                status = Status.ABGELEHNT;
+        switch (statusChangeContext.get("status")) {
+            case "NOT_GOING":
+                status = Status.NOT_GOING;
                 break;
-            case "BESTÄTIGT":
-                status = Status.BESTÄTIGT;
+            case "GOING":
+                status = Status.GOING;
                 break;
-            case "UNTERWEGS":
-                status = Status.UNTERWEGS;
-                break;
+            case "GONE":
+                status = Status.GONE;
             default:
                 return false;
         }
@@ -104,7 +137,7 @@ public class GoService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(goId));
-        notify(EventArg.STATUS_CHANGED_COMMAND, this, entity_ids);
+        notify(EventArg.STATUS_CHANGED_EVENT, this, entity_ids);
         return true;
     }
 
@@ -115,11 +148,12 @@ public class GoService implements IObservable {
         notify(EventArg.GO_REMOVED_EVENT, this, entity_ids);
     }
 
-    public void update(GoEntity goEntity) {
+    public void update(Go go) {
+        GoEntity goEntity = new GoEntity(null, null, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
         goDao.update(goEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(goEntity.getID()));
-        notify(EventArg.GO_EDITED_COMMAND, this, entity_ids);
+        notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
     }
 
     public GoEntity getGoById(long id) {
@@ -143,6 +177,9 @@ public class GoService implements IObservable {
 
     @Override
     public void notify(EventArg impCode, IObservable observable, List<String> entity_ids) {
+        if (!this.observerInitialized) {
+            registerAll();
+        }
         observerMap.get(impCode).update(entity_ids);
     }
 }

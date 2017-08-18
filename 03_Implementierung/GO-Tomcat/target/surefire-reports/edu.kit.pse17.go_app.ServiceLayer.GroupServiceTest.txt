@@ -1,4 +1,58 @@
 -------------------------------------------------------------------------------
 Test set: edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.483 sec - in edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest
+Tests run: 10, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 0.31 sec <<< FAILURE! - in edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest
+removeGroupRequestTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0 sec  <<< ERROR!
+org.mockito.exceptions.misusing.InvalidUseOfMatchersException: 
+
+Misplaced argument matcher detected here:
+
+-> at edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest.createGroupTest(GroupRestControllerTest.java:58)
+
+You cannot use argument matchers outside of verification or stubbing.
+Examples of correct usage of argument matchers:
+    when(mock.get(anyInt())).thenReturn(null);
+    doThrow(new RuntimeException()).when(mock).someVoidMethod(anyObject());
+    verify(mock).someMethod(contains("foo"))
+
+Also, this error might show up because you use argument matchers with methods that cannot be mocked.
+Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().
+
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:30)
+
+removeGroupMemberTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.176 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+addGroupRequestTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.024 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+deleteGroupTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.027 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+addAdminTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.021 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+editGroupTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.014 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+editGroupForJsonTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.012 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+acceptRequestTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.011 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+createGroupTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.011 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+
+getGroupByIdTest(edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest)  Time elapsed: 0.011 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+

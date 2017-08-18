@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.217" tests="8" errors="0" skipped="1" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.687" tests="8" errors="1" skipped="1" failures="0">
   <properties>
     <property name="idea.version" value="2017.1.4"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -60,14 +60,52 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="addAdmin" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.023"/>
-  <testcase name="deleteGroup" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.022"/>
-  <testcase name="removeMember" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.026"/>
-  <testcase name="acceptRequest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.022"/>
+  <testcase name="addAdmin" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.494"/>
+  <testcase name="deleteGroup" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.031"/>
+  <testcase name="removeMember" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.018"/>
+  <testcase name="acceptRequest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.018"/>
   <testcase name="editGroupTest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0">
     <skipped/>
   </testcase>
-  <testcase name="denyRequest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.026"/>
-  <testcase name="inviteMember" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.03"/>
-  <testcase name="createGroupTest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.066"/>
+  <testcase name="denyRequest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.021"/>
+  <testcase name="inviteMember" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.019"/>
+  <testcase name="createGroupTest" classname="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" time="0.033">
+    <error message="edu.kit.pse17.go_app.ServiceLayer.GroupService.createGroup(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;)J" type="java.lang.NoSuchMethodError">java.lang.NoSuchMethodError: edu.kit.pse17.go_app.ServiceLayer.GroupService.createGroup(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;)J
+	at edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest.createGroupTest(GroupRestControllerTest.java:58)
+</error>
+    <system-out><![CDATA[14:58:48.120 [main] DEBUG org.springframework.core.env.StandardEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+14:58:48.121 [main] DEBUG org.springframework.core.env.StandardEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+14:58:48.121 [main] DEBUG org.springframework.core.env.StandardEnvironment - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+14:58:48.122 [main] DEBUG org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Looking for request mappings in application context: org.springframework.test.web.servlet.setup.StubWebApplicationContext@3549bca9
+14:58:48.124 [main] DEBUG org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - 8 request handler methods found on class edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController: {public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.createGroup(edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group)={[/group/],methods=[POST],consumes=[application/json]}, public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.editGroup(edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group)={[/group/],methods=[PUT]}, public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.deleteGroup(java.lang.Long)={[/group/{groupId}],methods=[DELETE]}, public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.acceptRequest(java.lang.Long,java.lang.String)={[/group/members/{groupId}/{userId}],methods=[PUT]}, public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.removeMember(java.lang.String,java.lang.Long)={[/group/members/{groupId}/{userId}],methods=[DELETE]}, public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.inviteMember(java.lang.Long,java.lang.String)={[/group/requests/{groupId}/{userId}],methods=[POST]}, public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.denyRequest(java.lang.Long,java.lang.String)={[/group/requests/{groupId}/{userId}],methods=[DELETE]}, public void edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.addAdmin(java.lang.Long,java.lang.String)={[/group/admins/{groupId}/{userId}],methods=[POST]}}
+14:58:48.125 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/],methods=[POST],consumes=[application/json]}" onto public org.springframework.http.ResponseEntity<java.lang.Long> edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.createGroup(edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group)
+14:58:48.125 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/],methods=[PUT]}" onto public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.editGroup(edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group)
+14:58:48.127 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/{groupId}],methods=[DELETE]}" onto public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.deleteGroup(java.lang.Long)
+14:58:48.127 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/members/{groupId}/{userId}],methods=[PUT]}" onto public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.acceptRequest(java.lang.Long,java.lang.String)
+14:58:48.128 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/members/{groupId}/{userId}],methods=[DELETE]}" onto public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.removeMember(java.lang.String,java.lang.Long)
+14:58:48.128 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/requests/{groupId}/{userId}],methods=[POST]}" onto public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.inviteMember(java.lang.Long,java.lang.String)
+14:58:48.128 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/requests/{groupId}/{userId}],methods=[DELETE]}" onto public org.springframework.http.ResponseEntity edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.denyRequest(java.lang.Long,java.lang.String)
+14:58:48.128 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/group/admins/{groupId}/{userId}],methods=[POST]}" onto public void edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController.addAdmin(java.lang.Long,java.lang.String)
+14:58:48.131 [main] DEBUG org.hibernate.validator.internal.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath, but no method 'getPersistenceUtil'. Assuming JPA 1 environment. All properties will per default be traversable.
+14:58:48.132 [main] DEBUG org.hibernate.validator.internal.engine.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+14:58:48.132 [main] DEBUG org.hibernate.validator.internal.engine.ConfigurationImpl - Setting custom ParameterNameProvider of type com.sun.proxy.$Proxy43
+14:58:48.132 [main] DEBUG org.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+14:58:48.132 [main] DEBUG org.hibernate.validator.internal.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+14:58:48.132 [main] DEBUG org.hibernate.validator.internal.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+14:58:48.133 [main] DEBUG org.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+14:58:48.146 [main] INFO org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.test.web.servlet.setup.StubWebApplicationContext@3549bca9
+14:58:48.147 [main] DEBUG org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Looking for exception mappings: org.springframework.test.web.servlet.setup.StubWebApplicationContext@3549bca9
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Initializing servlet ''
+14:58:48.148 [main] INFO org.springframework.mock.web.MockServletContext - Initializing Spring FrameworkServlet ''
+14:58:48.148 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet - FrameworkServlet '': initialization started
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Unable to locate MultipartResolver with name 'multipartResolver': no multipart request handling provided
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using LocaleResolver [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@74bada02]
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using ThemeResolver [org.springframework.web.servlet.theme.FixedThemeResolver@525575]
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using RequestToViewNameTranslator [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@46dffdc3]
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using FlashMapManager [org.springframework.web.servlet.support.SessionFlashMapManager@5a709816]
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Published WebApplicationContext of servlet '' as ServletContext attribute with name [org.springframework.web.servlet.FrameworkServlet.CONTEXT.]
+14:58:48.148 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet - FrameworkServlet '': initialization completed in 0 ms
+14:58:48.148 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Servlet '' configured successfully
+]]></system-out>
+  </testcase>
 </testsuite>

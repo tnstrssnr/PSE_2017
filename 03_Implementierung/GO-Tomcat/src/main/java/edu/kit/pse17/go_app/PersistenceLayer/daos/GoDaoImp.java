@@ -233,10 +233,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
             go.getGoneUsers().remove(user);
 
             switch (status) {
-                case ABGELEHNT:
+                case NOT_GOING:
                     go.getNotGoingUsers().add(user);
                     break;
-                case BESTÄTIGT:
+                case GOING:
                     go.getGoingUsers().add(user);
                     break;
                 default:

@@ -2,10 +2,15 @@ package edu.kit.pse17.go_app;
 
 import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController;
+import edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestController;
+import edu.kit.pse17.go_app.ClientCommunication.Upstream.UserRestController;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDaoImp;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
+import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
@@ -62,7 +67,7 @@ public class Main extends SpringBootServletInitializer {
 
     @Bean
     public UserDao userDao() {
-        return new UserDaoImp();
+        return new UserDaoImp(sessionFactory());
     }
 
     @Bean
@@ -79,7 +84,27 @@ public class Main extends SpringBootServletInitializer {
     }
 
     @Bean
+    UserRestController userRestController() {
+        return new UserRestController(userService());
+    }
+
+    @Bean
+    GroupRestController groupRestController() {
+        return new GroupRestController(groupService());
+    }
+
+    @Bean
     public GoService goService() {
         return new GoService(new GoDaoImp(sessionFactory()));
+    }
+
+    @Bean
+    public GroupService groupService() {
+        return new GroupService(new GroupDaoImp(sessionFactory()));
+    }
+
+    @Bean
+    public UserService userService() {
+        return new UserService(new UserDaoImp(sessionFactory()));
     }
 }

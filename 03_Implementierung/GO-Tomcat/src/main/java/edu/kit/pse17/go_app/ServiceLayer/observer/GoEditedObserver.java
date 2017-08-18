@@ -5,6 +5,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
 
 import java.util.HashSet;
@@ -37,20 +38,16 @@ public class GoEditedObserver implements Observer {
     @Override
     public void update(List<String> entity_ids) {
         GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
+        Go go = GoService.goEntityToGo(goEntity);
 
         Set<UserEntity> receiver = new HashSet<>();
         receiver.addAll(goEntity.getGroup().getMembers());
         receiver.addAll(goEntity.getGroup().getRequests());
 
-        goEntity.setGoingUsers(null);
-        goEntity.setGoneUsers(null);
-        goEntity.setNotGoingUsers(null);
-        goEntity.setGroup(null);
-        goEntity.setOwner(null);
         Gson gson = new Gson();
-        String data = gson.toJson(goEntity);
+        String data = gson.toJson(go);
 
-        messenger.send(data, EventArg.GO_EDITED_COMMAND, receiver);
+        messenger.send(data, EventArg.GO_EDITED_EVENT, receiver);
 
 
     }

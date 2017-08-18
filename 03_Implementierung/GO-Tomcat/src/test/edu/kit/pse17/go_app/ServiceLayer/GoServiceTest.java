@@ -10,15 +10,13 @@ import edu.kit.pse17.go_app.ServiceLayer.observer.GoEditedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.GoRemovedObserver;
 import edu.kit.pse17.go_app.ServiceLayer.observer.StatusChangedObserver;
 import edu.kit.pse17.go_app.TestData;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class GoServiceTest {
 
     private static final String testStatusChangedContext = "\"test_id_user BESTÄTIGT\"";

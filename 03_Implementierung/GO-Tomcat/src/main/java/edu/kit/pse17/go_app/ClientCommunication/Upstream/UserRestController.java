@@ -1,11 +1,15 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
 import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die
@@ -76,10 +80,10 @@ public class UserRestController {
      */
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{userId}"
+            value = "/{userId}/{email}"
     )
-    public ResponseEntity<UserEntity> getData(@PathVariable("userId") final String userId) {
-        return new ResponseEntity<>(userService.getData(userId), HttpStatus.OK);
+    public ResponseEntity<List<Group>> getData(@PathVariable("userId") final String userId, @PathVariable("email") final String email) {
+        return new ResponseEntity<>(userService.getData(userId, email), HttpStatus.OK);
     }
 
     /**
@@ -91,18 +95,12 @@ public class UserRestController {
      * <p>
      * Die Methode besitzt keinen Rückgabewert, lediglich einen Statuscode in der HTTP-Antwort, die an den Anfragenden
      * gesendet wird. Der Statuscode gibt an, ob die Transaktion erfolgreich war.
+     *
+     * @RequestMapping( method = RequestMethod.POST, value = "/{userId}" ) public ResponseEntity<String>
+     * createUser(@RequestBody final UserEntity user) { if (userService.createUser(user)) { return
+     * ResponseEntity.status(HttpStatus.CREATED).build(); } else { return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+     * } }
      */
-    @RequestMapping(
-            method = RequestMethod.POST,
-            value = "/{userId}"
-    )
-    public ResponseEntity<String> createUser(@RequestBody final UserEntity user) {
-        if (userService.createUser(user)) {
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
-        }
-    }
 
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -167,11 +165,11 @@ public class UserRestController {
             method = RequestMethod.GET,
             value = "/search/{mail}"
     )
-    public ResponseEntity<UserEntity> getUserbyMail(@PathVariable("mail") String mail) {
+    public ResponseEntity<User> getUserbyMail(@PathVariable("mail") String mail) {
 
         //Gmail adresses typically end w/ .com -- TLD is ignored in URI, has to be re-added to email address string
         mail = mail + ".com";
-        UserEntity user = userService.getUserbyMail(mail);
+        User user = userService.getUserbyMail(mail);
 
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);

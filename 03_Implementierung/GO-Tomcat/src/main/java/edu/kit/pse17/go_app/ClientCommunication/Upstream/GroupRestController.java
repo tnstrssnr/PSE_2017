@@ -1,6 +1,6 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,7 +66,7 @@ public class GroupRestController {
             method = RequestMethod.POST,
             value = "/",
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> createGroup(@RequestBody final GroupEntity group) {
+    public ResponseEntity<Long> createGroup(@RequestBody final Group group) {
         return new ResponseEntity<>(groupService.createGroup(group), OK);
     }
 
@@ -84,7 +84,7 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/")
-    public ResponseEntity editGroup(@RequestBody final GroupEntity group) {
+    public ResponseEntity editGroup(@RequestBody final Group group) {
         groupService.editGroup(group);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

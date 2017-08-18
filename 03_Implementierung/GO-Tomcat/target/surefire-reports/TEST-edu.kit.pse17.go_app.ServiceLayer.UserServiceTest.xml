@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.021" tests="8" errors="0" skipped="1" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.024" tests="8" errors="7" skipped="1" failures="0">
   <properties>
     <property name="idea.version" value="2017.1.4"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,11 +63,39 @@
   <testcase name="getDataTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0">
     <skipped/>
   </testcase>
-  <testcase name="updateUserTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.009"/>
-  <testcase name="getUserbyMailTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.001"/>
-  <testcase name="editUserForJsonTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0"/>
-  <testcase name="createUserSuccessfulTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0"/>
-  <testcase name="createUserFailTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.004"/>
-  <testcase name="deleteUserTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0"/>
-  <testcase name="registerDeviceTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.001"/>
+  <testcase name="updateUserTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.007">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
+  <testcase name="getUserbyMailTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
+  <testcase name="editUserForJsonTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
+  <testcase name="createUserSuccessfulTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
+  <testcase name="createUserFailTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
+  <testcase name="deleteUserTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
+  <testcase name="registerDeviceTest" classname="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" time="0.002">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+</error>
+  </testcase>
 </testsuite>

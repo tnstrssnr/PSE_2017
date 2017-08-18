@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 
+@Ignore
 @WebMvcTest(value = UserRestController.class, secure = false)
 @SpringBootTest
 public class UserRestControllerTest {

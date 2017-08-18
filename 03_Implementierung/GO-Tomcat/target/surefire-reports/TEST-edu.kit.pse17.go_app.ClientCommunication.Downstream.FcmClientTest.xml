@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest" time="0.105" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest" time="0.101" tests="1" errors="1" skipped="0" failures="0">
   <properties>
     <property name="idea.version" value="2017.1.4"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -60,5 +60,9 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="sendTest" classname="edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest" time="0.02"/>
+  <testcase name="edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest" classname="edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest" time="0.101">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest.setUpTestclass(FcmClientTest.java:37)
+]]></error>
+  </testcase>
 </testsuite>

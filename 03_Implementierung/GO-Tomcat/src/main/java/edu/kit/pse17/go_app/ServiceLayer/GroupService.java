@@ -5,15 +5,17 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.GroupMembership;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class GroupService implements IObservable {
@@ -21,29 +23,21 @@ public class GroupService implements IObservable {
     @Autowired
     private GroupDaoImp groupDao;
 
+    @Autowired
+    private UserDaoImp userDao;
+
     private Map<EventArg, Observer> observerMap;
 
+    private boolean observerInitialized;
+
     public GroupService() {
-        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
-        register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
-        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
-        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
-        register(EventArg.GROUP_REQUEST_DENIED_EVENT, new RequestDeniedObserver(this));
-        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
-        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
+        registerAll();
     }
 
     public GroupService(GroupDaoImp groupDao) {
-        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
-        register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
-        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
-        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
-        register(EventArg.GROUP_REQUEST_DENIED_EVENT, new RequestDeniedObserver(this));
-        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
-        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
+        registerAll();
         this.groupDao = groupDao;
     }
-
 
     public static void editGroupForJson(GroupEntity group) {
 
@@ -64,6 +58,52 @@ public class GroupService implements IObservable {
         }
     }
 
+    public static Group groupEntityToGroup(GroupEntity groupEntity) {
+        Group group = new Group();
+        group.setDescription(groupEntity.getDescription());
+        group.setIcon(null);
+        group.setId(groupEntity.getID());
+        group.setMemberCount(groupEntity.getMembers().size());
+
+        List<GroupMembership> groupMemberships = new ArrayList<>();
+        for (UserEntity member : groupEntity.getMembers()) {
+            GroupMembership membership = new GroupMembership();
+            membership.setUser(UserService.userEntityToUser(member));
+            membership.setGroup(group);
+            membership.setRequest(false);
+            if (groupEntity.getAdmins().contains(member)) {
+                membership.setAdmin(true);
+            } else {
+                membership.setAdmin(false);
+            }
+        }
+        for (UserEntity usr : groupEntity.getRequests()) {
+            groupMemberships.add(new GroupMembership(UserService.userEntityToUser(usr), group, false, true));
+        }
+        group.setMembershipList(groupMemberships);
+
+        List<Go> gos = new ArrayList<>();
+        for (GoEntity goEntity : groupEntity.getGos()) {
+            Go go = GoService.goEntityToGo(goEntity);
+            go.setGroup(group);
+            gos.add(go);
+        }
+        group.setCurrentGos(gos);
+
+        return group;
+    }
+
+    private void registerAll() {
+        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
+        register(EventArg.GROUP_EDITED_EVENT, new GroupEditedObserver(this));
+        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
+        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
+        register(EventArg.GROUP_REQUEST_DENIED_EVENT, new RequestDeniedObserver(this));
+        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
+        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
+        observerInitialized = true;
+    }
+
     public GroupDaoImp getGroupDao() {
         return groupDao;
     }
@@ -80,16 +120,30 @@ public class GroupService implements IObservable {
         this.observerMap = observerMap;
     }
 
-    public long createGroup(GroupEntity group) {
-        long id = groupDao.persist(group);
+    public long createGroup(Group group) {
+        GroupEntity groupEntity = new GroupEntity();
+        groupEntity.setName(group.getName());
+        groupEntity.setDescription(group.getDescription());
+
+        UserEntity creator = userDao.get(group.getMembershipList().get(0).getUser().getUid());
+        groupEntity.setRequests(new HashSet<>());
+        groupEntity.setAdmins(new HashSet<>());
+        groupEntity.setMembers(new HashSet<>());
+        groupEntity.getAdmins().add(creator);
+        groupEntity.getMembers().add(creator);
+
+        long id = groupDao.persist(groupEntity);
         return id;
     }
 
-    public void editGroup(GroupEntity group) {
-        groupDao.update(group);
+    public void editGroup(Group group) {
+        GroupEntity groupEntity = new GroupEntity();
+        groupEntity.setName(group.getName());
+        groupEntity.setDescription(group.getDescription());
+        groupDao.update(groupEntity);
         List<String> entity_ids = new ArrayList<>();
-        entity_ids.add(String.valueOf(group.getID()));
-        notify(EventArg.GROUP_EDITED_COMMAND, this, entity_ids);
+        entity_ids.add(String.valueOf(group.getId()));
+        notify(EventArg.GROUP_EDITED_EVENT, this, entity_ids);
     }
 
     public void deleteGroup(long groupId) {
@@ -155,6 +209,9 @@ public class GroupService implements IObservable {
 
     @Override
     public void notify(EventArg impCode, IObservable observable, List<String> entity_ids) {
+        if(!observerInitialized) {
+            registerAll();
+        }
         observerMap.get(impCode).update(entity_ids);
     }
 

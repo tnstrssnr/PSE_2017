@@ -8,62 +8,38 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * Client-Klasse, die ein HTTP POST-Request an den FCM-Server schickt, wo die Nachricht wiederum an das User-Endgerät
- * weitergeleitet wird. dadurch kann der Server eine Nachricht an einen Client schicken, ohne dass dieser zuvor den
- * Server angesprochen haben muss.
- * <p>
- * Die Methoden der Klasse werden aufgerufen von den Observer-Klassen der Anwendung. Dabei werden die Nachrichten, die
- * an die Clients gesendet werden müssen sowie die Addressaten bereits in den aufrufenden Methoden bestimmt. Diese
- * klasse muss sich nur um das eingentliche Senden der HTTP-Requests kümmern, der Inhalt der Nachricht spielt dabei
- * keine Rolle.
+ * realizes the communication w/ the Firebase Cloud Messaging Server to allow sending messages from the server to the
+ * clients. Methods of this class are invoked by the observers
  */
 public class FcmClient {
 
-    /**
-     * Base URL des FCM-Servers an den die Requests geschickt werden müssen. Dieser Wert darf sich nicht ändern.
-     */
+    //base url of the fcm server, that post-requests have to be sent to
     private static final String BASE_URL = "https://fcm.googleapis.com/send";
 
+    //server key, supplied by firebase upon app registration -- necessary for the fcm server to identify the server that sent the request
     private static final String SERVER_KEY = "key=AAAAjalbaUE:APA91bHDguerPdnJ9fOLxvXynowziqVzgw5HB0ug0ZIEFDaFE0AezmBZoD1gcaRROMfriNi7IRKrC5ROVpdOz2Ohegcoj-X4Wphpii1QSgHvRRm6JTxdLi_QUv8GRcenNrMbGEYDEKWC";
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    /**
-     * Ein Http-Client, der für das Senden der HTTP-Requests zuständig ist. Die Konfiguration des HttpClients wird bei
-     * der Erstellung des FcmClient-Objekts vorgenommen. Die Konfiguration wird von dem Firebase Cloud Messaging Service
-     * vorgegeben.
-     */
     private OkHttpClient httpClient;
 
-    /**
-     * Die Klasse bietet einen Konstruktor an, der keine Argumente entgegen nimmt. In dem Konstruktor wird die
-     * Konfikuration des HttpClients standardmäßig implementiert, sodass er Anfragen an die von FCM definierte URL
-     * schicken kann.
-     */
     public FcmClient() {
         this.httpClient = new OkHttpClient();
     }
 
+    //constructor is used for unit testing to inject mocked httpClient
     public FcmClient(OkHttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
 
     /**
-     * Die Methode einen POST-Request an den FCM-Server, der diese an das User-Endgerät weiterleitet. Dafür wird der
-     * HttpClient der FcmClient-Instanz benutzt.
-     * <p>
-     * Diese Methode wird von den Observer-Klassen aufgerufen, um die Änderungen, die dort behandlet wurden mithilde
-     * dieser Klasse an die Clients zu schicken. Es wird vorausgesetzt, dass die Daten und vor allem die InstanceIDs,
-     * die dieser Methode übergeben werden, gültig sind.
+     * sends request to FCM server. The user then receives the Json-String specified in data.
      *
-     * @param data     Dieses Objekt enthält die Daten, die an den Client geschickt werden sollen
-     * @param command  Ein String, der anzeigt, um was für eine Nachricht es sich handelt, also zu welchem
-     *                 Serverereignis sie gehört. Dieser String bestimmt, an welche Command-Klasse auf dem Client die
-     *                 Nachricht weitergeleitet wird.
-     * @param receiver Eine Liste mit den InstaceIds der Clients,an die die Nachricht geschickt werden soll. dabei muss
-     *                 es sich um gültige InstanceIds handeln, sonst kann die Methode nicht fehlerfrei ausgeführt
-     *                 werden.
+     * @param data     Json-String w/ data that sould be sent to the user
+     * @param command  EventArg-String, that specifies the event, wich triggered this method call -- allows user to
+     *                 correctly handle the data received in the message
+     * @param receiver List of all instanceIds of the users that are supposed to receive the message
      */
 
     public void send(String data, EventArg command, Set<UserEntity> receiver) {

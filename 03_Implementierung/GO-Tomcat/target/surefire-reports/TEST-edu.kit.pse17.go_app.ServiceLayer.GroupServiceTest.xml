@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.483" tests="10" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.31" tests="10" errors="10" skipped="0" failures="0">
   <properties>
     <property name="idea.version" value="2017.1.4"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -60,14 +60,68 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="removeGroupRequestTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.282"/>
-  <testcase name="removeGroupMemberTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.024"/>
-  <testcase name="addGroupRequestTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.032"/>
-  <testcase name="deleteGroupTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.024"/>
-  <testcase name="addAdminTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.022"/>
-  <testcase name="editGroupTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.017"/>
-  <testcase name="editGroupForJsonTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.014"/>
-  <testcase name="acceptRequestTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.028"/>
-  <testcase name="createGroupTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.013"/>
-  <testcase name="getGroupByIdTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.018"/>
+  <testcase name="removeGroupRequestTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0">
+    <error message="&#10;Misplaced argument matcher detected here:&#10;&#10;-&gt; at edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest.createGroupTest(GroupRestControllerTest.java:58)&#10;&#10;You cannot use argument matchers outside of verification or stubbing.&#10;Examples of correct usage of argument matchers:&#10;    when(mock.get(anyInt())).thenReturn(null);&#10;    doThrow(new RuntimeException()).when(mock).someVoidMethod(anyObject());&#10;    verify(mock).someMethod(contains(&quot;foo&quot;))&#10;&#10;Also, this error might show up because you use argument matchers with methods that cannot be mocked.&#10;Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().&#10;" type="org.mockito.exceptions.misusing.InvalidUseOfMatchersException">org.mockito.exceptions.misusing.InvalidUseOfMatchersException: 
+
+Misplaced argument matcher detected here:
+
+-> at edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest.createGroupTest(GroupRestControllerTest.java:58)
+
+You cannot use argument matchers outside of verification or stubbing.
+Examples of correct usage of argument matchers:
+    when(mock.get(anyInt())).thenReturn(null);
+    doThrow(new RuntimeException()).when(mock).someVoidMethod(anyObject());
+    verify(mock).someMethod(contains("foo"))
+
+Also, this error might show up because you use argument matchers with methods that cannot be mocked.
+Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().
+
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:30)
+</error>
+  </testcase>
+  <testcase name="removeGroupMemberTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.176">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="addGroupRequestTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.024">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="deleteGroupTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.027">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="addAdminTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.021">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="editGroupTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.014">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="editGroupForJsonTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.012">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="acceptRequestTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.011">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="createGroupTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.011">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
+  <testcase name="getGroupByIdTest" classname="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" time="0.011">
+    <error message="edu.kit.pse17.go_app.PersistenceLayer.GoEntity.&lt;init&gt;(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V" type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest.setUp(GroupServiceTest.java:32)
+]]></error>
+  </testcase>
 </testsuite>
