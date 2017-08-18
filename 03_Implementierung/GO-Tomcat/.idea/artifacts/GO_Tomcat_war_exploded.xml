@@ -6,6 +6,64 @@
         <element id="directory" name="classes">
           <element id="module-output" name="GO-Tomcat" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.8.1" />
+          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:logging-interceptor:3.8.1" />
+          <element id="library" level="project" name="Maven: junit:junit:4.12" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.dbunit:dbunit:2.5.3" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:3.14" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi:3.14" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.14" />
+          <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" />
+          <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
+          <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.03" />
+          <element id="library" level="project" name="Maven: de.lmu.ifi.dbs.elki:elki:0.7.1" />
+          <element id="library" level="project" name="Maven: net.sf.trove4j:trove4j:3.0.3" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:1.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.11" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.11" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" />
+          <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.25" />
+          <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.25" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.17" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.43" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.1.4.Final" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.21.0-GA" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:5.2.3.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
+          <element id="library" level="project" name="Maven: net.sf:javaml:0.1.5" />
+          <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:5.2.2.Final" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.3.3" />
+          <element id="library" level="project" name="Maven: javax.el:javax.el-api:2.2.4" />
+          <element id="library" level="project" name="Maven: org.glassfish.web:javax.el:2.2.4" />
+          <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/go-tomcat/META-INF/MANIFEST.MF" />

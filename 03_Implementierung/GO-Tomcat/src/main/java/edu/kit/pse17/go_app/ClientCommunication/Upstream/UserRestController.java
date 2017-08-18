@@ -44,6 +44,14 @@ public class UserRestController {
         this.userService = userService;
     }
 
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/test"
+    )
+    public String test() {
+        return "Hello World";
+    }
+
     /**
      * Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID {userId}
      * Mitglied ist, bzw. zu denen er eine Anfrage bekommen hat. Sie wird genau dann von einem Client aufgerufen, wenn
@@ -66,8 +74,6 @@ public class UserRestController {
      * wird in dem JSON-Objekt ein leerer data-Block übertragen. Die Länge der Liste ist auf 300 Gruppen beschränkt
      * (dies ist die Gesamtanzahl an Gruppen, die von dem System unterstützt werden)
      */
-
-
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/{userId}"

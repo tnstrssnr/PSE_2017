@@ -11,7 +11,7 @@
 
     <!-- version number for spring and hibernate, in case more modules need to be included -->
     <properties>
-        <org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+        <org.springframework.version>1.5.6.RELEASE</org.springframework.version>
         <hibernate.version>4.1.4.Final</hibernate.version>
     </properties>
 
@@ -23,17 +23,21 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${org.springframework.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <arguments>
+                            <argument>--spring.profiles.active=dev</argument>
+                        </arguments>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -81,6 +85,19 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 
     <parent>
@@ -168,6 +185,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
@@ -192,19 +214,6 @@
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
-        <!-- Optional dependencies -->
-        <dependency>
-            <groupId>concurrent</groupId>
-            <artifactId>concurrent</artifactId>
-            <version>1.3.4</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-orm</artifactId>
-            <version>3.4.6</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>net.sf</groupId>
             <artifactId>javaml</artifactId>
@@ -225,6 +234,28 @@
             <version>2.3.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
+
 
     </dependencies>
 

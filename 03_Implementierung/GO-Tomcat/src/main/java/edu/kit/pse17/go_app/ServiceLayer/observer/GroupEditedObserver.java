@@ -35,8 +35,8 @@ public class GroupEditedObserver implements Observer {
         changedGroup.setGos(null);
         String data = gson.toJson(changedGroup);
 
-        messenger.send(data, EventArg.GROUP_EDITED_COMMAND, changedGroup.getMembers());
-        messenger.send(data, EventArg.GROUP_EDITED_COMMAND, changedGroup.getRequests());
+        messenger.send(data, EventArg.GROUP_EDITED_COMMAND, groupService.getGroupById(Long.valueOf(entity_ids.get(0))).getMembers());
+        messenger.send(data, EventArg.GROUP_EDITED_COMMAND, groupService.getGroupById(Long.valueOf(entity_ids.get(0))).getRequests());
 
 
     }
