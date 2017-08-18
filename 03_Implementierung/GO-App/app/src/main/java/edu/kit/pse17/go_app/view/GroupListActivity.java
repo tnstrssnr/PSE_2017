@@ -42,6 +42,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -192,9 +193,9 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 //TODO uncomment when server is up
-                /*// HERE WE GET THE LOCATION OF THE DEVICE AND PASS IT ON
+                // HERE WE GET THE LOCATION OF THE DEVICE AND PASS IT ON
                 viewModel.updateLocation(new LatLng(locationResult.getLastLocation().getLatitude(),
-                                                    locationResult.getLastLocation().getLongitude()));*/
+                                                    locationResult.getLastLocation().getLongitude()));
             }
         };
     }
