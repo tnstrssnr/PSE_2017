@@ -1,16 +1,7 @@
 package edu.kit.pse17.go_app.repositories;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executor;
-
-import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
@@ -26,7 +17,7 @@ import retrofit2.Response;
  */
 
 public class UserRepository extends Repository<User> {
-
+    private static UserRepository userRepo;
     private final TomcatRestApi apiService;
     //private ArrayList<Group> groups;
 
@@ -35,6 +26,7 @@ public class UserRepository extends Repository<User> {
         //groups = null;
     }
 
+    //TODO parameter User user, then take all http parameters from the user object
     public void createUser(String userId) {
         Call<Void> call = apiService.createUser(userId);
         call.enqueue(new Callback<Void>() {
@@ -108,5 +100,10 @@ public class UserRepository extends Repository<User> {
         this.sharedPrefManager = sharedPrefManager;
         this.executor = executor;
     } */
-
+    public static UserRepository getInstance() {
+        if (userRepo == null) {
+            userRepo = new UserRepository()/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/;
+        }
+        return userRepo;
+    }
 }

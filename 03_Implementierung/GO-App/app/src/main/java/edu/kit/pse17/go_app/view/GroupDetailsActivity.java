@@ -75,7 +75,10 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
                 GroupDetailsActivity.this.setResult(EXITED);
                 finish();
                 //TODO if this is the last user, then delete group
-
+                // now the last user is equivalent with admin
+                if(viewModel.getGroup().getValue().isAdmin(GroupListActivity.getUserId())){
+                    viewModel.deleteGroup(viewModel.getGroup().getValue().getId());
+                }
             }
         });
 
@@ -88,7 +91,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
             }
         });
 
-        String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_id), null);
+        String userId = GroupListActivity.getUserId();//getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_id), null);
         if(viewModel.getGroup().getValue().isAdmin(userId)){
             addAdminFunctionality();
         }

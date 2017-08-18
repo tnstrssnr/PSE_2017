@@ -17,4 +17,8 @@ public class BaseActivity extends LifecycleActivity {
     public Class getNextActivity(){
         return null;
     };
+
+
+
+
 }

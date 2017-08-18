@@ -3,11 +3,13 @@ package edu.kit.pse17.go_app.view;
 import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -97,11 +99,13 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private TextView locoloco;
 
     private String uid;
+    private static String globalUid;
+
     public static void start(Activity activity, User user) {
         Intent intent = new Intent(activity, GroupListActivity.class);
 
         intent.putExtra(USER_ID_INTENT_CODE, user.getUid());
-
+        globalUid = user.getUid();
         activity.startActivity(intent);
     }
 
@@ -133,10 +137,10 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         groupList = (RecyclerView) findViewById(R.id.group_recycler);
         groupList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        uid = getIntent().getStringExtra(USER_ID_INTENT_CODE);
+        //uid = getIntent().getStringExtra(USER_ID_INTENT_CODE);
 
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
-        viewModel.init(uid);
+        viewModel.init(getUserId());
         viewModel.getGroups().observe(this, new Observer<List<Group>>() {
             @Override
             public void onChanged(@Nullable List<Group> groups) {
@@ -366,7 +370,25 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
                 break;
             }else{
                 permission_granted = false;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setCancelable(false);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GroupListActivity.this.finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setMessage("You must allow the app to access device's location" +
+                        " in your device's settings for the app to function correctly." +
+                        " Or delete the apps data in settings and start the app again");
+                dialog.show();
             }
         }
     }
+
+    public static String getUserId(){
+        return globalUid;
+    }
+
 }

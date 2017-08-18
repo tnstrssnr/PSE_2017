@@ -137,7 +137,8 @@ public class GoDetailActivity extends BaseActivity {
 
         index = getIntent().getIntExtra(INDEX_INTENT_CODE, -1);
 
-        uid = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid",null);
+        uid = GroupListActivity.getUserId();
+        //getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid",null);
         if(uid == null){
             throw new NullPointerException();
         }

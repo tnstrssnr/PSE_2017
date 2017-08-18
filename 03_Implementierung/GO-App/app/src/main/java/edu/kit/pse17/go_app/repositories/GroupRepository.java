@@ -22,6 +22,7 @@ import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -563,7 +564,9 @@ public class GroupRepository extends Repository<List<Group>> {
         list.add(group1);
         list.add(group2);
         data.setValue(list);
+        String userId = GroupListActivity.getUserId();
         return list;
+
     }
 
     @Override

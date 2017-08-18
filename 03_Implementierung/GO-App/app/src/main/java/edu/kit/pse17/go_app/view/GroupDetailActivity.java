@@ -121,7 +121,8 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
     }
 
     private void showRequestDialogIfNeeded() {
-        String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid", null);
+        String userId = GroupListActivity.getUserId();
+        //getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString("uid", null);
         if(viewModel.getGroup().getValue().isRequest(userId)){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.accept_dialog_title)
@@ -132,6 +133,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
                 dialog.dismiss();
                 GroupDetailActivity.this.finish();
                 //TODO send decline to server!
+                viewModel.answerGroupRequest(false);
             }
         });
         builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
@@ -139,6 +141,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 //TODO send accept request to server
+                viewModel.answerGroupRequest(true);
             }
         });
         builder.setCancelable(false);
@@ -200,7 +203,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
             double goLon = intent.getDoubleExtra("lng",0);
             go.setDesLon(goLon);
             //viewModel.
-            String userId = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_id),null);
+            String userId = GroupListActivity.getUserId();//getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_id),null);
             viewModel.createGo(goName, goDescription, start_time, end_time,goLat, goLon,  viewModel.getGroup().getValue().getId(), userId);
             //viewModel.onGoAdded(go);
 

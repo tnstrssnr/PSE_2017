@@ -10,6 +10,7 @@ import java.util.List;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupLiveData;
 
 /**
@@ -89,7 +90,9 @@ public class GroupViewModel extends ViewModel {
     * True - akzeptiere den Request für die Gruppe groupId
     * False - verwerfe den Request
     * */
-    public void answerGroupRequest(boolean answer){}
+    public void answerGroupRequest(boolean answer){
+        groupRepo.answerGroupRequest(data.getValue().getId(), GroupListActivity.getUserId(), answer);
+    }
 
     public static GroupViewModel getCurrentViewModel(){
         return currentViewModel;
