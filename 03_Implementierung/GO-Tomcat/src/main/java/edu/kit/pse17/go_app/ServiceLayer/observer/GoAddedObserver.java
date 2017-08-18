@@ -44,6 +44,7 @@ public class GoAddedObserver implements Observer {
         Group group = new Group(goEntity.getGroup().getID(), goEntity.getGroup().getName(), goEntity.getGroup().getDescription(), goEntity.getGroup().getMembers().size(), null, null, null);
 
         Gson gson = new Gson();
+        go.makeJsonable(true);
         String data = gson.toJson(go);
 
         System.out.println(data);

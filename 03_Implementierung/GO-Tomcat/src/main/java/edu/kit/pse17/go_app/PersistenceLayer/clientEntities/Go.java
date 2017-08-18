@@ -146,4 +146,15 @@ public class Go {
     public void setLocations(List<Cluster> locations) {
         this.locations = locations;
     }
+
+    public void makeJsonable(boolean keepGroupInfo) {
+        if(keepGroupInfo) {
+            this.group.makeJsonable();
+        } else {
+            this.group = null;
+        }
+        for(UserGoStatus userGoStatus: participantsList) {
+            userGoStatus.makeJsonable();
+        }
+    }
 }

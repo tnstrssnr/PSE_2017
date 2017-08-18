@@ -45,6 +45,7 @@ public class GoEditedObserver implements Observer {
         receiver.addAll(goEntity.getGroup().getRequests());
 
         Gson gson = new Gson();
+        go.makeJsonable(true);
         String data = gson.toJson(go);
 
         messenger.send(data, EventArg.GO_EDITED_EVENT, receiver);

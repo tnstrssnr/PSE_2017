@@ -16,6 +16,11 @@ public class GroupMembership {
     public GroupMembership() {
     }
 
+    public void makeJsonable() {
+        this.getGroup().setMembershipList(null);
+        this.getGroup().setMembershipList(null);
+    }
+
     public User getUser() {
         return user;
     }

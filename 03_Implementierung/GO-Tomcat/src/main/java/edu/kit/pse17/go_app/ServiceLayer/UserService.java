@@ -73,7 +73,9 @@ public class UserService implements IObservable {
 
         List<Group> groups = new ArrayList<>();
         for (GroupEntity groupEntity : user.getGroups()) {
-            groups.add(GroupService.groupEntityToGroup(groupEntity));
+            Group group = GroupService.groupEntityToGroup(groupEntity);
+            group.makeJsonable();
+            groups.add(group);
         }
 
         return groups;

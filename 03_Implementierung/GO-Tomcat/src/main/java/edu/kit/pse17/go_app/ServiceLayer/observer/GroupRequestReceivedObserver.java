@@ -6,6 +6,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.GroupService;
@@ -48,9 +49,10 @@ public class GroupRequestReceivedObserver implements Observer {
         UserDaoImp userDao = new UserDaoImp(groupService.getGroupDao().getSf());
         UserEntity user = userDao.get(entity_ids.get(0));
 
-        GroupService.editGroupForJson(group);
+        Group cGroup = GroupService.groupEntityToGroup(group);
+        cGroup.makeJsonable();
 
-        String data = new Gson().toJson(GroupService.groupEntityToGroup(group));
+        String data = new Gson().toJson(cGroup);
         Set<UserEntity> receiver = new HashSet<>();
         receiver.add(user);
         receiver.addAll(group.getAdmins());

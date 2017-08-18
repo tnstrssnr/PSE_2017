@@ -35,6 +35,15 @@ public class Group {
         this.currentGos = new ArrayList<>();
     }
 
+    public void makeJsonable() {
+        for(GroupMembership membership: membershipList) {
+            membership.makeJsonable();
+        }
+        for(Go go: currentGos) {
+            go.makeJsonable(false);
+        }
+    }
+
 
     public long getId() {
         return id;

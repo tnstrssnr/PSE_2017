@@ -137,16 +137,12 @@ public class GoRestController {
      * <p>
      * Abgesehen von der Go ID, können sämtliche Argumente dieser Methode den Wert null annehmen. Dies signalisiert der
      * Methode, das der Wert nicht geändert wurde und die bisherigen Daten beibehalten werden sollen.
-     *
-     * @param goId Die ID des GOs, das gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
-     *             Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss
-     *             gülti sein und zu einem Long-Datentyp gecastet werden können.
      */
     @RequestMapping(
             method = RequestMethod.PUT,
-            value = "/{goId}"
+            value = "/"
     )
-    public ResponseEntity<String> editGo(@PathVariable("goId") long goId, @RequestBody Go go) {
+    public ResponseEntity<String> editGo(@RequestBody Go go) {
         goService.update(go);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

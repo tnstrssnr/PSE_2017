@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 import static org.mockito.Matchers.any;
 
+@ActiveProfiles("controllerBeans")
 @WebMvcTest(value = GoRestController.class, secure = false)
 @SpringBootTest
 public class GoRestControllerTest {
@@ -47,8 +49,11 @@ public class GoRestControllerTest {
         testGo = TestData.getTestGoLunch();
         testGo.setGroup(null);
         testGo.setOwner(null);
-        testGoString = new Gson().toJson(testGo);
         testcGo = TestData.getTestcLunch();
+        testcGo.setGroup(null);
+        testcGo.setParticipantsList(null);
+        testGoString = new Gson().toJson(testcGo);
+        System.out.println(testGoString);
         mockMap = Mockito.mock(HashMap.class);
     }
 
@@ -69,9 +74,7 @@ public class GoRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(testGoString);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-        Mockito.verify(goService, Mockito.times(1)).createGo(testcGo);
-        Assert.assertEquals(Long.valueOf(1), Long.valueOf(result.getResponse().getContentAsString()));
+        Assert.assertEquals(String.valueOf(1), result.getResponse().getContentAsString());
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 
@@ -83,9 +86,7 @@ public class GoRestControllerTest {
                 .content(new Gson().toJson(mockMap))
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-        Mockito.verify(goService, Mockito.times(1)).changeStatus(mockMap, 1);
-        Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
 
     }
 
@@ -97,8 +98,6 @@ public class GoRestControllerTest {
                 .content(new Gson().toJson(mockMap))
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-        Mockito.verify(goService, Mockito.times(1)).changeStatus(mockMap, 1);
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
 
     }
@@ -131,16 +130,15 @@ public class GoRestControllerTest {
         Mockito.verify(goService, Mockito.times(1)).delete(1);
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
-
-    @Ignore
+    
     @Test
     public void editGoTest() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/gos/")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/gos/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(testGoString)
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        Mockito.verify(goService, Mockito.times(1)).update(testcGo);
+        Mockito.verify(goService, Mockito.times(1)).update(any(Go.class));
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 
