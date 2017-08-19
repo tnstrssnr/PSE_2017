@@ -98,6 +98,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         SharedPreferences prefs = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE);
         String uid = prefs.getString(getString(R.string.user_id), null);
         String email = prefs.getString(getString(R.string.user_email),null);
-        return new User(uid, email, email);
+        String displayName = prefs.getString(getString(R.string.user_display_name),null);
+        return new User(uid, email, displayName);
     }
 }

@@ -59,8 +59,8 @@ public class UserRepository extends Repository<User> {
         });
     }
 
-    public void registerDevice(String instanceId) {
-        Call<Void> call = apiService.registerDevice(instanceId);
+    public void registerDevice(String userId, String instanceId) {
+        Call<Void> call = apiService.registerDevice(userId, instanceId);
         call.enqueue(new Callback<Void>() {
 
             @Override

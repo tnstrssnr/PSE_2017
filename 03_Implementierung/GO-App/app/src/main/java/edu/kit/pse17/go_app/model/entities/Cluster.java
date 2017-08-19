@@ -36,6 +36,10 @@ public class Cluster {
     @Expose
     private int size;
 
+    public Cluster(){
+
+    }
+
     public Cluster(double lat, double lon, int size) {
         this.lat = lat;
         this.lon = lon;

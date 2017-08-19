@@ -3,13 +3,10 @@ package edu.kit.pse17.go_app.repositories;
 import android.arch.lifecycle.Observer;
 import android.util.Log;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Singleton;
 
@@ -20,6 +17,7 @@ import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.GroupMembership;
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
+import edu.kit.pse17.go_app.serverCommunication.upstream.Serializer;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
 import edu.kit.pse17.go_app.view.GroupListActivity;
@@ -57,7 +55,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
     private ArrayList<Group> list;
     private GroupListLiveData data;
-
+    private Group groupWithoutId;
 
     //@Inject
     private GroupRepository(Observer<List<Group>> observer) {
@@ -80,39 +78,48 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
 
-    public void getData(final String userId, final String email, String instanceId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("userId", userId);
-        parameters.put("email", email);
-        parameters.put("instanceId", instanceId);
+    public void getData(final String userId, final String email, String instanceId, String userName) {
 
-        Call<List<Group>> call  = apiService.getData("test", "test");
-        /*call.enqueue(new Callback<List<Group>>() {
+        Call<List<Group>> call  = apiService.getData(userId,"test","test" /*email, userName*/);
+        call.enqueue(new Callback<List<Group>>() {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
-                data.setValue(response.body());
+
+                List<Group> list = response.body();
+                if(list.get(0).getId() == -1){
+                    data.setValue(new ArrayList<Group>());
+                } else {
+                    data.setValue(response.body());
+                }
             }
 
             @Override
             public void onFailure(Call<List<Group>> call, Throwable t) {
-
+                String l = "zhopa";
+                 StackTraceElement[] a = t.getStackTrace();
             }
-        });*/
+        });
 
-        Thread t = new Thread(new Runnable() {
+        /*Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 Call<List<Group>> call = apiService.getData(userId, email);
                 try {
                     list = (ArrayList<Group>) call.execute().body();
+                    //data.setValue(list);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
         t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
 
-        data.setValue(list);
+        //data.setValue(list);
     }
 
     // TODO TO the server !
@@ -123,18 +130,37 @@ public class GroupRepository extends Repository<List<Group>> {
     /*
     * Erzeugt eine Gruppe, group.Id wird danach intern auf dem Server vergeben
     * */
-    public void createGroup(String name, String description, String userId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("name", name);
-        parameters.put("description", description);
-        parameters.put("userId", userId);
+    public void createGroup(String name, String description, User user) {
+        Group newGroup = new Group(0, name, description, 1, null, new ArrayList<GroupMembership>(), new ArrayList<Go>());
+        newGroup.getMembershipList().add(new GroupMembership(user, newGroup, true, false));
 
-        Call<Long> call = apiService.createGroup(parameters);
+        //add locally
+        List<Group> newdata = data.getValue();
+        if(newdata ==  null){
+            newdata = new ArrayList<>();
+        }
+        Group group = new Group();
+        group.setName(name);
+        group.setDescription(description);
+        group.setId(-123);
+        List<GroupMembership> membership = new ArrayList<>();
+        membership.add(new GroupMembership(user, group, true, false));
+        group.setMembershipList(membership);
+        newdata.add(group);
+        groupWithoutId = group;
+        data.setValue(newdata);
+
+        //
+        Serializer.makeJsonable(newGroup);
+        String json = TomcatRestApiClient.gson.toJson(newGroup);
+
+        Call<Long> call = apiService.createGroup(newGroup);
         call.enqueue(new Callback<Long>() {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-
+                long code = response.body();
+                GroupRepository.getInstance().onGroupIdassigned(code);
             }
 
             @Override
@@ -144,17 +170,24 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    private void onGroupIdassigned(long code) {
+        List<Group> oldGroups = data.getValue();
+        for(Group group : oldGroups){
+            if(group.getId() == -123){
+                group.setId(code);
+            }
+        }
+        data.setValue(oldGroups);
+    }
+
     /*
     * Ändert die daten von der Group mit der Id group.Id, weil group.Id hier schon richtig sein muss
     * wegen der Wegwerfens der Id in ViewModels
     * */
     public void editGroup(long groupId, String name, String description) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("name", name);
-        parameters.put("description", description);
+        Group alteredGroup = new Group(groupId, name, description, 0, null, null, null);
 
-        Call<Void> call = apiService.editGroup(parameters);
+        Call<Void> call = apiService.editGroup(alteredGroup);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -197,11 +230,8 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     private void acceptRequest(long groupId, String userId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("userId", userId);
 
-        Call<Void> call = apiService.acceptRequest(parameters);
+        Call<Void> call = apiService.acceptRequest(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -217,11 +247,8 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     private void denyRequest(long groupId, String userId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("userId", userId);
 
-        Call<Void> call = apiService.denyRequest(parameters);
+        Call<Void> call = apiService.denyRequest(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -237,11 +264,8 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     public void removeMember(long groupId, String userId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("userId", userId);
 
-        Call<Void> call = apiService.removeMember(parameters);
+        Call<Void> call = apiService.removeMember(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -260,11 +284,8 @@ public class GroupRepository extends Repository<List<Group>> {
     * Ein Teilnehmer hinzufügen
     * */
     public void inviteMember(long groupId, String email) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("email", email);
 
-        Call<Void> call = apiService.inviteMember(parameters);
+        Call<Void> call = apiService.inviteMember(groupId, email);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -280,11 +301,8 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     public void addAdmin(long groupId, String userId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("userId", userId);
 
-        Call<Void> call = apiService.addAdmin(parameters);
+        Call<Void> call = apiService.addAdmin(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -300,31 +318,29 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     public void createGo(String name, String description, String start, String end,
-                         double lat, double lon, int threshold, long groupId, String userId) {
-        final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("name", name);
-        parameters.put("description", description);
-        parameters.put("start", start);
-        parameters.put("end", end);
-        parameters.put("latitude", Double.toString(lat));
-        parameters.put("longitude", Double.toString(lon));
-        parameters.put("threshold", Integer.toString(threshold));
-        parameters.put("groupId", Long.toString(groupId));
-        parameters.put("userId", userId);
+                         double lat, double lon, int threshold, Group group, String userId, String userName) {
 
-        Call<Long> call = apiService.createGo(parameters);
+        Go go = new Go(0, name, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
+        String json = TomcatRestApiClient.gson.toJson(go);
+        Call<Long> call = apiService.createGo(go);
         call.enqueue(new Callback<Long>() {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-
+                long goId = response.body();
+                onGoIdAssigned(goId);
             }
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
+                StackTraceElement[] st = t.getStackTrace();
                 Log.e("create_go", t.toString());
             }
         });
+    }
+
+    private void onGoIdAssigned(long goId) {
+
     }
 
     //----------------------------------------------------------------------

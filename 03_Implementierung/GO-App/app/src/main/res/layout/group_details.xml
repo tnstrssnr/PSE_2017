@@ -90,11 +90,11 @@
 
             <TextView
                 android:id="@+id/group_name"
-                android:layout_width="147dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="9dp"
-                android:layout_marginStart="9dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Group Name"
                 android:textAppearance="@android:style/TextAppearance.Material.Title"
@@ -103,7 +103,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/group_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.611" />
+                app:layout_constraintVertical_bias="0.5" />" />
 
             <ImageView
                 android:id="@+id/edit"
@@ -194,7 +194,7 @@
                 style="@android:style/Widget.Material.Light.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:elevation="16dp"
                 android:text="Delete group"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:textColor="@android:color/holo_red_dark" />
