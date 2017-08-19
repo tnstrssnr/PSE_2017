@@ -85,6 +85,7 @@ public class GroupViewModel extends ViewModel {
     * Ändert die Daten von der Gruppe mit groupId, group.groupId wird nicht benutzt in der Methode
     * */
     public void editGroup(long groupId, String name, String description){
+        groupRepo.editGroup(groupId,name,description);
     }
     /*
     * True - akzeptiere den Request für die Gruppe groupId
@@ -108,6 +109,8 @@ public class GroupViewModel extends ViewModel {
     }
 
     public void createGo(String name, String description, String start, String end, double lat, double lon, long groupId, String userId) {
-        groupRepo.createGo(name, description,start,end, lat, lon, -1,groupId,userId);
+        Group group = new Group();
+        group.setId(groupId);
+        groupRepo.createGo(name, description,start,end, lat, lon, -1,group,userId, GroupListActivity.getDisplayName());
     }
 }

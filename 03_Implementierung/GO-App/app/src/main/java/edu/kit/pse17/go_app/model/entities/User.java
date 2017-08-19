@@ -1,9 +1,7 @@
 package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.graphics.drawable.Icon;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -56,7 +54,7 @@ public class User implements Serializable {
     @Expose
     private Drawable icon;*/
 
-    public User(String uid, String name, String email) {
+    public User(String uid,  String email, String name) {
         this.uid = uid;
         this.name = name;
         this.email = email;
@@ -68,7 +66,9 @@ public class User implements Serializable {
         this.name = name;
         this.email = email;
     }
+    public User(){
 
+    }
     public String getUid() {
         return uid;
     }

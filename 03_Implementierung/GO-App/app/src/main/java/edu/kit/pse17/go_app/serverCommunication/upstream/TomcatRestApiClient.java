@@ -1,5 +1,10 @@
 package edu.kit.pse17.go_app.serverCommunication.upstream;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.text.DateFormat;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,6 +31,8 @@ public class TomcatRestApiClient {
      */
     private static Retrofit retrofit = null;
 
+    public static Gson gson;
+
     /**
      * Method that builds and returns the Retrofit object (with GSON converter)
      *
@@ -33,9 +40,19 @@ public class TomcatRestApiClient {
      */
     public static Retrofit getClient() {
         if (retrofit == null) {
+            gson = new GsonBuilder()
+                    //.registerTypeAdapter(Group.class, Deserializer.getDeserializer())
+                    //.addSerializationExclusionStrategy(Serializer.getGroupExclusionStrategy())
+                    .enableComplexMapKeySerialization()
+                    .serializeNulls()
+                    .setDateFormat(DateFormat.LONG)
+                    .setPrettyPrinting()
+                    .setVersion(1.0)
+                    .create();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
         return retrofit;

@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
+import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
 import edu.kit.pse17.go_app.repositories.GoRepository;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
@@ -60,6 +61,8 @@ public class GroupListViewModel extends ViewModel {
     private Observer<List<Group>> observer;
     private LocationLiveData deviceLocation;
 
+    private Group groupWithoutId;
+
     //active gos, where user of this phone is out already
     private List<Go> activeGos = new ArrayList<>();
 
@@ -95,10 +98,10 @@ public class GroupListViewModel extends ViewModel {
     * Gibt zurück eine Liste aller Gruppen für ein User
     * */
 
-    public GroupListLiveData getGroups(String userId, String email, String instanceId) {
+    public GroupListLiveData getGroups(String userId, String email, String instanceId, String userName) {
         if(data == null){
             data = new GroupListLiveData();
-            groupRepo.getData(userId, email, instanceId  /*groupRepo.fetchData()*/);
+            groupRepo.getData(userId, email, instanceId, userName  /*groupRepo.fetchData()*/);
             //data.setValue(groupRepo.fetchData());
             //findActiveGos();
         }
@@ -118,18 +121,18 @@ public class GroupListViewModel extends ViewModel {
     * group.id wird nicht berücksichtigt bei der Erstellung.
     * */
 
-    public void createGroup(Group group){
+    public void createGroup(String name, String description, User user){
         //now just add a group to live data here, later maybe change to server applicable stuff
-        //groupRepo.createGroup(group);
-        List<Group> newdata = data.getValue();
-        newdata.add(group);
-        data.setValue(newdata);
+        groupRepo.createGroup(name, description, user);
+
 
 
         Log.d("VIewModel", "HasObservers? " + data.hasObservers());
 
 
     }
+
+
 
     /*
     * Gibt zurück die Instanz des Viewmodels
@@ -162,13 +165,16 @@ public class GroupListViewModel extends ViewModel {
         return activeGos;
     }
     private void findActiveGos(){
+
         //O(n*m) n - number of groups, m - number of GOs
         //this is inefficient
-        for(Group group : data.getValue()){
-            for(Go go : group.getCurrentGos()){
-                for(UserGoStatus status : go.getParticipantsList()){
-                    if(status.getUser().getUid().equals(uId) && status.getStatus() == Status.GONE){
-                        activeGos.add(go);
+        if(data != null) {
+            for (Group group : data.getValue()) {
+                for (Go go : group.getCurrentGos()) {
+                    for (UserGoStatus status : go.getParticipantsList()) {
+                        if (status.getUser().getUid().equals(uId) && status.getStatus() == Status.GONE) {
+                            activeGos.add(go);
+                        }
                     }
                 }
             }

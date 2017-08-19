@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.model.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.drawable.Drawable;
 
@@ -52,10 +51,8 @@ public class Group {
     /**
      * Bild der Gruppe
      */
-    @Ignore
     @SerializedName("icon")
-    @Expose
-    public Drawable icon;
+    public transient Drawable icon;
 
     /**
      * Eine Liste mit allen Mitgliedern der Gruppe + Information ob das Mitglied ein Administrator ist
@@ -68,6 +65,7 @@ public class Group {
     /**
      * Eine Liste mit allen GOs der Gruppe.
      */
+
     @SerializedName("currentGos")
     @Expose
     private List<Go> currentGos;

@@ -44,7 +44,7 @@ public class EditGroupFragment extends DialogFragment {
                 }
             }
         });
-        return builder.setTitle("Create a group").setView(view).create();
+        return builder.setTitle("Edit the group").setView(view).create();
     }
     private boolean checkInput(){
         if(groupName.getText().toString().isEmpty()){

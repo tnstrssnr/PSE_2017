@@ -33,8 +33,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.521"
-                app:srcCompat="@drawable/ic_group_white_24dp"
-                tools:layout_editor_absoluteY="25dp" />
+                app:srcCompat="@drawable/ic_group_white_24dp" />
 
             <TextView
                 android:id="@+id/group_name"
@@ -56,12 +55,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gos_recycler_view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="551dp"
-        android:layout_marginStart="0dp"
         android:layout_marginEnd="1dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />

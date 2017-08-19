@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
+import edu.kit.pse17.go_app.model.entities.UserLocation;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
 import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
@@ -59,10 +60,10 @@ public class GoRepository extends Repository<List<Go>>{
     public void changeStatus(String userId, long goId, Status status) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("userId", userId);
-        parameters.put("goId", Long.toString(goId));
+        //parameters.put("goId", Long.toString(goId));
         parameters.put("status", status.name());
 
-        Call<Void> call = apiService.changeStatus(parameters);
+        Call<Void> call = apiService.changeStatus(parameters,goId);
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -109,8 +110,8 @@ public class GoRepository extends Repository<List<Go>>{
         parameters.put("latitude", Double.toString(lat));
         parameters.put("longitude", Double.toString(lon));
         parameters.put("threshold", Integer.toString(threshold));
-
-        Call<Void> call = apiService.editGo(parameters);
+        Go go = new Go(goId,name,description,start,end,null,lat,lon,null, null, null, null);
+        Call<Void> call = apiService.editGo(go, go.getId());
         call.enqueue(new Callback<Void>() {
 
             @Override
@@ -125,7 +126,7 @@ public class GoRepository extends Repository<List<Go>>{
         });
     }
 
-    public void getLocation(String userId, final long goId, double lat, double lon) {
+    public void getLocation(final String userId, final long goId, final double lat, final double lon) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("userId", userId);
         parameters.put("goId", Long.toString(goId));
@@ -135,9 +136,10 @@ public class GoRepository extends Repository<List<Go>>{
         final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                Call<List<Cluster>> call = apiService.getLocation(parameters);
+                Call<Void> sendLocation = apiService.setLocation(goId, new UserLocation(userId,lat, lon));
+                Call<List<Cluster>> getLocation = apiService.getLocation(goId);
                 try {
-                    go.setLocations(call.execute().body());
+                    go.setLocations(getLocation.execute().body());
                     data.setValue(go);
 
                     GroupRepository groupRepo = GroupRepository.getInstance();

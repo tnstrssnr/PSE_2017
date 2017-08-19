@@ -26,6 +26,7 @@ public class GroupMembership {
     /**
      * Gruppe, zu der der Mitglied gehört.
      */
+
     @SerializedName("group")
     @Expose
     private Group group;
@@ -44,7 +45,9 @@ public class GroupMembership {
     @SerializedName("isRequest")
     @Expose
     private boolean isRequest;
+public GroupMembership(){
 
+}
     public GroupMembership(User user, Group group, boolean isAdmin, boolean isRequest) {
         this.user = user;
         this.group = group;

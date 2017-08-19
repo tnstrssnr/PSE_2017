@@ -40,7 +40,7 @@ public class AddMemberFragment extends DialogFragment {
                 }
             }
         });
-        return builder.setTitle("Create a group").setView(view).create();
+        return builder.setTitle("Add member").setView(view).create();
     }
 
     private boolean checkInput(){

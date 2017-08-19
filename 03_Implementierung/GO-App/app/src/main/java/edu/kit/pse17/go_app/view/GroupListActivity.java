@@ -103,12 +103,19 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private static String globalUid;
     private static String globalEmail;
 
+    public static String getDisplayName() {
+        return displayName;
+    }
+
+    private static String displayName;
+
     public static void start(Activity activity, User user) {
         Intent intent = new Intent(activity, GroupListActivity.class);
 
         intent.putExtra(USER_ID_INTENT_CODE, user.getUid());
         globalUid = user.getUid();
         globalEmail = user.getEmail();
+        displayName = user.getName();
         activity.startActivity(intent);
     }
 
@@ -144,7 +151,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
         viewModel.init(getUserId());
-        viewModel.getGroups(globalUid, globalEmail,"null").observe(this, new Observer<List<Group>>() {
+        viewModel.getGroups(globalUid, globalEmail,"null", displayName).observe(this, new Observer<List<Group>>() {
             @Override
             public void onChanged(@Nullable List<Group> groups) {
                 Log.d("LIVE DATA", "ON CHANGE CALLBACK");
@@ -318,12 +325,12 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
             Group toCreate = new Group();
-            toCreate.setName(intent.getStringExtra("group_name"));
-            toCreate.setDescription(intent.getStringExtra("group_description"));
-            viewModel.createGroup(toCreate);
-            Log.d("Received broadcast", intent.getAction() + toCreate.getName());
+            String name = intent.getStringExtra("group_name");
+            Log.d("Received broadcast", intent.getAction() + name);
+            String description = intent.getStringExtra("group_description");
+            viewModel.createGroup(name, description, new User(globalUid,globalEmail,displayName));
+
         }
     }
     public Class getNextActivity() {
