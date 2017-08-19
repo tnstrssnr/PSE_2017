@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 
 import java.io.IOException;
@@ -81,7 +82,6 @@ public class LocationService {
     public LocationService(final GoEntity go) throws IOException {
         this.activeUsers = activeUsers;
         this.groupLocation = groupLocation;
-        this.newLocationCounter = 0;
         this.userCounter = 0;
         this.strat = new GoClusterStrategy();
     }
@@ -109,7 +109,7 @@ public class LocationService {
      * @param lon    Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad
      *               interpretierbar sein, muss also zwischen +180 und -180 liegen.
      */
-    public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) {
+    public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
 
         boolean validation = false;
 
@@ -121,13 +121,14 @@ public class LocationService {
                     LocationService.activeServices.get(goId).activeUsers.get(i).setLat(lat);
                     LocationService.activeServices.get(goId).activeUsers.get(i).setLon(lon);
                     validation = true;
-                    LocationService.activeServices.get(goId).newLocationCounter += LocationService.activeServices.get(goId).newLocationCounter;
                 }
             }
             if (validation == false) {
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
         }
+
+        else { LocationService.activeServices.put(goId, new LocationService(GoService.getGoById(goId))); };
     }
 
     /**
@@ -148,7 +149,17 @@ public class LocationService {
      * Anwendung zu verletzen.
      */
     public static List<Cluster> getGroupLocation(final long goId) {
-        return null;
+        LocationService.activeServices.get(goId).groupLocation = null;
+        GoClusterStrategy clusterStrategy = new GoClusterStrategy();
+        LocationService.activeServices.get(goId).groupLocation = clusterStrategy.calculateCluster(LocationService.activeServices.get(goId).activeUsers);
+        LocationService.activeServices.get(goId).activeUsers.clear();
+        return LocationService.activeServices.get(goId).groupLocation;
+    }
+
+    public static void removeGo(final long goId) {
+        if(LocationService.activeServices.get(goId) != null) {
+            LocationService.activeServices.remove(goId);
+        }
     }
 
 
