@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
+import com.google.gson.annotations.SerializedName;
 import org.apache.poi.sl.draw.Drawable;
 
 import java.util.ArrayList;
@@ -7,12 +8,24 @@ import java.util.List;
 
 public class Group {
 
+    @SerializedName("groupId")
     private long id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("memberCount")
     private int memberCount;
-    private Drawable icon;
+
+    private transient Drawable icon;
+
+    @SerializedName("membershipList")
     private List<GroupMembership> membershipList;
+
+    @SerializedName("currentGos")
     private List<Go> currentGos;
 
 

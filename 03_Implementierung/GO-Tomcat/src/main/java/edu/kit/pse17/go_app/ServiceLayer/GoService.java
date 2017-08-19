@@ -79,6 +79,7 @@ public class GoService implements IObservable {
         for (UserEntity usr : goEntity.getNotGoingUsers()) {
             statuses.add(new UserGoStatus(UserService.userEntityToUser(usr), go, Status.NOT_GOING));
         }
+        go.setParticipantsList(statuses);
         return go;
     }
 
@@ -88,14 +89,21 @@ public class GoService implements IObservable {
         } else {
             go.setGroup(null);
         }
-        for (UserGoStatus userGoStatus : go.getParticipantsList()) {
-            makeJsonable(userGoStatus);
+
+        if (go.getParticipantsList() != null) {
+            for (UserGoStatus userGoStatus : go.getParticipantsList()) {
+                makeJsonable(userGoStatus);
+            }
         }
     }
 
     public static void makeJsonable(UserGoStatus userGoStatus) {
         userGoStatus.getGo().setGroup(null);
         userGoStatus.getGo().setParticipantsList(null);
+    }
+
+    public static GoEntity getGoById(long id) {
+        return goDao.get(id);
     }
 
     public void registerAll() {
@@ -123,13 +131,13 @@ public class GoService implements IObservable {
     }
 
     public long createGo(Go go) {
-        UserEntity owner = userDao.get(go.getOwner());
+        UserEntity owner = userDao.get(go.getOwnerId());
         GroupEntity groupEntity = groupDao.get(go.getGroup().getId());
         GoEntity goEntity = new GoEntity(groupEntity, owner, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
         long id = goDao.persist(goEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(id));
-        notify(EventArg.GO_ADDED_EVENT, this, entity_ids);
+        //notify(EventArg.GO_ADDED_EVENT, this, entity_ids);
         return id;
     }
 
@@ -166,14 +174,11 @@ public class GoService implements IObservable {
 
     public void update(Go go) {
         GoEntity goEntity = new GoEntity(null, null, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
+        goEntity.setID(go.getId());
         goDao.update(goEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(goEntity.getID()));
-        notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
-    }
-
-    public static GoEntity getGoById(long id) {
-        return goDao.get(id);
+        //notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
     }
 
     @Override

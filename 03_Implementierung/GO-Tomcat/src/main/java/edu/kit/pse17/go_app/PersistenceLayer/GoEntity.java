@@ -159,9 +159,11 @@ public class GoEntity {
         this.goingUsers = new HashSet<>();
         goingUsers.add(owner);
         this.notGoingUsers = new HashSet<>();
-        for (UserEntity user : group.getMembers()) {
-            if (!user.equals(owner)) {
-                notGoingUsers.add(user);
+        if (group != null) {
+            for (UserEntity user : group.getMembers()) {
+                if (!user.equals(owner)) {
+                    notGoingUsers.add(user);
+                }
             }
         }
         this.goneUsers = new HashSet<>();

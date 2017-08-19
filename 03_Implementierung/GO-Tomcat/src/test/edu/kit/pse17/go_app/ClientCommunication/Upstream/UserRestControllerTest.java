@@ -70,7 +70,7 @@ public class UserRestControllerTest {
 
     @Test
     public void getDataTest() throws Exception {
-        Mockito.when(userService.getData(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Mockito.when(userService.getData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/testid_1/testmail").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         System.out.println(result.getResponse().getContentAsString());

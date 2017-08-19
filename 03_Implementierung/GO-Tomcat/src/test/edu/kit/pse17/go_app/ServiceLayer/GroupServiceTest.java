@@ -195,4 +195,27 @@ public class GroupServiceTest {
         Assert.assertEquals(testGroup, result);
     }
 
+    @Test
+    public void debugTest() {
+        String id = "MLsXON00mUPSQvKi7DggE6lTAsq1";
+        UserEntity user = TestData.getTestUserBob();
+        user.getGroups().add(TestData.getTestGroupFoo());
+        System.out.println(user.getGroups().size());
+
+        List<Group> groups = new ArrayList<>();
+        for (GroupEntity groupEntity : user.getGroups()) {
+            System.out.println(groupEntity.getMembers().size());
+            Group group = GroupService.groupEntityToGroup(groupEntity);
+            System.out.println(group.getMembershipList().size());
+            GroupService.makeJsonable(group);
+            groups.add(group);
+        }
+        for (GroupEntity groupEntity : user.getRequests()) {
+            Group group = GroupService.groupEntityToGroup(groupEntity);
+            GroupService.makeJsonable(group);
+            groups.add(group);
+        }
+        System.out.println(groups.size());
+    }
+
 }

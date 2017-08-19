@@ -8,6 +8,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.GroupMembership;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
@@ -40,17 +41,21 @@ public class GroupService implements IObservable {
     }
 
     public static void makeJsonable(Group group) {
+        List<GroupMembership> jsonAbleList = new ArrayList<>();
         for (GroupMembership groupMembership : group.getMembershipList()) {
-            makeJsonable(groupMembership);
+            jsonAbleList.add(new GroupMembership(groupMembership.getUser(), null, groupMembership.isAdmin(), groupMembership.isRequest()));
+            //makeJsonable(groupMembership);
         }
+        group.setMembershipList(jsonAbleList);
+        System.out.println(group.getMembershipList().size());
         for (Go go : group.getCurrentGos()) {
             GoService.makeJsonable(go, false);
         }
     }
 
     public static void makeJsonable(GroupMembership groupMembership) {
-        groupMembership.getGroup().setMembershipList(null);
-        groupMembership.getGroup().setMembershipList(null);
+        groupMembership.getGroup().setMembershipList(new ArrayList<>());
+        groupMembership.getGroup().setCurrentGos(new ArrayList<>());
     }
 
     public static void editGroupForJson(GroupEntity group) {
@@ -74,6 +79,7 @@ public class GroupService implements IObservable {
 
     public static Group groupEntityToGroup(GroupEntity groupEntity) {
         Group group = new Group();
+        group.setName(groupEntity.getName());
         group.setDescription(groupEntity.getDescription());
         group.setIcon(null);
         group.setId(groupEntity.getID());
@@ -90,11 +96,14 @@ public class GroupService implements IObservable {
             } else {
                 membership.setAdmin(false);
             }
+            groupMemberships.add(membership);
         }
         for (UserEntity usr : groupEntity.getRequests()) {
             groupMemberships.add(new GroupMembership(UserService.userEntityToUser(usr), group, false, true));
         }
+        System.out.println("test1" + String.valueOf(groupMemberships.size()));
         group.setMembershipList(groupMemberships);
+        System.out.println("test2" + String.valueOf(group.getMembershipList()));
 
         List<Go> gos = new ArrayList<>();
         for (GoEntity goEntity : groupEntity.getGos()) {
@@ -154,6 +163,7 @@ public class GroupService implements IObservable {
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setName(group.getName());
         groupEntity.setDescription(group.getDescription());
+        groupEntity.setID(group.getId());
         groupDao.update(groupEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(group.getId()));
@@ -183,12 +193,18 @@ public class GroupService implements IObservable {
         notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids);
     }
 
-    public void addGroupRequest(String userId, Long groupId) {
+    public boolean addGroupRequest(String email, Long groupId) {
+        User user = new UserService(new UserDaoImp(groupDao.getSf())).getUserbyMail(email + ".com");
+        if (user == null) {
+            return false;
+        }
+        String userId = user.getUid();
         groupDao.addGroupRequest(userId, groupId);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
         notify(EventArg.GROUP_REQUEST_RECEIVED_EVENT, this, entity_ids);
+        return true;
     }
 
     public void removeGroupRequest(String userId, long groupId) {

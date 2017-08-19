@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import edu.kit.pse17.go_app.ServiceLayer.LocationService;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,8 @@ import java.util.Map;
 @RequestMapping("/gos")
 public class GoRestController {
 
+
+    //autowired fields are injected by Spring Framework on start-up
     @Autowired
     private GoService goService;
 
@@ -46,9 +50,13 @@ public class GoRestController {
      */
     @RequestMapping(
             method = RequestMethod.POST,
-            value = "/"
+            value = "/{groupId}/{userId}"
     )
-    public ResponseEntity<Long> createGo(@RequestBody Go go) {
+    public ResponseEntity<Long> createGo(@PathVariable("groupId") long groupId, @PathVariable("userId") String userId, @RequestBody Go go) {
+        Group group = new Group();
+        group.setId(groupId);
+        go.setGroup(group);
+        go.setOwnerId(userId);
         return new ResponseEntity<>(goService.createGo(go), HttpStatus.OK);
     }
 
@@ -95,14 +103,14 @@ public class GoRestController {
     /**
      * A call to this method will save the supplied location of the user to the UserLocation object of the group
      *
-     * @param goId         ID of the affected go
+     * @param goId         ID of the affected go. This parameter is specified in the URI of this Rest resource
      * @param userLocation A UserLocation object that contains the current location of the user
      */
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/location/{goId}"
     )
-    public ResponseEntity setLocation(@RequestBody UserLocation userLocation, @PathVariable("goId") Long goId) {
+    public ResponseEntity setLocation(@RequestBody UserLocation userLocation, @PathVariable("goId") Long goId) throws IOException {
         String userId = userLocation.getUserId();
         double lat = userLocation.getLat();
         double lon = userLocation.getLon();
@@ -111,11 +119,9 @@ public class GoRestController {
     }
 
     /**
-     * A call to this method will delete the
+     * A call to this method will delete the specified go
      *
-     * @param goId Die ID des GOs, das gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
-     *             Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss
-     *             gülti sein und zu einem Long-Datentyp gecastet werden können.
+     * @param goId Id of the Go to be deleted. This parameter is specified in the URI of this Rest resource
      */
     @RequestMapping(
             method = RequestMethod.DELETE,
@@ -128,23 +134,18 @@ public class GoRestController {
     }
 
     /**
-     * Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten eines GOs ändern will. Zu den Daten, die mit
-     * dieser Methode geändert werden können, gehören:
-     * <p>
-     * - der GO-Name - die GO-Beschreibung - Der Anfangs- und Endzeitpunkt - Der Zielort - Der Clustering-Schwellwert
-     * <p>
-     * Es ist garantiert, dass dieser Aufruf nur von einem Go-Verantwortlichen des zu ändernden GOs kommt.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL {Base_URL}/gos/{goId}.
-     * <p>
-     * Abgesehen von der Go ID, können sämtliche Argumente dieser Methode den Wert null annehmen. Dies signalisiert der
-     * Methode, das der Wert nicht geändert wurde und die bisherigen Daten beibehalten werden sollen.
+     * A Call to this method allows the client to change the data of the Go. Fields that can not be edited via this
+     * method are all informations pertaining to the group and the owner of the Go, as well as the statuses of thew Go
+     * members.
+     *
+     * @param go The Go to e edited. This parameter is specified in the URI of this Rest resource
      */
     @RequestMapping(
             method = RequestMethod.PUT,
-            value = "/"
+            value = "/{goId}"
     )
-    public ResponseEntity<String> editGo(@RequestBody Go go) {
+    public ResponseEntity editGo(@PathVariable("goId") Long goId, @RequestBody Go go) {
+        go.setId(goId);
         goService.update(go);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

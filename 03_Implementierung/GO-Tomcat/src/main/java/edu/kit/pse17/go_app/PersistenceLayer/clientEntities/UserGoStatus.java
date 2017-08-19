@@ -1,12 +1,18 @@
 package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
 
+import com.google.gson.annotations.SerializedName;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 
 public class UserGoStatus {
 
+    @SerializedName("user")
     private User user;
+
+    @SerializedName("go")
     private Go go;
+
+    @SerializedName("status")
     private Status status;
 
     public UserGoStatus(User user, Go go, Status status) {

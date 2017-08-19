@@ -1,12 +1,17 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import com.google.gson.Gson;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.GroupMembership;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.TestData;
 import org.hibernate.exception.ConstraintViolationException;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -30,8 +35,9 @@ public class UserServiceTest {
         testUser.setGroups(new HashSet<>());
         testUser.setRequests(new HashSet<>());
         testList = new ArrayList<>();
-        testList.add(TestData.getTestcFoo());
-        testList.add(TestData.getTestcBar());
+        Group listGroup = GroupService.groupEntityToGroup(TestData.getTestGroupFoo());
+        GroupService.makeJsonable(listGroup);
+        testList.add(listGroup);
         testcUser = UserService.userEntityToUser(testUser);
     }
 
@@ -52,13 +58,12 @@ public class UserServiceTest {
         Assert.assertEquals(alteredTestUser, testUser);
     }
 
-    @Ignore
     @Test
     public void getDataTest() throws Exception {
         UserEntity alteredTestUser = addAssociationsToUser(testUser);
 
         Mockito.when(mockUserDao.get(Mockito.anyString())).thenReturn(alteredTestUser);
-        List<Group> result = testService.getData(alteredTestUser.getUid(), alteredTestUser.getEmail());
+        List<Group> result = testService.getData(alteredTestUser.getUid(), alteredTestUser.getEmail(), alteredTestUser.getName());
         Assert.assertEquals(testList, result);
 
     }
@@ -104,7 +109,14 @@ public class UserServiceTest {
         Mockito.when(mockUserDao.getUserByEmail(Mockito.anyString())).thenReturn(testUser);
         User result = testService.getUserbyMail(testMail);
         Mockito.verify(mockUserDao, Mockito.times(1)).getUserByEmail(testMail);
-        Assert.assertEquals(testcUser, result);
+        Assert.assertEquals(testUser.getEmail(), result.getEmail());
+
+        Group group = GroupService.groupEntityToGroup(TestData.getTestGroupFoo());
+        group.getMembershipList().add(new GroupMembership(TestData.getTestcAlice(), group, true, false));
+        System.out.println(group.getMembershipList().size());
+        GroupService.makeJsonable(group);
+        System.out.println(group.getMembershipList().size());
+        System.out.println(new Gson().toJson(group));
     }
 
     private UserEntity addAssociationsToUser(UserEntity user) {

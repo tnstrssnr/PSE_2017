@@ -56,14 +56,13 @@ public class UserService implements IObservable {
         this.userDao = userDao;
     }
 
-    public List<Group> getData(String key, String email) {
+    public List<Group> getData(String key, String email, String userName) {
         UserEntity user = userDao.get(key);
-
         //user doesnt exist -- create and store in database
         if (user == null) {
             user = new UserEntity();
             user.setUid(key);
-            user.setName(email);
+            user.setName(userName);
             user.setEmail(email);
             user.setRequests(new HashSet<>());
             user.setGroups(new HashSet<>());
@@ -77,7 +76,11 @@ public class UserService implements IObservable {
             GroupService.makeJsonable(group);
             groups.add(group);
         }
-
+        for (GroupEntity groupEntity : user.getRequests()) {
+            Group group = GroupService.groupEntityToGroup(groupEntity);
+            GroupService.makeJsonable(group);
+            groups.add(group);
+        }
         return groups;
     }
 
@@ -112,7 +115,7 @@ public class UserService implements IObservable {
         User user = null;
 
         if (userEntity != null) {
-            userEntityToUser(userEntity);
+            user = userEntityToUser(userEntity);
         }
 
         return user;

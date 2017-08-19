@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
+import com.google.gson.annotations.SerializedName;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;
 
 import java.util.ArrayList;
@@ -7,17 +8,40 @@ import java.util.List;
 
 public class Go {
 
+    @SerializedName("goId")
     private long id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("start")
     private String start;
+
+    @SerializedName("end")
     private String end;
+
+    @SerializedName("group")
     private Group group;
+
+    @SerializedName("lat")
     private double desLat;
+
+    @SerializedName("lon")
     private double desLon;
+
+    @SerializedName("userId")
     private String ownerId;
+
+    @SerializedName("ownerName")
     private String ownerName;
+
+    @SerializedName("participantsList")
     private List<UserGoStatus> participantsList;
+
+    @SerializedName("locations")
     private List<Cluster> locations;
 
     public Go(long id, String name, String description, String start, String end, Group group, double desLat, double desLon, String ownerId, String ownerName, List<UserGoStatus> participantsList, List<Cluster> locations) {

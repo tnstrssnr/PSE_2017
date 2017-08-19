@@ -1,10 +1,19 @@
 package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
+    @SerializedName("userId")
     private String uid;
+
+    @SerializedName("instanceId")
     private String instanceId;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("email")
     private String email;
 
     public User(String uid, String name, String email) {

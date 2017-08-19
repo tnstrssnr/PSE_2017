@@ -11,35 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.HttpStatus.OK;
 
 /**
- * Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die
- * der Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von
- * REST-Requests, die Gruppen-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests
- * - das Parsen der empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung
- * an die richtige Stelle im Programm (das GroupDAO)
- * <p>
- * Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die
- * Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren
- * Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL {Base_URL}/groups gemappt.
- * <p>
- * Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des
- * Systems verwendet wird.
- * <p>
- * Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung
- * weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort
- * erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem
- * Client in der Antwort zugesendet.
- * <p>
- * Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument
- * <p>
- * Die Klasse verfügt nur über den Standard-Konstruktor (der implizit gegeben ist). Es muss nirgends im Programm eine
- * Instanz dieser Klasse erzeugt werden. Um die Instanziierung und Objektverwaltung dieser Klasse kümmert sich das
- * Spring-Framework.
+ * RestController class for Rest resources pertaining to Group functionality. All return values in this class are
+ * wrapped in a responseEntity-object, containing a Http-StatusCode and the return data in its body formatted as a
+ * Json-String, using Gson.
  */
 
 @RestController
 @RequestMapping("/group")
 public class GroupRestController {
 
+    //autowired fields are injected by Spring Framework on start-up
     @Autowired
     private GroupService groupService;
 
@@ -51,16 +32,11 @@ public class GroupRestController {
     }
 
     /**
-     * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
-     * Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das groupDao zur Erzeugung der Gruppe
-     * in der Datenbank. Zusätzlich zur Erzeugung derGruppe wird der Ersteller als Gruppenmitglied und Administrator zur
-     * Gruppe hinzugefügt.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL {Base_URL}/groups.
+     * A call to this method will persist the specified group on the server database.
      *
-     * @return Die global eindeutige ID, die dier Gruppe zugewiesen wurde. Diese wird im Header der HTTP-Response im
-     * Location-Feld an den Client zurückgesendet, also : {Base_URL}/gos/{goId} und kann dort vom Client ausgelesen
-     * werden. Der Wert ist eine positive ganze Zahl, die im Wertebereich des primitiven Datentyps long liegt.
+     * @param group The group to be persisted. The Group needs to contain an GroupMembership Object for the creator of
+     *              the group.
+     * @return The globally unique ID og the Group
      */
     @RequestMapping(
             method = RequestMethod.POST,
@@ -71,15 +47,8 @@ public class GroupRestController {
     }
 
     /**
-     * Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten der Gruppe ändern will. Zu den daten, die mit
-     * dieser Methode geändert werden können, gehören:
-     * <p>
-     * - der Gruppenname - die Gruppenbeschreibung
-     * <p>
-     * Es ist garantiert, dass dieser Aufruf nur von einem Administrator der zu ändernden gruppe kommt.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL
-     * {Base_URL}/groups/{groupId}.
+     * @param group
+     * @return
      */
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -178,16 +147,17 @@ public class GroupRestController {
      * @param groupId Die ID der Gruppe, zu der der Benutzer eingladen werden soll. Der Wert dieses Arguments ist Teil
      *                der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
      *                bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.
-     * @param userId  Die ID des Benutzers, der zu der gruppe eingeladen werden soll. Der Wert dieses Arguments ist Teil
-     *                der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
-     *                bereitgestellt.
      */
     @RequestMapping(
             method = RequestMethod.POST,
-            value = "/requests/{groupId}/{userId}")
-    public ResponseEntity inviteMember(@PathVariable final Long groupId, @PathVariable final String userId) {
-        groupService.addGroupRequest(userId, groupId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+            value = "/requests/{groupId}/{email}")
+    public ResponseEntity inviteMember(@PathVariable final Long groupId, @PathVariable final String email) {
+        if (groupService.addGroupRequest(email, groupId)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
     }
 
     /**

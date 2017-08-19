@@ -83,16 +83,19 @@ public class UserRestController {
      */
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{userId}/{email}",
+            value = "/{userId}/{email}/{userName}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<Group>> getData(@PathVariable("userId") final String userId, @PathVariable("email") final String email) {
-        List<Group> data = userService.getData(userId, email);
+    public ResponseEntity<List<Group>> getData(@PathVariable("userId") final String userId, @PathVariable("email") final String email, @PathVariable("userName") String userName) {
+        List<Group> data = userService.getData(userId, email, userName);
+
         if (data == null || data.size() == 0) {
+
             data = new ArrayList<>();
             Group group = new Group(-1, "dummy", "dummy", 0, null, new ArrayList<>(), new ArrayList<>());
             GroupService.makeJsonable(group);
             data.add(group);
+
             return new ResponseEntity<>(data, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(data, HttpStatus.OK);
@@ -110,11 +113,9 @@ public class UserRestController {
      * gesendet wird. Der Statuscode gibt an, ob die Transaktion erfolgreich war.
      */
     @RequestMapping(method = RequestMethod.POST, value = "/{userId}")
-    public ResponseEntity<String>
-    createUser(@RequestBody final UserEntity user) {
+    public ResponseEntity<String> createUser(@RequestBody final UserEntity user) {
         if (userService.createUser(user)) {
-            return
-                    ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } else {
             return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
         }

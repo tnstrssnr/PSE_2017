@@ -1,9 +1,19 @@
 package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
+import com.google.gson.annotations.SerializedName;
+
 public class GroupMembership {
+
+    @SerializedName("user")
     private User user;
+
+    @SerializedName("group")
     private Group group;
+
+    @SerializedName("isAdmin")
     private boolean isAdmin;
+
+    @SerializedName("isRequest")
     private boolean isRequest;
 
     public GroupMembership(User user, Group group, boolean isAdmin, boolean isRequest) {
