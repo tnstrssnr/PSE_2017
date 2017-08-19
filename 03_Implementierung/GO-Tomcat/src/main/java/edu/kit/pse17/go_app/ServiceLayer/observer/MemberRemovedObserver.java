@@ -4,8 +4,7 @@ package edu.kit.pse17.go_app.ServiceLayer.observer;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.json.simple.JSONObject;
 
 import java.util.List;
@@ -13,29 +12,29 @@ import java.util.List;
 public class MemberRemovedObserver implements Observer {
 
     private final FcmClient messenger;
-    private GroupDao groupDao;
+    private GroupService groupService;
 
-    public MemberRemovedObserver(FcmClient messenger, GroupDao groupDao) {
+    public MemberRemovedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
-        this.groupDao = groupDao;
+        this.groupService = groupService;
     }
 
-    public MemberRemovedObserver(GroupDao groupDao) {
+    public MemberRemovedObserver(GroupService groupService) {
         this.messenger = new FcmClient();
-        this.groupDao = groupDao;
+        this.groupService = groupService;
     }
 
-    public GroupDao getGroupDao() {
-        return groupDao;
+    public GroupService getGroupService() {
+        return groupService;
     }
 
-    public void setGroupDao(GroupDao groupDao) {
-        this.groupDao = groupDao;
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
     }
 
     @Override
     public void update(List<String> entity_ids) {
-        GroupEntity group = groupDao.get(Long.valueOf(entity_ids.get(1)));
+        GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(1)));
         JSONObject json = new JSONObject();
         json.put("user_id", entity_ids.get(0));
         json.put("group_id", group.getID());

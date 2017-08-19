@@ -4,8 +4,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.json.simple.JSONObject;
 
 import java.util.HashSet;
@@ -15,29 +14,29 @@ import java.util.Set;
 public class AdminAddedObserver implements Observer {
 
     private final FcmClient messenger;
-    private GroupDao groupDao;
+    private GroupService groupService;
 
-    public AdminAddedObserver(FcmClient messenger, GroupDao groupDao) {
+    public AdminAddedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
-        this.groupDao = groupDao;
+        this.groupService = groupService;
     }
 
-    public AdminAddedObserver(GroupDao groupDao) {
+    public AdminAddedObserver(GroupService groupService) {
         this.messenger = new FcmClient();
-        this.groupDao = groupDao;
+        this.groupService = groupService;
     }
 
-    public GroupDao getGroupDao() {
-        return groupDao;
+    public GroupService getGroupService() {
+        return groupService;
     }
 
-    public void setGroupDao(GroupDao groupDao) {
-        this.groupDao = groupDao;
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
     }
 
     @Override
     public void update(List<String> entity_ids) {
-        GroupEntity changedGroup = groupDao.get((Long.valueOf(entity_ids.get(1))));
+        GroupEntity changedGroup = groupService.getGroupById((Long.valueOf(entity_ids.get(1))));
 
         //create JSON Object to send to clients
         JSONObject jsonObject = new JSONObject();
@@ -49,6 +48,7 @@ public class AdminAddedObserver implements Observer {
         receiver.addAll(changedGroup.getMembers());
         receiver.addAll(changedGroup.getRequests());
 
-        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, receiver);
+        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getMembers());
+        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getRequests());
     }
 }

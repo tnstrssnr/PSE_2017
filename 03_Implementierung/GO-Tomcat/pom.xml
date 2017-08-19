@@ -9,12 +9,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <!-- version number for spring, in case more speeing modules need to be included -->
+    <!-- version number for spring and hibernate, in case more modules need to be included -->
     <properties>
-        <org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+        <org.springframework.version>1.5.6.RELEASE</org.springframework.version>
         <hibernate.version>4.1.4.Final</hibernate.version>
     </properties>
-
 
     <build>
         <finalName>go-tomcat</finalName>
@@ -24,17 +23,21 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${org.springframework.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <arguments>
+                            <argument>--spring.profiles.active=dev</argument>
+                        </arguments>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -56,9 +59,45 @@
                         </excludes>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                    <executions>
+                        <execution>
+                            <id>install-external-non-maven1-jar</id>
+                            <phase>clean</phase>
+                            <configuration>
+                                <repositoryLayout>default</repositoryLayout>
+                                <groupId>jar1.group</groupId>
+                                <artifactId>non-maven1</artifactId>
+                                <version>0.1.5</version>
+                                <file>${project.basedir}/libs/javaml-0.1.5.jar</file>
+                                <packaging>jar</packaging>
+                                <generatePom>true</generatePom>
+                            </configuration>
+                            <goals>
+                                <goal>install-file</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 
     <parent>
@@ -72,11 +111,16 @@
         <!-- Spring framework -->
 
 
-        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
-            <groupId>com.squareup.okhttp</groupId>
+            <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>2.7.5</version>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>3.8.1</version>
         </dependency>
 
         <!-- Hibernate testing library -->
@@ -141,6 +185,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
@@ -165,6 +214,48 @@
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
+        <dependency>
+            <groupId>net.sf</groupId>
+            <artifactId>javaml</artifactId>
+            <version>0.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>1.5.6.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>2.3.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
+
 
     </dependencies>
 

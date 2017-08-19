@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 1, Skipped: 1, Time elapsed: 0.687 sec <<< FAILURE! - in edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest
+createGroupTest(edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest)  Time elapsed: 0.033 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.ServiceLayer.GroupService.createGroup(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;)J
+	at edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest.createGroupTest(GroupRestControllerTest.java:58)
+

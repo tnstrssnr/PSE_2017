@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.171 sec <<< FAILURE! - in edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests
+equalsContractGroupTest(edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests)  Time elapsed: 0.113 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests.equalsContractGroupTest(EntityTests.java:26)
+
+equalsContractGoTest(edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests)  Time elapsed: 0.011 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests.equalsContractGoTest(EntityTests.java:36)
+
+equalsContractUserTest(edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests)  Time elapsed: 0.012 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.PersistenceLayer.daos.EntityTests.equalsContractUserTest(EntityTests.java:16)
+

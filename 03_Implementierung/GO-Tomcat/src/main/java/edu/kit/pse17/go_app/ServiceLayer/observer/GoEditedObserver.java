@@ -5,7 +5,8 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
+import edu.kit.pse17.go_app.ServiceLayer.GoService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,43 +15,40 @@ import java.util.Set;
 public class GoEditedObserver implements Observer {
 
     private final FcmClient messenger;
-    private GoDao goDao;
+    private GoService goService;
 
-    public GoEditedObserver(FcmClient messenger, GoDao goDao) {
+    public GoEditedObserver(FcmClient messenger, GoService goService) {
         this.messenger = messenger;
-        this.goDao = goDao;
+        this.goService = goService;
     }
 
-    public GoEditedObserver(GoDao dao) {
+    public GoEditedObserver(GoService dao) {
         this.messenger = new FcmClient();
-        this.goDao = dao;
+        this.goService = dao;
     }
 
-    public GoDao getGoDao() {
-        return goDao;
+    public GoService getGoService() {
+        return goService;
     }
 
-    public void setGoDao(GoDao goDao) {
-        this.goDao = goDao;
+    public void setGoService(GoService goService) {
+        this.goService = goService;
     }
 
     @Override
     public void update(List<String> entity_ids) {
-        GoEntity goEntity = goDao.get(Long.valueOf(entity_ids.get(0)));
+        GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
+        Go go = GoService.goEntityToGo(goEntity);
 
         Set<UserEntity> receiver = new HashSet<>();
         receiver.addAll(goEntity.getGroup().getMembers());
         receiver.addAll(goEntity.getGroup().getRequests());
 
-        goEntity.setGoingUsers(null);
-        goEntity.setGoneUsers(null);
-        goEntity.setNotGoingUsers(null);
-        goEntity.setGroup(null);
-        goEntity.setOwner(null);
         Gson gson = new Gson();
-        String data = gson.toJson(goEntity);
+        GoService.makeJsonable(go, true);
+        String data = gson.toJson(go);
 
-        messenger.send(data, EventArg.GO_EDITED_COMMAND, receiver);
+        messenger.send(data, EventArg.GO_EDITED_EVENT, receiver);
 
 
     }

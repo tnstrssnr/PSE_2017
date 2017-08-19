@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: edu.kit.pse17.go_app.ServiceLayer.UserServiceTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 7, Skipped: 1, Time elapsed: 0.024 sec <<< FAILURE! - in edu.kit.pse17.go_app.ServiceLayer.UserServiceTest
+updateUserTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.007 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+
+getUserbyMailTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+
+editUserForJsonTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.003 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+
+createUserSuccessfulTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+
+createUserFailTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+
+deleteUserTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+
+registerDeviceTest(edu.kit.pse17.go_app.ServiceLayer.UserServiceTest)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.NullPointerException
+	at edu.kit.pse17.go_app.ServiceLayer.UserServiceTest.setUp(UserServiceTest.java:22)
+

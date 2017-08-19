@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,7 +75,7 @@ public class GoEntity {
      * entsprechende Methoden zu implementieren.
      */
     @Column(name = "start")
-    private Date start;
+    private String start;
 
     /**
      * Der Endzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestoppt wird. Dabei darf der
@@ -86,7 +85,7 @@ public class GoEntity {
      * Methoden zu implementieren.
      */
     @Column(name = "end")
-    private Date end;
+    private String end;
 
     /**
      * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Breitengrad des Zielorts
@@ -98,7 +97,7 @@ public class GoEntity {
      * implementieren.
      */
     @Column(name = "lat")
-    private long lat;
+    private double lat;
 
     /**
      * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Längengrad des Zielorts gespeichert.
@@ -110,7 +109,7 @@ public class GoEntity {
      * implementieren.
      */
     @Column(name = "lon")
-    private long lon;
+    private double lon;
 
     /**
      * Eine Map mit allen Teilnehmern des GOs, um ihnen ihren Teilnahmestatus zuzuweisen.
@@ -148,7 +147,7 @@ public class GoEntity {
 
     }
 
-    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, Date start, Date end, long lat, long lon) {
+    public GoEntity(GroupEntity group, UserEntity owner, String name, String description, String start, String end, double lat, double lon) {
         this.group = group;
         this.owner = owner;
         this.name = name;
@@ -200,35 +199,35 @@ public class GoEntity {
         this.description = description;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public long getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 
@@ -272,36 +271,28 @@ public class GoEntity {
         GoEntity goEntity = (GoEntity) o;
 
         if (getID() != goEntity.getID()) return false;
-        if (getLat() != goEntity.getLat()) return false;
-        if (getLon() != goEntity.getLon()) return false;
-        if (getGroup() != null ? !getGroup().equals(goEntity.getGroup()) : goEntity.getGroup() != null) return false;
-        if (getOwner() != null ? !getOwner().equals(goEntity.getOwner()) : goEntity.getOwner() != null) return false;
+        if (Double.compare(goEntity.getLat(), getLat()) != 0) return false;
+        if (Double.compare(goEntity.getLon(), getLon()) != 0) return false;
         if (getName() != null ? !getName().equals(goEntity.getName()) : goEntity.getName() != null) return false;
         if (getDescription() != null ? !getDescription().equals(goEntity.getDescription()) : goEntity.getDescription() != null)
             return false;
         if (getStart() != null ? !getStart().equals(goEntity.getStart()) : goEntity.getStart() != null) return false;
-        if (getEnd() != null ? !getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() != null) return false;
-        if (getGoingUsers() != null ? !getGoingUsers().equals(goEntity.getGoingUsers()) : goEntity.getGoingUsers() != null)
-            return false;
-        if (getNotGoingUsers() != null ? !getNotGoingUsers().equals(goEntity.getNotGoingUsers()) : goEntity.getNotGoingUsers() != null)
-            return false;
-        return getGoneUsers() != null ? getGoneUsers().equals(goEntity.getGoneUsers()) : goEntity.getGoneUsers() == null;
+        return getEnd() != null ? getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getID() ^ (getID() >>> 32));
-        result = 31 * result + (getGroup() != null ? getGroup().hashCode() : 0);
-        result = 31 * result + (getOwner() != null ? getOwner().hashCode() : 0);
+        int result;
+        long temp;
+        result = (int) (getID() ^ (getID() >>> 32));
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
         result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
-        result = 31 * result + (int) (getLat() ^ (getLat() >>> 32));
-        result = 31 * result + (int) (getLon() ^ (getLon() >>> 32));
-        //result = 31 * result + (getGoingUsers() != null ? getGoingUsers().hashCode() : 0);
-        //result = 31 * result + (getNotGoingUsers() != null ? getNotGoingUsers().hashCode() : 0);
-        //result = 31 * result + (getGoneUsers() != null ? getGoneUsers().hashCode() : 0);
+        temp = Double.doubleToLongBits(getLat());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getLon());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

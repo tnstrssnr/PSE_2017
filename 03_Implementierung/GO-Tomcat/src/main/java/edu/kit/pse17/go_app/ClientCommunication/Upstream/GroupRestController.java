@@ -1,10 +1,14 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.OK;
 
 /**
  * Die Klasse GroupRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die
@@ -36,14 +40,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/group")
 public class GroupRestController {
 
-    /**
-     * Ein Objekt einer Klasse, die das Interface GroupDao implementiert. Dieses Objekt besitzt Methoden, um auf die
-     * Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die
-     * REST Calls an den Server gestellt werden, umzusetzen.
-     */
     @Autowired
-    private GroupDao groupDao;
+    private GroupService groupService;
 
+    public GroupRestController(GroupService groupService) {
+        this.groupService = groupService;
+    }
+
+    public GroupRestController() {
+    }
 
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
@@ -60,10 +65,9 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.POST,
             value = "/",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public long createGroup(@RequestBody final GroupEntity group) {
-        return groupDao.persist(group);
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> createGroup(@RequestBody final Group group) {
+        return new ResponseEntity<>(groupService.createGroup(group), OK);
     }
 
     /**
@@ -80,8 +84,9 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/")
-    public void editGroup(@RequestBody final GroupEntity group) {
-        groupDao.update(group);
+    public ResponseEntity editGroup(@RequestBody final Group group) {
+        groupService.editGroup(group);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -102,9 +107,9 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/{groupId}")
-    public void deleteGroup(@PathVariable final Long groupId) {
-        groupDao.delete(groupId);
-
+    public ResponseEntity deleteGroup(@PathVariable final Long groupId) {
+        groupService.deleteGroup(groupId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -128,9 +133,9 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/members/{groupId}/{userId}")
-    public void acceptRequest(@PathVariable final Long groupId, @PathVariable final String userId) {
-        groupDao.removeGroupRequest(userId, groupId);
-        groupDao.addGroupMember(userId, groupId);
+    public ResponseEntity acceptRequest(@PathVariable final Long groupId, @PathVariable final String userId) {
+        groupService.acceptRequest(groupId, userId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -155,8 +160,9 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/members/{groupId}/{userId}")
-    public void removeMember(@PathVariable final String userId, @PathVariable("groupId") final Long groupId) {
-        groupDao.removeGroupMember(userId, groupId);
+    public ResponseEntity removeMember(@PathVariable final String userId, @PathVariable("groupId") final Long groupId) {
+        groupService.removeGroupMember(userId, groupId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -179,8 +185,9 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.POST,
             value = "/requests/{groupId}/{userId}")
-    public void inviteMember(@PathVariable final Long groupId, @PathVariable final String userId) {
-        groupDao.addGroupRequest(userId, groupId);
+    public ResponseEntity inviteMember(@PathVariable final Long groupId, @PathVariable final String userId) {
+        groupService.addGroupRequest(userId, groupId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -200,8 +207,9 @@ public class GroupRestController {
             method = RequestMethod.DELETE,
             value = "/requests/{groupId}/{userId}"
     )
-    public void denyRequest(@PathVariable("groupId") final Long groupId, @PathVariable("userId") final String userId) {
-        groupDao.removeGroupRequest(userId, groupId);
+    public ResponseEntity denyRequest(@PathVariable("groupId") final Long groupId, @PathVariable("userId") final String userId) {
+        groupService.removeGroupRequest(userId, groupId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
@@ -227,7 +235,7 @@ public class GroupRestController {
             value = "/admins/{groupId}/{userId}"
     )
     public void addAdmin(@PathVariable("groupId") final Long groupId, @PathVariable("userId") final String userId) {
-        groupDao.addAdmin(userId, groupId);
+        groupService.addAdmin(userId, groupId);
     }
 
 

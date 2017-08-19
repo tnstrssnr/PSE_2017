@@ -5,8 +5,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.IObservable;
-import edu.kit.pse17.go_app.ServiceLayer.observer.*;
+import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 @Repository
-public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable<GoEntity> {
+public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
@@ -29,7 +28,6 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
-
     @Autowired
     private SessionFactory sf;
 
@@ -43,12 +41,12 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
      * erzeugt, anhand der Spezifikationen der verwendetetn MySQL Datenbank.
      */
-    public GoDaoImp(final SessionFactory sf) {
+    public GoDaoImp() {
         this.observer = new HashMap<>();
-        register(EventArg.GO_EDITED_COMMAND, new GoEditedObserver(this));
-        register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));
-        register(EventArg.STATUS_CHANGED_COMMAND, new StatusChangedObserver(this));
-        register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
+    }
+
+    public GoDaoImp(SessionFactory sf) {
+        this.observer = new HashMap<>();
         this.sf = sf;
     }
 
@@ -56,37 +54,6 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
         return this.sf;
     }
 
-    /**
-     * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
-     *                 eines
-     */
-    @Override
-    public void register(EventArg arg, Observer observer) {
-        this.observer.put(arg, observer);
-
-    }
-
-    /**
-     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode
-     *                 sichergestellt werden, dass
-     */
-    @Override
-    public void unregister(Observer observer) {
-        this.observer.remove(observer);
-    }
-
-    /**
-     * @param impCode    Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt
-     *                   es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich
-     *                   um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.
-     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
-     *                   weiß der observer, von wo er eine Benachrichtigung bekommen hat.
-     * @param goEntity   Das Go an dem Änderungen vorgenommen wurden
-     */
-    @Override
-    public void notify(String impCode, IObservable observable, GoEntity goEntity) {
-
-    }
 
     /**
      * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem
@@ -185,16 +152,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
-            GoEntity go = (GoEntity) session.get(GoEntity.class, key);
-
-            //remove associated entites, to avoid them being deleted
-            go.setGroup(null);
-            go.setOwner(null);
-            go.setNotGoingUsers(null);
-            go.setGoingUsers(null);
-            go.setGoneUsers(null);
-
-            session.delete(go);
+            onDeleteGo(key, session);
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
@@ -204,6 +162,18 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
             }
         }
 
+    }
+
+    public void onDeleteGo(Long key, Session session) {
+        GoEntity go = (GoEntity) session.get(GoEntity.class, key);
+
+        //remove associated entities, otherwise hibernate will throw ObjectDeletedException
+        go.setGroup(null);
+        go.setOwner(null);
+        go.getNotGoingUsers().clear();
+        go.getGoingUsers().clear();
+        go.getGoneUsers().clear();
+        session.delete(go);
     }
 
     /**
@@ -263,10 +233,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
             go.getGoneUsers().remove(user);
 
             switch (status) {
-                case ABGELEHNT:
+                case NOT_GOING:
                     go.getNotGoingUsers().add(user);
                     break;
-                case BESTÄTIGT:
+                case GOING:
                     go.getGoingUsers().add(user);
                     break;
                 default:
@@ -281,28 +251,40 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao, IObservable
         }
     }
 
-    public void onGroupMemberAdded(String userId, long groupId) {
-        Transaction tx = null;
-        Session session = null;
+    public void onGroupMemberAdded(String userId, long groupId, Session session) {
 
-        try {
-            if (sf == null) {
-                System.out.println("Check");
-            }
-            session = sf.openSession();
-            tx = session.beginTransaction();
-            UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
-            GroupEntity group = (GroupEntity) session.get(GroupEntity.class, groupId);
-            for (GoEntity go : group.getGos()) {
-                go.getNotGoingUsers().add(user);
-            }
-            tx.commit();
-        } catch (HibernateException e) {
-            handleHibernateException(e, tx);
-        } finally {
-            if (session != null) {
-                session.close();
+        UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
+        GroupEntity group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
+        for (GoEntity go : group.getGos()) {
+            go.getNotGoingUsers().add(user);
+        }
+
+    }
+
+    public void onGroupMemberRemoved(String userId, Long groupId, Session session) {
+
+        UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
+        GroupEntity group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
+        for (GoEntity go : group.getGos()) {
+
+            if (go.getOwner().equals(user)) {
+                //User is Go-Owner --> delete Go
+                go.setGroup(null);
+                go.setOwner(null);
+                go.getNotGoingUsers().clear();
+                go.getGoneUsers().clear();
+                go.getGoingUsers().clear();
+                session.delete(go);
+
+            } else {
+                //remove User from Go
+                go.getNotGoingUsers().remove(user);
+                go.getGoingUsers().remove(user);
+                go.getGoneUsers().remove(user);
             }
         }
+
     }
 }

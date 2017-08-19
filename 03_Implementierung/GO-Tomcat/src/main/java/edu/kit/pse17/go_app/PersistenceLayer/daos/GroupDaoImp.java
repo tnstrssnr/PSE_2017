@@ -1,15 +1,12 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.IObservable;
-import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 
@@ -26,13 +23,8 @@ import java.util.HashSet;
  * oder nicht.
  */
 @Repository
-public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IObservable<Object> {
+public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
-    /**
-     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
-     * auch die Daten anderer Benutzer betrifft.
-     */
-    private final HashMap<EventArg, Observer> observer;
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
      * Datenbank kommunizieren kann und dort die Änderungen vorhnehmen. Das Attribut ist mit "@Autowired" annotiert,
@@ -53,53 +45,15 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
      * erzeugt, anhand der Spezifikationen der verwendetetn MySQL Datenbank.
      */
     public GroupDaoImp() {
-        this.observer = new HashMap<>();
-        register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
-        register(EventArg.GROUP_EDITED_COMMAND, new GroupEditedObserver(this));
-        register(EventArg.GROUP_REMOVED_EVENT, new GroupRemovedObserver(this));
-        register(EventArg.GROUP_REQUEST_RECEIVED_EVENT, new GroupRequestReceivedObserver(this));
-        register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
-        register(EventArg.MEMBER_REMOVED_EVENT, new MemberRemovedObserver(this));
+
+    }
+
+    public GroupDaoImp(SessionFactory sf) {
+        this.sf = sf;
     }
 
     public SessionFactory getSf() {
         return sf;
-    }
-
-    public HashMap<EventArg, Observer> getObserver() {
-        return observer;
-    }
-
-    /**
-     * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
-     *                 eines
-     */
-
-    @Override
-    public void register(final EventArg arg, final Observer observer) {
-        this.observer.put(arg, observer);
-    }
-
-    /**
-     * @param observer Der Observer der aus der Liste entfernt werden soll. es muss vor dem Aufruf dieser Methode
-     *                 sichergestellt werden, dass
-     */
-    @Override
-    public void unregister(final Observer observer) {
-        this.observer.remove(observer);
-    }
-
-    /**
-     * @param impCode    Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt
-     *                   es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich
-     *                   um keinen gültigen Implementierungs-Code, wird kein Observer auf das notify() reagieren.
-     * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
-     *                   weiß der observer, von wo er eine Benachrichtigung bekommen hat.
-     * @param o          Die veränderte GroupEntity, die zur Weiterverarbeitung an die Observer weitergereicht wird.
-     */
-    @Override
-    public void notify(final String impCode, final IObservable observable, final Object o) {
-
     }
 
     /**
@@ -155,7 +109,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
         UserEntity creator = (UserEntity) entity.getMembers().toArray()[0];
 
         //clear all sets from the object, otherwise hibernate will throw NonUniqueObjectException.
-        // GOs and Requests are null by default
+        // GOs and Requests are null or empty by default
         entity.setAdmins(new HashSet<>());
         entity.setMembers(new HashSet<>());
 
@@ -193,10 +147,21 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             session = sf.openSession();
             tx = session.beginTransaction();
             GroupEntity group = (GroupEntity) session.get(GroupEntity.class, key);
+
+            GoDaoImp goDao = new GoDaoImp(this.sf);
+
+            //delete all Gos
+            for (GoEntity go : group.getGos()) {
+                goDao.onDeleteGo(go.getID(), session);
+            }
+
+            //remove all associations w/ UserEntity objects
             group.setMembers(null);
             group.setRequests(null);
             group.setAdmins(null);
+
             session.delete(group);
+
             tx.commit();
 
         } catch (final HibernateException e) {
@@ -253,12 +218,18 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             tx = session.beginTransaction();
             UserEntity user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
+            //remove user from requests. do not use separate removeGroupRequest method, this can lead to inconsistent data
+            if (group.getRequests().contains(user)) {
+                group.getRequests().remove(user);
+            }
+
             if (!group.getMembers().contains(user)) {
                 group.getMembers().add(user);
             }
 
             //adds users status to gos -- is 'not going' by default
-            new GoDaoImp(this.getSf()).onGroupMemberAdded(user.getUid(), group.getID());
+            new GoDaoImp(this.sf).onGroupMemberAdded(user.getUid(), group.getID(), session);
             tx.commit();
 
 
@@ -288,7 +259,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
                 group.getRequests().remove(user);
             }
             tx.commit();
-            //notify??
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
@@ -311,6 +281,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
 
             user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
+
             if (!group.getRequests().contains(user)) {
                 group.getRequests().add(user);
             }
@@ -339,17 +310,30 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
 
+            if (group.getAdmins().contains(user)) {
+                if (group.getAdmins().size() == 1) {
+
+                    //User is the only Admin --> stop transaction and delete the group
+                    tx.rollback();
+                    session.close();
+                    delete(group.getID());
+                    return;
+                }
+                group.getAdmins().remove(user);
+            }
+
             if (group.getMembers().contains(user)) {
                 group.getMembers().remove(user);
             }
-            if (group.getAdmins().contains(user)) {
-                group.getAdmins().remove(user);
-            }
+
+            new GoDaoImp(this.sf).onGroupMemberRemoved(userId, groupId, session);
+
             tx.commit();
+
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
-            if (session != null) {
+            if (session != null && session.isConnected()) {
                 session.close();
             }
         }
@@ -369,7 +353,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao, IO
             //retrieve persisted objects
             user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
-
 
             //add the new admin to the list
             if (group.getMembers().contains(user) && !group.getAdmins().contains(user)) {

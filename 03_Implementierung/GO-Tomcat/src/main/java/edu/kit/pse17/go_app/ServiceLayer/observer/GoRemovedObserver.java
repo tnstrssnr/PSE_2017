@@ -5,7 +5,7 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
+import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import org.json.simple.JSONObject;
 
 import java.util.HashSet;
@@ -15,21 +15,21 @@ import java.util.Set;
 public class GoRemovedObserver implements Observer {
 
     private final FcmClient messenger;
-    private GoDao goDao;
+    private GoService goService;
 
-    public GoRemovedObserver(FcmClient messenger, GoDao goDao) {
+    public GoRemovedObserver(FcmClient messenger, GoService goService) {
         this.messenger = messenger;
-        this.goDao = goDao;
+        this.goService = goService;
     }
 
-    public GoRemovedObserver(GoDao goDao) {
+    public GoRemovedObserver(GoService goService) {
         this.messenger = new FcmClient();
-        this.goDao = goDao;
+        this.goService = goService;
     }
 
     @Override
     public void update(List<String> entity_ids) {
-        GoEntity removedGo = goDao.get(Long.valueOf(entity_ids.get(0)));
+        GoEntity removedGo = goService.getGoById(Long.valueOf(entity_ids.get(0)));
         JSONObject json = new JSONObject();
         json.put("id", entity_ids.get(0));
         String data = json.toJSONString();

@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.027 sec <<< FAILURE! - in edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestControllerTest
+edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestControllerTest  Time elapsed: 0.027 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestControllerTest.setUpTestclass(GoRestControllerTest.java:41)
+

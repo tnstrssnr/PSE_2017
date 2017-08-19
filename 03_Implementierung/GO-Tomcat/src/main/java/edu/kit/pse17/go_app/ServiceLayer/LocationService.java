@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
+import edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Um die Anfragen bearbeiten zu können, bedient sich die die Klasse dem Clustering Algorithmus, der implementiert ist
  * mit der Schnittstellt, wie sie in dem Interface ClusterStrategy beschrieben ist.
  * <p>
- * Alle Programmteile, die Funktioalitäten aus dieser Klasse benötigen, stellen ihre Anfragen an statische Methoden.
+ * Alle Programmteile, die Funktinalitäten aus dieser Klasse benötigen, stellen ihre Anfragen an statische Methoden.
  * Erst innerhalb der Klasse wird die anfrage dem richtigen LocationService-Objekt zugeordnet. Dies erlaubt eine klare
  * Trennung der Teile des GOs, die in der Datenbank verwaltet werden und denen, die in dieser Klasse verwaltet werden.
  * <p>
@@ -52,7 +53,7 @@ public class LocationService {
      * Sämtliche Manipulationen an diesem Attribut finden innerhalb dieser Klasse statt. NAch außen hin sit diese
      * Variable nicht sichtbar und insbesondere nicht veränderbar.
      */
-    private final int newLocationCounter;
+    private int newLocationCounter;
     /**
      * Eine Zählvariable, um sich zu merken, wie viele verschiedene Benutzer bereits ihren Standort geteilt haben. Ist
      * diese Zahl kleienr als 3, so wird keine groupLocation berechnet. Dies dient der Anonymisierung der einzelnen
@@ -81,7 +82,6 @@ public class LocationService {
     public LocationService(final GoEntity go) throws IOException {
         this.activeUsers = activeUsers;
         this.groupLocation = groupLocation;
-        this.newLocationCounter = 0;
         this.userCounter = 0;
         this.strat = new GoClusterStrategy();
     }
@@ -109,8 +109,26 @@ public class LocationService {
      * @param lon    Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad
      *               interpretierbar sein, muss also zwischen +180 und -180 liegen.
      */
-    public static void setUserLocation(final long goId, final String userId, final long lat, final long lon) {
+    public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
 
+        boolean validation = false;
+
+        if (LocationService.activeServices.get(goId) != null) {
+
+            for (int i = 0; i < LocationService.activeServices.size(); i++) {
+                LocationService.activeServices.get(goId).activeUsers.get(i);
+                if (LocationService.activeServices.get(goId).activeUsers.get(i).getUserId() == userId) {
+                    LocationService.activeServices.get(goId).activeUsers.get(i).setLat(lat);
+                    LocationService.activeServices.get(goId).activeUsers.get(i).setLon(lon);
+                    validation = true;
+                }
+            }
+            if (validation == false) {
+                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+            }
+        }
+
+        else { LocationService.activeServices.put(goId, new LocationService(GoService.getGoById(goId))); };
     }
 
     /**
@@ -131,7 +149,17 @@ public class LocationService {
      * Anwendung zu verletzen.
      */
     public static List<Cluster> getGroupLocation(final long goId) {
-        return null;
+        LocationService.activeServices.get(goId).groupLocation = null;
+        GoClusterStrategy clusterStrategy = new GoClusterStrategy();
+        LocationService.activeServices.get(goId).groupLocation = clusterStrategy.calculateCluster(LocationService.activeServices.get(goId).activeUsers);
+        LocationService.activeServices.get(goId).activeUsers.clear();
+        return LocationService.activeServices.get(goId).groupLocation;
+    }
+
+    public static void removeGo(final long goId) {
+        if(LocationService.activeServices.get(goId) != null) {
+            LocationService.activeServices.remove(goId);
+        }
     }
 
 

@@ -1,10 +1,10 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.Status;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GoDao;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;
+import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import edu.kit.pse17.go_app.ServiceLayer.LocationService;
+import edu.kit.pse17.go_app.ServiceLayer.UserLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,192 +12,106 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Die Klasse GoRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die der
- * Tomcat Server den Clients zur Kommunikation anbietet. Die Aufgabe dieser Klasse ist die Abwicklung von REST-Requests,
- * die User-spezifische Anfragen beinhalten. Dazu gehört: - das Empfangen und Senden von HTTP-Requests - das Parsen der
- * empfangenen / zu sendenden Daten von bzw. nach JSON - das Weiterleiten der Anfragen zur Bearbeitung an die richtige
- * Stelle im Programm (das UserDAO)
- * <p>
- * Das REST API wird umgesetzt von dem Java Framework Spring, anhand der Annotationen der Methoden in dieser Klasse. Die
- * Klasse selbst ist annotiert mit "@RestController", um zu signalisieren, dass es sich um eine Klasse handelt, deren
- * Methoden Rest Resourcen beschreiben. Die Methoden dieser Klasse sind auf die URL {Base_URL}/gos gemappt.
- * <p>
- * Die Methoden der Klasse werden aufgerufen, von den Methoden des Interfaces "TomcatRestApi", das von den Clients des
- * Systems verwendet wird.
- * <p>
- * Bei einem Methodenaufruf in dieser Klasse, wird die Anfrage an die DAOs der MySQL Datenbank der Anwendung
- * weitergeleitet. Von dort werden die richtigen Daten geholt (falls der Client bestimmte Daten in der Antwort
- * erwartet). Dnach werden die Daten von dieser Klasse in JSON-Objekte umgewandelt (mithilfe der Gson Library) und dem
- * Client in der Antwort zugesendet.
- * <p>
- * Nähere Erläuterungen zum JSON-Schema und der Konvertierung finden sich im Entwurfsdokument
- * <p>
- * Die Klasse verfügt nur über den Standard-Konstruktor (der implizit gegeben ist). Es muss nirgends im Programm eine
- * Instanz dieser Klasse erzeugt werden. Um die Instanziierung und Objektverwaltung dieser Klasse kümmert sich das
- * Spring-Framework.
+ * RestController class for Rest resources pertaining to Go functionality. All return values in this class are wrapped
+ * in a responseEntity-object, containing a Http-StatusCode and the return data in its body formatted as a Json-String,
+ * using Gson.
  */
 
 @RestController
 @RequestMapping("/gos")
 public class GoRestController {
 
-    /**
-     * Ein Objekt einer Klasse, die das Interface GoDao implementiert. Dieses Objekt besitzt Methoden, um auf die
-     * Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die
-     * REST Calls an den Server gestellt werden, umzusetzen.
-     */
     @Autowired
-    private GoDao goDao;
+    private GoService goService;
+
+    //constructor used in test classes to inject mocked goService
+    public GoRestController(GoService goService) {
+        this.goService = goService;
+    }
+
+    //standard constructor to facilitate Spring DI
+    public GoRestController() {
+    }
 
     /**
-     * Da die Standorte bei der Standortverfolgung eines GOs immer nur für kurze Zeit persistiert werden müssen, werden
-     * diese nicht in der Datenbank gespeichert, sondern temporär in einem Location-Objekt. Die Klasse locationService
-     * kümmert sich um die Verwaltung dieser Location-Objekte.
-     * <p>
-     * Das Objekt kann in dieser Klasse für einen Methodenaufruf verwendet werden, der die aktuelle Location eines
-     * Benutzers in das Location-Objekt einfügt und die geclustereten Locations der anderen Benutzer zurückgibt.
-     */
-    private LocationService locationService;
-
-    /**
-     * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
-     * Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das goDao zur Erzeugung des GOs in der
-     * Datenbank. Zusätzlich zur Erzeugung des GOs wird der Ersteller als Verantwortlicher des GOs gespeichert und für
-     * jedes Gruppenmitglied der Teilnahmestatus 'Abgelehnt' gespeichert.
-     * <p>
-     * es ist garantiert, dass dder Client, der die Methode aufruft eine Mitglied in der Gruppe ist, in der das GO
-     * erstellt werden soll.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL {Base_URL}/gos.
+     * A call to this method makes the server persist the supplied Go object
      *
-     * @return Die Methode gibt in der Antwort die im System eindeutige ID des Gos zurück. Diese wird im Header der
-     * HTTP-Response im Location-Feld an den Client zurückgesendet, also : {Base_URL}/gos/{goId} und kann dort vom
-     * Client ausgelesen werden. Der Wert ist eine positive ganze Zahl, die im Wertebereich des primitiven Datentyps
-     * long liegt.
+     * @param go the go that should be persisted. It should be transferred in the request-body of the POST Request as a
+     *           Json-String. The program uses Gson to parse the Json to a GoEntity object. The ID value of the
+     *           transferred Go is ignored, Hibernate will assign an new ID, based on the current database state.
+     * @return The ID of the GO under which it is stored in the database.
      */
     @RequestMapping(
             method = RequestMethod.POST,
             value = "/"
     )
-    public long createGo(@RequestBody GoEntity go) {
-        return goDao.persist(go);
+    public ResponseEntity<Long> createGo(@RequestBody Go go) {
+        return new ResponseEntity<>(goService.createGo(go), HttpStatus.OK);
     }
 
     /**
-     * Diese Methode wird von einem Client aufgerufen, um seinen Teilnahmerstatus in einem Go zu ändern. IN der Methode
-     * werden die Anfrage- daten aus dem Request Body ausgewertet und an das goDao weitergegeben, um die entsprechenden
-     * Änderungen in der Datenbank vorzunehmen.
-     * <p>
-     * Es ist garantiert, dass der Benutzer ein Mitglied des GOs ist und das er die geforderte Statusänderung vornehmen
-     * darf.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL {Base_URL}/gos/status.
+     * A call to this method changes the status of the user in the specified go.
+     *
+     * @param goId                The ID of the affected go. This parameter is specified in the URI of this Rest
+     *                            resource
+     * @param statusChangeContext a String that specifies the context of the status change, formatted in the following
+     *                            way: "{userId} {newStatus}", where userId is the ID of the user changing their status
+     *                            and newStatus is the new status of the user (either "GOING", "NOT_GOING" or "GONE")
      */
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/{goId}/status",
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> changeStatus(@RequestBody String statusChangeContext, @PathVariable("goId") Long goId) {
-        String[] statusChangeArr = statusChangeContext.substring(1, statusChangeContext.length() - 1).split(" ");
-        String userId = statusChangeArr[0];
-        Status status;
-        System.out.println(statusChangeContext);
-        System.out.println(statusChangeArr[0]);
-        System.out.println(statusChangeArr[1]);
-
-        switch (statusChangeArr[1]) {
-            case "ABGELEHNT":
-                status = Status.ABGELEHNT;
-                break;
-            case "BESTÄTIGT":
-                status = Status.BESTÄTIGT;
-                break;
-            case "UNTERWEGS":
-                status = Status.UNTERWEGS;
-                break;
-            default:
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity changeStatus(@RequestBody Map<String, String> statusChangeContext, @PathVariable("goId") Long goId) {
+        if (goService.changeStatus(statusChangeContext, goId)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        goDao.changeStatus(userId, goId, status);
-        return ResponseEntity.status(HttpStatus.OK).build();
+
     }
 
     /**
-     * Die Methode gibt eine Liste mit Cluster-Objketen zurück, die die aktuellen Positionen der Go-Mitglieder
-     * beschreiben. Diese Methode, wird von Clients periodisch aufgerufen, um während eines GOs die Standorte der
-     * anderen mitglieder zu erfahren. Um den eigenen Standort mit den anderen Mitgliedern zu teilen, wird nicht diese
-     * Methode verwendet, sondern die Methode setLocation().
-     * <p>
-     * Im Gegensatz zu den meisten anderen Methoden der restController-Klassen, wird diese Anfrage nicht an eine DAO
-     * Objekt weitergeleitet. Da die Standort-Daten nicht langfristig gespeichert werden müssen, wird die Anfrage an ein
-     * locationService Objekt gegeben und dort behandelt.
-     * <p>
-     * Es ist garantiert, dass der Benutzer, der diese Methode aufruft, dazu berechtigt ist, die Standorte der anderen
-     * Mitglieder zu erfahren.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP GET-Request an den Server an die URL
-     * {Base_URL}/gos/location/{goId}.
+     * A call to this method returns the current location-clusters of the go
      *
-     * @param goId Die ID des GOs, dessen Location-Daten angefragt werden. Dabei muss es sich um eine gültige GO ID
-     *             handeln, die sich zu einem Long casten lässt. Der Wert dieses Arguments ist Teil der URL der REST
-     *             Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
-     * @return Eine Liste mit Clustern. Ein Cluster besteht dabei aus drei Feldern: Der Längen- und Breitengrad der
-     * Position des Clusters und der größe, also der Anzahl an Personen, die sich in diesem Cluster befinden. Der
-     * rückgabewert dieser Methode kann auch null sein, z.B. dann wenn für das Clustering zu wenig Personen an dem GO
-     * teilnehmen. Maximal besteht die Liste aus 50 Clustern, da die Anzahl der Gruppenmitglieder auf 50 beschränkt
-     * ist.
+     * @param goId the ID of the go, whose location-clusters should be returned. This parameter is specified in the URI
+     *             of this Rest resource
+     * @return the location clusters of the Go, as calculated by the currently used ClusterStrategy
      */
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/location/{goId}"
     )
-    public List<Cluster> getLocation(@PathVariable("goId") String goId) {
-        //bitte implementieren
-        return null;
+    public ResponseEntity<List<Cluster>> getLocation(@PathVariable("goId") Long goId) {
+
+        return new ResponseEntity<>(LocationService.getGroupLocation(goId), HttpStatus.OK);
     }
 
 
     /**
-     * Diese Methode wird von einem Client aufgerufen, um seinen Standort für das Clustering dem Server mitzuteilen. Der
-     * übermittelte Standort wird aus dem RequestBody ausgelesen und zur Weiterverarbeitung an den locationService
-     * weitergeleitet.
-     * <p>
-     * Es wird garantiert, dass der Client, der diese Methode aufruft, ein aktiver Teilnehmer des entsprechenden GOs
-     * ist.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL
-     * {Base_URL}/gos/location/{goId}.
+     * A call to this method will save the supplied location of the user to the UserLocation object of the group
      *
-     * @param userId Die ID des Benutzers, der seinen Standort teilen will. Dabei muss es sich um eine gültige, im
-     *               System registrierte BenutzerID handeln.
-     * @param lat    Der geographische Breitengrad des Standorts des Benutzers. Der Wert muss als Breitengrad
-     *               interpretierbar sein, muss also zwischen +90 und -90 liegen.
-     * @param lon    Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad
-     *               interpretierbar sein, muss also zwischen +180 und -180 liegen.
-     * @param goId   Die ID des GOs, zu dessen Location-Daten der Standort des Benutzers gehört. Dabei muss es sich um
-     *               eine gültige GO ID handeln, die sich zu einem Long casten lässt. Der Wert dieses Arguments ist Teil
-     *               der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
-     *               bereitgestellt.
+     * @param goId         ID of the affected go
+     * @param userLocation A UserLocation object that contains the current location of the user
      */
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/location/{goId}"
     )
-    public void setLocation(String userId, long lat, long lon, @PathVariable("goId") String goId) {
-        //bitte implementieren
+    public ResponseEntity setLocation(@RequestBody UserLocation userLocation, @PathVariable("goId") Long goId) {
+        String userId = userLocation.getUserId();
+        double lat = userLocation.getLat();
+        double lon = userLocation.getLon();
+        LocationService.setUserLocation(goId, userId, lat, lon);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
-     * Diese Methode wird von einem Client aufgerufen, wenn er ein GO löschen möchte. Durch einen Methodenaufruf bei dem
-     * goDao wird das GO entsprechend aus der Datenbank entfernt.
-     * <p>
-     * Es ist garantiert, dass der Client, der die Gruppe aufruft dazu berechtigt ist, d.h. er der GO-Verantwortliche
-     * des GOs ist.
-     * <p>
-     * Der Aufruf dieser Methode entspricht einem HTTP DELETE-Request an den Server an die URL {Base_URL}/gos/{goId}.
+     * A call to this method will delete the
      *
      * @param goId Die ID des GOs, das gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
      *             Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss
@@ -207,8 +121,10 @@ public class GoRestController {
             method = RequestMethod.DELETE,
             value = "/{goId}"
     )
-    public void deleteGo(@PathVariable("goId") long goId) {
-        goDao.delete(goId);
+    public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
+        goService.delete(goId);
+        LocationService.removeGo(goId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -223,17 +139,13 @@ public class GoRestController {
      * <p>
      * Abgesehen von der Go ID, können sämtliche Argumente dieser Methode den Wert null annehmen. Dies signalisiert der
      * Methode, das der Wert nicht geändert wurde und die bisherigen Daten beibehalten werden sollen.
-     *
-     * @param goId Die ID des GOs, das gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
-     *             Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss
-     *             gülti sein und zu einem Long-Datentyp gecastet werden können.
      */
     @RequestMapping(
             method = RequestMethod.PUT,
-            value = "/{goId}"
+            value = "/"
     )
-    public ResponseEntity<String> editGo(@PathVariable("goId") long goId, @RequestBody GoEntity goEntity) {
-        goDao.update(goEntity);
+    public ResponseEntity<String> editGo(@RequestBody Go go) {
+        goService.update(go);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

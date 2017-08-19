@@ -1,17 +1,18 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDao;
-import org.hibernate.exception.ConstraintViolationException;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
+import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Die Klasse UserRestController gehört zum Upstream ClientCommunication Modul und bildet einen Teil der REST API, die
@@ -43,14 +44,20 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserRestController {
 
-    /**
-     * Ein Objekt einer Klasse, die das Interface UserDAo implementiert. Dieses Objekt besitzt Methoden, um auf die
-     * Datenbank des Systems zuzugreifen und Daten zu manipulieren. Es wird benötigt, um die Anfragen, die durch die
-     * REST Calls an den Server gestellt werden, umzusetzen.
-     */
-
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
+
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/test"
+    )
+    public String test() {
+        return "Hello World";
+    }
 
     /**
      * Diese Methode liefert dem Anfragenden eine Liste aller Gruppen, in der der Benutzer mit der User ID {userId}
@@ -74,62 +81,22 @@ public class UserRestController {
      * wird in dem JSON-Objekt ein leerer data-Block übertragen. Die Länge der Liste ist auf 300 Gruppen beschränkt
      * (dies ist die Gesamtanzahl an Gruppen, die von dem System unterstützt werden)
      */
-
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{userId}"
+            value = "/{userId}/{email}",
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Set<GroupEntity> getData(@PathVariable("userId") final String userId) {
-        final Set<GroupEntity> groups; //= userDao.getGroups(userId);
-
-        groups = new HashSet<>();
-        groups.add(TestData.getTestGroupBar());
-        groups.add(TestData.getTestGroupFoo());
-
-        for (final GroupEntity group : groups) {
-            for (final UserEntity usr : group.getAdmins()) {
-                usr.setGos(null);
-                usr.setGroups(null);
-                usr.setGroups(null);
-            }
-
-            for (final UserEntity usr : group.getMembers()) {
-                usr.setGos(null);
-                usr.setGroups(null);
-                usr.setGroups(null);
-            }
-
-            for (final UserEntity usr : group.getRequests()) {
-                usr.setGos(null);
-                usr.setGroups(null);
-                usr.setGroups(null);
-            }
-
-            for (final GoEntity go : group.getGos()) {
-                go.setGroup(null);
-                go.getOwner().setGroups(null);
-                go.getOwner().setGos(null);
-                go.getOwner().setRequests(null);
-
-                for (final UserEntity usr : go.getNotGoingUsers()) {
-                    usr.setGos(null);
-                    usr.setGroups(null);
-                    usr.setGroups(null);
-                }
-                for (final UserEntity usr : go.getGoingUsers()) {
-                    usr.setGos(null);
-                    usr.setGroups(null);
-                    usr.setGroups(null);
-                }
-                for (final UserEntity usr : go.getGoneUsers()) {
-                    usr.setGos(null);
-                    usr.setGroups(null);
-                    usr.setGroups(null);
-                }
-            }
+    public ResponseEntity<List<Group>> getData(@PathVariable("userId") final String userId, @PathVariable("email") final String email) {
+        List<Group> data = userService.getData(userId, email);
+        if (data == null || data.size() == 0) {
+            data = new ArrayList<>();
+            Group group = new Group(-1, "dummy", "dummy", 0, null, new ArrayList<>(), new ArrayList<>());
+            GroupService.makeJsonable(group);
+            data.add(group);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(data, HttpStatus.OK);
         }
-
-        return groups;
     }
 
     /**
@@ -142,28 +109,24 @@ public class UserRestController {
      * Die Methode besitzt keinen Rückgabewert, lediglich einen Statuscode in der HTTP-Antwort, die an den Anfragenden
      * gesendet wird. Der Statuscode gibt an, ob die Transaktion erfolgreich war.
      */
-    @RequestMapping(
-            method = RequestMethod.POST,
-            value = "/{userId}"
-    )
-    public ResponseEntity<String> createUser(@RequestBody final UserEntity user) {
-        if (user.getUid() != null) {
-            try {
-                userDao.persist(user);
-
-            } catch (final ConstraintViolationException c) {
-                return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
-            }
+    @RequestMapping(method = RequestMethod.POST, value = "/{userId}")
+    public ResponseEntity<String>
+    createUser(@RequestBody final UserEntity user) {
+        if (userService.createUser(user)) {
+            return
+                    ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
         }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/{userId}"
     )
     public ResponseEntity<String> updateUser(@RequestBody final UserEntity user) {
-        userDao.update(user);
+        userService.updateUser(user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -188,8 +151,9 @@ public class UserRestController {
             method = RequestMethod.DELETE,
             value = "/{userId}"
     )
-    public void deleteUser(@PathVariable("userId") final String userId) {
-        userDao.delete(userId);
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") final String userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
@@ -211,22 +175,25 @@ public class UserRestController {
             method = RequestMethod.PUT,
             value = "/{userId}/device/{instanceId}"
     )
-    public void registerDevice(@PathVariable("userId") final String uid, @PathVariable("instanceId") final String instanceId) {
-        final UserEntity user = userDao.get(uid);
-        user.setInstanceId(instanceId);
-        userDao.update(user);
+    public ResponseEntity<String> registerDevice(@PathVariable("userId") final String uid, @PathVariable("instanceId") final String instanceId) {
+        userService.registerDevice(uid, instanceId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/search/{mail}"
     )
-    public UserEntity getUserbyMail(@PathVariable("mail") String mail) {
-        UserEntity user = userDao.getUserByEmail(mail);
-        user.setGos(null);
-        user.setGroups(null);
-        user.setRequests(null);
+    public ResponseEntity<User> getUserbyMail(@PathVariable("mail") String mail) {
 
-        return user;
+        //Gmail adresses typically end w/ .com -- TLD is ignored in URI, has to be re-added to email address string
+        mail = mail + ".com";
+        User user = userService.getUserbyMail(mail);
+
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }

@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.101 sec <<< FAILURE! - in edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest
+edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest  Time elapsed: 0.101 sec  <<< ERROR!
+java.lang.NoSuchMethodError: edu.kit.pse17.go_app.PersistenceLayer.GoEntity.<init>(Ledu/kit/pse17/go_app/PersistenceLayer/GroupEntity;Ledu/kit/pse17/go_app/PersistenceLayer/UserEntity;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;DD)V
+	at edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest.setUpTestclass(FcmClientTest.java:37)
+

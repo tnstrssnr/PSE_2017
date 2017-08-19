@@ -97,6 +97,18 @@
 \newpage
 
 \section{Änderungen zum Pflichtenheft und Entwurf}
+\begin{enumerate}
+	\item \textbf{Hinzufügen von Service-Klassen in der Service-Layer des Servers}\\
+	Der Business-Layer des Servers wurden die Klassen \textit{userService, GroupService} und \textit{GoService} hinzugefügt. Diese dienen hauptsächlich der klareren Strukturierung zwischen den Aufgaben der restController und der Dao-Klassen. Anstatt direkt auf die Persistence-Layer zuzugreifen, interagieren die RestController-Klassen nur noch mit dem für sie zuständigen Service. In den Service-Klassen wird das Anpassen von Daten für die Umwandlung zu JSON oder zur Persistierung übernommen, sowie die benachrichtigung der Observer, die vorher in den DAO-Klassen stattgefunden hat.
+	
+Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch die DAO-Klassen nur noch einen Verantwortlichkeitsbereich, um den sie sich kümmern müssen. Jeglicher Code der nur zur Umwandlung und Verwaltung der Daten dient, kann an die Service-Klassen ausgelagert werden.
+
+	\item \textbf{Zusätzliche Client-Entity Klassen}\\
+	Da sich die Anforderungen an die Datenmodellierung auf dem Server und auf dem Client satark unterscheiden, wurden jeweils unterschiedliche Entity-Klassen zur Modellierung der NEtitäten verwendet. Um die Anwendungen trotzdem miteinander kompatibel zu machen, verfügt der Server zusätzlich über ClientEntity-Klassen, die die Datenmodellierung auf den Clients entsprechen.
+	
+	Die Verwendung dieser Klassen erlaubt das einfache Parsen von Json-Objekten, die über die Client-Server Schnittstellen übertragen wurden. Die Umwandlung von ClientEntities zu ServerEntities übernehmen die entsprechenden Service-Klassen. Im Quellcode lassen sich Instanzen der ClientEntity-Klassen an dem Buchstaben c im Variablennamen erkennen (z.B. \textit{cGroup}).
+	
+\end{enumerate}
 
 \newpage
 
@@ -109,22 +121,35 @@
 \subsection{Server}
 
 \subsubsection{Testdaten}\label{Testdaten}
-Für die Unittests des Servers wurden testdaten verwendet, die sowohl in eine Testdatenbank gespeichert wurden, als auch als Java-Objekte über die Klasse 'TestData'.
+Für die Unittests des Servers wurden Testdaten verwendet, die sowohl in eine Testdatenbank gespeichert wurden, als auch als Java-Objekte über die Klasse 'TestData'.
 
 \subsubsection{Tests für Observer-Klassen}
-Die Tests der Observer-Klassen sind in der Testklasse 'ObserverTest' zusammengefasst. Für jede Observer-Klasse muss die öffentliche Methode \textit{update()} getestset werden.
+Die Tests der Observer-Klassen sind in der Testklasse 'ObserverTest' zusammengefasst. Für jede Observer-Klasse muss die öffentliche Methode \textit{update()} getestet werden.
 Um die Korrektheit der Methode zu überprüfen, wird getestet, ob der Methodenaufruf \textit{send(String data, EventArg arg, Set<UserEntity> receiver)} korrekt ausgeführt wird. Korrekt hei"st in diesem Fall, dass der Methodenaufruf erfolgt und die übergebenen Argumente den Vorgaben entsprechen.
 
-Das Argument \textit{data} ist ein Json-String, der wie im Entwurfsdokunment beschrieben aufgebaut ist. Das Argument \textit{arg} ist ein Element des Enums \textit{EventArg} und repräsentiert, die aufgetretene Änderung. Das Set \textit{receiver} enthält alle user, an die eine Benachrichtigung geschickt werden soll.\\
+Das Argument \textit{data} ist ein Json-String, der wie im Entwurfsdokunment beschrieben aufgebaut ist. Das Argument \textit{arg} ist ein Element des Enums \textit{EventArg} und repräsentiert, die aufgetretene Änderung. Das Set \textit{receiver} enthält alle user, an die eine Benachrichtigung geschickt werden soll.
 
-\textbf{Testressourcen}\\
-Für die Tests der Klasse 'ObserverTest' werden Mock-Objekte der Dao-Klassen verwerndet. Diese sind mit dem Framework 'Mockito' erstellt und so konfiguriert, das bei Aufruf der Methode \textit{get({Long | String} key)} (Methode des AbstractDao Interfaces) ein zuvor definiertes TestObjekt zurückgegeben wird. Die verwendeten Testobjekte stammen aus der Klasse 'TestData', die für die Bereitstellung von Testobjekten zuständig ist (siehe \ref{Testdaten}).\\
+Für die Tests der Klasse 'ObserverTest' werden Mock-Objekte der Dao-Klassen verwendet. Diese sind mit dem Framework 'Mockito' erstellt und so konfiguriert, das bei Aufruf der Methode \textit{get({Long | String} key)} (Methode des AbstractDao Interfaces) ein zuvor definiertes TestObjekt zurückgegeben wird. Die verwendeten Testobjekte stammen aus der Klasse 'TestData', die für die Bereitstellung von Testobjekten zuständig ist (siehe \ref{Testdaten}).
 
-Das FcmClient-Attribut der Observer-Klassen wird in den test ebenfalls gemockt und so konfiguriert, das bei einem Methodenaufruf von \textit{send(...)} die übergebenen Argumente in Feldern der ObserverTest-Klasse gespeichert werden, so dass diese anschließend mit den erwarteten Werten verglichen werden können.\\
+Das FcmClient-Attribut der Observer-Klassen wird in den test ebenfalls gemockt und so konfiguriert, das bei einem Methodenaufruf von \textit{send(...)} die übergebenen Argumente in Feldern der ObserverTest-Klasse gespeichert werden, so dass diese anschließend mit den erwarteten Werten verglichen werden können.
 
-\textbf{Erwartete Ergebnisse}\\
 Die Ergebnisse, die bei Testausführung erwartet werden, sind als statische Felder in der Testklasse gespeichert. Dazu gehören die erwarteten Json-Strings und die Receiver der send()-Methode.
 Die erwarteten Ergebniss wurden, teils händisch, anhand des Entwurfsdokuments aus den in TestData definierten Testdaten generiert. Sie sind nur gültig, solange keine Änderungen an diesen Daten vorgenommen werden.
+
+\subsubsection{Tests für RestController-Klassen}
+Die Tests der Klassen User-, Group- und GoRestController sind jeweils darauf zu überprüfen, ob die Calls an die Rest-Ressourcen richtig interpretiert und ausgeführt werden. Dazu gehört das korrekte Auslesen von Methodenparametern aus der URI der Rest-Ressource und JSON Strings aus dem Request-Body.
+
+Die Rest API wird bei dem Tests mithilfe des Spring Boot Starter Test-Frameworks simuliert. Dadurch kann sowohl das Mapping von Rest-Ressourcen, als auch die Methodenaufrufe in den Controller-Klassen getestet werden.
+
+Um die Korrektheit der Methodenaufrufe zu überprüfen, wird in jeder Testmethode der Methodenaufruf an die jeweilige Service-Klasse überprüft, die übergebenen Parameter, sowie die HTTP-Response, die zurückgegeben wird. Die dabei verwendeten Testdaten, die aus der TestData-Klasse stammen, wurden mithilfe eines Rest-Clients auf Korrektheit überprüft.
+
+\subsubsection{Tests für Service-Klassen}
+Für die Klassen User-, Go- und GroupService wurde je eine Testklasse erstellt, in denen sämtliche Methoden getestet werden. Da die meisten dieser Methoden \textit{void}-Methoden sind, kommt es vor allem darauf an, zu testen, ob der richtige Methodenaufrauf auf dem heweiligen Dao-Objekt erfolgt und ob jeweils er passende Observer benachrichtigt wird.
+
+Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten der \textit{TestData}-Klasse verwendet.
+
+\subsubsection{Tests für Entity-Klassen}
+Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Die einzigen Methoden, die aus den Entity-Klassen getestet werden, sind jeweils die Methoden \textit{equals()} und \textit{hashCode()}. Ob der \textit{equals()}/\textit{hashCode()} Contract eingehalten wird, wird mittels des EqualsVerifier getestet.
 
 \end{document}
 \grid
