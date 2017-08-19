@@ -51,10 +51,13 @@ public class Main extends SpringBootServletInitializer {
         SpringApplication.run(Main.class, args);
     }
 
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Main.class);
+        return
+                application.sources(Main.class);
     }
+
 
     @Bean
     public SessionFactory sessionFactory() {

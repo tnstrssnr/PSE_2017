@@ -23,11 +23,6 @@ public class UserGoStatus {
         this.user = user;
     }
 
-    public void makeJsonable() {
-        this.getGo().setGroup(null);
-        this.getGo().setParticipantsList(null);
-    }
-
     public Go getGo() {
         return go;
     }
@@ -43,4 +38,6 @@ public class UserGoStatus {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+
 }

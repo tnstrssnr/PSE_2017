@@ -3,12 +3,15 @@ package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,10 +83,20 @@ public class UserRestController {
      */
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{userId}/{email}"
+            value = "/{userId}/{email}",
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<Group>> getData(@PathVariable("userId") final String userId, @PathVariable("email") final String email) {
-        return new ResponseEntity<>(userService.getData(userId, email), HttpStatus.OK);
+        List<Group> data = userService.getData(userId, email);
+        if (data == null || data.size() == 0) {
+            data = new ArrayList<>();
+            Group group = new Group(-1, "dummy", "dummy", 0, null, new ArrayList<>(), new ArrayList<>());
+            GroupService.makeJsonable(group);
+            data.add(group);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        }
     }
 
     /**
@@ -95,12 +108,18 @@ public class UserRestController {
      * <p>
      * Die Methode besitzt keinen Rückgabewert, lediglich einen Statuscode in der HTTP-Antwort, die an den Anfragenden
      * gesendet wird. Der Statuscode gibt an, ob die Transaktion erfolgreich war.
-     *
-     * @RequestMapping( method = RequestMethod.POST, value = "/{userId}" ) public ResponseEntity<String>
-     * createUser(@RequestBody final UserEntity user) { if (userService.createUser(user)) { return
-     * ResponseEntity.status(HttpStatus.CREATED).build(); } else { return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
-     * } }
      */
+    @RequestMapping(method = RequestMethod.POST, value = "/{userId}")
+    public ResponseEntity<String>
+    createUser(@RequestBody final UserEntity user) {
+        if (userService.createUser(user)) {
+            return
+                    ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+        }
+    }
+
 
     @RequestMapping(
             method = RequestMethod.PUT,

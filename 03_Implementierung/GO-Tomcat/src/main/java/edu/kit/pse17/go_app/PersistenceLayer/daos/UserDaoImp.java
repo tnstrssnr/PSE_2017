@@ -126,6 +126,10 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             session = sf.openSession();
             tx = session.beginTransaction();
             user = (UserEntity) session.get(UserEntity.class, key);
+
+            if (user == null) {
+                return null;
+            }
             Hibernate.initialize(user.getGroups());
             for (final GroupEntity group : user.getGroups()) {
                 Hibernate.initialize(group.getMembers());

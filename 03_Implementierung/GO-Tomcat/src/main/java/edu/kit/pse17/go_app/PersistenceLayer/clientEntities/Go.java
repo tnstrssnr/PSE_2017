@@ -147,14 +147,11 @@ public class Go {
         this.locations = locations;
     }
 
-    public void makeJsonable(boolean keepGroupInfo) {
-        if (keepGroupInfo) {
-            this.group.makeJsonable();
-        } else {
-            this.group = null;
-        }
-        for (UserGoStatus userGoStatus : participantsList) {
-            userGoStatus.makeJsonable();
-        }
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }

@@ -50,7 +50,7 @@ public class GroupRequestReceivedObserver implements Observer {
         UserEntity user = userDao.get(entity_ids.get(0));
 
         Group cGroup = GroupService.groupEntityToGroup(group);
-        cGroup.makeJsonable();
+        GroupService.makeJsonable(cGroup);
 
         String data = new Gson().toJson(cGroup);
         Set<UserEntity> receiver = new HashSet<>();

@@ -13,13 +13,13 @@
         </property>
 
         <property name="connection.url">
-            jdbc:mysql://localhost/pse_development?useSSL=false
+            jdbc:mysql://localhost/PSESoSe17Gruppe3?useSSL=false
         </property>
         <property name="connection.username">
-            root
+            PSESoSe17User3
         </property>
         <property name="connection.password">
-            69h97jnv
+            vAprU3acuxux3S8a
         </property>
 
         <property name="hbm2ddl.auto">update</property>

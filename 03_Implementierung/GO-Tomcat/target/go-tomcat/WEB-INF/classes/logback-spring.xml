@@ -6,4 +6,4 @@
     <root level="INFO">
         <appender-ref ref="FILE"/>
     </root>
-</configuration> 
+</configuration>

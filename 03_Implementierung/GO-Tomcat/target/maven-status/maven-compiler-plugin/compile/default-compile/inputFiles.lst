@@ -10,6 +10,7 @@
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestController.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserLocation.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java
+/home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/DBScan.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/Observer.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Group.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/UserGoStatus.java
@@ -28,6 +29,7 @@
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/IObservable.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/AbstractDao.java
+/home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Utility.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/IAbstractDao.java
 /home/tina/PSE/03_Implementierung/GO-Tomcat/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java

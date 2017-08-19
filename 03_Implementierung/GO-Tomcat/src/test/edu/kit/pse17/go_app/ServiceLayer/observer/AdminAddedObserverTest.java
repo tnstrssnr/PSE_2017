@@ -8,7 +8,6 @@ import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import edu.kit.pse17.go_app.TestData;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -17,7 +16,6 @@ import java.util.List;
 
 import static org.mockito.Matchers.anyLong;
 
-@Ignore
 public class AdminAddedObserverTest {
 
     private static final String expectedResult = "{\"user_id\":\"testid_2\",\"group_id\":\"0\"}";
