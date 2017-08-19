@@ -52,7 +52,7 @@ public class LocationService {
      * Sämtliche Manipulationen an diesem Attribut finden innerhalb dieser Klasse statt. NAch außen hin sit diese
      * Variable nicht sichtbar und insbesondere nicht veränderbar.
      */
-    private final int newLocationCounter;
+    private int newLocationCounter;
     /**
      * Eine Zählvariable, um sich zu merken, wie viele verschiedene Benutzer bereits ihren Standort geteilt haben. Ist
      * diese Zahl kleienr als 3, so wird keine groupLocation berechnet. Dies dient der Anonymisierung der einzelnen
@@ -111,6 +111,23 @@ public class LocationService {
      */
     public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) {
 
+        boolean validation = false;
+
+        if (LocationService.activeServices.get(goId) != null) {
+
+            for (int i = 0; i < LocationService.activeServices.size(); i++) {
+                LocationService.activeServices.get(goId).activeUsers.get(i);
+                if (LocationService.activeServices.get(goId).activeUsers.get(i).getUserId() == userId) {
+                    LocationService.activeServices.get(goId).activeUsers.get(i).setLat(lat);
+                    LocationService.activeServices.get(goId).activeUsers.get(i).setLon(lon);
+                    validation = true;
+                    LocationService.activeServices.get(goId).newLocationCounter += LocationService.activeServices.get(goId).newLocationCounter;
+                }
+            }
+            if (validation == false) {
+                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+            }
+        }
     }
 
     /**
