@@ -23,7 +23,7 @@ import java.util.Map;
 public class GoService implements IObservable {
 
     @Autowired
-    private GoDaoImp goDao;
+    private static GoDaoImp goDao;
 
     @Autowired
     private GroupDaoImp groupDao;
@@ -172,7 +172,7 @@ public class GoService implements IObservable {
         notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
     }
 
-    public GoEntity getGoById(long id) {
+    public static GoEntity getGoById(long id) {
         return goDao.get(id);
     }
 

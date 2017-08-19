@@ -87,6 +87,7 @@ public class GoRestController {
             value = "/location/{goId}"
     )
     public ResponseEntity<List<Cluster>> getLocation(@PathVariable("goId") Long goId) {
+
         return new ResponseEntity<>(LocationService.getGroupLocation(goId), HttpStatus.OK);
     }
 
@@ -122,6 +123,7 @@ public class GoRestController {
     )
     public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
         goService.delete(goId);
+        LocationService.removeGo(goId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

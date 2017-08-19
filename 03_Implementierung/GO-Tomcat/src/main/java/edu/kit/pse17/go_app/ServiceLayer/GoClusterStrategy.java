@@ -40,6 +40,7 @@ public class GoClusterStrategy implements ClusterStrategy {
      * default-Wert von 5 eingesetzt.
      */
     public GoClusterStrategy() {
+        this.threshold = 4;
     }
 
     /**
@@ -51,11 +52,9 @@ public class GoClusterStrategy implements ClusterStrategy {
      * @return ein Dataset von Clustern, die den aktuellen Standort der Gruppe beschreiben.
      */
 
-
-    @Override
     public List<Cluster> calculateCluster(final List<UserLocation> userLocationList) {
 
-        final DBScan algorithm = new DBScan(userLocationList);
+        DBScan algorithm = new DBScan(userLocationList);
         Vector<List> Clusterlist = algorithm.applyDbscan(threshold, 3, userLocationList);
         List<Cluster> resultList = new ArrayList<Cluster>();
         for (int i = 0; i < Clusterlist.size(); i++) {
