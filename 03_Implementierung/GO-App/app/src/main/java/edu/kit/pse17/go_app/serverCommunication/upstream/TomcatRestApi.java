@@ -140,8 +140,8 @@ public interface TomcatRestApi {
      *
      * @return Call to the server (with the ID of GO in Response)
      */
-    @PUT("gos/")
-    public Call<Long> createGo(@Body Go go);
+    @POST("gos/{groupid}/{userid}")
+    public Call<Long> createGo(@Body Go go, @Path("groupid") long goid, @Path("userid") String userid);
 
 
     /**
@@ -180,6 +180,6 @@ public interface TomcatRestApi {
      *
      * @return Call to the server (no additional information in Response)
      */
-    @PUT("gos/")
-    public Call<Void> editGo(@Body Go go);
+    @PUT("gos/{goid}")
+    public Call<Void> editGo(@Body Go go, @Path("goid") long goid);
 }

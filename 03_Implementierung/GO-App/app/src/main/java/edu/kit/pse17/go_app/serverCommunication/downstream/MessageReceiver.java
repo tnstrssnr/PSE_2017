@@ -1,8 +1,9 @@
 package edu.kit.pse17.go_app.serverCommunication.downstream;
 
+import android.util.Log;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +62,7 @@ public class MessageReceiver extends FirebaseMessagingService {
                 e.printStackTrace();
             }
         } else {
-            //do nothing
+            Log.d("MESSAGE_FCM", "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
     }
 

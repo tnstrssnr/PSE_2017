@@ -111,7 +111,7 @@ public class GoRepository extends Repository<List<Go>>{
         parameters.put("longitude", Double.toString(lon));
         parameters.put("threshold", Integer.toString(threshold));
         Go go = new Go(goId,name,description,start,end,null,lat,lon,null, null, null, null);
-        Call<Void> call = apiService.editGo(go);
+        Call<Void> call = apiService.editGo(go, go.getId());
         call.enqueue(new Callback<Void>() {
 
             @Override

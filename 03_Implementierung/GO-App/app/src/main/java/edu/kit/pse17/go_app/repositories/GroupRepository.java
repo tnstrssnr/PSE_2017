@@ -56,6 +56,7 @@ public class GroupRepository extends Repository<List<Group>> {
     private ArrayList<Group> list;
     private GroupListLiveData data;
     private Group groupWithoutId;
+    private Go goWithoutId;
 
     //@Inject
     private GroupRepository(Observer<List<Group>> observer) {
@@ -320,15 +321,15 @@ public class GroupRepository extends Repository<List<Group>> {
     public void createGo(String name, String description, String start, String end,
                          double lat, double lon, int threshold, Group group, String userId, String userName) {
 
-        Go go = new Go(0, name, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
+        Go go = new Go(-321, name, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
+        goWithoutId = go;
         String json = TomcatRestApiClient.gson.toJson(go);
-        Call<Long> call = apiService.createGo(go);
+        Call<Long> call = apiService.createGo(go, group.getId(), userId);
         call.enqueue(new Callback<Long>() {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-                long goId = response.body();
-                onGoIdAssigned(goId);
+
             }
 
             @Override
@@ -339,9 +340,6 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
-    private void onGoIdAssigned(long goId) {
-
-    }
 
     //----------------------------------------------------------------------
 
