@@ -139,6 +139,9 @@ public class GoRepository extends Repository<List<Go>>{
                 try {
                     go.setLocations(call.execute().body());
                     data.setValue(go);
+
+                    GroupRepository groupRepo = GroupRepository.getInstance();
+                    groupRepo.onLocationsUpdated(go);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -146,8 +149,6 @@ public class GoRepository extends Repository<List<Go>>{
         });
         t.start();
     }
-
-    //-------------------------------------------------------------------
 
 
     @Override

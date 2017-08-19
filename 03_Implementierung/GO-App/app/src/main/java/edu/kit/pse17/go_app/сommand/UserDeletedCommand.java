@@ -4,6 +4,13 @@ package edu.kit.pse17.go_app.сommand;
  * Created by Сеня on 09.07.2017.
  */
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.kit.pse17.go_app.repositories.GroupRepository;
+
 /**
  * Diese Klasse implementiert einen Befehl, der bei dem Löschen vom Account
  * eines Benutzers ausgeführt wird.
@@ -22,6 +29,17 @@ public class UserDeletedCommand extends ServerCommand {
      */
     @Override
     public void onCommandReceived() {
+        Gson gson = new Gson();
+        String userId = null;
 
+        try {
+            String jsonString = getMessage().getString("data");
+            JSONObject data = new JSONObject(jsonString);
+            userId = data.getString("user_id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        GroupRepository.getInstance().onUserDeleted(userId);
     }
 }

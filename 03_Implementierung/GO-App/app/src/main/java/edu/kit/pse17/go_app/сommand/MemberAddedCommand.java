@@ -7,6 +7,7 @@ package edu.kit.pse17.go_app.сommand;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
@@ -28,13 +29,18 @@ public class MemberAddedCommand extends ServerCommand {
     public void onCommandReceived() {
         Gson gson = new Gson();
         User user = null;
+        String groupId = null;
 
         try {
-            user = gson.fromJson(getMessage().getString("data"), User.class);
+            String jsonString = getMessage().getString("data");
+            JSONObject data = new JSONObject(jsonString);
+            groupId = data.getString("group_id");
+            String userString = data.getString("user");
+            user = gson.fromJson(userString, User.class);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        GroupRepository.getInstance().onMemberAdded(user);
+        GroupRepository.getInstance().onMemberAdded(user, Long.parseLong(groupId));
     }
 }
