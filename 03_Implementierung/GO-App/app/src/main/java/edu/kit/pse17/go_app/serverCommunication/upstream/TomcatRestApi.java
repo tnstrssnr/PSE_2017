@@ -166,6 +166,7 @@ public interface TomcatRestApi {
 
     @PUT("gos/location/{goId}")
     public Call<Void> setLocation(@Path("goId") long goId, @Body UserLocation location);
+
     /**
      * Method that deletes current GO from server
      *

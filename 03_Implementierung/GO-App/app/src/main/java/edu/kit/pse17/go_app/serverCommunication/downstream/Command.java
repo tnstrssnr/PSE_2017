@@ -89,7 +89,7 @@ public enum Command {
         }
     },
 
-    STATUS_CHANGED_COMMAND {
+    STATUS_CHANGED_EVENT {
         @Override
         public ServerCommand getCommand() {
             return new StatusChangedCommand();

@@ -55,6 +55,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
     private ArrayList<Group> list;
     private GroupListLiveData data;
+
     private Group groupWithoutId;
     private Go goWithoutId;
 
@@ -367,12 +368,12 @@ public class GroupRepository extends Repository<List<Group>> {
     /*
     *  Erzeugt ein neues GO in der Gruppe mit groupId
     * */
-    public void onGoAdded(Go go, long groupId /*, String userId*/) {
+    public void onGoAdded(Go go, long groupId/*, String userId*/) {
         for (Group group : list) {
             if (group.getId() == groupId) {
                 Go newGo = go;
                 newGo.setGroup(group);
-                //go.setOwner("TODO bla bla");
+                //go.setOwner(?????);
 
                 List<Go> old = group.getCurrentGos();
                 old.add(newGo);
@@ -453,7 +454,6 @@ public class GroupRepository extends Repository<List<Group>> {
         }
     }
 
-    // TODO !
     public void onGroupRequestReceived(Group group) {
         for (Group currentGroup : list) {
             if (currentGroup.getId() == group.getId()) {
@@ -466,7 +466,6 @@ public class GroupRepository extends Repository<List<Group>> {
         }
     }
 
-    // TODO ?
     public void onMemberAdded(User user, long groupId) {
         if (GroupListActivity.getUserId().equals(user.getUid())) {
             getGroupData(user.getUid(), groupId); // if added member
@@ -477,6 +476,7 @@ public class GroupRepository extends Repository<List<Group>> {
                 GroupMembership membership = new GroupMembership(user, group, false, false);
                 List<GroupMembership> newList = group.getMembershipList();
                 newList.add(membership);
+                group.setMemberCount(group.getMemberCount() + 1);
                 group.setMembershipList(newList);
 
                 data.setValue(list);
@@ -485,19 +485,42 @@ public class GroupRepository extends Repository<List<Group>> {
         }
     }
 
-    // TODO alles löschen !!!
     public void onMemberRemoved(String userId, long groupId) {
         for (Group group : list) {
             if (group.getId() == groupId) {
-                List<GroupMembership> old = group.getMembershipList();
+                List<GroupMembership> oldMembershipList = group.getMembershipList();
 
-                for (GroupMembership membership : old) {
+                for (GroupMembership membership : oldMembershipList) {
                     if (membership.getUser().getUid().equals(userId)) {
-                        old.remove(membership);
+                        oldMembershipList.remove(membership);
                         group.setMemberCount(group.getMemberCount() - 1);
-                        List<GroupMembership> newMemberList = old;
-                        group.setMembershipList(newMemberList);
+                        List<GroupMembership> newMembershipList = oldMembershipList;
+                        group.setMembershipList(newMembershipList);
                         break;
+                    }
+                }
+                if (group.getMemberCount() == 0) {
+                    list.remove(group);
+                }
+
+                List<Go> oldGoList = group.getCurrentGos();
+
+                for (Go go : oldGoList) {
+                    List<UserGoStatus> oldMemberList = go.getParticipantsList();
+
+                    for (UserGoStatus member : oldMemberList) {
+                        if (member.getUser().getUid().equals(userId)) {
+                            oldMemberList.remove(member);
+                            List<UserGoStatus> newMemberList = oldMemberList;
+                            go.setParticipantsList(newMemberList);
+                            break;
+                        }
+                    }
+
+                    if (go.getParticipantsList().isEmpty() || go.getOwner().equals(userId)) {
+                        oldGoList.remove(go);
+                        List<Go> newGoList = oldGoList;
+                        group.setCurrentGos(newGoList);
                     }
                 }
 
@@ -507,7 +530,6 @@ public class GroupRepository extends Repository<List<Group>> {
         }
     }
 
-    // TODO ?
     public void onRequestDenied(String userId, long groupId) {
         for (Group group : list) {
             if (group.getId() == groupId) {
@@ -558,7 +580,6 @@ public class GroupRepository extends Repository<List<Group>> {
         }
     }
 
-    // TODO hier auch onMemberRemoved
     public void onUserDeleted(String userId) {
         for (Group group : list) {
             onMemberRemoved(userId, group.getId());
@@ -683,5 +704,17 @@ public class GroupRepository extends Repository<List<Group>> {
             groupRepo = new GroupRepository(/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/);
         }
         return groupRepo;
+    }
+
+    public void setList(ArrayList<Group> list) {
+        this.list = list;
+    }
+
+    public ArrayList<Group> getList() {
+        return list;
+    }
+
+    public void setData(GroupListLiveData data) {
+        this.data = data;
     }
 }

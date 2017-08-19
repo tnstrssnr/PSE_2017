@@ -29,7 +29,6 @@ public class UserDeletedCommand extends ServerCommand {
      */
     @Override
     public void onCommandReceived() {
-        Gson gson = new Gson();
         String userId = null;
 
         try {

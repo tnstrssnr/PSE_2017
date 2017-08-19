@@ -54,7 +54,7 @@ public class User implements Serializable {
     @Expose
     private Drawable icon;*/
 
-    public User(String uid,  String email, String name) {
+    public User(String uid, String email, String name) {
         this.uid = uid;
         this.name = name;
         this.email = email;
