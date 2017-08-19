@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +103,7 @@ public class GoRestController {
             method = RequestMethod.PUT,
             value = "/location/{goId}"
     )
-    public ResponseEntity setLocation(@RequestBody UserLocation userLocation, @PathVariable("goId") Long goId) {
+    public ResponseEntity setLocation(@RequestBody UserLocation userLocation, @PathVariable("goId") Long goId) throws IOException {
         String userId = userLocation.getUserId();
         double lat = userLocation.getLat();
         double lon = userLocation.getLon();
