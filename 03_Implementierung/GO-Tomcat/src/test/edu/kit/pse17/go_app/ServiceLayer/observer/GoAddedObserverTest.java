@@ -16,7 +16,6 @@ import java.util.List;
 
 import static org.mockito.Matchers.anyLong;
 
-@Ignore
 public class GoAddedObserverTest {
 
     private static final String expectedResult = "{\"ID\":1,\"name\":\"lunch\",\"description\":\"test description\",\"start\":\"Aug 30, 3917 12:00:00 AM\",\"end\":\"Sep 1, 3917 12:00:00 AM\",\"lat\":0.0,\"lon\":0.0}";

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-@Ignore
 public class UserServiceTest {
 
     private UserEntity testUser;
@@ -33,7 +32,7 @@ public class UserServiceTest {
         testList = new ArrayList<>();
         testList.add(TestData.getTestcFoo());
         testList.add(TestData.getTestcBar());
-        testcUser = TestData.getTestcBob();
+        testcUser = UserService.userEntityToUser(testUser);
     }
 
     @After
@@ -101,10 +100,8 @@ public class UserServiceTest {
 
     @Test
     public void getUserbyMailTest() throws Exception {
-
         final String testMail = "test@mail.com";
-        UserEntity alteredTestUser = addAssociationsToUser(testUser);
-        Mockito.when(mockUserDao.getUserByEmail(Mockito.anyString())).thenReturn(alteredTestUser);
+        Mockito.when(mockUserDao.getUserByEmail(Mockito.anyString())).thenReturn(testUser);
         User result = testService.getUserbyMail(testMail);
         Mockito.verify(mockUserDao, Mockito.times(1)).getUserByEmail(testMail);
         Assert.assertEquals(testcUser, result);

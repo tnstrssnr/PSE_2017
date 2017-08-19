@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 import static org.mockito.Matchers.any;
 
-@Ignore
 @WebMvcTest(value = GroupRestController.class, secure = false)
 @SpringBootTest
 public class GroupRestControllerTest {

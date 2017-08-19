@@ -8,13 +8,15 @@ import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import edu.kit.pse17.go_app.TestData;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Ignore
 public class GroupServiceTest {
 
     private static final String TEST_ID_USER = "test_id_user";

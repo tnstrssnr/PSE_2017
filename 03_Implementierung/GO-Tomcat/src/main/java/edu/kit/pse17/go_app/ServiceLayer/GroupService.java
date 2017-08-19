@@ -39,6 +39,20 @@ public class GroupService implements IObservable {
         this.groupDao = groupDao;
     }
 
+    public static void makeJsonable(Group group) {
+        for (GroupMembership groupMembership : group.getMembershipList()) {
+            makeJsonable(groupMembership);
+        }
+        for (Go go : group.getCurrentGos()) {
+            GoService.makeJsonable(go, false);
+        }
+    }
+
+    public static void makeJsonable(GroupMembership groupMembership) {
+        groupMembership.getGroup().setMembershipList(null);
+        groupMembership.getGroup().setMembershipList(null);
+    }
+
     public static void editGroupForJson(GroupEntity group) {
 
         for (final UserEntity usr : group.getAdmins()) {
@@ -209,7 +223,7 @@ public class GroupService implements IObservable {
 
     @Override
     public void notify(EventArg impCode, IObservable observable, List<String> entity_ids) {
-        if(!observerInitialized) {
+        if (!observerInitialized) {
             registerAll();
         }
         observerMap.get(impCode).update(entity_ids);

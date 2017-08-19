@@ -14,7 +14,7 @@ import java.util.Map;
  * Um die Anfragen bearbeiten zu können, bedient sich die die Klasse dem Clustering Algorithmus, der implementiert ist
  * mit der Schnittstellt, wie sie in dem Interface ClusterStrategy beschrieben ist.
  * <p>
- * Alle Programmteile, die Funktioalitäten aus dieser Klasse benötigen, stellen ihre Anfragen an statische Methoden.
+ * Alle Programmteile, die Funktinalitäten aus dieser Klasse benötigen, stellen ihre Anfragen an statische Methoden.
  * Erst innerhalb der Klasse wird die anfrage dem richtigen LocationService-Objekt zugeordnet. Dies erlaubt eine klare
  * Trennung der Teile des GOs, die in der Datenbank verwaltet werden und denen, die in dieser Klasse verwaltet werden.
  * <p>

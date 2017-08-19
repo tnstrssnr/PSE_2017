@@ -13,10 +13,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserService implements IObservable {
@@ -68,13 +65,16 @@ public class UserService implements IObservable {
             user.setUid(key);
             user.setName(email);
             user.setEmail(email);
+            user.setRequests(new HashSet<>());
+            user.setGroups(new HashSet<>());
+            user.setGos(new HashSet<>());
             createUser(user);
         }
 
         List<Group> groups = new ArrayList<>();
         for (GroupEntity groupEntity : user.getGroups()) {
             Group group = GroupService.groupEntityToGroup(groupEntity);
-            group.makeJsonable();
+            GroupService.makeJsonable(group);
             groups.add(group);
         }
 

@@ -1,11 +1,16 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
+import com.google.gson.Gson;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.User;
+import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import edu.kit.pse17.go_app.TestData;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,12 +30,13 @@ import java.util.List;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 
-@Ignore
 @WebMvcTest(value = UserRestController.class, secure = false)
 @SpringBootTest
 public class UserRestControllerTest {
 
     private static final String testUserJson = "{\"uid\":\"testid_1\",\"instanceId\":\"testInstance_1\",\"name\":\"Bob\",\"email\":\"bob@testmail.com\",\"groups\":[],\"requests\":[],\"gos\":[]}";
+    private static final String testListString = "[{\"id\":1,\"name\":\"Bar\",\"description\":\"Test Description\",\"memberCount\":1,\"currentGos\":[]},{\"id\":0,\"name\":\"Foo\",\"description\":\"Test Descritpion\",\"memberCount\":2,\"currentGos\":[{\"id\":1,\"name\":\"lunch\",\"description\":\"test description\",\"start\":\"Thu Aug 30 00:00:00 CEST 3917\",\"end\":\"Sat Sep 01 00:00:00 CEST 3917\",\"desLat\":0.0,\"desLon\":0.0,\"ownerId\":\"testid_1\",\"ownerName\":\"Bob\"},{\"id\":2,\"name\":\"dinner\",\"description\":\"test description\",\"start\":\"Thu Aug 30 00:00:00 CEST 3917\",\"end\":\"Sat Sep 01 00:00:00 CEST 3917\",\"desLat\":0.0,\"desLon\":0.0,\"ownerId\":\"testid_2\",\"ownerName\":\"Alice\",\"participantsList\":[]}]}]";
+    private static final String testcuserString = "{\"uid\":\"testid_2\",\"instanceId\":\"testInstance_2\",\"name\":\"Alice\",\"email\":\"alice@testmail.com\"}";
     private static UserEntity testUser;
     private static User testcUser;
     private static List<Group> testGroupList;
@@ -50,6 +56,9 @@ public class UserRestControllerTest {
         testGroupList = new ArrayList<>();
         testGroupList.add(TestData.getTestcBar());
         testGroupList.add(TestData.getTestcFoo());
+        GroupService.makeJsonable(testGroupList.get(0));
+        GroupService.makeJsonable(testGroupList.get(1));
+        System.out.println(new Gson().toJson(testGroupList));
 
     }
 
@@ -61,11 +70,12 @@ public class UserRestControllerTest {
 
     @Test
     public void getDataTest() throws Exception {
-        Mockito.when(userService.getData(Mockito.anyString(), Mockito.anyString())).thenReturn(testGroupList);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/testid_1").accept(MediaType.APPLICATION_JSON);
+        Mockito.when(userService.getData(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/testid_1/testmail").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        System.out.println(result.getResponse().getContentAsString());
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-        Assert.assertEquals(testUserJson, result.getResponse().getContentAsString());
+        Assert.assertEquals(testListString, result.getResponse().getContentAsString());
     }
 
     @Test
@@ -128,7 +138,7 @@ public class UserRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Mockito.verify(userService, times(1)).getUserbyMail("test@mail.com");
-        Assert.assertEquals(testUserJson, result.getResponse().getContentAsString());
+        Assert.assertEquals(testcuserString, result.getResponse().getContentAsString());
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 

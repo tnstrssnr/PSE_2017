@@ -82,6 +82,22 @@ public class GoService implements IObservable {
         return go;
     }
 
+    public static void makeJsonable(Go go, boolean keepGroupInfo) {
+        if (keepGroupInfo) {
+            GroupService.makeJsonable(go.getGroup());
+        } else {
+            go.setGroup(null);
+        }
+        for (UserGoStatus userGoStatus : go.getParticipantsList()) {
+            makeJsonable(userGoStatus);
+        }
+    }
+
+    public static void makeJsonable(UserGoStatus userGoStatus) {
+        userGoStatus.getGo().setGroup(null);
+        userGoStatus.getGo().setParticipantsList(null);
+    }
+
     public void registerAll() {
         register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
         register(EventArg.GO_REMOVED_EVENT, new GoRemovedObserver(this));

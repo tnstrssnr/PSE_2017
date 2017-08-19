@@ -9,7 +9,10 @@ import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import edu.kit.pse17.go_app.TestData;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -21,7 +24,6 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.*;
 
-@Ignore
 public class ObserverTest {
 
     private static final String GOEO_JSON = "{\"ID\":1,\"name\":\"lunch\",\"description\":\"test description\",\"start\":\"Aug 30, 3917 12:00:00 AM\",\"end\":\"Sep 1, 3917 12:00:00 AM\",\"lat\":0.0,\"lon\":0.0}";
