@@ -151,5 +151,8 @@ Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten
 \subsubsection{Tests für Entity-Klassen}
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Die einzigen Methoden, die aus den Entity-Klassen getestet werden, sind jeweils die Methoden \textit{equals()} und \textit{hashCode()}. Ob der \textit{equals()}/\textit{hashCode()} Contract eingehalten wird, wird mittels des EqualsVerifier getestet.
 
+\subsubsection{Tests für Clustering-Klassen}
+Die Clustering-Klassen sind größtenteils Klassen die sich mit Berechnung und erstellen neuer Objekte/Listen auseinandersetzt. Deswegen wird hier vor allem nach einem erwünschten Resultat getestet und nach dem Sinngemäßen Ablauf sämtlicher Funktionen.
+
 \end{document}
 \grid
