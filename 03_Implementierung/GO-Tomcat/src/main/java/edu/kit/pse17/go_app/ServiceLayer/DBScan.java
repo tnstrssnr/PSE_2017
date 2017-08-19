@@ -6,7 +6,7 @@ import java.util.*;
 public class DBScan
 {
 
-    public static Vector<List> resultList = new Vector<List>();
+    public static Vector<List> resultList = new Vector<>();
 
     public static Vector<UserLocation> pointList;
 
@@ -32,7 +32,7 @@ public class DBScan
             UserLocation p =pointList.get(index2);
             if(!Utility.isVisited(p)){
 
-                Utility.Visited(p);
+                Utility.visited(p);
 
                 Neighbours =Utility.getNeighbours(p, tdistance);
 
@@ -45,10 +45,10 @@ public class DBScan
 
                         UserLocation r = Neighbours.get(ind);
                         if(!Utility.isVisited(r)){
-                            Utility.Visited(r);
+                            Utility.visited(r);
                             Vector<UserLocation> Neighbours2 = Utility.getNeighbours(r, tdistance);
                             if (Neighbours2.size() >= minpt){
-                                Neighbours=Utility.Merge(Neighbours, Neighbours2);
+                                Neighbours=Utility.merge(Neighbours, Neighbours2);
                             }
                         } ind++;
                     }
@@ -60,7 +60,8 @@ public class DBScan
 
 
             }index2++;
-        }return resultList;
+        }
+        return resultList;
     }
 
 }

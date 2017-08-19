@@ -12,9 +12,9 @@ public class Utility{
     public static double getDistance (UserLocation p, UserLocation q)
     {
 
-        double dx = p.getLat()-q.getLon();
+        double dx = p.getLat()-q.getLat();
 
-        double dy = p.getLat()-q.getLon();
+        double dy = p.getLon()-q.getLon();
 
         double distance = Math.sqrt (dx * dx + dy * dy);
 
@@ -42,7 +42,7 @@ public class Utility{
         return neigh;
     }
 
-    public static void Visited(UserLocation d){
+    public static void visited(UserLocation d){
         VisitList.add(d);
 
     }
@@ -59,7 +59,7 @@ public class Utility{
         }
     }
 
-    public static Vector<UserLocation> Merge(Vector<UserLocation> a,Vector<UserLocation> b)
+    public static Vector<UserLocation> merge(Vector<UserLocation> a,Vector<UserLocation> b)
     {
 
         Iterator<UserLocation> it5 = b.iterator();
@@ -85,7 +85,7 @@ public class Utility{
     }
 
     public static Boolean equalPoints(UserLocation m , UserLocation n) {
-        if((m.getLat()==n.getLat())&&(m.getLat()==n.getLon()))
+        if((m.getLat()==n.getLat())&&(m.getLon()==n.getLon()))
             return true;
         else
             return false;
