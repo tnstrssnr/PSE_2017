@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 import org.apache.commons.collections.iterators.ArrayListIterator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -41,8 +42,8 @@ public class UtilityTest {
         userLocationList.add(loc2);
         userLocationList.add(loc3);
         Iterator<UserLocation> mockIter = Mockito.mock(Iterator.class);
-        Iterator<UserLocation> iter = userLocationList.iterator();
-        Mockito.when(DBScan.pointList.iterator()).thenReturn(mockIter);
+        DBScan.pointList = Mockito.mock(Vector.class);
+        Mockito.when(DBScan.pointList.iterator()).thenReturn(userLocationList.iterator());
         testUtility.getNeighbours(loc1, 4);
         verify(mockIter);
 
@@ -95,4 +96,12 @@ public class UtilityTest {
     assertFalse(testUtility.equalPoints(loc1, loc2));
     }
 
+    @After
+    public void tearDown() throws Exception {
+        this.testUtility = null;
+        this.userLocationList = null;
+        this.loc1 = null;
+        this.loc2 = null;
+        this.loc3 = null;
+    }
 }

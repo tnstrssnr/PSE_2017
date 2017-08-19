@@ -25,11 +25,11 @@ public class DBScan
         Utility.VisitList.clear();
         pointList=Utility.getList(userLocationList);
 
-        int index2 =0;
+        int index =0;
 
 
-        while (pointList.size()>index2){
-            UserLocation p =pointList.get(index2);
+        while (pointList.size()>index){
+            UserLocation p =pointList.get(index);
             if(!Utility.isVisited(p)){
 
                 Utility.visited(p);
@@ -59,7 +59,7 @@ public class DBScan
                     resultList.add(Neighbours);}
 
 
-            }index2++;
+            }index++;
         }
         return resultList;
     }

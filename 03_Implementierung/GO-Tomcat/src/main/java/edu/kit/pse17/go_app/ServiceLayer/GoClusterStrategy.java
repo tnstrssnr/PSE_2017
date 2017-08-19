@@ -31,9 +31,9 @@ public class GoClusterStrategy implements ClusterStrategy {
      *
      * @param threshold Eine Zahl zwischen 1 (sehr genaues Clustering) und 10 (sehr ungenaues Clustering)
      */
-    public GoClusterStrategy(final int threshold) {
+    /*public GoClusterStrategy(final int threshold) {
         this.threshold = threshold;
-    }
+    }*/
 
     /**
      * Ein Konstruktor, für den Fall, dass der Clustering-Schwellwert nicht spezifiziert wurde. Hier wird der
@@ -73,7 +73,9 @@ public class GoClusterStrategy implements ClusterStrategy {
             lon = lon / participants;
             for (int j = 0; j < Clusterlist.get(i).size(); j++) {
                 UserLocation currentLocation = (UserLocation) Clusterlist.get(i).get(j);
-                double comparisonValue = Math.sqrt (lat * currentLocation.getLat() + lon * currentLocation.getLon());
+                double dx = lat - currentLocation.getLat();
+                double dy = lon - currentLocation.getLon();
+                double comparisonValue = Math.sqrt (dx * dx + dy * dy);
                 if (comparisonValue > maxDistance) {maxDistance = comparisonValue;}
             }
 
