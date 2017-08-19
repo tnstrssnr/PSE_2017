@@ -80,16 +80,29 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
 
-    public void getData(String userId, String email, String instanceId) {
+    public void getData(final String userId, final String email, String instanceId) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("userId", userId);
         parameters.put("email", email);
         parameters.put("instanceId", instanceId);
 
+        Call<List<Group>> call  = apiService.getData("test", "test");
+        /*call.enqueue(new Callback<List<Group>>() {
+            @Override
+            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Group>> call, Throwable t) {
+
+            }
+        });*/
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                Call<List<Group>> call = apiService.getData(parameters);
+                Call<List<Group>> call = apiService.getData(userId, email);
                 try {
                     list = (ArrayList<Group>) call.execute().body();
                 } catch (IOException e) {

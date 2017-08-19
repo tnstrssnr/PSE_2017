@@ -39,5 +39,6 @@ public class TokenService extends FirebaseInstanceIdService {
      */
     private void sendTokenToServer(String refreshedToken) {
         //TODO implement
+
     }
 }

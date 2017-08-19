@@ -101,12 +101,14 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
     private String uid;
     private static String globalUid;
+    private static String globalEmail;
 
     public static void start(Activity activity, User user) {
         Intent intent = new Intent(activity, GroupListActivity.class);
 
         intent.putExtra(USER_ID_INTENT_CODE, user.getUid());
         globalUid = user.getUid();
+        globalEmail = user.getEmail();
         activity.startActivity(intent);
     }
 
@@ -142,7 +144,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
         viewModel.init(getUserId());
-        viewModel.getGroups().observe(this, new Observer<List<Group>>() {
+        viewModel.getGroups(globalUid, globalEmail,"null").observe(this, new Observer<List<Group>>() {
             @Override
             public void onChanged(@Nullable List<Group> groups) {
                 Log.d("LIVE DATA", "ON CHANGE CALLBACK");

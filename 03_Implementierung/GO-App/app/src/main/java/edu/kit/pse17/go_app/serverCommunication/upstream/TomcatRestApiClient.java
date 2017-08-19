@@ -18,7 +18,8 @@ public class TomcatRestApiClient {
     /**
      * Base URL of the server
      */
-    public static final String BASE_URL = "https://i43pc164.ipd.kit.edu/PSESoSe17Gruppe3/";
+    public static final String BASE_URL = "http://i43pc164.ipd.kit.edu/PSESoSe17Gruppe3/go-tomcat/";
+    //public static final String BASE_URL = "141.3.211.32:8080/go-tomcat/";
 
     /**
      * Retrofit singleton

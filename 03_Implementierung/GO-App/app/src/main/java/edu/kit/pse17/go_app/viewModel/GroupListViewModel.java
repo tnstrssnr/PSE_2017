@@ -95,14 +95,18 @@ public class GroupListViewModel extends ViewModel {
     * Gibt zurück eine Liste aller Gruppen für ein User
     * */
 
-    public GroupListLiveData getGroups() {
+    public GroupListLiveData getGroups(String userId, String email, String instanceId) {
         if(data == null){
             data = new GroupListLiveData();
-            data.setValue(groupRepo.fetchData());
-            findActiveGos();
+            groupRepo.getData(userId, email, instanceId  /*groupRepo.fetchData()*/);
+            //data.setValue(groupRepo.fetchData());
+            //findActiveGos();
         }
         return data;
 
+    }
+    public GroupListLiveData getGroups(){
+        return data;
     }
 
     protected List<Group> getData(){

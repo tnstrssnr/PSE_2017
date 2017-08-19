@@ -9,8 +9,10 @@ import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 
 /**
  * This is the interface between the Client (App) to the REST API of Tomcat-Server.
@@ -34,8 +36,8 @@ public interface TomcatRestApi {
      *                  String instanceId: ID of the device
      * @return Call to the server (with List of the groups of this user (incl. GOs) in Response)
      */
-    @GET("group/get")
-    public Call<List<Group>> getData(@QueryMap Map<String, String> parameters);
+    @GET("/user/{userid}/{email}")
+    public Call<List<Group>> getData(@Path("userid") String userId, @Path("email") String email);
 
     /**
      * Method that creates and registers new user on the server

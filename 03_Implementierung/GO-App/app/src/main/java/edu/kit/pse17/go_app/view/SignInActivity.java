@@ -18,7 +18,6 @@ import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
 import edu.kit.pse17.go_app.login.GoSignInHelper;
 import edu.kit.pse17.go_app.login.SignInHelper;
 import edu.kit.pse17.go_app.model.entities.User;
-import edu.kit.pse17.go_app.repositories.UserRepository;
 
 /**
  * Die Klasse stellt die View für den LogIn- und SignIn-Prozess bereit.
@@ -89,7 +88,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         } else if (requestCode == GO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String[] accountData = (String[]) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
             User toCreate = new User(accountData[0], accountData[1], accountData[2]);
-            UserRepository.getInstance().createUser(toCreate);
+            //UserRepository.getInstance().createUser(toCreate);
             GroupListActivity.start(this, new User(accountData[0], accountData[1], accountData[2]));
             this.finish();
         }
