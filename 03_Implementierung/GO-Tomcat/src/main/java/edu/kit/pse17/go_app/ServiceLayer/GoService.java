@@ -176,7 +176,7 @@ public class GoService implements IObservable {
         notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
     }
 
-    public static GoEntity getGoById(long id) {
+    public GoEntity getGoById(long id) {
         return goDao.get(id);
     }
 

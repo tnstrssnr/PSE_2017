@@ -2,6 +2,7 @@ package edu.kit.pse17.go_app.ServiceLayer;
 
 import edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 
 import java.io.IOException;
 import java.util.List;
@@ -65,7 +66,7 @@ public class LocationService {
      * implementiert. Als threshold-Wert wird dem Konstruktor der Wert aus dem Go-Argument übergeben. -
      * newLocationCounter: 0 - userCounter: 0
      */
-    public LocationService(final GoEntity go) throws IOException {
+    public LocationService() throws IOException {
         this.activeUsers = activeUsers;
         this.groupLocation = groupLocation;
         this.strat = new GoClusterStrategy();
@@ -114,7 +115,7 @@ public class LocationService {
             }
         }
 
-        else { LocationService.activeServices.put(goId, new LocationService(GoService.getGoById(goId))); };
+        else { LocationService.activeServices.put(goId, new LocationService()); };
     }
 
     /**
@@ -147,6 +148,4 @@ public class LocationService {
             LocationService.activeServices.remove(goId);
         }
     }
-
-
 }
