@@ -117,8 +117,8 @@ public interface TomcatRestApi {
      *
      * @return Call to the server (no additional information in Response)
      */
-    @DELETE("group/members/{group_id}/{user_id}")
-    public Call<Void> removeMember(@Path("group_id") long groupId, @Path("user_id") String userId);
+    @DELETE("group/members/{group_id}/{email}")
+    public Call<Void> removeMember(@Path("group_id") long groupId, @Path("email") String email);
 
     /**
      * Method that sends a group request to some user

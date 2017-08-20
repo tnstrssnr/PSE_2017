@@ -67,8 +67,13 @@ public class EditGoActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.add_go_activity);
 
         heading = (TextView) findViewById(R.id.heading);
-        heading.setText("Edit GO");
+
         currentRequest = getIntent().getIntExtra(REQUEST_INTET_CODE, -1);
+        if(currentRequest == EDIT_REQUEST){
+            heading.setText("Edit GO");
+        } else if(currentRequest == ADD_REQUEST){
+            heading.setText("Add GO");
+        }
         currentGo = GoViewModel.getInstance().getGo().getValue();
         go_name = (EditText) findViewById(R.id.go_name);
         go_description = (EditText) findViewById(R.id.go_description);
