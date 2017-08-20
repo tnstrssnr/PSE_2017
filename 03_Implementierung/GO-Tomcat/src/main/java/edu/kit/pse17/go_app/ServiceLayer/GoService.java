@@ -49,28 +49,13 @@ public class GoService implements IObservable {
         this.goDao = godao;
     }
 
-    public static void editGoForJson(GoEntity go, boolean keepGroupInfo) {
-
-        if (keepGroupInfo) {
-            GroupService.editGroupForJson(go.getGroup());
-        } else {
-            go.setGroup(null);
-        }
-
-        UserService.editUserForJson(go.getOwner());
-
-        for (final UserEntity usr : go.getNotGoingUsers()) {
-            UserService.editUserForJson(usr);
-        }
-        for (final UserEntity usr : go.getGoingUsers()) {
-            UserService.editUserForJson(usr);
-        }
-        for (final UserEntity usr : go.getGoneUsers()) {
-            UserService.editUserForJson(usr);
-        }
-    }
-
-    //Warning: group is null ! if group-information is required it needs to be added manually -- same for locations
+    /**
+     * Wandelt eine GoEntity in ein entsprechendes GO-Objekt um. Achtung: Diese Methode setzt Gruppe auf null! --> muss
+     * ggfs. danach wieder hinzugefügt werden --> kann zu Stackoverflow beim Parsen führen
+     *
+     * @param goEntity Das Go, das umgewandelt werden soll
+     * @return das erzeugt Go-Objekt
+     */
     public static Go goEntityToGo(GoEntity goEntity) {
         Go go = new Go(goEntity.getID(), goEntity.getName(), goEntity.getDescription(), goEntity.getStart(), goEntity.getEnd(), null, goEntity.getLat(), goEntity.getLon(), goEntity.getOwner().getUid(), goEntity.getOwner().getName(), new ArrayList<>(), new ArrayList<>());
         List<UserGoStatus> statuses = new ArrayList<>();
@@ -87,6 +72,12 @@ public class GoService implements IObservable {
         return go;
     }
 
+    /**
+     * Bearbeitet das Go so, das beim Parsen kein StackOverflow Error ausgegeben wird.
+     *
+     * @param go            das Go zum Parsen
+     * @param keepGroupInfo -- sollen die Informationen über die Gruppe des Gos erhalten bleiben?
+     */
     public static void makeJsonable(Go go, boolean keepGroupInfo) {
         if (keepGroupInfo && go.getGroup() != null) {
             GroupService.makeJsonable(go.getGroup());
@@ -112,29 +103,15 @@ public class GoService implements IObservable {
         userGoStatus.getGo().setLocations(null);
     }
 
-    public GroupDaoImp getGroupDao() {
-        return groupDao;
-    }
-
     public void setGroupDao(GroupDaoImp groupDao) {
         this.groupDao = groupDao;
     }
 
-    public UserDaoImp getUserDao() {
-        return userDao;
-    }
 
     public void setUserDao(UserDaoImp userDao) {
         this.userDao = userDao;
     }
 
-    public boolean isObserverInitialized() {
-        return observerInitialized;
-    }
-
-    public void setObserverInitialized(boolean observerInitialized) {
-        this.observerInitialized = observerInitialized;
-    }
 
     public void registerAll() {
         register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));
@@ -148,16 +125,8 @@ public class GoService implements IObservable {
         return goDao;
     }
 
-    public void setGoDao(GoDaoImp goDao) {
-        this.goDao = goDao;
-    }
-
     public Map<EventArg, Observer> getObserverMap() {
         return observerMap;
-    }
-
-    public void setObserverMap(Map<EventArg, Observer> observerMap) {
-        this.observerMap = observerMap;
     }
 
     public long createGo(Go go) {

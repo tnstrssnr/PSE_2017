@@ -26,10 +26,10 @@ public interface IObservable {
      * @param observer Der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
      *                 eines Observers es sich handelt.
      */
-    public void register(EventArg arg, Observer observer);
+    void register(EventArg arg, Observer observer);
 
 
-    public void unregister(EventArg arg);
+    void unregister(EventArg arg);
 
     /**
      * Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. Es muss dabei nicht angegeben
@@ -42,6 +42,6 @@ public interface IObservable {
      * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
      *                   weiß der observer, von wo er eine Benachrichtigung bekommen hat.
      */
-    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids);
+    void notify(EventArg impCode, IObservable observable, List<String> entity_ids);
 
 }

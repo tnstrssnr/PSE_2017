@@ -1,16 +1,13 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
-import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import edu.kit.pse17.go_app.ServiceLayer.observer.Observer;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 @Repository
@@ -24,29 +21,21 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
      * Auf dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanziierung ist dieses Objekt
      * unveränderbar und bleibt bestehen, bis die Instanz dieser Klasse wieder zerstört wird.
      * <p>
-     * Diese Klasse implementiert darüber hinaus das Interface IObservable. Mit anderen Worten: die Klasse besitzt Beobachter, die
-     * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
-     * diese Klasse die Rolle des konkreten Subjekts.
+     * Diese Klasse implementiert darüber hinaus das Interface IObservable. Mit anderen Worten: die Klasse besitzt
+     * Beobachter, die bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des
+     * Beobachter-Entwurfsmusters übernimmt diese Klasse die Rolle des konkreten Subjekts.
      */
     @Autowired
     private SessionFactory sf;
-
-    /**
-     * Eine Liste mit Observern, die benachrichtigt werden, sobald eine Änderung an der Datenbank vorgenommen wird, die
-     * auch die Daten anderer Benutzer betrifft.
-     */
-    private HashMap<EventArg, Observer> observer;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
      * erzeugt, anhand der Spezifikationen der verwendetetn MySQL Datenbank.
      */
     public GoDaoImp() {
-        this.observer = new HashMap<>();
     }
 
     public GoDaoImp(SessionFactory sf) {
-        this.observer = new HashMap<>();
         this.sf = sf;
     }
 
@@ -57,6 +46,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
 
     /**
      * Diese Methode wird dazu genutzt um eine GoEntity aus der Datenbank zu holen.
+     *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem
      *            Generic PK bestimmt, mit dem das Interface implementiert wird.
      * @return Die GoEntity mit dem entsprechenden Schlüssel. Exisitert eine solche Entity nicht, wird null
@@ -91,6 +81,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
 
     /**
      * Dieser Methodenaufruf  wird dazu genutzt um eine GoEntity in der Datenbank zu speichern.
+     *
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das
      *               Objekt, welches der Methode gegeben wird ein legales Objekt ist.
      */
@@ -145,6 +136,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
 
     /**
      * Diese Methode wird zum löschen einer Entity aus der Datenbank genutzt.
+     *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird
      *            durch das Generic PK bei der Implementierung der Klasse spezifiziert.
      */
@@ -178,16 +170,17 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
     }
 
     /**
-     * Diese Methode wird aufgerufen mit der delete(Go)-Methode und dient der Beseitigung sämtlicher Entities die ncoh Bezug
-     * auf das gelöschte Objekt haben, da sonst Hibernate eine ObjectDeletedException werfen könnte.
-     * @param key Der Primärschlüssel der Entity die gelöscht wird.
+     * Diese Methode wird aufgerufen mit der delete(Go)-Methode und dient der Beseitigung sämtlicher Entities die ncoh
+     * Bezug auf das gelöschte Objekt haben, da sonst Hibernate eine ObjectDeletedException werfen könnte.
+     *
+     * @param key     Der Primärschlüssel der Entity die gelöscht wird.
      * @param session Session der GoEntity.
      */
 
     public void onDeleteGo(Long key, Session session) {
         GoEntity go = (GoEntity) session.get(GoEntity.class, key);
 
-        //remove associated entities, otherwise hibernate will throw ObjectDeletedException
+        //alle mit dem assoziierten Entities entfernen, da diese sonst auch aus der Datenbank gelöscht werden
         go.setGroup(null);
         go.setOwner(null);
         go.getNotGoingUsers().clear();
@@ -198,6 +191,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
 
     /**
      * Diese Methode wird aufgerufen wenn eine GoEntity mit neuen Daten geupdatet werden soll.
+     *
      * @param goEntity Die GoEntity, die geupdated werden soll. Das Objekt enthält bereits die neuen Daten.
      */
     @Override
@@ -231,7 +225,8 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
     }
 
     /**
-     * Diese Methode wird aufgerufen wenn der Status eines Users in einem Go geändert werden soll. ("GOING","NOT_GOING","GONE")
+     * Diese Methode wird aufgerufen wenn der Status eines Users in einem Go geändert werden soll.
+     * ("GOING","NOT_GOING","GONE")
      *
      * @param userId Die Id des Benutzers, dessen Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine
      *               gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
@@ -277,7 +272,8 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
     /**
      * Diese Methode wird aufgerufen während ein Nutzer einer Gruppe hinzugefügt wird. Dabei wird er automatisch als
      * "NOT_GOING" eingestuft. Fügt den Nutzer dem aktiven Go hinzu.
-     * @param userId Die UserId des Users der hinzugefügt wurde.
+     *
+     * @param userId  Die UserId des Users der hinzugefügt wurde.
      * @param groupId Die Id der Gruppe, die er hinzugefügt wurde.
      * @param session Die Session der Go-Entity.
      */
@@ -294,9 +290,11 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
     }
 
     /**
-     * Diese Methode wird aufgerufen während ein Gruppenmitglied der Gruppe entfernt ird. Falls der entfernte Nutzer der Besitzer,
-     * beziehungsweise der Go-Verantwortliche war wird das Go gelöscht. Entfernt den Nutzer dem aktiven Go der Gruppe.
-     * @param userId Die UserId des zu löschenden Users.
+     * Diese Methode wird aufgerufen während ein Gruppenmitglied der Gruppe entfernt ird. Falls der entfernte Nutzer der
+     * Besitzer, beziehungsweise der Go-Verantwortliche war wird das Go gelöscht. Entfernt den Nutzer dem aktiven Go der
+     * Gruppe.
+     *
+     * @param userId  Die UserId des zu löschenden Users.
      * @param groupId Die Id der Gruppe, aus die der User gelöscht
      * @param session Die Session der Go-Entity.
      */
@@ -309,7 +307,8 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
         for (GoEntity go : group.getGos()) {
 
             if (go.getOwner().equals(user)) {
-                //User is Go-Owner --> delete Go
+
+                //User ist Go-Owner --> lösche Go
                 go.setGroup(null);
                 go.setOwner(null);
                 go.getNotGoingUsers().clear();
@@ -318,7 +317,8 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
                 session.delete(go);
 
             } else {
-                //remove User from Go
+
+                //entferne User aus Go
                 go.getNotGoingUsers().remove(user);
                 go.getGoingUsers().remove(user);
                 go.getGoneUsers().remove(user);

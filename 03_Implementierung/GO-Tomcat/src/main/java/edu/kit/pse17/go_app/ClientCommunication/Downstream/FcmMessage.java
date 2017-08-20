@@ -5,15 +5,22 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Map;
 
 /**
- *
+ * Hilfsklasse zur Erzeugung des Requestbodys der API Calls zum Firebase Server. Wird mit Gson automatisch in das
+ * richtige JSON-Format geparst.
  */
 public class FcmMessage {
 
+    /**
+     * InstanceId des Empfängers der Nachricht
+     */
     @SerializedName("to")
-    String to;
+    private String to;
 
+    /**
+     * Daten, die an den CLient geschickt werden sollen
+     */
     @SerializedName("data")
-    Map<String, String> data;
+    private Map<String, String> data;
 
     public FcmMessage() {
     }

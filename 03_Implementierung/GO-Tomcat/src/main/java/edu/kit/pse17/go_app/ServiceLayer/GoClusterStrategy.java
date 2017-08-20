@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import static java.lang.Math.sqrt;
-
 /**
  * In dieser Klasse wird der in er Anwendung verwendete Clustering-Algorithmus ausgeführt.
  * <p>
@@ -20,16 +18,6 @@ public class GoClusterStrategy implements ClusterStrategy {
      * benutzt.
      */
     private int threshold;
-
-    /*/
-     * Ein Konstruktor, der den Wert des Clustering-Schwellwerts entgegen nimmt. Dieser Wert kann nach der
-     * Instanziierung des GoClusterStrategy-Objekts nicht mehr verändert werden.
-     *
-     * @param threshold Eine Zahl zwischen 1 (sehr genaues Clustering) und 10 (sehr ungenaues Clustering)
-     *
-     * public GoClusterStrategy(final int threshold) {
-     *   this.threshold = threshold;
-    }*/
 
     /**
      * Ein Konstruktor, für den Fall, dass der Clustering-Schwellwert nicht spezifiziert wurde. Hier wird der
@@ -48,20 +36,23 @@ public class GoClusterStrategy implements ClusterStrategy {
      * @return Eine Liste mit den berechneten Clustern.
      */
 
+    @Override
     public List<Cluster> calculateCluster(final List<UserLocation> userLocationList) {
 
-        if(userLocationList.size() == 0) {return null;}
+        if (userLocationList.size() == 0) {
+            return null;
+        }
 
         DBScan algorithm = new DBScan(userLocationList);
 
         Vector<List> clusterList = algorithm.applyDbscan(threshold, 3, userLocationList);
 
-        List<Cluster> resultList = new ArrayList<Cluster>();
+        List<Cluster> resultList = new ArrayList<>();
         for (int i = 0; i < clusterList.size(); i++) {
             int participants = 0;
             double lat = 0;
             double lon = 0;
-            double maxDistance= 0;
+            double maxDistance = 0;
 
             for (int j = 0; j < clusterList.get(i).size(); j++) {
                 UserLocation currentLocation = (UserLocation) clusterList.get(i).get(j);
@@ -75,8 +66,10 @@ public class GoClusterStrategy implements ClusterStrategy {
                 UserLocation currentLocation = (UserLocation) clusterList.get(i).get(j);
                 double dx = lat - currentLocation.getLat();
                 double dy = lon - currentLocation.getLon();
-                double comparisonValue = Math.sqrt (dx * dx + dy * dy);
-                if (comparisonValue > maxDistance) {maxDistance = comparisonValue;}
+                double comparisonValue = Math.sqrt(dx * dx + dy * dy);
+                if (comparisonValue > maxDistance) {
+                    maxDistance = comparisonValue;
+                }
             }
 
             Cluster newCluster = new Cluster(participants, lat, lon, maxDistance);

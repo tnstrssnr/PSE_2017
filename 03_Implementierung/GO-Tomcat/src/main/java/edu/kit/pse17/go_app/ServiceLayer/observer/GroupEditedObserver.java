@@ -45,9 +45,6 @@ public class GroupEditedObserver implements Observer {
         for (UserEntity usr : group.getMembers()) {
             receiver.add(usr);
         }
-        //receiver.addAll(group.getAdmins());
-
-        //send group to invited member
 
         messenger.send(data, EventArg.GROUP_EDITED_EVENT, receiver);
 

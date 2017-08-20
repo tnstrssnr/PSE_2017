@@ -100,8 +100,8 @@ public class GoEntity {
     private double lat;
 
     /**
-     * Falls es einen Zielort für das Go gibt, wird in diesem Feld der geographische Längengrad des Zielorts gespeichert.
-     * Der Wert muss als Längengrad interpretierbar sein, muss also zwischen +180 und -180 liegen.
+     * Falls es einen Zielort für das Go gibt, wird in diesem Feld der geographische Längengrad des Zielorts
+     * gespeichert. Der Wert muss als Längengrad interpretierbar sein, muss also zwischen +180 und -180 liegen.
      * <p>
      * Wurde kein Zielort für das Go bestimmt, kann der Wert dieses Feldes auch null sein.
      * <p>
@@ -276,10 +276,10 @@ public class GoEntity {
         if (Double.compare(goEntity.getLat(), getLat()) != 0) return false;
         if (Double.compare(goEntity.getLon(), getLon()) != 0) return false;
         if (getName() != null ? !getName().equals(goEntity.getName()) : goEntity.getName() != null) return false;
-        if (getDescription() != null ? !getDescription().equals(goEntity.getDescription()) : goEntity.getDescription() != null)
+        if (getDescription() != null ? !getDescription().equals(goEntity.getDescription()) : goEntity.getDescription() != null) {
             return false;
-        if (getStart() != null ? !getStart().equals(goEntity.getStart()) : goEntity.getStart() != null) return false;
-        return getEnd() != null ? getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() == null;
+        }
+        return (getStart() != null ? getStart().equals(goEntity.getStart()) : goEntity.getStart() == null) && (getEnd() != null ? getEnd().equals(goEntity.getEnd()) : goEntity.getEnd() == null);
     }
 
     @Override

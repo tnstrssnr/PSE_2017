@@ -52,7 +52,6 @@ public class GroupService implements IObservable {
 
         for (GroupMembership groupMembership : group.getMembershipList()) {
             jsonAbleList.add(new GroupMembership(groupMembership.getUser(), new Group(group.getId(), group.getName(), group.getDescription(), 0, null, new ArrayList<>(), new ArrayList<>()), groupMembership.isAdmin(), groupMembership.isRequest()));
-            //makeJsonable(groupMembership);
         }
         group.setMembershipList(jsonAbleList);
 
@@ -67,24 +66,7 @@ public class GroupService implements IObservable {
         groupMembership.getGroup().setCurrentGos(new ArrayList<>());
     }
 
-    public static void editGroupForJson(GroupEntity group) {
 
-        for (final UserEntity usr : group.getAdmins()) {
-            UserService.editUserForJson(usr);
-        }
-
-        for (final UserEntity usr : group.getMembers()) {
-            UserService.editUserForJson(usr);
-        }
-
-        for (final UserEntity usr : group.getRequests()) {
-            UserService.editUserForJson(usr);
-        }
-
-        for (final GoEntity go : group.getGos()) {
-            GoService.editGoForJson(go, false);
-        }
-    }
 
     public static Group groupEntityToGroup(GroupEntity groupEntity) {
         Group group = new Group();
@@ -92,7 +74,6 @@ public class GroupService implements IObservable {
         group.setDescription(groupEntity.getDescription());
         group.setIcon(null);
         group.setId(groupEntity.getID());
-        //group.setMemberCount(groupEntity.getMembers().size());
 
         List<GroupMembership> groupMemberships = new ArrayList<>();
         for (UserEntity member : groupEntity.getMembers()) {
@@ -123,10 +104,6 @@ public class GroupService implements IObservable {
         return group;
     }
 
-    public UserDaoImp getUserDao() {
-        return userDao;
-    }
-
     public void setUserDao(UserDaoImp userDao) {
         this.userDao = userDao;
     }
@@ -146,16 +123,8 @@ public class GroupService implements IObservable {
         return groupDao;
     }
 
-    public void setGroupDao(GroupDaoImp groupDao) {
-        this.groupDao = groupDao;
-    }
-
     public Map<EventArg, Observer> getObserverMap() {
         return observerMap;
-    }
-
-    public void setObserverMap(Map<EventArg, Observer> observerMap) {
-        this.observerMap = observerMap;
     }
 
     public long createGroup(Group group) {
@@ -235,7 +204,6 @@ public class GroupService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
-        //notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids);
     }
 
     public void addAdmin(String userId, long groupId) {

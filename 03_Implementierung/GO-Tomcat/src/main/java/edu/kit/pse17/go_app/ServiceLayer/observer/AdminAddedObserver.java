@@ -49,14 +49,9 @@ public class AdminAddedObserver implements Observer {
         String data = jsonObject.toJSONString();
 
         Set<UserEntity> receiver = new HashSet<>();
-        for (UserEntity usr : changedGroup.getMembers()) {
-            receiver.add(usr);
-        }
-        for (UserEntity usr : changedGroup.getRequests()) {
-            receiver.add(usr);
-        }
+        receiver.addAll(changedGroup.getMembers());
+        receiver.addAll(changedGroup.getRequests());
 
-        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getMembers());
-        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getRequests());
+        messenger.send(data, EventArg.ADMIN_ADDED_EVENT, receiver);
     }
 }

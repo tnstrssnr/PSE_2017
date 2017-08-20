@@ -72,7 +72,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             final SQLQuery query = session.createSQLQuery(SQL_QUERY);
             query.addEntity(UserEntity.class);
             query.setParameter("mail", mail);
-            users = query.list();
+            users = (List<UserEntity>) query.list();
             Hibernate.initialize(users);
 
         } catch (final HibernateException e) {
@@ -89,6 +89,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Diese Methode dient dazu sämtliche Gruppen wiederzugeben in denen ein bestimmter Nutzer Mitglied ist.
+     *
      * @param userId Die Id des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
      *               beim Aufruf der Methode um eine gültige userId handelt.
      * @return Ein Set mit allen Gruppen, in denen der Benutzer Mitglied ist.
@@ -101,6 +102,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Diese Methode dient dazu sämtliche Gruppenanfragen eines bestimmten Nutzers wiederzugeben.
+     *
      * @param userId Die Id des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
      *               es sich beim Aufruf der Methode um eine gültige userId handelt.
      * @return Ein Set mit allen Gruppen zu denen der Benutzer mit der Id "userId" eine Gruppenanfrage bekommen hat. In
@@ -114,6 +116,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Diese Methode dient dem wiedergeben einer UserEntity anhand ihrer Id.
+     *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem
      *            Generic PK bestimmt, mit dem das Interface implementiert wird.
      * @return Der Benutzer mit der Id "key". Gibt null zurück, falls kein passender Benutzer in der Datenbank gefunden
@@ -148,6 +151,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Dieser Methodenaufruf  wird dazu genutzt um eine UserEntity in der Datenbank zu speichern.
+     *
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das
      *               Objekt, welches der Methode gegeben wird ein legales Objekt ist.
      */
@@ -176,6 +180,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Diese Methode wird zum löschen einer Entity aus der Datenbank genutzt.
+     *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird
      *            durch das Generic PK bei der Implementierung der Klasse spezifiziert.
      */
@@ -224,6 +229,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Diese Methode wird aufgerufen wenn eine GroupEntity mit neuen Daten geupdatet wurde.
+     *
      * @param userEntity Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity
      *                   handeln, ansonsten schlägt die Ausführung der Methode fehl.
      */

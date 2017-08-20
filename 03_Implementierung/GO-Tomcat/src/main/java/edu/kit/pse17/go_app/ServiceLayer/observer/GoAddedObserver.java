@@ -37,14 +37,6 @@ public class GoAddedObserver implements Observer {
         return messenger;
     }
 
-    public GoService getGoService() {
-        return goService;
-    }
-
-    public void setGoService(GoService goService) {
-        this.goService = goService;
-    }
-
     @Override
     public void update(List<String> entity_ids) {
         GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
