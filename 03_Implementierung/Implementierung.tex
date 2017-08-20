@@ -140,6 +140,36 @@ Wenn man den Gruppeneintrag aus der Liste aller Gruppen anklickt, wird dem Benut
 \item \textbf{F0200}\\ Jeder Status darf die Cluster sehen.
 
 \item \textbf{F0210}\\ + GO Beschreibung
+
+\item \textbf{Client Repository Singletones}\\
+	Alle Repository Klassen auf dem Client sind als Singletones implemetiert, weil man nur eine einzige Instanz braucht, die für jeden Level (Main Level,  Group Level, Go Level, User Level) die Kommunikation mit dem Server behandelt. Also mehrere Instanziierungen sind zu vermeiden, damit die Anfragen nur einmal Worst Case ausgeführt werden.
+	
+\item \textbf{Client ViewModel Singletones}\\
+Die ViewModel Klassen sind auch als Singletones implementiert, weil es in der entwurfsphase nicht offensichtlich war, dass die ViewModels die Activity-Lifecycle überleben. Also auch wenn die Activities zerstört und neu erzeugt werden, bleibt dasselbe ViewModel für den Activity Typ zuständig. Die Activities nehmen dann die Daten von den ViewModels. Dazu brauchen wir auch nicht viele Instanzen von eimen ViewModel. Und die werden von Android auch so gedacht, als singletones benutzt zu werden.
+
+\item \textbf{Änderungen zu Activity Klassen}\\
+
+Hauptsächlich sind die Activity Klassen geblieben, die im Entwurf waren, und dazu haben wir auch Activities, Fragments, Dialogs hinzugefügt, die den User-Experience vervollständigen, aber nicht die Hauptziel von dem Entwurf sind, wie z.B. (Bearbeiten das, was in der jetzigen Activity steht, erzeuge eine Entity).
+
+Solche Activities wie EditGroupActivity, CreateGroupActivity, AddMember, also "lightweight" Activities, die nicht viel Logik haben, sind einfach als Dialogs implementiert, da diese leichter zu managen sind in Scope von einer anderen "heavyweight" Activity, wie z.B. GroupDetailActivity. \\
+
+Einige Sachen wurden zu Fragmenten, wie z.B. GoMapFragment und GoDetailsFragment, die man in der GoDetailActivity benutzt, weil man da swipen zwischen zwei Fragmenten unterstützen muss.
+
+\item \textbf{Datenhierarchie auf dem Client}\\
+
+Daten sind folgendermaßen auf dem Client gestaltet: der Main Speicher von allen Daten während der Session auf dem User-Smartphone ist die GroupRepository Klasse. Da befinden sich alle Daten in einer custom LiveData Klasse. Diese Daten beobachtet die Klasse GroupListViewModel - das ist die ViewModel der "main" GroupListActivity Klasse, die ein Entry-Point zu der Go-App ist. \\
+
+Nach dem Starten werden die Daten von der GroupListViewModel aus der GroupRepository gefetcht, danach updated die Repo ihre Daten, und da die ViewModel diese beobachtet, bekommt sie immer aktuelle Daten nachher. Alle Anfragen in der App werden durch Repositories zu dem Server gerouted, und dann die Daten die in Responses ankommen, werden immer bei der GroupRepository updated, und dann hat die ganze App durch die Beobachters den aktuellen Stand.\\
+
+GroupViewModel, GoViewModel bekommen ihre Daten, von der GroupListViewModel, also "main" ViewModel und nicht von den Repositories. Somit sind diese ViewModels auch von GroupRepository abhängig und daher konsistent. Die entsprechende Repositories zu Group und Go dienen nur dazu, um die Anfragen an den Server zu routen. Die Daten werden aber dann in GroupRepository updated.\\
+
+Wenn man einen asynchronen Aufruf macht, wird es über die entsprechende Repository geschickt, und dann über Commands empfangen, und die Commands wählen passende Methoden, um die neuen Daten auf dem Client zu speichern.\\
+
+Zu jedem Command gibt es meistens einen Methode in der GroupRepository, wie z.B. GoAddedCommand -> GroupRepository.onGoAdded(Go go, groupId). In allen on...() Methoden werden die Daten von Command Klassen in GroupRepository gesetzt und danach weiter durch die App propagiert.
+
+\item \textbf{LiveData Klassen}\\
+
+Zu allen LiveData<> Klassen wurden Unterklassen erstellt, damit die postValue und setValue Methoden sichtbar sind, weil genau diese Methoden triggern die Beobachter dann.
 	
 \end{enumerate}
 
