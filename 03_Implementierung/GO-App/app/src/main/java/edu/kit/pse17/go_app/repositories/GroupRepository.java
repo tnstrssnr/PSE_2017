@@ -674,13 +674,13 @@ public class GroupRepository extends Repository<List<Group>> {
                 for (GroupMembership membership : oldMembershipList) {
                     if (membership.getUser().getUid().equals(userId)) {
                         oldMembershipList.remove(membership);
-                        group.setMemberCount(group.getMemberCount() - 1);
+                        //group.setMemberCount(group.getMemberCount() - 1);
                         List<GroupMembership> newMembershipList = oldMembershipList;
                         group.setMembershipList(newMembershipList);
                         break;
                     }
                 }
-                if (group.getMemberCount() == 0) {
+                if (group.getMembershipList().size() == 0) {
                     list.remove(group);
                 }
 
