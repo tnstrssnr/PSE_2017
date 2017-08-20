@@ -69,12 +69,10 @@ public class EditGoActivity extends BaseActivity implements View.OnClickListener
         heading = (TextView) findViewById(R.id.heading);
 
         currentRequest = getIntent().getIntExtra(REQUEST_INTET_CODE, -1);
-        if(currentRequest == EDIT_REQUEST){
-            heading.setText("Edit GO");
-        } else if(currentRequest == ADD_REQUEST){
-            heading.setText("Add GO");
-        }
+        setHeading();
+
         currentGo = GoViewModel.getInstance().getGo().getValue();
+
         go_name = (EditText) findViewById(R.id.go_name);
         go_description = (EditText) findViewById(R.id.go_description);
         start_date_text = (TextView) findViewById(R.id.start_date_text);
@@ -178,6 +176,14 @@ public class EditGoActivity extends BaseActivity implements View.OnClickListener
         if(currentRequest == EDIT_REQUEST){
             insertGoDataInUI();
             Toast.makeText(this, "You must enter both dates and destination again:(", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setHeading() {
+        if(currentRequest == EDIT_REQUEST){
+            heading.setText("Edit GO");
+        } else if(currentRequest == ADD_REQUEST){
+            heading.setText("Add GO");
         }
     }
 

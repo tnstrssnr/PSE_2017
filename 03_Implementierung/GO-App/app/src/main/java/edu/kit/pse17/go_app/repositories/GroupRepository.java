@@ -51,15 +51,6 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private final TomcatRestApi apiService;
 
-    /**
-     * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
-     */
-    //private final GroupDao groupDao;
-
-    /**
-     * Ein executor-objekt, um Anfragen auf einem separaten Hintergrundthread ausführen zu können.
-     */
-    //private final Executor executor;
 
     /**
      * Local database of groups (not consistent).
@@ -125,31 +116,9 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onFailure(Call<List<Group>> call, Throwable t) {
-                String l = "zhopa";
                 StackTraceElement[] a = t.getStackTrace();
             }
         });
-
-        /*Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Call<List<Group>> call = apiService.getData(userId, email);
-                try {
-                    list = (ArrayList<Group>) call.execute().body();
-                    //data.setValue(list);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-        //data.setValue(list);
     }
 
     /*
