@@ -1,10 +1,15 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
+import com.google.gson.Gson;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import okhttp3.*;
-import org.json.simple.JSONObject;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Callback;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Retrofit;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,24 +19,24 @@ import java.util.Set;
 public class FcmClient {
 
     //base url of the fcm server, that post-requests have to be sent to
-    private static final String BASE_URL = "https://fcm.googleapis.com/send";
+    private static final String BASE_URL = "http://fcm.googleapis.com/fcm/";
 
     //server key, supplied by firebase upon app registration -- necessary for the fcm server to identify the server that sent the request
-    private static final String SERVER_KEY = "key=AAAAjalbaUE:APA91bHDguerPdnJ9fOLxvXynowziqVzgw5HB0ug0ZIEFDaFE0AezmBZoD1gcaRROMfriNi7IRKrC5ROVpdOz2Ohegcoj-X4Wphpii1QSgHvRRm6JTxdLi_QUv8GRcenNrMbGEYDEKWC";
+    private static final String SERVER_KEY = "key=AAAAb7CRzJw:APA91bEYvvSvl0D7nykrgqWAExSamy3sXHLV76aOO7iFryptnilzXxIYJZe51fGjtEhNreONqqDTfvxmBTzJ8mPw3gTgcMDm2wv4abYbLQJgXi971poLZ9EQ91Sk4tU1FiN7p5hE3Cq8";
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    private OkHttpClient httpClient;
+    private FcmApi fcmApi;
+    private Retrofit retrofit;
 
     public FcmClient() {
-        this.httpClient = new OkHttpClient();
-    }
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-    //constructor is used for unit testing to inject mocked httpClient
-    public FcmClient(OkHttpClient httpClient) {
-        this.httpClient = httpClient;
+        fcmApi = retrofit.create(FcmApi.class);
     }
-
 
     /**
      * sends request to FCM server. The user then receives the Json-String specified in data.
@@ -44,33 +49,29 @@ public class FcmClient {
 
     public void send(String data, EventArg command, Set<UserEntity> receiver) {
 
-        JSONObject eventData = new JSONObject();
+        Map<String, String> eventData = new HashMap<>();
         eventData.put("tag", command.toString());
         eventData.put("data", data);
 
         for (UserEntity msg : receiver) {
 
-            JSONObject json = new JSONObject();
-            json.put("to", msg.getInstanceId());
-            json.put("data", eventData);
+            FcmMessage message = new FcmMessage(msg.getInstanceId(), eventData);
+            RequestBody body = RequestBody.create(JSON, new Gson().toJson(message));
+            System.out.println(new Gson().toJson(message));
+            retrofit2.Call<Void> call = fcmApi.send(body);
+            call.enqueue(new Callback<Void>() {
 
-            String jsonString = json.toString();
-            RequestBody body = RequestBody.create(JSON, jsonString);
-            Request request = new Request.Builder()
-                    .url(BASE_URL)
-                    .header("Content-Type", "application/json")
-                    .addHeader("Authorization", SERVER_KEY)
-                    .post(body)
-                    .build();
+                @Override
+                public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+                    System.out.println(response.isSuccessful());
+                    System.out.println(response.errorBody());
+                }
 
-            try {
-                final Call call = httpClient.newCall(request);
-                Response response = call.execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //TODO: do something w/ response
+                @Override
+                public void onFailure(retrofit2.Call<Void> call, Throwable throwable) {
+                    //do nothing
+                }
+            });
         }
 
 

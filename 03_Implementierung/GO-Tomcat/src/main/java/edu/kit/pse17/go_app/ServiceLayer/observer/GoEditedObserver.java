@@ -41,8 +41,12 @@ public class GoEditedObserver implements Observer {
         Go go = GoService.goEntityToGo(goEntity);
 
         Set<UserEntity> receiver = new HashSet<>();
-        receiver.addAll(goEntity.getGroup().getMembers());
-        receiver.addAll(goEntity.getGroup().getRequests());
+        for (UserEntity usr : goEntity.getGroup().getMembers()) {
+            receiver.add(usr);
+        }
+        for (UserEntity usr : goEntity.getGroup().getRequests()) {
+            receiver.add(usr);
+        }
 
         Gson gson = new Gson();
         GoService.makeJsonable(go, true);

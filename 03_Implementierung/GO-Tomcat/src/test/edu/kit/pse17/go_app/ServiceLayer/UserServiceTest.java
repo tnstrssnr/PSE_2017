@@ -14,9 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class UserServiceTest {
 
@@ -64,7 +62,7 @@ public class UserServiceTest {
 
         Mockito.when(mockUserDao.get(Mockito.anyString())).thenReturn(alteredTestUser);
         List<Group> result = testService.getData(alteredTestUser.getUid(), alteredTestUser.getEmail(), alteredTestUser.getName());
-        Assert.assertEquals(testList, result);
+        Assert.assertEquals(testList.get(0).getId(), result.get(0).getId());
 
     }
 
@@ -121,9 +119,16 @@ public class UserServiceTest {
 
     private UserEntity addAssociationsToUser(UserEntity user) {
         user.getGos().add(TestData.getTestGoLunch());
-        user.getRequests().add(TestData.getTestGroupBar());
         user.getGroups().add(TestData.getTestGroupFoo());
         return user;
+    }
+
+    @Test
+    public void debug() {
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", "testid_2");
+        map.put("status", "GONE");
+        System.out.println(new Gson().toJson(map));
     }
 
 }

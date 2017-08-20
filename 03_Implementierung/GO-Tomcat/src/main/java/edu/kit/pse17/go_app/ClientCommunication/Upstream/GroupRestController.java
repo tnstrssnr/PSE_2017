@@ -128,9 +128,9 @@ public class GroupRestController {
      */
     @RequestMapping(
             method = RequestMethod.DELETE,
-            value = "/members/{groupId}/{userId}")
-    public ResponseEntity removeMember(@PathVariable final String userId, @PathVariable("groupId") final Long groupId) {
-        groupService.removeGroupMember(userId, groupId);
+            value = "/members/{groupId}/{email}")
+    public ResponseEntity removeMember(@PathVariable("email") final String email, @PathVariable("groupId") final Long groupId) {
+        groupService.removeGroupMember(email, groupId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
