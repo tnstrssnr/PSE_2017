@@ -12,35 +12,46 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
 import edu.kit.pse17.go_app.сommand.ServerCommand;
 
 /**
- * Dies Klasse ist eine Unterklasse von FirebaseMessagingService, die auf den Go Tomcat-Server hoert. DAs heisst, schickt der Server via FCM eine Nachricht an
- * den LCient, wird sie in dieser Klasse empfangen.
+ * This class is a subclass of fire base messaging service, which listens
+ * to the Tomcat Server. This is when the server send via FCM a message to
+ * the client, this will be received in this class.
  *
- * Wird eine Nachricht an den CLient gesendet waehrend die App im Hintergrund laeuft, wird der Inhalt der Nachricht uaf dem System Tray gespeichert. Bei erneutem Aufrufen der App muss
- * ueberprueft werden, ob in der Zwischenzeit NAchrichten angekommen sind. Sind es zu viele Nachrichten die auf dem System Tray gespeichert worden sind, so kann nicht
- * garantiert werden, dass alle noch vorhanden sind. In diesem Fall wird die Methode onDeletedMessages() aufgerufen. Hier sollten die gesamten Nutzerdaten von Server abgefragt werden,
- * um sicherzugehen, dass der Client alle aktuellen bei sich hat.
+ * Is a message sent to the client while the App is in the Background running,
+ * the contents of the message will be saved to the System Tray.
+ * When you start the App, it will be checked whether in the meantime news arrived.
+ * If there are too many messages have been saved on the System Tray, so can't
+ * be guaranteed that all are still available. In this case, the method
+ * onDeletedMessages() is called. Here is the entire set of users should be queried
+ * for data from Server to ensure that the Client has all of the latest.
  *
- * Bei Ankunft einer Nachricht des Servers, wird die onMessageReceived-Methode aufgerufen und dort weiter behandelt.
- * Der Service muss beim Start der App gesstartet werden und beim Schliessen der App wieder beendet. Dabei muss der Service auf einem Backgroun Thread und nicht auf dem
- * main UI Thread laufen.
- **/
-
+ * Upon arrival of a message, the server calls the onMessageReceived() method,
+ * where the message will be handled.
+ * The Service must be started when the app is started and closed when
+ * the app is closed.
+ * The Service must run on a Background Thread and not on the main thread.
+ */
 public class MessageReceiver extends FirebaseMessagingService {
 
     /**
-     * URL des Servers, von dem die Nachrichten kommen sollen (in diesem Fall der Tomcat_server der Anwendung).
-     * Nachrichten von anderen Absendern werden ignoriert.
+     * URL of the server from which the messages come from
+     * (in this case, the Tomcat server of the application).
+     * Messages from other senders will be ignored.
      */
     private static final String SENDER = "479703714972";
 
+    /**
+     * Command that will be called here.
+     */
     private ServerCommand command;
 
     /**
-     * Diese Methode wird aufgerufen, wenn die App eine Nachricht vom FCM Server erhaelt waehrend sie im Vordergrund laeuft. Die Nachricht sollte spaetestens 10s nach ihrer Ankunft
-     * behandelt werden, vie Spezifikation der Fcm API.
+     * This method is called when the App receives a message from the FCM Server
+     * while it is running in the foreground. The message should be proceeded
+     * at the very least 10s after the arrival (see specification of the Fcm API).
      *
-     * @param remoteMessage die erhaltene Nachricht, verpackt in ein RemoteMessage-Objekt. Dieses Objekt wird vom FCM Server erzeugt und enthaelt die Attribute
-     *                      from und data, mit denen die fuer diese Anwendung relevanten Daten ermittelt werden koennen.
+     * @param remoteMessage: The received messsage, packed in a remote message object.
+     *                     This object is generated from the FCM Server and
+     *                     contains the attributes from and data.
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -66,9 +77,11 @@ public class MessageReceiver extends FirebaseMessagingService {
     }
 
     /**
-     * Diese Methode wird aufgerufen, falls zu viele Benachrichtigungen an den CLient gesendet wurden, waehrend die App im Hintergrund lief. Dann sit es nicht mehr garantiert,
-     * dass alle diese Nachrichten noch in der System tray zu finden sind. Es sollten also die gesamten Nuterdaten nochmal vom Server angefragt werden. Das passiert in dieser
-     * Methode.
+     * This method is called, if there are too many notifications
+     * have been sent to the client, while the App ran in the Background.
+     * Then it is no longer guaranteed that all of these messages are
+     * in the System tray. The entire user data must be fetched again from the
+     * Server. This is what happens in this Method.
      */
     @Override
     public void onDeletedMessages() {

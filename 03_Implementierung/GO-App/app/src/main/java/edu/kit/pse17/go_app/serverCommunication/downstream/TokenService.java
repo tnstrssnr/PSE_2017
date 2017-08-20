@@ -9,11 +9,14 @@ import edu.kit.pse17.go_app.repositories.UserRepository;
 import edu.kit.pse17.go_app.view.GroupListActivity;
 
 /**
- * Die Klasse erzeugt ein InstanceID Token, welches an den Server uebergeben wird, um von Server-Seite aus Nachrichten an ein einzelnes Geraet schicken zu koennen.
+ * The class generates an InstanceID Token, which will be given to the Server,
+ * to make Server-side messages to a single device.
  *
- * Bei jeder Anmeldung in der App muss eine solche InstanceID erzeugt werden, um sicher zu gehen, dass diese auch aktuell und gueltig ist.
- * Danach wird diese an den Server weitergeleitet. Es kann waehrend der Ausfuehrung der App auch zu einer Erneuerung der InstanceID kommen. In diesem Fall wird die onTokenReferesh()
- * Methode dieser Klasse aufgerufen.
+ * Every time you log into the App, such InstanceID must be generated to ensure
+ * that it is current and valid.
+ * Then, it is forwarded to the Server. During the execution of the App it
+ * can also lead to a renewal of the InstanceID. In this case, the
+ * onTokenReferesh() Method of this class is called.
  *
  */
 
@@ -22,8 +25,9 @@ public class TokenService extends FirebaseInstanceIdService {
     private static final String TAG = "TokenService";
 
     /**
-     * Wird ein neues Token fuer ein Geraet erzeugt, wird automatisch diese Methode aufgerufen. In der Methode wird das neue Token an den Tomcat-Server
-     * gesendet, damit weiterhin Server-Nachrichten an diesen Client gesendet werden koennen.
+     * When a new Token for a unit is created, it will automatically call this method.
+     * In the method, the new Token to the Tomcat Server will be
+     * sent so that the Server-messages could also be sent.
      */
     @Override
     public void onTokenRefresh() {
@@ -34,11 +38,11 @@ public class TokenService extends FirebaseInstanceIdService {
     }
 
     /**
-     * Methode, die eine InstanceID an den Tomcat-Server uebergibt. Die wird jedes mal aufgerufen, wenn die Methode
-     * onTokenRefresh() aufgerufen wird.
+     * Method, which returns an InstanceID to the Tomcat Server. This is called
+     * every time the method onTokenRefresh() is called.
      *
-     * @param refreshedToken Die neue InstanceID. Es muss vor Aufruf dieser Methode garantiert sein, dass es sich um eine aktuelle,
-     *                       gueltige InstanceID handelt.
+     * @param refreshedToken: The new InstanceID. It must be guaranteed before
+     *                      calling this method that it a valid InstanceID is.
      */
     private void sendTokenToServer(String refreshedToken) {
         //TODO implement
