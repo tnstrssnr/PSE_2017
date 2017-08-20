@@ -2,6 +2,10 @@ package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Die User-Klasse beschreibt die User-Objekte, welche es uns erlauben sämtliche potentiellen Information zu einem User zusammenzufassen..
+ */
+
 public class User {
 
     @SerializedName("userId")

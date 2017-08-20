@@ -2,21 +2,50 @@ package edu.kit.pse17.go_app.ServiceLayer;
 
 import java.util.*;
 
+/**
+ * Diese Klasse beinhaltet den Clusteringalgorithmus, wobei einige Funktionen/Methoden zur Vereinfachung des Algorithmus
+ * in der Utilityklasse liegen.
+ *
+ * Der Algorithmus macht sich hierzu verschidene Listen/Vektoren zu nutzen.
+ *
+ */
+
 
 public class DBScan
 {
 
-    public static Vector<List> resultList = new Vector<List>();
+    /**
+     *  Vektor für <UserLocation>-Vektoren: entspricht dem Resultat des eigentlichen Clustering.
+     */
+
+    public static Vector<List> resultList = new Vector<>();
+
+    /**
+     * Liste der UserLocations die geclustert werden.
+     */
 
     public static Vector<UserLocation> pointList;
 
+    /**
+     * Vektor der für UserLocations genutzt wird, die benachbart zu einer bestimmten Userlocation sind
+     */
+
     public static Vector<UserLocation> Neighbours ;
+
+
 
     public DBScan(List<UserLocation> userLocationList) {
         this.pointList = Utility.getList(userLocationList);
     }
 
-
+    /**
+     * Die eigentliche Methode des ClusteringAlgorithmus.
+     *
+     * @param tdistance Distanz die zwischen Punkten/UserLocations liegen muss um als benachbart zu gelten.
+     * @param minpt Mindestanzahl an Punkten um ein Cluster zu bilden.
+     * @param userLocationList Die Liste an UserLocation mit der das Clustering betrieben wird.
+     * @return Gibt eine Vektorliste mit Vektoren die, die Cluster beinhalten.
+     */
 
     public Vector<List> applyDbscan(int tdistance, int minpt, List<UserLocation> userLocationList)
     {
@@ -25,14 +54,14 @@ public class DBScan
         Utility.VisitList.clear();
         pointList=Utility.getList(userLocationList);
 
-        int index2 =0;
+        int index =0;
 
 
-        while (pointList.size()>index2){
-            UserLocation p =pointList.get(index2);
+        while (pointList.size()>index){
+            UserLocation p =pointList.get(index);
             if(!Utility.isVisited(p)){
 
-                Utility.Visited(p);
+                Utility.visited(p);
 
                 Neighbours =Utility.getNeighbours(p, tdistance);
 
@@ -45,22 +74,23 @@ public class DBScan
 
                         UserLocation r = Neighbours.get(ind);
                         if(!Utility.isVisited(r)){
-                            Utility.Visited(r);
+                            Utility.visited(r);
                             Vector<UserLocation> Neighbours2 = Utility.getNeighbours(r, tdistance);
                             if (Neighbours2.size() >= minpt){
-                                Neighbours=Utility.Merge(Neighbours, Neighbours2);
+                                Neighbours=Utility.merge(Neighbours, Neighbours2);
                             }
                         } ind++;
                     }
 
 
 
-                    System.out.println("N"+Neighbours.size());
+                    //System.out.println("N"+Neighbours.size());
                     resultList.add(Neighbours);}
 
 
-            }index2++;
-        }return resultList;
+            }index++;
+        }
+        return resultList;
     }
 
 }

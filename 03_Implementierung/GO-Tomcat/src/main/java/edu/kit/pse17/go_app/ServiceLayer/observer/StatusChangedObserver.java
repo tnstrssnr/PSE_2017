@@ -12,6 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo der User Status sich verändert.
+ */
+
 public class StatusChangedObserver implements Observer {
 
     private final FcmClient messenger;
@@ -47,9 +51,9 @@ public class StatusChangedObserver implements Observer {
         GoEntity go = goService.getGoById(Long.valueOf(entity_ids.get(1)));
         UserEntity user = userDao.get(entity_ids.get(0));
 
-        if (go.getGoingUsers().contains(user)) {
+        if (!(go.getGoingUsers() == null) && go.getGoingUsers().contains(user)) {
             newStatus = 1;
-        } else if (go.getGoneUsers().contains(user)) {
+        } else if (!(go.getGoneUsers() == null) && go.getGoneUsers().contains(user)) {
             newStatus = 2;
         } else {
             newStatus = 0;
@@ -63,9 +67,12 @@ public class StatusChangedObserver implements Observer {
         String data = json.toJSONString();
 
         Set<UserEntity> receiver = new HashSet<>();
-        receiver.addAll(go.getGoingUsers());
-        receiver.addAll(go.getGoneUsers());
-        receiver.addAll(go.getGoneUsers());
+        for (UserEntity usr : go.getGroup().getMembers()) {
+            receiver.add(usr);
+        }
+        for (UserEntity usr : go.getGroup().getRequests()) {
+            receiver.add(usr);
+        }
 
         messenger.send(data, EventArg.STATUS_CHANGED_EVENT, receiver);
     }

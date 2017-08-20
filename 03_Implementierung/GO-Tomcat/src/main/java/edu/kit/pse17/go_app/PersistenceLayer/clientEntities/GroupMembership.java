@@ -2,6 +2,11 @@ package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Die Group-Membership Klasse beschreibt ein Klasse mit Objekten, die Informationen zu Gruppen, beziehungsweise ihre einzelnen Mitgliedern,
+ * beinhaltet.
+ */
+
 public class GroupMembership {
 
     @SerializedName("user")

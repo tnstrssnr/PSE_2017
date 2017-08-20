@@ -4,10 +4,17 @@ package edu.kit.pse17.go_app.ServiceLayer.observer;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import org.json.simple.JSONObject;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+/**
+ * Dieser Observer behandelt Fälle wo Gruppenanfragen abgelehnt werden.
+ */
 
 public class RequestDeniedObserver implements Observer {
 
@@ -30,6 +37,11 @@ public class RequestDeniedObserver implements Observer {
         JSONObject json = new JSONObject();
         json.put("user_id", entity_ids.get(0));
         json.put("group_id", group.getID());
+
+        Set<UserEntity> receiver = new HashSet<>();
+        for (UserEntity usr : group.getMembers()) {
+            receiver.add(usr);
+        }
 
         messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, group.getAdmins());
 

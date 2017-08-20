@@ -32,11 +32,18 @@ public class GroupRestController {
     }
 
     /**
-     * A call to this method will persist the specified group on the server database.
+     * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
+     * Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das groupDao zur Erzeugung der Gruppe
+     * in der Datenbank. Zusätzlich zur Erzeugung der Gruppe wird der Ersteller als Gruppenmitglied und Administrator zur
+     * Gruppe hinzugefügt.
+     * <p>
+     * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL {Base_URL}/groups.
      *
-     * @param group The group to be persisted. The Group needs to contain an GroupMembership Object for the creator of
-     *              the group.
-     * @return The globally unique ID og the Group
+     * @param group Gruppe die vom groupService erstellt werden soll.
+     *
+     * @return Die global eindeutige ID, die dieser Gruppe zugewiesen wurde. Diese wird im Header der HTTP-Response im
+     * Location-Feld an den Client zurückgesendet, also : {Base_URL}/gos/{goId} und kann dort vom Client ausgelesen
+     * werden. Der Wert ist eine positive ganze Zahl, die im Wertebereich des primitiven Datentyps long liegt.
      */
     @RequestMapping(
             method = RequestMethod.POST,
@@ -47,8 +54,17 @@ public class GroupRestController {
     }
 
     /**
-     * @param group
-     * @return
+     * Diese Methode wird von einem Benutzer aufgerufen, wenn er die Daten der Gruppe ändern will. Zu den daten, die mit
+     * dieser Methode geändert werden können, gehören:
+     * <p>
+     * - der Gruppenname - die Gruppenbeschreibung
+     * <p>
+     * Es ist garantiert, dass dieser Aufruf nur von einem Administrator der zu ändernden Gruppe kommt.
+     * <p>
+     * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL
+     * {Base_URL}/groups/{groupId}.
+     *
+     * @param group Die zu ändernde Gruppe.
      */
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -60,8 +76,8 @@ public class GroupRestController {
 
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn er eine Gruppe löschen möchte. Durch einen Methodenaufruf
-     * bei dem groupDao wird die Gruppe entsprechend aus der datenbank entfernt. Durch konsistenzkriterien in der
-     * Datenbank werden zusätzlich alle GOs, die es in der Gruppe gab ebenfalls entfernt.
+     * bei dem groupDao wird die Gruppe entsprechend aus der Datenbank entfernt. Durch Konsistenzkriterien in der
+     * Datenbank werden zusätzlich alle Gos, die es in der Gruppe gab ebenfalls entfernt.
      * <p>
      * Es ist garantiert, dass der Client, der die Gruppe aufruft dazu berechtigt ist, d.h. er ein Administrator der
      * Gruppe ist.
@@ -69,8 +85,8 @@ public class GroupRestController {
      * Der Aufruf dieser Methode entspricht einem HTTP DELETE-Request an den Server an die URL
      * {Base_URL}/groups/{groupId}.
      *
-     * @param groupId Die ID der gruppe, die gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
-     *                Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die ID muss
+     * @param groupId Die Id der Gruppe, die gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
+     *                Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die Id muss
      *                zu einem Long-Datentyp gecastet werden können.
      */
     @RequestMapping(
@@ -92,11 +108,11 @@ public class GroupRestController {
      * Der Aufruf dieser Methode entspricht einem HTTP PUT-Request an den Server an die URL
      * {Base_URL}/groups/members/{groupId}/{userId}.
      *
-     * @param groupId Die ID der Gruppe, zu der der Benutzer hinzugefügt werden soll. Der Wert dieses Arguments ist Teil
-     *                der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
-     *                bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.
-     * @param userId  Die ID des Benutzers, der der Gruppe hinzugefügt werden soll. Der Wert dieses Arguments ist Teil
-     *                der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
+     * @param groupId Die Id der Gruppe, zu die der Benutzer hinzugefügt werden soll. Der Wert dieses Arguments ist Teil
+     *                der URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
+     *                bereitgestellt. Die Id muss zu einem Long-Datentyp gecastet werden können.
+     * @param userId  Die Id des Benutzers, der der Gruppe hinzugefügt werden soll. Der Wert dieses Arguments ist Teil
+     *                der URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
      *                bereitgestellt.
      */
     @RequestMapping(
@@ -113,32 +129,32 @@ public class GroupRestController {
      * Administrator aus der Gruppe entfernt wird.
      * <p>
      * Bei einem Aufruf leitet die Methode die Anfrage an die entsprechende Methode des groupDAOs weiter. Dieses
-     * entfernt den Benutzer aus der Gruppe. Durch Foreign Key Constraints in der DAtenbank wird der Benutzer auch aus
-     * allen GOs der Gruppe entfernt. Darum muss sich diese Methode demnach nicht kümmern.
+     * entfernt den Benutzer aus der Gruppe. Durch Foreign Key Constraints in der Datenbank wird der Benutzer auch aus
+     * allen GOs der Gruppe entfernt. Darum muss sich diese Methode demnach nicht darum kümmern.
      * <p>
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL
      * {Base_URL}/groups/members/{groupId}/{userId}.
      *
-     * @param userId  Die ID des Benutzers, der aus der Gruppe entfernt werden soll. Der Wert dieses Arguments ist Teil
-     *                der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
+     * @param userId  Die Id des Benutzers, der aus der Gruppe entfernt werden soll. Der Wert dieses Arguments ist Teil
+     *                der URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
      *                bereitgestellt.
-     * @param groupId Die ID der Gruppe, aus der der Benutzer entfernt werden soll. Der Wert dieses Arguments ist Teil
-     *                der URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode
-     *                bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.
+     * @param groupId Die Id der Gruppe, aus der der Benutzer entfernt werden soll. Der Wert dieses Arguments ist Teil
+     *                der URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
+     *                bereitgestellt. Die Id muss zu einem Long-Datentyp gecastet werden können.
      */
     @RequestMapping(
             method = RequestMethod.DELETE,
-            value = "/members/{groupId}/{userId}")
-    public ResponseEntity removeMember(@PathVariable final String userId, @PathVariable("groupId") final Long groupId) {
-        groupService.removeGroupMember(userId, groupId);
+            value = "/members/{groupId}/{email}")
+    public ResponseEntity removeMember(@PathVariable("email") final String email, @PathVariable("groupId") final Long groupId) {
+        groupService.removeGroupMember(email, groupId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
      * Diese Methode wird von einem Client aufgerufen, der einen Benutzer zu einer Gruppe einladen will. Bei Aufruf
-     * dieser Methode wird mittels des groupDAOs die Information über den Group Request in der Datenbank gespeicert.
+     * dieser Methode wird mittels des groupDAOs die Information über den Group Request in der Datenbank gespeichert.
      * <p>
-     * Es ist garantiert, dass der Client, der diese Methode aufruft ein Administrator sit und der eingeladene Benutzer
+     * Es ist garantiert, dass der Client, der diese Methode aufruft ein Administrator ist und der eingeladene Benutzer
      * nicht bereits Mitglied der Gruppe ist. Diese Vorbedingungen müssen in der Methode nicht überprüft werden.
      * <p>
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL
@@ -161,17 +177,17 @@ public class GroupRestController {
     }
 
     /**
-     * Diese Methode wird aufgerufen, wenn ein Benutzer eine gruppenmitgliedschaftsanfrage ablehnt. Beim Aufruf wird das
+     * Diese Methode wird aufgerufen, wenn ein Benutzer eine Gruppenmitgliedschaftsanfrage ablehnt. Beim Aufruf wird das
      * groupDAO dazu veranlasst, die Anfrage aus der Datenbank zu löschen.
      * <p>
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL
      * {Base_URL}/groups/requests/{groupId}/{userId}.
      *
-     * @param groupId Die ID der Gruppe, zu der der Benutzer eingeladen war. Der Wert dieses Arguments ist Teil der URL
-     *                der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die
+     * @param groupId Die Id der Gruppe, zu die der Benutzer eingeladen war. Der Wert dieses Arguments ist Teil der URL
+     *                der REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die
      *                ID muss zu einem Long-Datentyp gecastet werden können.
-     * @param userId  Die ID des Benutzers, der die Anfrage abgeleht hat. Der Wert dieses Arguments ist Teil der URL der
-     *                REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
+     * @param userId  Die Id des Benutzers, der die Anfrage abgelehnt hat. Der Wert dieses Arguments ist Teil der URL der
+     *                REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
      */
     @RequestMapping(
             method = RequestMethod.DELETE,
@@ -184,7 +200,7 @@ public class GroupRestController {
 
 
     /**
-     * Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes Gruppenmitglied zu administrator
+     * Diese Methode wird aufgerufen, wenn ein Administrator einer Gruppe ein anderes Gruppenmitglied zum Administrator
      * ernennen will. In der Methode wird eine Methode des groupDaos aufgerufen, die einen Datenbankzugriff ausführt und
      * den entsprechenden Benutzer zu den Administratoren der Gruppe hinzufügt.
      * <p>
@@ -194,11 +210,11 @@ public class GroupRestController {
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL
      * {Base_URL}/groups/admins/{groupId}/{userId}.
      *
-     * @param groupId Die ID der Gruppe, in der der neue Administrator hinzugefügt werden soll. Der Wert dieses
-     *                Arguments ist Teil der URL der REST Resource und wird entsprechend von Spring extrahiert und der
+     * @param groupId Die Id der Gruppe, in die der neue Administrator hinzugefügt werden soll. Der Wert dieses
+     *                Arguments ist Teil der URL der REST Ressource und wird entsprechend von Spring extrahiert und der
      *                Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.
-     * @param userId  Die ID des Benutzer, der zum Adminsitrator ernannt wird. Der Wert dieses Arguments ist Teil der
-     *                URL der REST Resource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
+     * @param userId  Die Id des Benutzer, der zum Adminsitrator ernannt wird. Der Wert dieses Arguments ist Teil der
+     *                URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
      */
     @RequestMapping(
             method = RequestMethod.POST,

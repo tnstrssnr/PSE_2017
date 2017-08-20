@@ -67,22 +67,21 @@ public class GroupRestControllerTest {
                 .content(testGroupJson);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-        Mockito.verify(groupService, Mockito.times(1)).createGroup(testcGroup);
+        Mockito.verify(groupService, Mockito.times(1)).createGroup(any(Group.class));
 
         Assert.assertEquals(Long.valueOf(1), Long.valueOf(result.getResponse().getContentAsString()));
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 
-    @Ignore
     @Test
     public void editGroupTest() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/group/")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/group/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(testGroupJson)
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Group group = new Gson().fromJson(testGroupJson, Group.class);
-        Mockito.verify(groupService, Mockito.times(1)).editGroup(group);
+        Mockito.verify(groupService, Mockito.times(1)).editGroup(any(Group.class));
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
 
     }
@@ -120,7 +119,6 @@ public class GroupRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Mockito.verify(groupService, Mockito.times(1)).addGroupRequest("user_id", (long) 1);
-        Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 
     @Test

@@ -108,6 +108,9 @@ Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch di
 	
 	Die Verwendung dieser Klassen erlaubt das einfache Parsen von JSON-Objekten, die über die Client-Server Schnittstellen übertragen wurden. Die Umwandlung von ClientEntities zu ServerEntities übernehmen die entsprechenden Service-Klassen. Im Quellcode lassen sich Instanzen der ClientEntity-Klassen an dem Buchstaben c im Variablennamen erkennen (z.B. \textit{cGroup}).
 	
+	\item \textbf{Zusätzliche Klasse \textit{Utility} fürs Clustering}\\
+	Da zum Clustering nicht eine Bibliothek verwendet müssen einige Funktionen erfüllt werden, die den Code um einiges unübersichtlicher machen würden. Deswegen gibt es die Utility-Klasse, die einige Methoden zusammenfassen, die vom Clusteringalgorithmus \textit{DBScan} aufgerufen werden.
+	
 	\item \textbf{Min Android Version} \\
 	
 	Die minimale Android Version ist jetzt API 24, weil da viele Shortcuts und nützliche Sachen von Google zur Verfügung gestellt werden, die helfe viele Sonderfälle zu vermeiden.	
@@ -139,6 +142,10 @@ Wenn man den Gruppeneintrag aus der Liste aller Gruppen anklickt, wird dem Benut
 \item \textbf{F0210}\\ + GO Beschreibung
 	
 \end{enumerate}
+
+\newpage
+
+\section{Wunsch und Musskriterien}
 
 \newpage
 
@@ -180,6 +187,11 @@ Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten
 
 \subsubsection{Tests für Entity-Klassen}
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Die einzigen Methoden, die aus den Entity-Klassen getestet werden, sind jeweils die Methoden \textit{equals()} und \textit{hashCode()}. Ob der \textit{equals()}/\textit{hashCode()} Contract eingehalten wird, wird mittels des EqualsVerifier getestet.
+
+\subsection{Test für Klassen bezogen aufs Clustering}
+Im Falle vom Clustering müssen die Klassen \textit{Utility}, \textit{DBScan}, \textit{GoClusterStrategy} und \textit{LocationService}. Da die Klassen sehr rechenlastig sind werden sie darauf getestet ob ein richtiges Resultat rausgegeben wird.
+
+Da die Klassen eng miteinander verwoben sind muss Mockito eingesetzt werden um die Klassen halbwegs isoliert testen zu können.
 
 \end{document}
 \grid

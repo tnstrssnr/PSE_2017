@@ -6,6 +6,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.observer.*;
 import edu.kit.pse17.go_app.TestData;
 import org.junit.After;
@@ -64,6 +65,9 @@ public class GroupServiceTest {
 
     @Test
     public void createGroupTest() throws Exception {
+        UserDaoImp mockUserDao = Mockito.mock(UserDaoImp.class);
+        testService.setUserDao(mockUserDao);
+        Mockito.when(mockUserDao.get(Mockito.anyString())).thenReturn(TestData.getTestUserBob());
         Mockito.when(mockGroupDao.get(Mockito.anyLong())).thenReturn(testGroup);
         long result = testService.createGroup(testcGroup);
         Mockito.verify(mockGroupDao, Mockito.times(1)).persist(testGroup);
@@ -138,8 +142,11 @@ public class GroupServiceTest {
 
     @Test
     public void addGroupRequestTest() throws Exception {
+        UserDaoImp mockUserDao = Mockito.mock(UserDaoImp.class);
+        testService.setUserDao(mockUserDao);
+        Mockito.when(mockUserDao.getUserByEmail(Mockito.anyString())).thenReturn(TestData.getTestUserBob());
         List<String> entity_ids = new ArrayList<>();
-        entity_ids.add(TEST_ID_USER);
+        entity_ids.add(TestData.getTestUserBob().getUid());
         entity_ids.add(String.valueOf(TEST_ID_GROUP));
 
         GroupRequestReceivedObserver mockObserver = Mockito.mock(GroupRequestReceivedObserver.class);
@@ -149,7 +156,7 @@ public class GroupServiceTest {
         testService.getObserverMap().put(EventArg.GROUP_REQUEST_RECEIVED_EVENT, mockObserver);
 
         testService.addGroupRequest(TEST_ID_USER, 1l);
-        Mockito.verify(mockGroupDao).addGroupRequest(TEST_ID_USER, TEST_ID_GROUP);
+        Mockito.verify(mockGroupDao).addGroupRequest(TestData.getTestUserBob().getUid(), TEST_ID_GROUP);
         Mockito.verify(mockObserver).update(entity_ids);
     }
 

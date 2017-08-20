@@ -15,6 +15,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo der Gruppenanfragen erhalten werden.
+ */
+
 public class GroupRequestReceivedObserver implements Observer {
 
     private final FcmClient messenger;
@@ -55,11 +59,12 @@ public class GroupRequestReceivedObserver implements Observer {
         String data = new Gson().toJson(cGroup);
         Set<UserEntity> receiver = new HashSet<>();
         receiver.add(user);
-        receiver.addAll(group.getAdmins());
+        /*
+        for(UserEntity usr: group.getAdmins()) {
+            receiver.add(usr);
+        }*/
 
         //send group to invited member
         messenger.send(data, EventArg.GROUP_REQUEST_RECEIVED_EVENT, receiver);
-
-        //Admins cant see requests
     }
 }

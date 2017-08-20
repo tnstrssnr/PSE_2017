@@ -11,6 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo ein Admin eine Gruppe hinzugefügt wird.
+ */
+
 public class AdminAddedObserver implements Observer {
 
     private final FcmClient messenger;
@@ -45,8 +49,12 @@ public class AdminAddedObserver implements Observer {
         String data = jsonObject.toJSONString();
 
         Set<UserEntity> receiver = new HashSet<>();
-        receiver.addAll(changedGroup.getMembers());
-        receiver.addAll(changedGroup.getRequests());
+        for (UserEntity usr : changedGroup.getMembers()) {
+            receiver.add(usr);
+        }
+        for (UserEntity usr : changedGroup.getRequests()) {
+            receiver.add(usr);
+        }
 
         messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getMembers());
         messenger.send(data, EventArg.ADMIN_ADDED_EVENT, changedGroup.getRequests());

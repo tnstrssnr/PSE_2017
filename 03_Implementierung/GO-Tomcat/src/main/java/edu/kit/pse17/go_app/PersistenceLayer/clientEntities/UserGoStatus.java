@@ -4,6 +4,11 @@ package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 import com.google.gson.annotations.SerializedName;
 import edu.kit.pse17.go_app.PersistenceLayer.Status;
 
+/**
+ * Die UserGoStatus Klasse beschreibt ein Klasse mit Objekten, die Informationen zu Usern, beziehungsweise ihrem Status("GOING",
+ * "NOT_GOING","GONE") zu spezifischen Gruppen zusammenfasst.
+ */
+
 public class UserGoStatus {
 
     @SerializedName("user")

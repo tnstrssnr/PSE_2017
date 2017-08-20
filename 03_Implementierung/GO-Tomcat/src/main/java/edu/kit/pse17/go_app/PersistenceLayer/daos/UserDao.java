@@ -31,7 +31,7 @@ public interface UserDao extends AbstractDao<UserEntity, String> {
      * Diese Methode gibt eine Liste mit allen Gruppen zurück, in denen der Benutzer Mitglied ist. Dies schließt Gruppen
      * nicht mit ein, zu denen der Benutzer eingeladen wurde, er die Gruppenanfrage aber noch nicht beantwortet hat.
      *
-     * @param userId Die ID des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
+     * @param userId Die Id des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
      *               beim Aufruf der Methode um eine gültige userid handelt.
      * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen
      * handelt es sich um vollständige, gültige GroupEntity Objekte.
@@ -42,7 +42,7 @@ public interface UserDao extends AbstractDao<UserEntity, String> {
      * Diese Methode gibt eine Liste von Gruppen zurück, zu denen der Benutzer eine Gruppenanfrage erhalten hat, die er
      * noch nicht beantwortet hat.
      *
-     * @param userId Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
+     * @param userId Die Id des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
      *               es sich beim Aufruf der Methode um eine gültige userid handelt.
      * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen
      * handelt es sich um vollständige, gültige GroupEntity Objekte.

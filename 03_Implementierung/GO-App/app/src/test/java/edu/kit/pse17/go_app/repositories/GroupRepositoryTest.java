@@ -41,20 +41,21 @@ public class GroupRepositoryTest {
     public void start() {
         groupRepo = GroupRepository.getInstance();
         list = mockGroupData();
-        groupRepo.setList(list);
 
         data = new GroupListLiveData();
-        data.postValue(list);
         groupRepo.setData(data);
+
+        groupRepo.setList(list);
         /*data = mock(GroupListLiveData.class);
         when(data.getValue()).thenReturn(list);*/
     }
 
     @After
     public void end() {
-        groupRepo = null;
         list = null;
-        data = null;
+        groupRepo.setList(null);
+        groupRepo.setData(null);
+        groupRepo = null;
     }
 
     @Test

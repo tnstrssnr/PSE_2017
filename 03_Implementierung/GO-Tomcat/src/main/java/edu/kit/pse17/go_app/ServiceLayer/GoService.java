@@ -19,11 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Diese Klasse handhabt alle Observerfunktion in Bezug auf GoDaos. Für mehr Information siehe Interface IObservable.
+ */
+
 @Service
 public class GoService implements IObservable {
 
     @Autowired
-    private static GoDaoImp goDao;
+    private GoDaoImp goDao;
 
     @Autowired
     private GroupDaoImp groupDao;
@@ -68,7 +72,7 @@ public class GoService implements IObservable {
 
     //Warning: group is null ! if group-information is required it needs to be added manually -- same for locations
     public static Go goEntityToGo(GoEntity goEntity) {
-        Go go = new Go(goEntity.getID(), goEntity.getName(), goEntity.getDescription(), goEntity.getStart(), goEntity.getEnd(), null, goEntity.getLat(), goEntity.getLon(), goEntity.getOwner().getUid(), goEntity.getOwner().getName(), null, null);
+        Go go = new Go(goEntity.getID(), goEntity.getName(), goEntity.getDescription(), goEntity.getStart(), goEntity.getEnd(), null, goEntity.getLat(), goEntity.getLon(), goEntity.getOwner().getUid(), goEntity.getOwner().getName(), new ArrayList<>(), new ArrayList<>());
         List<UserGoStatus> statuses = new ArrayList<>();
         for (UserEntity usr : goEntity.getGoingUsers()) {
             statuses.add(new UserGoStatus(UserService.userEntityToUser(usr), go, Status.GOING));
@@ -84,26 +88,52 @@ public class GoService implements IObservable {
     }
 
     public static void makeJsonable(Go go, boolean keepGroupInfo) {
-        if (keepGroupInfo) {
+        if (keepGroupInfo && go.getGroup() != null) {
             GroupService.makeJsonable(go.getGroup());
         } else {
             go.setGroup(null);
         }
 
         if (go.getParticipantsList() != null) {
+            ArrayList<UserGoStatus> jsonableList = new ArrayList<>();
             for (UserGoStatus userGoStatus : go.getParticipantsList()) {
-                makeJsonable(userGoStatus);
+                jsonableList.add(new UserGoStatus(userGoStatus.getUser(), null, userGoStatus.getStatus()));
+                //GoService.makeJsonable(userGoStatus);
             }
+            go.setParticipantsList(jsonableList);
+        } else {
+            go.setParticipantsList(new ArrayList<>());
         }
     }
 
     public static void makeJsonable(UserGoStatus userGoStatus) {
         userGoStatus.getGo().setGroup(null);
-        userGoStatus.getGo().setParticipantsList(null);
+        userGoStatus.getGo().setParticipantsList(new ArrayList<>());
+        userGoStatus.getGo().setLocations(null);
     }
 
-    public static GoEntity getGoById(long id) {
-        return goDao.get(id);
+    public GroupDaoImp getGroupDao() {
+        return groupDao;
+    }
+
+    public void setGroupDao(GroupDaoImp groupDao) {
+        this.groupDao = groupDao;
+    }
+
+    public UserDaoImp getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDaoImp userDao) {
+        this.userDao = userDao;
+    }
+
+    public boolean isObserverInitialized() {
+        return observerInitialized;
+    }
+
+    public void setObserverInitialized(boolean observerInitialized) {
+        this.observerInitialized = observerInitialized;
     }
 
     public void registerAll() {
@@ -131,13 +161,13 @@ public class GoService implements IObservable {
     }
 
     public long createGo(Go go) {
-        UserEntity owner = userDao.get(go.getOwnerId());
+        UserEntity owner = userDao.get(go.getOwner());
         GroupEntity groupEntity = groupDao.get(go.getGroup().getId());
         GoEntity goEntity = new GoEntity(groupEntity, owner, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
         long id = goDao.persist(goEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(id));
-        //notify(EventArg.GO_ADDED_EVENT, this, entity_ids);
+        notify(EventArg.GO_ADDED_EVENT, this, entity_ids);
         return id;
     }
 
@@ -154,6 +184,7 @@ public class GoService implements IObservable {
                 break;
             case "GONE":
                 status = Status.GONE;
+                break;
             default:
                 return false;
         }
@@ -177,8 +208,12 @@ public class GoService implements IObservable {
         goEntity.setID(go.getId());
         goDao.update(goEntity);
         List<String> entity_ids = new ArrayList<>();
-        entity_ids.add(String.valueOf(goEntity.getID()));
-        //notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
+        entity_ids.add(String.valueOf(go.getId()));
+        notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
+    }
+
+    public GoEntity getGoById(long id) {
+        return goDao.get(id);
     }
 
     @Override

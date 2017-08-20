@@ -10,6 +10,10 @@ import org.json.simple.JSONObject;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt Fälle wo User entfernt werden.
+ */
+
 public class UserDeletedObserver implements Observer {
 
     private final FcmClient messenger;
@@ -33,8 +37,12 @@ public class UserDeletedObserver implements Observer {
 
         HashSet<UserEntity> receiver = new HashSet<>();
         for (GroupEntity group : user.getGroups()) {
-            receiver.addAll(group.getMembers());
-            receiver.addAll(group.getRequests());
+            for (UserEntity usr : group.getMembers()) {
+                receiver.add(usr);
+            }
+            for (UserEntity usr : group.getRequests()) {
+                receiver.add(usr);
+            }
         }
 
         messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, receiver);

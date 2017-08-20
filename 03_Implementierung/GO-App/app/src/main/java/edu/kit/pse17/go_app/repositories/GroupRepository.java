@@ -496,7 +496,11 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> membership = group.getMembershipList();
                 List<UserGoStatus> goParticipants = new ArrayList<>();
                 for (GroupMembership member : membership) {
-                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, Status.NOT_GOING);
+                    Status status = Status.NOT_GOING;
+                    if (member.getUser().getUid().equals(go.getOwner())) {
+                        status = Status.GOING;
+                    }
+                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, status);
                     goParticipants.add(participant);
                 }
                 newGo.setParticipantsList(goParticipants);
@@ -580,6 +584,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param group: New data of the group
      */
     public void onGroupEdited(Group group) {
+
         list = data.getValue();
         for (Group currentGroup : list) {
             if (group.getId() == currentGroup.getId()) {
@@ -954,6 +959,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void setList(List<Group> list) {
         this.list = list;
+        data.postValue(this.list);
     }
 
     /**
