@@ -27,7 +27,7 @@ public class GroupRequestReceivedObserver implements Observer {
 
     public GroupRequestReceivedObserver(FcmClient messenger, GroupDao groupDao) {
         this.messenger = messenger;
-        this.groupService = groupService;
+        this.groupService = new GroupService();
     }
 
     public GroupRequestReceivedObserver(GroupService groupService) {
@@ -59,12 +59,8 @@ public class GroupRequestReceivedObserver implements Observer {
         String data = new Gson().toJson(cGroup);
         Set<UserEntity> receiver = new HashSet<>();
         receiver.add(user);
-        /*
-        for(UserEntity usr: group.getAdmins()) {
-            receiver.add(usr);
-        }*/
 
-        //send group to invited member
+        //sende Gruppe zum eingeladenen Benutzer
         messenger.send(data, EventArg.GROUP_REQUEST_RECEIVED_EVENT, receiver);
     }
 }

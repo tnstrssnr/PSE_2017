@@ -6,9 +6,17 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-
+/**
+ * Die Api des FCm Servers. Der Rest-Call wird mittels Retrofit in der Klasse FcmClient ausgeführt.
+ */
 public interface FcmApi {
 
+    /**
+     * Methodenaufruf schickt Anfrage an FCM-Server, der diese an die Clients weiterleitet.
+     *
+     * @param body spezifiziert den Inhalt und den Empfänger der Nachricht
+     * @return gibt die Response des Api Calls zurück.
+     */
     @Headers({
             "https://fcm.googleapis.com/fcm/send",
             "Content-Type:application/json",

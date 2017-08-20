@@ -11,16 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.HttpStatus.OK;
 
 /**
- * RestController class for Rest resources pertaining to Group functionality. All return values in this class are
- * wrapped in a responseEntity-object, containing a Http-StatusCode and the return data in its body formatted as a
- * Json-String, using Gson.
+ * RestController Klasse für Rest Ressourcen in Bezug zu Group Funktionalitäten. Alle Rückgabewerte in dieser Klasse
+ * sind in einem responseEntity-Objekt umfasst, HTTP-StatusCode und die Rückgabedaten beinhaltend in seinem Aufbau,
+ * formattiert als Json-String, Gson benutzend.
  */
 
 @RestController
 @RequestMapping("/group")
 public class GroupRestController {
 
-    //autowired fields are injected by Spring Framework on start-up
     @Autowired
     private GroupService groupService;
 
@@ -34,13 +33,12 @@ public class GroupRestController {
     /**
      * Diese Methode wird von einem Client aufgerufen, wenn eine neue Gruppe erstellt werden soll. Die Methode liest die
      * Argumente aus dem Request Body der HTTP Anfrage aus und übergibt diese an das groupDao zur Erzeugung der Gruppe
-     * in der Datenbank. Zusätzlich zur Erzeugung der Gruppe wird der Ersteller als Gruppenmitglied und Administrator zur
-     * Gruppe hinzugefügt.
+     * in der Datenbank. Zusätzlich zur Erzeugung der Gruppe wird der Ersteller als Gruppenmitglied und Administrator
+     * zur Gruppe hinzugefügt.
      * <p>
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL {Base_URL}/groups.
      *
      * @param group Gruppe die vom groupService erstellt werden soll.
-     *
      * @return Die global eindeutige ID, die dieser Gruppe zugewiesen wurde. Diese wird im Header der HTTP-Response im
      * Location-Feld an den Client zurückgesendet, also : {Base_URL}/gos/{goId} und kann dort vom Client ausgelesen
      * werden. Der Wert ist eine positive ganze Zahl, die im Wertebereich des primitiven Datentyps long liegt.
@@ -83,7 +81,7 @@ public class GroupRestController {
      * Gruppe ist.
      * <p>
      * Der Aufruf dieser Methode entspricht einem HTTP DELETE-Request an den Server an die URL
-     * {Base_URL}/groups/{groupId}.
+     * {Base_URL}/group/{groupId}.
      *
      * @param groupId Die Id der Gruppe, die gelöscht werden soll. Der Wert dieses Arguments ist Teil der URL der REST
      *                Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die Id muss
@@ -135,9 +133,8 @@ public class GroupRestController {
      * Der Aufruf dieser Methode entspricht einem HTTP POST-Request an den Server an die URL
      * {Base_URL}/groups/members/{groupId}/{userId}.
      *
-     * @param userId  Die Id des Benutzers, der aus der Gruppe entfernt werden soll. Der Wert dieses Arguments ist Teil
-     *                der URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
-     *                bereitgestellt.
+     * @param email   Die Email des Users, der aus der Gruppe entfernt werden soll. Wird kein User mit passender
+     *                Mailadresse gefunden, wird keine weitere Aktion ausgeführt.
      * @param groupId Die Id der Gruppe, aus der der Benutzer entfernt werden soll. Der Wert dieses Arguments ist Teil
      *                der URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
      *                bereitgestellt. Die Id muss zu einem Long-Datentyp gecastet werden können.
@@ -186,8 +183,8 @@ public class GroupRestController {
      * @param groupId Die Id der Gruppe, zu die der Benutzer eingeladen war. Der Wert dieses Arguments ist Teil der URL
      *                der REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt. Die
      *                ID muss zu einem Long-Datentyp gecastet werden können.
-     * @param userId  Die Id des Benutzers, der die Anfrage abgelehnt hat. Der Wert dieses Arguments ist Teil der URL der
-     *                REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
+     * @param userId  Die Id des Benutzers, der die Anfrage abgelehnt hat. Der Wert dieses Arguments ist Teil der URL
+     *                der REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
      */
     @RequestMapping(
             method = RequestMethod.DELETE,
@@ -214,7 +211,8 @@ public class GroupRestController {
      *                Arguments ist Teil der URL der REST Ressource und wird entsprechend von Spring extrahiert und der
      *                Methode bereitgestellt. Die ID muss zu einem Long-Datentyp gecastet werden können.
      * @param userId  Die Id des Benutzer, der zum Adminsitrator ernannt wird. Der Wert dieses Arguments ist Teil der
-     *                URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode bereitgestellt.
+     *                URL der REST Ressource und wird entsprechend von Spring extrahiert und der Methode
+     *                bereitgestellt.
      */
     @RequestMapping(
             method = RequestMethod.POST,

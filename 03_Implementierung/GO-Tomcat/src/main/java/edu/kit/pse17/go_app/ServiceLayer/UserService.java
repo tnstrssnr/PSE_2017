@@ -56,13 +56,10 @@ public class UserService implements IObservable {
         return userDao;
     }
 
-    public void setUserDao(UserDaoImp userDao) {
-        this.userDao = userDao;
-    }
-
     public List<Group> getData(String key, String email, String userName) {
         UserEntity user = userDao.get(key);
-        //user doesnt exist -- create and store in database
+
+        //Benutzer existiert nicht -- erstelle Objekt und speichere in Datenbank
         if (user == null) {
             user = new UserEntity();
             user.setUid(key);

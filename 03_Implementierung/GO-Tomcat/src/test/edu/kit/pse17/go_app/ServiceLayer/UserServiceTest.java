@@ -22,7 +22,6 @@ public class UserServiceTest {
     private UserService testService;
     private UserDaoImp mockUserDao;
     private List<Group> testList;
-    private User testcUser;
 
     @Before
     public void setUp() throws Exception {
@@ -36,7 +35,6 @@ public class UserServiceTest {
         Group listGroup = GroupService.groupEntityToGroup(TestData.getTestGroupFoo());
         GroupService.makeJsonable(listGroup);
         testList.add(listGroup);
-        testcUser = UserService.userEntityToUser(testUser);
     }
 
     @After
@@ -45,15 +43,6 @@ public class UserServiceTest {
         testUser = null;
         mockUserDao = null;
         testList = null;
-        testcUser = null;
-    }
-
-    @Test
-    public void editUserForJsonTest() throws Exception {
-        UserEntity alteredTestUser = addAssociationsToUser(testUser);
-
-        UserService.editUserForJson(alteredTestUser);
-        Assert.assertEquals(alteredTestUser, testUser);
     }
 
     @Test

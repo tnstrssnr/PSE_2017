@@ -58,6 +58,9 @@ public class Main extends SpringBootServletInitializer {
                 application.sources(Main.class);
     }
 
+    /*
+    Beans, die von Spring Boot für Dependency Injection verwendet werden
+     */
 
     @Bean
     public SessionFactory sessionFactory() {

@@ -21,11 +21,6 @@ public class RequestDeniedObserver implements Observer {
     private final FcmClient messenger;
     private GroupService groupService;
 
-    public RequestDeniedObserver(FcmClient messenger, GroupService groupService) {
-        this.messenger = messenger;
-        this.groupService = groupService;
-    }
-
     public RequestDeniedObserver(GroupService groupService) {
         this.groupService = groupService;
         this.messenger = new FcmClient();
@@ -43,7 +38,7 @@ public class RequestDeniedObserver implements Observer {
             receiver.add(usr);
         }
 
-        messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, group.getAdmins());
+        messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, receiver);
 
     }
 }

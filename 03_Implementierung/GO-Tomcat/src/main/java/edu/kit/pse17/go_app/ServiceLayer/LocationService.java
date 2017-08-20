@@ -1,8 +1,5 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +35,7 @@ public class LocationService {
      * kein passender Service gefunden wird. Die Erstellung der LocationService-Objekte findet ausschließlich in dieser
      * Klasse statt.
      */
-    private static Map<Long, LocationService> activeServices;
+    private static Map<Long, LocationService> activeServices = new HashMap<>();
 
     /**
      * Ein Clustering-Strategie, die den Algorithmus, der für das Clustering benutzt wird festlegt. Das Attribut ist
@@ -87,8 +84,8 @@ public class LocationService {
      * <p>
      * Bei einem Methodenaufruf wird aus der Liste der activeGos das richtige locationService Objekt ausgewählt und dort
      * die Liste der aktiven User zurückgesetzt und neu eingetragen. Da die User in regelmäßigen Abständen die
-     * getLocations abrufen ist gewährleistet, dass jeder User einen vollen Zeitintervall Zeit hat um seine Location zu setten.
-     * Sollte dieses Objekt in der Liste nicht existierten, wird es erzeugt und der Liste hinzugefügt.
+     * getLocations abrufen ist gewährleistet, dass jeder User einen vollen Zeitintervall Zeit hat um seine Location zu
+     * setten. Sollte dieses Objekt in der Liste nicht existierten, wird es erzeugt und der Liste hinzugefügt.
      * <p>
      * Sollte das Go in der Map activeGos nicht zu finden sein, wird ein neues LocationService-Objekt erzeugt und der
      * Map hinzugefügt.
@@ -105,7 +102,7 @@ public class LocationService {
     public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
 
         boolean validation = false;
-        int index  = 0;
+        int index = 0;
 
         if (LocationService.activeServices.get(goId) != null) {
 
@@ -122,9 +119,9 @@ public class LocationService {
             if (validation == false) {
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
-        }
-        else { LocationService.activeServices.put(goId, new LocationService());
-                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+        } else {
+            LocationService.activeServices.put(goId, new LocationService());
+            LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
         }
     }
 
@@ -150,11 +147,12 @@ public class LocationService {
     /**
      * Diese Methode bietet eine Möglichkeit ein Go aus der Liste der aktiven Gos zu löschen. Dabei wird diese Methode
      * vom GoRestController aufgerufen wenn ein Go gelöscht wird.
+     *
      * @param goId Die Id des zu löschenden Gos.
      */
 
     public static void removeGo(final long goId) {
-        if(LocationService.activeServices.get(goId) != null) {
+        if (LocationService.activeServices.get(goId) != null) {
             LocationService.activeServices.remove(goId);
         }
     }
@@ -163,11 +161,12 @@ public class LocationService {
      * Einzig und allein gedacht für Tests. activeServices ist eine private class auf die
      * niemand ausser der Klasse selbst Zugriff haben soll!
      * Fügt einen neues aktives Go der Liste hinzu.
-     * @param goId Id des hinzuzufügenden Gos.
+     *
+     * @param goId       Id des hinzuzufügenden Gos.
      * @param newService Gemappter LocationService.
      */
-    public void putGo(Long goId, LocationService newService) throws IOException{
-        if(LocationService.activeServices.get(goId) == null) {
+    public void putGo(Long goId, LocationService newService) throws IOException {
+        if (LocationService.activeServices.get(goId) == null) {
             LocationService.activeServices.put(goId, new LocationService());
         }
     }

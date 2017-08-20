@@ -29,7 +29,7 @@ public interface GroupDao extends AbstractDao<GroupEntity, Long> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void addGroupMember(String userId, long groupId) throws EntityNotFoundException;
+    void addGroupMember(String userId, long groupId) throws EntityNotFoundException;
 
     /**
      * Diese Methode entfernt eine Gruppenmitgliedschaftsanfrage aus der Datenbank. Sie wird aufgerufen, wenn ein
@@ -43,7 +43,7 @@ public interface GroupDao extends AbstractDao<GroupEntity, Long> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void removeGroupRequest(String userId, long groupId) throws EntityNotFoundException;
+    void removeGroupRequest(String userId, long groupId) throws EntityNotFoundException;
 
     /**
      * Mit dieser Methode lässt sich eine neue Gruppenanfrage in der Datenbank speichern. Sie muss also aufgerufen
@@ -60,7 +60,7 @@ public interface GroupDao extends AbstractDao<GroupEntity, Long> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void addGroupRequest(String userId, long groupId) throws EntityNotFoundException;
+    void addGroupRequest(String userId, long groupId) throws EntityNotFoundException;
 
     /**
      * Diese Methode entfernt ein Gruppenmitglied aus einer Gruppe. Sie wird aufgerufen, wenn entweder ein
@@ -80,7 +80,7 @@ public interface GroupDao extends AbstractDao<GroupEntity, Long> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void removeGroupMember(String userId, long groupId) throws EntityNotFoundException;
+    void removeGroupMember(String userId, long groupId) throws EntityNotFoundException;
 
 
     /**
@@ -98,6 +98,6 @@ public interface GroupDao extends AbstractDao<GroupEntity, Long> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void addAdmin(String userId, Long groupId) throws EntityNotFoundException;
+    void addAdmin(String userId, Long groupId) throws EntityNotFoundException;
 
 }

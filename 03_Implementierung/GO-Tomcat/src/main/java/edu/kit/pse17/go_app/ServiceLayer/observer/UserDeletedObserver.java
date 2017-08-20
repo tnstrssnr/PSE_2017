@@ -19,11 +19,6 @@ public class UserDeletedObserver implements Observer {
     private final FcmClient messenger;
     private UserService userService;
 
-    public UserDeletedObserver(FcmClient messenger, UserService userService) {
-        this.messenger = messenger;
-        this.userService = userService;
-    }
-
     public UserDeletedObserver(UserService userService) {
         this.messenger = new FcmClient();
         this.userService = userService;

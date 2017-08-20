@@ -2,7 +2,6 @@ package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
-import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public interface UserDao extends AbstractDao<UserEntity, String> {
      * @return Die Methode gibt das gefundene UserEntity Objekt zurück. Gibt es keinen Benutzer mit der übergegebenen
      * E-mailadresse, gibt die Methode null zurück.
      */
-    public UserEntity getUserByEmail(String mail);
+    UserEntity getUserByEmail(String mail);
 
     /**
      * Diese Methode gibt eine Liste mit allen Gruppen zurück, in denen der Benutzer Mitglied ist. Dies schließt Gruppen
@@ -36,7 +35,7 @@ public interface UserDao extends AbstractDao<UserEntity, String> {
      * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen
      * handelt es sich um vollständige, gültige GroupEntity Objekte.
      */
-    public Set<GroupEntity> getGroups(String userId);
+    Set<GroupEntity> getGroups(String userId);
 
     /**
      * Diese Methode gibt eine Liste von Gruppen zurück, zu denen der Benutzer eine Gruppenanfrage erhalten hat, die er
@@ -47,6 +46,6 @@ public interface UserDao extends AbstractDao<UserEntity, String> {
      * @return Eine Liste mit GroupEntites. Die Länge der Liste liegt zwischen 0 und 300. Bei allen Listenelementen
      * handelt es sich um vollständige, gültige GroupEntity Objekte.
      */
-    public Set<GroupEntity> getRequests(String userId);
+    Set<GroupEntity> getRequests(String userId);
 
 }
