@@ -31,6 +31,9 @@ public class GoRestController {
     @Autowired
     private GoService goService;
 
+    private LocationService masterLocationService;
+
+    //constructor used in test classes to inject mocked goService
     public GoRestController(GoService goService) {
         this.goService = goService;
     }
@@ -95,7 +98,7 @@ public class GoRestController {
             value = "/location/{goId}"
     )
     public ResponseEntity<List<Cluster>> getLocation(@PathVariable("goId") Long goId) {
-        return new ResponseEntity<>(LocationService.getGroupLocation(goId), HttpStatus.OK);
+        return new ResponseEntity<>(masterLocationService.getGroupLocation(goId), HttpStatus.OK);
     }
 
 
@@ -113,7 +116,7 @@ public class GoRestController {
         String userId = userLocation.getUserId();
         double lat = userLocation.getLat();
         double lon = userLocation.getLon();
-        LocationService.setUserLocation(goId, userId, lat, lon);
+        masterLocationService.setUserLocation(goId, userId, lat, lon);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -128,7 +131,7 @@ public class GoRestController {
     )
     public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
         goService.delete(goId);
-        LocationService.removeGo(goId);
+        masterLocationService.removeGo(goId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

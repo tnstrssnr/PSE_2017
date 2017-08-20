@@ -2,7 +2,6 @@ package edu.kit.pse17.go_app.repositories;
 
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +82,6 @@ public class GoRepository extends Repository<List<Go>>{
         parameters.put("userId", userId);
         //parameters.put("goId", Long.toString(goId));
         parameters.put("status", status.name());
-
         Call<Void> call = apiService.changeStatus(parameters,goId);
         call.enqueue(new Callback<Void>() {
 
@@ -182,7 +180,37 @@ public class GoRepository extends Repository<List<Go>>{
         parameters.put("latitude", Double.toString(lat));
         parameters.put("longitude", Double.toString(lon));
 
-        final Thread t = new Thread(new Runnable() {
+        Call<Void> sendLocation = apiService.setLocation(goId, new UserLocation(userId,lat, lon));
+        sendLocation.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+        Call<List<Cluster>> getLocation = apiService.getLocation(goId);
+        getLocation.enqueue(new Callback<List<Cluster>>() {
+            @Override
+            public void onResponse(Call<List<Cluster>> call, Response<List<Cluster>> response) {
+                go = data.getValue();
+                go.setLocations(response.body());
+                data.postValue(go);
+
+                GroupRepository groupRepo = GroupRepository.getInstance();
+                groupRepo.onLocationsUpdated(data);
+            }
+
+            @Override
+            public void onFailure(Call<List<Cluster>> call, Throwable t) {
+
+            }
+        });
+
+        /*final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 Call<Void> sendLocation = apiService.setLocation(goId, new UserLocation(userId,lat, lon));
@@ -199,7 +227,7 @@ public class GoRepository extends Repository<List<Go>>{
                 }
             }
         });
-        t.start();
+        t.start();*/
     }
 
 

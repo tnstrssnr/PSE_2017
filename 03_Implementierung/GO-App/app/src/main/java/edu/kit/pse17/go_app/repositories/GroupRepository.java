@@ -32,7 +32,7 @@ import retrofit2.Response;
  * (inclusive data of some GOs) and is the simple interface for fetching,
  * changing and deletion of data.
  * In the case of a request the Repository can fetch the data from server.
- *
+ * <p>
  * The Repository operate as a mediator between the local database and data
  * that the app from server obtain.
  * This Repository is also a singleton.
@@ -457,6 +457,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onAdminAdded(String userId, long groupId) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> oldList = group.getMembershipList();
@@ -464,13 +465,12 @@ public class GroupRepository extends Repository<List<Group>> {
                 for (GroupMembership member : oldList) {
                     if (member.getUser().getUid().equals(userId)) {
                         member.setAdmin(true);
-                        break;
+                        break outer;
                     }
                 }
 
                 List<GroupMembership> newList = oldList;
                 group.setMembershipList(newList);
-                break;
             }
         }
 
@@ -495,7 +495,11 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> membership = group.getMembershipList();
                 List<UserGoStatus> goParticipants = new ArrayList<>();
                 for (GroupMembership member : membership) {
-                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, Status.NOT_GOING);
+                    Status status = Status.NOT_GOING;
+                    if (member.getUser().getUid().equals(go.getOwner())) {
+                        status = Status.GOING;
+                    }
+                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, status);
                     goParticipants.add(participant);
                 }
                 newGo.setParticipantsList(goParticipants);
@@ -520,6 +524,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onGoEdited(Go go) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -535,13 +540,12 @@ public class GroupRepository extends Repository<List<Group>> {
                     old.add(newGo);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+                    break outer;
                 }
             }
 
             data.postValue(list);
             Log.d("GroupRepo", "Should call observer right now");
-            break;
         }
     }
 
@@ -554,6 +558,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onGoRemoved(long goId) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -562,12 +567,11 @@ public class GroupRepository extends Repository<List<Group>> {
                     old.remove(go);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+                    break outer;
                 }
             }
 
             data.postValue(list);
-            break;
         }
     }
 
@@ -638,7 +642,6 @@ public class GroupRepository extends Repository<List<Group>> {
         /*if (GroupListActivity.getUserId().equals(user.getUid())) {
             getGroupData(user.getUid(), groupId); // if added member
         }*/
-
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> old = group.getMembershipList();
@@ -674,6 +677,9 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onMemberRemoved(String userId, long groupId) {
         list = data.getValue();
+        ArrayList<Go> gosToBeDeleted = new ArrayList<>();
+        ArrayList<Group> groupsToBeDeleted = new ArrayList<>();
+
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> oldMembershipList = group.getMembershipList();
@@ -688,11 +694,10 @@ public class GroupRepository extends Repository<List<Group>> {
                     }
                 }
                 if (group.getMembershipList().size() == 0) {
-                    list.remove(group);
+                    groupsToBeDeleted.add(group);
                 }
 
                 List<Go> oldGoList = group.getCurrentGos();
-                ArrayList<Go> gosToBeDeleted = new ArrayList<>();
 
                 for (Go go : oldGoList) {
                     List<UserGoStatus> oldMemberList = go.getParticipantsList();
@@ -711,16 +716,20 @@ public class GroupRepository extends Repository<List<Group>> {
                     }
                 }
 
-                for (Go go : gosToBeDeleted) {
-                    //TODO GoRepository.getInstance().deleteGo(go.getId());
-                    oldGoList.remove(go);
-                    List<Go> newGoList = oldGoList;
-                    group.setCurrentGos(newGoList);
-                }
-
                 data.postValue(list);
-                break;
             }
+        }
+
+        for (Go go : gosToBeDeleted) {
+            GoRepository.getInstance().deleteGo(go.getId());
+            /*oldGoList.remove(go);
+            List<Go> newGoList = oldGoList;
+            group.setCurrentGos(newGoList);*/
+        }
+
+        for (Group group : groupsToBeDeleted) {
+            deleteGroup(group.getId());
+            //list.remove(group);
         }
     }
 
@@ -734,6 +743,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onRequestDenied(String userId, long groupId) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> old = group.getMembershipList();
@@ -745,12 +755,11 @@ public class GroupRepository extends Repository<List<Group>> {
                         old.remove(membership);
                         List<GroupMembership> newMemberList = old;
                         group.setMembershipList(newMemberList);
-                        break;
+                        break outer;
                     }
                 }
 
                 data.postValue(list);
-                break;
             }
         }
     }
@@ -768,6 +777,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onStatusChanged(String userId, long goId, int status) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -780,19 +790,16 @@ public class GroupRepository extends Repository<List<Group>> {
                             userStatus.setStatus(Status.values()[status]);
                             List<UserGoStatus> newStatusList = statusList;
                             go.setParticipantsList(newStatusList);
-                            break;
+                            break outer;
                         }
                     }
 
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
                 }
             }
-
-            data.postValue(list);
-            break;
         }
+        data.postValue(list);
     }
 
     /**
@@ -822,6 +829,7 @@ public class GroupRepository extends Repository<List<Group>> {
     public void onLocationsUpdated(GoLiveData goData) {
         list = data.getValue();
         Go go = goData.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -831,12 +839,11 @@ public class GroupRepository extends Repository<List<Group>> {
                     old.add(go);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+                    break outer;
                 }
             }
 
             data.postValue(list);
-            break;
         }
     }
 
@@ -973,7 +980,7 @@ public class GroupRepository extends Repository<List<Group>> {
         this.data = data;
     }
 
-    public void updateData(){
+    public void updateData() {
         getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 }
