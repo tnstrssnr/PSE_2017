@@ -42,8 +42,7 @@ public class GroupRepositoryTest {
         groupRepo = GroupRepository.getInstance();
         list = mockGroupData();
 
-        data = new GroupListLiveData();
-        groupRepo.setData(data);
+
 
         groupRepo.setList(list);
         /*data = mock(GroupListLiveData.class);

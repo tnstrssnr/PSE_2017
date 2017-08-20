@@ -457,7 +457,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onAdminAdded(String userId, long groupId) {
         list = data.getValue();
-        
+        outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> oldList = group.getMembershipList();
@@ -465,13 +465,12 @@ public class GroupRepository extends Repository<List<Group>> {
                 for (GroupMembership member : oldList) {
                     if (member.getUser().getUid().equals(userId)) {
                         member.setAdmin(true);
-                        break;
+                        break outer;
                     }
                 }
 
                 List<GroupMembership> newList = oldList;
                 group.setMembershipList(newList);
-                break;
             }
         }
 
@@ -525,6 +524,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onGoEdited(Go go) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -540,13 +540,12 @@ public class GroupRepository extends Repository<List<Group>> {
                     old.add(newGo);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+                    break outer;
                 }
             }
 
             data.postValue(list);
             Log.d("GroupRepo", "Should call observer right now");
-            break;
         }
     }
 
@@ -559,6 +558,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onGoRemoved(long goId) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -567,12 +567,11 @@ public class GroupRepository extends Repository<List<Group>> {
                     old.remove(go);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+                    break outer;
                 }
             }
 
             data.postValue(list);
-            break;
         }
     }
 
@@ -584,7 +583,6 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param group: New data of the group
      */
     public void onGroupEdited(Group group) {
-
         list = data.getValue();
         for (Group currentGroup : list) {
             if (group.getId() == currentGroup.getId()) {
@@ -644,7 +642,7 @@ public class GroupRepository extends Repository<List<Group>> {
         /*if (GroupListActivity.getUserId().equals(user.getUid())) {
             getGroupData(user.getUid(), groupId); // if added member
         }*/
-
+        outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> old = group.getMembershipList();
@@ -654,7 +652,7 @@ public class GroupRepository extends Repository<List<Group>> {
                         old.remove(member);
                         List<GroupMembership> newList = old;
                         group.setMembershipList(newList);
-                        break;
+                        break outer;
                     }
                 }
 
@@ -664,7 +662,6 @@ public class GroupRepository extends Repository<List<Group>> {
                 group.setMembershipList(newList);
 
                 data.postValue(list);
-                break;
             }
         }
     }
@@ -718,14 +715,14 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
 
                 for (Go go : gosToBeDeleted) {
-                    //TODO GoRepository.getInstance().deleteGo(go.getId());
-                    oldGoList.remove(go);
+                    GoRepository.getInstance().deleteGo(go.getId());
+                    /*oldGoList.remove(go);
                     List<Go> newGoList = oldGoList;
-                    group.setCurrentGos(newGoList);
+                    group.setCurrentGos(newGoList);*/
                 }
 
                 data.postValue(list);
-                break;
+                //break;
             }
         }
     }
@@ -740,6 +737,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onRequestDenied(String userId, long groupId) {
         list = data.getValue();
+        outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> old = group.getMembershipList();
@@ -751,12 +749,11 @@ public class GroupRepository extends Repository<List<Group>> {
                         old.remove(membership);
                         List<GroupMembership> newMemberList = old;
                         group.setMembershipList(newMemberList);
-                        break;
+                        break outer;
                     }
                 }
 
                 data.postValue(list);
-                break;
             }
         }
     }
@@ -794,7 +791,6 @@ public class GroupRepository extends Repository<List<Group>> {
 
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-
                 }
             }
         }
@@ -828,6 +824,7 @@ public class GroupRepository extends Repository<List<Group>> {
     public void onLocationsUpdated(GoLiveData goData) {
         list = data.getValue();
         Go go = goData.getValue();
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -837,12 +834,11 @@ public class GroupRepository extends Repository<List<Group>> {
                     old.add(go);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+                    break outer;
                 }
             }
 
             data.postValue(list);
-            break;
         }
     }
 
@@ -959,6 +955,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void setList(List<Group> list) {
         this.list = list;
+        data = new GroupListLiveData();
         data.postValue(this.list);
     }
 
