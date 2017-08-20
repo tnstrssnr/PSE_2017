@@ -13,8 +13,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * realizes the communication w/ the Firebase Cloud Messaging Server to allow sending messages from the server to the
- * clients. Methods of this class are invoked by the observers
+ * Realisiert die Kommunikation mit dem Firebase Cloud Messaging Server um das Senden von Nachrichten vom Server zum Client zu erlauben.
+ * Methoden dieser Klasse werden durch die Observer aufgerufen.
+ *
  */
 public class FcmClient {
 
@@ -39,12 +40,12 @@ public class FcmClient {
     }
 
     /**
-     * sends request to FCM server. The user then receives the Json-String specified in data.
+     * Sendet Anfragen an den FCM Server. Der User erhält dann den Json-String angegeben in data.
      *
-     * @param data     Json-String w/ data that sould be sent to the user
-     * @param command  EventArg-String, that specifies the event, wich triggered this method call -- allows user to
-     *                 correctly handle the data received in the message
-     * @param receiver List of all instanceIds of the users that are supposed to receive the message
+     * @param data Json-String mit Daten die zum User gesendet werden sollten
+     * @param command EventArg-String, welcher das Event spezifiziert, das diesen Methodenaufruf aufgerufen hat.
+     *                --Erluabt dem User, der diese Nachricht empfangen hat, die Daten richtig zu handhaben.
+     * @param receiver Liste aller insatnceIds der User welche die Nachricht empfangen sollen
      */
 
     public void send(String data, EventArg command, Set<UserEntity> receiver) {

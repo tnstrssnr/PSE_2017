@@ -12,6 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo Gruppenanfragen abgelehnt werden.
+ */
+
 public class RequestDeniedObserver implements Observer {
 
     private final FcmClient messenger;

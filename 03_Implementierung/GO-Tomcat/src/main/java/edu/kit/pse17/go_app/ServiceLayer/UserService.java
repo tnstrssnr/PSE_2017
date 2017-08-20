@@ -1,6 +1,10 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 
+/**
+ * Diese Klasse handhabt alle Observerfunktion in Bezug auf UserDaos. Für mehr Information siehe Interface IObservable.
+ */
+
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;

@@ -6,6 +6,10 @@ import org.apache.poi.sl.draw.Drawable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Group-Klasse beschreibt die Gruppen-Objekte, was es uns erlaubt sämtliche potentielle Information zu den Gruppen zusammenzufassen.
+ */
+
 public class Group {
 
     @SerializedName("groupId")

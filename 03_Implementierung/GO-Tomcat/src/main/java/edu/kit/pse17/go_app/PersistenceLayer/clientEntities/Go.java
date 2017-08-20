@@ -6,6 +6,10 @@ import edu.kit.pse17.go_app.ServiceLayer.Cluster;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Go-Klasse beschreibt die Go-Objekte, welche es uns erlauben sämtliche potentiellen Information zu einem Go zusammenzufassen.
+ */
+
 public class Go {
 
     @SerializedName("goId")
@@ -64,6 +68,7 @@ public class Go {
         this.participantsList = new ArrayList<>();
         this.locations = new ArrayList<>();
     }
+
 
     public long getId() {
         return id;
@@ -145,6 +150,13 @@ public class Go {
         this.participantsList = participantsList;
     }
 
+    /**
+     * Getter für den Status eines Users im Bezug zu einem Go. Man geht davon aus, dass die Methode nur für Mitglieder
+     * eines Gos aufgerufen wird.
+     * @param userId Id des zu prüfenden Users.
+     * @return Gibt den Status des Nutzers wieder.
+     */
+
     public UserGoStatus getStatus(String userId) {
         for (UserGoStatus status : participantsList) {
             if (status.getUser().getUid().equals(userId)) {
@@ -167,9 +179,7 @@ public class Go {
         return locations;
     }
 
-    public void setLocations(List<Cluster> locations) {
-        this.locations = locations;
-    }
+    public void setLocations(List<Cluster> locations) { this.locations = locations; }
 
     public String getOwnerId() {
         return ownerId;

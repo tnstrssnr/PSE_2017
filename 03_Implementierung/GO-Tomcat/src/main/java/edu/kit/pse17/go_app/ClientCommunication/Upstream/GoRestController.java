@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * RestController class for Rest resources pertaining to Go functionality. All return values in this class are wrapped
- * in a responseEntity-object, containing a Http-StatusCode and the return data in its body formatted as a Json-String,
- * using Gson.
+ * RestController Klasse für Rest Ressourcen in Bezug zu Go Funktionalitäten. Alle Rückgabewerte in dieser Klasse sind in einem
+ * responseEntity-Objekt umfasst, HTTP-StatusCode und die Rückgabedaten beinhaltend in seinem Aufbau, formattiert als Json-String, Gson benutzend.
+ *
  */
 
 @RestController
@@ -41,12 +41,13 @@ public class GoRestController {
     }
 
     /**
-     * A call to this method makes the server persist the supplied Go object
+     * Ein Aufruf dieser Methode lässt den Server das gegebene Go-Objekt persistieren.
      *
-     * @param go the go that should be persisted. It should be transferred in the request-body of the POST Request as a
-     *           Json-String. The program uses Gson to parse the Json to a GoEntity object. The ID value of the
-     *           transferred Go is ignored, Hibernate will assign an new ID, based on the current database state.
-     * @return The ID of the GO under which it is stored in the database.
+     * @param go Das Go, das persistiert werden soll. Es sollte im Request-body des POST-Request, als Json-String, transferiert werden.
+     *           Das Programm benutzt Gson um Json zu einem GoEntity-Objekt zu parsen.
+     *           Der Id-Wert des transferierten Gos ist ignoriert;
+     *           Hibernate gibt ihm eine neue ID abhängig von seinem momentanen Status in der Datenbank.
+     * @return Die Id des Gos, unter welcher es in der Datenbank gespeichert ist.
      */
     @RequestMapping(
             method = RequestMethod.POST,
@@ -61,13 +62,13 @@ public class GoRestController {
     }
 
     /**
-     * A call to this method changes the status of the user in the specified go.
+     * Ein Aufruf dieser Methode ändert den Status des Users im angegebenen Go.
      *
-     * @param goId                The ID of the affected go. This parameter is specified in the URI of this Rest
-     *                            resource
-     * @param statusChangeContext a String that specifies the context of the status change, formatted in the following
-     *                            way: "{userId} {newStatus}", where userId is the ID of the user changing their status
-     *                            and newStatus is the new status of the user (either "GOING", "NOT_GOING" or "GONE")
+     * @param goId Die Id des betroffenen Gos. Dieser Parameter is spezifiziert in der URI der Rest Ressource.
+     * @param statusChangeContext Ein String, das den Kontext des  Statuswechsels spezifiziert, formattiert wie folgt:
+     *                            "{userId}{newStatus}", wobei userId die Id des Users ist, welcher seinen Status ändert,
+     *                            und newStatus der neue Status des Users ist (entweder "GOING", "NOT_GOING" oder "GONE").
+     *
      */
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -84,11 +85,11 @@ public class GoRestController {
     }
 
     /**
-     * A call to this method returns the current location-clusters of the go
+     * Ein Aufruf dieser Methode gibt die momentanen Location-Cluster des Gos wieder.
      *
-     * @param goId the ID of the go, whose location-clusters should be returned. This parameter is specified in the URI
-     *             of this Rest resource
-     * @return the location clusters of the Go, as calculated by the currently used ClusterStrategy
+     * @param goId Die Id des Gos, wessen Location-Cluster wiedergegeben werden sollen. Dieser Parameter ist in der URI der Rest-Ressource spezifiziert.
+     * @return Die Location-Cluster des Gos, berechnet anhand der momentanen Clustering Strategy.
+     *
      */
     @RequestMapping(
             method = RequestMethod.GET,
@@ -100,10 +101,11 @@ public class GoRestController {
 
 
     /**
-     * A call to this method will save the supplied location of the user to the UserLocation object of the group
+     * Ein Aufruf  dieser Methode speichert die gegebene Location des Users zum UserLocation-Objekt der Gruppe.
      *
-     * @param goId         ID of the affected go. This parameter is specified in the URI of this Rest resource
-     * @param userLocation A UserLocation object that contains the current location of the user
+     * @param goId Die Id des betroffenen Gos.
+     * @param userLocation Ein UserLocation-Objekt, das den momentanen Aufenthaltorts des Users beinhaltet.
+     *
      */
     @RequestMapping(
             method = RequestMethod.PUT,
@@ -118,7 +120,7 @@ public class GoRestController {
     }
 
     /**
-     * A call to this method will delete the specified go
+     * Ein Aufruf dieser Methode führt zum löschen des Gos, welches der Id entspricht.
      *
      * @param goId Id of the Go to be deleted. This parameter is specified in the URI of this Rest resource
      */

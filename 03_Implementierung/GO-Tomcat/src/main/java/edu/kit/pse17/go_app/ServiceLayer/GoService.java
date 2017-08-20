@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Diese Klasse handhabt alle Observerfunktion in Bezug auf GoDaos. Für mehr Information siehe Interface IObservable.
+ */
+
 @Service
 public class GoService implements IObservable {
 
@@ -210,6 +214,10 @@ public class GoService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(go.getId()));
         notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
+    }
+
+    public GoEntity getGoById(long id) {
+        return goDao.get(id);
     }
 
     @Override

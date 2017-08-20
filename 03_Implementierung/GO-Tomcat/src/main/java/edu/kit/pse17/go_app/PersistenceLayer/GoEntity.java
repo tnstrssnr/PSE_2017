@@ -20,7 +20,7 @@ import java.util.Set;
 public class GoEntity {
 
     /**
-     * Eine global eindeutige Nummer, anhand derer ein Go-Ovjekt eindeutig identifiziert werden kann. Die ID ist eine
+     * Eine global eindeutige Nummer, anhand derer ein Go-Objekt eindeutig identifiziert werden kann. Die Id ist eine
      * positive ganze Zahl im Wertebereich des Datentyps long. Nach Erzeugung des Objekts kann sie bis zu seiner
      * Zerstörung nicht verändert werden.
      */
@@ -30,8 +30,8 @@ public class GoEntity {
     private long ID;
 
     /**
-     * Die ID der Gruppe, in der dieses GO angelegt wurde.
-     * Es muss sich dabei um eine gültige Gruppen-ID handeln.
+     * Die Id der Gruppe, in der dieses Go angelegt wurde.
+     * Es muss sich dabei um eine gültige Gruppen-Id handeln.
      * <p>
      * Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.
      */
@@ -41,7 +41,7 @@ public class GoEntity {
 
 
     /**
-     * Die userId des Benutzer der das GO erstellt hat und somit der Go-Verantwortliche ist.
+     * Die userId des Benutzer der das Go erstellt hat und somit der Go-Verantwortliche ist.
      * Es muss sich dabei um eine gültige Userid handeln.
      * <p>
      * Nach Erzeugung der Entity ist der Wert dieser Variable nicht mehr veränderbar.
@@ -51,47 +51,47 @@ public class GoEntity {
     private UserEntity owner;
 
     /**
-     * Der Name des GOs. Dieser muss nicht eindeutig sein. Es handelt sich dabei um einen String, der weniger als 50
-     * Zeichen enthält. Der Name eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind
+     * Der Name des Gos. Dieser muss nicht eindeutig sein. Es handelt sich dabei um einen String, der weniger als 50
+     * Zeichen enthält. Der Name eines Gos kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind
      * entsprechende Methoden zu implementieren. Generiert wird die Id automatisch bei der Persistierung des
-     * Entity-Objekts in der Datenbank. Dadurch ist die Eindeutigkeit der ID garantiert.
+     * Entity-Objekts in der Datenbank. Dadurch ist die Eindeutigkeit der Id garantiert.
      */
     @Column(name = "name")
     private String name;
 
     /**
-     * Eine textuelle Ebschreibung des GOs. Diese muss nicht eindeutig sein. Es handelt sich dabei um einen String, der
-     * weniger als 140 Zeichen enthält. Die Beschreibung eines GOs kann nachträglich (nach Erzeugung des Objekts)
+     * Eine textuelle Beschreibung des Gos. Diese muss nicht eindeutig sein. Es handelt sich dabei um einen String, der
+     * weniger als 140 Zeichen enthält. Die Beschreibung eines Gos kann nachträglich (nach Erzeugung des Objekts)
      * geändert werden, es sind entsprechende Methoden zu implementieren.
      */
     @Column(name = "description")
     private String description;
 
     /**
-     * Der Startzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestartet wird. Dabei darf
+     * Der Startzeitpunkt des Gos. Er bestimmt ab wann die Standortverfolgung bei einem Go gestartet wird. Dabei darf
      * der zeitpunkt bei der Zuweisung der Variable nicht in der Vergangenheit befinden.
      * <p>
-     * Der Startzeitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind
+     * Der Startzeitpunkt eines Gos kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind
      * entsprechende Methoden zu implementieren.
      */
     @Column(name = "start")
     private String start;
 
     /**
-     * Der Endzeitpunkt des GOs. Er bestimmt ab wann die Standortverfolgung bei einem GO gestoppt wird. Dabei darf der
+     * Der Endzeitpunkt des Gos. Er bestimmt ab wann die Standortverfolgung bei einem Go gestoppt wird. Dabei darf der
      * Zeitpunkt nie vor dem Startzeitpunkt befinden.
      * <p>
-     * Der Endzwitpunkt eines GOs kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende
+     * Der Endzeitpunkt eines Gos kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende
      * Methoden zu implementieren.
      */
     @Column(name = "end")
     private String end;
 
     /**
-     * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Breitengrad des Zielorts
+     * Falls es einen Zielort für das Go gibt, wird in diesem Feld der geographische Breitengrad des Zielorts
      * gespeichert. Der Wert muss als Breitengrad interpretierbar sein, muss also zwischen +90 und -90 liegen.
      * <p>
-     * Wurde kein Zielort für das GO bestimmt, kann der Wert dieses Feldes auch null sein.
+     * Wurde kein Zielort für das Gop bestimmt, kann der Wert dieses Feldes auch null sein.
      * <p>
      * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu
      * implementieren.
@@ -100,10 +100,10 @@ public class GoEntity {
     private double lat;
 
     /**
-     * Falls es einen Zielort für das GO gibt, wird in diesem Feld der geografische Längengrad des Zielorts gespeichert.
+     * Falls es einen Zielort für das Go gibt, wird in diesem Feld der geographische Längengrad des Zielorts gespeichert.
      * Der Wert muss als Längengrad interpretierbar sein, muss also zwischen +180 und -180 liegen.
      * <p>
-     * Wurde kein Zielort für das GO bestimmt, kann der Wert dieses Feldes auch null sein.
+     * Wurde kein Zielort für das Go bestimmt, kann der Wert dieses Feldes auch null sein.
      * <p>
      * Der Wert kann nachträglich (nach Erzeugung des Objekts) geändert werden, es sind entsprechende Methoden zu
      * implementieren.
@@ -112,17 +112,17 @@ public class GoEntity {
     private double lon;
 
     /**
-     * Eine Map mit allen Teilnehmern des GOs, um ihnen ihren Teilnahmestatus zuzuweisen.
+     * Eine Map mit allen Teilnehmern des Gos, um ihnen ihren Teilnahmestatus zuzuweisen.
      * <p>
-     * Bei Erzeugung eines Objekts dieser Klasse wird dem GO-Verantwortlichen automatisch der Status BESTÄTIGT
-     * zugewiesen, allen anderen Gruppenmitgliedern der Status ABGELEHNT. . Es besteht keine Abhängigkeit dieser Liste
+     * Bei Erzeugung eines Objekts dieser Klasse wird dem Go-Verantwortlichen automatisch der Status GOING
+     * zugewiesen, allen anderen Gruppenmitgliedern der Status NOT_GOING. . Es besteht keine Abhängigkeit dieser Liste
      * zur LocationService-Klasse oder anderen Klassen, die von LocationService benutzt werden.
      * <p>
-     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das GO erstellt wurde. Jedes
-     * Mitglied der Gruppe des GOs muss in der liste enthalten sein.
+     * Es dürfen nur Benutzer Teil dieser Liste sein, die auch Teil der Gruppe sind, in der das Go erstellt wurde. Jedes
+     * Mitglied der Gruppe des Gos muss in der Liste enthalten sein.
      * <p>
-     * Diese Liste ist veränderlich, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der
-     * Liste hinzufügen und Entfernen zu können.
+     * Diese Liste ist veränderbar, es müssen also entsprechende Methoden implementioert werden, um Objekte zu der
+     * Liste hinzuzufügen und entfernen zu können.
      */
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

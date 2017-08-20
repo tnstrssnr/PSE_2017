@@ -1,8 +1,7 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
 /**
- * Enum to identify the different Events that trigger a notification to one of the observers. Each enum value is
- * associated w/ an observer.
+ * Enum um die verschiedenen Events die ein Signal zu den Observern auslösen. Jeder Enum Wert ist zugerhörig zu einem Observer.
  */
 public enum EventArg {
 

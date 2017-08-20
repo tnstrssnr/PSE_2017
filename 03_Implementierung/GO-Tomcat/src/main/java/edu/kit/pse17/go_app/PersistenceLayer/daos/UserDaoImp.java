@@ -30,14 +30,14 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
-     * Datenbank kommunizieren kann und dort die Änderungen vorhnehmen. Das Attribut ist mit "@Autowired" annotiert,
+     * Datenbank kommunizieren kann und dort die Änderungen vornehmen. Das Attribut ist mit "@Autowired" annotiert,
      * damit es automatisch mit einem gültigen Objekt instanziiert wird.
      * <p>
      * Aud dieses Feld darf nur innerhalb dieser Klasse zugegriffen werden. nach der Instanzizerung ist diese Objekt
      * unveränderbar und bleibt bestehen, bis die Instanz dieser klasse wieder zerstört wird.
      * <p>
      * Diese Klasse implementiert darüber hinaus das Interface IObservable. Das heißt die Klasse besitzt Beobachter, die
-     * bei Ändeurngen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
+     * bei Änderungen des Datenbestands benachrichtigt werden müssen. Als Teil des Beobachter-Entwurfsmusters übernimmt
      * diese Klasse die Rolle des konkreten Subjekts.
      */
 
@@ -59,7 +59,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     /**
      * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
      *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.
-     * @return Das gefundene UserEtity_objekt aus der Datenbank. Wurde kein passender user gefunden gibt diese Methode
+     * @return Das gefundene UserEntity-Objekt aus der Datenbank. Wurde kein passender user gefunden gibt diese Methode
      * null zurück.
      */
     @Override
@@ -88,8 +88,9 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     }
 
     /**
-     * @param userId Die ID des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
-     *               beim Aufruf der Methode um eine gültige userid handelt.
+     * Diese Methode dient dazu sämtliche Gruppen wiederzugeben in denen ein bestimmter Nutzer Mitglied ist.
+     * @param userId Die Id des Benutzers, dessen Gruppen zurückgegeben werden sollen. Es wird garantiert, dass es sich
+     *               beim Aufruf der Methode um eine gültige userId handelt.
      * @return Ein Set mit allen Gruppen, in denen der Benutzer Mitglied ist.
      */
     @Override
@@ -99,9 +100,10 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     }
 
     /**
-     * @param userId Die ID des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
-     *               es sich beim Aufruf der Methode um eine gültige userid handelt.
-     * @return Ein Set mit allen Gruppen zu denen der Benutzer mit der ID "userId" eine Gruppenanfrage bekommen hat. In
+     * Diese Methode dient dazu sämtliche Gruppenanfragen eines bestimmten Nutzers wiederzugeben.
+     * @param userId Die Id des Benutzers, dessen Gruppenanfragen zurückgegeben werden sollen. Es wird garantiert, dass
+     *               es sich beim Aufruf der Methode um eine gültige userId handelt.
+     * @return Ein Set mit allen Gruppen zu denen der Benutzer mit der Id "userId" eine Gruppenanfrage bekommen hat. In
      * keinen dieser Gruppen ist der Benutzer bereits Mitglied.
      */
     @Override
@@ -111,9 +113,10 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     }
 
     /**
+     * Diese Methode dient dem wiedergeben einer UserEntity anhand ihrer Id.
      * @param key Der Primärschlüssel der Entity, die aus der Datenbank geholt werden soll. Der Datentyp wird von dem
      *            Generic PK bestimmt, mit dem das Interface implementiert wird.
-     * @return Der Benutzer mit der ID "key". Gibt null zurück, falls kein passender Benutzer in der Datenbank gefunden
+     * @return Der Benutzer mit der Id "key". Gibt null zurück, falls kein passender Benutzer in der Datenbank gefunden
      * wurde.
      */
     @Override
@@ -144,8 +147,9 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     }
 
     /**
+     * Dieser Methodenaufruf  wird dazu genutzt um eine UserEntity in der Datenbank zu speichern.
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das
-     *               Objekt, welches der Methode
+     *               Objekt, welches der Methode gegeben wird ein legales Objekt ist.
      */
     @Override
     public String persist(final UserEntity entity) {
@@ -171,6 +175,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     }
 
     /**
+     * Diese Methode wird zum löschen einer Entity aus der Datenbank genutzt.
      * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird
      *            durch das Generic PK bei der Implementierung der Klasse spezifiziert.
      */
@@ -218,8 +223,9 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     }
 
     /**
+     * Diese Methode wird aufgerufen wenn eine GroupEntity mit neuen Daten geupdatet wurde.
      * @param userEntity Die Entity des Users, der geändert werden soll. Dabei muss es sich um eine vorhandene Entity
-     *                   handeln, ansonsten schlägt ide Ausführung der Methode fehl.
+     *                   handeln, ansonsten schlägt die Ausführung der Methode fehl.
      */
     @Override
     public void update(final UserEntity userEntity) {

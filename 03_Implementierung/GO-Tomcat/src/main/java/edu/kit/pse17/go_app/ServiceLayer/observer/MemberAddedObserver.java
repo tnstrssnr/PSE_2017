@@ -14,6 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt wo ein Gruppenmitglied einer Gruppe hinzugefügt wird.
+ */
+
 public class MemberAddedObserver implements Observer {
 
     private final FcmClient messenger;

@@ -15,15 +15,15 @@ import edu.kit.pse17.go_app.PersistenceLayer.Status;
 public interface GoDao extends AbstractDao<GoEntity, Long> {
 
     /**
-     * Mit dieser Methode wird der Teilnahmestatus eines GO-Teilnehnmers geändert. Der Status kann entweder "ABGELEHNT",
-     * "BESTÄTIGT", oder "UNTERWEGS" lauten.
+     * Mit dieser Methode wird der Teilnahmestatus eines Go-Teilnehnmers geändert. Der Status kann entweder "NOT_GOING",
+     * "GOING", oder "GONE" lauten.
      * <p>
      * Vor dem Aufruf der Methode muss sichergestellt werden, dass es sich bei dem Benutzer um ein Mitglied der Gruppe
      * handelt und die Statusänderung die vorgenommen werden soll legal ist.
      *
-     * @param userId Die ID des Benutzers, dessen Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine
+     * @param userId Die Id des Benutzers, dessen Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine
      *               gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
-     * @param goId   Die des GOs, für den der Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine
+     * @param goId   Die des Gos, für den der Teilnahmestatus geändert werden soll. Dabei handelt es sich um eine
      *               gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
      * @param status Der neue Status des Benutzers.
      */

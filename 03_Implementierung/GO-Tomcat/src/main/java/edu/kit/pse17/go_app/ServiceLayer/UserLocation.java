@@ -8,8 +8,8 @@ package edu.kit.pse17.go_app.ServiceLayer;
 public class UserLocation {
 
     /**
-     * Die ID des Benutzers, um dessen Standort es sich handelt. Es handelt sich um eine gültige Benutzer-ID, die von
-     * anderen Klassen der anwendung erkannt werden kann.
+     * Die Id des Benutzers, um dessen Standort es sich handelt. Es handelt sich um eine gültige Benutzer-Id, die von
+     * anderen Klassen der Anwendung erkannt werden kann.
      */
     private String userId;
 
@@ -28,8 +28,8 @@ public class UserLocation {
     /**
      * Ein Konstruktor, der sämtliche Attribute der Klasse als Argumente entgegennimmt und daraus ein Objekt erzeugt.
      *
-     * @param userId Die ID des Benutzers, um dessen Standort es sich handelt. Es handelt sich um eine gültige
-     *               Benutzer-ID, die von anderen Klassen der anwendung erkannt werden kann.
+     * @param userId Die Id des Benutzers, um dessen Standort es sich handelt. Es handelt sich um eine gültige
+     *               Benutzer-Id, die von anderen Klassen der Anwendung erkannt werden kann.
      * @param lat    Der geographische Breitengrad des Standorts des Benutzers. Der Wert muss als Breitengrad
      *               interpretierbar sein, muss also zwischen +90 und -90 liegen.
      * @param lon    Der geographische Längengrad des Standorts des Benutzers. Der Wert muss als Längengrad

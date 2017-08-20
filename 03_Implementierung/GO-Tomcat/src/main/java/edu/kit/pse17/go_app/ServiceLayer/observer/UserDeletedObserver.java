@@ -10,6 +10,10 @@ import org.json.simple.JSONObject;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt Fälle wo User entfernt werden.
+ */
+
 public class UserDeletedObserver implements Observer {
 
     private final FcmClient messenger;
