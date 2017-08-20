@@ -42,14 +42,20 @@ public class GroupService implements IObservable {
 
     public static void makeJsonable(Group group) {
         List<GroupMembership> jsonAbleList = new ArrayList<>();
+
+        if (group.getMembershipList() == null) {
+            group.setMembershipList(new ArrayList<>());
+        }
+
         for (GroupMembership groupMembership : group.getMembershipList()) {
-            jsonAbleList.add(new GroupMembership(groupMembership.getUser(), null, groupMembership.isAdmin(), groupMembership.isRequest()));
+            jsonAbleList.add(new GroupMembership(groupMembership.getUser(), new Group(group.getId(), group.getName(), group.getDescription(), 0, null, new ArrayList<>(), new ArrayList<>()), groupMembership.isAdmin(), groupMembership.isRequest()));
             //makeJsonable(groupMembership);
         }
         group.setMembershipList(jsonAbleList);
-        System.out.println(group.getMembershipList().size());
+
         for (Go go : group.getCurrentGos()) {
             GoService.makeJsonable(go, false);
+            go.setGroup(new Group(group.getId(), group.getName(), group.getDescription(), group.getMemberCount(), null, new ArrayList<>(), new ArrayList<>()));
         }
     }
 
@@ -83,7 +89,7 @@ public class GroupService implements IObservable {
         group.setDescription(groupEntity.getDescription());
         group.setIcon(null);
         group.setId(groupEntity.getID());
-        group.setMemberCount(groupEntity.getMembers().size());
+        //group.setMemberCount(groupEntity.getMembers().size());
 
         List<GroupMembership> groupMemberships = new ArrayList<>();
         for (UserEntity member : groupEntity.getMembers()) {
@@ -101,9 +107,7 @@ public class GroupService implements IObservable {
         for (UserEntity usr : groupEntity.getRequests()) {
             groupMemberships.add(new GroupMembership(UserService.userEntityToUser(usr), group, false, true));
         }
-        System.out.println("test1" + String.valueOf(groupMemberships.size()));
         group.setMembershipList(groupMemberships);
-        System.out.println("test2" + String.valueOf(group.getMembershipList()));
 
         List<Go> gos = new ArrayList<>();
         for (GoEntity goEntity : groupEntity.getGos()) {
@@ -114,6 +118,14 @@ public class GroupService implements IObservable {
         group.setCurrentGos(gos);
 
         return group;
+    }
+
+    public UserDaoImp getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDaoImp userDao) {
+        this.userDao = userDao;
     }
 
     private void registerAll() {
@@ -185,19 +197,27 @@ public class GroupService implements IObservable {
         notify(EventArg.MEMBER_ADDED_EVENT, this, entity_ids);
     }
 
-    public void removeGroupMember(String userId, long groupid) {
-        groupDao.removeGroupMember(userId, groupid);
-        List<String> entity_ids = new ArrayList<>();
-        entity_ids.add(userId);
-        entity_ids.add(String.valueOf(groupid));
-        notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids);
+    public void removeGroupMember(String email, long groupid) {
+        UserEntity userToRemove = userDao.getUserByEmail(email + ".com");
+        if (userToRemove != null) { //user gefunden
+            String userId = userToRemove.getUid();
+            groupDao.removeGroupMember(userId, groupid);
+            List<String> entity_ids = new ArrayList<>();
+            entity_ids.add(userId);
+            entity_ids.add(String.valueOf(groupid));
+            notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids);
+        }
     }
 
     public boolean addGroupRequest(String email, Long groupId) {
-        User user = new UserService(new UserDaoImp(groupDao.getSf())).getUserbyMail(email + ".com");
-        if (user == null) {
+        UserEntity userEntity = userDao.getUserByEmail(email + ".com");
+        User user;
+        if (userEntity != null) {
+            user = UserService.userEntityToUser(userEntity);
+        } else {
             return false;
         }
+
         String userId = user.getUid();
         groupDao.addGroupRequest(userId, groupId);
         List<String> entity_ids = new ArrayList<>();
@@ -212,7 +232,7 @@ public class GroupService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
-        notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids);
+        //notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids);
     }
 
     public void addAdmin(String userId, long groupId) {

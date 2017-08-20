@@ -1,9 +1,9 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-import edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestController;
 import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,15 +46,6 @@ public class LocationService {
      */
     private final ClusterStrategy strat;
     /**
-     * Eine Zählvariable, um sich zu merken, wie viele neue Locations übermittlet wurden, set das letzte Mal die
-     * groupLocation des GOs berechnet wurde. Die Berechnung findet nur statt, wenn diese Variable einen Wert größer als
-     * 5 hat. Danach wird der Zähler wieder auf 0 gesetzt.
-     * <p>
-     * Sämtliche Manipulationen an diesem Attribut finden innerhalb dieser Klasse statt. NAch außen hin sit diese
-     * Variable nicht sichtbar und insbesondere nicht veränderbar.
-     */
-    private int newLocationCounter;
-    /**
      * Eine Zählvariable, um sich zu merken, wie viele verschiedene Benutzer bereits ihren Standort geteilt haben. Ist
      * diese Zahl kleienr als 3, so wird keine groupLocation berechnet. Dies dient der Anonymisierung der einzelnen
      * Benutzer, was bei einer Anzahl von UserLocations kleiner als 3 nicht mehr garantiert werden kann.
@@ -70,6 +61,15 @@ public class LocationService {
      * Clustering für den input "activeUsers" Die Länge der Liste liegt zwischen 0 und 50 Cluster-Objekten.
      */
     List<Cluster> groupLocation;
+    /**
+     * Eine Zählvariable, um sich zu merken, wie viele neue Locations übermittlet wurden, set das letzte Mal die
+     * groupLocation des GOs berechnet wurde. Die Berechnung findet nur statt, wenn diese Variable einen Wert größer als
+     * 5 hat. Danach wird der Zähler wieder auf 0 gesetzt.
+     * <p>
+     * Sämtliche Manipulationen an diesem Attribut finden innerhalb dieser Klasse statt. NAch außen hin sit diese
+     * Variable nicht sichtbar und insbesondere nicht veränderbar.
+     */
+    private int newLocationCounter;
 
     /**
      * Der einzige Konstruktor diser Klasse nimmt eine Go-Entity entgegen. Sämtliche Attribute werden nur innerhalb
@@ -126,9 +126,10 @@ public class LocationService {
             if (validation == false) {
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
+        } else {
+            LocationService.activeServices.put(goId, new LocationService(new GoService().getGoById(goId)));
         }
-
-        else { LocationService.activeServices.put(goId, new LocationService(GoService.getGoById(goId))); };
+        ;
     }
 
     /**
@@ -156,10 +157,15 @@ public class LocationService {
         return LocationService.activeServices.get(goId).groupLocation;
     }
 
-    public static void removeGo(final long goId) {
-        if(LocationService.activeServices.get(goId) != null) {
-            LocationService.activeServices.remove(goId);
+    public static boolean removeGo(final long goId) {
+        if (activeServices == null) {
+            activeServices = new HashMap<>();
         }
+        if (LocationService.activeServices.get(goId) != null) {
+            LocationService.activeServices.remove(goId);
+            return true;
+        }
+        return false;
     }
 
 

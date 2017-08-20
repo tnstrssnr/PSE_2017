@@ -88,7 +88,6 @@ public class UserRestController {
     )
     public ResponseEntity<List<Group>> getData(@PathVariable("userId") final String userId, @PathVariable("email") final String email, @PathVariable("userName") String userName) {
         List<Group> data = userService.getData(userId, email, userName);
-
         if (data == null || data.size() == 0) {
 
             data = new ArrayList<>();

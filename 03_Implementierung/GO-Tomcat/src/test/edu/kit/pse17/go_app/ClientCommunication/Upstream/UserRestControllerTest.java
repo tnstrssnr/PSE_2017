@@ -35,8 +35,8 @@ import static org.mockito.Mockito.times;
 public class UserRestControllerTest {
 
     private static final String testUserJson = "{\"uid\":\"testid_1\",\"instanceId\":\"testInstance_1\",\"name\":\"Bob\",\"email\":\"bob@testmail.com\",\"groups\":[],\"requests\":[],\"gos\":[]}";
-    private static final String testListString = "[{\"id\":1,\"name\":\"Bar\",\"description\":\"Test Description\",\"memberCount\":1,\"currentGos\":[]},{\"id\":0,\"name\":\"Foo\",\"description\":\"Test Descritpion\",\"memberCount\":2,\"currentGos\":[{\"id\":1,\"name\":\"lunch\",\"description\":\"test description\",\"start\":\"Thu Aug 30 00:00:00 CEST 3917\",\"end\":\"Sat Sep 01 00:00:00 CEST 3917\",\"desLat\":0.0,\"desLon\":0.0,\"ownerId\":\"testid_1\",\"ownerName\":\"Bob\"},{\"id\":2,\"name\":\"dinner\",\"description\":\"test description\",\"start\":\"Thu Aug 30 00:00:00 CEST 3917\",\"end\":\"Sat Sep 01 00:00:00 CEST 3917\",\"desLat\":0.0,\"desLon\":0.0,\"ownerId\":\"testid_2\",\"ownerName\":\"Alice\",\"participantsList\":[]}]}]";
-    private static final String testcuserString = "{\"uid\":\"testid_2\",\"instanceId\":\"testInstance_2\",\"name\":\"Alice\",\"email\":\"alice@testmail.com\"}";
+    private static final String testListString = "[{\"groupId\":-1,\"name\":\"dummy\",\"description\":\"dummy\",\"memberCount\":0,\"membershipList\":[],\"currentGos\":[]}]";
+    private static final String testcuserString = "{\"userId\":\"testid_2\",\"instanceId\":\"testInstance_2\",\"name\":\"Alice\",\"email\":\"alice@testmail.com\"}";
     private static UserEntity testUser;
     private static User testcUser;
     private static List<Group> testGroupList;
@@ -71,7 +71,7 @@ public class UserRestControllerTest {
     @Test
     public void getDataTest() throws Exception {
         Mockito.when(userService.getData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(null);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/testid_1/testmail").accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/testid_1/testmail/testname").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         System.out.println(result.getResponse().getContentAsString());
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());

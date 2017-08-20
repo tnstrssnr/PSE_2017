@@ -73,8 +73,8 @@ public class ObserverTest {
         this.mockGroupService = Mockito.mock(GroupService.class);
         Mockito.when(mockGroupService.getGroupById(anyLong())).thenReturn(testGroup);
 
-        this.mockGoService = Mockito.mock(GoService.class);
-        Mockito.when(mockGoService.getGoById(anyLong())).thenReturn(testGo);
+        //this.mockGoService = Mockito.mock(GoService.class);
+        //Mockito.when(GoService.getGoById(anyLong())).thenReturn(testGo);
 
         this.mockUserDao = Mockito.mock(UserDaoImp.class);
         Mockito.when(mockUserDao.get(anyString())).thenReturn(this.testUser);

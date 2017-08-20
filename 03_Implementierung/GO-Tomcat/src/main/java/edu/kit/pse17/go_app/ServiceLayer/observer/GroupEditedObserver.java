@@ -4,9 +4,13 @@ import com.google.gson.Gson;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupEditedObserver implements Observer {
 
@@ -25,19 +29,23 @@ public class GroupEditedObserver implements Observer {
         this.groupService = groupService;
     }
 
-
     @Override
     public void update(List<String> entity_ids) {
-        GroupEntity changedGroup = groupService.getGroupById(Long.valueOf(entity_ids.get(0)));
-        changedGroup.setRequests(null);
-        changedGroup.setMembers(null);
-        changedGroup.setAdmins(null);
-        changedGroup.setGos(null);
-        String data = gson.toJson(GroupService.groupEntityToGroup(changedGroup));
+        GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(0)));
 
-        messenger.send(data, EventArg.GROUP_EDITED_EVENT, groupService.getGroupById(Long.valueOf(entity_ids.get(0))).getMembers());
-        messenger.send(data, EventArg.GROUP_EDITED_EVENT, groupService.getGroupById(Long.valueOf(entity_ids.get(0))).getRequests());
+        Group cGroup = GroupService.groupEntityToGroup(group);
+        GroupService.makeJsonable(cGroup);
 
+        String data = new Gson().toJson(cGroup);
+        Set<UserEntity> receiver = new HashSet<>();
+        for (UserEntity usr : group.getMembers()) {
+            receiver.add(usr);
+        }
+        //receiver.addAll(group.getAdmins());
+
+        //send group to invited member
+
+        messenger.send(data, EventArg.GROUP_EDITED_EVENT, receiver);
 
     }
 }

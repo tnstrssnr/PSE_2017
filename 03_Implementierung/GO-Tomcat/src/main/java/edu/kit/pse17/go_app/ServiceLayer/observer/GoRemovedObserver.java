@@ -35,8 +35,12 @@ public class GoRemovedObserver implements Observer {
         String data = json.toJSONString();
 
         Set<UserEntity> receiver = new HashSet<>();
-        receiver.addAll(removedGo.getGroup().getMembers());
-        receiver.addAll(removedGo.getGroup().getRequests());
+        for (UserEntity usr : removedGo.getGroup().getMembers()) {
+            receiver.add(usr);
+        }
+        for (UserEntity usr : removedGo.getGroup().getRequests()) {
+            receiver.add(usr);
+        }
 
         messenger.send(data, EventArg.GO_REMOVED_EVENT, receiver);
     }

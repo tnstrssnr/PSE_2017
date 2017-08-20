@@ -10,7 +10,9 @@ import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import org.json.simple.JSONObject;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MemberAddedObserver implements Observer {
 
@@ -37,7 +39,14 @@ public class MemberAddedObserver implements Observer {
         json.put("group_id", group.getID());
         json.put("user", new Gson().toJson(UserService.userEntityToUser(newUser)));
         String data = json.toJSONString();
-        messenger.send(data, EventArg.MEMBER_ADDED_EVENT, group.getMembers());
-        messenger.send(data, EventArg.MEMBER_ADDED_EVENT, group.getRequests());
+
+        Set<UserEntity> receiver = new HashSet<>();
+        for (UserEntity usr : group.getMembers()) {
+            receiver.add(usr);
+        }
+        for (UserEntity usr : group.getRequests()) {
+            receiver.add(usr);
+        }
+        messenger.send(data, EventArg.MEMBER_ADDED_EVENT, receiver);
     }
 }

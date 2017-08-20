@@ -43,8 +43,12 @@ public class GroupRemovedObserver implements Observer {
         GroupEntity groupEntity = groupService.getGroupById(Long.valueOf(entity_ids.get(0)));
 
         Set<UserEntity> receiver = new HashSet<>();
-        receiver.addAll(groupEntity.getRequests());
-        receiver.addAll(groupEntity.getMembers());
+        for (UserEntity usr : groupEntity.getMembers()) {
+            receiver.add(usr);
+        }
+        for (UserEntity usr : groupEntity.getRequests()) {
+            receiver.add(usr);
+        }
 
         messenger.send(data, EventArg.GROUP_REMOVED_EVENT, receiver);
 

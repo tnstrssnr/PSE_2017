@@ -7,7 +7,6 @@ import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import edu.kit.pse17.go_app.TestData;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -29,7 +28,7 @@ public class GoAddedObserverTest {
     public void setUp() throws Exception {
         testGo = TestData.getTestGoLunch();
         this.mockGoService = Mockito.mock(GoService.class);
-        Mockito.when(mockGoService.getGoById(anyLong())).thenReturn(TestData.getTestGoLunch());
+        Mockito.when(new GoService().getGoById(anyLong())).thenReturn(TestData.getTestGoLunch());
         this.mockMessenger = Mockito.mock(FcmClient.class);
         this.observer = new GoAddedObserver(mockMessenger, mockGoService);
     }
@@ -42,7 +41,6 @@ public class GoAddedObserverTest {
         this.testGo = null;
     }
 
-    @Ignore
     @Test
     public void update() throws Exception {
         List<String> entity_ids = new ArrayList<>();

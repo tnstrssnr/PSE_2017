@@ -42,9 +42,13 @@ public class GoRestControllerTest {
     @MockBean
     private GoService goService;
 
+    @MockBean
+    private LocationService locationService;
+
     @Before
     public void setUp() throws Exception {
         goService = Mockito.mock(GoService.class);
+        locationService = Mockito.mock(LocationService.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new GoRestController(goService)).build();
         testGo = TestData.getTestGoLunch();
         testGo.setGroup(null);
@@ -53,7 +57,6 @@ public class GoRestControllerTest {
         testcGo.setGroup(null);
         testcGo.setParticipantsList(null);
         testGoString = new Gson().toJson(testcGo);
-        System.out.println(testGoString);
         mockMap = Mockito.mock(HashMap.class);
     }
 
@@ -69,7 +72,7 @@ public class GoRestControllerTest {
     @Test
     public void createGoTest() throws Exception {
         Mockito.when(goService.createGo(any(Go.class))).thenReturn(Long.valueOf(1));
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/gos/")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/gos/1/test")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(testGoString);
@@ -130,10 +133,10 @@ public class GoRestControllerTest {
         Mockito.verify(goService, Mockito.times(1)).delete(1);
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
-    
+
     @Test
     public void editGoTest() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/gos/")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/gos/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(testGoString)
                 .accept(MediaType.APPLICATION_JSON);

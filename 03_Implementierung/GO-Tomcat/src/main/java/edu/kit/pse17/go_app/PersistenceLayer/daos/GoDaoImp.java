@@ -98,6 +98,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
         Session session = null;
         long id = -1;
 
+        System.out.println(entity.getOwner() == null);
         String ownerId = entity.getOwner().getUid();
         Long groupId = entity.getGroup().getID();
 
@@ -152,7 +153,16 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
-            onDeleteGo(key, session);
+
+            GoEntity go = (GoEntity) session.get(GoEntity.class, key);
+
+            go.setGroup(null);
+            go.setOwner(null);
+            go.getNotGoingUsers().clear();
+            go.getGoingUsers().clear();
+            go.getGoneUsers().clear();
+            session.delete(go);
+
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
