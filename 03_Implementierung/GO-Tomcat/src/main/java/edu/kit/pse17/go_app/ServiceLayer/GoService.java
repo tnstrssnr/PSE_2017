@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Diese Klasse handhabt alle Observerfunktion in Bezug auf GoDaos. Für mehr Information siehe Interface IObservable.
+ */
+
 @Service
 public class GoService implements IObservable {
 

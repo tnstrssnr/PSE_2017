@@ -10,6 +10,10 @@ import edu.kit.pse17.go_app.ServiceLayer.GoService;
 
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt Fälle wo ein Go hinzugefügt wird.
+ */
+
 public class GoAddedObserver implements Observer {
 
     private final FcmClient messenger;

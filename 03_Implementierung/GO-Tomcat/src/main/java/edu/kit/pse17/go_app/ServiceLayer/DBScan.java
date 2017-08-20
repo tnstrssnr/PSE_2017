@@ -2,21 +2,50 @@ package edu.kit.pse17.go_app.ServiceLayer;
 
 import java.util.*;
 
+/**
+ * Diese Klasse beinhaltet den Clusteringalgorithmus, wobei einige Funktionen/Methoden zur Vereinfachung des Algorithmus
+ * in der Utilityklasse liegen.
+ *
+ * Der Algorithmus macht sich hierzu verschidene Listen/Vektoren zu nutzen.
+ *
+ */
+
 
 public class DBScan
 {
 
+    /**
+     *  Vektor für <UserLocation>-Vektoren: entspricht dem Resultat des eigentlichen Clustering.
+     */
+
     public static Vector<List> resultList = new Vector<>();
+
+    /**
+     * Liste der UserLocations die geclustert werden.
+     */
 
     public static Vector<UserLocation> pointList;
 
+    /**
+     * Vektor der für UserLocations genutzt wird, die benachbart zu einer bestimmten Userlocation sind
+     */
+
     public static Vector<UserLocation> Neighbours ;
+
+
 
     public DBScan(List<UserLocation> userLocationList) {
         this.pointList = Utility.getList(userLocationList);
     }
 
-
+    /**
+     * Die eigentliche Methode des ClusteringAlgorithmus.
+     *
+     * @param tdistance Distanz die zwischen Punkten/UserLocations liegen muss um als benachbart zu gelten.
+     * @param minpt Mindestanzahl an Punkten um ein Cluster zu bilden.
+     * @param userLocationList Die Liste an UserLocation mit der das Clustering betrieben wird.
+     * @return Gibt eine Vektorliste mit Vektoren die, die Cluster beinhalten.
+     */
 
     public Vector<List> applyDbscan(int tdistance, int minpt, List<UserLocation> userLocationList)
     {
@@ -55,7 +84,7 @@ public class DBScan
 
 
 
-                    System.out.println("N"+Neighbours.size());
+                    //System.out.println("N"+Neighbours.size());
                     resultList.add(Neighbours);}
 
 

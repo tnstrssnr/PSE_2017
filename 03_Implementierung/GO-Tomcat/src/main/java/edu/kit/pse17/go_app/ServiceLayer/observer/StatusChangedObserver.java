@@ -12,6 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo der User Status sich verändert.
+ */
+
 public class StatusChangedObserver implements Observer {
 
     private final FcmClient messenger;

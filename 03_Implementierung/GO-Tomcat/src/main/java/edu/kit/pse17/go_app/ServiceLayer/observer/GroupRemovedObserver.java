@@ -11,6 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo eine Gruppe entfernt wird.
+ */
+
 public class GroupRemovedObserver implements Observer {
 
     private final FcmClient messenger;

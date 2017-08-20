@@ -11,6 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo ein Admin eine Gruppe hinzugefügt wird.
+ */
+
 public class AdminAddedObserver implements Observer {
 
     private final FcmClient messenger;

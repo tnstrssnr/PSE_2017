@@ -19,11 +19,11 @@ import java.util.List;
 public interface IObservable {
 
     /**
-     * Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von observern hinzugefügt,
+     * Mit dieser Methode kann man einen neuen Observer registrieren. Er wird zu einer Liste von Observern hinzugefügt,
      * falls diese Liste noch nicht vorhanden ist, wird sie erstellt. Der Beobachter ist nach dem Hinzufügen zu der
      * Liste funktionsfähig.
      *
-     * @param observer der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
+     * @param observer Der Observer, der registriert werden soll. Dabei spielt es keine Rolle, um welche Implementierung
      *                 eines Observers es sich handelt.
      */
     public void register(EventArg arg, Observer observer);
@@ -32,9 +32,9 @@ public interface IObservable {
     public void unregister(EventArg arg);
 
     /**
-     * Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. es muss dabei nicht angegeben
+     * Mit dieser Methode können Observer über eine Änderung benachrichtigt werden. Es muss dabei nicht angegeben
      * werden, welche Änderung vorgenommen wurde, dies wissen die Observer selbst. Die Methode löst nur dann eine Aktion
-     * bei einem der Observer aus, wenn zuvor ein zu der Ändeurng passender Observer registriert wurde.
+     * bei einem der Observer aus, wenn zuvor ein zu der Änderung passender Observer registriert wurde.
      *
      * @param impCode    Ein Code, der angibt, welche Observer-Implementierung benachrichtigt werden soll. dabei handelt
      *                   es sich immer um ein öffentliches statisches Attribut in der Observer-Klasse. Handelt es sich

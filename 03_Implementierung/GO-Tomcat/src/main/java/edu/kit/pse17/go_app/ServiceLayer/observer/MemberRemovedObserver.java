@@ -9,6 +9,10 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt Fälle wo Gruppenmitglieder entfernt werden.
+ */
+
 public class MemberRemovedObserver implements Observer {
 
     private final FcmClient messenger;

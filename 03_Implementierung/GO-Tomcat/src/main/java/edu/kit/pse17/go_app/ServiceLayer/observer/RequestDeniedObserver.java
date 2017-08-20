@@ -9,6 +9,10 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt Fälle wo Gruppenanfragen abgelehnt werden.
+ */
+
 public class RequestDeniedObserver implements Observer {
 
     private final FcmClient messenger;

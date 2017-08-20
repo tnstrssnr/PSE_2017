@@ -8,6 +8,10 @@ import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt Fälle wo eine Gruppe verändert wird.
+ */
+
 public class GroupEditedObserver implements Observer {
 
     private final FcmClient messenger;

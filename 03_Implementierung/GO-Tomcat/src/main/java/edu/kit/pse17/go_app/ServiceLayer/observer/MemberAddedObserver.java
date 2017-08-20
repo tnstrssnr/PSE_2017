@@ -12,6 +12,10 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 
+/**
+ * Dieser Observer behandelt wo ein Gruppenmitglied einer Gruppe hinzugefügt wird.
+ */
+
 public class MemberAddedObserver implements Observer {
 
     private final FcmClient messenger;

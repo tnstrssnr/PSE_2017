@@ -12,6 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Dieser Observer behandelt Fälle wo ein Go entfernt wird.
+ */
+
 public class GoRemovedObserver implements Observer {
 
     private final FcmClient messenger;
