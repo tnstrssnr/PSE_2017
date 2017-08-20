@@ -4,6 +4,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -58,10 +59,15 @@ public class LocationServiceTest {
 
     @Test
     public void getGroupLocation() throws Exception {
+
+
+
     }
 
     @Test
     public void removeGo() throws Exception {
+        //Mockito.when(testLocationService.activeServices.get(testGoId)).then(true);
+        //Mockito.when(testLocationService.activeServices.remove(testGoId)).then(true);
     }
 
 }

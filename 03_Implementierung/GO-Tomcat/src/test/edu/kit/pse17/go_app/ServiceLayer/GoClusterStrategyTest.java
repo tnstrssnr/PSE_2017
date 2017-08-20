@@ -27,6 +27,7 @@ public class GoClusterStrategyTest {
     private Vector<List> scanTestResults;
     private Vector<UserLocation> testLocations;
 
+    private List<UserLocation> mockList;
     private DBScan mockScan;
 
     @Before
@@ -40,8 +41,9 @@ public class GoClusterStrategyTest {
 
         this.testClusterList = new ArrayList<Cluster>();
 
+        this.mockList = Mockito.mock(List.class);
         this.mockScan = Mockito.mock(DBScan.class);
-        Mockito.when(mockScan.applyDbscan(4, 3, userLocationList)).thenReturn(scanTestResults);
+        Mockito.when(mockScan.applyDbscan(4, 3, mockList)).thenReturn(scanTestResults);
 
         this.loc1 = new UserLocation("loc1", 5, 5);
         this.loc2 = new UserLocation("loc2", 5, 5);

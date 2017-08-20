@@ -22,15 +22,18 @@ public class DBScanTest {
 
 
     private Utility mockUtility;
+    private List<UserLocation> mockList;
+    private Vector<UserLocation> mockVector;
 
     private Vector<UserLocation> testVector;
-    private Vector<UserLocation> mockVector;
+
 
     @Before
     public void setUp() throws Exception {
 
         this.mockUtility = Mockito.mock(Utility.class);
         this.mockVector = Mockito.mock(Vector.class);
+        this.mockList = Mockito.mock(List.class);
 
         this.userLocationList = new ArrayList<UserLocation>();
         this.testVector = new Vector<UserLocation>();
@@ -74,7 +77,9 @@ public class DBScanTest {
 
         Vector<UserLocation> testUserList = new Vector<UserLocation>();
         testUserList.addAll(userLocationList);
-        Mockito.when(Utility.getList(userLocationList)).thenReturn(testUserList);
+
+
+        Mockito.when(mockUtility.getList(mockList)).thenReturn(testUserList);
 
         newScan = new DBScan(userLocationList);
 
