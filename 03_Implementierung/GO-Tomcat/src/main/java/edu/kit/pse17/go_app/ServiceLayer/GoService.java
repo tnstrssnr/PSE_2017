@@ -48,28 +48,6 @@ public class GoService implements IObservable {
         registerAll();
         this.goDao = godao;
     }
-    /*
-    public static void editGoForJson(GoEntity go, boolean keepGroupInfo) {
-
-        if (keepGroupInfo) {
-            GroupService.editGroupForJson(go.getGroup());
-        } else {
-            go.setGroup(null);
-        }
-
-        UserService.editUserForJson(go.getOwner());
-
-        for (final UserEntity usr : go.getNotGoingUsers()) {
-            UserService.editUserForJson(usr);
-        }
-        for (final UserEntity usr : go.getGoingUsers()) {
-            UserService.editUserForJson(usr);
-        }
-        for (final UserEntity usr : go.getGoneUsers()) {
-            UserService.editUserForJson(usr);
-        }
-    }
-    */
 
     /**
      * Wandelt eine GoEntity in ein entsprechendes GO-Objekt um. Achtung: Diese Methode setzt Gruppe auf null! --> muss

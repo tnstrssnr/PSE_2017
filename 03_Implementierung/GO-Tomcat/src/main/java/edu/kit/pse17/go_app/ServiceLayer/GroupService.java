@@ -66,26 +66,7 @@ public class GroupService implements IObservable {
         groupMembership.getGroup().setCurrentGos(new ArrayList<>());
     }
 
-    /*
-    public static void editGroupForJson(GroupEntity group) {
 
-        for (final UserEntity usr : group.getAdmins()) {
-            UserService.editUserForJson(usr);
-        }
-
-        for (final UserEntity usr : group.getMembers()) {
-            UserService.editUserForJson(usr);
-        }
-
-        for (final UserEntity usr : group.getRequests()) {
-            UserService.editUserForJson(usr);
-        }
-
-        for (final GoEntity go : group.getGos()) {
-            GoService.editGoForJson(go, false);
-        }
-    }
-    */
 
     public static Group groupEntityToGroup(GroupEntity groupEntity) {
         Group group = new Group();
