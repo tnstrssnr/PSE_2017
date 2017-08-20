@@ -35,8 +35,8 @@ public interface TomcatRestApi {
      *
      * @return Call to the server (with List of the groups of this user (incl. GOs) in Response)
      */
-    @GET("user/{userid}/{email}/{userName}")
-    public Call<List<Group>> getData(@Path("userid") String userId, @Path("email") String email, @Path("userName") String userName);
+    @GET("user/{userId}/{email}/{userName}")
+    public Call<List<Group>> getData(@Path("userId") String userId, @Path("email") String email, @Path("userName") String userName);
 
     /**
      * Method that creates and registers new user on the server
@@ -62,7 +62,7 @@ public interface TomcatRestApi {
      * @param instanceId: ID of the device
      * @return Call to the server (no additional information in Response)
      */
-    @PUT("user/{userId}/device/{instanceId]")
+    @PUT("user/{userId}/device/{instanceId}")
     public Call<Void> registerDevice(@Path("userId") String userId, @Path("instanceId") String instanceId);
 
     @PUT("user/update")
@@ -117,8 +117,8 @@ public interface TomcatRestApi {
      *
      * @return Call to the server (no additional information in Response)
      */
-    @DELETE("group/members/{group_id}/{user_id}")
-    public Call<Void> removeMember(@Path("group_id") long groupId, @Path("user_id") String userId);
+    @DELETE("group/members/{group_id}/{email}")
+    public Call<Void> removeMember(@Path("group_id") long groupId, @Path("email") String email);
 
     /**
      * Method that sends a group request to some user
@@ -164,6 +164,14 @@ public interface TomcatRestApi {
     @GET("gos/location/{goId}")
     public Call<List<Cluster>> getLocation(@Path("goId") long goId);
 
+    /**
+     * Method that sends location to the server
+     *
+     * @param goId: ID of the Go
+     * @param location: Location of the device
+     *
+     * @return Call to the server (no additional information in Response)
+     */
     @PUT("gos/location/{goId}")
     public Call<Void> setLocation(@Path("goId") long goId, @Body UserLocation location);
 

@@ -10,88 +10,91 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Go-Objekte persistiert.
- *  Der Zugriff auf die Daten läuft ausschließlich über die GoEntityDAO-Klasse
- *
+ * Entity class. On the basis of this class, a table is generated
+ * in the local SQLite database, which GO objects persists.
+ * Access to the data is possible only through the GoEntityDAO-class.
  */
-
 @Entity(tableName = "gos")
 public class Go {
 
     /**
-     * ID des GOs. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig
+     * ID of the GO. The attribute is the primary key of the Relation,
+     * and is not only locally, but globally unique.
      */
     @PrimaryKey
     @SerializedName("goId")
     private long id;
 
     /**
-     * GO-Bezeichnug (frei wählbar, muss nicht eindeutig sein)
+     * GO name (freely selectable, must not be unique).
      */
     @SerializedName("name")
     @Expose
     private String name;
 
     /**
-     * Beschreibungstext des GOs
+     * Description of GO.
      */
     @SerializedName("description")
     @Expose
     private String description;
 
     /**
-     * Startdatum und -zeitpunkt des GOs
+     * Start time of the GO.
      */
     @SerializedName("start")
     @Expose
     private String start;
 
     /**
-     * Enddatum und -zeitpunkt des GOs
+     * End time of the GO.
      */
     @SerializedName("end")
     @Expose
     private String end;
 
     /**
-     *  Die Gruppe, zu der das Go gehört
+     * The group of the GO.
      */
     @SerializedName("group")
     @Expose
     private Group group;
 
     /**
-     * Breitengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
+     * Latitude of GO destination (value is -1 if the destination is not set).
      */
     @SerializedName("lat")
     private double desLat;
 
     /**
-     * Längengrad des GO Zielorts (Wert ist -1 falls Zielort nicht gesetzt)
+     * Longitude of GO destination (value is -1 if the destination is not set).
      */
     @SerializedName("lon")
     private double desLon;
 
     /**
-     * Die User-ID des GO-Verantwortlichen
+     * ID of the responsible user.
      */
     @SerializedName("userId")
     private String ownerId;
 
     /**
-     * Der Benutzername des GO-Verantwortlichen
+     * Name of the responsible user.
      */
     @SerializedName("ownerName")
     @Expose
     private String ownerName;
 
     /**
-     * Eine Liste mit dem UserStatus jedes Gruppenmitglieds der Gruppe des GOs
+     * A list with the user status of each group member in the group of GOs.
      */
     @SerializedName("participantsList")
     @Expose
     private List<UserGoStatus> participantsList;
 
+    /**
+     * A list of the clusters of GO.
+     */
     @SerializedName("locations")
     @Expose
     private List<Cluster> locations;
@@ -196,6 +199,14 @@ public class Go {
     public void setParticipantsList(List<UserGoStatus> participantsList) {
         this.participantsList = participantsList;
     }
+
+    /**
+     * Get status by user ID.
+     *
+     * @param userId: ID of the user
+     *
+     * @return Status of the user
+     */
     public UserGoStatus getStatus(String userId){
         for (UserGoStatus status: participantsList) {
             if(status.getUser().getUid().equals(userId)){
@@ -203,8 +214,8 @@ public class Go {
             }
         }
         throw new NullPointerException(); //THIS SHOULD NOT HAPPEN
-        //return null;
     }
+
     public Group getGroup() {
         return group;
     }

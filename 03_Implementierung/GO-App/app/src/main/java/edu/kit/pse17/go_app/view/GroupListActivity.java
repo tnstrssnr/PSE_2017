@@ -46,13 +46,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.User;
+import edu.kit.pse17.go_app.serverCommunication.downstream.MessageReceiver;
 import edu.kit.pse17.go_app.view.recyclerView.ListAdapter;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
 import edu.kit.pse17.go_app.view.recyclerView.listItems.GroupListItem;
@@ -73,6 +76,8 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     private static String DIALOG_TAG = "dialog_tag";
     public static String ABOUT_ACTIVITY_CODE = "about";
     public static String LICENSE_ACTIVITY_CODE = "license";
+
+
 
     GoogleApiClient mGoogleApiClient;
     private ListAdapter adapter;
@@ -131,6 +136,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         configureGoogleClient();
 
         initializeIconsFromResources();
+        MessageReceiver messageReceiver = new MessageReceiver();
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -151,7 +157,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
         viewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
         viewModel.init(getUserId());
-        viewModel.getGroups(globalUid, globalEmail,"null", displayName).observe(this, new Observer<List<Group>>() {
+        viewModel.getGroups(globalUid, globalEmail, FirebaseInstanceId.getInstance().getId(), displayName).observe(this, new Observer<List<Group>>() {
             @Override
             public void onChanged(@Nullable List<Group> groups) {
                 Log.d("LIVE DATA", "ON CHANGE CALLBACK");
@@ -177,9 +183,22 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         user_gone_icon = getDrawable(R.drawable.ic_person_outline_blue_24dp);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+
+        Bundle bundle =  getIntent().getExtras();
+        Set<String> setBundle = bundle.keySet();
+        Bundle bundel = new Bundle();
+        bundel.putString("zhopa","chlen");
+        Set<String> set = bundel.keySet();
+
+    }
+
     /*
-    *
-    * */
+            *
+            * */
     private void startPollingDeviceLocation() {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         SettingsClient client = LocationServices.getSettingsClient(this);
@@ -204,7 +223,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
                 //TODO uncomment when server is up
                 // HERE WE GET THE LOCATION OF THE DEVICE AND PASS IT ON
                 viewModel.updateLocation(new LatLng(locationResult.getLastLocation().getLatitude(),
-                                                    locationResult.getLastLocation().getLongitude()));
+                        locationResult.getLastLocation().getLongitude()));
             }
         };
     }
@@ -401,4 +420,10 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         return globalUid;
     }
 
+    public static void setUserId(String userId) {
+        globalUid = userId;
+    }
+    public static String getGlobalEmail(){
+        return globalEmail;
+    }
 }

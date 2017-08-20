@@ -41,7 +41,7 @@ public class GroupListItem implements ListItem<Integer>, OnListItemClicked {
      */
     public GroupListItem(Group group) {
         this.name = group.getName();
-        this.memberCount = group.getMemberCount();
+        this.memberCount = group.getMembershipList().size();//group.getMemberCount();
         this.icon = GroupListActivity.default_group_icon;//group.getIcon();
         this.group = group;
     }

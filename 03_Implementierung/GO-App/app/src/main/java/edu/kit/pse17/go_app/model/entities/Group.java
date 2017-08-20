@@ -13,59 +13,61 @@ import java.util.List;
 import edu.kit.pse17.go_app.view.GroupListActivity;
 
 /**
- * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die Gruppen-Objekte persistiert.
- * Der Zugriff auf die Daten läuft ausschließlich über die GroupEntityDAO-Klasse
+ * Entity-Class. On the basis of this class, a table is generated
+ * in the local SQLite database, which group objects persists.
+ * Access to the data is possible only through the GroupEntityDAO-class.
  */
 
 @Entity(tableName = "groups")
 public class Group {
 
     /**
-     * ID der Gruppe. Das Attribut ist der Primärschlüssel der Relation und nicht nur lokal, sondern global eindeutig.
+     * ID of the group. The attribute is the primary key of the Relation,
+     * and is not only locally, but globally unique.
      */
     @PrimaryKey
     @SerializedName("groupId")
     private long id;
 
     /**
-     * Der Name der Gruppe. Dieser muss nicht eindeutig sein
+     * The Name of the group. This does not have to be unique.
      */
     @SerializedName("name")
     @Expose
     private String name;
 
     /**
-     * Der Beschreibungstext der Gruppe
+     * Description of the group.
      */
     @SerializedName("description")
     @Expose
     private String description;
 
     /**
-     * Die Anzahl der Gruppenmitglieder
+     * Number of members.
      */
     @SerializedName("memberCount")
     @Expose
     private int memberCount;
 
     /**
-     * Bild der Gruppe
+     * Image of the group.
      */
     @SerializedName("icon")
     public transient Drawable icon;
 
     /**
-     * Eine Liste mit allen Mitgliedern der Gruppe + Information ob das Mitglied ein Administrator ist
-     * oder ob es sich bei der Mitgliedschaft lediglich um eine offene Grupppenanfrage handelt.
+     * A list with all the members of the group + Information,
+     * whether the member the Administrator is
+     * or whether the membership is just an open group request.
      */
     @SerializedName("membershipList")
     @Expose
     private List<GroupMembership> membershipList;
 
     /**
-     * Eine Liste mit allen GOs der Gruppe.
+     * List of all GOs of the group.
      */
-
     @SerializedName("currentGos")
     @Expose
     private List<Go> currentGos;
@@ -129,6 +131,14 @@ public class Group {
         this.currentGos = currentGos;
     }
 
+    /**
+     * Method that says if the user with user ID has an open request in this
+     * group.
+     *
+     * @param userId: ID of the user
+     *
+     * @return Request or not
+     */
     public boolean isRequest(String userId){
         for(GroupMembership membership : membershipList){
             if(membership.getUser().getUid().equals(userId)){
@@ -138,6 +148,14 @@ public class Group {
         return false;
     }
 
+    /**
+     * Method that says if the user with user ID is admin in this
+     * group.
+     *
+     * @param userId: ID of the user
+     *
+     * @return Admin or not
+     */
     public boolean isAdmin(String userId){
         for(GroupMembership membership : membershipList){
             if(membership.getUser().getUid().equals(userId)){
@@ -154,7 +172,6 @@ public class Group {
     public void setMemberCount(int memberCount) {
         this.memberCount = memberCount;
     }
-
 
     public Drawable getIcon() {
         return icon;

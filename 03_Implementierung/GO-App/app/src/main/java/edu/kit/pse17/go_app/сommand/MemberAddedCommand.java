@@ -13,17 +13,16 @@ import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Beitreten einer Gruppe
- * vom Benutzer ausgeführt wird.
- * D.h. der Benutzer hat die Gruppenanfrage bestätigt.
+ * This class implements a command that adds the user to the group when called.
+ * I.e. the user has confirmed the group's request.
  */
 public class MemberAddedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Dem ausgewählten Benutzer werden alle Daten der Gruppe gesendet;
-     * -Alle Mitglieder der Gruppe werden über den neuen Benutzer benachrichtigt.
+     * -The user group of the data will be sent;
+     * -All members of the group will be be notified about the new user.
      */
     @Override
     public void onCommandReceived() {

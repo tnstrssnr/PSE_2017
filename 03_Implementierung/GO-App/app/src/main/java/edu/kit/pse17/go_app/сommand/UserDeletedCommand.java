@@ -12,20 +12,20 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Löschen vom Account
- * eines Benutzers ausgeführt wird.
+ * This class implements a command that deletes the Account of
+ * a user when called.
  */
 public class UserDeletedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Mitglieder der Gruppen, bei denen der Benutzer Mitglied war,
-     * werden benachrichtigt, dass dieser Mitglied gelöscht ist;
-     * -Alle Teilnehmer der GOs, bei denen der Benutzer Teilnehmer war,
-     * werden benachrichtigt, dass dieser Benutzer gelöscht ist;
-     * -Alle GOs, bei denen der Benutzer GO-Verantwortlicher war, werden gelöscht;
-     * -Wenn die Gruppe nur einen einzigen Mitglied hatte, wird diese Gruppe gelöscht.
+     * -All the members of the groups, in which the user was a member,
+     * will be notified that this member is deleted;
+     * -All participants of the GO, where the user was a participant,
+     * will be notified that this user is deleted;
+     * -All the GOs will be deleted where the user responsible was;
+     * -If the group had only a single member, it will be deleted.
      */
     @Override
     public void onCommandReceived() {

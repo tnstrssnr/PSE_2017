@@ -78,8 +78,8 @@ public class GroupViewModel extends ViewModel {
         groupRepo.inviteMember(getGroup().getValue().getId(),EMail);
     }
 
-    public void deleteMember( long groupId, String Email){
-        groupRepo.removeMember(groupId, Email);
+    public void deleteMember( long groupId, String email){
+        groupRepo.removeMember(groupId, email);
     }
     /*
     * Ändert die Daten von der Gruppe mit groupId, group.groupId wird nicht benutzt in der Methode

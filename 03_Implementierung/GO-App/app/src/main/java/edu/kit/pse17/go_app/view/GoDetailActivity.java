@@ -22,7 +22,6 @@ import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.viewModel.GoViewModel;
-import edu.kit.pse17.go_app.viewModel.GroupListViewModel;
 import edu.kit.pse17.go_app.viewModel.GroupViewModel;
 
 /**
@@ -176,6 +175,7 @@ public class GoDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 viewModel.deleteGo(viewModel.getGo().getValue().getId(), GroupViewModel.getCurrentViewModel().getGroup().getValue().getId());
+                finish();
             }
         });
     }
@@ -271,7 +271,7 @@ public class GoDetailActivity extends BaseActivity {
             }else {
                 viewModel.changeStatus(uid, viewModel.getGo().getValue().getId(), chosen);
                 if(chosen == Status.GONE){
-                    GroupListViewModel.getCurrentGroupListViewModel().getActiveGos().add(viewModel.getGo().getValue());
+//                    GroupListViewModel.getCurrentGroupListViewModel().getActiveGos().add(viewModel.getGo().getValue());
                 } else {
 
                 }

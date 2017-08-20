@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.serverCommunication.downstream;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -29,7 +30,7 @@ public class Deserializer {
                         group.setId(jsonObject.get("groupId").getAsLong());
                         group.setName(jsonObject.get("name").getAsString());
                         group.setDescription(jsonObject.get("description").getAsString());
-
+                        JsonArray array = new JsonArray();
                         return group;
                     }
                 };

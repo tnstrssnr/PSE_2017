@@ -16,4 +16,9 @@ public class GroupListLiveData extends LiveData<List<Group>> {
     public void setValue(List<Group> value) {
         super.setValue(value);
     }
+
+    @Override
+    public void postValue(List<Group> value) {
+        super.postValue(value);
+    }
 }

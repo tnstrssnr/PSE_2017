@@ -21,25 +21,33 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.Serializer;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
 import edu.kit.pse17.go_app.view.GroupListActivity;
+import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Das Go-Repository ist verantwortlich für sämtliche Operationen auf den Go-Daten und stellt eine
- * einfache Schnittstelle zum Holen, Ändern und Löschen von Daten zur Verfügung.
- * <p>
- * Bei einer Anfrage weiß das Repository, wo es die Daten holen muss (lokal oder vom remote Server).
- * Das Repository agiert als Vermittler zwischen der lokalen Datanbank und den Daten die die App vom Server erhält.
+ * The Group Repository is responsible for all operations of the Group Data
+ * (inclusive data of some GOs) and is the simple interface for fetching,
+ * changing and deletion of data.
+ * In the case of a request the Repository can fetch the data from server.
+ *
+ * The Repository operate as a mediator between the local database and data
+ * that the app from server obtain.
+ * This Repository is also a singleton.
  */
-
 @Singleton
 public class GroupRepository extends Repository<List<Group>> {
 
-    private static GroupRepository groupRepo;
     /**
-     * Eine Referenz auf das die Rest-Api, die der TomcatServer bereitstellt, um mit ihm kommunizieren zu können.
+     * Private attribute for GroupRepository (see Singleton).
+     */
+    private static GroupRepository groupRepo;
+
+    /**
+     * The Reference to the REST-API, which TomcatServer provides, so that
+     * communication with the server is possible.
      */
     private final TomcatRestApi apiService;
 
@@ -53,13 +61,24 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     //private final Executor executor;
 
-    private ArrayList<Group> list;
+    /**
+     * Local database of groups (not consistent).
+     */
+    private List<Group> list;
+
+    /**
+     * LiveData for groups (consistent).
+     */
     private GroupListLiveData data;
 
     private Group groupWithoutId;
     private Go goWithoutId;
 
-    //@Inject
+    /**
+     * Constructor for Group Repository.
+     *
+     * @param observer: Observer for the Livedata
+     */
     private GroupRepository(Observer<List<Group>> observer) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
         if (data == null)
@@ -68,27 +87,36 @@ public class GroupRepository extends Repository<List<Group>> {
         Log.d("GroupRepoConstructor", "called");
     }
 
-    /*
-    * this should be called from GroupViewModel, id does not need 3rd parameter observer,
-    * because it should've been given already by GroupListViewModel which is initialized before GroupViewModel
-    * */
+    /**
+     * This should be called from GroupViewModel, it does not need the parameter observer,
+     * because it should've been given already by GroupListViewModel, which is initialized before GroupViewModel.
+     */
     public GroupRepository(/*GroupDao groupDao, Executor executor*/) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
-        if (data == null)
+        if (this.data == null)
             this.data = new GroupListLiveData();
         //this.executor = executor;
     }
 
 
+    /**
+     * Method that fetches all the data from server (list of groups) and sets
+     * it to the local database.
+     *
+     * @param userId:     ID of the user
+     * @param email:      E-Mail of the user
+     * @param instanceId: Instance ID of the device
+     * @param userName:   Name of the user
+     */
     public void getData(final String userId, final String email, String instanceId, String userName) {
 
-        Call<List<Group>> call  = apiService.getData(userId,"test","test" /*email, userName*/);
+        Call<List<Group>> call = apiService.getData(userId, email, userName/*, instanceId*/);
         call.enqueue(new Callback<List<Group>>() {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
 
                 List<Group> list = response.body();
-                if(list.get(0).getId() == -1){
+                if (list.get(0).getId() == -1) {
                     data.setValue(new ArrayList<Group>());
                 } else {
                     data.setValue(response.body());
@@ -98,7 +126,7 @@ public class GroupRepository extends Repository<List<Group>> {
             @Override
             public void onFailure(Call<List<Group>> call, Throwable t) {
                 String l = "zhopa";
-                 StackTraceElement[] a = t.getStackTrace();
+                StackTraceElement[] a = t.getStackTrace();
             }
         });
 
@@ -124,21 +152,43 @@ public class GroupRepository extends Repository<List<Group>> {
         //data.setValue(list);
     }
 
-    // TODO TO the server !
+    /*
     private void getGroupData(String userId, long groupId) {
+        //TODO ?
+    }*/
 
+    public void registerDevice(String userId, String instanceId) {
+        Call<Void> call = apiService.registerDevice(userId, instanceId);
+        call.enqueue(new Callback<Void>() {
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                String message = response.message();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("register_device", t.toString());
+            }
+        });
     }
 
-    /*
-    * Erzeugt eine Gruppe, group.Id wird danach intern auf dem Server vergeben
-    * */
+
+    /**
+     * Method that creates group. Group ID is assigned then internally on the
+     * server.
+     *
+     * @param name:        Name of the group
+     * @param description: Description of the group.
+     * @param user:        User entity (admin)
+     */
     public void createGroup(String name, String description, User user) {
         Group newGroup = new Group(0, name, description, 1, null, new ArrayList<GroupMembership>(), new ArrayList<Go>());
         newGroup.getMembershipList().add(new GroupMembership(user, newGroup, true, false));
 
         //add locally
         List<Group> newdata = data.getValue();
-        if(newdata ==  null){
+        if (newdata == null) {
             newdata = new ArrayList<>();
         }
         Group group = new Group();
@@ -174,18 +224,22 @@ public class GroupRepository extends Repository<List<Group>> {
 
     private void onGroupIdassigned(long code) {
         List<Group> oldGroups = data.getValue();
-        for(Group group : oldGroups){
-            if(group.getId() == -123){
+        for (Group group : oldGroups) {
+            if (group.getId() == -123) {
                 group.setId(code);
             }
         }
         data.setValue(oldGroups);
     }
 
-    /*
-    * Ändert die daten von der Group mit der Id group.Id, weil group.Id hier schon richtig sein muss
-    * wegen der Wegwerfens der Id in ViewModels
-    * */
+    /**
+     * Method that changes the data of the group with the group ID.
+     * The ID here is correct cause this is already proved in ViewModels.
+     *
+     * @param groupId:     ID of the group
+     * @param name:        Name of the group
+     * @param description: Description of the group
+     */
     public void editGroup(long groupId, String name, String description) {
         Group alteredGroup = new Group(groupId, name, description, 0, null, null, null);
 
@@ -204,6 +258,11 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /**
+     * Method that deletes the group with the group ID.
+     *
+     * @param groupId: ID of the group
+     */
     public void deleteGroup(long groupId) {
         Call<Void> call = apiService.deleteGroup(groupId);
         call.enqueue(new Callback<Void>() {
@@ -220,9 +279,14 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
-    /*
-    * Beantworte die Anfrage für eine Gruppe, answer True - Ja, answer False - Nein
-    * */
+    /**
+     * The answer on the group request.
+     *
+     * @param groupId: ID of the group
+     * @param userId:  ID of the user
+     * @param answer:  True - add to the group;
+     *                 False - don't add to the group
+     */
     public void answerGroupRequest(long groupId, String userId, boolean answer) {
         if (answer) {
             acceptRequest(groupId, userId);
@@ -231,6 +295,12 @@ public class GroupRepository extends Repository<List<Group>> {
         }
     }
 
+    /**
+     * Method that is used in case of accepting of the group request.
+     *
+     * @param groupId: ID of the group
+     * @param userId:  ID of the user
+     */
     private void acceptRequest(long groupId, String userId) {
 
         Call<Void> call = apiService.acceptRequest(groupId, userId);
@@ -248,6 +318,12 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /**
+     * Method that is used in case of denying of the group request.
+     *
+     * @param groupId: ID of the group
+     * @param userId:  ID of the user
+     */
     private void denyRequest(long groupId, String userId) {
 
         Call<Void> call = apiService.denyRequest(groupId, userId);
@@ -265,6 +341,12 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /**
+     * Method that removes member from the group.
+     *
+     * @param groupId: ID of the group
+     * @param userId:  Id of the user
+     */
     public void removeMember(long groupId, String userId) {
 
         Call<Void> call = apiService.removeMember(groupId, userId);
@@ -282,9 +364,12 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
-    /*
-    * Ein Teilnehmer hinzufügen
-    * */
+    /**
+     * Method that is used in case of sending of the group request.
+     *
+     * @param groupId: ID of the group
+     * @param email:   E-Mail address of the user
+     */
     public void inviteMember(long groupId, String email) {
 
         Call<Void> call = apiService.inviteMember(groupId, email);
@@ -302,6 +387,12 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /**
+     * Method that is used in case of adding of a new administrator.
+     *
+     * @param groupId: ID of the group
+     * @param userId:  ID of the user
+     */
     public void addAdmin(long groupId, String userId) {
 
         Call<Void> call = apiService.addAdmin(groupId, userId);
@@ -319,6 +410,20 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
+    /**
+     * Method that creates a new GO.
+     *
+     * @param name:        Name of the GO
+     * @param description: Description of the GO
+     * @param start:       Start time
+     * @param end:         End time
+     * @param lat:         Desired latitude
+     * @param lon:         Desired longitude
+     * @param threshold:   threshold
+     * @param group:       Group
+     * @param userId:      ID of the user
+     * @param userName:    Name of the user
+     */
     public void createGo(String name, String description, String start, String end,
                          double lat, double lon, int threshold, Group group, String userId, String userName) {
 
@@ -342,9 +447,16 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
 
-    //----------------------------------------------------------------------
-
+    /**
+     * Method that is invoked when the AdminAddedCommand is called (on receiving
+     * of the server message).
+     * This method puts the new admin to the local database.
+     *
+     * @param userId:  ID of the new admin
+     * @param groupId: ID of the group
+     */
     public void onAdminAdded(String userId, long groupId) {
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> oldList = group.getMembershipList();
@@ -362,31 +474,52 @@ public class GroupRepository extends Repository<List<Group>> {
             }
         }
 
-        data.setValue(list);
+        data.postValue(list);
     }
 
-    /*
-    *  Erzeugt ein neues GO in der Gruppe mit groupId
-    * */
+    /**
+     * Method that is invoked when the GoAddedCommand is called (on receiving
+     * of the server message).
+     * This method puts the new GO to the local database.
+     *
+     * @param go:      New GO
+     * @param groupId: ID of the group of the GO
+     */
     public void onGoAdded(Go go, long groupId/*, String userId*/) {
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 Go newGo = go;
                 newGo.setGroup(group);
-                //go.setOwner(?????);
+
+                List<GroupMembership> membership = group.getMembershipList();
+                List<UserGoStatus> goParticipants = new ArrayList<>();
+                for (GroupMembership member : membership) {
+                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, Status.NOT_GOING);
+                    goParticipants.add(participant);
+                }
+                newGo.setParticipantsList(goParticipants);
 
                 List<Go> old = group.getCurrentGos();
                 old.add(newGo);
                 List<Go> newGos = old;
                 group.setCurrentGos(newGos);
-                data.setValue(list);
+                data.postValue(list);
                 Log.d("GroupRepo", "Should call observer right now");
                 break;
             }
         }
     }
 
+    /**
+     * Method that is invoked when the GoEditedCommand is called (on receiving
+     * of the server message).
+     * This method puts the new data to the GO in the local database.
+     *
+     * @param go: GO with the new data
+     */
     public void onGoEdited(Go go) {
+        list = data.getValue();
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -396,6 +529,7 @@ public class GroupRepository extends Repository<List<Group>> {
                     newGo.setGroup(currentGo.getGroup());
                     newGo.setOwner(currentGo.getOwner());
                     newGo.setParticipantsList(currentGo.getParticipantsList());
+                    newGo.setLocations(currentGo.getLocations());
 
                     old.remove(currentGo);
                     old.add(newGo);
@@ -405,13 +539,21 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
             }
 
-            data.setValue(list);
+            data.postValue(list);
             Log.d("GroupRepo", "Should call observer right now");
             break;
         }
     }
 
+    /**
+     * Method that is invoked when the GoRemovedCommand is called (on receiving
+     * of the server message).
+     * This method deletes this GO from the local database.
+     *
+     * @param goId: ID of the GO
+     */
     public void onGoRemoved(long goId) {
+        list = data.getValue();
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -424,12 +566,20 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
             }
 
-            data.setValue(list);
+            data.postValue(list);
             break;
         }
     }
 
+    /**
+     * Method that is invoked when the GroupEditedCommand is called (on receiving
+     * of the server message).
+     * This method puts the new data to the group in the local database.
+     *
+     * @param group: New data of the group
+     */
     public void onGroupEdited(Group group) {
+        list = data.getValue();
         for (Group currentGroup : list) {
             if (group.getId() == currentGroup.getId()) {
                 Group newGroup = group;
@@ -438,54 +588,92 @@ public class GroupRepository extends Repository<List<Group>> {
 
                 list.remove(currentGroup);
                 list.add(newGroup);
-                data.setValue(list);
+                data.postValue(list);
                 break;
             }
         }
     }
 
+    /**
+     * Method that is invoked when the GroupRemovedCommand is called (on receiving
+     * of the server message).
+     * This method deletes this group from the local database.
+     *
+     * @param groupId: ID of the group
+     */
     public void onGroupRemoved(long groupId) {
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 list.remove(group);
-                data.setValue(list);
+                data.postValue(list);
                 break;
             }
         }
     }
 
+    /**
+     * Method that is invoked when the GroupRequestReceivedCommand is called
+     * (on receiving of the server message).
+     * This method puts the new request to the local database.
+     *
+     * @param group: Group with the new request
+     */
     public void onGroupRequestReceived(Group group) {
-        for (Group currentGroup : list) {
-            if (currentGroup.getId() == group.getId()) {
-                list.remove(currentGroup);
-                list.add(group);
-
-                data.setValue(list);
-                break;
-            }
-        }
+        list = data.getValue();
+        list.add(group);
+        data.postValue(list);
     }
 
+    /**
+     * Method that is invoked when the MemberAddedCommand is called (on receiving
+     * of the server message).
+     * This method puts the new member of the group to the local database.
+     *
+     * @param user:    Added user
+     * @param groupId: ID of the group
+     */
     public void onMemberAdded(User user, long groupId) {
-        if (GroupListActivity.getUserId().equals(user.getUid())) {
+        list = data.getValue();
+        /*if (GroupListActivity.getUserId().equals(user.getUid())) {
             getGroupData(user.getUid(), groupId); // if added member
-        }
+        }*/
 
         for (Group group : list) {
             if (group.getId() == groupId) {
+                List<GroupMembership> old = group.getMembershipList();
+
+                for (GroupMembership member : old) {
+                    if (member.getUser().getUid().equals(user.getUid())) {
+                        old.remove(member);
+                        List<GroupMembership> newList = old;
+                        group.setMembershipList(newList);
+                        break;
+                    }
+                }
+
                 GroupMembership membership = new GroupMembership(user, group, false, false);
                 List<GroupMembership> newList = group.getMembershipList();
                 newList.add(membership);
-                group.setMemberCount(group.getMemberCount() + 1);
                 group.setMembershipList(newList);
 
-                data.setValue(list);
+                data.postValue(list);
                 break;
             }
         }
     }
 
+    /**
+     * Method that is invoked when the MemberRemovedCommand is called (on receiving
+     * of the server message).
+     * This method deletes the member from the group in the local database.
+     * For more information see MemberRemovedCommand.
+     *
+     * @param userId:  ID of the user
+     * @param groupId: ID of the group
+     */
     public void onMemberRemoved(String userId, long groupId) {
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> oldMembershipList = group.getMembershipList();
@@ -493,17 +681,18 @@ public class GroupRepository extends Repository<List<Group>> {
                 for (GroupMembership membership : oldMembershipList) {
                     if (membership.getUser().getUid().equals(userId)) {
                         oldMembershipList.remove(membership);
-                        group.setMemberCount(group.getMemberCount() - 1);
+                        //group.setMemberCount(group.getMemberCount() - 1);
                         List<GroupMembership> newMembershipList = oldMembershipList;
                         group.setMembershipList(newMembershipList);
                         break;
                     }
                 }
-                if (group.getMemberCount() == 0) {
+                if (group.getMembershipList().size() == 0) {
                     list.remove(group);
                 }
 
                 List<Go> oldGoList = group.getCurrentGos();
+                ArrayList<Go> gosToBeDeleted = new ArrayList<>();
 
                 for (Go go : oldGoList) {
                     List<UserGoStatus> oldMemberList = go.getParticipantsList();
@@ -518,19 +707,33 @@ public class GroupRepository extends Repository<List<Group>> {
                     }
 
                     if (go.getParticipantsList().isEmpty() || go.getOwner().equals(userId)) {
-                        oldGoList.remove(go);
-                        List<Go> newGoList = oldGoList;
-                        group.setCurrentGos(newGoList);
+                        gosToBeDeleted.add(go);
                     }
                 }
 
-                data.setValue(list);
+                for (Go go : gosToBeDeleted) {
+                    //TODO GoRepository.getInstance().deleteGo(go.getId());
+                    oldGoList.remove(go);
+                    List<Go> newGoList = oldGoList;
+                    group.setCurrentGos(newGoList);
+                }
+
+                data.postValue(list);
                 break;
             }
         }
     }
 
+    /**
+     * Method that is invoked when the RequestDeniedCommand is called (on receiving
+     * of the server message).
+     * This method deletes the request from the group in the local database.
+     *
+     * @param userId:  ID of the user
+     * @param groupId: ID of the group
+     */
     public void onRequestDenied(String userId, long groupId) {
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> old = group.getMembershipList();
@@ -546,13 +749,25 @@ public class GroupRepository extends Repository<List<Group>> {
                     }
                 }
 
-                data.setValue(list);
+                data.postValue(list);
                 break;
             }
         }
     }
 
+    /**
+     * Method that is invoked when the StatusChangedCommand is called (on receiving
+     * of the server message).
+     * This method changes the status of the member in the GO in the local database.
+     *
+     * @param userId: ID of the user
+     * @param goId:   ID of the GO
+     * @param status: New status: 0 - NOT_GOING;
+     *                1 - GOING;
+     *                2 - GONE
+     */
     public void onStatusChanged(String userId, long goId, int status) {
+        list = data.getValue();
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -575,12 +790,21 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
             }
 
-            data.setValue(list);
+            data.postValue(list);
             break;
         }
     }
 
+    /**
+     * Method that is invoked when the UserDeletedCommand is called (on receiving
+     * of the server message).
+     * This method deletes all information that linked with the user.
+     * For more information see UserDeletedCommand.
+     *
+     * @param userId
+     */
     public void onUserDeleted(String userId) {
+        list = data.getValue();
         for (Group group : list) {
             onMemberRemoved(userId, group.getId());
         }
@@ -588,7 +812,16 @@ public class GroupRepository extends Repository<List<Group>> {
         // logout?
     }
 
-    public void onLocationsUpdated(Go go) {
+    /**
+     * Method that is invoked when the locations of the GO are updated (from
+     * the GO Repository).
+     * This method updates locations of the users of the GO in local database.
+     *
+     * @param goData: GoLiveData with GO object inside
+     */
+    public void onLocationsUpdated(GoLiveData goData) {
+        list = data.getValue();
+        Go go = goData.getValue();
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -602,7 +835,7 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
             }
 
-            data.setValue(list);
+            data.postValue(list);
             break;
         }
     }
@@ -616,9 +849,11 @@ public class GroupRepository extends Repository<List<Group>> {
         });*/
     }
 
-    /*
-    * getter fro GroupListLiveData
-    * */
+    /**
+     * Getter for GroupListLiveData.
+     *
+     * @return LiveData of the groups
+     */
     public GroupListLiveData getData() {
         return data;
     }
@@ -699,6 +934,11 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
 
+    /**
+     * GetInstance method for GroupRepository Singleton.
+     *
+     * @return GroupRepository Singleton object
+     */
     public static GroupRepository getInstance() {
         if (groupRepo == null) {
             groupRepo = new GroupRepository(/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/);
@@ -706,15 +946,34 @@ public class GroupRepository extends Repository<List<Group>> {
         return groupRepo;
     }
 
-    public void setList(ArrayList<Group> list) {
+    /**
+     * Setter for list of groups.
+     *
+     * @param list: List of groups
+     */
+    public void setList(List<Group> list) {
         this.list = list;
     }
 
-    public ArrayList<Group> getList() {
+    /**
+     * Getter for list of groups.
+     *
+     * @return List of groups
+     */
+    public List<Group> getList() {
         return list;
     }
 
+    /**
+     * Setter for LiveData of the groups.
+     *
+     * @param data: GroupListLiveData
+     */
     public void setData(GroupListLiveData data) {
         this.data = data;
+    }
+
+    public void updateData(){
+        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 }

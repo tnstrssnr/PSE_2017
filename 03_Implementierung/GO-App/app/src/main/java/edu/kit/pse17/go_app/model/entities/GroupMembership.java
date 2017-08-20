@@ -8,46 +8,48 @@ import com.google.gson.annotations.SerializedName;
 
 
 /**
- * Entity-Klasse. Anhand dieser Klasse wird eine Tabelle in der lokalen SQLite Datenbank generiert, die GroupMembership-Objekte persistiert.
- * Diese Klasse stellt alle Mitglieder der Gruppe + Information ob das Mitglied ein Administrator ist
- * oder ob es sich bei der Mitgliedschaft lediglich um eine offene Grupppenanfrage handelt dar.
+ * Entity-Class. On the basis of this class, a table is generated
+ * in the local SQLite database, which group membership objects persists.
+ * This class shows all members of the group + Information
+ * whether member an Administrator is or whether the membership
+ * is just an open group request is.
  */
 @Entity(tableName = "group_memberships",
         indices = {@Index("user"), @Index("group"), @Index(value = {"group", "isAdmin"}), @Index(value = {"group", "isRequest"})})
 public class GroupMembership {
 
     /**
-     * Mitglied der Gruppe.
+     * Member of the group.
      */
     @SerializedName("user")
     @Expose
     private User user;
 
     /**
-     * Gruppe, zu der der Mitglied gehört.
+     * Group.
      */
-
     @SerializedName("group")
     @Expose
     private Group group;
 
     /**
-     * Boolean-Wert der angibt, ob der Benutzer ein Administrator der Gruppe ist.
+     * Boolean value indicating whether the user is an Administrator of the group.
      */
     @SerializedName("isAdmin")
     @Expose
     private boolean isAdmin;
 
     /**
-     * Boolean-Wert, der angibt, ob es sich bei der Mitgliedschaft des Benutzers um eine "ordentliche Mitgliedschaft"
-     * oder um eine unbeantwortete Gruppenanfrage handelt.
+     * Boolean value indicating whether the membership of the user is a
+     * "regular membership" or an unanswered request.
      */
     @SerializedName("isRequest")
     @Expose
     private boolean isRequest;
-public GroupMembership(){
 
-}
+    public GroupMembership() {
+    }
+
     public GroupMembership(User user, Group group, boolean isAdmin, boolean isRequest) {
         this.user = user;
         this.group = group;

@@ -2,6 +2,8 @@ package edu.kit.pse17.go_app.repositories;
 
 import android.util.Log;
 
+import javax.inject.Singleton;
+
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
@@ -10,17 +12,31 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Dieses Repository verwaltet und vermittelt Datenanfragen und Datenänderungen, die mit dem Benutzerkonto
- * selbst verknüpfte Informationen betreffen.
+ * The User Repository manages and sends data requests and data changes, which
+ * with the user account linked informations are.
  *
- * Im Gegensatz zu anderen Repositories spricht diese Klasse auch die SharedPreferences des Systems an.
+ * Unlike other Repositories, this class also addresses
+ * the SharedPreferences of the system.
+ * This Repository is also a singleton.
  */
-
+@Singleton
 public class UserRepository extends Repository<User> {
+
+    /**
+     * Private attribute for UserRepository (see Singleton).
+     */
     private static UserRepository userRepo;
+
+    /**
+     * The Reference to the REST-API, which TomcatServer provides, so that
+     * communication with the server is possible.
+     */
     private final TomcatRestApi apiService;
     //private ArrayList<Group> groups;
 
+    /**
+     * Constructor for User Repository.
+     */
     public UserRepository() {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
         //groups = null;
@@ -43,6 +59,11 @@ public class UserRepository extends Repository<User> {
         });
     }
 
+    /**
+     * This method deletes user.
+     *
+     * @param userId: ID of the user
+     */
     public void deleteUser(String userId) {
         Call<Void> call = apiService.deleteUser(userId);
         call.enqueue(new Callback<Void>() {
@@ -60,19 +81,19 @@ public class UserRepository extends Repository<User> {
     }
 
     public void registerDevice(String userId, String instanceId) {
-        Call<Void> call = apiService.registerDevice(userId, instanceId);
+        /*Call<Void> call = apiService.registerDevice(userId, instanceId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                String message = response.message();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.e("register_device", t.toString());
             }
-        });
+        });*/
     }
 
 
@@ -100,6 +121,12 @@ public class UserRepository extends Repository<User> {
         this.sharedPrefManager = sharedPrefManager;
         this.executor = executor;
     } */
+
+    /**
+     * GetInstance method for UserRepository Singleton.
+     *
+     * @return UserRepository Singleton object
+     */
     public static UserRepository getInstance() {
         if (userRepo == null) {
             userRepo = new UserRepository()/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/;

@@ -10,18 +10,18 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Austreten (oder Löschen)
- * eines Mitglieds aus der Gruppe ausgeführt wird.
+ * This class implements a command for the remove (or delete)
+ * of a member from the group when called.
  */
 public class MemberRemovedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Mitglieder der Gruppe werden benachrichtigt, dass ein Mitglied aus
-     * der Gruppe ausgetreten (oder gelöscht) ist;
-     * -Alle GOs, bei denen der Benutzer GO-Verantwortlicher war, werden gelöscht;
-     * -Wenn die Gruppe nur einen einzigen Mitglied hatte, wird diese Gruppe gelöscht.
+     * -All members of the group will be notified that a member is removed from
+     * the group (or deleted);
+     * -All the GOs will be deleted, where the user responsible was;
+     * -If the group had only a single member, it will be deleted.
      */
     @Override
     public void onCommandReceived() {
