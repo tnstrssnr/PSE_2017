@@ -32,7 +32,7 @@ import retrofit2.Response;
  * (inclusive data of some GOs) and is the simple interface for fetching,
  * changing and deletion of data.
  * In the case of a request the Repository can fetch the data from server.
- *
+ * <p>
  * The Repository operate as a mediator between the local database and data
  * that the app from server obtain.
  * This Repository is also a singleton.
@@ -457,6 +457,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onAdminAdded(String userId, long groupId) {
         list = data.getValue();
+        
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> oldList = group.getMembershipList();
@@ -768,6 +769,8 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onStatusChanged(String userId, long goId, int status) {
         list = data.getValue();
+
+        outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -780,19 +783,17 @@ public class GroupRepository extends Repository<List<Group>> {
                             userStatus.setStatus(Status.values()[status]);
                             List<UserGoStatus> newStatusList = statusList;
                             go.setParticipantsList(newStatusList);
-                            break;
+                            break outer;
                         }
                     }
 
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
-                    break;
+
                 }
             }
-
-            data.postValue(list);
-            break;
         }
+        data.postValue(list);
     }
 
     /**
@@ -973,7 +974,7 @@ public class GroupRepository extends Repository<List<Group>> {
         this.data = data;
     }
 
-    public void updateData(){
+    public void updateData() {
         getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 }

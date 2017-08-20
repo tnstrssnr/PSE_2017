@@ -252,8 +252,8 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(8000);
-        mLocationRequest.setFastestInterval(6000);
+        mLocationRequest.setInterval(20000);
+        mLocationRequest.setFastestInterval(20000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 

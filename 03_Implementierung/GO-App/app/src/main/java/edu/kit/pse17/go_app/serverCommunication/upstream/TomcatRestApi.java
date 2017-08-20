@@ -15,7 +15,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.QueryMap;
 
 /**
  * This is the interface between the Client (App) to the REST API of Tomcat-Server.
@@ -154,7 +153,7 @@ public interface TomcatRestApi {
      * @return Call to the server (no additional information in Response)
      */
     @PUT("gos/{goId}/status")
-    public Call<Void> changeStatus(@QueryMap Map<String, String> parameters, @Path("goId") long goId);
+    public Call<Void> changeStatus(@Body Map<String, String> parameters, @Path("goId") long goId);
 
     /**
      * Method that returns the list of positions (clusters) of the GO participants
