@@ -148,4 +148,17 @@ public class LocationService {
             LocationService.activeServices.remove(goId);
         }
     }
+
+    /**
+     * Einzig und allein gedacht für Tests. activeServices ist eine private class auf die
+     * niemand ausser der Klasse selbst Zugriff haben soll!
+     * Fügt einen neues aktives Go der Liste hinzu.
+     * @param goId Id des hinzuzufügenden Gos.
+     * @param newService Gemappter LocationService.
+     */
+    public void putGo(Long goId, LocationService newService) throws IOException{
+        if(LocationService.activeServices.get(goId) == null) {
+            LocationService.activeServices.put(goId, new LocationService());
+        }
+    }
 }

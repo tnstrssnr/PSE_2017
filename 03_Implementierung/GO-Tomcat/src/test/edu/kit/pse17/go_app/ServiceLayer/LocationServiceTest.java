@@ -39,9 +39,8 @@ public class LocationServiceTest {
         this.testGo = new Go();
         this.testEntity = new GoEntity();
         this.mockGoService = Mockito.mock(GoService.class);
-        this.testLocationService = new LocationService(testEntity);
+        this.testLocationService = new LocationService();
         this.mockMap = Mockito.mock(Map.class);
-        Mockito.when(GoService.getGoById(testGoId)).thenReturn(testEntity);
 
 
     }
