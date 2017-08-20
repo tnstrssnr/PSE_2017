@@ -1,5 +1,10 @@
 package edu.kit.pse17.go_app.PersistenceLayer.clientEntities;
 
+/**
+ * Die Group-Membership Klasse beschreibt ein Klasse mit Objekten, die Informationen zu Gruppen, beziehungsweise ihre einzelnen Mitgliedern,
+ * beinhaltet.
+ */
+
 public class GroupMembership {
     private User user;
     private Group group;

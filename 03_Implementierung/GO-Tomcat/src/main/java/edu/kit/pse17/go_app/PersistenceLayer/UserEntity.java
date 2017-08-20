@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Dies ist eine Entity Klasse. Sie wird von dem Framework Hinbernate dazu verwendet, POJOS auf Tupel in einer Datenbank
+ * Dies ist eine Entity Klasse. Sie wird von dem Framework Hibernate dazu verwendet, POJOS auf Tupel in einer Datenbank
  * zu mappen. Wie das Mapping geschieht ist in dieser Klasse durch Annotations festgelegt. Der Rest der Anwendung kann
  * somit überall mit Java-Objekten hantieren und muss sich nicht um die konkrete Implementierung der Datenbank kümmern.
  * <p>
@@ -19,8 +19,8 @@ import java.util.Set;
 public class UserEntity {
 
     /**
-     * Eine im System eindeutige UserID. Diese ID wird generiert von dem Firebase Authentication Service und von dieser
-     * Andwendung unverändert übernommen. Die ID wird nach der Registrierung nicht mehr verändert, bis der user seinen
+     * Eine im System eindeutige UserId. Diese Id wird generiert von dem Firebase Authentication Service und von dieser
+     * Andwendung unverändert übernommen. Die Id wird nach der Registrierung nicht mehr verändert, bis der user seinen
      * Account löscht.
      */
 
@@ -29,7 +29,7 @@ public class UserEntity {
     private String uid;
 
     /**
-     * Ein String, mit dem das Gerät, das der Benutzer im Augenblick benutzt identifiziert werden kann. Diese ID wird
+     * Ein String, mit dem das Gerät, das der Benutzer im Augenblick benutzt, identifiziert werden kann. Diese Id wird
      * vom Firebease Cloud Messaging Service benötigt und erlaubt es dem Server eine Nachricht an einen Client zu
      * schicken, ohne dass dieser Client vorher den Server angesprochen haben muss.
      * <p>
@@ -42,14 +42,14 @@ public class UserEntity {
     /**
      * Der Benutzername des Users. Dieser muss nicht eindeutig sein. Er kann vom User nicht selbst bestimmt werden,
      * sondern wird übernommen, von dem Google-Account mit dem sich der user in der App angemeldet hat. Da der Benutzer
-     * nach der Regsitrierun diesen Account nicht wechseln kann, bleibt auch der Benutzername die ganze Zeit
+     * nach der Registrierung diesen Account nicht wechseln kann, bleibt auch der Benutzername die ganze Zeit
      * unverändert.
      */
     @Column(name = "name")
     private String name;
 
     /**
-     * Die Email-Adresse, die mit dem Google-Account asoziiert ist, mit dem sich der Benutzer registriert hat.
+     * Die Email-Adresse, die mit dem Google-Account assoziiert ist, mit dem sich der Benutzer registriert hat.
      * Da der Benutzer nach der Registrierung diesen Account nicht wechseln kann,
      * bleibt auch der Benutzername die ganze Zeit unverändert.
      */
@@ -58,8 +58,8 @@ public class UserEntity {
 
     /**
      * Eine Liste mit allen Gruppen, in denen der Benutzer Mitglied ist. Dieses Feld enthält einen ForeignKeyConstraint:
-     * Die IDs der Gruppenobjekte der Liste sind die Primärschlüssel in der Gruppenrelation. Für dieses Feld müssen
-     * Methoden zum Ändern der Liste vorhanden sein, da sich die Gruppen, in den der Benutzer Mitglied ist verändern
+     * Die Ids der Gruppenobjekte der Liste sind die Primärschlüssel in der Gruppenrelation. Für dieses Feld müssen
+     * Methoden zum Ändern der Liste vorhanden sein, da sich die Gruppen, in denen der Benutzer Mitglied ist, verändern
      * können.
      */
 

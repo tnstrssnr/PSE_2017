@@ -9,7 +9,7 @@ import javax.persistence.EntityNotFoundException;
  * Dieses Interface definiert Methoden auf einer Datenbank, die standarmäßig für jede Tabelle zur Verfügung stehen
  * sollten (CRUD). daher wird dieses Interface von jeder DAO-Klasse implementiert.
  * <p>
- * Das Interface beihaltet zwei Genreics. Das Generic T definiert den entity-Typen, der in der jeweilgen Tabelle
+ * Das Interface beihaltet zwei Generics. Das Generic T definiert den entity-Typen, der in der jeweilgen Tabelle
  * verwaltet wird. Das Generic PK ist der Datentyps des Primärschlüssels der Datenbanktabelle.
  * <p>
  * Die Methoden dieses Interfaces werden von dieser DAO Klasse implementiert und sind nach außen sichtbar. Sie werden
@@ -29,23 +29,23 @@ public interface AbstractDao<T, PK> {
     public T get(PK key);
 
     /**
-     * Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. dabei wird das Entity-Objekt vor dem
-     * Methodenaufruf erzeugt und der methode "fertig" übergeben.
+     * Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. Dabei wird das Entity-Objekt vor dem
+     * Methodenaufruf erzeugt und der Methode "fertig" übergeben.
      *
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das
-     *               Objekt, welches der Methode übergeben wird gültig ist (alle Konsistenzbedingungen der Datenbank
+     *               Objekt, welches der Methode übergeben wird, gültig ist (alle Konsistenzbedingungen der Datenbank
      *               werden erfüllt).
      */
     public PK persist(T entity);
 
     /**
      * Diese Methode löscht ein Entity-Objekt aus der Datenbank. Es werden außerdem automatisch alle Entities gelöscht,
-     * die mit der gelöschten Entity assoziiert sind (Auch in anderen Datenbanktabellen, sodass der datenbestand nach
+     * die mit der gelöschten Entity assoziiert sind (Auch in anderen Datenbanktabellen, sodass der Datenbestand nach
      * der Ausführung der Methode konsistent ist)
      *
-     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der datentyp wird
+     * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird
      *            durch das Generic PK bei der Implementierung der Klasse spezifiziert.
-     * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
+     * @throws EntityNotFoundException Existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
@@ -56,7 +56,7 @@ public interface AbstractDao<T, PK> {
      * Entity-Klasse alle Attribute geändert werden. Welche Attribute geändert werden können ist in den Entity-Klassen
      * und in den implementierenden Dao-Klassen spezifiziert.
      *
-     * @param t Ein Entity-Objekt, dass die geänderten Daten enthält. Das Objekt enthält die ID der Entity, die geändert
+     * @param t Ein Entity-Objekt, das die geänderten Daten enthält. Das Objekt enthält die Id der Entity, die geändert
      *          werden soll und die Werte der Attribute die neu zugewiesen werden sollen. Alle anderen Attribute sind
      *          null, was der Methode signalisiert, dass diese Werte nicht geändert werden müssen.
      * @throws EntityNotFoundException existiert keine Entity mit dem spezifizierten Schlüssel, wird eine
