@@ -964,16 +964,8 @@ public class GroupRepository extends Repository<List<Group>> {
     public void setData(GroupListLiveData data) {
         this.data = data;
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     public void updateData(){
         getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 }
-=======
-}
->>>>>>> 04d332a1be7cbd0d0b3cb15c155b0e7108dba378
-=======
-}
->>>>>>> 04d332a1be7cbd0d0b3cb15c155b0e7108dba378
