@@ -13,4 +13,9 @@ public class GoLiveData extends LiveData<Go> {
     public void setValue(Go value) {
         super.setValue(value);
     }
+
+    @Override
+    protected void postValue(Go value) {
+        super.postValue(value);
+    }
 }

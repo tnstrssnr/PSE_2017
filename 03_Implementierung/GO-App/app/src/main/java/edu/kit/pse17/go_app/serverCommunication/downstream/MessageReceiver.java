@@ -50,9 +50,7 @@ public class MessageReceiver extends FirebaseMessagingService {
             JSONObject data = new JSONObject(map);
 
             try {
-                //JSONObject eventData = data.getJSONObject("data");
                 tag = data.getString("tag");
-
                 command = Command.valueOf(tag).getCommand();
                 command.setMessage(data);
                 command.onCommandReceived();

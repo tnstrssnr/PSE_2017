@@ -13,4 +13,9 @@ public class LocationLiveData extends LiveData<LatLng> {
     public void setValue(LatLng value) {
         super.setValue(value);
     }
+
+    @Override
+    protected void postValue(LatLng value) {
+        super.postValue(value);
+    }
 }
