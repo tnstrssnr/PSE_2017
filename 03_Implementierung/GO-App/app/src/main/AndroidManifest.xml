@@ -51,7 +51,7 @@
         <service android:name=".serverCommunication.downstream.MessageReceiver" >
 
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGE_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
             </intent-filter>
 
         </service>

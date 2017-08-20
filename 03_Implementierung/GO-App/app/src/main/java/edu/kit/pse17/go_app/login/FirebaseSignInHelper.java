@@ -15,11 +15,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import edu.kit.pse17.go_app.R;
-import edu.kit.pse17.go_app.repositories.UserRepository;
+import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
  * Created by tina on 17.06.17.
@@ -103,20 +103,21 @@ public class FirebaseSignInHelper extends SignInHelper implements GoogleApiClien
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             final FirebaseUser user = mAuth.getCurrentUser();
-                            user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                            /*user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<GetTokenResult> task) {
                                     if (task.isSuccessful()) {
                                         String idToken = task.getResult().getToken();
                                         // Send token to your backend via HTTPS
                                         // ...
-                                        UserRepository.getInstance().registerDevice(user.getUid(),idToken);
+                                        UserRepository.getInstance().registerDevice(user.getUid(), idToken);
                                     } else {
                                         // Handle error -> task.getException();
                                     }
                                 }
-                            });
+                            });*/
                             returnActivityResult(new String[]{user.getUid(), user.getEmail(), user.getDisplayName()});
+                            GroupRepository.getInstance().registerDevice(user.getUid(), FirebaseInstanceId.getInstance().getToken());
                         } else {
                             returnActivityResult(null);
                         }

@@ -53,7 +53,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     //private final Executor executor;
 
-    private ArrayList<Group> list;
+    private List<Group> list;
     private GroupListLiveData data;
 
     private Group groupWithoutId;
@@ -82,7 +82,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
     public void getData(final String userId, final String email, String instanceId, String userName) {
 
-        Call<List<Group>> call  = apiService.getData(userId,"test","test" /*email, userName*/);
+        Call<List<Group>> call  = apiService.getData(userId,email,userName/*, instanceId*/);
         call.enqueue(new Callback<List<Group>>() {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
@@ -101,6 +101,7 @@ public class GroupRepository extends Repository<List<Group>> {
                  StackTraceElement[] a = t.getStackTrace();
             }
         });
+
 
         /*Thread t = new Thread(new Runnable() {
             @Override
@@ -128,7 +129,21 @@ public class GroupRepository extends Repository<List<Group>> {
     private void getGroupData(String userId, long groupId) {
 
     }
+    public void registerDevice(String userId, String instanceId) {
+        Call<Void> call = apiService.registerDevice(userId, instanceId);
+        call.enqueue(new Callback<Void>() {
 
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                String message = response.message();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("register_device", t.toString());
+            }
+        });
+    }
     /*
     * Erzeugt eine Gruppe, group.Id wird danach intern auf dem Server vergeben
     * */
@@ -455,6 +470,7 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     public void onGroupRequestReceived(Group group) {
+        list = data.getValue();
         for (Group currentGroup : list) {
             if (currentGroup.getId() == group.getId()) {
                 list.remove(currentGroup);
@@ -710,7 +726,7 @@ public class GroupRepository extends Repository<List<Group>> {
         this.list = list;
     }
 
-    public ArrayList<Group> getList() {
+    public List<Group> getList() {
         return list;
     }
 

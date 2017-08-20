@@ -1,7 +1,5 @@
 package edu.kit.pse17.go_app.serverCommunication.downstream;
 
-import android.util.Log;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -33,7 +31,7 @@ public class MessageReceiver extends FirebaseMessagingService {
      * URL des Servers, von dem die Nachrichten kommen sollen (in diesem Fall der Tomcat_server der Anwendung).
      * Nachrichten von anderen Absendern werden ignoriert.
      */
-    private static final String SENDER = "https://i43pc164.ipd.kit.edu/";
+    private static final String SENDER = "479703714972";
 
     private ServerCommand command;
 
@@ -46,23 +44,26 @@ public class MessageReceiver extends FirebaseMessagingService {
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage.getFrom() == SENDER) {
+        if (remoteMessage.getFrom().equals(SENDER)) {
             String tag = null;
             Map<String, String> map = remoteMessage.getData();
             JSONObject data = new JSONObject(map);
 
             try {
-                JSONObject eventData = data.getJSONObject("data");
-                tag = eventData.getString("tag");
+                //JSONObject eventData = data.getJSONObject("data");
+                tag = data.getString("tag");
 
                 command = Command.valueOf(tag).getCommand();
-                command.setMessage(eventData);
+                command.setMessage(data);
                 command.onCommandReceived();
             } catch (JSONException e) {
+                StackTraceElement[] t = e.getStackTrace();
                 e.printStackTrace();
             }
-        } else {
-            Log.d("MESSAGE_FCM", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+        }
+           // Log.d("MESSAGE_Firebase", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+        if(remoteMessage.getData().size() > 0){
+           // Log.d("FIRST DATA FCM", remoteMessage.getData().toString());
         }
     }
 

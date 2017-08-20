@@ -60,19 +60,19 @@ public class UserRepository extends Repository<User> {
     }
 
     public void registerDevice(String userId, String instanceId) {
-        Call<Void> call = apiService.registerDevice(userId, instanceId);
+        /*Call<Void> call = apiService.registerDevice(userId, instanceId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                String message = response.message();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.e("register_device", t.toString());
             }
-        });
+        });*/
     }
 
 

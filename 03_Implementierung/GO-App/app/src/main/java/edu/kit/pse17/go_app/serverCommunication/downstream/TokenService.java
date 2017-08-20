@@ -5,6 +5,9 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import edu.kit.pse17.go_app.repositories.UserRepository;
+import edu.kit.pse17.go_app.view.GroupListActivity;
+
 /**
  * Die Klasse erzeugt ein InstanceID Token, welches an den Server uebergeben wird, um von Server-Seite aus Nachrichten an ein einzelnes Geraet schicken zu koennen.
  *
@@ -39,6 +42,7 @@ public class TokenService extends FirebaseInstanceIdService {
      */
     private void sendTokenToServer(String refreshedToken) {
         //TODO implement
-
+        if(GroupListActivity.getUserId() != null)
+            UserRepository.getInstance().registerDevice(GroupListActivity.getUserId(), refreshedToken);
     }
 }

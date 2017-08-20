@@ -35,8 +35,8 @@ public interface TomcatRestApi {
      *
      * @return Call to the server (with List of the groups of this user (incl. GOs) in Response)
      */
-    @GET("user/{userid}/{email}/{userName}")
-    public Call<List<Group>> getData(@Path("userid") String userId, @Path("email") String email, @Path("userName") String userName);
+    @GET("user/{userId}/{email}/{userName}")
+    public Call<List<Group>> getData(@Path("userId") String userId, @Path("email") String email, @Path("userName") String userName);
 
     /**
      * Method that creates and registers new user on the server
@@ -62,7 +62,7 @@ public interface TomcatRestApi {
      * @param instanceId: ID of the device
      * @return Call to the server (no additional information in Response)
      */
-    @PUT("user/{userId}/device/{instanceId]")
+    @PUT("user/{userId}/device/{instanceId}")
     public Call<Void> registerDevice(@Path("userId") String userId, @Path("instanceId") String instanceId);
 
     @PUT("user/update")

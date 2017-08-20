@@ -4,18 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import edu.kit.pse17.go_app.R;
@@ -40,12 +36,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         //Log.d("ID", FirebaseInstanceId.getInstance().getToken());
         String token = FirebaseInstanceId.getInstance().getToken();
-        FirebaseAuth.getInstance().getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-               // UserRepository.getInstance().registerDevice(FirebaseAuth.getInstance().getCurrentUser().getUid(),task.getResult().getToken());
-            }
-        });
+        //Bundle extras = getIntent().getExtras();
+        //Set<String> set = extras.keySet();
+
         if(getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).contains("uid")){
             GroupListActivity.start(this, retrieveUserDataFromSharedPreferences());
             this.finish();
