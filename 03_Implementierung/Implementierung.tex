@@ -170,6 +170,10 @@ Zu jedem Command gibt es meistens einen Methode in der GroupRepository, wie z.B.
 \item \textbf{LiveData Klassen}\\
 
 Zu allen LiveData<> Klassen wurden Unterklassen erstellt, damit die postValue und setValue Methoden sichtbar sind, weil genau diese Methoden triggern die Beobachter dann.
+
+\item \textbf{Methoden bei Repository}\\
+
+Es gibt 3 Methoden bei der Repository Klasse. Wir dachten, dass die ziemlich sinnvoll da waren, aber als wir die Implementierung angefangen haben, waren die Methoden ein bottleneck für uns, und wir habe es als sinnvoll gehalten, die Daten anders zu routen. Am Ende sind wir dazu gekommen, dass diese 3 Methoden unnützlich sind, da wir bis zum Ende diese nicht benutzt haben und es kein Grund sich ergab, diese irgendwann zu benutzten.
 	
 \end{enumerate}
 
