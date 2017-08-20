@@ -99,44 +99,44 @@
 \section{Änderungen zum Pflichtenheft und Entwurf}
 \begin{enumerate}
 	\item \textbf{Hinzufügen von Service-Klassen in der Service-Layer des Servers}\\
-	Der Business-Layer des Servers wurden die Klassen \textit{userService, GroupService} und \textit{GoService} hinzugefügt. Diese dienen hauptsächlich der klareren Strukturierung zwischen den Aufgaben der restController und der Dao-Klassen. Anstatt direkt auf die Persistence-Layer zuzugreifen, interagieren die RestController-Klassen nur noch mit dem für sie zuständigen Service. In den Service-Klassen wird das Anpassen von Daten für die Umwandlung zu JSON oder zur Persistierung übernommen, sowie die benachrichtigung der Observer, die vorher in den DAO-Klassen stattgefunden hat.
+	Der Business-Layer des Servers wurden die Klassen \textit{userService, GroupService} und \textit{GoService} hinzugefügt. Diese dienen hauptsächlich der klareren Strukturierung zwischen den Aufgaben der restController und der Dao-Klassen. Anstatt direkt auf die Persistence-Layer zuzugreifen, interagieren die RestController-Klassen nur noch mit dem für sie zuständigen Service. In den Service-Klassen wird das Anpassen von Daten für die Umwandlung zu JSON oder zur Persistierung übernommen, sowie die Benachrichtigung der Observer, die vorher in den DAO-Klassen stattgefunden hat.
 	
 Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch die DAO-Klassen nur noch einen Verantwortlichkeitsbereich, um den sie sich kümmern müssen. Jeglicher Code der nur zur Umwandlung und Verwaltung der Daten dient, kann an die Service-Klassen ausgelagert werden.
 
 	\item \textbf{Zusätzliche Client-Entity Klassen}\\
-	Da sich die Anforderungen an die Datenmodellierung auf dem Server und auf dem Client satark unterscheiden, wurden jeweils unterschiedliche Entity-Klassen zur Modellierung der NEtitäten verwendet. Um die Anwendungen trotzdem miteinander kompatibel zu machen, verfügt der Server zusätzlich über ClientEntity-Klassen, die die Datenmodellierung auf den Clients entsprechen.
+	Da sich die Anforderungen an die Datenmodellierung auf dem Server und auf dem Client stark unterscheiden, wurden jeweils unterschiedliche Entity-Klassen zur Modellierung der Entitäten verwendet. Um die Anwendungen trotzdem miteinander kompatibel zu machen, verfügt der Server zusätzlich über ClientEntity-Klassen, die die Datenmodellierung auf den Clients entsprechen.
 	
-	Die Verwendung dieser Klassen erlaubt das einfache Parsen von Json-Objekten, die über die Client-Server Schnittstellen übertragen wurden. Die Umwandlung von ClientEntities zu ServerEntities übernehmen die entsprechenden Service-Klassen. Im Quellcode lassen sich Instanzen der ClientEntity-Klassen an dem Buchstaben c im Variablennamen erkennen (z.B. \textit{cGroup}).
+	Die Verwendung dieser Klassen erlaubt das einfache Parsen von JSON-Objekten, die über die Client-Server Schnittstellen übertragen wurden. Die Umwandlung von ClientEntities zu ServerEntities übernehmen die entsprechenden Service-Klassen. Im Quellcode lassen sich Instanzen der ClientEntity-Klassen an dem Buchstaben c im Variablennamen erkennen (z.B. \textit{cGroup}).
 	
 	\item \textbf{Min Android Version} \\
 	
-	Die minimale Android Version ist jetzt API 24, weil da viele shortcuts und nützliche Sachen von Google zur Verfügung gestellt werden, die helfe viele sonderfälle zu vermeiden.	
+	Die minimale Android Version ist jetzt API 24, weil da viele Shortcuts und nützliche Sachen von Google zur Verfügung gestellt werden, die helfe viele Sonderfälle zu vermeiden.	
 	
-	\item \textbf{F0010}\\Standort Permission wird nicht zur Registrierungszeit abgefragt, sondern, sondern zur Laufzeit, gleich wenn man die Standortverfolgung braucht. Macht nichts aus, da User die Standortverfolgung außerhalb der App auch ausschalten kann.
-Wenn der Benutzer die Berechtigung nicht gibt, dann zeigt die App einen Dialog, dass erklärt, dass man die Berechtigung in Geräteinstellungen geben muss, damit die App wieder funnkktioniert. Bis man die Berechtigung gibt ist die ganze Funktionalität nicht zugänglich.
+	\item \textbf{F0010}\\Standort Erlaubnis wird nicht zur Registrierungszeit abgefragt, sondern zur Laufzeit, gleich wenn man die Standortverfolgung braucht. Macht nichts aus, da User die Standortverfolgung außerhalb der App auch ausschalten kann.
+Wenn der Benutzer die Berechtigung nicht gibt, dann zeigt die App einen Dialog, dass erklärt, dass man die Berechtigung in Geräteeinstellungen geben muss, damit die App wieder funktioniert. Bis man die Berechtigung gibt ist die ganze Funktionalität nicht zugänglich.
 \item \textbf{F0020}\\
-F0020 Bemerkung: beim Einloggen braucht man kein E-Mail und Passwort einzugeben, wenn man schon in sein Google-Account eingelogt ist. Man wählt nur den Google Account, mit dem man sich anmelden möchte.
+F0020 Bemerkung: beim Einloggen braucht man kein E-Mail und Passwort einzugeben, wenn man schon in sein Google-Account eingeloggt ist. Man wählt nur den Google Account, mit dem man sich anmelden möchte.
 \item \textbf{F0070}\\
-F0070 Gruppenbescreibung war ein Wunschkriterium, wurde aber implementiert.
-Wenn man den Gruppeneintrag aus der Liste aller Gruppen anclickt, wird dem Benutzer die Gruppenansicht angezeigt. Da sieht man nur die Gruppenname und Liste aller GOs. Um die Mitglieder und Bescreibung zu sehen muss man die Gruppenname oben anclicken, dann wird dem benutzer die GruppenDetails Ansicht angezeigt.
+F0070 Gruppenbeschreibung war ein Wunschkriterium, wurde aber implementiert.
+Wenn man den Gruppeneintrag aus der Liste aller Gruppen anklickt, wird dem Benutzer die Gruppenansicht angezeigt. Da sieht man nur die Gruppenname und Liste aller GOs. Um die Mitglieder und Beschreibung zu sehen muss man die Gruppenname oben anklicken, dann wird dem Benutzer die Gruppendetails Ansicht angezeigt.
 
 \item \textbf{F0080}\\ "Gruppe erstellen" ist mit dem runden Button unten rechts dargestellt.
 
-\item \textbf{F0090}\\ "Gruppe verlassen" Button befindet sich in der GruppeDetails Ansicht. Wenn Admin die Gruppe verlässt, dann wird die Gruppe gelöscht, da wir jetzt keinen Wunschkriterium implementiert haben, wo man einen neuen Admin zuweist.
+\item \textbf{F0090}\\ "Gruppe verlassen" Button befindet sich in der Gruppendetails Ansicht. Wenn Admin die Gruppe verlässt, dann wird die Gruppe gelöscht, da wir jetzt keinen Wunschkriterium implementiert haben, wo man einen neuen Admin zuweist.
 
 \item \textbf{F0110}\\ Wie gesagt, Gruppenbeschreibung ist jetzt implementiert.
 
  \item \textbf{F0120}\\ Die Anfragen werden jetzt den Administratoren nicht angezeigt.
 
-\item \textbf{F0130}\\ Wenn der Administrator den Mitglied-Eintrag in der List anclick und hält, dann erscheint ein Context Menu, um diesen Benutzer zu entfernen.
+\item \textbf{F0130}\\ Wenn der Administrator den Mitglied-Eintrag in der List anklickt und hält, dann erscheint ein Context Menu, um diesen Benutzer zu entfernen.
 
 \item \textbf{F0170}\\ Informationen werden immer angezeigt, da der User sowieso den Zustand frei wechseln darf, also wäre nur unnötiger Aufwand.
 
-\item \textbf{F0180}\\ Beschreibung wurde implemetiert. Zielpunkt ist nicht mehr optional.
+\item \textbf{F0180}\\ Beschreibung wurde implementiert. Zielpunkt ist nicht mehr optional.
 
 \item \textbf{F0200}\\ Jeder Status darf die Cluster sehen.
 
-\item \textbf{F0210}\\ + GO Bescreibung
+\item \textbf{F0210}\\ + GO Beschreibung
 	
 \end{enumerate}
 
@@ -157,14 +157,14 @@ Für die Unittests des Servers wurden Testdaten verwendet, die sowohl in eine Te
 Die Tests der Observer-Klassen sind in der Testklasse 'ObserverTest' zusammengefasst. Für jede Observer-Klasse muss die öffentliche Methode \textit{update()} getestet werden.
 Um die Korrektheit der Methode zu überprüfen, wird getestet, ob der Methodenaufruf \textit{send(String data, EventArg arg, Set<UserEntity> receiver)} korrekt ausgeführt wird. Korrekt hei"st in diesem Fall, dass der Methodenaufruf erfolgt und die übergebenen Argumente den Vorgaben entsprechen.
 
-Das Argument \textit{data} ist ein Json-String, der wie im Entwurfsdokunment beschrieben aufgebaut ist. Das Argument \textit{arg} ist ein Element des Enums \textit{EventArg} und repräsentiert, die aufgetretene Änderung. Das Set \textit{receiver} enthält alle user, an die eine Benachrichtigung geschickt werden soll.
+Das Argument \textit{data} ist ein JSON-String, der wie im Entwurfsdokunment beschrieben aufgebaut ist. Das Argument \textit{arg} ist ein Element des Enums \textit{EventArg} und repräsentiert, die aufgetretene Änderung. Das Set \textit{receiver} enthält alle User, an die eine Benachrichtigung geschickt werden soll.
 
 Für die Tests der Klasse 'ObserverTest' werden Mock-Objekte der Dao-Klassen verwendet. Diese sind mit dem Framework 'Mockito' erstellt und so konfiguriert, das bei Aufruf der Methode \textit{get({Long | String} key)} (Methode des AbstractDao Interfaces) ein zuvor definiertes TestObjekt zurückgegeben wird. Die verwendeten Testobjekte stammen aus der Klasse 'TestData', die für die Bereitstellung von Testobjekten zuständig ist (siehe \ref{Testdaten}).
 
-Das FcmClient-Attribut der Observer-Klassen wird in den test ebenfalls gemockt und so konfiguriert, das bei einem Methodenaufruf von \textit{send(...)} die übergebenen Argumente in Feldern der ObserverTest-Klasse gespeichert werden, so dass diese anschließend mit den erwarteten Werten verglichen werden können.
+Das FcmClient-Attribut der Observer-Klassen wird in den Test ebenfalls gemockt und so konfiguriert, das bei einem Methodenaufruf von \textit{send(...)} die übergebenen Argumente in Feldern der ObserverTest-Klasse gespeichert werden, so dass diese anschließend mit den erwarteten Werten verglichen werden können.
 
-Die Ergebnisse, die bei Testausführung erwartet werden, sind als statische Felder in der Testklasse gespeichert. Dazu gehören die erwarteten Json-Strings und die Receiver der send()-Methode.
-Die erwarteten Ergebniss wurden, teils händisch, anhand des Entwurfsdokuments aus den in TestData definierten Testdaten generiert. Sie sind nur gültig, solange keine Änderungen an diesen Daten vorgenommen werden.
+Die Ergebnisse, die bei Testausführung erwartet werden, sind als statische Felder in der Testklasse gespeichert. Dazu gehören die erwarteten JSON-Strings und die Receiver der send()-Methode.
+Die erwarteten Ergebnis wurden, teils händisch, anhand des Entwurfsdokuments aus den in TestData definierten Testdaten generiert. Sie sind nur gültig, solange keine Änderungen an diesen Daten vorgenommen werden.
 
 \subsubsection{Tests für RestController-Klassen}
 Die Tests der Klassen User-, Group- und GoRestController sind jeweils darauf zu überprüfen, ob die Calls an die Rest-Ressourcen richtig interpretiert und ausgeführt werden. Dazu gehört das korrekte Auslesen von Methodenparametern aus der URI der Rest-Ressource und JSON Strings aus dem Request-Body.
@@ -174,7 +174,7 @@ Die Rest API wird bei dem Tests mithilfe des Spring Boot Starter Test-Frameworks
 Um die Korrektheit der Methodenaufrufe zu überprüfen, wird in jeder Testmethode der Methodenaufruf an die jeweilige Service-Klasse überprüft, die übergebenen Parameter, sowie die HTTP-Response, die zurückgegeben wird. Die dabei verwendeten Testdaten, die aus der TestData-Klasse stammen, wurden mithilfe eines Rest-Clients auf Korrektheit überprüft.
 
 \subsubsection{Tests für Service-Klassen}
-Für die Klassen User-, Go- und GroupService wurde je eine Testklasse erstellt, in denen sämtliche Methoden getestet werden. Da die meisten dieser Methoden \textit{void}-Methoden sind, kommt es vor allem darauf an, zu testen, ob der richtige Methodenaufrauf auf dem heweiligen Dao-Objekt erfolgt und ob jeweils er passende Observer benachrichtigt wird.
+Für die Klassen User-, Go- und GroupService wurde je eine Testklasse erstellt, in denen sämtliche Methoden getestet werden. Da die meisten dieser Methoden \textit{void}-Methoden sind, kommt es vor allem darauf an, zu testen, ob der richtige Methodenaufruf auf dem jeweiligen Dao-Objekt erfolgt und ob jeweils er passende Observer benachrichtigt wird.
 
 Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten der \textit{TestData}-Klasse verwendet.
 
