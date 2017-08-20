@@ -21,15 +21,18 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.Serializer;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
 import edu.kit.pse17.go_app.view.GroupListActivity;
+import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * The GO Repository is responsible for all operations of the GO Data
- * and is the simple interface for fetching, changing and deletion of data.
+ * The Group Repository is responsible for all operations of the Group Data
+ * (inclusive data of some GOs) and is the simple interface for fetching,
+ * changing and deletion of data.
  * In the case of a request the Repository can fetch the data from server.
+ *
  * The Repository operate as a mediator between the local database and data
  * that the app from server obtain.
  * This Repository is also a singleton.
@@ -38,7 +41,7 @@ import retrofit2.Response;
 public class GroupRepository extends Repository<List<Group>> {
 
     /**
-     * Private attribute (see Singleton).
+     * Private attribute for GroupRepository (see Singleton).
      */
     private static GroupRepository groupRepo;
 
@@ -59,18 +62,23 @@ public class GroupRepository extends Repository<List<Group>> {
     //private final Executor executor;
 
     /**
-     * Local database of groups.
+     * Local database of groups (not consistent).
      */
     private List<Group> list;
 
     /**
-     * LiveData for groups.
+     * LiveData for groups (consistent).
      */
     private GroupListLiveData data;
 
     private Group groupWithoutId;
     private Go goWithoutId;
 
+    /**
+     * Constructor for Group Repository.
+     *
+     * @param observer: Observer for the Livedata
+     */
     private GroupRepository(Observer<List<Group>> observer) {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
         if (data == null)
@@ -808,10 +816,11 @@ public class GroupRepository extends Repository<List<Group>> {
      * the GO Repository).
      * This method updates locations of the users of the GO in local database.
      *
-     * @param go: GO object with the new locations
+     * @param goData: GoLiveData with GO object inside
      */
-    public void onLocationsUpdated(Go go) {
+    public void onLocationsUpdated(GoLiveData goData) {
         list = data.getValue();
+        Go go = goData.getValue();
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
@@ -925,7 +934,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
 
     /**
-     * GetInstance method for GroupRepository singleton.
+     * GetInstance method for GroupRepository Singleton.
      *
      * @return GroupRepository Singleton object
      */
