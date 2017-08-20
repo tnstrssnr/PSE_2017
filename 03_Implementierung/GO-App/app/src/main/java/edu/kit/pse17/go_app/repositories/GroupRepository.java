@@ -674,13 +674,13 @@ public class GroupRepository extends Repository<List<Group>> {
                 for (GroupMembership membership : oldMembershipList) {
                     if (membership.getUser().getUid().equals(userId)) {
                         oldMembershipList.remove(membership);
-                        group.setMemberCount(group.getMemberCount() - 1);
+                        //group.setMemberCount(group.getMemberCount() - 1);
                         List<GroupMembership> newMembershipList = oldMembershipList;
                         group.setMembershipList(newMembershipList);
                         break;
                     }
                 }
-                if (group.getMemberCount() == 0) {
+                if (group.getMembershipList().size() == 0) {
                     list.remove(group);
                 }
 
@@ -964,16 +964,8 @@ public class GroupRepository extends Repository<List<Group>> {
     public void setData(GroupListLiveData data) {
         this.data = data;
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     public void updateData(){
         getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 }
-=======
-}
->>>>>>> 04d332a1be7cbd0d0b3cb15c155b0e7108dba378
-=======
-}
->>>>>>> 04d332a1be7cbd0d0b3cb15c155b0e7108dba378

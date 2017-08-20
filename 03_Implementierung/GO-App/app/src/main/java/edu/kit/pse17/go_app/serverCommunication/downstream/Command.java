@@ -18,6 +18,9 @@ import edu.kit.pse17.go_app.сommand.UserDeletedCommand;
  * Created by Сеня on 11.08.2017.
  */
 
+/**
+ * Arguments for commands.
+ */
 public enum Command {
     ADMIN_ADDED_EVENT {
         @Override
@@ -103,6 +106,10 @@ public enum Command {
         }
     };
 
-
+    /**
+     * Method that gives command by command name.
+     *
+     * @return needed command object
+     */
     public abstract ServerCommand getCommand();
 }

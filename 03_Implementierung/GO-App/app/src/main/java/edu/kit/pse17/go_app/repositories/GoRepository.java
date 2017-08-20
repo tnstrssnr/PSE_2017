@@ -25,8 +25,8 @@ import retrofit2.Response;
  * and is the simple interface for fetching, changing and deletion of data.
  * In the case of a request the Repository can fetch the data from server.
  *
- * The Repository operate as a mediator between the local database and data
- * that the app from server obtain.
+ * The Repository operates as a mediator between the local database and data
+ * that the app from server obtains.
  * This Repository is also a singleton.
  */
 @Singleton

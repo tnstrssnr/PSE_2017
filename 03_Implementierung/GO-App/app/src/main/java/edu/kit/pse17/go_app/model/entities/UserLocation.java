@@ -4,12 +4,24 @@ package edu.kit.pse17.go_app.model.entities;
  * Created by Vovas on 19.08.2017.
  */
 
+/**
+ * This class represents the location of the user.
+ */
 public class UserLocation {
 
+    /**
+     * ID of the user.
+     */
     private String userId;
 
+    /**
+     * Latitude.
+     */
     private double lat;
 
+    /**
+     * Longitude.
+     */
     private double lon;
 
     public UserLocation(String userId, double lat, double lon) {

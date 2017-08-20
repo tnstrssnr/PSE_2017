@@ -4,40 +4,41 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Die Objekte dieser Klasse repräsentieren die Cluster, die dem Benutzer während eines GOs auf der Karte
- * angezeigt werden.
+ * The objects of this class represent the Cluster. This will be displayed
+ * to the user during a GO on the map.
  *
- * Im Gegensatz zu den anderen Entity-Klassen, wird diese Klasse nicht von Room in der lokalen SQLite Datenbank gespeichert,
- * da eine langfristige Verfügbarkeit der Daten nicht benötigt wird.
+ * In contrast to the other Entity-classes, this is not saved in the
+ * local SQLite database, as a long-term availability of the data is not needed.
  *
- * Die Klasse dient Gson als Vorlage zum Parsen der Gso-objekte die via Retrofit gesendet und empfangen werden.
+ * The class uses Gson to parse the Json-objects that are sent and received
+ * via Retrofit.
  */
-
 public class Cluster {
 
     /**
-     * Der geographische Breitengrad der Position des Clusters
+     * The geographical latitude of the position of the cluster.
      */
     @SerializedName("lat")
     @Expose
     private double lat;
 
     /**
-     * Der geogrgaphische Längengrad der Position des Clusters
+     * The geographical longitude of the position of the cluster.
      */
     @SerializedName("lon")
     @Expose
     private double lon;
 
     /**
-     * Die Größe des Clusters, sprich die Anzahl der Personen, die zu diesem Cluster gezählt werden
+     * The size of the cluster, i.e. the number of people
+     * to be counted on this Cluster.
      */
     @SerializedName("size")
     @Expose
     private int size;
 
-    public Cluster(){
 
+    public Cluster() {
     }
 
     public Cluster(double lat, double lon, int size) {

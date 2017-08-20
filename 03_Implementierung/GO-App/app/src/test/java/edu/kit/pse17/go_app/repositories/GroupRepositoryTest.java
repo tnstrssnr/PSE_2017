@@ -1,5 +1,7 @@
 package edu.kit.pse17.go_app.repositories;
 
+import android.support.annotation.Nullable;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +18,15 @@ import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.GroupMembership;
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
+import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Сеня on 20.08.2017.
@@ -37,9 +42,12 @@ public class GroupRepositoryTest {
         groupRepo = GroupRepository.getInstance();
         list = mockGroupData();
         groupRepo.setList(list);
+
         data = new GroupListLiveData();
         data.setValue(list);
         groupRepo.setData(data);
+        /*data = mock(GroupListLiveData.class);
+        when(data.getValue()).thenReturn(list);*/
     }
 
     @After
@@ -257,7 +265,10 @@ public class GroupRepositoryTest {
         clusters.add(new Cluster(00.00000, 100.12345, 12));
         go.setLocations(clusters);
 
-        groupRepo.onLocationsUpdated(go);
+        GoLiveData goData = new GoLiveData();
+        goData.setValue(go);
+
+        groupRepo.onLocationsUpdated(goData);
 
         List<Go> newList = groupRepo.getList().get(0).getCurrentGos();
         Go addedGo = newList.get(0);
