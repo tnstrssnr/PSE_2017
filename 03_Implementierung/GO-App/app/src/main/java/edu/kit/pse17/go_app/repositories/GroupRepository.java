@@ -606,15 +606,8 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onGroupRequestReceived(Group group) {
         list = data.getValue();
-        for (Group currentGroup : list) {
-            if (currentGroup.getId() == group.getId()) {
-                list.remove(currentGroup);
-                list.add(group);
-
-                data.setValue(list);
-                break;
-            }
-        }
+        list.add(group);
+        data.setValue(list);
     }
 
     /**
@@ -939,5 +932,9 @@ public class GroupRepository extends Repository<List<Group>> {
 
     public void setData(GroupListLiveData data) {
         this.data = data;
+    }
+
+    public void updateData(){
+        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 }

@@ -423,4 +423,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
     public static void setUserId(String userId) {
         globalUid = userId;
     }
+    public static String getGlobalEmail(){
+        return globalEmail;
+    }
 }

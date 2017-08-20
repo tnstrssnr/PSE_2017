@@ -30,7 +30,7 @@ public class GoViewModel extends ViewModel{
     * Go Repository
     * */
     private GoRepository goRepo;
-
+    private long goId;
     private int index;
     private String userId;
     private Observer<Group> observer;
@@ -52,6 +52,26 @@ public class GoViewModel extends ViewModel{
             }
         };
 
+        if(go == null)
+            go = new GoLiveData();
+        this.goRepo = GoRepository.getInstance();
+        groupViewModel.getGroup().observeForever(observer);
+    }
+    public void init(final long goId, final String userId, GroupViewModel groupViewModel){
+        this.index = index;
+        this.userId = userId;
+        this.observer = new Observer<Group>() {
+            @Override
+            public void onChanged(@Nullable Group group) {
+                for(Go toDisplay : group.getCurrentGos()){
+                    if(toDisplay.getId() == goId){
+                        go.setValue(toDisplay);
+                    }
+                }
+                //go.setValue(group.getCurrentGos().get(index));
+            }
+        };
+        this.goId = goId;
         if(go == null)
             go = new GoLiveData();
         this.goRepo = GoRepository.getInstance();
