@@ -12,16 +12,16 @@ import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Senden einer Gruppenanfrage
- * vom Admin der Gruppe zu einem Benutzer ausgeführt wird.
+ * This class implements a command that sends a group request
+ * from the Admin of the group to the user when called.
  */
 public class GroupRequestReceivedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Dem ausgewählten Benutzer wird eine Gruppenanfrage gesendet, die in der
-     * App des Benutzers gezeigt wird.
+     * -To th selected user will be sent a group request, which will be shown
+     * in the app of the user.
      */
     @Override
     public void onCommandReceived() {

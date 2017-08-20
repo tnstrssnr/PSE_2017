@@ -10,18 +10,18 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Löschen einer Gruppe
- * ausgeführt wird.
+ * This class implements a command that deletes a group
+ * when called.
  */
 public class GroupRemovedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Mitglieder der Gruppe werden benachrichtigt, dass die Gruppe nicht mehr
-     * existiert;
-     * -Alle GOs der Gruppe werden gelöscht;
-     * -Die Gruppe selbst (und alle Daten) werden gelöscht.
+     * -All members of the group will be notified that group no longer
+     * exists;
+     * -All of the GOs in the group will be deleted;
+     * -The group itself (and all data) will be deleted.
      */
     @Override
     public void onCommandReceived() {

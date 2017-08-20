@@ -44,7 +44,7 @@ public class GroupRepositoryTest {
         groupRepo.setList(list);
 
         data = new GroupListLiveData();
-        data.setValue(list);
+        data.postValue(list);
         groupRepo.setData(data);
         /*data = mock(GroupListLiveData.class);
         when(data.getValue()).thenReturn(list);*/

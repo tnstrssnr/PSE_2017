@@ -12,15 +12,15 @@ import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Erstellen eines neuen
- * GOs der Gruppe ausgeführt wird.
+ * This class implements a command that creates a new
+ * GO in the group when called.
  */
 public class GoAddedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Mitglieder der Gruppe werden über das neue GO benachrichtigt.
+     * -All members of the group will be notified about the new GO.
      */
     @Override
     public void onCommandReceived() {

@@ -10,16 +10,16 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei der Veränderung eines Status
- * des Benutzers innerhalb eines GOs ausgeführt wird.
+ * This class implements a command that changes the status of
+ * the user within a GO when called.
  */
 public class StatusChangedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Teilnehmer des GOs werden über dan neuen Status des Benutzers
-     * benachrichtigt.
+     * -All participants of the GO will be notified about the new Status of the
+     * user.
      */
     @Override
     public void onCommandReceived() {
