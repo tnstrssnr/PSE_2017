@@ -839,9 +839,11 @@ public class GroupRepository extends Repository<List<Group>> {
         });*/
     }
 
-    /*
-    * getter fro GroupListLiveData
-    * */
+    /**
+     * Getter for GroupListLiveData.
+     *
+     * @return LiveData of the groups
+     */
     public GroupListLiveData getData() {
         return data;
     }
@@ -922,6 +924,11 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
 
+    /**
+     * GetInstance method for GroupRepository singleton.
+     *
+     * @return GroupRepository Singleton object
+     */
     public static GroupRepository getInstance() {
         if (groupRepo == null) {
             groupRepo = new GroupRepository(/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/);
@@ -929,14 +936,29 @@ public class GroupRepository extends Repository<List<Group>> {
         return groupRepo;
     }
 
+    /**
+     * Setter for list of groups.
+     *
+     * @param list: List of groups
+     */
     public void setList(List<Group> list) {
         this.list = list;
     }
 
+    /**
+     * Getter for list of groups.
+     *
+     * @return List of groups
+     */
     public List<Group> getList() {
         return list;
     }
 
+    /**
+     * Setter for LiveData of the groups.
+     *
+     * @param data: GroupListLiveData
+     */
     public void setData(GroupListLiveData data) {
         this.data = data;
     }
