@@ -41,9 +41,9 @@ public class GroupRepositoryTest {
     public void start() {
         groupRepo = GroupRepository.getInstance();
         list = mockGroupData();
-
-
-
+        data = new GroupListLiveData();
+        data.postValue(list);
+        groupRepo.setData(data);
         groupRepo.setList(list);
         /*data = mock(GroupListLiveData.class);
         when(data.getValue()).thenReturn(list);*/
@@ -52,8 +52,7 @@ public class GroupRepositoryTest {
     @After
     public void end() {
         list = null;
-        groupRepo.setList(null);
-        groupRepo.setData(null);
+        data = null;
         groupRepo = null;
     }
 
@@ -101,7 +100,7 @@ public class GroupRepositoryTest {
         Go addedGo = newList.get(0);
         assertEquals(addedGo.getName(), "GO1.1");
         assertEquals(addedGo.getDescription(), "desNew");
-        assertEquals(addedGo.getOwner(), "MLsXON00mUPSQvKi7DggE6lTAsq1");
+        assertEquals(addedGo.getOwner(), "id1");
         assertTrue(addedGo.getDesLat() == 100);
         assertTrue(addedGo.getGroup().getId() == 1);
     }
@@ -266,7 +265,7 @@ public class GroupRepositoryTest {
         go.setLocations(clusters);
 
         GoLiveData goData = new GoLiveData();
-        goData.setValue(go);
+        goData.postValue(go);
 
         groupRepo.onLocationsUpdated(goData);
 
