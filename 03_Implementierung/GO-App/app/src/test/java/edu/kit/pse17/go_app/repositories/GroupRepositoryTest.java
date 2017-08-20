@@ -1,7 +1,5 @@
 package edu.kit.pse17.go_app.repositories;
 
-import android.support.annotation.Nullable;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +23,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Сеня on 20.08.2017.
@@ -45,8 +41,6 @@ public class GroupRepositoryTest {
         data.postValue(list);
         groupRepo.setData(data);
         groupRepo.setList(list);
-        /*data = mock(GroupListLiveData.class);
-        when(data.getValue()).thenReturn(list);*/
     }
 
     @After
@@ -170,8 +164,6 @@ public class GroupRepositoryTest {
         User user = new User("id3", "user3@gmail.com", "User3");
         long groupId = 1;
 
-        /*GroupListActivity activity  = mock(GroupListActivity.class);
-        activity.setUserId("id3");*/
         groupRepo.onMemberAdded(user, groupId);
 
         assertEquals(groupRepo.getList().get(0).getMembershipList().get(3).getUser().getUid(), "id3");
@@ -318,22 +310,7 @@ public class GroupRepositoryTest {
         ArrayList<Go> gos = new ArrayList<>();
         gos.add(go1);
         group1.setCurrentGos(gos);
-
-        /*Group group2 = new Group();
-        List<GroupMembership> memberships2 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            GroupMembership mem21 = new GroupMembership(user1, group2, true, true);
-            memberships2.add(mem21);
-        }
-        group2.setId(2);
-        group2.setName("Group 2");
-        group2.setDescription("Description");
-        group2.setCurrentGos(new ArrayList<Go>());
-        group2.setMembershipList(memberships2);*/
         groupList.add(group1);
-        //groupList.add(group2);
-        //data.setValue(list);
-        //String userId = GroupListActivity.getUserId();
         return groupList;
 
     }

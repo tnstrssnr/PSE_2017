@@ -456,7 +456,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onAdminAdded(String userId, long groupId) {
-        //list = data.getValue();
+        list = data.getValue();
         outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
@@ -486,7 +486,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group of the GO
      */
     public void onGoAdded(Go go, long groupId/*, String userId*/) {
-        //list = data.getValue();
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 Go newGo = go;
@@ -523,7 +523,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param go: GO with the new data
      */
     public void onGoEdited(Go go) {
-        //list = data.getValue();
+        list = data.getValue();
         outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
@@ -557,7 +557,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param goId: ID of the GO
      */
     public void onGoRemoved(long goId) {
-        //list = data.getValue();
+        list = data.getValue();
         outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
@@ -583,7 +583,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param group: New data of the group
      */
     public void onGroupEdited(Group group) {
-        //list = data.getValue();
+        list = data.getValue();
         for (Group currentGroup : list) {
             if (group.getId() == currentGroup.getId()) {
                 Group newGroup = group;
@@ -606,7 +606,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onGroupRemoved(long groupId) {
-        //list = data.getValue();
+        list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
                 list.remove(group);
@@ -624,7 +624,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param group: Group with the new request
      */
     public void onGroupRequestReceived(Group group) {
-        //list = data.getValue();
+        list = data.getValue();
         list.add(group);
         data.postValue(list);
     }
@@ -638,7 +638,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onMemberAdded(User user, long groupId) {
-        //list = data.getValue();
+        list = data.getValue();
         /*if (GroupListActivity.getUserId().equals(user.getUid())) {
             getGroupData(user.getUid(), groupId); // if added member
         }*/
@@ -676,7 +676,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onMemberRemoved(String userId, long groupId) {
-        //list = data.getValue();
+        list = data.getValue();
         ArrayList<Go> gosToBeDeleted = new ArrayList<>();
         ArrayList<Group> groupsToBeDeleted = new ArrayList<>();
 
@@ -742,7 +742,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onRequestDenied(String userId, long groupId) {
-        //list = data.getValue();
+        list = data.getValue();
         outer:
         for (Group group : list) {
             if (group.getId() == groupId) {
@@ -776,7 +776,7 @@ public class GroupRepository extends Repository<List<Group>> {
      *                2 - GONE
      */
     public void onStatusChanged(String userId, long goId, int status) {
-        //list = data.getValue();
+        list = data.getValue();
         outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
@@ -811,7 +811,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId
      */
     public void onUserDeleted(String userId) {
-        //list = data.getValue();
+        list = data.getValue();
         for (Group group : list) {
             onMemberRemoved(userId, group.getId());
         }
@@ -827,7 +827,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param goData: GoLiveData with GO object inside
      */
     public void onLocationsUpdated(GoLiveData goData) {
-        //list = data.getValue();
+        list = data.getValue();
         Go go = goData.getValue();
         outer:
         for (Group group : list) {
