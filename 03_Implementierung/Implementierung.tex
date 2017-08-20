@@ -108,6 +108,36 @@ Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch di
 	
 	Die Verwendung dieser Klassen erlaubt das einfache Parsen von Json-Objekten, die über die Client-Server Schnittstellen übertragen wurden. Die Umwandlung von ClientEntities zu ServerEntities übernehmen die entsprechenden Service-Klassen. Im Quellcode lassen sich Instanzen der ClientEntity-Klassen an dem Buchstaben c im Variablennamen erkennen (z.B. \textit{cGroup}).
 	
+	\item \textbf{Min Android Version} \\
+	
+	Die minimale Android Version ist jetzt API 24, weil da viele shortcuts und nützliche Sachen von Google zur Verfügung gestellt werden, die helfe viele sonderfälle zu vermeiden.	
+	
+	\item \textbf{F0010}\\Standort Permission wird nicht zur Registrierungszeit abgefragt, sondern, sondern zur Laufzeit, gleich wenn man die Standortverfolgung braucht. Macht nichts aus, da User die Standortverfolgung außerhalb der App auch ausschalten kann.
+Wenn der Benutzer die Berechtigung nicht gibt, dann zeigt die App einen Dialog, dass erklärt, dass man die Berechtigung in Geräteinstellungen geben muss, damit die App wieder funnkktioniert. Bis man die Berechtigung gibt ist die ganze Funktionalität nicht zugänglich.
+\item \textbf{F0020}\\
+F0020 Bemerkung: beim Einloggen braucht man kein E-Mail und Passwort einzugeben, wenn man schon in sein Google-Account eingelogt ist. Man wählt nur den Google Account, mit dem man sich anmelden möchte.
+\item \textbf{F0070}\\
+F0070 Gruppenbescreibung war ein Wunschkriterium, wurde aber implementiert.
+Wenn man den Gruppeneintrag aus der Liste aller Gruppen anclickt, wird dem Benutzer die Gruppenansicht angezeigt. Da sieht man nur die Gruppenname und Liste aller GOs. Um die Mitglieder und Bescreibung zu sehen muss man die Gruppenname oben anclicken, dann wird dem benutzer die GruppenDetails Ansicht angezeigt.
+
+\item \textbf{F0080}\\ "Gruppe erstellen" ist mit dem runden Button unten rechts dargestellt.
+
+\item \textbf{F0090}\\ "Gruppe verlassen" Button befindet sich in der GruppeDetails Ansicht. Wenn Admin die Gruppe verlässt, dann wird die Gruppe gelöscht, da wir jetzt keinen Wunschkriterium implementiert haben, wo man einen neuen Admin zuweist.
+
+\item \textbf{F0110}\\ Wie gesagt, Gruppenbeschreibung ist jetzt implementiert.
+
+ \item \textbf{F0120}\\ Die Anfragen werden jetzt den Administratoren nicht angezeigt.
+
+\item \textbf{F0130}\\ Wenn der Administrator den Mitglied-Eintrag in der List anclick und hält, dann erscheint ein Context Menu, um diesen Benutzer zu entfernen.
+
+\item \textbf{F0170}\\ Informationen werden immer angezeigt, da der User sowieso den Zustand frei wechseln darf, also wäre nur unnötiger Aufwand.
+
+\item \textbf{F0180}\\ Beschreibung wurde implemetiert. Zielpunkt ist nicht mehr optional.
+
+\item \textbf{F0200}\\ Jeder Status darf die Cluster sehen.
+
+\item \textbf{F0210}\\ + GO Bescreibung
+	
 \end{enumerate}
 
 \newpage
