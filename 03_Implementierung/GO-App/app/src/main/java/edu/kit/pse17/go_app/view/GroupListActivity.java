@@ -188,7 +188,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         super.onStart();
         Intent intent = getIntent();
 
-       Bundle bundle =  getIntent().getExtras();
+        Bundle bundle =  getIntent().getExtras();
         Set<String> setBundle = bundle.keySet();
         Bundle bundel = new Bundle();
         bundel.putString("zhopa","chlen");
@@ -223,7 +223,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
                 //TODO uncomment when server is up
                 // HERE WE GET THE LOCATION OF THE DEVICE AND PASS IT ON
                 viewModel.updateLocation(new LatLng(locationResult.getLastLocation().getLatitude(),
-                                                    locationResult.getLastLocation().getLongitude()));
+                        locationResult.getLastLocation().getLongitude()));
             }
         };
     }
@@ -420,4 +420,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         return globalUid;
     }
 
+    public static void setUserId(String userId) {
+        globalUid = userId;
+    }
 }
