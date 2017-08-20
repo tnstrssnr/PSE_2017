@@ -56,7 +56,7 @@ public class LocationService {
     private int newLocationCounter;
     /**
      * Eine Zählvariable, um sich zu merken, wie viele verschiedene Benutzer bereits ihren Standort geteilt haben. Ist
-     * diese Zahl kleienr als 3, so wird keine groupLocation berechnet. Dies dient der Anonymisierung der einzelnen
+     * diese Zahl kleiner als 3, so wird keine groupLocation berechnet. Dies dient der Anonymisierung der einzelnen
      * Benutzer, was bei einer Anzahl von UserLocations kleiner als 3 nicht mehr garantiert werden kann.
      */
     private final int userCounter;
@@ -112,16 +112,19 @@ public class LocationService {
     public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
 
         boolean validation = false;
+        int index  = 0;
 
         if (LocationService.activeServices.get(goId) != null) {
 
-            for (int i = 0; i < LocationService.activeServices.size(); i++) {
-                LocationService.activeServices.get(goId).activeUsers.get(i);
-                if (LocationService.activeServices.get(goId).activeUsers.get(i).getUserId() == userId) {
-                    LocationService.activeServices.get(goId).activeUsers.get(i).setLat(lat);
-                    LocationService.activeServices.get(goId).activeUsers.get(i).setLon(lon);
+            while (index < LocationService.activeServices.get(goId).activeUsers.size()
+                    && LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() != userId) {
+                LocationService.activeServices.get(goId).activeUsers.get(index);
+                if (LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() == userId) {
+                    LocationService.activeServices.get(goId).activeUsers.clear();
+                    LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
                     validation = true;
                 }
+                index++;
             }
             if (validation == false) {
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
@@ -152,7 +155,6 @@ public class LocationService {
         LocationService.activeServices.get(goId).groupLocation = null;
         GoClusterStrategy clusterStrategy = new GoClusterStrategy();
         LocationService.activeServices.get(goId).groupLocation = clusterStrategy.calculateCluster(LocationService.activeServices.get(goId).activeUsers);
-        LocationService.activeServices.get(goId).activeUsers.clear();
         return LocationService.activeServices.get(goId).groupLocation;
     }
 
