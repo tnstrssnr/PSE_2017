@@ -112,10 +112,6 @@ public class GoService implements IObservable {
         userGoStatus.getGo().setLocations(null);
     }
 
-    public GoEntity getGoById(long id) {
-        return goDao.get(id);
-    }
-
     public GroupDaoImp getGroupDao() {
         return groupDao;
     }
