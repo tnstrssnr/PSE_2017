@@ -190,7 +190,7 @@ public class GoRepository extends Repository<List<Go>>{
                 try {
                     go = data.getValue();
                     go.setLocations(getLocation.execute().body());
-                    data.setValue(go);
+                    data.postValue(go);
 
                     GroupRepository groupRepo = GroupRepository.getInstance();
                     groupRepo.onLocationsUpdated(data);
