@@ -1,10 +1,9 @@
 package edu.kit.pse17.go_app.repositories;
 
 /**
- * Die Klasse dient als Vermittler zwischen ViewModel und Laden von Daten
- * Hier wird entschieden, wen man anspricht um bestimmte Daten zu laden
+ * The Repository operates as a mediator between the ViewModel and data fetching
+ * that the app from server obtains.
  */
-
 public abstract class Repository<T> {
     /*
     * ViewModel beim ersten Laden der Daten lädt mit der Methode alle Daten runter

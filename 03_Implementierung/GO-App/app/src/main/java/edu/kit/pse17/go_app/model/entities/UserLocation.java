@@ -4,6 +4,9 @@ package edu.kit.pse17.go_app.model.entities;
  * Created by Vovas on 19.08.2017.
  */
 
+/**
+ *
+ */
 public class UserLocation {
 
     private String userId;

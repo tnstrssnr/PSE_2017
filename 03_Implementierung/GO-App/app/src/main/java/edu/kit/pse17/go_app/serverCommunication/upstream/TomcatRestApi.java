@@ -164,6 +164,14 @@ public interface TomcatRestApi {
     @GET("gos/location/{goId}")
     public Call<List<Cluster>> getLocation(@Path("goId") long goId);
 
+    /**
+     * Method that sends location to the server
+     *
+     * @param goId: ID of the Go
+     * @param location: Location of the device
+     *
+     * @return Call to the server (no additional information in Response)
+     */
     @PUT("gos/location/{goId}")
     public Call<Void> setLocation(@Path("goId") long goId, @Body UserLocation location);
 
