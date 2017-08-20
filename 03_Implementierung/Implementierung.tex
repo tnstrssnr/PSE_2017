@@ -142,6 +142,10 @@ Wenn man den Gruppeneintrag aus der Liste aller Gruppen anklickt, wird dem Benut
 
 \newpage
 
+\section{Wunsch und Musskriterien}
+
+\newpage
+
 \section{Ablauf}
 
 \newpage
@@ -180,6 +184,11 @@ Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten
 
 \subsubsection{Tests für Entity-Klassen}
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Die einzigen Methoden, die aus den Entity-Klassen getestet werden, sind jeweils die Methoden \textit{equals()} und \textit{hashCode()}. Ob der \textit{equals()}/\textit{hashCode()} Contract eingehalten wird, wird mittels des EqualsVerifier getestet.
+
+\subsection{Test für Klassen bezogen aufs Clustering}
+Im Falle vom Clustering müssen die Klassen \textit{Utility}, \textit{DBScan}, \textit{GoClusterStrategy} und \textit{LocationService}. Da die Klassen sehr rechenlastig sind werden sie darauf getestet ob ein richtiges Resultat rausgegeben wird.
+
+Da die Klassen eng miteinander verwoben sind muss Mockito eingesetzt werden um die Klassen halbwegs isoliert testen zu können.
 
 \end{document}
 \grid
