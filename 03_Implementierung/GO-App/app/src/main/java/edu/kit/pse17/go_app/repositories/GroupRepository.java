@@ -491,7 +491,14 @@ public class GroupRepository extends Repository<List<Group>> {
             if (group.getId() == groupId) {
                 Go newGo = go;
                 newGo.setGroup(group);
-                //go.setOwner(?????);
+
+                List<GroupMembership> membership = group.getMembershipList();
+                List<UserGoStatus> goParticipants = new ArrayList<>();
+                for (GroupMembership member : membership) {
+                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, Status.NOT_GOING);
+                    goParticipants.add(participant);
+                }
+                newGo.setParticipantsList(goParticipants);
 
                 List<Go> old = group.getCurrentGos();
                 old.add(newGo);
