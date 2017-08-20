@@ -712,6 +712,7 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
 
                 for (Go go : gosToBeDeleted) {
+                    //TODO GoRepository.getInstance().deleteGo(go.getId());
                     oldGoList.remove(go);
                     List<Go> newGoList = oldGoList;
                     group.setCurrentGos(newGoList);
