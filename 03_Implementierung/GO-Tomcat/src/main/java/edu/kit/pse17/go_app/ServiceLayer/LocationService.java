@@ -122,11 +122,10 @@ public class LocationService {
             if (validation == false) {
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
-        } else {
-            LocationService.activeServices.put(goId, new LocationService(new GoService().getGoById(goId)));
         }
-
-        else { LocationService.activeServices.put(goId, new LocationService()); };
+        else { LocationService.activeServices.put(goId, new LocationService());
+                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+        }
     }
 
     /**
@@ -157,9 +156,7 @@ public class LocationService {
     public static void removeGo(final long goId) {
         if(LocationService.activeServices.get(goId) != null) {
             LocationService.activeServices.remove(goId);
-            return true;
         }
-        return false;
     }
 
     /**
