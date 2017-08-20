@@ -256,7 +256,7 @@ Für die Realisierung dieser Tests wurden das Testframework Mockito, sowie Daten
 \subsubsection{Tests für Entity-Klassen}
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Die einzigen Methoden, die aus den Entity-Klassen getestet werden, sind jeweils die Methoden \textit{equals()} und \textit{hashCode()}. Ob der \textit{equals()}/\textit{hashCode()} Contract eingehalten wird, wird mittels des EqualsVerifier getestet.
 
-\subsection{Test für Klassen bezogen aufs Clustering}
+\subsubsection{Tests für Klassen bezogen aufs Clustering}
 Im Falle vom Clustering müssen die Klassen \textit{Utility}, \textit{DBScan}, \textit{GoClusterStrategy} und \textit{LocationService}. Da die Klassen sehr rechenlastig sind werden sie darauf getestet ob ein richtiges Resultat rausgegeben wird.
 
 Da die Klassen eng miteinander verwoben sind muss Mockito eingesetzt werden um die Klassen halbwegs isoliert testen zu können.
@@ -266,8 +266,12 @@ Da die Klassen eng miteinander verwoben sind muss Mockito eingesetzt werden um d
 \subsubsection{Tests für Entity-Klassen}
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden (wie beim Server). 
 
+\subsubsection{Tests für ServerCommands}
+Die ServerCommands bestehen hauptsächlich aus Calls zur \textit{GroupRepository}-Klasse und aus der Aufrufe von \textit{on[CommandName]()}-Methoden, die schon getestet wurden (siehe unten).
+
 \subsubsection{Tests für Repositories (inkl. ServerCommands)}
 Die Repositories kann man in zwei Teilen gliedern: Die Anfragen vom Client zum Server und die Bearbeitung der Nachrichten vom Server zum Client. Alle Methoden, die den zweiten Teil berühren, werden lokal mithilfe von UnitTests getestet (die sind alle in der \textit{GroupRepository}-Klasse enthalten). Die Methode \textit{mockGroupData()} wird benutzt, um die Testdaten zu mocken. Um die Tests zum Laufen zu bringen, muss man bei jeder getesteten Methode der Klasse \textit{GroupRepository} die Zeile \textit{list = data.getValue()} auskommentieren, da die Änderung von LiveData kann nur auf dem Main-Thread laufen, was man nicht mit JUnit richtig machen kann. Trotzdem funktionieren diese Methoden auf dem Gerät mit LiveData.
+
 Der erste Teil (Anfragen vom Client zum Server) werden vom Hand getestet, da man somit besser die Kommunikation mit Server (und die ankommende Nachrichten) testen kann.
 
 \subsubsection{Tests für GUI (insbesondere \textit{view}-Package)}
