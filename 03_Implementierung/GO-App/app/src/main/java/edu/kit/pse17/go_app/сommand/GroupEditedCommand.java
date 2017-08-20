@@ -12,15 +12,15 @@ import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei der Veränderung der Daten
- * einer Gruppe ausgeführt wird.
+ * This class implements a command that changes the data
+ * of a group when called.
  */
 public class GroupEditedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Mitglieder der Gruppe werden über die neuen Daten benachrichtigt.
+     * -All members of the group will be notified about the new data.
      */
     @Override
     public void onCommandReceived() {

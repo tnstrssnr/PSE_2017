@@ -11,28 +11,40 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.model.entities.Group;
 
 /**
- * Die abstrakte Klasse ist eine allgemeine Klasse für Befehle, die bei Ankunft
- * einer Nachricht vom Server ausgeführt werden. Diese Befehle ändern die Daten
- * in den Repositorien, sodass die App diese später holen kann.
+ * The abstract class is a generic class for commands, which at arrival
+ * a message from the Server will be called. These commands change the data
+ * in the repositories, so that the App can fetch it later.
  */
 public abstract class ServerCommand {
 
+    /**
+     * Message from server.
+     */
     private JSONObject message;
 
     /**
-     * Diese Methode implementiert Befehle, die die neuen Daten im Repositorium
-     * ablegen.
-     * Wird von der Methode onMessageReceived() der Klasse MessageReceiver aufgerufen,
-     * sobald die App eine Nachricht des Tomcat-Servers erhält und in einen Befehl
-     * dekodiert.
+     * This method implements commands that drops the new data in the repository.
+     * It is called from the method onMessageReceived() of the class
+     * of the message receiver,
+     * once the App receives a message from the Tomcat server and the command is
+     * decoded.
      */
     public abstract void onCommandReceived();
 
-
+    /**
+     * Getter for message.
+     *
+     * @return Message
+     */
     public JSONObject getMessage() {
         return message;
     }
 
+    /**
+     * Setter for message.
+     *
+     * @param message: JSON object message
+     */
     public void setMessage(JSONObject message) {
         this.message = message;
     }

@@ -10,17 +10,16 @@ import org.json.JSONObject;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei dem Ablehnen einer
- * Gruppenanfrage vom Benutzer ausgeführt wird.
- * D.h. der Benutzer hat die Gruppenanfrage abgelehnt.
+ * This class implements a command that is used when user denies the request.
+ * I.e. the user has rejected the group's request.
  */
 public class RequestDeniedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Administratoren der Gruppe werden benachrichtigt (d.h., diese
-     * eröffnete Gruppenanfrage wird gelöscht).
+     * -All admins of the group will be notified (i.e., this
+     * group request will be deleted).
      */
     @Override
     public void onCommandReceived() {

@@ -12,16 +12,15 @@ import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
- * Diese Klasse implementiert einen Befehl, der bei der Veränderung der Daten
- * eines GOs ausgeführt wird.
+ * This class implements a command that changes the data of the GO
+ * when called.
  */
 public class GoEditedCommand extends ServerCommand {
 
     /**
-     * Diese Methode ändert folgende Daten in Repositorien der App:
+     * This method changes the following data in the repositories of the App:
      *
-     * -Alle Mitglieder der Gruppe werden über die neuen Daten des GOs
-     * benachrichtigt.
+     * -All participants of the GO will be notified about the new data.
      */
     @Override
     public void onCommandReceived() {
