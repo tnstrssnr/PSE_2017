@@ -196,12 +196,15 @@ public class GoRepository extends Repository<List<Go>>{
         getLocation.enqueue(new Callback<List<Cluster>>() {
             @Override
             public void onResponse(Call<List<Cluster>> call, Response<List<Cluster>> response) {
+                List<Cluster> locations = response.body();
                 go = data.getValue();
-                go.setLocations(response.body());
-                data.postValue(go);
+                if (go.getId() == goId) {
+                    go.setLocations(locations);
+                    data.postValue(go);
+                }
 
                 GroupRepository groupRepo = GroupRepository.getInstance();
-                groupRepo.onLocationsUpdated(data);
+                groupRepo.onLocationsUpdated(goId, locations);
             }
 
             @Override
