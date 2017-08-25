@@ -793,27 +793,26 @@ public class GroupRepository extends Repository<List<Group>> {
      * the GO Repository).
      * This method updates locations of the users of the GO in local database.
      *
-     * @param goData: GoLiveData with GO object inside
+     * @param goId: ID of GO
+     * @param locations: New list of clusters
      */
-    public void onLocationsUpdated(GoLiveData goData) {
+    public void onLocationsUpdated(long goId, List<Cluster> locations) {
         list = data.getValue();
-        Go go = goData.getValue();
         outer:
         for (Group group : list) {
             List<Go> old = group.getCurrentGos();
 
             for (Go currentGo : old) {
-                if (go.getId() == currentGo.getId()) {
-                    old.remove(currentGo);
-                    old.add(go);
+                if (goId == currentGo.getId()) {
+                    currentGo.setLocations(locations);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
                     break outer;
                 }
             }
-
-            data.postValue(list);
         }
+
+        data.postValue(list);
     }
 
     private void refreshGroup(long groupId) {
