@@ -222,6 +222,9 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
             public void onLocationResult(LocationResult locationResult) {
                 //TODO uncomment when server is up
                 // HERE WE GET THE LOCATION OF THE DEVICE AND PASS IT ON
+
+                // test send to a go
+                //GoViewModel.getInstance().sendLocation(getUserId(), 28, locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude());
                 viewModel.updateLocation(new LatLng(locationResult.getLastLocation().getLatitude(),
                         locationResult.getLastLocation().getLongitude()));
             }

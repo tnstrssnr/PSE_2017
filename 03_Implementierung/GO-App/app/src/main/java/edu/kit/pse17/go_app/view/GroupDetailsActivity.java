@@ -71,14 +71,17 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
                 String myEmail = getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).getString(getString(R.string.user_email), null);
                 if(myEmail == null)
                     throw new NullPointerException();
-                viewModel.deleteMember(viewModel.getGroup().getValue().getId(), myEmail);
-                GroupDetailsActivity.this.setResult(EXITED);
-                finish();
+
+
                 //TODO if this is the last user, then delete group
                 // now the last user is equivalent with admin
                 if(viewModel.getGroup().getValue().isAdmin(GroupListActivity.getUserId())){
                     viewModel.deleteGroup(viewModel.getGroup().getValue().getId());
+                } else {
+                    viewModel.deleteMember(viewModel.getGroup().getValue().getId(), myEmail);
                 }
+                GroupDetailsActivity.this.setResult(EXITED);
+                finish();
             }
         });
 
