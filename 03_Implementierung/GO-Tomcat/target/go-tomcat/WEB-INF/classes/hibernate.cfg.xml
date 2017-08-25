@@ -10,6 +10,8 @@
         <property name="hibernate.dialect">
             org.hibernate.dialect.MySQLDialect
         </property>
+
+
         <property name="connection.url">
             jdbc:mysql://localhost/PSESoSe17Gruppe3?useSSL=false
         </property>
@@ -19,6 +21,18 @@
         <property name="connection.password">
             vAprU3acuxux3S8a
         </property>
+        <!--
+        <property name="connection.url">
+            jdbc:mysql://localhost/pse_development
+        </property>
+        <property name="connection.username">
+            root
+        </property>
+        <property name="connection.password">
+            69h97jnv
+        </property>
+        -->
+
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"/>
