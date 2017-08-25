@@ -52,6 +52,9 @@ public class GoMapFragment extends Fragment {
                 // TODO check if it really updates, might not work properly, data needs to be delivered and set in GoViewModel first
                 // here assuming it takes the updated data every time, i.e. data is correct
                 clusters = go.getLocations();
+                if(map != null){
+                    updateClusters();
+                }
                 /*for (Cluster cluster : go.getLocations()) {
                     LatLng latLng = new LatLng(cluster.getLat(),cluster.getLon());
                     map.addMarker(new MarkerOptions()
@@ -87,20 +90,27 @@ public class GoMapFragment extends Fragment {
                     if(destination.latitude == 0 && destination.longitude == 0) {
                         destination = new LatLng(49.013382, 8.404402);
                     }
-                    map.addMarker(new MarkerOptions().position(destination).title("GO-Destination"));
                     map.moveCamera(CameraUpdateFactory.newLatLng(destination));
                     map.moveCamera(CameraUpdateFactory.zoomTo(17));
                     displayMap();
-                    for (Cluster cluster : clusters) {
-                        LatLng latLng = new LatLng(cluster.getLat(),cluster.getLon());
-                        map.addMarker(new MarkerOptions()
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                                .position(latLng)
-                                .title("Approx " + cluster.getSize() + " people here."));
-                    }
+                    updateClusters();
                 }
             });
         }
 
+    }
+
+    private void updateClusters(){
+        map.clear();
+        //need to add destination again as it was cleared
+        map.addMarker(new MarkerOptions().position(destination).title("GO-Destination"));
+        //add clusters
+        for (Cluster cluster : clusters) {
+            LatLng latLng = new LatLng(cluster.getLat(),cluster.getLon());
+            map.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                    .position(latLng)
+                    .title("Approx " + cluster.getSize() + " people here."));
+        }
     }
 }
