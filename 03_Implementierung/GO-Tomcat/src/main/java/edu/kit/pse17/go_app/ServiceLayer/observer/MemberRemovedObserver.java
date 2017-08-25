@@ -47,12 +47,11 @@ public class MemberRemovedObserver implements Observer {
         json.put("group_id", group.getID());
 
         Set<UserEntity> receiver = new HashSet<>();
-        for (UserEntity usr : group.getMembers()) {
-            receiver.add(usr);
-        }
-        for (UserEntity usr : group.getRequests()) {
-            receiver.add(usr);
-        }
+        UserEntity removedUser = new UserEntity();
+        removedUser.setInstanceId(entity_ids.get(2));
+        receiver.add(removedUser);
+        receiver.addAll(group.getMembers());
+        receiver.addAll(group.getRequests());
         messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, receiver);
     }
 }

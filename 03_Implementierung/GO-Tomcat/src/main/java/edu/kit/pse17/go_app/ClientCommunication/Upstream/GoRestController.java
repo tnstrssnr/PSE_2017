@@ -131,7 +131,7 @@ public class GoRestController {
     )
     public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
         goService.delete(goId);
-        masterLocationService.removeGo(goId);
+        //masterLocationService.removeGo(goId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

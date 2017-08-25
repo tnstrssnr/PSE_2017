@@ -7,7 +7,9 @@ import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -25,6 +27,10 @@ import java.util.HashSet;
 @Repository
 public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
+    private static final String SQL_GOS_BY_USER_AND_GROUP = "SELECT * FROM GOS WHERE owner = :userId AND GOS.group_id = :groupId ;";
+
+    private static final String SQL_GOS_BY_GROUP = "SELECT * FROM GOS WHERE GOS.group_id = :groupId ;";
+
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
      * Datenbank kommunizieren kann und dort die Änderungen vornehmen. Das Attribut ist mit "@Autowired" annotiert,
@@ -39,6 +45,9 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
      */
     @Autowired
     private SessionFactory sf;
+
+    @Autowired
+    private GoDaoImp goDao;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
@@ -97,6 +106,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
     /**
      * Dieser Methodenaufruf  wird dazu genutzt um eine GroupEntity in der Datenbank zu speichern.
+     *
      * @param entity Das Entity-Objekt, das in der Datenbank gespeichert werden soll. Es wird garantiert, dass das
      *               Objekt, welches der Methode gegeben wird ein legales Objekt ist.
      */
@@ -137,11 +147,13 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
     /**
      * Diese Methode wird zum löschen einer Entity aus der Datenbank genutzt.
+     *
      * @param key Der Primärschlüssel der Entity, die aus der Datenbanktabelle gelöscht werden soll. Der Datentyp wird
      *            durch das Generic PK bei der Implementierung der Klasse spezifiziert.
      */
     @Override
     public void delete(final Long key) {
+        deleteGosForGroup(key);
         Transaction tx = null;
         Session session = null;
 
@@ -150,17 +162,11 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
             tx = session.beginTransaction();
             GroupEntity group = (GroupEntity) session.get(GroupEntity.class, key);
 
-            GoDaoImp goDao = new GoDaoImp(this.sf);
-
-            //delete all Gos
-            for (GoEntity go : group.getGos()) {
-                goDao.onDeleteGo(go.getID(), session);
-            }
-
             //remove all associations w/ UserEntity objects
-            group.setMembers(null);
-            group.setRequests(null);
-            group.setAdmins(null);
+            group.getMembers().clear();
+            group.getRequests().clear();
+            group.getAdmins().clear();
+            group.getGos().clear();
 
             session.delete(group);
 
@@ -175,8 +181,32 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
         }
     }
 
+    private void deleteGosForGroup(long groupId) {
+        Transaction tx = null;
+        Session session = null;
+        List<GoEntity> gos = new ArrayList<>();
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+
+            final SQLQuery query = session.createSQLQuery(SQL_GOS_BY_GROUP);
+            query.addEntity(GoEntity.class);
+            query.setParameter("groupId", groupId);
+            gos = (List<GoEntity>) query.list();
+            Hibernate.initialize(gos);
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        }
+
+        for (GoEntity go : gos) {
+            goDao.delete(go.getID());
+        }
+    }
+
     /**
      * Diese Methode wird aufgerufen wenn eine GroupEntity mit neuen Daten geupdatet wurde.
+     *
      * @param groupEntity Die GroupEntity, die sich verändert hat. Das Objekt enthält alle Attribute, nicht nur die, die
      *                    sich verändret haben.
      */
@@ -213,7 +243,8 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
     /**
      * Diese Methode wird aufgerufen wenn ein Nutzer einer Gruppe hinzugefügt wird.
      * Ein neu hinzugefügter User erhält automatisch den Status "NOT_GOING".
-     * @param userId Die UserId des Users der hinzugefügt wurde.
+     *
+     * @param userId  Die UserId des Users der hinzugefügt wurde.
      * @param groupId Die Id der Gruppe, die er hinzugefügt wurde.
      */
 
@@ -259,30 +290,31 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
     /**
      * Diese Methode entfernt Gruppenanfragen eines Nutzers im Bezug zu einer bestimmten Guppe.
-     * @param userId  Die Id des Benutzers. Dabei handelt es sich um eine gültige Id,
-     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
-     * @param groupId Die Id der Gruppe. Dabei handelt es sich um eine gültige Id,
-     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+     *
+     * @param userId  Die Id des Benutzers. Dabei handelt es sich um eine gültige Id, ansonsten kann die Methode nicht
+     *                erfolgreich ausgeführt werden.
+     * @param groupId Die Id der Gruppe. Dabei handelt es sich um eine gültige Id, ansonsten kann die Methode nicht
+     *                erfolgreich ausgeführt werden.
      */
 
     @Override
     public void removeGroupRequest(final String userId, final long groupId) {
-        Transaction tx = null;
         Session session = null;
-        final GroupEntity group;
-        final UserEntity user;
+        Transaction tx = null;
+        GroupEntity group;
+        UserEntity user;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
+
             user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
 
-            if (group.getRequests().contains(user)) {
-                group.getRequests().remove(user);
-            }
+            group.getRequests().remove(user);
+
             tx.commit();
-        } catch (final HibernateException e) {
+        } catch (HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
             if (session != null) {
@@ -291,10 +323,41 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
         }
     }
 
+    private void deleteOwnedGos(String userId, Long groupId) {
+        Transaction tx = null;
+        Session session = null;
+        List<GoEntity> ownedGos = new ArrayList<>();
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+
+            final SQLQuery query = session.createSQLQuery(SQL_GOS_BY_USER_AND_GROUP);
+            query.addEntity(GoEntity.class);
+            query.setParameter("userId", userId);
+            query.setParameter("groupId", groupId);
+            ownedGos = (List<GoEntity>) query.list();
+            Hibernate.initialize(ownedGos);
+
+            tx.commit();
+        } catch (final HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        for (GoEntity go : ownedGos) {
+            goDao.delete(go.getID());
+        }
+    }
+
     /**
      * Diese Methode fügt eine Gruppenanfrage in Bezug zwischen einem Nutzer und einer Gruppe hinzu.
-     * @param userId  Die Id des Benutzers, der eingeladen war. Dabei handelt es sich um eine gültige Id,
-     *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
+     *
+     * @param userId  Die Id des Benutzers, der eingeladen war. Dabei handelt es sich um eine gültige Id, ansonsten kann
+     *                die Methode nicht erfolgreich ausgeführt werden.
      * @param groupId Die Id der Gruppe, zu die der Benutzer eingeladen war. Dabei handelt es sich um eine gültige Id,
      *                ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
      */
@@ -328,8 +391,12 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
     }
 
     /**
-     * Diese Methode entfernt einen Nutzer von einer Gruppe. Falls der gelöschte Nutzer der einzige Admin der Gruppe ist,
-     * wird die Gruppe ebenfalls gelöscht.
+     * Diese Methode entfernt einen Nutzer von einer Gruppe. Falls der gelöschte Nutzer der einzige Admin der Gruppe
+     * ist, wird die Gruppe ebenfalls gelöscht.
+     * <p>
+     * Die Methode geht davon aus, dass der gelöschte Benutzer kein Administrator der Gruppe ist. Da es momentan in
+     * jeder Gruppe nur einen Admin gibt, wird bei Entfernen des Admins die Methode deleteGroup aufgerufen.
+     *
      * @param userId  Die Id des Benutzers, der aus der Gruppe entfernt werden soll. Dabei handelt es sich um eine
      *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
      * @param groupId Die Id der Gruppe, aus der der Benutzer entfernt werden soll. Dabei handelt es sich um eine
@@ -338,51 +405,41 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
     @Override
     public void removeGroupMember(final String userId, final long groupId) {
-        Transaction tx = null;
+        deleteOwnedGos(userId, groupId);
+
         Session session = null;
-        final GroupEntity group;
-        final UserEntity user;
+        Transaction tx = null;
+        GroupEntity group;
+        UserEntity user;
 
         try {
             session = sf.openSession();
             tx = session.beginTransaction();
 
-            user = (UserEntity) session.get(UserEntity.class, userId);
             group = (GroupEntity) session.get(GroupEntity.class, groupId);
+            user = (UserEntity) session.get(UserEntity.class, userId);
 
-            if (group.getAdmins().contains(user)) {
-                if (group.getAdmins().size() == 1) {
-
-                    /**
-                     * Falls der User der einzige Admin der Gruppe ist wird die Gruppe ebenfalls gelöscht.
-                     */
-                    tx.rollback();
-                    session.close();
-                    delete(group.getID());
-                    return;
-                }
-                group.getAdmins().remove(user);
+            for (GoEntity go : group.getGos()) {
+                go.getGoneUsers().remove(user);
+                go.getGoingUsers().remove(user);
+                go.getNotGoingUsers().remove(user);
             }
-
-            if (group.getMembers().contains(user)) {
-                group.getMembers().remove(user);
-            }
-
-            new GoDaoImp(this.sf).onGroupMemberRemoved(userId, groupId, session);
+            group.getMembers().remove(user);
 
             tx.commit();
-
-        } catch (final HibernateException e) {
+        } catch (HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
-            if (session != null && session.isConnected()) {
+            if (session != null) {
                 session.close();
             }
         }
     }
 
     /**
-     * Diese Methode fügt einen Admin einer Gruppe hinzu. Dies Funktion kann nur von einem anderen Gruppenadmin genutzt werden.
+     * Diese Methode fügt einen Admin einer Gruppe hinzu. Dies Funktion kann nur von einem anderen Gruppenadmin genutzt
+     * werden.
+     *
      * @param userId  Die Id des Benutzers, der als Administrator hinzugefügt werden soll. Dabei handelt es sich um eine
      *                gültige Id, ansonsten kann die Methode nicht erfolgreich ausgeführt werden.
      * @param groupId Die Id der Gruppe, zu der der Administrator hinzugefügt werden soll. Dabei handelt es sich um eine

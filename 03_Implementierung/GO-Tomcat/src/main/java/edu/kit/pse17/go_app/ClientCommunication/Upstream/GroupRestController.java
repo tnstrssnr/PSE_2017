@@ -142,9 +142,13 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/members/{groupId}/{email}")
-    public ResponseEntity removeMember(@PathVariable("email") final String email, @PathVariable("groupId") final Long groupId) {
-        groupService.removeGroupMember(email, groupId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity removeMember(@PathVariable("groupId") final Long groupId, @PathVariable("email") final String email) {
+        if (groupService.removeGroupMember(email, groupId)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
     }
 
     /**
@@ -164,7 +168,7 @@ public class GroupRestController {
     @RequestMapping(
             method = RequestMethod.POST,
             value = "/requests/{groupId}/{email}")
-    public ResponseEntity inviteMember(@PathVariable final Long groupId, @PathVariable final String email) {
+    public ResponseEntity inviteMember(@PathVariable("groupId") final Long groupId, @PathVariable("email") final String email) {
         if (groupService.addGroupRequest(email, groupId)) {
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {

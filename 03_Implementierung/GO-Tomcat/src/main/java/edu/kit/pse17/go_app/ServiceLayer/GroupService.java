@@ -67,7 +67,6 @@ public class GroupService implements IObservable {
     }
 
 
-
     public static Group groupEntityToGroup(GroupEntity groupEntity) {
         Group group = new Group();
         group.setName(groupEntity.getName());
@@ -169,16 +168,24 @@ public class GroupService implements IObservable {
         notify(EventArg.MEMBER_ADDED_EVENT, this, entity_ids);
     }
 
-    public void removeGroupMember(String email, long groupid) {
+    public boolean removeGroupMember(String email, long groupId) {
+        boolean result = true;
         UserEntity userToRemove = userDao.getUserByEmail(email + ".com");
-        if (userToRemove != null) { //user gefunden
+
+        if (userToRemove != null) { //User gefunden
             String userId = userToRemove.getUid();
-            groupDao.removeGroupMember(userId, groupid);
+
+            groupDao.removeGroupMember(userId, groupId);
+
             List<String> entity_ids = new ArrayList<>();
             entity_ids.add(userId);
-            entity_ids.add(String.valueOf(groupid));
-            notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids);
+            entity_ids.add(String.valueOf(groupId));
+            entity_ids.add(userToRemove.getInstanceId());
+            // notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids);
+        } else {
+            return false;
         }
+        return result;
     }
 
     public boolean addGroupRequest(String email, Long groupId) {

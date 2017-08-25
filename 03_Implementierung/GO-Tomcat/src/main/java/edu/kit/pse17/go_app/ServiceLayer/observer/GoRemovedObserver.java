@@ -3,8 +3,9 @@ package edu.kit.pse17.go_app.ServiceLayer.observer;
 
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
-import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
+import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import org.json.simple.JSONObject;
 
@@ -33,18 +34,14 @@ public class GoRemovedObserver implements Observer {
 
     @Override
     public void update(List<String> entity_ids) {
-        GoEntity removedGo = goService.getGoById(Long.valueOf(entity_ids.get(0)));
+        GroupEntity group = new GroupDaoImp(goService.getGoDao().getSessionFactory()).get(Long.valueOf(entity_ids.get(1)));
         JSONObject json = new JSONObject();
         json.put("id", entity_ids.get(0));
         String data = json.toJSONString();
 
         Set<UserEntity> receiver = new HashSet<>();
-        for (UserEntity usr : removedGo.getGroup().getMembers()) {
-            receiver.add(usr);
-        }
-        for (UserEntity usr : removedGo.getGroup().getRequests()) {
-            receiver.add(usr);
-        }
+        receiver.addAll(group.getMembers());
+        receiver.addAll(group.getRequests());
 
         messenger.send(data, EventArg.GO_REMOVED_EVENT, receiver);
     }

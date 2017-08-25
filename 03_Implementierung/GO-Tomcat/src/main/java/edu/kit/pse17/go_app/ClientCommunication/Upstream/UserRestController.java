@@ -71,7 +71,7 @@ public class UserRestController {
      * @param user User der vom userService erstellt werden soll.
      */
     @RequestMapping(method = RequestMethod.POST, value = "/{userId}")
-    public ResponseEntity<String> createUser(@RequestBody final UserEntity user) {
+    public ResponseEntity<String> createUser(@PathVariable("userId") final String userId, @RequestBody final UserEntity user) {
         if (userService.createUser(user)) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } else {
