@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,8 +74,8 @@ public class LocationService {
      * newLocationCounter: 0 - userCounter: 0
      */
     public LocationService() throws IOException {
-        this.activeUsers = activeUsers;
-        this.groupLocation = groupLocation;
+        this.activeUsers = new ArrayList<>();
+        this.groupLocation = new ArrayList<>();
         this.strat = new GoClusterStrategy();
     }
 
