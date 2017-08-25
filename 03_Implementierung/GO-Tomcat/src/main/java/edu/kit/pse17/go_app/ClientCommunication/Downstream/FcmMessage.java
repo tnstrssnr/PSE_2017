@@ -22,12 +22,24 @@ public class FcmMessage {
     @SerializedName("data")
     private Map<String, String> data;
 
+    @SerializedName("notification")
+    private Map<String, String> notification;
+
     public FcmMessage() {
     }
 
-    public FcmMessage(String to, Map<String, String> data) {
+    public FcmMessage(String to, Map<String, String> data, Map<String, String> notification) {
         this.to = to;
         this.data = data;
+        this.notification = notification;
+    }
+
+    public Map<String, String> getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Map<String, String> notification) {
+        this.notification = notification;
     }
 
     public String getTo() {
