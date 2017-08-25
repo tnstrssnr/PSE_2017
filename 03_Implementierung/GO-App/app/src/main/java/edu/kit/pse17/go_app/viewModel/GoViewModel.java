@@ -90,7 +90,11 @@ public class GoViewModel extends ViewModel{
     public List<Cluster> getClusters(){
         return go.getValue().getLocations();
     }
+
     public void sendLocation(String userId, long goId, double latitude, double longitude){
+        if(goRepo == null){
+            goRepo = GoRepository.getInstance();
+        }
         goRepo.getLocation(userId,goId,latitude, longitude);
     }
     /*
