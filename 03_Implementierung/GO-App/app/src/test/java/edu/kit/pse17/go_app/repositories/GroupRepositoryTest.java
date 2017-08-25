@@ -256,10 +256,7 @@ public class GroupRepositoryTest {
         clusters.add(new Cluster(00.00000, 100.12345, 12));
         go.setLocations(clusters);
 
-        GoLiveData goData = new GoLiveData();
-        goData.postValue(go);
-
-        groupRepo.onLocationsUpdated(goData);
+        groupRepo.onLocationsUpdated(go.getId(), clusters);
 
         List<Go> newList = groupRepo.getList().get(0).getCurrentGos();
         Go addedGo = newList.get(0);

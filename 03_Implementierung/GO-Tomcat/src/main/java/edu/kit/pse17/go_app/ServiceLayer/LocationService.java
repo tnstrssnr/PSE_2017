@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,8 +74,8 @@ public class LocationService {
      * newLocationCounter: 0 - userCounter: 0
      */
     public LocationService() throws IOException {
-        this.activeUsers = activeUsers;
-        this.groupLocation = groupLocation;
+        this.activeUsers = new ArrayList<>();
+        this.groupLocation = new ArrayList<>();
         this.strat = new GoClusterStrategy();
     }
 
@@ -101,24 +102,22 @@ public class LocationService {
      */
     public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
 
-        boolean validation = false;
         int index = 0;
 
         if (LocationService.activeServices.get(goId) != null) {
 
             while (index < LocationService.activeServices.get(goId).activeUsers.size()
                     && LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() != userId) {
-                LocationService.activeServices.get(goId).activeUsers.get(index);
-                if (LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() == userId) {
-                    LocationService.activeServices.get(goId).activeUsers.clear();
-                    LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
-                    validation = true;
-                }
                 index++;
             }
-            if (validation == false) {
+            if (index == LocationService.activeServices.get(goId).activeUsers.size()){
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
+            else if (LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() == userId) {
+                LocationService.activeServices.get(goId).activeUsers.clear();
+                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+            }
+
         } else {
             LocationService.activeServices.put(goId, new LocationService());
             LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
