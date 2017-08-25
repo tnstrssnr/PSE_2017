@@ -159,12 +159,12 @@ public class GroupService implements IObservable {
 
     public void deleteGroup(long groupId) {
         List<String> receiver = prepareReceiverList(groupId);
-
-        groupDao.delete(groupId);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(groupId));
 
         notify(EventArg.GROUP_REMOVED_EVENT, this, entity_ids, receiver);
+
+        groupDao.delete(groupId);
     }
 
     public void acceptRequest(long groupId, String userId) {

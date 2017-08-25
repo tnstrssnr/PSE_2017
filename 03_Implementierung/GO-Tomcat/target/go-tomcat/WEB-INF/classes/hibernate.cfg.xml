@@ -32,7 +32,6 @@
             69h97jnv
         </property>
         -->
-
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="edu.kit.pse17.go_app.PersistenceLayer.UserEntity"/>

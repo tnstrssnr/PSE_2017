@@ -30,7 +30,7 @@ public class FcmClient {
         NOTIFICATION_MESSAGES.put(EventArg.GO_EDITED_EVENT, "One of your Gos has been changed!");
         NOTIFICATION_MESSAGES.put(EventArg.GO_REMOVED_EVENT, "One of your GOs has been removed!");
         NOTIFICATION_MESSAGES.put(EventArg.GROUP_EDITED_EVENT, "One of your Groups has been edited!");
-        NOTIFICATION_MESSAGES.put(EventArg.GO_REMOVED_EVENT, "One of your Groups has been deleted!");
+        NOTIFICATION_MESSAGES.put(EventArg.GROUP_REMOVED_EVENT, "One of your Groups has been deleted!");
         NOTIFICATION_MESSAGES.put(EventArg.GROUP_REQUEST_RECEIVED_EVENT, "You have received a new Group Request!");
         NOTIFICATION_MESSAGES.put(EventArg.MEMBER_ADDED_EVENT, "A new user has joined one of your Groups!");
         NOTIFICATION_MESSAGES.put(EventArg.MEMBER_REMOVED_EVENT, "A User has left one of your Groups!");
@@ -61,14 +61,13 @@ public class FcmClient {
 
     public void send(String data, EventArg command, List<String> receiver) {
 
-        receiver.add(testInstance);
+        //receiver.add(testInstance);
         Map<String, String> eventData = new HashMap<>();
         eventData.put("tag", command.toString());
         eventData.put("data", data);
 
         Map<String, String> notificationData = new HashMap<>();
-        eventData.put("title", "Go App");
-        eventData.put("data", NOTIFICATION_MESSAGES.get(command));
+        notificationData.put("title", NOTIFICATION_MESSAGES.get(command));
 
         for (String rec : receiver) {
 

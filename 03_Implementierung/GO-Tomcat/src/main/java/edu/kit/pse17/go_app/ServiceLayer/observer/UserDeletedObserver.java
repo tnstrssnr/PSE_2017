@@ -28,7 +28,7 @@ public class UserDeletedObserver implements Observer {
         JSONObject json = new JSONObject();
         json.put("user_id", entity_ids.get(0));
 
-        messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, receiver);
+        messenger.send(json.toJSONString(), EventArg.USER_DELETED_EVENT, receiver);
 
     }
 
