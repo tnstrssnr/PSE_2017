@@ -91,11 +91,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
         Session session = null;
         long id = -1;
 
-        System.out.println(entity.getOwner() == null);
         String ownerId = entity.getOwner().getUid();
         Long groupId = entity.getGroup().getID();
 
-        //set all contained objects to null in order to reset them later w/ the perissted objects from the database
+        //set all contained objects to null in order to reset them later w/ the persisted objects from the database
         entity.setGroup(null);
         entity.setGoneUsers(new HashSet<>());
         entity.setGoingUsers(new HashSet<>());
