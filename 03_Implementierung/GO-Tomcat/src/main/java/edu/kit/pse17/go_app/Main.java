@@ -46,29 +46,31 @@ public class Main extends SpringBootServletInitializer {
      * Danach wird an diese objekte die Kontrolle über den Programmablauf übergeben.
      *
      * @param args Es werden der Main-Methode keine Argumente übergeben bzw. übergebene Argumente werden ignoriert.
+     *             <p>
      */
+
     public static void main(final String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return
-                application.sources(Main.class);
-    }
-
-    /*
-    Beans, die von Spring Boot für Dependency Injection verwendet werden
-     */
-
     @Bean
-    public SessionFactory sessionFactory() {
+    public static SessionFactory sessionFactory() {
         if (sf == null) {
             final Configuration config = new Configuration();
             sf = config.configure().buildSessionFactory();
         }
         return sf;
+    }
+
+
+    /*
+    Beans, die von Spring Boot für Dependency Injection verwendet werden
+     */
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Main.class);
     }
 
     @Bean

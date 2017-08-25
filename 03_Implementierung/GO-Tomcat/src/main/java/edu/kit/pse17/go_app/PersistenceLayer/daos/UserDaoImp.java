@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.PersistenceLayer.daos;
 
+import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import org.hibernate.*;
@@ -7,6 +8,8 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +31,10 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     private static final String SQL_QUERY = "SELECT * FROM USERS WHERE email = :mail ;";
 
+    private static final String SQL_GOS_BY_USER = "SELECT * FROM GOS WHERE GOS.owner = :userId ;";
+
+    private static final String SQL_GROUPS_BY_USER = "SELECT GROUPS.group_id FROM GROUPS JOIN ADMINS ON GROUPS.group_id = ADMINS.group_id WHERE ADMINS.uid = :userId ;";
+
     /**
      * Eine Sessionfactory, die Sessions bereitstellt. Die Sessions werden benötigt, damit die Klasse direkt mit der
      * Datenbank kommunizieren kann und dort die Änderungen vornehmen. Das Attribut ist mit "@Autowired" annotiert,
@@ -43,6 +50,12 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     @Autowired
     private SessionFactory sf;
+
+    @Autowired
+    private GoDaoImp goDao;
+
+    @Autowired
+    private GroupDaoImp groupDao;
 
     /**
      * Ein Konstruktor der keine Argumente entgegennimmt. In dem Konstruktor wird eine Instanz von SessionFactory
@@ -65,19 +78,20 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public UserEntity getUserByEmail(final String mail) {
         Session session = null;
+        Transaction tx = null;
         List<UserEntity> users = null;
 
         try {
             session = sf.openSession();
+            tx = session.beginTransaction();
             final SQLQuery query = session.createSQLQuery(SQL_QUERY);
             query.addEntity(UserEntity.class);
             query.setParameter("mail", mail);
             users = (List<UserEntity>) query.list();
             Hibernate.initialize(users);
-
+            tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, null);
-
         } finally {
             if (session != null) {
                 session.close();
@@ -186,6 +200,8 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
      */
     @Override
     public void delete(final String key) {
+        deleteGosByUser(key);
+        deleteGroupsbyUser(key);
         Transaction tx = null;
         Session session = null;
 
@@ -196,6 +212,9 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             prepareForRemoval(key, session);
 
             UserEntity user = (UserEntity) session.get(UserEntity.class, key);
+            user.getGroups().clear();
+            user.getRequests().clear();
+            user.getGos().clear();
             session.delete(user);
 
             tx.commit();
@@ -205,6 +224,58 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    private void deleteGroupsbyUser(String key) {
+        Session session = null;
+        Transaction tx = null;
+        List<BigInteger> groups = new ArrayList<>();
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+
+            final SQLQuery query = session.createSQLQuery(SQL_GROUPS_BY_USER);
+            query.setParameter("userId", key);
+            groups = (List<BigInteger>) query.list();
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        for (BigInteger groupId : groups) {
+            groupDao.delete(groupId.longValue());
+        }
+    }
+
+    private void deleteGosByUser(String key) {
+        Session session = null;
+        Transaction tx = null;
+        List<GoEntity> gos = new ArrayList<>();
+
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
+
+            final SQLQuery query = session.createSQLQuery(SQL_GOS_BY_USER);
+            query.addEntity(GoEntity.class);
+            query.setParameter("userId", key);
+            gos = (List<GoEntity>) query.list();
+            Hibernate.initialize(gos);
+        } catch (HibernateException e) {
+            handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        for (GoEntity go : gos) {
+            goDao.delete(go.getID());
         }
     }
 

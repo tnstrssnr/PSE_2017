@@ -35,6 +35,9 @@ public class GoService implements IObservable {
     @Autowired
     private UserDaoImp userDao;
 
+    @Autowired
+    private GroupService groupService;
+
     private Map<EventArg, Observer> observerMap;
 
     private boolean observerInitialized;
@@ -134,9 +137,12 @@ public class GoService implements IObservable {
         GroupEntity groupEntity = groupDao.get(go.getGroup().getId());
         GoEntity goEntity = new GoEntity(groupEntity, owner, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
         long id = goDao.persist(goEntity);
+
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(id));
-        notify(EventArg.GO_ADDED_EVENT, this, entity_ids);
+        List<String> receiver = groupService.prepareReceiverList(groupEntity.getID());
+
+        notify(EventArg.GO_ADDED_EVENT, this, entity_ids, receiver);
         return id;
     }
 
@@ -161,24 +167,34 @@ public class GoService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(goId));
-        notify(EventArg.STATUS_CHANGED_EVENT, this, entity_ids);
+        List<String> receiver = groupService.prepareReceiverList(goDao.get(goId).getGroup().getID());
+        notify(EventArg.STATUS_CHANGED_EVENT, this, entity_ids, receiver);
         return true;
     }
 
     public void delete(long goId) {
+        long groupId = goDao.get(goId).getGroup().getID();
         goDao.delete(goId);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(goId));
-        notify(EventArg.GO_REMOVED_EVENT, this, entity_ids);
+        entity_ids.add(String.valueOf(groupId));
+        List<String> receiver = groupService.prepareReceiverList(groupId);
+        notify(EventArg.GO_REMOVED_EVENT, this, entity_ids, receiver);
     }
 
     public void update(Go go) {
         GoEntity goEntity = new GoEntity(null, null, go.getName(), go.getDescription(), go.getStart(), go.getEnd(), go.getDesLat(), go.getDesLon());
+
+
         goEntity.setID(go.getId());
         goDao.update(goEntity);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(go.getId()));
-        notify(EventArg.GO_EDITED_EVENT, this, entity_ids);
+
+        GroupEntity affectedGroup = goDao.get(go.getId()).getGroup();
+        List<String> receiver = groupService.prepareReceiverList(affectedGroup.getID());
+
+        notify(EventArg.GO_EDITED_EVENT, this, entity_ids, receiver);
     }
 
     public GoEntity getGoById(long id) {
@@ -201,10 +217,10 @@ public class GoService implements IObservable {
     }
 
     @Override
-    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids) {
+    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids, List<String> receiver) {
         if (!this.observerInitialized) {
             registerAll();
         }
-        observerMap.get(impCode).update(entity_ids);
+        observerMap.get(impCode).update(entity_ids, receiver);
     }
 }

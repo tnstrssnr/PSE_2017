@@ -106,10 +106,10 @@ public class GroupRestControllerTest {
 
     @Test
     public void removeMember() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/group/members/1/user_id")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/group/members/1/testid_1")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        Mockito.verify(groupService, Mockito.times(1)).removeGroupMember("user_id", 1);
+        Mockito.verify(groupService, Mockito.times(1)).removeGroupMember("testid_1", 1);
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 

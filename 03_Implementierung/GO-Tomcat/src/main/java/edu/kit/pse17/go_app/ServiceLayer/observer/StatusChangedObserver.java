@@ -8,9 +8,7 @@ import edu.kit.pse17.go_app.PersistenceLayer.daos.UserDaoImp;
 import edu.kit.pse17.go_app.ServiceLayer.GoService;
 import org.json.simple.JSONObject;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Dieser Observer behandelt Fälle wo der User Status sich verändert.
@@ -44,7 +42,7 @@ public class StatusChangedObserver implements Observer {
     }
 
     @Override
-    public void update(List<String> entity_ids) {
+    public void update(List<String> entity_ids, List<String> receiver) {
         int newStatus;
 
         UserDaoImp userDao = new UserDaoImp(goService.getGoDao().getSessionFactory());
@@ -65,14 +63,6 @@ public class StatusChangedObserver implements Observer {
         json.put("status", newStatus);
 
         String data = json.toJSONString();
-
-        Set<UserEntity> receiver = new HashSet<>();
-        for (UserEntity usr : go.getGroup().getMembers()) {
-            receiver.add(usr);
-        }
-        for (UserEntity usr : go.getGroup().getRequests()) {
-            receiver.add(usr);
-        }
 
         messenger.send(data, EventArg.STATUS_CHANGED_EVENT, receiver);
     }

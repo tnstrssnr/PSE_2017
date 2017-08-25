@@ -1,7 +1,6 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
 import com.google.gson.Gson;
-import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Callback;
@@ -9,8 +8,8 @@ import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Realisiert die Kommunikation mit dem Firebase Cloud Messaging Server um das Senden von Nachrichten vom Server zum
@@ -43,15 +42,15 @@ public class FcmClient {
      * @param receiver Liste aller insatnceIds der User welche die Nachricht empfangen sollen
      */
 
-    public void send(String data, EventArg command, Set<UserEntity> receiver) {
+    public void send(String data, EventArg command, List<String> receiver) {
 
         Map<String, String> eventData = new HashMap<>();
         eventData.put("tag", command.toString());
         eventData.put("data", data);
 
-        for (UserEntity msg : receiver) {
+        for (String rec : receiver) {
 
-            FcmMessage message = new FcmMessage(msg.getInstanceId(), eventData);
+            FcmMessage message = new FcmMessage(rec, eventData);
             RequestBody body = RequestBody.create(JSON, new Gson().toJson(message));
             System.out.println(new Gson().toJson(message));
             retrofit2.Call<Void> call = fcmApi.send(body);

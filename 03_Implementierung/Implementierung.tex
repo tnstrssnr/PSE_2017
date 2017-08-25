@@ -111,8 +111,7 @@ Durch das Hinzufügen dieser Klassen haben sowohl die RestController als auch di
 	\item \textbf{Zusätzliche Klasse \textit{Utility} fürs Clustering}\\
 	Da zum Clustering nicht eine Bibliothek verwendet müssen einige Funktionen erfüllt werden, die den Code um einiges unübersichtlicher machen würden. Deswegen gibt es die Utility-Klasse, die einige Methoden zusammenfassen, die vom Clusteringalgorithmus \textit{DBScan} aufgerufen werden.
 	
-	\item \textbf{Min Android Version} \\
-	
+	\item \textbf{Min Android Version} \\	
 	Die minimale Android Version ist jetzt API 24, weil da viele Shortcuts und nützliche Sachen von Google zur Verfügung gestellt werden, die helfen viele Sonderfälle zu vermeiden.	
 	
 	\item \textbf{F0010}\\Standort Erlaubnis wird nicht zur Registrierungszeit abgefragt, sondern zur Laufzeit, gleich wenn man die Standortverfolgung braucht. Macht nichts aus, da User die Standortverfolgung außerhalb der App auch ausschalten kann.
@@ -148,7 +147,6 @@ Wenn man den Gruppeneintrag aus der Liste aller Gruppen anklickt, wird dem Benut
 Die ViewModel Klassen sind auch als Singletones implementiert, weil es in der entwurfsphase nicht offensichtlich war, dass die ViewModels die Activity-Lifecycle überleben. Also auch wenn die Activities zerstört und neu erzeugt werden, bleibt dasselbe ViewModel für den Activity Typ zuständig. Die Activities nehmen dann die Daten von den ViewModels. Dazu brauchen wir auch nicht viele Instanzen von eimen ViewModel. Und die werden von Android auch so gedacht, als singletones benutzt zu werden.
 
 \item \textbf{Änderungen zu Activity Klassen}\\
-
 Hauptsächlich sind die Activity Klassen geblieben, die im Entwurf waren, und dazu haben wir auch Activities, Fragments, Dialogs hinzugefügt, die den User-Experience vervollständigen, aber nicht die Hauptziel von dem Entwurf sind, wie z.B. (Bearbeiten das, was in der jetzigen Activity steht, erzeuge eine Entity).
 
 Solche Activities wie EditGroupActivity, CreateGroupActivity, AddMember, also "lightweight" Activities, die nicht viel Logik haben, sind einfach als Dialogs implementiert, da diese leichter zu managen sind in Scope von einer anderen "heavyweight" Activity, wie z.B. GroupDetailActivity. \\
@@ -156,7 +154,6 @@ Solche Activities wie EditGroupActivity, CreateGroupActivity, AddMember, also "l
 Einige Sachen wurden zu Fragmenten, wie z.B. GoMapFragment und GoDetailsFragment, die man in der GoDetailActivity benutzt, weil man da swipen zwischen zwei Fragmenten unterstützen muss.
 
 \item \textbf{Datenhierarchie auf dem Client}\\
-
 Daten sind folgendermaßen auf dem Client gestaltet: der Main Speicher von allen Daten während der Session auf dem User-Smartphone ist die GroupRepository Klasse. Da befinden sich alle Daten in einer custom LiveData Klasse. Diese Daten beobachtet die Klasse GroupListViewModel - das ist die ViewModel der "main" GroupListActivity Klasse, die ein Entry-Point zu der Go-App ist. \\
 
 Nach dem Starten werden die Daten von der GroupListViewModel aus der GroupRepository gefetcht, danach updated die Repo ihre Daten, und da die ViewModel diese beobachtet, bekommt sie immer aktuelle Daten nachher. Alle Anfragen in der App werden durch Repositories zu dem Server gerouted, und dann die Daten die in Responses ankommen, werden immer bei der GroupRepository updated, und dann hat die ganze App durch die Beobachters den aktuellen Stand.\\
@@ -168,18 +165,12 @@ Wenn man einen asynchronen Aufruf macht, wird es über die entsprechende Reposit
 Zu jedem Command gibt es meistens einen Methode in der GroupRepository, wie z.B. GoAddedCommand -> GroupRepository.onGoAdded(Go go, groupId). In allen on...() Methoden werden die Daten von Command Klassen in GroupRepository gesetzt und danach weiter durch die App propagiert.
 
 \item \textbf{LiveData Klassen}\\
-
 Zu allen LiveData<> Klassen wurden Unterklassen erstellt, damit die postValue und setValue Methoden sichtbar sind, weil genau diese Methoden triggern die Beobachter dann.
 
 \item \textbf{Methoden bei Repository}\\
-
 Es gibt 3 Methoden bei der Repository Klasse. Wir dachten, dass die ziemlich sinnvoll da waren, aber als wir die Implementierung angefangen haben, waren die Methoden ein bottleneck für uns, und wir habe es als sinnvoll gehalten, die Daten anders zu routen. Am Ende sind wir dazu gekommen, dass diese 3 Methoden unnützlich sind, da wir bis zum Ende diese nicht benutzt haben und es kein Grund sich ergab, diese irgendwann zu benutzten.
 	
 \end{enumerate}
-
-\newpage
-
-\section{Wunsch und Musskriterien}
 
 \newpage
 

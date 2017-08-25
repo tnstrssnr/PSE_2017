@@ -26,7 +26,7 @@ public interface AbstractDao<T, PK> {
      * @return Ein Entity-Objekt, das durch den Schlüssel identifiziert wurde. Konnte keine passende Entity in der
      * Datenbank gefunden werden, gibt die Methode null zurück.
      */
-    public T get(PK key);
+    T get(PK key);
 
     /**
      * Diese Methode speichert eine neue Entity vom Typ T in der Datenbank ab. Dabei wird das Entity-Objekt vor dem
@@ -36,7 +36,7 @@ public interface AbstractDao<T, PK> {
      *               Objekt, welches der Methode übergeben wird, gültig ist (alle Konsistenzbedingungen der Datenbank
      *               werden erfüllt).
      */
-    public PK persist(T entity);
+    PK persist(T entity);
 
     /**
      * Diese Methode löscht ein Entity-Objekt aus der Datenbank. Es werden außerdem automatisch alle Entities gelöscht,
@@ -49,7 +49,7 @@ public interface AbstractDao<T, PK> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void delete(PK key) throws EntityNotFoundException;
+    void delete(PK key) throws EntityNotFoundException;
 
     /**
      * Diese Methode ändert Attributwerte eines bereits bestehenden Entity-Objekts. Dabei können nicht in jeder
@@ -63,5 +63,5 @@ public interface AbstractDao<T, PK> {
      *                                 EntityNotFoundException geworfen, die von der aufrufenden Klasse behandelt werden
      *                                 muss.
      */
-    public void update(T t) throws EntityNotFoundException;
+    void update(T t) throws EntityNotFoundException;
 }

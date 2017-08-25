@@ -42,6 +42,6 @@ public interface IObservable {
      * @param observable Eine Instanz des Observables, das die notify()-Methode aufgerufen hat. Durch diese Referenz
      *                   weiß der observer, von wo er eine Benachrichtigung bekommen hat.
      */
-    void notify(EventArg impCode, IObservable observable, List<String> entity_ids);
+    void notify(EventArg impCode, IObservable observable, List<String> entity_ids, List<String> receiver);
 
 }

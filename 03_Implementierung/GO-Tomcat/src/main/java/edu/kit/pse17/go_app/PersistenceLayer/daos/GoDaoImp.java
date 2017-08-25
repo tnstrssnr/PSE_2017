@@ -306,7 +306,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
 
         for (GoEntity go : group.getGos()) {
 
-            if (go.getOwner().equals(user)) {
+            if (go.getOwner().getUid().equals(user.getUid())) {
 
                 //User ist Go-Owner --> lösche Go
                 go.setGroup(null);
