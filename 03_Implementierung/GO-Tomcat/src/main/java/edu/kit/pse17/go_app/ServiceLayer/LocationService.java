@@ -108,14 +108,15 @@ public class LocationService {
 
             while (index < LocationService.activeServices.get(goId).activeUsers.size()
                     && LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() != userId) {
-                LocationService.activeServices.get(goId).activeUsers.get(index);
+                index++;
+            }
                 if (LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() == userId) {
                     LocationService.activeServices.get(goId).activeUsers.clear();
                     LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
                     validation = true;
                 }
-                index++;
-            }
+
+
             if (validation == false) {
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
