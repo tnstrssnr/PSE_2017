@@ -148,29 +148,38 @@ public class GroupService implements IObservable {
         groupEntity.setDescription(group.getDescription());
         groupEntity.setID(group.getId());
         groupDao.update(groupEntity);
+
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(group.getId()));
-        notify(EventArg.GROUP_EDITED_EVENT, this, entity_ids);
+
+        List<String> receiver = prepareReceiverList(group.getId());
+
+        notify(EventArg.GROUP_EDITED_EVENT, this, entity_ids, receiver);
     }
 
     public void deleteGroup(long groupId) {
+        List<String> receiver = prepareReceiverList(groupId);
+
         groupDao.delete(groupId);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(String.valueOf(groupId));
-        notify(EventArg.GROUP_REMOVED_EVENT, this, entity_ids);
+
+        notify(EventArg.GROUP_REMOVED_EVENT, this, entity_ids, receiver);
     }
 
     public void acceptRequest(long groupId, String userId) {
+        List<String> receiver = prepareReceiverList(groupId);
+
         groupDao.addGroupMember(userId, groupId);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
-        notify(EventArg.MEMBER_ADDED_EVENT, this, entity_ids);
+        notify(EventArg.MEMBER_ADDED_EVENT, this, entity_ids, receiver);
     }
 
     public boolean removeGroupMember(String email, long groupId) {
-        boolean result = true;
         UserEntity userToRemove = userDao.getUserByEmail(email + ".com");
+        List<String> receiver = prepareReceiverList(groupId);
 
         if (userToRemove != null) { //User gefunden
             String userId = userToRemove.getUid();
@@ -181,11 +190,12 @@ public class GroupService implements IObservable {
             entity_ids.add(userId);
             entity_ids.add(String.valueOf(groupId));
             entity_ids.add(userToRemove.getInstanceId());
-            // notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids);
+            notify(EventArg.MEMBER_REMOVED_EVENT, this, entity_ids, receiver);
         } else {
             return false;
         }
-        return result;
+
+        return true;
     }
 
     public boolean addGroupRequest(String email, Long groupId) {
@@ -202,7 +212,9 @@ public class GroupService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
-        notify(EventArg.GROUP_REQUEST_RECEIVED_EVENT, this, entity_ids);
+        List<String> receiver = new ArrayList<>();
+        receiver.add(userEntity.getInstanceId());
+        notify(EventArg.GROUP_REQUEST_RECEIVED_EVENT, this, entity_ids, receiver);
         return true;
     }
 
@@ -211,6 +223,8 @@ public class GroupService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
+        List<String> receiver = prepareReceiverList(groupId);
+        notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids, receiver);
     }
 
     public void addAdmin(String userId, long groupId) {
@@ -218,7 +232,8 @@ public class GroupService implements IObservable {
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
-        notify(EventArg.ADMIN_ADDED_EVENT, this, entity_ids);
+        List<String> receiver = prepareReceiverList(groupId);
+        notify(EventArg.ADMIN_ADDED_EVENT, this, entity_ids, receiver);
     }
 
     @Override
@@ -236,14 +251,26 @@ public class GroupService implements IObservable {
     }
 
     @Override
-    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids) {
+    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids, List<String> receiver) {
         if (!observerInitialized) {
             registerAll();
         }
-        observerMap.get(impCode).update(entity_ids);
+        observerMap.get(impCode).update(entity_ids, receiver);
     }
 
     public GroupEntity getGroupById(Long id) {
         return groupDao.get(id);
+    }
+
+    public List<String> prepareReceiverList(long groupId) {
+        GroupEntity group = groupDao.get(groupId);
+        List<String> receiver = new ArrayList<>();
+        for (UserEntity usr : group.getMembers()) {
+            receiver.add(usr.getInstanceId());
+        }
+        for (UserEntity usr : group.getRequests()) {
+            receiver.add(usr.getInstanceId());
+        }
+        return receiver;
     }
 }

@@ -1,10 +1,5 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-
-/**
- * Diese Klasse handhabt alle Observerfunktion in Bezug auf UserDaos. Für mehr Information siehe Interface IObservable.
- */
-
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
@@ -18,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+/**
+ * Diese Klasse handhabt alle Observerfunktion in Bezug auf UserDaos. Für mehr Information siehe Interface IObservable.
+ */
 
 @Service
 public class UserService implements IObservable {
@@ -36,16 +35,6 @@ public class UserService implements IObservable {
     public UserService(UserDaoImp userDao) {
         this.userDao = userDao;
         registerAll();
-    }
-
-    public static void editUserForJson(UserEntity user) {
-
-        //has to be checked, in case user is owner of a go --> this method is called for the user twice
-        if (user != null) {
-            user.setGos(null);
-            user.setGroups(null);
-            user.setRequests(null);
-        }
     }
 
     public static User userEntityToUser(UserEntity userEntity) {
@@ -102,7 +91,23 @@ public class UserService implements IObservable {
     }
 
     public void deleteUser(String key) {
+        UserEntity toBeDeleted = userDao.get(key);
+        Set<UserEntity> receiver = new HashSet<>();
+        for (GroupEntity group : toBeDeleted.getGroups()) {
+            receiver.addAll(group.getMembers());
+            receiver.addAll(group.getRequests());
+        }
+
+        List<String> receiver_ids = new ArrayList<>();
+        for (UserEntity usr : receiver) {
+            receiver_ids.add(usr.getInstanceId());
+        }
+
+        List<String> entity_ids = new ArrayList<>();
+        entity_ids.add(key);
         userDao.delete(key);
+
+        notify(EventArg.USER_DELETED_EVENT, this, entity_ids, receiver_ids);
     }
 
     public void registerDevice(String userId, String instanceId) {
@@ -138,15 +143,16 @@ public class UserService implements IObservable {
     }
 
     @Override
-    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids) {
+    public void notify(EventArg impCode, IObservable observable, List<String> entity_ids, List<String> receiver) {
         if (!this.observerInitialized) {
             registerAll();
         }
-        observerMap.get(impCode).update(entity_ids);
+        observerMap.get(impCode).update(entity_ids, receiver);
 
     }
 
     private void registerAll() {
+        this.observerMap = new HashMap<>();
         register(EventArg.USER_DELETED_EVENT, new UserDeletedObserver(this));
         observerInitialized = true;
     }
