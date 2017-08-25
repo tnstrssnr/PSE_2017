@@ -478,7 +478,7 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<Go> newGos = old;
                 group.setCurrentGos(newGos);
                 data.postValue(list);
-                Log.d("GroupRepo", "Should call observer right now");
+                //Log.d("GroupRepo", "Should call observer right now");
                 break;
             }
         }
@@ -505,17 +505,17 @@ public class GroupRepository extends Repository<List<Group>> {
                     newGo.setParticipantsList(currentGo.getParticipantsList());
                     newGo.setLocations(currentGo.getLocations());
 
-                    old.remove(currentGo);
-                    old.add(newGo);
+                    int index = old.indexOf(currentGo);
+                    old.set(index, newGo);
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
                     break outer;
                 }
             }
 
-            data.postValue(list);
-            Log.d("GroupRepo", "Should call observer right now");
         }
+        data.postValue(list);
+        //Log.d("GroupRepo", "Should call observer right now");
     }
 
     /**
@@ -540,8 +540,8 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
             }
 
-            data.postValue(list);
         }
+        data.postValue(list);
     }
 
     /**
@@ -559,8 +559,8 @@ public class GroupRepository extends Repository<List<Group>> {
                 newGroup.setCurrentGos(currentGroup.getCurrentGos());
                 newGroup.setMembershipList(currentGroup.getMembershipList());
 
-                list.remove(currentGroup);
-                list.add(newGroup);
+                int index = list.indexOf(currentGroup);
+                list.set(index, newGroup);
                 data.postValue(list);
                 break;
             }
@@ -728,9 +728,9 @@ public class GroupRepository extends Repository<List<Group>> {
                     }
                 }
 
-                data.postValue(list);
             }
         }
+        data.postValue(list);
     }
 
     /**
@@ -759,12 +759,13 @@ public class GroupRepository extends Repository<List<Group>> {
                             userStatus.setStatus(Status.values()[status]);
                             List<UserGoStatus> newStatusList = statusList;
                             go.setParticipantsList(newStatusList);
-                            break outer;
+                            break;
                         }
                     }
 
                     List<Go> newGos = old;
                     group.setCurrentGos(newGos);
+                    break outer;
                 }
             }
         }
@@ -811,7 +812,6 @@ public class GroupRepository extends Repository<List<Group>> {
                 }
             }
         }
-
         data.postValue(list);
     }
 
