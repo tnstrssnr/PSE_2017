@@ -197,11 +197,11 @@ public class GoRepository extends Repository<List<Go>>{
             @Override
             public void onResponse(Call<List<Cluster>> call, Response<List<Cluster>> response) {
                 List<Cluster> locations = response.body();
-                go = data.getValue();
+                /*go = data.getValue();
                 if (go.getId() == goId) {
                     go.setLocations(locations);
                     data.postValue(go);
-                }
+                }*/
 
                 GroupRepository groupRepo = GroupRepository.getInstance();
                 groupRepo.onLocationsUpdated(goId, locations);
