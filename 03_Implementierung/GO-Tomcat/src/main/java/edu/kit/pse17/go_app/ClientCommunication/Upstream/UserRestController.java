@@ -56,11 +56,9 @@ public class UserRestController {
             Group group = new Group(-1, "dummy", "dummy", 0, null, new ArrayList<>(), new ArrayList<>());
             GroupService.makeJsonable(group);
             data.add(group);
-
-            return new ResponseEntity<>(data, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(data, HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     /**

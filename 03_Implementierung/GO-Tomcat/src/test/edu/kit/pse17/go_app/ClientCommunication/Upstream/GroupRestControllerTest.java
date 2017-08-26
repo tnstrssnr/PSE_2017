@@ -105,7 +105,8 @@ public class GroupRestControllerTest {
     }
 
     @Test
-    public void removeMember() throws Exception {
+    public void removeMember_Successful() throws Exception {
+        Mockito.doReturn(true).when(groupService).removeGroupMember(Mockito.anyString(), Mockito.anyLong());
         RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/group/members/1/testid_1")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -114,11 +115,33 @@ public class GroupRestControllerTest {
     }
 
     @Test
-    public void inviteMember() throws Exception {
+    public void removeMember_Failed() throws Exception {
+        Mockito.doReturn(false).when(groupService).removeGroupMember(Mockito.anyString(), Mockito.anyLong());
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/group/members/1/testid_1")
+                .accept(MediaType.APPLICATION_JSON);
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        Mockito.verify(groupService, Mockito.times(1)).removeGroupMember("testid_1", 1);
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    }
+
+    @Test
+    public void inviteMember_Successful() throws Exception {
+        Mockito.doReturn(false).when(groupService).addGroupRequest(Mockito.anyString(), Mockito.anyLong());
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/group/requests/1/user_id")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Mockito.verify(groupService, Mockito.times(1)).addGroupRequest("user_id", (long) 1);
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    }
+
+    @Test
+    public void inviteMember_Failed() throws Exception {
+        Mockito.doReturn(false).when(groupService).addGroupRequest(Mockito.anyString(), Mockito.anyLong());
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/group/requests/1/user_id")
+                .accept(MediaType.APPLICATION_JSON);
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        Mockito.verify(groupService, Mockito.times(1)).addGroupRequest("user_id", (long) 1);
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
     }
 
     @Test

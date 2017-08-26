@@ -69,6 +69,14 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     public UserDaoImp() {
     }
 
+    public SessionFactory getSf() {
+        return sf;
+    }
+
+    public void setSf(SessionFactory sf) {
+        this.sf = sf;
+    }
+
     /**
      * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
      *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.

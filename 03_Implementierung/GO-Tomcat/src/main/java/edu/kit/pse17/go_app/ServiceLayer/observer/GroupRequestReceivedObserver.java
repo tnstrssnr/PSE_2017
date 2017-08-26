@@ -6,7 +6,6 @@ import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
 import edu.kit.pse17.go_app.PersistenceLayer.GroupEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
-import edu.kit.pse17.go_app.PersistenceLayer.daos.GroupDao;
 import edu.kit.pse17.go_app.ServiceLayer.GroupService;
 
 import java.util.List;
@@ -21,9 +20,9 @@ public class GroupRequestReceivedObserver implements Observer {
     private GroupService groupService;
 
 
-    public GroupRequestReceivedObserver(FcmClient messenger, GroupDao groupDao) {
+    public GroupRequestReceivedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
-        this.groupService = new GroupService();
+        this.groupService = groupService;
     }
 
     public GroupRequestReceivedObserver(GroupService groupService) {
@@ -39,13 +38,9 @@ public class GroupRequestReceivedObserver implements Observer {
         return groupService;
     }
 
-    public void setGroupService(GroupService groupService) {
-        this.groupService = groupService;
-    }
-
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
-        GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(1)));
+        GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(0)));
         Group cGroup = GroupService.groupEntityToGroup(group);
         GroupService.makeJsonable(cGroup);
 

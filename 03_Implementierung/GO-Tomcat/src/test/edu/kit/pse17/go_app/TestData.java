@@ -94,6 +94,9 @@ public class TestData {
         lunch.setNotGoingUsers(new HashSet<>());
         lunch.setGoingUsers(new HashSet<>());
         lunch.setGoneUsers(new HashSet<>());
+        lunch.getGoingUsers().add(bob);
+        lunch.setGroup(foo);
+        lunch.setOwner(bob);
 
         foo.getGos().add(lunch);
         foo.getGos().add(dinner);
@@ -102,8 +105,8 @@ public class TestData {
         cAlice = new User(alice.getUid(), alice.getInstanceId(), alice.getName(), alice.getEmail());
 
         cFoo = new Group(foo.getID(), foo.getName(), foo.getDescription(), foo.getMembers().size(), null, new ArrayList<>(), new ArrayList<>());
-        cFoo.getMembershipList().add(new GroupMembership(cBob, cFoo, true, false));
         cFoo.getMembershipList().add(new GroupMembership(cAlice, cFoo, false, false));
+        cFoo.getMembershipList().add(new GroupMembership(cBob, cFoo, true, false));
         cFoo.getCurrentGos().add(cLunch);
         cFoo.getCurrentGos().add(cDinner);
 
@@ -120,7 +123,6 @@ public class TestData {
 
     public static GroupEntity getTestGroupFoo() {
         setUpData();
-        System.out.println(foo.getName());
         return foo;
     }
 

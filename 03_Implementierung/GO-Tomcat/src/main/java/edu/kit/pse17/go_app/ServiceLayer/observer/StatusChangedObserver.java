@@ -18,15 +18,26 @@ public class StatusChangedObserver implements Observer {
 
     private final FcmClient messenger;
     private GoService goService;
+    private UserDaoImp userDao;
 
     public StatusChangedObserver(FcmClient messenger, GoService goService) {
         this.messenger = messenger;
         this.goService = goService;
+        this.userDao = new UserDaoImp();
     }
 
     public StatusChangedObserver(GoService goService) {
         this.messenger = new FcmClient();
         this.goService = goService;
+        this.userDao = new UserDaoImp();
+    }
+
+    public UserDaoImp getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDaoImp userDao) {
+        this.userDao = userDao;
     }
 
     public FcmClient getMessenger() {
@@ -37,15 +48,10 @@ public class StatusChangedObserver implements Observer {
         return goService;
     }
 
-    public void setGoService(GoService goService) {
-        this.goService = goService;
-    }
-
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         int newStatus;
 
-        UserDaoImp userDao = new UserDaoImp(goService.getGoDao().getSessionFactory());
         GoEntity go = goService.getGoById(Long.valueOf(entity_ids.get(1)));
         UserEntity user = userDao.get(entity_ids.get(0));
 

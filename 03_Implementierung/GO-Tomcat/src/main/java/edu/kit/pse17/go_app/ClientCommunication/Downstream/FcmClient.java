@@ -20,8 +20,10 @@ public class FcmClient {
     private static final String testInstance = "dkVE5J7QcxM:APA91bFwKzvTSfXl5lS7_cPGL3kJC-D7C2tPIK_rVKWas5S-DZ8lPh1ERYQcwSo6Z4DzhQ5PRjnQ_2HltjI0EjlDeVUlauLH3gTlUys9PFVJQAh7K9DQahZtI3sYR_qXkbzhwdrCkEG4";
 
     private static final Map<EventArg, String> NOTIFICATION_MESSAGES;
+
     //BASE URL des FCM-Servers
     private static final String BASE_URL = "http://fcm.googleapis.com/fcm/";
+
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     static {
@@ -50,6 +52,14 @@ public class FcmClient {
         fcmApi = retrofit.create(FcmApi.class);
     }
 
+    public FcmApi getFcmApi() {
+        return fcmApi;
+    }
+
+    public void setFcmApi(FcmApi fcmApi) {
+        this.fcmApi = fcmApi;
+    }
+
     /**
      * Sendet Anfragen an den FCM Server. Der User erhält dann den Json-String angegeben in data.
      *
@@ -73,7 +83,6 @@ public class FcmClient {
 
             FcmMessage message = new FcmMessage(rec, eventData, notificationData);
             RequestBody body = RequestBody.create(JSON, new Gson().toJson(message));
-            System.out.println(new Gson().toJson(message));
             retrofit2.Call<Void> call = fcmApi.send(body);
             call.enqueue(new Callback<Void>() {
 
@@ -89,8 +98,6 @@ public class FcmClient {
                 }
             });
         }
-
-
     }
 
 }

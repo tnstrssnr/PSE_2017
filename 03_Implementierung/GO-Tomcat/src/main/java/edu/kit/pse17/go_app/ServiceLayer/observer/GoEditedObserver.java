@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Dieser Observer behandelt Fälle wo ein Go verändert wird.
  */
-
 public class GoEditedObserver implements Observer {
 
     private final FcmClient messenger;
@@ -28,6 +27,14 @@ public class GoEditedObserver implements Observer {
         this.goService = dao;
     }
 
+    public FcmClient getMessenger() {
+        return messenger;
+    }
+
+    public GoService getGoService() {
+        return goService;
+    }
+
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         GoEntity goEntity = goService.getGoById(Long.valueOf(entity_ids.get(0)));
@@ -38,7 +45,5 @@ public class GoEditedObserver implements Observer {
         String data = gson.toJson(go);
 
         messenger.send(data, EventArg.GO_EDITED_EVENT, receiver);
-
-
     }
 }

@@ -2,7 +2,7 @@ package edu.kit.pse17.go_app.ServiceLayer.observer;
 
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient;
-import edu.kit.pse17.go_app.ServiceLayer.GroupService;
+import edu.kit.pse17.go_app.ServiceLayer.UserService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,15 +15,14 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.validateMockitoUsage;
 
-public class AdminAddedObserverTest {
+public class UserDeletedObserverTest {
 
     private static final String TEST_RECEIVER = "receiver_instance_id";
-    private static final EventArg EXPECTED_EVENT = EventArg.ADMIN_ADDED_EVENT;
+    private static final EventArg EXPECTED_EVENT = EventArg.USER_DELETED_EVENT;
 
     //might change after testing goEntityToGo method
-    private static final String EXPECTED_JSON = "{\"user_id\":\"testid_bob\",\"group_id\":\"1\"}";
+    private static final String EXPECTED_JSON = "{\"user_id\":\"1\"}";
 
     private EventArg resultEvent;
     private String resultString;
@@ -34,18 +33,17 @@ public class AdminAddedObserverTest {
 
     private List<String> receiver;
     private List<String> entity_ids;
-    private AdminAddedObserver observer;
+    private UserDeletedObserver observer;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         receiver = new ArrayList<>();
         receiver.add(TEST_RECEIVER);
         entity_ids = new ArrayList<>();
-        entity_ids.add("testid_bob");
         entity_ids.add(String.valueOf(1));
-
         //Mockito settings
         mockMessenger = Mockito.mock(FcmClient.class);
+
         Mockito.doAnswer(invocation -> {
             resultString = (String) invocation.getArguments()[0];
             resultEvent = (EventArg) invocation.getArguments()[1];
@@ -53,7 +51,7 @@ public class AdminAddedObserverTest {
             return true;
         }).when(mockMessenger).send(Mockito.anyString(), Mockito.any(EventArg.class), Mockito.anyList());
 
-        observer = new AdminAddedObserver(mockMessenger, null);
+        observer = new UserDeletedObserver(mockMessenger);
     }
 
     @After
@@ -64,12 +62,10 @@ public class AdminAddedObserverTest {
         resultReceiver = null;
         resultString = null;
         observer = null;
-        entity_ids = null;
-        validateMockitoUsage();
     }
 
     @Test
-    public void update() throws Exception {
+    public void update() {
         observer.update(entity_ids, receiver);
 
         Assert.assertEquals(EXPECTED_EVENT, resultEvent);
@@ -79,15 +75,16 @@ public class AdminAddedObserverTest {
 
     @Test
     public void constructorTest1() {
-        observer = new AdminAddedObserver(new GroupService());
-        Assert.assertNotNull(observer.getMessenger());
-        assertThat(observer.getMessenger(), instanceOf(FcmClient.class));
+        observer = new UserDeletedObserver(mockMessenger);
+        Assert.assertEquals(mockMessenger, observer.getMessenger());
     }
 
     @Test
     public void constructorTest2() {
-        observer = new AdminAddedObserver(mockMessenger, null);
-        Assert.assertEquals(mockMessenger, observer.getMessenger());
+        UserService mockService = Mockito.mock(UserService.class);
+        observer = new UserDeletedObserver(mockService);
+        Assert.assertNotNull(observer.getMessenger());
+        assertThat(observer.getMessenger(), instanceOf(FcmClient.class));
     }
 
 }

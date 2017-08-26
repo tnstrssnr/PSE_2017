@@ -13,25 +13,18 @@ import java.util.List;
 
 public class AdminAddedObserver implements Observer {
 
-    private final FcmClient messenger;
-    private GroupService groupService;
+    private FcmClient messenger;
 
     public AdminAddedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
-        this.groupService = groupService;
     }
 
     public AdminAddedObserver(GroupService groupService) {
         this.messenger = new FcmClient();
-        this.groupService = groupService;
     }
 
-    public GroupService getGroupService() {
-        return groupService;
-    }
-
-    public void setGroupService(GroupService groupService) {
-        this.groupService = groupService;
+    public FcmClient getMessenger() {
+        return messenger;
     }
 
     @Override

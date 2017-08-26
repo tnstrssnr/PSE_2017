@@ -27,12 +27,20 @@ public class GoRemovedObserver implements Observer {
         this.goService = goService;
     }
 
+    public FcmClient getMessenger() {
+        return messenger;
+    }
+
+    public GoService getGoService() {
+        return goService;
+    }
+
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         JSONObject json = new JSONObject();
         json.put("id", entity_ids.get(0));
         String data = json.toJSONString();
-
+        System.out.println(data);
         messenger.send(data, EventArg.GO_REMOVED_EVENT, receiver);
     }
 }

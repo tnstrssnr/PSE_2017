@@ -17,12 +17,10 @@ public class GroupEditedObserver implements Observer {
 
     private final FcmClient messenger;
     private GroupService groupService;
-    private Gson gson;
 
     public GroupEditedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
         this.groupService = groupService;
-        this.gson = new Gson();
     }
 
     public GroupEditedObserver(GroupService groupService) {
@@ -30,6 +28,14 @@ public class GroupEditedObserver implements Observer {
         this.groupService = groupService;
     }
 
+    public FcmClient getMessenger() {
+        return messenger;
+    }
+
+    public GroupService getGroupService() {
+        return groupService;
+    }
+    
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(0)));

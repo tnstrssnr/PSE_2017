@@ -49,6 +49,9 @@ public class GroupService implements IObservable {
         if (group.getMembershipList() == null) {
             group.setMembershipList(new ArrayList<>());
         }
+        if (group.getCurrentGos() == null) {
+            group.setCurrentGos(new ArrayList<>());
+        }
 
         for (GroupMembership groupMembership : group.getMembershipList()) {
             jsonAbleList.add(new GroupMembership(groupMembership.getUser(), new Group(group.getId(), group.getName(), group.getDescription(), 0, null, new ArrayList<>(), new ArrayList<>()), groupMembership.isAdmin(), groupMembership.isRequest()));
@@ -65,7 +68,6 @@ public class GroupService implements IObservable {
         groupMembership.getGroup().setMembershipList(new ArrayList<>());
         groupMembership.getGroup().setCurrentGos(new ArrayList<>());
     }
-
 
     public static Group groupEntityToGroup(GroupEntity groupEntity) {
         Group group = new Group();
@@ -116,10 +118,6 @@ public class GroupService implements IObservable {
         register(EventArg.MEMBER_ADDED_EVENT, new MemberAddedObserver(this));
         register(EventArg.ADMIN_ADDED_EVENT, new AdminAddedObserver(this));
         observerInitialized = true;
-    }
-
-    public GroupDaoImp getGroupDao() {
-        return groupDao;
     }
 
     public Map<EventArg, Observer> getObserverMap() {
@@ -210,8 +208,8 @@ public class GroupService implements IObservable {
         String userId = user.getUid();
         groupDao.addGroupRequest(userId, groupId);
         List<String> entity_ids = new ArrayList<>();
-        entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
+
         List<String> receiver = new ArrayList<>();
         receiver.add(userEntity.getInstanceId());
         notify(EventArg.GROUP_REQUEST_RECEIVED_EVENT, this, entity_ids, receiver);
@@ -265,6 +263,7 @@ public class GroupService implements IObservable {
     public List<String> prepareReceiverList(long groupId) {
         GroupEntity group = groupDao.get(groupId);
         List<String> receiver = new ArrayList<>();
+
         for (UserEntity usr : group.getMembers()) {
             receiver.add(usr.getInstanceId());
         }

@@ -41,8 +41,12 @@ public class UserService implements IObservable {
         return new User(userEntity.getUid(), userEntity.getInstanceId(), userEntity.getName(), userEntity.getEmail());
     }
 
-    public UserDaoImp getUserDao() {
-        return userDao;
+    public Map<EventArg, Observer> getObserverMap() {
+        return observerMap;
+    }
+
+    public void setObserverMap(Map<EventArg, Observer> observerMap) {
+        this.observerMap = observerMap;
     }
 
     public List<Group> getData(String key, String email, String userName) {

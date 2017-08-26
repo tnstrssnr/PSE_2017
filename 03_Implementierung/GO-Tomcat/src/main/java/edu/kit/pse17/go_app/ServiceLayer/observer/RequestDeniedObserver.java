@@ -22,6 +22,19 @@ public class RequestDeniedObserver implements Observer {
         this.messenger = new FcmClient();
     }
 
+    public RequestDeniedObserver(FcmClient messenger, GroupService groupService) {
+        this.messenger = messenger;
+        this.groupService = groupService;
+    }
+
+    public FcmClient getMessenger() {
+        return messenger;
+    }
+
+    public GroupService getGroupService() {
+        return groupService;
+    }
+
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         JSONObject json = new JSONObject();

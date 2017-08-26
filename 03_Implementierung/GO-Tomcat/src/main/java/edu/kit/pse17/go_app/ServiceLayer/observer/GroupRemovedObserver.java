@@ -26,12 +26,12 @@ public class GroupRemovedObserver implements Observer {
         this.groupService = groupService;
     }
 
-    public GroupService getGroupService() {
-        return groupService;
+    public FcmClient getMessenger() {
+        return messenger;
     }
 
-    public void setGroupService(GroupService groupService) {
-        this.groupService = groupService;
+    public GroupService getGroupService() {
+        return groupService;
     }
 
     @Override
@@ -41,6 +41,5 @@ public class GroupRemovedObserver implements Observer {
         String data = json.toJSONString();
 
         messenger.send(data, EventArg.GROUP_REMOVED_EVENT, receiver);
-
     }
 }

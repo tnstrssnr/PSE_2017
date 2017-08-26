@@ -20,21 +20,39 @@ public class MemberAddedObserver implements Observer {
 
     private final FcmClient messenger;
     private GroupService groupService;
+    private UserDaoImp userDao;
 
     public MemberAddedObserver(FcmClient messenger, GroupService groupService) {
         this.messenger = messenger;
         this.groupService = groupService;
+        this.userDao = new UserDaoImp();
     }
 
     public MemberAddedObserver(GroupService groupService) {
         this.messenger = new FcmClient();
         this.groupService = groupService;
+        this.userDao = new UserDaoImp();
+    }
+
+    public FcmClient getMessenger() {
+        return messenger;
+    }
+
+    public GroupService getGroupService() {
+        return groupService;
+    }
+
+    public UserDaoImp getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDaoImp userDao) {
+        this.userDao = userDao;
     }
 
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(1)));
-        UserDaoImp userDao = new UserDaoImp(groupService.getGroupDao().getSf());
         UserEntity newUser = userDao.get(entity_ids.get(0));
 
         JSONObject json = new JSONObject();

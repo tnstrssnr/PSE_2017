@@ -30,6 +30,10 @@ public class GoAddedObserver implements Observer {
         this.goService = goService;
     }
 
+    public GoService getGoService() {
+        return goService;
+    }
+
     public FcmClient getMessenger() {
         return messenger;
     }

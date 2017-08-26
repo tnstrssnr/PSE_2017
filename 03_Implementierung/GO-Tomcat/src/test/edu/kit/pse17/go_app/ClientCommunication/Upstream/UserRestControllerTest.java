@@ -131,7 +131,7 @@ public class UserRestControllerTest {
     }
 
     @Test
-    public void getUserbyMail() throws Exception {
+    public void getUserbyMail_Successful() throws Exception {
         Mockito.when(userService.getUserbyMail(Mockito.anyString())).thenReturn(testcUser);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/search/test@mail.com")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -140,6 +140,17 @@ public class UserRestControllerTest {
         Mockito.verify(userService, times(1)).getUserbyMail("test@mail.com");
         Assert.assertEquals(testcuserString, result.getResponse().getContentAsString());
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+    }
+
+    @Test
+    public void getUserbyMail_NotFound() throws Exception {
+        Mockito.when(userService.getUserbyMail(Mockito.anyString())).thenReturn(null);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/search/test@mail.com")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        Mockito.verify(userService, times(1)).getUserbyMail("test@mail.com");
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
     }
 
 }
