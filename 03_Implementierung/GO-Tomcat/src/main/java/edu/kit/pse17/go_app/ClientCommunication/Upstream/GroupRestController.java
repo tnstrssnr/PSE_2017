@@ -8,8 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.HttpStatus.OK;
-
 /**
  * RestController Klasse für Rest Ressourcen in Bezug zu Group Funktionalitäten. Alle Rückgabewerte in dieser Klasse
  * sind in einem responseEntity-Objekt umfasst, HTTP-StatusCode und die Rückgabedaten beinhaltend in seinem Aufbau,
@@ -48,7 +46,7 @@ public class GroupRestController {
             value = "/",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> createGroup(@RequestBody final Group group) {
-        return new ResponseEntity<>(groupService.createGroup(group), OK);
+        return new ResponseEntity<>(groupService.createGroup(group), HttpStatus.CREATED);
     }
 
     /**

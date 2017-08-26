@@ -12,19 +12,92 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GoRestControllerTest.coverage" NAME="GoRestControllerTest Coverage Results" MODIFIED="1503767053483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ClientCommunication.Upstream.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserServiceTest.coverage" NAME="UserServiceTest Coverage Results" MODIFIED="1503759193927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserDeletedObserverTest.coverage" NAME="UserDeletedObserverTest Coverage Results" MODIFIED="1503756609332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$Test_All.coverage" NAME="Test All Coverage Results" MODIFIED="1503766534631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserDaoImpTest_getUserByEmail.coverage" NAME="UserDaoImpTest.getUserByEmail Coverage Results" MODIFIED="1500915483791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.PersistenceLayer.daos.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GoEditedObserverTest_update.coverage" NAME="GoEditedObserverTest.update Coverage Results" MODIFIED="1503750072870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserServiceTest_deleteUserTest.coverage" NAME="UserServiceTest.deleteUserTest Coverage Results" MODIFIED="1503758891723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$AdminAddedObserverTest.coverage" NAME="AdminAddedObserverTest Coverage Results" MODIFIED="1503757493434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GroupServiceTest_unregisterTest.coverage" NAME="GroupServiceTest.unregisterTest Coverage Results" MODIFIED="1503766488207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GroupRequestReceivedObserverTest.coverage" NAME="GroupRequestReceivedObserverTest Coverage Results" MODIFIED="1503753126966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GroupRestControllerTest.coverage" NAME="GroupRestControllerTest Coverage Results" MODIFIED="1503766979923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ClientCommunication.Upstream.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserServiceTest_constructorTest.coverage" NAME="UserServiceTest.constructorTest Coverage Results" MODIFIED="1503758697596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GroupRemovedObserverTest.coverage" NAME="GroupRemovedObserverTest Coverage Results" MODIFIED="1503752593587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GoEditedObserverTest.coverage" NAME="GoEditedObserverTest Coverage Results" MODIFIED="1503750708024" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserServiceTest_userEntityToUserTest.coverage" NAME="UserServiceTest.userEntityToUserTest Coverage Results" MODIFIED="1503759432656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GroupEditedObserverTest.coverage" NAME="GroupEditedObserverTest Coverage Results" MODIFIED="1503752173876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$FcmClientTest.coverage" NAME="FcmClientTest Coverage Results" MODIFIED="1503729722987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ClientCommunication.Downstream.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/GO_Tomcat$Test_Run.coverage" NAME="Test+Run Coverage Results" MODIFIED="1502988420439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
       <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GoRemovedObserverTest.coverage" NAME="GoRemovedObserverTest Coverage Results" MODIFIED="1503751420074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserServiceTest_getDataTest_RequestsInList.coverage" NAME="UserServiceTest.getDataTest_RequestsInList Coverage Results" MODIFIED="1503758557187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GroupServiceTest.coverage" NAME="GroupServiceTest Coverage Results" MODIFIED="1503766498873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$MemberRemovedObserverTest.coverage" NAME="MemberRemovedObserverTest Coverage Results" MODIFIED="1503754859777" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/GO_Tomcat$Main.coverage" NAME="Main Coverage Results" MODIFIED="1500383556404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>edu.kit.pse17.go_app.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/GO_Tomcat$Test_All.coverage" NAME="Test All Coverage Results" MODIFIED="1503233991568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/GO_Tomcat$UserDaoImpTest_getUserByEmail.coverage" NAME="UserDaoImpTest.getUserByEmail Coverage Results" MODIFIED="1500915483791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>edu.kit.pse17.go_app.PersistenceLayer.daos.*</FILTER>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$UserRestControllerTest.coverage" NAME="UserRestControllerTest Coverage Results" MODIFIED="1503760582333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ClientCommunication.Upstream.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$GoEditedObserverTest_constructorTest.coverage" NAME="GoEditedObserverTest.constructorTest Coverage Results" MODIFIED="1503750364650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$StatusChangedObserverTest.coverage" NAME="StatusChangedObserverTest Coverage Results" MODIFIED="1503755961265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$MemberAddedObserverTest.coverage" NAME="MemberAddedObserverTest Coverage Results" MODIFIED="1503754366493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GO_Tomcat$RequestDeniedObserverTest.coverage" NAME="RequestDeniedObserverTest Coverage Results" MODIFIED="1503755255337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.kit.pse17.go_app.ServiceLayer.observer.*</FILTER>
     </SUITE>
   </component>
   <component name="CoverageViewManager">
     <option name="myFlattenPackages" value="true" />
+    <option name="myAutoScrollToSource" value="true" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -62,108 +135,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <file leaf-file-name="GroupRestController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="57">
+              <caret line="48" column="87" lean-forward="false" selection-start-line="48" selection-start-column="87" selection-end-line="48" selection-end-column="87" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GroupService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GroupService.java">
+      <file leaf-file-name="GroupRestControllerTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestControllerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="166" column="33" lean-forward="false" selection-start-line="166" selection-start-column="33" selection-end-line="166" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="254" column="37" lean-forward="true" selection-start-line="254" selection-start-column="37" selection-end-line="254" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hibernate.cfg.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FcmClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="63" column="10" lean-forward="false" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="155" column="77" lean-forward="true" selection-start-line="155" selection-start-column="77" selection-end-line="155" selection-end-column="77" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDeletedObserver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="30" column="71" lean-forward="false" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FcmMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmMessage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="36" column="50" lean-forward="false" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#963#964#0" expanded="true" />
-                <element signature="e#1032#1033#0" expanded="true" />
-                <element signature="e#1080#1081#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoDaoImp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="94" column="42" lean-forward="false" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="135" column="54" lean-forward="false" selection-start-line="135" selection-start-column="54" selection-end-line="135" selection-end-column="54" />
+            <state relative-caret-position="277">
+              <caret line="72" column="46" lean-forward="false" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -176,9 +162,9 @@
       <list>
         <option value="Arquillian JUnit Test Class" />
         <option value="JUnit5 Test Class" />
-        <option value="JUnit4 Test Class" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -197,6 +183,12 @@
       <find>&quot;test_id_user&quot;</find>
       <find>GO_EDITED_COMMAND</find>
       <find>lunch</find>
+      <find>s</find>
+      <find>setUser</find>
+      <find>setUserServ</find>
+      <find>setUserServic</find>
+      <find>setUserService</find>
+      <find>test_id_user</find>
     </findStrings>
     <replaceStrings>
       <replace>EAGER</replace>
@@ -209,6 +201,7 @@
       <replace>TEST_ID_USER</replace>
       <replace>GO_EDITED_EVENT</replace>
       <replace>dinner</replace>
+      <replace>testid_1</replace>
     </replaceStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -219,57 +212,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/Observable.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/PersistenceLayer/daos/GroupDaoImpTest.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ControllerBeans.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserverTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/logback-spring.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/TestData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Go.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Group.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/GroupMembership.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/UserGoStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java" />
         <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClientMethod.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FCMClientMethod.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClientTest.java" />
         <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestControllerTest.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestControllerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestController.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GoServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GroupServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestControllerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestController.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/ObserverTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/LocationService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestController.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/UserServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserverTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserver.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GroupService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GoServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/ObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClientTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClient.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/UserServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserverTest.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GroupService.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/TestData.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GroupServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestController.java" />
+        <option value="$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestControllerTest.java" />
       </list>
     </option>
   </component>
@@ -333,6 +326,25 @@
     <option name="width" value="1920" />
     <option name="height" value="1053" />
   </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Duplicates</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -349,7 +361,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -379,6 +390,10 @@
               <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -395,18 +410,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pse17" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -429,18 +432,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pse17" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -467,18 +458,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pse17" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -512,23 +491,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pse17" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="go_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PersistenceLayer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -551,18 +514,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pse17" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -593,18 +544,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pse17" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -899,6 +838,10 @@
               <option name="myItemId" value="ClientCommunication" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Upstream" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -950,12 +893,13 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.dubreuia.ui.Configuration" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -965,6 +909,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/test/edu/kit/pse17/go_app/PersistenceLayer" />
     <property name="last_opened_file_path" value="$USER_HOME$/javaml-0.1.5/javaml-0.1.5.jar!/" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -974,23 +919,23 @@
       <recent name="edu.kit.pse17.go_app.ClientCommunication.Upstream" />
       <recent name="edu.kit.pse17.go_app.ClientCommunication.Downstream" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.kit.pse17.go_app.ServiceLayer" />
+      <recent name="edu.kit.pse17.go_app.PersistenceLayer.daos" />
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/tests/resources" />
       <recent name="$PROJECT_DIR$/test/resources" />
       <recent name="$PROJECT_DIR$/test/src/main/java/edu/kit/pse17/go_app/PersistenceLayer" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="edu.kit.pse17.go_app.ServiceLayer" />
-      <recent name="edu.kit.pse17.go_app.PersistenceLayer.daos" />
-      <recent name="" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1006,33 +951,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Maven.package">
-    <configuration default="false" name="GoAddedObserverTest.update" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="edu.kit.pse17.go_app.ServiceLayer.observer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="GO-Tomcat" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.ServiceLayer.observer" />
-      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.observer.GoAddedObserverTest" />
-      <option name="METHOD_NAME" value="update" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="ObserverTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="GroupServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="edu.kit.pse17.go_app.ServiceLayer.*" />
@@ -1043,7 +962,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.ServiceLayer" />
-      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.ObserverTest" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1058,7 +977,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="ObserverTest.groupEditedObserverTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="GroupServiceTest.groupEntityToGroupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="edu.kit.pse17.go_app.ServiceLayer.*" />
@@ -1069,8 +988,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.ServiceLayer" />
-      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.ObserverTest" />
-      <option name="METHOD_NAME" value="groupEditedObserverTest" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" />
+      <option name="METHOD_NAME" value="groupEntityToGroupTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -1084,19 +1003,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="edu.kit.pse17.go_app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="edu.kit.pse17.go_app.Main" />
-      <module name="GO-Tomcat" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="UserServiceTest.debug" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="GroupServiceTest.unregisterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="edu.kit.pse17.go_app.ServiceLayer.*" />
@@ -1107,9 +1014,61 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.ServiceLayer" />
-      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.UserServiceTest" />
-      <option name="METHOD_NAME" value="debug" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ServiceLayer.GroupServiceTest" />
+      <option name="METHOD_NAME" value="unregisterTest" />
       <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="GroupRestControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.kit.pse17.go_app.ClientCommunication.Upstream.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="GO-Tomcat" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.ClientCommunication.Upstream" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ClientCommunication.Upstream.GroupRestControllerTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="GoRestControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.kit.pse17.go_app.ClientCommunication.Upstream.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="GO-Tomcat" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.kit.pse17.go_app.ClientCommunication.Upstream" />
+      <option name="MAIN_CLASS_NAME" value="edu.kit.pse17.go_app.ClientCommunication.Upstream.GoRestControllerTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -1759,19 +1718,19 @@
       <item index="2" class="java.lang.String" itemvalue="Maven.spring-boot" />
       <item index="3" class="java.lang.String" itemvalue="Maven.package" />
       <item index="4" class="java.lang.String" itemvalue="JUnit.Test All" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.GoAddedObserverTest.update" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.ObserverTest" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.ObserverTest.groupEditedObserverTest" />
-      <item index="8" class="java.lang.String" itemvalue="Spring Boot.Main" />
-      <item index="9" class="java.lang.String" itemvalue="JUnit.UserServiceTest.debug" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.GroupServiceTest" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.GroupServiceTest.groupEntityToGroupTest" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.GroupServiceTest.unregisterTest" />
+      <item index="8" class="java.lang.String" itemvalue="JUnit.GroupRestControllerTest" />
+      <item index="9" class="java.lang.String" itemvalue="JUnit.GoRestControllerTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.UserServiceTest.debug" />
-        <item index="1" class="java.lang.String" itemvalue="Spring Boot.Main" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.ObserverTest.groupEditedObserverTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.ObserverTest" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.GoAddedObserverTest.update" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.GoRestControllerTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.GroupRestControllerTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.GroupServiceTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.GroupServiceTest.unregisterTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.GroupServiceTest.groupEntityToGroupTest" />
       </list>
     </recent_temporary>
   </component>
@@ -1836,43 +1795,46 @@
       <workItem from="1503125086213" duration="6176000" />
       <workItem from="1503131308979" duration="29203000" />
       <workItem from="1503220051904" duration="30534000" />
+      <workItem from="1503727558343" duration="2258000" />
+      <workItem from="1503746451126" duration="12269000" />
+      <workItem from="1503758757748" duration="10020000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 16h 47m 14s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GoRestControllerTest - 2017.08.26 at 19h 04m 15s.xml">
+      <configuration name="GoRestControllerTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 16h 47m 44s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupRestControllerTest - 2017.08.26 at 19h 02m 50s.xml">
+      <configuration name="GroupRestControllerTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 16h 48m 06s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupRestControllerTest - 2017.08.26 at 19h 03m 02s.xml">
+      <configuration name="GroupRestControllerTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 16h 51m 34s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupServiceTest - 2017.08.26 at 18h 51m 46s.xml">
+      <configuration name="GroupServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 17h 13m 05s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupServiceTest - 2017.08.26 at 18h 52m 17s.xml">
+      <configuration name="GroupServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 17h 17m 09s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupServiceTest - 2017.08.26 at 18h 55m 01s.xml">
+      <configuration name="GroupServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 17h 18m 13s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupServiceTest_unregisterTest - 2017.08.26 at 18h 54m 43s.xml">
+      <configuration name="GroupServiceTest.unregisterTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ObserverTest_groupEditedObserverTest - 2017.08.20 at 17h 33m 58s.xml">
-      <configuration name="ObserverTest.groupEditedObserverTest" configurationId="JUnit" />
+    <history-entry file="GroupServiceTest_unregisterTest - 2017.08.26 at 18h 54m 49s.xml">
+      <configuration name="GroupServiceTest.unregisterTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_All - 2017.08.20 at 16h 59m 48s.xml">
+    <history-entry file="Test_All - 2017.08.26 at 18h 55m 41s.xml">
       <configuration name="Test All" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserServiceTest_debug - 2017.08.20 at 20h 39m 13s.xml">
-      <configuration name="UserServiceTest.debug" configurationId="JUnit" />
+    <history-entry file="Test_All - 2017.08.26 at 19h 02m 35s.xml">
+      <configuration name="Test All" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="290097000" />
+    <option name="totallyTimeSpent" value="315730000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -1889,37 +1851,6 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30084747" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3792373" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2453125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16822916" sideWeight="0.49447078" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993644" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3834746" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1927,19 +1858,23 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.76354164" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34427965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50635594" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6421875" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3578125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1959,19 +1894,19 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993644" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43432203" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3834746" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49682203" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34270832" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34427965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.69895834" sideWeight="0.5055292" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21458334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2013,430 +1948,507 @@
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestControllerTest.java</url>
-          <line>105</line>
+          <url>file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java</url>
+          <line>62</line>
           <properties />
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java</url>
+          <line>63</line>
+          <properties />
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java</url>
+          <line>65</line>
+          <properties />
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java</url>
+          <line>61</line>
+          <properties class="edu.kit.pse17.go_app.ServiceLayer.GoService" method="goEntityToGo">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="81" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="96" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="JUnit">
-        <watch expression="((HttpUrl)((Retrofit)this.this$0).baseUrl).port" custom="java.lang.reflect.Proxy,java.lang.reflect.InvocationHandler,edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClient,retrofit2.Retrofit,edu.kit.pse17.go_app.ClientCommunication.Downstream.FcmClientTest,okhttp3.HttpUrl" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDao.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5-sources.jar!/org/mockito/stubbing/Answer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-55">
-          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/internal/runners/statements/InvokeMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/internal/runners/statements/RunAfters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/runners/BlockJUnit4ClassRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/runner/JUnitCore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/runners/ParentRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="374" column="6" lean-forward="true" selection-start-line="374" selection-start-column="6" selection-end-line="374" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/internal/runners/model/ReflectiveCallable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/internal/runners/statements/RunBefores.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/org/junit/runners/model/FrameworkMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="50" lean-forward="false" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/4.3.10.RELEASE/spring-test-4.3.10.RELEASE.jar!/org/springframework/test/web/servlet/request/MockMvcRequestBuilders.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="17" column="157" lean-forward="false" selection-start-line="17" selection-start-column="157" selection-end-line="17" selection-end-column="157" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestControllerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-595">
-          <caret line="77" column="65" lean-forward="false" selection-start-line="77" selection-start-column="65" selection-end-line="77" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GroupServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1060">
-          <caret line="69" column="97" lean-forward="false" selection-start-line="69" selection-start-column="97" selection-end-line="69" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Group.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="41" column="15" lean-forward="false" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestControllerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="142" column="5" lean-forward="false" selection-start-line="142" selection-start-column="5" selection-end-line="142" selection-end-column="5" />
+        <state relative-caret-position="680">
+          <caret line="37" column="6" lean-forward="false" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GoServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="108" column="43" lean-forward="false" selection-start-line="108" selection-start-column="43" selection-end-line="108" selection-end-column="43" />
+        <state relative-caret-position="241">
+          <caret line="152" column="10" lean-forward="false" selection-start-line="152" selection-start-column="10" selection-end-line="152" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestControllerTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="74" column="80" lean-forward="false" selection-start-line="74" selection-start-column="80" selection-end-line="74" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserverTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="401">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="72" column="59" lean-forward="false" selection-start-line="72" selection-start-column="59" selection-end-line="72" selection-end-column="59" />
+        <state relative-caret-position="1560">
+          <caret line="78" column="88" lean-forward="false" selection-start-line="78" selection-start-column="88" selection-end-line="78" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="261" column="21" lean-forward="false" selection-start-line="261" selection-start-column="21" selection-end-line="261" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/ObserverTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="160" column="0" lean-forward="true" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="52" column="9" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="52" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="46" column="49" lean-forward="false" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="40" column="50" lean-forward="false" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="89" column="14" lean-forward="false" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="42" column="9" lean-forward="true" selection-start-line="40" selection-start-column="8" selection-end-line="42" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="174" column="0" lean-forward="true" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/LocationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="129" column="87" lean-forward="false" selection-start-line="129" selection-start-column="87" selection-end-line="129" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="90" column="47" lean-forward="true" selection-start-line="90" selection-start-column="47" selection-end-line="90" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="48" column="41" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="38" column="44" lean-forward="true" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="60" column="11" lean-forward="false" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="51" column="25" lean-forward="false" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/UserServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="130" column="51" lean-forward="false" selection-start-line="130" selection-start-column="51" selection-end-line="130" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserverTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="51" column="51" lean-forward="false" selection-start-line="51" selection-start-column="51" selection-end-line="51" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="133" column="10" lean-forward="false" selection-start-line="133" selection-start-column="10" selection-end-line="133" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2837">
-          <caret line="221" column="40" lean-forward="false" selection-start-line="221" selection-start-column="40" selection-end-line="221" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="36" column="50" lean-forward="false" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
-            <element signature="e#1032#1033#0" expanded="true" />
-            <element signature="e#1080#1081#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/GroupEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="128" column="16" lean-forward="false" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
-          <folding>
-            <element signature="e#6058#6059#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/GoDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="94" column="42" lean-forward="false" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="135" column="54" lean-forward="false" selection-start-line="135" selection-start-column="54" selection-end-line="135" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="254" column="37" lean-forward="true" selection-start-line="254" selection-start-column="37" selection-end-line="254" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GroupService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="166" column="33" lean-forward="false" selection-start-line="166" selection-start-column="33" selection-end-line="166" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="155" column="77" lean-forward="true" selection-start-line="155" selection-start-column="77" selection-end-line="155" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="30" column="71" lean-forward="false" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+        <state relative-caret-position="2770">
+          <caret line="212" column="10" lean-forward="false" selection-start-line="212" selection-start-column="10" selection-end-line="212" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Downstream/FcmClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="63" column="10" lean-forward="false" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
+        <state relative-caret-position="1007">
+          <caret line="99" column="9" lean-forward="false" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="33" column="4" lean-forward="false" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+          <folding>
+            <element signature="e#923#924#0" expanded="false" />
+            <element signature="e#955#956#0" expanded="false" />
+            <element signature="e#994#995#0" expanded="false" />
+            <element signature="e#1026#1027#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/Observer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+          <folding>
+            <element signature="e#989#990#0" expanded="false" />
+            <element signature="e#1021#1022#0" expanded="false" />
+            <element signature="e#1066#1067#0" expanded="false" />
+            <element signature="e#1101#1102#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding>
+            <element signature="e#872#873#0" expanded="false" />
+            <element signature="e#904#905#0" expanded="false" />
+            <element signature="e#949#950#0" expanded="false" />
+            <element signature="e#984#985#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1150">
+          <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding>
+            <element signature="e#3405#3406#0" expanded="false" />
+            <element signature="e#3461#3462#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/daos/UserDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="68" column="25" lean-forward="false" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="42" column="5" lean-forward="false" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <folding>
+            <element signature="e#1261#1262#0" expanded="false" />
+            <element signature="e#1293#1294#0" expanded="false" />
+            <element signature="e#1338#1339#0" expanded="false" />
+            <element signature="e#1373#1374#0" expanded="false" />
+            <element signature="e#1411#1412#0" expanded="false" />
+            <element signature="e#1441#1442#0" expanded="false" />
+            <element signature="e#1491#1492#0" expanded="false" />
+            <element signature="e#1529#1530#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="71" column="24" lean-forward="false" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRemovedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding>
+            <element signature="e#964#965#0" expanded="false" />
+            <element signature="e#996#997#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/MemberRemovedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1159">
+          <caret line="22" column="69" lean-forward="false" selection-start-line="22" selection-start-column="69" selection-end-line="22" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding>
+            <element signature="e#1104#1105#0" expanded="false" />
+            <element signature="e#1139#1140#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GroupRequestReceivedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="95" column="5" lean-forward="true" selection-start-line="82" selection-start-column="4" selection-end-line="95" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="28" column="92" lean-forward="false" selection-start-line="28" selection-start-column="92" selection-end-line="28" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/RequestDeniedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding>
+            <element signature="e#883#884#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
+            <element signature="e#960#961#0" expanded="false" />
+            <element signature="e#995#996#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/MemberAddedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="100" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="106" column="72" lean-forward="false" selection-start-line="106" selection-start-column="72" selection-end-line="106" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/StatusChangedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="48" column="5" lean-forward="false" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
+          <folding>
+            <element signature="e#1134#1135#0" expanded="false" />
+            <element signature="e#1164#1165#0" expanded="false" />
+            <element signature="e#1214#1215#0" expanded="false" />
+            <element signature="e#1252#1253#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoRemovedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="84" column="43" lean-forward="false" selection-start-line="84" selection-start-column="43" selection-end-line="84" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/UserDeletedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding>
+            <element signature="e#523#524#0" expanded="false" />
+            <element signature="e#565#566#0" expanded="false" />
+            <element signature="e#624#625#0" expanded="false" />
+            <element signature="e#672#673#0" expanded="false" />
+            <element signature="e#711#712#0" expanded="false" />
+            <element signature="e#743#744#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GroupEditedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="97" column="5" lean-forward="true" selection-start-line="84" selection-start-column="4" selection-end-line="97" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+          <folding>
+            <element signature="e#1062#1063#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoEditedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="25" column="453" lean-forward="false" selection-start-line="25" selection-start-column="453" selection-end-line="25" selection-end-column="453" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/GoAddedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1160">
+          <caret line="73" column="9" lean-forward="false" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/UserServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="166" column="76" lean-forward="false" selection-start-line="166" selection-start-column="76" selection-end-line="166" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/UserEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2440">
+          <caret line="152" column="9" lean-forward="true" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
+          <folding>
+            <element signature="e#1588#1589#0" expanded="true" />
+            <element signature="e#1634#1635#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/UtilityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-80">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding>
+            <element signature="e#561#562#0" expanded="false" />
+            <element signature="e#603#604#0" expanded="false" />
+            <element signature="e#663#664#0" expanded="false" />
+            <element signature="e#711#712#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/observer/AdminAddedObserverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="87" column="16" lean-forward="false" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="151" column="77" lean-forward="false" selection-start-line="151" selection-start-column="77" selection-end-line="151" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/UserRestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="58" column="9" lean-forward="true" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1134#1135#0" expanded="false" />
+            <element signature="e#1180#1181#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/PersistenceLayer/clientEntities/Group.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-620">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ServiceLayer/GroupServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="33" column="53" lean-forward="true" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GoService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ServiceLayer/GroupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2873">
+          <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/TestData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="106" column="15" lean-forward="false" selection-start-line="106" selection-start-column="15" selection-end-line="106" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="100" column="34" lean-forward="false" selection-start-line="100" selection-start-column="34" selection-end-line="100" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GoRestControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-200">
+          <caret line="74" column="80" lean-forward="false" selection-start-line="74" selection-start-column="80" selection-end-line="74" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state relative-caret-position="-72">
+          <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="48" column="87" lean-forward="false" selection-start-line="48" selection-start-column="87" selection-end-line="48" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/edu/kit/pse17/go_app/ClientCommunication/Upstream/GroupRestControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="72" column="46" lean-forward="false" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -2520,7 +2532,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>javaml-0.1.5</last-edited>
+          <last-edited>javaml-0.1.51</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

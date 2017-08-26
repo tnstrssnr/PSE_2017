@@ -70,7 +70,7 @@ public class GroupRestControllerTest {
         Mockito.verify(groupService, Mockito.times(1)).createGroup(any(Group.class));
 
         Assert.assertEquals(Long.valueOf(1), Long.valueOf(result.getResponse().getContentAsString()));
-        Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+        Assert.assertEquals(HttpStatus.CREATED.value(), result.getResponse().getStatus());
     }
 
     @Test
