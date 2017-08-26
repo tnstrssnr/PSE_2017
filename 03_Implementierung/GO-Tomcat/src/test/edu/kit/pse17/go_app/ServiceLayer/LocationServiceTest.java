@@ -1,13 +1,8 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-import edu.kit.pse17.go_app.PersistenceLayer.GoEntity;
-import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
-
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -16,57 +11,47 @@ public class LocationServiceTest {
 
     private LocationService testLocationService;
 
-    private GoEntity testEntity;
+    private Map<Long, LocationService> testMap;
 
-    private GoService mockGoService;
-
-    private Map<Long, LocationService> mockMap;
-
-    private Long testLat;
-    private Long testLon;
-    private Long testGoId;
-    private String testUserId;
-
-    private Go testGo;
 
     @Before
     public void setUp() throws Exception {
-        this.testGoId = new Long(3);
-        this.testLon = new Long(5);
-        this.testLat = new Long(5);
-        this.testUserId = new String ("testUser");
-
-        this.testGo = new Go();
-        this.testEntity = new GoEntity();
-        this.mockGoService = Mockito.mock(GoService.class);
         this.testLocationService = new LocationService();
-        this.mockMap = Mockito.mock(Map.class);
 
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
     public void setUserLocation() throws Exception {
 
 
-        testLocationService.setUserLocation(testGoId, testUserId, testLat, testLon);
-    }
+        testLocationService.setUserLocation(5, "Jerold", 3, 6);
+        testLocationService.setUserLocation(5, "Panther", 5, 5);
+        testLocationService.setUserLocation(6, "Jerold", 3, 6);
+        testMap = testLocationService.getActiveServices();
+        assertTrue(testMap.size() == 2);
+        assertTrue(testMap.get((long)5).activeUsers.size() == 2);
 
-    @Test
-    public void getGroupLocation() throws Exception {
+        assertEquals(testMap.get((long)5).activeUsers.get(0).getLat(), 3, 0);
+        assertEquals(testMap.get((long)5).activeUsers.get(0).getLon(), 6, 0);
+        assertEquals(testMap.get((long)5).activeUsers.get(0).getUserId(), "Jerold");
+        assertEquals(testMap.get((long)5).activeUsers.get(1).getLat(), 5, 0);
+        assertEquals(testMap.get((long)5).activeUsers.get(1).getLon(), 5, 0);
+        assertEquals(testMap.get((long)5).activeUsers.get(1).getUserId(), "Panther");
+        testLocationService.setUserLocation(5, "Jerold",4, 5);
+        testMap = testLocationService.getActiveServices();
+        assertTrue(testMap.get((long)6).activeUsers.size() == 1);
+        assertEquals(testMap.get((long)6).activeUsers.get(0).getLat(), 3, 0);
+        assertEquals(testMap.get((long)6).activeUsers.get(0).getLon(), 6, 0);
+        assertEquals(testMap.get((long)6).activeUsers.get(0).getUserId(), "Jerold");
+        assertTrue(testMap.get((long)5).activeUsers.size() == 1);
+        assertEquals(testMap.get((long)5).activeUsers.get(0).getLat(), 4, 0);
+        assertEquals(testMap.get((long)5).activeUsers.get(0).getLon(), 5, 0);
+        assertEquals(testMap.get((long)5).activeUsers.get(0).getUserId(), "Jerold");
 
+        testLocationService.removeGo((long)6);
+        testMap = testLocationService.getActiveServices();
+        assertNull(testMap.get((long)6));
 
-
-    }
-
-    @Test
-    public void removeGo() throws Exception {
-        //Mockito.when(testLocationService.activeServices.get(testGoId)).then(true);
-        //Mockito.when(testLocationService.activeServices.remove(testGoId)).then(true);
     }
 
 }

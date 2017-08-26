@@ -55,15 +55,6 @@ public class LocationService {
      * Clustering für den input "activeUsers" Die Länge der Liste liegt zwischen 0 und 50 Cluster-Objekten.
      */
     List<Cluster> groupLocation;
-    /**
-     * Eine Zählvariable, um sich zu merken, wie viele neue Locations übermittlet wurden, set das letzte Mal die
-     * groupLocation des GOs berechnet wurde. Die Berechnung findet nur statt, wenn diese Variable einen Wert größer als
-     * 5 hat. Danach wird der Zähler wieder auf 0 gesetzt.
-     * <p>
-     * Sämtliche Manipulationen an diesem Attribut finden innerhalb dieser Klasse statt. NAch außen hin sit diese
-     * Variable nicht sichtbar und insbesondere nicht veränderbar.
-     */
-    private int newLocationCounter;
 
     /**
      * Der einzige Konstruktor diser Klasse nimmt eine Go-Entity entgegen. Sämtliche Attribute werden nur innerhalb
@@ -157,16 +148,11 @@ public class LocationService {
     }
 
     /**
-     * Einzig und allein gedacht für Tests. activeServices ist eine private class auf die
-     * niemand ausser der Klasse selbst Zugriff haben soll!
-     * Fügt einen neues aktives Go der Liste hinzu.
-     *
-     * @param goId       Id des hinzuzufügenden Gos.
-     * @param newService Gemappter LocationService.
+     * Methode die nur für Test gebraucht wird!
+     * @return Gibt die Liste aktueller GoServices wieder.
      */
-    public void putGo(Long goId, LocationService newService) throws IOException {
-        if (LocationService.activeServices.get(goId) == null) {
-            LocationService.activeServices.put(goId, new LocationService());
-        }
+
+    Map<Long, LocationService> getActiveServices() {
+        return activeServices;
     }
 }
