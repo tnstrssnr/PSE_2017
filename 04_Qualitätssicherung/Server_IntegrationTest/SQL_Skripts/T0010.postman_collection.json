@@ -1,0 +1,90 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0010",
+		"_postman_id": "e1bbb72f-fd37-e3a6-a893-8a34ade81e1b",
+		"description": "Adding an new account",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0010 - Bob",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Dummy Group Id\"] = jsonData[0].groupId == -1",
+							"tests[\"Dummy Group Id\"] = jsonData.length === 1"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/user/1/bob@gmail.com/bob",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Anlegen des Benutzers BOB mittels der getData-Methode"
+			},
+			"response": []
+		},
+		{
+			"name": "T0010 - Alice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Dummy Group Id\"] = jsonData[0].groupId == -1",
+							"tests[\"Dummy Group Id\"] = jsonData.length === 1",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/user/2/alice@gmail.com/alice",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Anlegen des Benutzers ALICE mittels der getData-Methode"
+			},
+			"response": []
+		},
+		{
+			"name": "T0010 - Peter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Dummy Group Id\"] = jsonData[0].groupId == -1",
+							"tests[\"Dummy Group Id\"] = jsonData.length === 1"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/user/3/peter@gmail.com/peter",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Anlegen des Benutzers PETER mittels der getData-Methode"
+			},
+			"response": []
+		}
+	]
+}

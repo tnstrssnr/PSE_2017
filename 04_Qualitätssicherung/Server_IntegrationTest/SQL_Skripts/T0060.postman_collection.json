@@ -1,0 +1,43 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0060",
+		"_postman_id": "ea32c184-6009-dc65-27a5-6a15a5e7b0f6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0060",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+							"test[\"Valid Group ID is returned\"] = !isNaN(parseFloat(n)) && isFinite(n)"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currentGos\": [],\n    \"description\": \"Default Descriptionn\",\n    \"groupId\": 0,\n    \"memberCount\": 0,\n    \"membershipList\": [\n            {\n                \"user\": {\n                    \"userId\": \"1\",\n                    \"name\": \"bob\",\n                    \"email\": \"bob@gmail.com\"\n                },\n                \"group\": {},\n                \"isAdmin\": true,\n                \"isRequest\": false\n            }\n        ],\n    \"name\": \"Foo\"\n  }\n "
+				},
+				"description": "BOB erstellt die Gruppe FOO"
+			},
+			"response": []
+		}
+	]
+}

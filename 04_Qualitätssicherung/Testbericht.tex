@@ -1,0 +1,156 @@
+\documentclass[11pt,a4paper]{scrartcl}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage{ifpdf}
+\usepackage[headings]{fullpage}
+\usepackage{listings}
+\lstset{language=Java,breaklines=true}
+\ifpdf \usepackage[pdftex, pdfpagemode={UseOutlines},bookmarks,colorlinks,linkcolor={blue},plainpages=false,pdfpagelabels,citecolor={red},breaklinks=true]{hyperref}
+  \usepackage[pdftex]{graphicx}
+  \pdfcompresslevel=9
+  \DeclareGraphicsRule{*}{mps}{*}{}
+\else
+  \usepackage[dvips]{graphicx}
+\fi
+
+\newcommand{\entityintro}[3]{%
+  \hbox to \hsize{%
+    \vbox{%
+      \hbox to .2in{}%
+    }%
+    {\bf  #1}%
+    \dotfill\pageref{#2}%
+  }
+  \makebox[\hsize]{%
+    \parbox{.4in}{}%
+    \parbox[l]{5in}{%
+      \vspace{1mm}%
+      #3%
+      \vspace{1mm}%
+    }%
+  }%
+}
+\newcommand{\refdefined}[1]{
+\expandafter\ifx\csname r@#1\endcsname\relax
+\relax\else
+{$($in \ref{#1}, page \pageref{#1}$)$}\fi}
+\date{\today}
+\chardef\textbackslash=`\\
+\usepackage{pdfpages}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{fancyhdr}%<-------------to control headers and footers
+\usepackage[a4paper,margin=1in,footskip=.25in]{geometry}
+\fancyhf{}
+\fancyfoot[C]{\thepage} %<----to get page number below text
+\pagestyle{fancy} %<-------the page style itself
+
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{220,220,220}
+\usepackage{float}
+
+
+\title{Android GO! App - Testbericht}
+\author{Gruppe 3}
+\date{10.09.17}
+
+% define custom lists
+\usepackage{enumitem}
+\usepackage{lipsum}
+
+\def\threedigits#1{%
+  \ifnum#1<100 0\fi
+  \ifnum#1<10 0\fi
+  \number#1}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+	{\scshape\LARGE \bfseries Testbericht \par}
+	\vspace{1cm}
+	{\scshape\Large Praktikum der Softwareentwicklung \\ Sommersemester 2017\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Android GO! App\par}
+	\vspace{2cm}
+	{\Large\itshape - Gruppe 3 -\par}
+	\vfill
+	{\bfseries erstellt von:\par}
+	Arsenii Dunaev \\
+	Florian Kröger \\
+	Tina Maria Strößner \\
+	Volodymyr Shpylka \\	
+	\vfill
+	% Bottom of the page
+	{\large 10.09.17 \par}	
+	\end{center}
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Testszenarien}
+\subsection{Testszenarien des Pflichtenhefts}
+\subsection{zusätzliche Tests zur Abdeckung von Rand- und Fehlerfällen}
+
+\newpage
+
+\section{Hallway Usability Test}
+
+\newpage
+
+\section{Bugs}
+
+\begin{enumerate}[label={\textbf{/B\protect\threedigits{\theenumi}0/}}, leftmargin=*, resume]
+\item \textbf{FCM-Message nicht an Client gesendet nach dem Löschen einer Gruppe}
+	\begin{itemize}
+		\item[Symptom]
+		Nachdem ein User eine Gruppe gelöscht hat, wird keine Message an die anderen Gruppenmitglieder gesendet, um sie über die Löschung der Gruppe zu informieren. Dies führt zu inkonsistenten Daten auf den verschiedenen Endsystemen.
+		\item[Ursache]
+		Der GroupRemovedObserver, der für die Versendung der richtigen Message zuständig ist, versucht die zu informierenden Gruppenmitglieder aus der Datenbank zu finden, nachdem die Gruppe in der Datenbank bereits gelöscht wurde. Dies löst eine NullPointerException aus, da auf nicht (mehr) existierende Objekte zugegriffen wird, und das Versenden der Messages wird abgebrochen.
+		\item[Behebung]
+		Die Receiver-Liste, die der Observer zur Adressierung der Gruppenmitglieder verwendet wird erstellt, \textbf{bevor} die Gruppe aus der Datenbank gelöscht wird. So muss nach der Löschung kein Datenbankzugriff mehr stattfinden, um die Messages korrekt zu senden.
+	\end{itemize}
+
+\item \textbf{StackOverflow bei automatisierter JSON Konvertierung}
+	\begin{itemize}
+		\item[Symptom]
+		Das System stürzt ab, sobald ein JSON-String einer Entity-Klasse erstellt werden soll.
+		\item[Ursache]
+		Durch zyklische Abhängigkeiten (Gruppen entalten GOs, GOs enthalten ein Gruppe) kommt es bei der Konvertierung zu einem StackOverflow.
+		\item[Behebung]
+		Bevor Entities konvertiert werden, werden die durch die passende \textit{makeJsonable()}-Methode angepasst, sodass sie sicher konvertiert werden können, ohne dass es zu einem StackOVerflow kommt und ohne, dass wichtige Informationen verloren gehen.
+	\end{itemize}
+
+\item \textbf{Rückgabe von Null-Werten bei Suche eines Users anhand der Email-Adresse}
+	\begin{itemize}
+		\item[Symptom] In Anwendungsfällen, in denen ein Benutzer anhand seiner E-Mail-Adresse in der Datenbank gefunden wurde, wird \textit{null} zurückgegeben, wodurch die weitere Abarbeitung des Anwendungsfalls nicht möglich ist.
+		\item[Ursache] Die URI, mit der die Anfrage an den Server gestellt wird endet mit der E-Mail-Adresse des Benutzers, woraufhin das '.com' am Ende der E-Mail-Adresse abgeschnitten wird. Durch die fehlende TLD, kann die richtige E-Mail-Adresse in der Datebank nicht identifiziert werden.
+		\item[Behebung] Bevor die Anfrage an die Datenbank weitergeleitet wird, wird die Endung '.com' an die gesuchte E-Mail-Adresse angefügt. Da es sich bei den Adressen stets um gmail-Accounts handelt, muss nicht zwischen mehreren TLDs unterschieden werden.
+	\end{itemize}
+	
+\item \textbf{Vertauschung der angezeigten Gruppe, bei Änderung des Gruppennamens}
+	\begin{itemize}
+		\item[Symptom] Befindet sich ein Benutzer in der Detailansicht einer Gruppe und ändert den Namen derselben, wird nach Ausführung der Aktion die Detailansicht einer anderen Gruppe angezeigt.
+		\item[Ursache] Die Gruppen sind alphabetisch gespeichert, um sie in dieser Reihenfolge anzeigen zu können. Ändert sich ein Gruppenname, ändert sich auch die Reihenfolge in der die Gruppen in der ArrayList im ViewModel gespeichert sind. Da die aktuell angezeigte Gruppe durch ihren Index in der ArrayListe des ViewModels identifiziert wird, wird nach einer Änderung dieser Liste fälschlicherweise die Gruppe angezeigt, die nun diesen Index trägt.
+		\item[Behebung] %TODO bitte ergänzen, @Arsenii ich glaube du hast das gemacht
+	\end{itemize}
+
+\end{enumerate}
+
+
+
+\end{document}
+\grid
