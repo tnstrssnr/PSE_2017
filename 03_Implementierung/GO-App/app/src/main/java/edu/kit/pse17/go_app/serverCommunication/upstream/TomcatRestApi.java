@@ -6,7 +6,6 @@ import java.util.Map;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
-import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserLocation;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -63,10 +62,6 @@ public interface TomcatRestApi {
      */
     @PUT("user/{userId}/device/{instanceId}")
     public Call<Void> registerDevice(@Path("userId") String userId, @Path("instanceId") String instanceId);
-
-    @PUT("user/update")
-    public Call<Void> updateUser(@Body User user);
-
 
     /**
      * Method that creates a new group on the server

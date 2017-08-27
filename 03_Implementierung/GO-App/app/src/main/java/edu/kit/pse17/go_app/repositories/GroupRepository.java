@@ -21,7 +21,6 @@ import edu.kit.pse17.go_app.serverCommunication.upstream.Serializer;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApi;
 import edu.kit.pse17.go_app.serverCommunication.upstream.TomcatRestApiClient;
 import edu.kit.pse17.go_app.view.GroupListActivity;
-import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,6 +66,12 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private GroupListLiveData data;
 
+    /**
+     * HTTP status code of the response of the server (by the requests).
+     * It is used for testing.
+     */
+    private int responseStatus;
+
     private Group groupWithoutId;
     private Go goWithoutId;
 
@@ -107,18 +112,20 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userName:   Name of the user
      */
     public void getData(final String userId, final String email, String instanceId, String userName) {
-
         Call<List<Group>> call = apiService.getData(userId, email, userName/*, instanceId*/);
         call.enqueue(new Callback<List<Group>>() {
+
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                List<Group> groups = response.body();
 
-                List<Group> list = response.body();
-                if (list.get(0).getId() == -1) {
-                    data.setValue(new ArrayList<Group>());
+                if (groups.get(0).getId() == -1) {
+                    data.postValue(new ArrayList<Group>());
                 } else {
-                    data.setValue(response.body());
+                    data.postValue(response.body());
                 }
+
+                responseStatus = response.code();
             }
 
             @Override
@@ -128,11 +135,13 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
-    /*
-    private void getGroupData(String userId, long groupId) {
-        //TODO ?
-    }*/
-
+    /**
+     * Method that registers the new device on the server.
+     * The device ID will be matched to the user ID on the server.
+     *
+     * @param userId: ID of the user
+     * @param instanceId: ID of the device.
+     */
     public void registerDevice(String userId, String instanceId) {
         Call<Void> call = apiService.registerDevice(userId, instanceId);
         call.enqueue(new Callback<Void>() {
@@ -140,6 +149,8 @@ public class GroupRepository extends Repository<List<Group>> {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 String message = response.message();
+
+                responseStatus = response.code();
             }
 
             @Override
@@ -155,7 +166,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * server.
      *
      * @param name:        Name of the group
-     * @param description: Description of the group.
+     * @param description: Description of the group
      * @param user:        User entity (admin)
      */
     public void createGroup(String name, String description, User user) {
@@ -163,9 +174,9 @@ public class GroupRepository extends Repository<List<Group>> {
         newGroup.getMembershipList().add(new GroupMembership(user, newGroup, true, false));
 
         //add locally
-        List<Group> newdata = data.getValue();
-        if (newdata == null) {
-            newdata = new ArrayList<>();
+        List<Group> newData = data.getValue();
+        if (newData == null) {
+            newData = new ArrayList<>();
         }
         Group group = new Group();
         group.setName(name);
@@ -174,9 +185,9 @@ public class GroupRepository extends Repository<List<Group>> {
         List<GroupMembership> membership = new ArrayList<>();
         membership.add(new GroupMembership(user, group, true, false));
         group.setMembershipList(membership);
-        newdata.add(group);
+        newData.add(group);
         groupWithoutId = group;
-        data.setValue(newdata);
+        data.postValue(newData);
 
         //
         Serializer.makeJsonable(newGroup);
@@ -188,7 +199,9 @@ public class GroupRepository extends Repository<List<Group>> {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
                 long code = response.body();
-                GroupRepository.getInstance().onGroupIdassigned(code);
+                GroupRepository.getInstance().onGroupIdAssigned(code);
+
+                responseStatus = response.code();
             }
 
             @Override
@@ -198,14 +211,21 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
-    private void onGroupIdassigned(long code) {
+    /**
+     * This method assigns the group ID, which comes from server,
+     * to the new group internally in the app.
+     *
+     * @param code: Group ID that comes from server
+     */
+    private void onGroupIdAssigned(long code) {
         List<Group> oldGroups = data.getValue();
         for (Group group : oldGroups) {
             if (group.getId() == -123) {
                 group.setId(code);
+                break;
             }
         }
-        data.setValue(oldGroups);
+        data.postValue(oldGroups);
     }
 
     /**
@@ -224,7 +244,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -245,7 +265,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -278,13 +298,12 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId:  ID of the user
      */
     private void acceptRequest(long groupId, String userId) {
-
         Call<Void> call = apiService.acceptRequest(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -301,13 +320,12 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId:  ID of the user
      */
     private void denyRequest(long groupId, String userId) {
-
         Call<Void> call = apiService.denyRequest(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -324,13 +342,12 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId:  Id of the user
      */
     public void removeMember(long groupId, String userId) {
-
         Call<Void> call = apiService.removeMember(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -347,13 +364,12 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param email:   E-Mail address of the user
      */
     public void inviteMember(long groupId, String email) {
-
         Call<Void> call = apiService.inviteMember(groupId, email);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -370,13 +386,12 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId:  ID of the user
      */
     public void addAdmin(long groupId, String userId) {
-
         Call<Void> call = apiService.addAdmin(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -395,14 +410,12 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param end:         End time
      * @param lat:         Desired latitude
      * @param lon:         Desired longitude
-     * @param threshold:   threshold
      * @param group:       Group
      * @param userId:      ID of the user
      * @param userName:    Name of the user
      */
     public void createGo(String name, String description, String start, String end,
                          double lat, double lon, int threshold, Group group, String userId, String userName) {
-
         Go go = new Go(-321, name, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
         goWithoutId = go;
         String json = TomcatRestApiClient.gson.toJson(go);
@@ -411,7 +424,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -990,5 +1003,16 @@ public class GroupRepository extends Repository<List<Group>> {
     @Deprecated
     public void setGoRepo(GoRepository goRepo) {
         this.goRepo = goRepo;
+    }
+
+    /**
+     * Getter for the HTTP status code of the response of the server.
+     * It is used only for testing.
+     *
+     * @return The HTTP status code
+     */
+    @Deprecated
+    public int getResponseStatus() {
+        return responseStatus;
     }
 }
