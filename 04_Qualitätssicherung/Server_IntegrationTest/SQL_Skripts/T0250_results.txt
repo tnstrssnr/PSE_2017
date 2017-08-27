@@ -1,11 +1,11 @@
 Newman Run
-So 27. Aug 15:27:22 CEST 2017
+So 27. Aug 20:48:46 CEST 2017
 newman
 
 T0250
 
 → T0250 - delete Go
-  DELETE localhost:8080/go-tomcat/gos/1 [200 OK, 84B, 56ms]
+  DELETE localhost:8080/go-tomcat/gos/1 [200 OK, 84B, 52ms]
   ✓  Status code is 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -21,16 +21,16 @@ T0250
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        1 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 144ms                     │
+│ total run duration: 151ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 56ms                   │
+│ average response time: 52ms                   │
 └───────────────────────────────────────────────┘
 GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -39,9 +39,9 @@ done
 Differences found: 0
 -------------------------------------------------
 NOT GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -50,9 +50,9 @@ done
 Differences found: 0
 -------------------------------------------------
 GONE USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -61,9 +61,9 @@ done
 Differences found: 0
 -------------------------------------------------
 GOS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -71,4 +71,26 @@ Difference detected:
 done
 Differences found: 0
 -------------------------------------------------
-GOS
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
+
+
+done
+Differences found: 0
+-------------------------------------------------

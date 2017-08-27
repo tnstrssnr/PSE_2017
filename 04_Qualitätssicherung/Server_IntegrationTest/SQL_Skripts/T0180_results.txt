@@ -1,11 +1,11 @@
 Newman Run
-So 27. Aug 12:08:37 CEST 2017
+So 27. Aug 20:48:26 CEST 2017
 newman
 
 T0180
 
 → T0180
-  POST localhost:8080/go-tomcat/gos/1/1 [200 OK, 122B, 71ms]
+  POST localhost:8080/go-tomcat/gos/1/1 [200 OK, 122B, 352ms]
   ✓  Status code is 200
   ✓  valide Go-ID in Response-Body
 
@@ -22,16 +22,16 @@ T0180
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        2 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 176ms                     │
+│ total run duration: 480ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 1B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 71ms                   │
+│ average response time: 352ms                  │
 └───────────────────────────────────────────────┘
 GOS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -40,9 +40,9 @@ done
 Differences found: 0
 -------------------------------------------------
 GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -51,11 +51,45 @@ done
 Differences found: 0
 -------------------------------------------------
 NOT GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+GONE USERS
+-------------------------------------------------
+
+
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
 
 
 done

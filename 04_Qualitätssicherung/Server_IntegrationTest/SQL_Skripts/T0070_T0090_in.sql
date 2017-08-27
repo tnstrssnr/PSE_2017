@@ -260,7 +260,7 @@ CREATE TABLE `USERS` (
 
 LOCK TABLES `USERS` WRITE;
 /*!40000 ALTER TABLE `USERS` DISABLE KEYS */;
-INSERT INTO `USERS` VALUES ('1','bob@gmail.com',NULL,'bob'),('2','alice@gmail.com',NULL,'alice'),('3','peter@gmail.com',NULL,'peter');
+INSERT INTO `USERS` VALUES ('1','bob@gmail.com','instanceId_bob','bob'),('2','alice@gmail.com','instanceId_alice','alice'),('3','peter@gmail.com','instanceId_peter','peter');
 /*!40000 ALTER TABLE `USERS` ENABLE KEYS */;
 UNLOCK TABLES;
 

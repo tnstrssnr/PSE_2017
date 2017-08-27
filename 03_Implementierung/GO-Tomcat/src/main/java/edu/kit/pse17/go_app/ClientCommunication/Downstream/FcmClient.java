@@ -1,6 +1,7 @@
 package edu.kit.pse17.go_app.ClientCommunication.Downstream;
 
 import com.google.gson.Gson;
+import edu.kit.pse17.go_app.TestUtil;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Callback;
@@ -78,6 +79,12 @@ public class FcmClient {
 
         Map<String, String> notificationData = new HashMap<>();
         notificationData.put("title", NOTIFICATION_MESSAGES.get(command));
+
+        if (TestUtil.runInTestMode) {
+            FcmMessage message = new FcmMessage("testRec", eventData, notificationData);
+            String jsonString = new Gson().toJson(message);
+            TestUtil.recordData(command, jsonString, receiver);
+        }
 
         for (String rec : receiver) {
 

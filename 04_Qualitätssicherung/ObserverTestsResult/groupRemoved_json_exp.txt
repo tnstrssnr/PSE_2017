@@ -1,0 +1,1 @@
+{"to":"testRec","data":{"data":"{\"id\":\"1\"}","tag":"GROUP_REMOVED_EVENT"},"notification":{"title":"One of your Groups has been deleted!"}}

@@ -1,5 +1,8 @@
 rm T0050_results.txt
 
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/userDeleted_json.txt
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/userDeleted_rec.txt
+
 mysql -u root -p69h97jnv pse_development < T0050_T0130_in.sql
 
 echo Newman Run >> T0050_results.txt
@@ -134,6 +137,10 @@ rm /var/lib/mysql-files/T0050_out_user.csv
 
 echo USERS >> T0050_results.txt
 python3 compareCsv.py T0050_expectedDbOutput_user.csv T0050_out_user.csv >> T0050_results.txt
+
+python3 compareJson.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/userDeleted_json_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/userDeleted_json.txt >> T0050_results.txt
+
+python3 compareRecs.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/userDeleted_rec_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/userDeleted_rec.txt >> T0050_results.txt
 
 
 

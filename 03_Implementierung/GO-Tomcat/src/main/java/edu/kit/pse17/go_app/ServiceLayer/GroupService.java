@@ -246,7 +246,7 @@ public class GroupService implements IObservable {
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
         List<String> receiver = prepareReceiverList(groupId);
-        notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids, receiver);
+        //notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids, receiver);
     }
 
     public void addAdmin(String userId, long groupId) {

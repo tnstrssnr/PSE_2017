@@ -1,5 +1,8 @@
 rm T0250_results.txt
 
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goRemoved_json.txt
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goRemoved_rec.txt
+
 mysql -u root -p69h97jnv pse_development < T0040_T0250_T0260_in.sql
 
 echo Newman Run >> T0250_results.txt
@@ -78,6 +81,10 @@ rm /var/lib/mysql-files/T0250_out_go.csv
 
 echo GOS >> T0250_results.txt
 python3 compareCsv.py empty.csv T0250_out_go.csv >> T0250_results.txt
+
+python3 compareJson.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goRemoved_json_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goRemoved_json.txt >> T0250_results.txt
+
+python3 compareRecs.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goRemoved_rec_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goRemoved_rec.txt >> T0250_results.txt
 
 
 

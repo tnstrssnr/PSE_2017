@@ -1,19 +1,19 @@
 Newman Run
-So 27. Aug 15:46:42 CEST 2017
+So 27. Aug 20:49:01 CEST 2017
 newman
 
 T0360
 
 → T0360 - Bob
-  PUT localhost:8080/go-tomcat/user/1/device/instanceId_bob [200 OK, 84B, 31ms]
+  PUT localhost:8080/go-tomcat/user/1/device/instanceId_bob [200 OK, 84B, 28ms]
   ✓  Status code is 200
 
 → T0360 - alice
-  PUT localhost:8080/go-tomcat/user/2/device/instanceId_alice [200 OK, 84B, 23ms]
+  PUT localhost:8080/go-tomcat/user/2/device/instanceId_alice [200 OK, 84B, 11ms]
   ✓  Status code is 200
 
 → T0360 - peter
-  PUT localhost:8080/go-tomcat/user/3/device/instanceId_peter [200 OK, 84B, 17ms]
+  PUT localhost:8080/go-tomcat/user/3/device/instanceId_peter [200 OK, 84B, 9ms]
   ✓  Status code is 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -29,15 +29,15 @@ T0360
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        3 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 286ms                     │
+│ total run duration: 234ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 23ms                   │
+│ average response time: 16ms                   │
 └───────────────────────────────────────────────┘
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 

@@ -1,11 +1,11 @@
 Newman Run
-So 27. Aug 08:39:09 CEST 2017
+So 27. Aug 20:34:42 CEST 2017
 newman
 
 T0070
 
 → T0070
-  PUT localhost:8080/go-tomcat/group/ [200 OK, 84B, 63ms]
+  PUT localhost:8080/go-tomcat/group/ [200 OK, 84B, 60ms]
   ✓  Status code is 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -21,15 +21,42 @@ T0070
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        1 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 153ms                     │
+│ total run duration: 151ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 63ms                   │
+│ average response time: 60ms                   │
 └───────────────────────────────────────────────┘
+-------------------------------------------------
+
+
 Database Check
 Difference detected:
 
 
 done
 Differences found: 0
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
+
+
+done
+Differences found: 0
+-------------------------------------------------

@@ -1,0 +1,1 @@
+{"to":"testRec","data":{"data":"{\"user_id\":\"3\",\"group_id\":1}","tag":"GROUP_REQUEST_DENIED_EVENT"},"notification":{"title":"A Group Request has been denied!"}}

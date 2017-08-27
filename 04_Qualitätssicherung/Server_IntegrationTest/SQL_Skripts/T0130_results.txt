@@ -1,11 +1,11 @@
 Newman Run
-So 27. Aug 13:38:44 CEST 2017
+So 27. Aug 20:35:22 CEST 2017
 newman
 
 T0130
 
 → T0130
-  DELETE localhost:8080/go-tomcat/group/1 [200 OK, 84B, 378ms]
+  DELETE localhost:8080/go-tomcat/group/1 [200 OK, 84B, 59ms]
   ✓  Status code is 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -21,16 +21,16 @@ T0130
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        1 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 488ms                     │
+│ total run duration: 153ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 378ms                  │
+│ average response time: 59ms                   │
 └───────────────────────────────────────────────┘
 GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -39,9 +39,9 @@ done
 Differences found: 0
 -------------------------------------------------
 NOT GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -50,9 +50,9 @@ done
 Differences found: 0
 -------------------------------------------------
 GONE USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -61,9 +61,9 @@ done
 Differences found: 0
 -------------------------------------------------
 GOS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -72,9 +72,9 @@ done
 Differences found: 0
 -------------------------------------------------
 GROUPS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -83,11 +83,34 @@ done
 Differences found: 0
 -------------------------------------------------
 MEMBERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
 
 
 done

@@ -4,9 +4,9 @@ expected = sys.argv[1]
 
 result = sys.argv[2]
 
-print("")
-print("")
 print("-------------------------------------------------")
+print("")
+print("")
 
 with open(expected, 'r') as t1, open(result, 'r') as t2:
     fileone = t1.readlines()

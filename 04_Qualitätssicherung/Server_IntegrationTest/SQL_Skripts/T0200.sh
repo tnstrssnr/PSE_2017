@@ -1,5 +1,8 @@
 rm T0200_results.txt
 
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/statusChanged_json.txt
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/statusChanged_rec.txt
+
 mysql -u root -p69h97jnv pse_development < T0200_in.sql
 
 echo Newman Run >> T0200_results.txt
@@ -59,6 +62,10 @@ rm /var/lib/mysql-files/T0200_out_gone.csv
 
 echo GONE USERS >> T0200_results.txt
 python3 compareCsv.py T0200_expectedDbOutput_gone.csv T0200_out_gone.csv >> T0200_results.txt
+
+python3 compareJson.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/statusChanged_json_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/statusChanged_json.txt >> T0200_results.txt
+
+python3 compareRecs.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/statusChanged_rec_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/statusChanged_rec.txt >> T0200_results.txt
 
 
 

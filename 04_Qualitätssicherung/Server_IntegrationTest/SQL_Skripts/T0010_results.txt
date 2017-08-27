@@ -1,0 +1,50 @@
+Newman Run
+So 27. Aug 20:11:06 CEST 2017
+newman
+
+T0010
+
+→ T0010 - Bob
+  GET localhost:8080/go-tomcat/user/1/bob@gmail.com/bob [200 OK, 228B, 54ms]
+  ✓  Status code is 200
+  ✓  Dummy Group Id
+
+→ T0010 - Alice
+  GET localhost:8080/go-tomcat/user/2/alice@gmail.com/alice [200 OK, 228B, 26ms]
+  ✓  Status code is 200
+  ✓  Dummy Group Id
+
+→ T0010 - Peter
+  GET localhost:8080/go-tomcat/user/3/peter@gmail.com/peter [200 OK, 228B, 14ms]
+  ✓  Status code is 200
+  ✓  Dummy Group Id
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │        6 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 346ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 315B (approx)            │
+├───────────────────────────────────────────────┤
+│ average response time: 31ms                   │
+└───────────────────────────────────────────────┘
+-------------------------------------------------
+
+
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------

@@ -1,11 +1,11 @@
 Newman Run
-So 27. Aug 11:36:59 CEST 2017
+So 27. Aug 20:45:57 CEST 2017
 newman
 
 T0170
 
 → T0170
-  DELETE localhost:8080/go-tomcat/group/1 [200 OK, 84B, 669ms]
+  DELETE localhost:8080/go-tomcat/group/1 [200 OK, 84B, 371ms]
   ✓  Status code is 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -21,15 +21,16 @@ T0170
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        1 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 849ms                     │
+│ total run duration: 478ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 669ms                  │
+│ average response time: 371ms                  │
 └───────────────────────────────────────────────┘
-
-
+Groups
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -37,9 +38,10 @@ Difference detected:
 done
 Differences found: 0
 -------------------------------------------------
-
-
+Members
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -47,9 +49,10 @@ Difference detected:
 done
 Differences found: 0
 -------------------------------------------------
-
-
+Users
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 

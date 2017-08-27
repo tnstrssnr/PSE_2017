@@ -1,11 +1,11 @@
 Newman Runn
-So 27. Aug 08:54:51 CEST 2017
+So 27. Aug 20:34:31 CEST 2017
 newman
 
 T0060
 
 → T0060
-  POST localhost:8080/go-tomcat/group/ [201 Created, 127B, 33ms]
+  POST localhost:8080/go-tomcat/group/ [201 Created, 127B, 65ms]
   ✓  Successful POST request
   ✓  Your test name
 
@@ -22,15 +22,19 @@ T0060
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        2 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 137ms                     │
+│ total run duration: 155ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 1B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 33ms                   │
+│ average response time: 65ms                   │
 └───────────────────────────────────────────────┘
+-------------------------------------------------
+
+
 Database Check
 Difference detected:
 
 
 done
 Differences found: 0
+-------------------------------------------------

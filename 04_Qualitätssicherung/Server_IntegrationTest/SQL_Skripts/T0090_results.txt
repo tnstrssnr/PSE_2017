@@ -1,15 +1,15 @@
 Newman Run
-So 27. Aug 08:56:22 CEST 2017
+So 27. Aug 20:34:52 CEST 2017
 newman
 
 T0090
 
 → T0090
-  POST localhost:8080/go-tomcat/group/requests/1/alice@gmail.com [200 OK, 84B, 36ms]
+  POST localhost:8080/go-tomcat/group/requests/1/alice@gmail.com [200 OK, 84B, 73ms]
   ✓  Status code is 200
 
 → T0090 - Peter
-  POST localhost:8080/go-tomcat/group/requests/1/peter@gmail.com [200 OK, 84B, 33ms]
+  POST localhost:8080/go-tomcat/group/requests/1/peter@gmail.com [200 OK, 84B, 27ms]
   ✓  Status code is 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -25,15 +25,42 @@ T0090
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        2 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 229ms                     │
+│ total run duration: 257ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 34ms                   │
+│ average response time: 50ms                   │
 └───────────────────────────────────────────────┘
+-------------------------------------------------
+
+
 Database Check
 Difference detected:
 
 
 done
 Differences found: 0
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
+
+
+done
+Differences found: 0
+-------------------------------------------------

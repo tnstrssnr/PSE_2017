@@ -1,5 +1,8 @@
 rm T0180_results.txt
 
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goAdded_json.txt
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goAdded_rec.txt
+
 mysql -u root -p69h97jnv pse_development < T0160_T0170_T0180_in.sql
 
 echo Newman Run >> T0180_results.txt
@@ -77,6 +80,10 @@ rm /var/lib/mysql-files/T0180_out_gone.csv
 
 echo GONE USERS >> T0180_results.txt
 python3 compareCsv.py T0180_expectedDbOutput_gone.csv T0180_out_gone.csv >> T0180_results.txt
+
+python3 compareJson.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goAdded_json_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goAdded_json.txt >> T0180_results.txt
+
+python3 compareRecs.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goAdded_rec_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goAdded_rec.txt >> T0180_results.txt
 
 
 

@@ -1,5 +1,8 @@
 rm T0100_results.txt
 
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_json.txt
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_rec.txt
+
 mysql -u root -p69h97jnv pse_development < T0100_T0110_in.sql
 
 echo Newman Run >> T0100_results.txt
@@ -41,4 +44,8 @@ python3 compareCsv.py T0100_expectedDbOutput_req.csv T0100_out_req.csv >> T0100_
 
 echo Members >> T0100_results.txt
 python3 compareCsv.py T0100_expectedDbOutput_mem.csv T0100_out_mem.csv >> T0100_results.txt
+
+python3 compareJson.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_json_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_json.txt >> T0100_results.txt
+
+python3 compareRecs.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_rec_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_rec.txt >> T0100_results.txt
 

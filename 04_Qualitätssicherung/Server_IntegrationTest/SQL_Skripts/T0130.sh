@@ -1,5 +1,8 @@
 rm T0130_results.txt
 
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/groupRemoved_json.txt
+rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/groupRemoved_rec.txt
+
 mysql -u root -p69h97jnv pse_development < T0050_T0130_in.sql
 
 echo Newman Run >> T0130_results.txt
@@ -115,6 +118,10 @@ rm /var/lib/mysql-files/T0130_out_mem.csv
 
 echo MEMBERS >> T0130_results.txt
 python3 compareCsv.py empty.csv T0130_out_mem.csv >> T0130_results.txt
+
+python3 compareJson.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/groupRemoved_json_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/groupRemoved_json.txt >> T0130_results.txt
+
+python3 compareRecs.py /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/groupRemoved_rec_exp.txt /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/groupRemoved_rec.txt >> T0130_results.txt
 
 
 

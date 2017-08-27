@@ -1,15 +1,15 @@
 Newman Run
-So 27. Aug 12:44:47 CEST 2017
+So 27. Aug 20:48:33 CEST 2017
 newman
 
 T0200
 
 → T0200 Bob
-  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 76ms]
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 80ms]
   ✓  Status code is 200
 
 → T0200 Alice
-  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 66ms]
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 57ms]
   ✓  Status code is 200
 
 → T0200 Peter
@@ -29,16 +29,16 @@ T0200
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │        3 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 386ms                     │
+│ total run duration: 368ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 0B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 65ms                   │
+│ average response time: 63ms                   │
 └───────────────────────────────────────────────┘
 GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -47,9 +47,9 @@ done
 Differences found: 0
 -------------------------------------------------
 NOT GOING USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
 
@@ -58,11 +58,34 @@ done
 Differences found: 0
 -------------------------------------------------
 GONE USERS
-
-
 -------------------------------------------------
+
+
 Database Check
 Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
 
 
 done

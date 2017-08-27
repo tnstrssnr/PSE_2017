@@ -131,13 +131,17 @@ Diverse Testszenarien, die im Pflichtenheft definiert wurde, werde nicht geteste
 \newpage
 
 \section{Integrationstests}
-\subsection{Isolierte Integrationstests der Serveranwendung} \label{ServerIT}
+\subsection{Isolierte Integrationstests der Serveranwendung}\label{ServerIT}
 \subsubsection{Erläuterungen zu den Tests}
 Tests dieser Art sollen die Funktionsfähigkeit der Serveranwendung testen, ohne dabei die Funktionsfähigkeit der Clients zu berücksichtigen. Dabei wird getestet, ob
 \begin{enumerate}
-	\item API Calls die richtige Response liefern
-	\item Der Datenbestand in der Datebank nach einem Request wie erwartet manipuliert wurde
+	\item API Calls die richtige Response liefern,
+	\item Der Datenbestand in der Datebank nach einem Request wie erwartet manipuliert wurde,
+	\item Benachrichtigungen über Datenänderungen an die richtigen User geschickt wurden,
+	\item Der Message Payload der Benachrichtigungen dem richtigen Format und Inhalt entspricht.
 \end{enumerate}
+
+Vor einem Testdurchlauf, wird in der Serveranwendung der Testmodus aktiviert. dadurch werden wichtige Daten von versendeten Benachrichtigungen (in der Klasse FcmClient) in .txt-Dateien gespeichert.
 Bei der Durchführung eines Testfalls werden folgende Phasen durchlaufen:
 \begin{enumerate}
 	\item Löschen sämtlicher Daten aus der Datenbank
@@ -145,6 +149,8 @@ Bei der Durchführung eines Testfalls werden folgende Phasen durchlaufen:
 	\item Es wird ein oder mehrere HTTP-Requests an den Server gestellt. Hierfür wird das Commandline Tool Newman verwendet.
 	\item Die Server-Reponse des API Calls wird getestet, auf Korrektheit des HTTP-Statuscodes und des Inhalts des Response-Bodys. Die Testfälle sind in das Newman-Skript integriert und liefern automatisch einen Testbericht, der in einer TestResult-Datei gespeichert wird.
 	\item Der Datenbestand der Datenbank nach Beendigung des Newman-Runs wird als .csv-Datei exportiert und mit einer zuvor erstellten .csv-Datei verglichen, die den erwarteten Datenbestand, nach korrekter Ausführung, darstellt. Enthält die .csv ein Datentupel, das nicht erwartet wurde,  wird dieses, zusammen mit der Anzahl der gefundenen Unterschiede, ebenfalss in die TestResult Datei angehängt.
+	\item Der versendete Message Payload der Observer-Benachrichtigungen wird mit dem erwarteten JSON-String verglichen. Das Ergebnis der Überprüfung wird in der Testresult Datei festgehalten.
+	\item Es wird überprüft, ob die versendete Observer-Benachrichtigung an die richtigen Benutzer versendet wurde (keine zusätzlichen Versendungen, keine fehlenden Versendungen).
 \end{enumerate}
 Einzelne Phasen können ggfs. wegfallen, fallls sie für einen Testfall nicht relevant sind, z.B. wenn es keine Manipulation an der Datenbank gibt oder bei einem API-Call kein Response-Body erwartet wird.\\
 
