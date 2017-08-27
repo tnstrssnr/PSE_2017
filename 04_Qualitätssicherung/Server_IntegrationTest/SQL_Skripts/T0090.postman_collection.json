@@ -1,0 +1,55 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0090",
+		"_postman_id": "a28430be-d989-1579-2d87-0fc81059e590",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0090",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/requests/1/alice@gmail.com",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": "Hinzufügen einer Gruppenanfrage für ALICE"
+			},
+			"response": []
+		},
+		{
+			"name": "T0090 - Peter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/requests/1/peter@gmail.com",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": "Hinzufügen einer Gruppenanfrage für PETER"
+			},
+			"response": []
+		}
+	]
+}

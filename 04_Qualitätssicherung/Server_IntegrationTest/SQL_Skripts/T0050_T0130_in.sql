@@ -39,6 +39,7 @@ CREATE TABLE `ADMINS` (
 
 LOCK TABLES `ADMINS` WRITE;
 /*!40000 ALTER TABLE `ADMINS` DISABLE KEYS */;
+INSERT INTO `ADMINS` VALUES (1,'1');
 /*!40000 ALTER TABLE `ADMINS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,6 +67,7 @@ CREATE TABLE `GOING_USERS` (
 
 LOCK TABLES `GOING_USERS` WRITE;
 /*!40000 ALTER TABLE `GOING_USERS` DISABLE KEYS */;
+INSERT INTO `GOING_USERS` VALUES (1,'2'),(1,'3');
 /*!40000 ALTER TABLE `GOING_USERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,6 +95,7 @@ CREATE TABLE `GONE_USERS` (
 
 LOCK TABLES `GONE_USERS` WRITE;
 /*!40000 ALTER TABLE `GONE_USERS` DISABLE KEYS */;
+INSERT INTO `GONE_USERS` VALUES (1,'1');
 /*!40000 ALTER TABLE `GONE_USERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +121,7 @@ CREATE TABLE `GOS` (
   KEY `FK1146B7060D96F` (`group_id`),
   CONSTRAINT `FK1146B573D80AF` FOREIGN KEY (`owner`) REFERENCES `USERS` (`uid`),
   CONSTRAINT `FK1146B7060D96F` FOREIGN KEY (`group_id`) REFERENCES `GROUPS` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,6 +130,7 @@ CREATE TABLE `GOS` (
 
 LOCK TABLES `GOS` WRITE;
 /*!40000 ALTER TABLE `GOS` DISABLE KEYS */;
+INSERT INTO `GOS` VALUES (1,'xxx','2025-08-17 19:41:00',49,8,'xg','2020-08-17 19:41:00',1,'2');
 /*!40000 ALTER TABLE `GOS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +146,7 @@ CREATE TABLE `GROUPS` (
   `description` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,6 +155,7 @@ CREATE TABLE `GROUPS` (
 
 LOCK TABLES `GROUPS` WRITE;
 /*!40000 ALTER TABLE `GROUPS` DISABLE KEYS */;
+INSERT INTO `GROUPS` VALUES (1,'Default Descriptionn','Foo');
 /*!40000 ALTER TABLE `GROUPS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,6 +183,7 @@ CREATE TABLE `MEMBERS` (
 
 LOCK TABLES `MEMBERS` WRITE;
 /*!40000 ALTER TABLE `MEMBERS` DISABLE KEYS */;
+INSERT INTO `MEMBERS` VALUES (1,'1'),(1,'2'),(1,'3');
 /*!40000 ALTER TABLE `MEMBERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,34 +268,6 @@ INSERT INTO `USERS` VALUES ('1','bob@gmail.com',NULL,'bob'),('2','alice@gmail.co
 UNLOCK TABLES;
 
 --
--- Table structure for table `USERS_GOS`
---
-
-DROP TABLE IF EXISTS `USERS_GOS`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `USERS_GOS` (
-  `USERS_uid` varchar(255) NOT NULL,
-  `gos_go_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`USERS_uid`,`gos_go_id`),
-  UNIQUE KEY `gos_go_id` (`gos_go_id`),
-  KEY `FKBB73A5946636CB95` (`USERS_uid`),
-  KEY `FKBB73A5948A4CE3F7` (`gos_go_id`),
-  CONSTRAINT `FKBB73A5946636CB95` FOREIGN KEY (`USERS_uid`) REFERENCES `USERS` (`uid`),
-  CONSTRAINT `FKBB73A5948A4CE3F7` FOREIGN KEY (`gos_go_id`) REFERENCES `GOS` (`go_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `USERS_GOS`
---
-
-LOCK TABLES `USERS_GOS` WRITE;
-/*!40000 ALTER TABLE `USERS_GOS` DISABLE KEYS */;
-/*!40000 ALTER TABLE `USERS_GOS` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hibernate_sequence`
 --
 
@@ -310,34 +288,8 @@ LOCK TABLES `hibernate_sequence` WRITE;
 INSERT INTO `hibernate_sequence` VALUES (1),(1);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `user_id` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `instance_id` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-COMMIT;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
+COMMIT;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
@@ -346,4 +298,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-26 23:04:07
+-- Dump completed on 2017-08-27 12:50:31

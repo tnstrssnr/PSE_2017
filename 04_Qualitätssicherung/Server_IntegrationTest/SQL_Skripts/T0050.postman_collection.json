@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0050",
+		"_postman_id": "0b495bcd-4650-3fbf-1ee2-86fad5adf9f7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0050",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/user/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Löschen des Benutzeraccounts von BOB"
+			},
+			"response": []
+		}
+	]
+}

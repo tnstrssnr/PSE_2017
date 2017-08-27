@@ -23,13 +23,11 @@ public class StatusChangedObserver implements Observer {
     public StatusChangedObserver(FcmClient messenger, GoService goService) {
         this.messenger = messenger;
         this.goService = goService;
-        this.userDao = new UserDaoImp();
     }
 
     public StatusChangedObserver(GoService goService) {
         this.messenger = new FcmClient();
         this.goService = goService;
-        this.userDao = new UserDaoImp();
     }
 
     public UserDaoImp getUserDao() {
@@ -53,6 +51,7 @@ public class StatusChangedObserver implements Observer {
         int newStatus;
 
         GoEntity go = goService.getGoById(Long.valueOf(entity_ids.get(1)));
+        userDao = new UserDaoImp(goService.getGoDao().getSessionFactory());
         UserEntity user = userDao.get(entity_ids.get(0));
 
         if (!(go.getGoingUsers() == null) && go.getGoingUsers().contains(user)) {

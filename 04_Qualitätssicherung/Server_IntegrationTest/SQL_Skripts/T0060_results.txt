@@ -1,13 +1,13 @@
 Newman Runn
-Sa 26. Aug 23:47:18 CEST 2017
+So 27. Aug 08:54:51 CEST 2017
 newman
 
 T0060
 
 → T0060
-  POST localhost:8080/go-tomcat/group/ [200 OK, 122B, 50ms]
-  2. Successful POST request
-  2⠄ ReferenceError in test-script
+  POST localhost:8080/go-tomcat/group/ [201 Created, 127B, 33ms]
+  ✓  Successful POST request
+  ✓  Your test name
 
 ┌─────────────────────────┬──────────┬──────────┐
 │                         │ executed │   failed │
@@ -16,28 +16,18 @@ T0060
 ├─────────────────────────┼──────────┼──────────┤
 │                requests │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│            test-scripts │        1 │        1 │
+│            test-scripts │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │      prerequest-scripts │        0 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│              assertions │        1 │        1 │
+│              assertions │        2 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 160ms                     │
+│ total run duration: 137ms                     │
 ├───────────────────────────────────────────────┤
 │ total data received: 1B (approx)              │
 ├───────────────────────────────────────────────┤
-│ average response time: 50ms                   │
+│ average response time: 33ms                   │
 └───────────────────────────────────────────────┘
-
-  #  failure           detail                        
-                                                     
- 1.  ReferenceError    test is not defined           
-                       at test-script                
-                       inside "T0060"                
-                                                     
- 2.  AssertionFailure  Successful POST request       
-                       at assertion:1 in test-script 
-                       inside "T0060"                
 Database Check
 Difference detected:
 

@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0100",
+		"_postman_id": "30ee71e0-a824-bf75-a519-ab0494d47328",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0100",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/members/1/2",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": "ALICE bestätigt die Gruppenanfrage"
+			},
+			"response": []
+		}
+	]
+}

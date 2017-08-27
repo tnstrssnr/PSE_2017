@@ -1,0 +1,39 @@
+Newman Run
+So 27. Aug 08:56:22 CEST 2017
+newman
+
+T0090
+
+→ T0090
+  POST localhost:8080/go-tomcat/group/requests/1/alice@gmail.com [200 OK, 84B, 36ms]
+  ✓  Status code is 200
+
+→ T0090 - Peter
+  POST localhost:8080/go-tomcat/group/requests/1/peter@gmail.com [200 OK, 84B, 33ms]
+  ✓  Status code is 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        2 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        2 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │        2 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 229ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 0B (approx)              │
+├───────────────────────────────────────────────┤
+│ average response time: 34ms                   │
+└───────────────────────────────────────────────┘
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0

@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0110",
+		"_postman_id": "4b7d750b-f95a-7c02-61f0-527a6fd92052",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0110",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/requests/1/3",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "PETER lehnt die Gruppenanfrage ab"
+			},
+			"response": []
+		}
+	]
+}

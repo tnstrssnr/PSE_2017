@@ -1,0 +1,70 @@
+Newman Run
+So 27. Aug 12:44:47 CEST 2017
+newman
+
+T0200
+
+→ T0200 Bob
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 76ms]
+  ✓  Status code is 200
+
+→ T0200 Alice
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 66ms]
+  ✓  Status code is 200
+
+→ T0200 Peter
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 53ms]
+  ✓  Status code is 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │        3 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 386ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 0B (approx)              │
+├───────────────────────────────────────────────┤
+│ average response time: 65ms                   │
+└───────────────────────────────────────────────┘
+GOING USERS
+
+
+-------------------------------------------------
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+NOT GOING USERS
+
+
+-------------------------------------------------
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+GONE USERS
+
+
+-------------------------------------------------
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
