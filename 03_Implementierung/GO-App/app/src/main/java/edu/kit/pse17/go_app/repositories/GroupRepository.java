@@ -46,6 +46,11 @@ public class GroupRepository extends Repository<List<Group>> {
     private static GroupRepository groupRepo;
 
     /**
+     * Attribute to handle server requests about the specific GO.
+     */
+    private GoRepository goRepo;
+
+    /**
      * The Reference to the REST-API, which TomcatServer provides, so that
      * communication with the server is possible.
      */
@@ -71,6 +76,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param observer: Observer for the Livedata
      */
     private GroupRepository(Observer<List<Group>> observer) {
+        goRepo = GoRepository.getInstance();
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
         if (data == null)
             this.data = new GroupListLiveData();
@@ -83,6 +89,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * because it should've been given already by GroupListViewModel, which is initialized before GroupViewModel.
      */
     public GroupRepository(/*GroupDao groupDao, Executor executor*/) {
+        goRepo = GoRepository.getInstance();
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
         if (this.data == null)
             this.data = new GroupListLiveData();
@@ -690,7 +697,7 @@ public class GroupRepository extends Repository<List<Group>> {
         }
 
         for (Go go : gosToBeDeleted) {
-            GoRepository.getInstance().deleteGo(go.getId());
+            goRepo.deleteGo(go.getId());
             /*oldGoList.remove(go);
             List<Go> newGoList = oldGoList;
             group.setCurrentGos(newGoList);*/
@@ -923,32 +930,65 @@ public class GroupRepository extends Repository<List<Group>> {
 
     /**
      * Setter for list of groups.
+     * It is used only for testing. DO NOT use it in the main program!
      *
      * @param list: List of groups
      */
+    @Deprecated
     public void setList(List<Group> list) {
         this.list = list;
     }
 
     /**
      * Getter for list of groups.
+     * It is used only for testing. DO NOT use it in the main program!
      *
      * @return List of groups
      */
+    @Deprecated
     public List<Group> getList() {
         return list;
     }
 
     /**
      * Setter for LiveData of the groups.
+     * It is used only for testing. DO NOT use it in the main program!
      *
      * @param data: GroupListLiveData
      */
+    @Deprecated
     public void setData(GroupListLiveData data) {
         this.data = data;
     }
 
+    /**
+     * Method that gets all the data from server if there were too many
+     * messages from server so that they were deleted (see MessageReceiver).
+     */
     public void updateData() {
         getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
+    }
+
+    /**
+     * Getter for the GO Repository.
+     * It is used only for testing. DO NOT use it in the main program!
+     *
+     * @return Current GO Repository
+     */
+    @Deprecated
+    public GoRepository getGoRepo() {
+        return goRepo;
+    }
+
+    /**
+     * Setter for the GO Repository.
+     * It is used only for testing (GO Repository is set with the mocked
+     * object). DO NOT use it in the main program!
+     *
+     * @param goRepo: The mocked object of the GO Repository class
+     */
+    @Deprecated
+    public void setGoRepo(GoRepository goRepo) {
+        this.goRepo = goRepo;
     }
 }

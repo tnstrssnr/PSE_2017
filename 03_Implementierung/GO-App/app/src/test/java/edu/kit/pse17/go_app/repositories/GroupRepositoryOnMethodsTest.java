@@ -3,6 +3,9 @@ package edu.kit.pse17.go_app.repositories;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +19,6 @@ import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.GroupMembership;
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
-import edu.kit.pse17.go_app.viewModel.livedata.GoLiveData;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 
 import static org.junit.Assert.assertEquals;
@@ -28,23 +30,24 @@ import static org.junit.Assert.assertTrue;
  * Created by Сеня on 20.08.2017.
  */
 
-public class GroupRepositoryTest {
+public class GroupRepositoryOnMethodsTest {
     private GroupRepository groupRepo;
     private ArrayList<Group> list;
     private GroupListLiveData data;
 
     @Before
-    public void start() {
+    public void setUp() {
         groupRepo = GroupRepository.getInstance();
         list = mockGroupData();
-        data = new GroupListLiveData();
-        data.postValue(list);
-        groupRepo.setData(data);
         groupRepo.setList(list);
+
+        data = Mockito.spy(new GroupListLiveData());
+        Mockito.when(data.getValue()).thenReturn(list);
+        groupRepo.setData(data);
     }
 
     @After
-    public void end() {
+    public void tearDown() {
         list = null;
         data = null;
         groupRepo = null;
@@ -184,7 +187,7 @@ public class GroupRepositoryTest {
         }
     }
 
-    @Test
+    /*@Test
     public void onMemberRemovedTestAllUsers() {
         String userId = "id1";
         long groupId = 1;
@@ -200,17 +203,52 @@ public class GroupRepositoryTest {
         groupRepo.onMemberRemoved(userId, groupId);
 
         assertTrue(groupRepo.getList().isEmpty());
-    }
+    }*/
 
     @Test
     public void onMemberRemovedTestGoResponsible() {
         String userId = "id1";
         long groupId = 1;
 
+        // GO that will be deleted
+        final long goId = 1;
+
+        GoRepository goRepo = groupRepo.getGoRepo();
+        goRepo = Mockito.spy(goRepo);
+        Mockito.doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                deleteGoLocal(goId);
+                return null;
+            }
+        }).when(goRepo).deleteGo(Mockito.anyLong());
+        groupRepo.setGoRepo(goRepo);
+
         groupRepo.onMemberRemoved(userId, groupId);
+        groupRepo.setGoRepo(GoRepository.getInstance());
 
         List<Go> newList = groupRepo.getList().get(0).getCurrentGos();
         assertTrue(newList.isEmpty());
+    }
+
+    private void deleteGoLocal(long goId) {
+        List<Go> newList;
+        list = (ArrayList<Group>) groupRepo.getData().getValue();
+        outer:
+        for (Group group : list) {
+            List<Go> oldList = group.getCurrentGos();
+
+            for (Go go : oldList) {
+                if (go.getId() == goId) {
+                    oldList.remove(go);
+                    newList = oldList;
+                    group.setCurrentGos(newList);
+                    break outer;
+                }
+            }
+        }
+
+        groupRepo.setList(list);
     }
 
     @Test
@@ -265,6 +303,7 @@ public class GroupRepositoryTest {
         assertTrue(addedGo.getLocations().size() == 1);
     }
 
+
     private ArrayList<Group> mockGroupData() {
         ArrayList<Group> groupList = new ArrayList<>();
         User user1 = new User("id1", "user1@gmail.com", "User1");
@@ -309,6 +348,5 @@ public class GroupRepositoryTest {
         group1.setCurrentGos(gos);
         groupList.add(group1);
         return groupList;
-
     }
 }

@@ -85,6 +85,6 @@ public class MessageReceiver extends FirebaseMessagingService {
      */
     @Override
     public void onDeletedMessages() {
-        GroupRepository.getInstance().updateData();;
+        GroupRepository.getInstance().updateData();
     }
 }
