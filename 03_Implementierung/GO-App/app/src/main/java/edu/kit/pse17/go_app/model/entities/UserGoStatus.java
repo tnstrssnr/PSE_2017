@@ -43,9 +43,6 @@ public class UserGoStatus {
     @Expose
     private Status status;
 
-    public UserGoStatus() {
-    }
-
     public UserGoStatus(User user, Go go, Status status) {
         this.user = user;
         this.go = go;

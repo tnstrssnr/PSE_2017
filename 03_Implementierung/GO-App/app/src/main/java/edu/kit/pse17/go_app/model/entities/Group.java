@@ -140,8 +140,8 @@ public class Group {
      * @return Request or not
      */
     public boolean isRequest(String userId){
-        for(GroupMembership membership : membershipList){
-            if(membership.getUser().getUid().equals(userId)){
+        for (GroupMembership membership : membershipList){
+            if (membership.getUser().getUid().equals(userId)){
                 return membership.isRequest();
             }
         }
@@ -157,8 +157,8 @@ public class Group {
      * @return Admin or not
      */
     public boolean isAdmin(String userId){
-        for(GroupMembership membership : membershipList){
-            if(membership.getUser().getUid().equals(userId)){
+        for (GroupMembership membership : membershipList){
+            if (membership.getUser().getUid().equals(userId)){
                 return membership.isAdmin();
             }
         }
