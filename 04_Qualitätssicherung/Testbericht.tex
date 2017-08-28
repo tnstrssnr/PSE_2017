@@ -3,6 +3,7 @@
 \usepackage{ifthen}
 \usepackage{ifpdf}
 \usepackage[headings]{fullpage}
+\usepackage{amssymb}
 \usepackage{listings}
 \lstset{language=Java,breaklines=true}
 \ifpdf \usepackage[pdftex, pdfpagemode={UseOutlines},bookmarks,colorlinks,linkcolor={blue},plainpages=false,pdfpagelabels,citecolor={red},breaklinks=true]{hyperref}
@@ -30,6 +31,7 @@
     }%
   }%
 }
+   
 \newcommand{\refdefined}[1]{
 \expandafter\ifx\csname r@#1\endcsname\relax
 \relax\else
@@ -46,6 +48,7 @@
 	bookmarks=true,
 }
 \usepackage{csquotes}
+\usepackage{pmboxdraw}
 
 \usepackage{fancyhdr}%<-------------to control headers and footers
 \usepackage[a4paper,margin=1in,footskip=.25in]{geometry}
@@ -53,7 +56,7 @@
 \fancyfoot[C]{\thepage} %<----to get page number below text
 \pagestyle{fancy} %<-------the page style itself
 
-\usepackage{xcolor}
+
 \usepackage{framed}
 \definecolor{shadecolor}{RGB}{220,220,220}
 \usepackage{float}
@@ -71,6 +74,28 @@
   \ifnum#1<100 0\fi
   \ifnum#1<10 0\fi
   \number#1}
+  
+\usepackage{fancyvrb}
+\usepackage[dvipsnames]{xcolor}
+
+% redefine \VerbatimInput
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+ %
+ frame=lines,  % top and bottom rule only
+ framesep=2em, % separation between frame and text
+ rulecolor=\color{Gray},
+ %
+ commandchars=\|\(\), % escape character and argument delimiters for
+                      % commands within the verbatim
+ commentchar=*        % comment character
+}
+
+\newcommand{\arrow}{\ensuremath{^\rightarrow}}
+\DeclareUnicodeCharacter{2192}{\arrow}
+%\newcommand{\check}{\ensuremath{^\rightarrow}}
+\DeclareUnicodeCharacter{2713}{\checkmark}
+
 
 \begin{document}
 
@@ -156,20 +181,19 @@ Einzelne Phasen können ggfs. wegfallen, fallls sie für einen Testfall nicht re
 
 Die Ausführung der Testfälle ist mittels eines Shell-Skripts komplett automatisiert. Die benutzten Testdaten und die abgedeckten Testfälle sind dem folgenden Abschnitt zu entnehmen. Dabei sind nicht alle Testfälle des Pflichtenhefts aufgeführt. Auf Testfälle, die gar nicht getestet wurden, wird in Abschnitt \ref{weggefallene Testfälle} eingegangen. Bei weiteren Testfällen, die in diesem Abschnitt nicht auftauchen, kann davon ausgegangen werden, das die getesteten Funktionen keine Beteiligung der Serveranwendung erfordern.\\
 
+\begin{figure}[H]
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0010.sh}
+\caption{Das Shell-Skript für den Testfall /T0010/}
+\end{figure}
+
+\begin{figure}[H]
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0010_results.txt}
+\caption{Der Testbericht für den Testfall /T0010/}
+\end{figure}
+
 Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{result.png}
-	\caption{Testbericht des Testfalls T0010 - alle Tests sind erfüllt}	
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{test.png}
-	\caption{Shell-Skript für den Testfall T0010 aus dem Pflichtenheft}	
-\end{figure}
-
+\newpage
 
 \subsubsection{durchgeführte Tests}
 \begin{enumerate}
@@ -314,10 +338,72 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 
 \newpage
 
-\section*{Anhang}
+\section{Anhang}
 
-\subsection*{A. Testberichte zu Abschnitt \ref{ServerIT}}
+\subsection{A. Testberichte zu Abschnitt \ref{ServerIT}}
 
+\subsubsection{Testbericht für Testfall /T0010/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0010_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0040/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0040_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0050/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0050_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0060/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0060_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0070/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0070_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0090/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0090_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0100/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0100_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0100/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0110_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0130/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0130_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0160/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0160_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0170/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0170_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0180/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0180_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0200/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0200_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0250/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0250_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0260/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0260_results.txt}
+
+\newpage
+\subsubsection{Testbericht für Testfall /T0360/}
+\VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0360_results.txt}
 
 \end{document}
 \grid
