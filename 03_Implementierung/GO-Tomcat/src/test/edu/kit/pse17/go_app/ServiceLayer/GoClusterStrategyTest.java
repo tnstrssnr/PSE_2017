@@ -42,36 +42,39 @@ public class GoClusterStrategyTest {
         this.testClusterList = new ArrayList<Cluster>();
 
         this.mockList = Mockito.mock(List.class);
-        this.mockScan = Mockito.mock(DBScan.class);
-        Mockito.when(mockScan.applyDbscan(4, 3, mockList)).thenReturn(scanTestResults);
 
-        this.loc1 = new UserLocation("loc1", 5, 5);
-        this.loc2 = new UserLocation("loc2", 5, 5);
-        this.loc3 = new UserLocation("loc3", 5, 5);
-        this.loc4 = new UserLocation("loc4", 5, 5);
+
+        this.loc1 = new UserLocation("loc1", 3, 3);
+        this.loc2 = new UserLocation("loc2", 4, 2);
+        this.loc3 = new UserLocation("loc3", 4, 4);
+        this.loc4 = new UserLocation("loc4", 5, 3);
     }
 
 
 
     @Test
     public void calculateCluster() throws Exception {
+
+        mockScan = Mockito.mock(DBScan.class);
+        Mockito.when(mockScan.applyDbscan(4, 3, mockList)).thenReturn(scanTestResults);
+
+        assertNull(testStrategy.calculateCluster(userLocationList));
+
         userLocationList.add(loc1);
         userLocationList.add(loc2);
         userLocationList.add(loc3);
         userLocationList.add(loc4);
+
         testLocations.addAll(userLocationList);
         scanTestResults.add(testLocations);
         testClusterList.add(testCluster);
 
         List<Cluster> testCalculations = testStrategy.calculateCluster(userLocationList);
 
-        System.out.println(testCalculations.size());
-        System.out.println(testCalculations.get(0).getLat());
-        System.out.println(testCalculations.get(0).getLon());
-        System.out.println(testCalculations.get(0).getRadius());
-
         assertEquals(testCalculations.size(), testClusterList.size());
-
+        assertEquals(testCalculations.get(0).getLat(), 4, 0);
+        assertEquals(testCalculations.get(0).getLon(), 4, 0);
+        assertEquals(testCalculations.get(0).getRadius(), 1, 0);
     }
 
     @After
