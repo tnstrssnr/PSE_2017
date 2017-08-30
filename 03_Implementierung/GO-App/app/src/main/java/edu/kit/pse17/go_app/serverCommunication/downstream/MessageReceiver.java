@@ -56,7 +56,7 @@ public class MessageReceiver extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (remoteMessage.getFrom().equals(SENDER)) {
-            String tag = null;
+            String tag;
             Map<String, String> map = remoteMessage.getData();
             JSONObject data = new JSONObject(map);
 

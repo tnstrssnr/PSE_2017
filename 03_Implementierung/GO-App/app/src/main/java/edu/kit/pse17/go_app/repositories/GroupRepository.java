@@ -72,6 +72,12 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private int responseStatus;
 
+    /**
+     * Flag that shows if the message from server came or not.
+     * It is used for testing.
+     */
+    private boolean messageFlag = false;
+
     private Group groupWithoutId;
     private Go goWithoutId;
 
@@ -445,6 +451,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onAdminAdded(String userId, long groupId) {
+        messageFlag = true;
         list = data.getValue();
         outer:
         for (Group group : list) {
@@ -475,6 +482,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group of the GO
      */
     public void onGoAdded(Go go, long groupId/*, String userId*/) {
+        messageFlag = true;
         list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
@@ -512,6 +520,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param go: GO with the new data
      */
     public void onGoEdited(Go go) {
+        messageFlag = true;
         list = data.getValue();
         outer:
         for (Group group : list) {
@@ -546,6 +555,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param goId: ID of the GO
      */
     public void onGoRemoved(long goId) {
+        messageFlag = true;
         list = data.getValue();
         outer:
         for (Group group : list) {
@@ -572,6 +582,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param group: New data of the group
      */
     public void onGroupEdited(Group group) {
+        messageFlag = true;
         list = data.getValue();
         for (Group currentGroup : list) {
             if (group.getId() == currentGroup.getId()) {
@@ -595,6 +606,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onGroupRemoved(long groupId) {
+        messageFlag = true;
         list = data.getValue();
         for (Group group : list) {
             if (group.getId() == groupId) {
@@ -613,6 +625,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param group: Group with the new request
      */
     public void onGroupRequestReceived(Group group) {
+        messageFlag = true;
         list = data.getValue();
         list.add(group);
         data.postValue(list);
@@ -627,6 +640,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onMemberAdded(User user, long groupId) {
+        messageFlag = true;
         list = data.getValue();
         /*if (GroupListActivity.getUserId().equals(user.getUid())) {
             getGroupData(user.getUid(), groupId); // if added member
@@ -665,6 +679,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onMemberRemoved(String userId, long groupId) {
+        messageFlag = true;
         list = data.getValue();
         ArrayList<Go> gosToBeDeleted = new ArrayList<>();
         ArrayList<Group> groupsToBeDeleted = new ArrayList<>();
@@ -731,6 +746,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      */
     public void onRequestDenied(String userId, long groupId) {
+        messageFlag = true;
         list = data.getValue();
         outer:
         for (Group group : list) {
@@ -765,6 +781,7 @@ public class GroupRepository extends Repository<List<Group>> {
      *                2 - GONE
      */
     public void onStatusChanged(String userId, long goId, int status) {
+        messageFlag = true;
         list = data.getValue();
         outer:
         for (Group group : list) {
@@ -801,6 +818,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId
      */
     public void onUserDeleted(String userId) {
+        messageFlag = true;
         list = data.getValue();
         for (Group group : list) {
             onMemberRemoved(userId, group.getId());
@@ -1014,5 +1032,16 @@ public class GroupRepository extends Repository<List<Group>> {
     @Deprecated
     public int getResponseStatus() {
         return responseStatus;
+    }
+
+    /**
+     * Getter for the flag of the message from server.
+     * It is used only for testing.
+     *
+     * @return Flag
+     */
+    @Deprecated
+    public boolean isMessageFlag() {
+        return messageFlag;
     }
 }
