@@ -16,7 +16,7 @@ import edu.kit.pse17.go_app.view.GroupListActivity;
  * that it is current and valid.
  * Then, it is forwarded to the Server. During the execution of the App it
  * can also lead to a renewal of the InstanceID. In this case, the
- * onTokenReferesh() Method of this class is called.
+ * onTokenRefresh() Method of this class is called.
  *
  */
 

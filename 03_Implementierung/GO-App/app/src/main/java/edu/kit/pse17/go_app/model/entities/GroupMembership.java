@@ -47,9 +47,6 @@ public class GroupMembership {
     @Expose
     private boolean isRequest;
 
-    public GroupMembership() {
-    }
-
     public GroupMembership(User user, Group group, boolean isAdmin, boolean isRequest) {
         this.user = user;
         this.group = group;

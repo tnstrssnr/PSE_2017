@@ -16,7 +16,10 @@
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
-							"test[\"Valid Group ID is returned\"] = !isNaN(parseFloat(n)) && isFinite(n)"
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Your test name\"] = jsonData === 1;"
 						]
 					}
 				}

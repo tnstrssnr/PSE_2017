@@ -1,0 +1,1 @@
+{"to":"testRec","data":{"data":"{\"user_id\":\"3\",\"group_id\":\"1\"}","tag":"MEMBER_REMOVED_EVENT"},"notification":{"title":"A User has left one of your Groups!"}}

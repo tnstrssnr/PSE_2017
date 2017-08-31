@@ -1,0 +1,1 @@
+{"to":"testRec","data":{"data":"{\"group_id\":1,\"user\":\"{\\\"userId\\\":\\\"2\\\",\\\"instanceId\\\":\\\"instanceId_alice\\\",\\\"name\\\":\\\"alice\\\",\\\"email\\\":\\\"alice@gmail.com\\\"}\"}","tag":"MEMBER_ADDED_EVENT"},"notification":{"title":"A new user has joined one of your Groups!"}}

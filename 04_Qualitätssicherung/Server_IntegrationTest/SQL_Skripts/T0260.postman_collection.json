@@ -1,0 +1,42 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0260",
+		"_postman_id": "eac3763c-6030-3547-beba-393463603164",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0260",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/gos/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"lat\": 49.01337250000001,\n  \"lon\": 8.418332031250046,\n  \"description\": \"xxx\",\n  \"end\": \"25.08.17, 19:41\",\n  \"group\": {\n    \"currentGos\": [],\n    \"description\": \"Default Description\",\n    \"groupId\": 1,\n    \"memberCount\": 0,\n    \"membershipList\": [],\n    \"name\": \"Default Name\"\n  },\n  \"goId\": 1,\n  \"locations\": [],\n  \"name\": \"new Name\",\n  \"userId\": \"2\",\n  \"ownerName\": \"alice\",\n  \"participantsList\": [],\n  \"start\": \"20.08.17, 19:41\"\n}"
+				},
+				"description": "Ändern der Go-Details"
+			},
+			"response": []
+		}
+	]
+}

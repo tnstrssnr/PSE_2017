@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0170",
+		"_postman_id": "02c815ca-d88b-9d36-1ec0-217eed812c15",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0170",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Löschen der Gruppe"
+			},
+			"response": []
+		}
+	]
+}

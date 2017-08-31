@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0160",
+		"_postman_id": "c6db9537-95bf-98c5-16c8-82061b39f788",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0160",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/members/1/peter@gmail.com",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Entfernen des Gruppenmitglieds PETER"
+			},
+			"response": []
+		}
+	]
+}

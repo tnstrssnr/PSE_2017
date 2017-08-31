@@ -1,0 +1,45 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0180",
+		"_postman_id": "62f6494c-4845-2e49-f0c9-42e92d4f4f36",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0180",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"valide Go-ID in Response-Body\"] = jsonData === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/gos/1/1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"lat\": 49.01337250000001,\n  \"lon\": 8.418332031250046,\n  \"description\": \"xxx\",\n  \"end\": \"25.08.17, 19:41\",\n  \"group\": {\n    \"currentGos\": [],\n    \"description\": \"Default Description\",\n    \"groupId\": 1,\n    \"memberCount\": 0,\n    \"membershipList\": [],\n    \"name\": \"Default Name\"\n  },\n  \"goId\": 0,\n  \"locations\": [],\n  \"name\": \"xg\",\n  \"userId\": \"1\",\n  \"ownerName\": null,\n  \"participantsList\": [],\n  \"start\": \"20.08.17, 19:41\"\n}"
+				},
+				"description": "Erstellen eines GOs"
+			},
+			"response": []
+		}
+	]
+}

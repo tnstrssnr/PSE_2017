@@ -105,8 +105,28 @@ public class GroupService implements IObservable {
         return group;
     }
 
+    public GroupDaoImp getGroupDao() {
+        return groupDao;
+    }
+
+    public void setGroupDao(GroupDaoImp groupDao) {
+        this.groupDao = groupDao;
+    }
+
+    public UserDaoImp getUserDao() {
+        return userDao;
+    }
+
     public void setUserDao(UserDaoImp userDao) {
         this.userDao = userDao;
+    }
+
+    public boolean isObserverInitialized() {
+        return observerInitialized;
+    }
+
+    public void setObserverInitialized(boolean observerInitialized) {
+        this.observerInitialized = observerInitialized;
     }
 
     private void registerAll() {
@@ -122,6 +142,10 @@ public class GroupService implements IObservable {
 
     public Map<EventArg, Observer> getObserverMap() {
         return observerMap;
+    }
+
+    public void setObserverMap(Map<EventArg, Observer> observerMap) {
+        this.observerMap = observerMap;
     }
 
     public long createGroup(Group group) {
@@ -222,7 +246,7 @@ public class GroupService implements IObservable {
         entity_ids.add(userId);
         entity_ids.add(String.valueOf(groupId));
         List<String> receiver = prepareReceiverList(groupId);
-        notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids, receiver);
+        //notify(EventArg.GROUP_REQUEST_DENIED_EVENT, this, entity_ids, receiver);
     }
 
     public void addAdmin(String userId, long groupId) {

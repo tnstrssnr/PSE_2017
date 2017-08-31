@@ -53,6 +53,13 @@ public class GoRepository extends Repository<List<Go>>{
     private GoLiveData data;
 
     /**
+     * HTTP status code of the response of the server (by the requests).
+     * It is used for testing.
+     */
+    private int responseStatus;
+
+
+    /**
      * Eine DAO zum komminizieren mit der lokalen go-Datenbankrelation
      */
     // private final GoDao goDao;
@@ -82,12 +89,12 @@ public class GoRepository extends Repository<List<Go>>{
         parameters.put("userId", userId);
         //parameters.put("goId", Long.toString(goId));
         parameters.put("status", status.name());
-        Call<Void> call = apiService.changeStatus(parameters,goId);
+        Call<Void> call = apiService.changeStatus(parameters, goId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                 responseStatus = response.code();
             }
 
             @Override
@@ -108,7 +115,7 @@ public class GoRepository extends Repository<List<Go>>{
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -128,16 +135,16 @@ public class GoRepository extends Repository<List<Go>>{
      * @param description: New description of the GO
      * @param start: New start time
      * @param end: New end time
-     * @param latlon: New desired location (latitude + longitude)
+     * @param latLon: New desired location (latitude + longitude)
      * @param threshold: New threshold
      */
     //using array latlon instead, because it won't accept more that 7 parameters... -_- wtf
     public void editGo(long goId, long groupId, String userId, String name,
                        String description, String start, String end,
-                       double[] latlon, int threshold) {
+                       double[] latLon, int threshold) {
         final Map<String, String> parameters = new HashMap<String, String>();
-        double lat = latlon[0];
-        double lon = latlon[1];
+        double lat = latLon[0];
+        double lon = latLon[1];
         parameters.put("goId", Long.toString(goId));
         parameters.put("groupId", Long.toString(groupId));
         parameters.put("userId", userId);
@@ -148,13 +155,13 @@ public class GoRepository extends Repository<List<Go>>{
         parameters.put("latitude", Double.toString(lat));
         parameters.put("longitude", Double.toString(lon));
         parameters.put("threshold", Integer.toString(threshold));
-        Go go = new Go(goId,name,description,start,end,null,lat,lon,null, null, null, null);
+        Go go = new Go(goId, name, description, start, end, null, lat, lon, null, null, null, null);
         Call<Void> call = apiService.editGo(go, go.getId());
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -184,7 +191,7 @@ public class GoRepository extends Repository<List<Go>>{
         sendLocation.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -205,6 +212,7 @@ public class GoRepository extends Repository<List<Go>>{
 
                 GroupRepository groupRepo = GroupRepository.getInstance();
                 groupRepo.onLocationsUpdated(goId, locations);
+                responseStatus = response.code();
             }
 
             @Override
@@ -291,5 +299,16 @@ public class GoRepository extends Repository<List<Go>>{
      */
     public void setGo(Go go) {
         this.go = go;
+    }
+
+    /**
+     * Getter for the HTTP status code of the response of the server.
+     * It is used only for testing.
+     *
+     * @return The HTTP status code
+     */
+    @Deprecated
+    public int getResponseStatus() {
+        return responseStatus;
     }
 }

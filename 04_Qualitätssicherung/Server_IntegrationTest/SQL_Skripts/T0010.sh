@@ -1,7 +1,7 @@
 rm T0010_results.txt
-./deleteAllData.sh
+mysql -u root -p69h97jnv pse_development < T0010_in.sql
 
-echo Newman Run\n >> T0010_results.txt
+echo Newman Run >> T0010_results.txt
 date >> T0010_results.txt
 newman run T0010.postman_collection.json >> T0010_results.txt
 

@@ -1,0 +1,118 @@
+Newman Run
+So 27. Aug 20:34:23 CEST 2017
+newman
+
+T0040
+
+→ T0040 - Bob
+  GET localhost:8080/go-tomcat/user/1/bob@gmail.com/bob [200 OK, 1.5KB, 278ms]
+  ✓  Status code is 200
+  ✓  One group in List
+  ✓  First group - ID
+  ✓  First group - Name
+  ✓  First group -description
+  ✓  First group - memberCount
+  ✓  First group - groupMembershipList has 3 users
+  ✓  GroupMember bob - ID
+  ✓  GroupMember bob - member of group 1
+  ✓  GroupMember alice - ID
+  ✓  GroupMember alice - member of group 1
+  ✓  GroupMember peter - ID
+  ✓  GroupMember peter - member of group 1
+  ✓  No duplicate Members
+  ✓  Group has 1 current Go
+  ✓  Go has Id 1
+  ✓  Go - name correct
+  ✓  Go - description correct
+  ✓  Go - start correct
+  ✓  Go - end correct
+  ✓  Go - lat correct
+  ✓  Go - lon correct
+  ✓  Go - ownerId correct
+  ✓  Go - ownerName correct
+  ✓  Go belongs to Group 1
+  ✓  Go has 2 participants
+  ✓  Alice participates in Go
+  ✓  Bob participates in Go
+
+→ T0040 - Alice
+  GET localhost:8080/go-tomcat/user/2/alice@gmail.com/alice [200 OK, 1.5KB, 31ms]
+  ✓  Status code is 200
+  ✓  One group in List
+  ✓  First group - ID
+  ✓  First group - Name
+  ✓  First group -description
+  ✓  First group - memberCount
+  ✓  First group - groupMembershipList has 3 users
+  ✓  GroupMember bob - ID
+  ✓  GroupMember bob - member of group 1
+  ✓  GroupMember alice - ID
+  ✓  GroupMember alice - member of group 1
+  ✓  GroupMember peter - ID
+  ✓  GroupMember peter - member of group 1
+  ✓  No duplicate Members
+  ✓  Group has 1 current Go
+  ✓  Go has Id 1
+  ✓  Go - name correct
+  ✓  Go - description correct
+  ✓  Go - start correct
+  ✓  Go - end correct
+  ✓  Go - lat correct
+  ✓  Go - lon correct
+  ✓  Go - ownerId correct
+  ✓  Go - ownerName correct
+  ✓  Go belongs to Group 1
+  ✓  Go has 2 participants
+  ✓  Alice participates in Go
+  ✓  Bob participates in Go
+
+→ T0040 - Peter
+  GET localhost:8080/go-tomcat/user/3/peter@gmail.com/peter [200 OK, 1.5KB, 24ms]
+  ✓  Status code is 200
+  ✓  One group in List
+  ✓  First group - ID
+  ✓  First group - Name
+  ✓  First group -description
+  ✓  First group - memberCount
+  ✓  First group - groupMembershipList has 3 users
+  ✓  GroupMember bob - ID
+  ✓  GroupMember bob - member of group 1
+  ✓  GroupMember alice - ID
+  ✓  GroupMember alice - member of group 1
+  ✓  GroupMember peter - ID
+  ✓  GroupMember peter - member of group 1
+  ✓  No duplicate Members
+  ✓  Group has 1 current Go
+  ✓  Go has Id 1
+  ✓  Go - name correct
+  ✓  Go - description correct
+  ✓  Go - start correct
+  ✓  Go - end correct
+  ✓  Go - lat correct
+  ✓  Go - lon correct
+  ✓  Go - ownerId correct
+  ✓  Go - ownerName correct
+  ✓  Go belongs to Group 1
+  ✓  Go has 2 participants
+  ✓  Alice participates in Go
+  ✓  Bob participates in Go
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │       84 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 610ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 4.14KB (approx)          │
+├───────────────────────────────────────────────┤
+│ average response time: 111ms                  │
+└───────────────────────────────────────────────┘

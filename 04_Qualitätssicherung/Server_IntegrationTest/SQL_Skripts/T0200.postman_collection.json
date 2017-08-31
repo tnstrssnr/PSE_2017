@@ -1,0 +1,104 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0200",
+		"_postman_id": "70c251b7-3bb9-f130-8bc5-e6193337006b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0200 Bob",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/gos/1/status",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 1,\n  \"status\": \"GONE\"\n}"
+				},
+				"description": "Änmdern des Teilnahmestatus auf GOING"
+			},
+			"response": []
+		},
+		{
+			"name": "T0200 Alice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/gos/1/status",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 2,\n  \"status\": \"GOING\"\n}"
+				},
+				"description": "Änmdern des Teilnahmestatus auf GOING"
+			},
+			"response": []
+		},
+		{
+			"name": "T0200 Peter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/gos/1/status",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 3,\n  \"status\": \"GOING\"\n}"
+				},
+				"description": "Änmdern des Teilnahmestatus auf GOING"
+			},
+			"response": []
+		}
+	]
+}

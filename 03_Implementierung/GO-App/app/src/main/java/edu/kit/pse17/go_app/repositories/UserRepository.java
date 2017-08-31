@@ -32,6 +32,12 @@ public class UserRepository extends Repository<User> {
      * communication with the server is possible.
      */
     private final TomcatRestApi apiService;
+
+    /**
+     * HTTP status code of the response of the server (by the requests).
+     * It is used for testing.
+     */
+    private int responseStatus;
     //private ArrayList<Group> groups;
 
     /**
@@ -49,7 +55,7 @@ public class UserRepository extends Repository<User> {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -70,7 +76,7 @@ public class UserRepository extends Repository<User> {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                responseStatus = response.code();
             }
 
             @Override
@@ -132,5 +138,16 @@ public class UserRepository extends Repository<User> {
             userRepo = new UserRepository()/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/;
         }
         return userRepo;
+    }
+
+    /**
+     * Getter for the HTTP status code of the response of the server.
+     * It is used only for testing.
+     *
+     * @return The HTTP status code
+     */
+    @Deprecated
+    public int getResponseStatus() {
+        return responseStatus;
     }
 }

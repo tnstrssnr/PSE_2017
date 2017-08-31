@@ -1,0 +1,93 @@
+Newman Run
+So 27. Aug 20:48:33 CEST 2017
+newman
+
+T0200
+
+→ T0200 Bob
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 80ms]
+  ✓  Status code is 200
+
+→ T0200 Alice
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 57ms]
+  ✓  Status code is 200
+
+→ T0200 Peter
+  PUT localhost:8080/go-tomcat/gos/1/status [200 OK, 84B, 53ms]
+  ✓  Status code is 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        3 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │        3 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 368ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 0B (approx)              │
+├───────────────────────────────────────────────┤
+│ average response time: 63ms                   │
+└───────────────────────────────────────────────┘
+GOING USERS
+-------------------------------------------------
+
+
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+NOT GOING USERS
+-------------------------------------------------
+
+
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+GONE USERS
+-------------------------------------------------
+
+
+Database Check
+Difference detected:
+
+
+done
+Differences found: 0
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Payload Check
+Test passed
+
+
+done
+-------------------------------------------------
+-------------------------------------------------
+
+
+Message Receiver Check
+Differences detected:
+
+Additional sends:
+
+Missing sends:
+
+
+done
+Differences found: 0
+-------------------------------------------------

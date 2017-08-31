@@ -1,0 +1,1 @@
+{"to":"testRec","data":{"data":"{\"id\":\"1\"}","tag":"GO_REMOVED_EVENT"},"notification":{"title":"One of your GOs has been removed!"}}

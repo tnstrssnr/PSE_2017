@@ -1,0 +1,42 @@
+{
+	"variables": [],
+	"info": {
+		"name": "T0070",
+		"_postman_id": "f694542b-c4bc-89f2-9b80-2bfd3ca70423",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "T0070",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/go-tomcat/group/",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currentGos\": [],\n    \"description\": \"Default Descriptionn\",\n    \"groupId\": 1,\n    \"memberCount\": 0,\n    \"membershipList\": [],\n    \"name\": \"FooBar\"\n  }\n "
+				},
+				"description": "Änderung des Gruppennamens"
+			},
+			"response": []
+		}
+	]
+}

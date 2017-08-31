@@ -1,7 +1,7 @@
 rm T0060_results.txt
-./deleteAllData.sh
+#./deleteAllData.sh
 
-mysql -u root -p69h97jnv pse_development < T0060_in.sql
+mysql -u root -p69h97jnv pse_development < T0060_T0360_in.sql
 
 echo Newman Run\n >> T0060_results.txt
 date >> T0060_results.txt
