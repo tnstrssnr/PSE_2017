@@ -267,7 +267,7 @@ public class GoDetailActivity extends BaseActivity {
             if(status == chosen){
                 Toast.makeText(GoDetailActivity.this, "You already have this status", Toast.LENGTH_SHORT).show();
             } else if(status == Status.NOT_GOING && chosen== Status.GONE){
-                Toast.makeText(GoDetailActivity.this, "You should accept the event first, and only then move out. (green => blue)", Toast.LENGTH_LONG);
+                Toast.makeText(GoDetailActivity.this, "You should accept the event first, and only then move out. (green => blue)", Toast.LENGTH_LONG).show();
             }else {
                 viewModel.changeStatus(uid, viewModel.getGo().getValue().getId(), chosen);
                 if(chosen == Status.GONE){

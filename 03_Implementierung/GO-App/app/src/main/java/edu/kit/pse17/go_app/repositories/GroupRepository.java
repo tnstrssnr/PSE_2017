@@ -687,7 +687,7 @@ public class GroupRepository extends Repository<List<Group>> {
         /* For the member that will be removed: delete the whole group,
         not the membership */
         if (GroupListActivity.getUserId().equals(userId)) {
-            deleteGroup(groupId);
+            onGroupRemoved(groupId);
             return;
         }
 
@@ -828,13 +828,13 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId
      */
     public void onUserDeleted(String userId) {
-        messageFlag = true;
+        /*messageFlag = true;
         list = data.getValue();
         for (Group group : list) {
             onMemberRemoved(userId, group.getId());
-        }
+        }*/
 
-        // logout?
+        getData(GroupListActivity.getUserId(),GroupListActivity.getGlobalEmail(),"instance id not used", GroupListActivity.getDisplayName());
     }
 
     /**

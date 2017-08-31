@@ -54,7 +54,7 @@ public class UserViewModel extends ViewModel{
     * Datenbanken gelöscht werden
     */
     public void deleteUser(String userId){
-        userRepo.deleteUser(userId);
+        UserRepository.getInstance().deleteUser(userId);
     }
     /*
     * Wird von Firbase benutzt, um die Login Credentials zu speichern

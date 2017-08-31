@@ -19,6 +19,7 @@ import edu.kit.pse17.go_app.login.FirebaseSignInHelper;
 import edu.kit.pse17.go_app.login.GoSignInHelper;
 import edu.kit.pse17.go_app.login.SignInHelper;
 import edu.kit.pse17.go_app.model.entities.User;
+import edu.kit.pse17.go_app.repositories.UserRepository;
 
 /**
  * Die Klasse stellt die View für den LogIn- und SignIn-Prozess bereit.
@@ -36,6 +37,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         //Log.d("ID", FirebaseInstanceId.getInstance().getToken());
         String token = FirebaseInstanceId.getInstance().getToken();
+        if(token != null){
+            UserRepository.getInstance();
+        }
         //Bundle extras = getIntent().getExtras();
         //Set<String> set = extras.keySet();
 
