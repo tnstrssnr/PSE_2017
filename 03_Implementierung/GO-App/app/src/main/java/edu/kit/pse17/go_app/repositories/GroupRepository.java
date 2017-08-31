@@ -683,6 +683,14 @@ public class GroupRepository extends Repository<List<Group>> {
     public void onMemberRemoved(String userId, long groupId) {
         messageFlag = true;
         list = data.getValue();
+
+        /* For the member that will be removed: delete the whole group,
+        not the membership */
+        if (GroupListActivity.getUserId().equals(userId)) {
+            deleteGroup(groupId);
+            return;
+        }
+
         ArrayList<Go> gosToBeDeleted = new ArrayList<>();
         ArrayList<Group> groupsToBeDeleted = new ArrayList<>();
 
