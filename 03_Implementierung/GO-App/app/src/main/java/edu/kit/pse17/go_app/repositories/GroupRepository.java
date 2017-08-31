@@ -924,9 +924,9 @@ public class GroupRepository extends Repository<List<Group>> {
         go1.setStart(new SimpleDateFormat().format(new Date()));
         go1.setEnd(new SimpleDateFormat().format(new Date()));
         List<Cluster> clusters = new ArrayList<>();
-        clusters.add(new Cluster(49.012307, 8.402427, 3));
-        clusters.add(new Cluster(49.012334, 8.405621, 4));
-        clusters.add(new Cluster(49.011271, 8.404376, 5));
+        clusters.add(new Cluster(49.012307, 8.402427, 3,3));
+        clusters.add(new Cluster(49.012334, 8.405621, 4,4));
+        clusters.add(new Cluster(49.011271, 8.404376, 5,5));
         go1.setLocations(clusters);
         ArrayList<Go> gos = new ArrayList<>();
         gos.add(go1);

@@ -37,16 +37,36 @@ public class Cluster {
     @Expose
     private int size;
 
+    @SerializedName("radius")
+    @Expose
+    private double radius;
+
 
     public Cluster() {
     }
 
-    public Cluster(double lat, double lon, int size) {
+    /*public Cluster(double lat, double lon, int size) {
         this.lat = lat;
         this.lon = lon;
         this.size = size;
+    }*/
+
+
+
+    public Cluster(double lat, double lon, int size, double radius) {
+        this.lat = lat;
+        this.lon = lon;
+        this.size = size;
+        this.radius = radius;
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
     public double getLat() {
         return lat;
     }

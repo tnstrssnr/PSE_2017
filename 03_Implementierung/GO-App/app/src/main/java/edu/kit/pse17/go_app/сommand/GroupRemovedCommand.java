@@ -15,6 +15,10 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  */
 public class GroupRemovedCommand extends ServerCommand {
 
+    public GroupRemovedCommand(){
+        this.restartNeeded = true;
+    }
+
     /**
      * This method changes the following data in the repositories of the App:
      *

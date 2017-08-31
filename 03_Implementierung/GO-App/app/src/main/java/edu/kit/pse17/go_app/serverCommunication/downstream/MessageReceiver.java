@@ -71,9 +71,7 @@ public class MessageReceiver extends FirebaseMessagingService {
             }
         }
            // Log.d("MESSAGE_Firebase", "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        if(remoteMessage.getData().size() > 0){
-           // Log.d("FIRST DATA FCM", remoteMessage.getData().toString());
-        }
+        command.restartAppIfNeeded(this);
     }
 
     /**

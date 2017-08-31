@@ -40,11 +40,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         if(token != null){
             UserRepository.getInstance();
         }
-        //Bundle extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
+
         //Set<String> set = extras.keySet();
 
         if(getSharedPreferences(getString(R.string.shared_pref_name), MODE_PRIVATE).contains("uid")){
-            GroupListActivity.start(this, retrieveUserDataFromSharedPreferences());
+            GroupListActivity.start(this, retrieveUserDataFromSharedPreferences(), extras);
             this.finish();
         } else {
         setContentView(R.layout.simple_firebase_login);
@@ -98,7 +99,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             String[] accountData = (String[]) data.getSerializableExtra(GoSignInHelper.ACCOUNT_DATA_CODE);
             User toCreate = new User(accountData[0], accountData[1], accountData[2]);
             //UserRepository.getInstance().createUser(toCreate);
-            GroupListActivity.start(this, new User(accountData[0], accountData[1], accountData[2]));
+            GroupListActivity.start(this, new User(accountData[0], accountData[1], accountData[2]),null);
             this.finish();
         }
     }
