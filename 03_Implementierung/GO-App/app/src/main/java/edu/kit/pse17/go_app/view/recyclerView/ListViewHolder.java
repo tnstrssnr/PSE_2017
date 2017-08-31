@@ -78,18 +78,21 @@ public class ListViewHolder extends ViewHolder implements View.OnClickListener, 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         if(activity.getClass() == GroupDetailsActivity.class){
             //subtitle.getText is Email of the user in this context
-
-            menu.add(R.string.remove_user).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    String email = subtitle.getText().toString();
-                    long groupId;
-                    GroupViewModel instance = GroupViewModel.getCurrentViewModel();
-                    groupId = instance.getGroup().getValue().getId();
-                    instance.deleteMember(groupId, email);
-                    return true;
-                }
-            });
+            String thisUserId = GroupListActivity.getUserId();
+            if(GroupViewModel.getCurrentViewModel().getGroup().getValue().isAdmin(thisUserId)) {
+                // if this user is admin in this group then add remove member option
+                menu.add(R.string.remove_user).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        String email = subtitle.getText().toString();
+                        long groupId;
+                        GroupViewModel instance = GroupViewModel.getCurrentViewModel();
+                        groupId = instance.getGroup().getValue().getId();
+                        instance.deleteMember(groupId, email);
+                        return true;
+                    }
+                });
+            }
         }
     }
 
