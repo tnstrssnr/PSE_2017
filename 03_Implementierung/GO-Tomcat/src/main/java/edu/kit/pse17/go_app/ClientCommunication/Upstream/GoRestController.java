@@ -129,7 +129,6 @@ public class GoRestController {
             value = "/{goId}"
     )
     public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
-        LocationService.removeGo(goId);
         goService.delete(goId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

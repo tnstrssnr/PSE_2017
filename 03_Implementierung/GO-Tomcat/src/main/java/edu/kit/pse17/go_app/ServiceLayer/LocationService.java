@@ -151,7 +151,6 @@ public class LocationService {
      * Anwendung zu verletzen.
      */
     public static List<Cluster> getGroupLocation(final long goId) {
-        LocationService.activeServices.get(goId).groupLocation = new ArrayList<>();
         LocationService.activeServices.get(goId).groupLocation = LocationService.activeServices.get(goId).strat.calculateCluster(LocationService.activeServices.get(goId).activeUsers);
         return LocationService.activeServices.get(goId).groupLocation;
     }
