@@ -325,13 +325,15 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param groupId: ID of the group
      * @param userId:  ID of the user
      */
-    private void denyRequest(long groupId, String userId) {
+    private void denyRequest(final long groupId, final String userId) {
         Call<Void> call = apiService.denyRequest(groupId, userId);
         call.enqueue(new Callback<Void>() {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 responseStatus = response.code();
+                //onRequestDenied(userId, groupId);
+                onGroupRemoved(groupId);
             }
 
             @Override

@@ -41,7 +41,11 @@ public class GroupViewModel extends ViewModel {
             @Override
             public void onChanged(@Nullable List<Group> groups) {
                 Log.d("GO ADDED GroupVM", "I got called so observer should function");
-                data.setValue(groups.get(index));
+                if(groups.size() <= index){
+                    //do nothing, group deleted
+                } else {
+                    data.setValue(groups.get(index));
+                }
 
             }
         };

@@ -48,7 +48,11 @@ public class GoViewModel extends ViewModel{
         this.observer = new Observer<Group>() {
             @Override
             public void onChanged(@Nullable Group group) {
-                go.setValue(group.getCurrentGos().get(index));
+                if(group.getCurrentGos().size() <= index){
+                    // so go deleted, do nothing
+                } else {
+                    go.setValue(group.getCurrentGos().get(index));
+                }
             }
         };
 

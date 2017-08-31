@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 
 import edu.kit.pse17.go_app.model.entities.Group;
+import edu.kit.pse17.go_app.model.entities.GroupMembership;
 import edu.kit.pse17.go_app.view.GroupDetailActivity;
 import edu.kit.pse17.go_app.view.GroupListActivity;
 import edu.kit.pse17.go_app.view.recyclerView.OnListItemClicked;
@@ -41,7 +42,12 @@ public class GroupListItem implements ListItem<Integer>, OnListItemClicked {
      */
     public GroupListItem(Group group) {
         this.name = group.getName();
-        this.memberCount = group.getMembershipList().size();//group.getMemberCount();
+        this.memberCount = 0;
+        for(GroupMembership membership : group.getMembershipList()){
+            if(!membership.isRequest()){
+                this.memberCount++;
+            }
+        }
         this.icon = GroupListActivity.default_group_icon;//group.getIcon();
         this.group = group;
     }
