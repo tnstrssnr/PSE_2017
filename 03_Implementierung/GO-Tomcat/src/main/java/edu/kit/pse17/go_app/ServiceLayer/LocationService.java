@@ -97,11 +97,11 @@ public class LocationService {
 
         if (LocationService.activeServices.get(goId) != null) {
 
-            while (index < LocationService.activeServices.get(goId).activeUsers.size()
+            while ((index+1) < LocationService.activeServices.get(goId).activeUsers.size()
                     && LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() != userId) {
                 index++;
             }
-            if (index == LocationService.activeServices.get(goId).activeUsers.size()){
+            if ((index+1) == LocationService.activeServices.get(goId).activeUsers.size()){
                 LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
             }
             else if (LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() == userId) {
