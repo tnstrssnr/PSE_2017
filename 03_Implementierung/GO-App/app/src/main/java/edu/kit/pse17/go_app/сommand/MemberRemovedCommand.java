@@ -4,10 +4,13 @@ package edu.kit.pse17.go_app.сommand;
  * Created by tina on 06.07.17.
  */
 
+import com.google.firebase.messaging.FirebaseMessagingService;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.kit.pse17.go_app.repositories.GroupRepository;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 
 /**
  * This class implements a command for the remove (or delete)
@@ -15,6 +18,9 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  */
 public class MemberRemovedCommand extends ServerCommand {
 
+
+    String userId;
+    String groupId;
     /**
      * This method changes the following data in the repositories of the App:
      *
@@ -25,8 +31,6 @@ public class MemberRemovedCommand extends ServerCommand {
      */
     @Override
     public void onCommandReceived() {
-        String userId = null;
-        String groupId = null;
 
         try {
             String jsonString = getMessage().getString("data");
@@ -37,6 +41,16 @@ public class MemberRemovedCommand extends ServerCommand {
             e.printStackTrace();
         }
 
+
+
         GroupRepository.getInstance().onMemberRemoved(userId, Long.parseLong(groupId));
+    }
+
+    @Override
+    public void restartAppIfNeeded(FirebaseMessagingService service) {
+        this.restartNeeded = true;
+        if(userId.equals(GroupListActivity.getUserId())){
+            super.restartAppIfNeeded(service);
+        }
     }
 }

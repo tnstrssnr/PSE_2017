@@ -112,7 +112,7 @@ public class GoMapFragment extends Fragment {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                     .position(latLng)
                     .title("Approx " + cluster.getSize() + " people here."));
-            map.addCircle(new CircleOptions().center(latLng).radius(cluster.getRadius()*11100000)
+            map.addCircle(new CircleOptions().center(latLng).radius(cluster.getRadius()*111000)
                     .fillColor(getResources().getColor(R.color.cyan_transparent, null))
                     .strokeColor(getResources().getColor(R.color.cyan, null)));
         }
