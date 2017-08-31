@@ -666,7 +666,7 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> newList = group.getMembershipList();
                 newList.add(membership);
                 group.setMembershipList(newList);
-                
+
                 List<Go> goList = group.getCurrentGos();
                 for (Go go : goList) {
                     List<UserGoStatus> participantsList = go.getParticipantsList();
@@ -674,6 +674,7 @@ public class GroupRepository extends Repository<List<Group>> {
                     participantsList.add(participant);
                     go.setParticipantsList(participantsList);
                 }
+                group.setCurrentGos(goList);
 
                 data.postValue(list);
                 break;
