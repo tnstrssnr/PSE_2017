@@ -38,6 +38,10 @@ public class MemberAddedObserver implements Observer {
         return groupService;
     }
 
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
+
     @Override
     public void update(List<String> entity_ids, List<String> receiver) {
         GroupEntity group = groupService.getGroupById(Long.valueOf(entity_ids.get(1)));

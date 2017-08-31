@@ -2,18 +2,23 @@ package edu.kit.pse17.go_app;
 
 
 import edu.kit.pse17.go_app.ClientCommunication.Downstream.EventArg;
+import edu.kit.pse17.go_app.ServiceLayer.UserLocation;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TestUtil {
 
-    private static final String PATH = "/home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/";
+    private static final String PATH_OBSERVER = "/home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/";
+    private static final String PATH_CLUSTER = "/home/tina/PSE/04_Qualitätssicherung/ClusteringTestResult/";
 
-    public static boolean runInTestMode = true;
+    private static final String CLUSTER_FILE_NAME = "clusteringResults";
+
+    public static boolean runInTestMode = false;
 
     private static HashMap<EventArg, String> outputFiles;
 
@@ -37,7 +42,7 @@ public class TestUtil {
             initializeFiles();
         }
 
-        String fileNameStub = PATH + outputFiles.get(arg);
+        String fileNameStub = PATH_OBSERVER + outputFiles.get(arg);
         String json_file = fileNameStub + "_json" + ".txt";
         String receiver_file = fileNameStub + "_rec" + ".txt";
 
@@ -64,6 +69,27 @@ public class TestUtil {
             e.printStackTrace();
         }
 
+    }
+
+    public static void recordClusteringData(Map<Long, List<UserLocation>> currentGos) {
+        String fileName = PATH_CLUSTER + CLUSTER_FILE_NAME + ".csv";
+        File file = new File(fileName);
+        try {
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            for (long id : currentGos.keySet()) {
+                for (UserLocation ul : currentGos.get(id)) {
+                    String line = String.valueOf(id) + ", " + ul.getUserId() + ", " + String.valueOf(ul.getLat()) + ", " + String.valueOf(ul.getLon()) + "\n";
+                    writer.write(line);
+                }
+            }
+
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

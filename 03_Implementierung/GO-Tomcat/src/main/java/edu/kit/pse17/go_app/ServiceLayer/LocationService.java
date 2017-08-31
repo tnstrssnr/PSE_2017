@@ -94,47 +94,26 @@ public class LocationService {
     public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
 
         LocationService usedLocationService = LocationService.activeServices.get(goId);
-        boolean validation = false;
+        boolean userFound = false;
 
         if (usedLocationService == null) {
             LocationService.activeServices.put(goId, new LocationService());
             LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+            return;
         }
 
-        int index = 0;
-
-        for(UserLocation userLocation : usedLocationService.activeUsers) {
+        for (UserLocation userLocation : usedLocationService.activeUsers) {
             if (userLocation.getUserId().equals(userId)) {
-                LocationService.activeServices.get(goId).activeUsers.get(index).setLat(lat);
-                LocationService.activeServices.get(goId).activeUsers.get(index).setLon(lon);
-                validation = true;
+                userLocation.setLat(lat);
+                userLocation.setLon(lon);
+                userFound = true;
+                break;
             }
-            index++;
         }
 
-        if(validation == false) {
+        if (!userFound) {
             LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
         }
-
-          /*  while ((index+1) < usedLocationService.activeUsers.size() {
-                    if (usedLocationService.activeUsers.get(index).getUserId() != userId)){
-                index++;
-            }
-            break;
-            }
-            if ((index+1) == LocationService.activeServices.get(goId).activeUsers.size()){
-                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
-            }
-            else if (LocationService.activeServices.get(goId).activeUsers.get(index).getUserId() == userId) {
-                LocationService.activeServices.get(goId).activeUsers.clear();
-                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
-            }
-
-        } else {
-            LocationService.activeServices.put(goId, new LocationService());
-            LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
-        }
-    }*/
     }
 
     /**
@@ -169,16 +148,17 @@ public class LocationService {
     }
 
     public static void removeUser(final String userId, final Long goId) {
-           for (UserLocation usedUser : LocationService.activeServices.get(goId).activeUsers) {
-               if (usedUser.getUserId().equals(userId)){
-                   LocationService.activeServices.get(goId).activeUsers.remove(usedUser);
-                   break;
-               }
-           }
+        for (UserLocation usedUser : LocationService.activeServices.get(goId).activeUsers) {
+            if (usedUser.getUserId().equals(userId)) {
+                LocationService.activeServices.get(goId).activeUsers.remove(usedUser);
+                break;
+            }
+        }
     }
 
     /**
      * Methode die nur für Test gebraucht wird!
+     *
      * @return Gibt die Liste aktueller GoServices wieder.
      */
 
