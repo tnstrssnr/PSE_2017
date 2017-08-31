@@ -67,7 +67,6 @@ public class MemberAddedObserverTest {
         }).when(mockMessenger).send(Mockito.anyString(), Mockito.any(EventArg.class), Mockito.anyList());
 
         observer = new MemberAddedObserver(mockMessenger, mockService);
-        observer.setUserDao(mockDao);
     }
 
     @After
@@ -97,8 +96,6 @@ public class MemberAddedObserverTest {
         Assert.assertNotNull(observer.getMessenger());
         assertThat(observer.getMessenger(), instanceOf(FcmClient.class));
         Assert.assertEquals(mockService, observer.getGroupService());
-        Assert.assertNotNull(observer.getUserDao());
-        assertThat(observer.getUserDao(), instanceOf(UserDaoImp.class));
     }
 
     @Test
@@ -107,8 +104,6 @@ public class MemberAddedObserverTest {
         Assert.assertEquals(mockService, observer.getGroupService());
         Assert.assertEquals(mockMessenger, observer.getMessenger());
         Assert.assertEquals(mockService, observer.getGroupService());
-        Assert.assertNotNull(observer.getUserDao());
-        assertThat(observer.getUserDao(), instanceOf(UserDaoImp.class));
     }
 
 }

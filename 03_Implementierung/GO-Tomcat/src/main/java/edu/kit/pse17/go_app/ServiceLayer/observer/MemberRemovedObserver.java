@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import java.util.List;
 
 /**
- * Dieser Observer behandelt Fälle wo Gruppenmitglieder entfernt werden.
+ * Dieser Observer behandelt Fälle, in denen Gruppenmitglieder entfernt werden.
  */
 
 public class MemberRemovedObserver implements Observer {
@@ -39,7 +39,7 @@ public class MemberRemovedObserver implements Observer {
     public void update(List<String> entity_ids, List<String> receiver) {
         JSONObject json = new JSONObject();
         json.put("user_id", entity_ids.get(0));
-        json.put("group_id", entity_ids.get(1));
+        json.put("group_id", Long.valueOf(entity_ids.get(1)));
 
         messenger.send(json.toJSONString(), EventArg.MEMBER_REMOVED_EVENT, receiver);
     }

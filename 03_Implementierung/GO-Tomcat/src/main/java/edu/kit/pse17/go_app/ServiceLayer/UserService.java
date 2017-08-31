@@ -104,7 +104,9 @@ public class UserService implements IObservable {
 
         List<String> receiver_ids = new ArrayList<>();
         for (UserEntity usr : receiver) {
-            receiver_ids.add(usr.getInstanceId());
+            if (!usr.getInstanceId().equals(toBeDeleted.getInstanceId())) {
+                receiver_ids.add(usr.getInstanceId());
+            }
         }
 
         List<String> entity_ids = new ArrayList<>();

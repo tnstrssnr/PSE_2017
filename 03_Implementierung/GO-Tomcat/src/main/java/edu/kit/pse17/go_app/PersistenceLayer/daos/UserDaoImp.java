@@ -77,6 +77,25 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
         this.sf = sf;
     }
 
+    public GoDaoImp getGoDao() {
+        return goDao;
+    }
+
+    public void setGoDao(GoDaoImp goDao) {
+        this.goDao = goDao;
+
+    }
+
+    ;
+
+    public GroupDaoImp getGroupDao() {
+        return groupDao;
+    }
+
+    public void setGroupDao(GroupDaoImp groupDao) {
+        this.groupDao = groupDao;
+    }
+
     /**
      * @param mail Die E-Mailadresse, anhand derer der Benutzer gesucht werden soll. Der String muss keinem besonderen
      *             Muster entsprechen, damit diese Methode fehlerfrei ausgeführt werden kann.
@@ -86,7 +105,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public UserEntity getUserByEmail(final String mail) {
         Session session = null;
-        Transaction tx = null;
+        Transaction tx;
         List<UserEntity> users = null;
 
         try {
@@ -220,9 +239,6 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             prepareForRemoval(key, session);
 
             UserEntity user = (UserEntity) session.get(UserEntity.class, key);
-            user.getGroups().clear();
-            user.getRequests().clear();
-            user.getGos().clear();
             session.delete(user);
 
             tx.commit();
