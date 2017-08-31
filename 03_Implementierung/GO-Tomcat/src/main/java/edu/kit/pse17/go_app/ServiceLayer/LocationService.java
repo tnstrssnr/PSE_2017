@@ -92,7 +92,7 @@ public class LocationService {
      *               interpretierbar sein, muss also zwischen +180 und -180 liegen.
      */
     public static void setUserLocation(final long goId, final String userId, final double lat, final double lon) throws IOException {
-        
+
         LocationService usedLocationService = LocationService.activeServices.get(goId);
         boolean validation = false;
 
@@ -101,12 +101,15 @@ public class LocationService {
             LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
         }
 
+        int index = 0;
+
         for(UserLocation userLocation : usedLocationService.activeUsers) {
             if (userLocation.getUserId().equals(userId)) {
-                LocationService.activeServices.get(goId).activeUsers.clear();
-                LocationService.activeServices.get(goId).activeUsers.add(new UserLocation(userId, lat, lon));
+                LocationService.activeServices.get(goId).activeUsers.get(index).setLat(lat);
+                LocationService.activeServices.get(goId).activeUsers.get(index).setLon(lon);
                 validation = true;
             }
+            index++;
         }
 
         if(validation == false) {
@@ -148,7 +151,6 @@ public class LocationService {
      * Anwendung zu verletzen.
      */
     public static List<Cluster> getGroupLocation(final long goId) {
-        LocationService.activeServices.get(goId).groupLocation = null;
         LocationService.activeServices.get(goId).groupLocation = LocationService.activeServices.get(goId).strat.calculateCluster(LocationService.activeServices.get(goId).activeUsers);
         return LocationService.activeServices.get(goId).groupLocation;
     }
@@ -164,6 +166,15 @@ public class LocationService {
         if (LocationService.activeServices.get(goId) != null) {
             LocationService.activeServices.remove(goId);
         }
+    }
+
+    public static void removeUser(final String userId, final Long goId) {
+           for (UserLocation usedUser : LocationService.activeServices.get(goId).activeUsers) {
+               if (usedUser.getUserId().equals(userId)){
+                   LocationService.activeServices.get(goId).activeUsers.remove(usedUser);
+                   break;
+               }
+           }
     }
 
     /**

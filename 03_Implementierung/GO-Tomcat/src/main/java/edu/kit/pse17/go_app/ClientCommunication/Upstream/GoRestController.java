@@ -1,5 +1,6 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
+import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;
@@ -30,8 +31,6 @@ public class GoRestController {
     //Felder, die mit @Autowired annotiert sind, werden bei Erzeugung des Objekts automatisch instanziiert
     @Autowired
     private GoService goService;
-
-    private LocationService masterLocationService;
 
     //constructor used in test classes to inject mocked goService
     public GoRestController(GoService goService) {
@@ -98,7 +97,7 @@ public class GoRestController {
             value = "/location/{goId}"
     )
     public ResponseEntity<List<Cluster>> getLocation(@PathVariable("goId") Long goId) {
-        return new ResponseEntity<>(masterLocationService.getGroupLocation(goId), HttpStatus.OK);
+        return new ResponseEntity<>(LocationService.getGroupLocation(goId), HttpStatus.OK);
     }
 
 
@@ -116,7 +115,7 @@ public class GoRestController {
         String userId = userLocation.getUserId();
         double lat = userLocation.getLat();
         double lon = userLocation.getLon();
-        masterLocationService.setUserLocation(goId, userId, lat, lon);
+        LocationService.setUserLocation(goId, userId, lat, lon);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -131,7 +130,6 @@ public class GoRestController {
     )
     public ResponseEntity deleteGo(@PathVariable("goId") long goId) {
         goService.delete(goId);
-        //masterLocationService.removeGo(goId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

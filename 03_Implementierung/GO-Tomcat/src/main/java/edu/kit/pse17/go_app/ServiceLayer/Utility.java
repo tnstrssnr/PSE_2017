@@ -45,7 +45,7 @@ public class Utility {
      * @return Eine Vektorliste der UserLocations, die benachbart sind.
      */
 
-    public static Vector<UserLocation> getNeighbours(UserLocation p, int distance) {
+    public static Vector<UserLocation> getNeighbours(UserLocation p, double distance) {
         Vector<UserLocation> neigh = new Vector<>();
         Iterator<UserLocation> positions = DBScan.pointList.iterator();
         while (positions.hasNext()) {

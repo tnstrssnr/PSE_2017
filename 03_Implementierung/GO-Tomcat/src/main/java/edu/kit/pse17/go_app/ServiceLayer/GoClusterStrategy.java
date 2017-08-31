@@ -17,14 +17,14 @@ public class GoClusterStrategy implements ClusterStrategy {
      * nicht mehr verändert werden. Wird der Wert nicht wenigstens einmal spezifiziert wird default-mäßig ein Wert von 4
      * benutzt.
      */
-    private int threshold;
+    private double threshold;
 
     /**
      * Ein Konstruktor, für den Fall, dass der Clustering-Schwellwert nicht spezifiziert wurde. Hier wird der
      * default-Wert von 4 eingesetzt.
      */
     public GoClusterStrategy() {
-        this.threshold = 4;
+        this.threshold = 0.00045;
     }
 
     /**

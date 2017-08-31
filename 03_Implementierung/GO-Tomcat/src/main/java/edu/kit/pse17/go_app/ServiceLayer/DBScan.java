@@ -47,7 +47,7 @@ public class DBScan
      * @return Gibt eine Vektorliste mit Vektoren die, die Cluster beinhalten.
      */
 
-    public Vector<List> applyDbscan(int tdistance, int minpt, List<UserLocation> userLocationList)
+    public Vector<List> applyDbscan(double tdistance, int minpt, List<UserLocation> userLocationList)
     {
         resultList.clear();
         pointList.clear();

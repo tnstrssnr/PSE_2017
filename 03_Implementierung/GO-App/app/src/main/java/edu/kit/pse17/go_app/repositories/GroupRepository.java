@@ -494,12 +494,14 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> membership = group.getMembershipList();
                 List<UserGoStatus> goParticipants = new ArrayList<>();
                 for (GroupMembership member : membership) {
-                    Status status = Status.NOT_GOING;
-                    if (member.getUser().getUid().equals(go.getOwner())) {
-                        status = Status.GOING;
+                    if (!member.isRequest()) {
+                        Status status = Status.NOT_GOING;
+                        if (member.getUser().getUid().equals(go.getOwner())) {
+                            status = Status.GOING;
+                        }
+                        UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, status);
+                        goParticipants.add(participant);
                     }
-                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, status);
-                    goParticipants.add(participant);
                 }
                 newGo.setParticipantsList(goParticipants);
 
@@ -664,6 +666,15 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> newList = group.getMembershipList();
                 newList.add(membership);
                 group.setMembershipList(newList);
+
+                List<Go> goList = group.getCurrentGos();
+                for (Go go : goList) {
+                    List<UserGoStatus> participantsList = go.getParticipantsList();
+                    UserGoStatus participant = new UserGoStatus(user, go, Status.NOT_GOING);
+                    participantsList.add(participant);
+                    go.setParticipantsList(participantsList);
+                }
+                group.setCurrentGos(goList);
 
                 data.postValue(list);
                 break;
