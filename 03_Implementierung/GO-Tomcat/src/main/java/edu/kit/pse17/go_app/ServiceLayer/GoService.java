@@ -150,6 +150,11 @@ public class GoService implements IObservable {
         String userId = statusChangeContext.get("userId");
         Status status;
 
+        for (UserEntity usr : getGoById(goId).getGoneUsers()){
+            if (usr.getUid().equals(userId));
+            LocationService.removeUser( userId, goId);
+        }
+
         switch (statusChangeContext.get("status")) {
             case "NOT_GOING":
                 status = Status.NOT_GOING;
@@ -163,6 +168,8 @@ public class GoService implements IObservable {
             default:
                 return false;
         }
+
+
         goDao.changeStatus(userId, goId, status);
         List<String> entity_ids = new ArrayList<>();
         entity_ids.add(userId);
