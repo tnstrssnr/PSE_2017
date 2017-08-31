@@ -14,6 +14,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -111,6 +112,9 @@ public class GoMapFragment extends Fragment {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                     .position(latLng)
                     .title("Approx " + cluster.getSize() + " people here."));
+            map.addCircle(new CircleOptions().center(latLng).radius(cluster.getRadius()*11100000)
+                    .fillColor(getResources().getColor(R.color.cyan_transparent, null))
+                    .strokeColor(getResources().getColor(R.color.cyan, null)));
         }
     }
 }

@@ -4,8 +4,6 @@ package edu.kit.pse17.go_app.сommand;
  * Created by Сеня on 09.07.2017.
  */
 
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,6 +14,10 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  * a user when called.
  */
 public class UserDeletedCommand extends ServerCommand {
+
+    public UserDeletedCommand(){
+        this.restartNeeded = true;
+    }
 
     /**
      * This method changes the following data in the repositories of the App:

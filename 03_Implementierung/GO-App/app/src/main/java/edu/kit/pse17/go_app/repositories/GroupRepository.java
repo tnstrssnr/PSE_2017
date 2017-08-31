@@ -494,12 +494,14 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> membership = group.getMembershipList();
                 List<UserGoStatus> goParticipants = new ArrayList<>();
                 for (GroupMembership member : membership) {
-                    Status status = Status.NOT_GOING;
-                    if (member.getUser().getUid().equals(go.getOwner())) {
-                        status = Status.GOING;
+                    if (!member.isRequest()) {
+                        Status status = Status.NOT_GOING;
+                        if (member.getUser().getUid().equals(go.getOwner())) {
+                            status = Status.GOING;
+                        }
+                        UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, status);
+                        goParticipants.add(participant);
                     }
-                    UserGoStatus participant = new UserGoStatus(member.getUser(), newGo, status);
-                    goParticipants.add(participant);
                 }
                 newGo.setParticipantsList(goParticipants);
 
@@ -664,6 +666,15 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<GroupMembership> newList = group.getMembershipList();
                 newList.add(membership);
                 group.setMembershipList(newList);
+
+                List<Go> goList = group.getCurrentGos();
+                for (Go go : goList) {
+                    List<UserGoStatus> participantsList = go.getParticipantsList();
+                    UserGoStatus participant = new UserGoStatus(user, go, Status.NOT_GOING);
+                    participantsList.add(participant);
+                    go.setParticipantsList(participantsList);
+                }
+                group.setCurrentGos(goList);
 
                 data.postValue(list);
                 break;
@@ -924,9 +935,9 @@ public class GroupRepository extends Repository<List<Group>> {
         go1.setStart(new SimpleDateFormat().format(new Date()));
         go1.setEnd(new SimpleDateFormat().format(new Date()));
         List<Cluster> clusters = new ArrayList<>();
-        clusters.add(new Cluster(49.012307, 8.402427, 3));
-        clusters.add(new Cluster(49.012334, 8.405621, 4));
-        clusters.add(new Cluster(49.011271, 8.404376, 5));
+        clusters.add(new Cluster(49.012307, 8.402427, 3,3));
+        clusters.add(new Cluster(49.012334, 8.405621, 4,4));
+        clusters.add(new Cluster(49.011271, 8.404376, 5,5));
         go1.setLocations(clusters);
         ArrayList<Go> gos = new ArrayList<>();
         gos.add(go1);

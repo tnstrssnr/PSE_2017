@@ -14,6 +14,10 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  */
 public class GoRemovedCommand extends ServerCommand {
 
+    public GoRemovedCommand(){
+        this.restartNeeded = true;
+    }
+
     /**
      * This method changes the following data in the repositories of the App:
      *

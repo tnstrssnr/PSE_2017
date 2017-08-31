@@ -114,7 +114,7 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
     private static String displayName;
 
-    public static void start(Activity activity, User user) {
+    public static void start(Activity activity, User user, Bundle notificationData) {
         Intent intent = new Intent(activity, GroupListActivity.class);
 
         intent.putExtra(USER_ID_INTENT_CODE, user.getUid());
@@ -255,8 +255,8 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
 
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(20000);
-        mLocationRequest.setFastestInterval(20000);
+        mLocationRequest.setInterval(8000);
+        mLocationRequest.setFastestInterval(4000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 

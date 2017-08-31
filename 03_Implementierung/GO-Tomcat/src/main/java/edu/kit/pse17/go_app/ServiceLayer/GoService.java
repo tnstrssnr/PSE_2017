@@ -181,6 +181,7 @@ public class GoService implements IObservable {
     }
 
     public void delete(long goId) {
+        LocationService.removeGo(goId);
         long groupId = goDao.get(goId).getGroup().getID();
         goDao.delete(goId);
         List<String> entity_ids = new ArrayList<>();

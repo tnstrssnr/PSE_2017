@@ -4,11 +4,11 @@ package edu.kit.pse17.go_app.сommand;
  * Created by tina on 06.07.17.
  */
 
-import com.google.firebase.messaging.RemoteMessage;
+import android.content.Intent;
+
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import org.json.JSONObject;
-
-import edu.kit.pse17.go_app.model.entities.Group;
 
 /**
  * The abstract class is a generic class for commands, which at arrival
@@ -16,6 +16,8 @@ import edu.kit.pse17.go_app.model.entities.Group;
  * in the repositories, so that the App can fetch it later.
  */
 public abstract class ServerCommand {
+
+    protected boolean restartNeeded = false;
 
     /**
      * Message from server.
@@ -47,5 +49,18 @@ public abstract class ServerCommand {
      */
     public void setMessage(JSONObject message) {
         this.message = message;
+    }
+
+
+    /*
+    * restart is needed if something was deleted, and data needs to fetched again
+    * */
+    public void restartAppIfNeeded(FirebaseMessagingService service){
+        if(restartNeeded) {
+            Intent i = service.getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage(service.getBaseContext().getPackageName());
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            service.startActivity(i);
+        }
     }
 }
