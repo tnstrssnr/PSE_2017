@@ -45,7 +45,7 @@ public class GoClusterStrategy implements ClusterStrategy {
 
         DBScan algorithm = new DBScan(userLocationList);
 
-        Vector<List> clusterList = algorithm.applyDbscan(threshold, 3, userLocationList);
+        Vector<List> clusterList = algorithm.applyDbscan(threshold, 2, userLocationList);
 
         List<Cluster> resultList = new ArrayList<>();
         for (int i = 0; i < clusterList.size(); i++) {
