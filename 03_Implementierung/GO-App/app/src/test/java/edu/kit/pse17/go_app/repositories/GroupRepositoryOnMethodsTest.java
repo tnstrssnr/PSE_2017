@@ -291,7 +291,7 @@ public class GroupRepositoryOnMethodsTest {
     public void onLocationsUpdatedTest() {
         Go go = new Go(1, "GO1.1", "desNew", null, null, null, 100, 0, "id1", "User1", null, null);
         List<Cluster> clusters = new ArrayList<>();
-        clusters.add(new Cluster(00.00000, 100.12345, 12));
+        clusters.add(new Cluster(00.00000, 100.12345, 12, 50));
         go.setLocations(clusters);
 
         groupRepo.onLocationsUpdated(go.getId(), clusters);
@@ -339,9 +339,9 @@ public class GroupRepositoryOnMethodsTest {
         go1.setStart(new SimpleDateFormat().format(new Date()));
         go1.setEnd(new SimpleDateFormat().format(new Date()));
         List<Cluster> clusters = new ArrayList<>();
-        clusters.add(new Cluster(49.012307, 8.402427, 3));
-        clusters.add(new Cluster(49.012334, 8.405621, 4));
-        clusters.add(new Cluster(49.011271, 8.404376, 5));
+        clusters.add(new Cluster(49.012307, 8.402427, 3, 50));
+        clusters.add(new Cluster(49.012334, 8.405621, 4, 50));
+        clusters.add(new Cluster(49.011271, 8.404376, 5, 50));
         go1.setLocations(clusters);
         ArrayList<Go> gos = new ArrayList<>();
         gos.add(go1);

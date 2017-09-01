@@ -272,9 +272,8 @@ public class ServerCommandTest {
     private User getMockedUser() {
         String userId = "c1S8oa3nARUDexOfL1fTdhgeB5V2";
         String email = "psepse2017@gmail.com";
-        String instanceId = "dPYeX9lZAtw:APA91bEZrNP7gV8wMRsPvvj1FYwCbTLXcToAqMKILKlMkLM4hanLBlGfyYkqS__n0Ff2RJt8Si3UFQG4DpFRi5Zfbi3jtfSD8Iz4iNOr9bWpP_3EwSVImQjsGp04uLUuf1ms8geOUZCb";
         String userName = "Gruppe3 PSE";
-        User user = new User(userId, instanceId, userName, email);
+        User user = new User(userId, email, userName);
         return user;
     }
 

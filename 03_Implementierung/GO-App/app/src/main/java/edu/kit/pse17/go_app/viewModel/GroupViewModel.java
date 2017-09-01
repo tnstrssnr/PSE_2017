@@ -82,7 +82,7 @@ public class GroupViewModel extends ViewModel {
         groupRepo.inviteMember(getGroup().getValue().getId(),EMail);
     }
 
-    public void deleteMember( long groupId, String email){
+    public void deleteMember(long groupId, String email){
         groupRepo.removeMember(groupId, email);
     }
     /*

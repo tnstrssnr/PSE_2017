@@ -50,7 +50,8 @@ public class UserRepository extends Repository<User> {
 
     //TODO parameter User user, then take all http parameters from the user object
     public void createUser(String userId) {
-        Call<Void> call = apiService.createUser(userId);
+        User user = new User(userId, "gruppe3.pse@gmail.com", "Gruppe3 PSE");
+        Call<Void> call = apiService.createUser(userId, user);
         call.enqueue(new Callback<Void>() {
 
             @Override

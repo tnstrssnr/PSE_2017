@@ -193,7 +193,8 @@ public class GroupRepository extends Repository<List<Group>> {
         group.setMembershipList(membership);
         newData.add(group);
         groupWithoutId = group;
-        data.postValue(newData);
+        list = newData;
+        data.postValue(list);
 
         //
         Serializer.makeJsonable(newGroup);
@@ -231,7 +232,8 @@ public class GroupRepository extends Repository<List<Group>> {
                 break;
             }
         }
-        data.postValue(oldGroups);
+        list = oldGroups;
+        data.postValue(list);
     }
 
     /**
@@ -347,10 +349,10 @@ public class GroupRepository extends Repository<List<Group>> {
      * Method that removes member from the group.
      *
      * @param groupId: ID of the group
-     * @param userId:  Id of the user
+     * @param email:   E-Mail address of the user
      */
-    public void removeMember(long groupId, String userId) {
-        Call<Void> call = apiService.removeMember(groupId, userId);
+    public void removeMember(long groupId, String email) {
+        Call<Void> call = apiService.removeMember(groupId, email);
         call.enqueue(new Callback<Void>() {
 
             @Override

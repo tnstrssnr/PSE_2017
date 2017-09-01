@@ -6,6 +6,7 @@ import java.util.Map;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
+import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserLocation;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -43,7 +44,7 @@ public interface TomcatRestApi {
      * @return Call to the server (no additional information in Response)
      */
     @POST("user/{userId}")
-    public Call<Void> createUser(@Path("userId") String userId);
+    public Call<Void> createUser(@Path("userId") String userId, @Body User user);
 
     /**
      * Method that deletes user from server
