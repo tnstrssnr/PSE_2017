@@ -19,6 +19,7 @@ import edu.kit.pse17.go_app.model.entities.Group;
 import edu.kit.pse17.go_app.model.entities.GroupMembership;
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 
 import static org.junit.Assert.assertEquals;
@@ -36,7 +37,7 @@ public class GroupRepositoryOnMethodsTest {
     private GroupListLiveData data;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         groupRepo = GroupRepository.getInstance();
         list = mockGroupData();
         groupRepo.setList(list);
@@ -51,6 +52,7 @@ public class GroupRepositoryOnMethodsTest {
         list = null;
         data = null;
         groupRepo = null;
+        GroupListActivity.setUserId(null);
     }
 
     @Test
@@ -176,6 +178,7 @@ public class GroupRepositoryOnMethodsTest {
 
     @Test
     public void onMemberRemovedTestUsualUser() {
+        GroupListActivity.setUserId("id3");
         String userId = "id2";
         long groupId = 1;
 
@@ -187,26 +190,20 @@ public class GroupRepositoryOnMethodsTest {
         }
     }
 
-    /*@Test
-    public void onMemberRemovedTestAllUsers() {
-        String userId = "id1";
+    @Test
+    public void onMemberRemovedTestAdmin() {
+        String userId = "MLsXON00mUPSQvKi7DggE6lTAsq1";
+        GroupListActivity.setUserId(userId);
         long groupId = 1;
-        groupRepo.onMemberRemoved(userId, groupId);
 
-        userId = "id2";
-        groupRepo.onMemberRemoved(userId, groupId);
-
-        userId = "id3";
-        groupRepo.onMemberRemoved(userId, groupId);
-
-        userId = "MLsXON00mUPSQvKi7DggE6lTAsq1";
         groupRepo.onMemberRemoved(userId, groupId);
 
         assertTrue(groupRepo.getList().isEmpty());
-    }*/
+    }
 
     @Test
     public void onMemberRemovedTestGoResponsible() {
+        GroupListActivity.setUserId("id3");
         String userId = "id1";
         long groupId = 1;
 
@@ -275,7 +272,7 @@ public class GroupRepositoryOnMethodsTest {
         assertEquals(groupRepo.getList().get(0).getCurrentGos().get(0).getParticipantsList().get(2).getStatus(), Status.NOT_GOING);
     }
 
-    @Test
+    /*@Test
     public void onUserDeletedTest() {
         String userId = "id2";
 
@@ -285,7 +282,7 @@ public class GroupRepositoryOnMethodsTest {
         for (GroupMembership member : newList) {
             assertNotEquals(member.getUser().getUid(), userId);
         }
-    }
+    }*/
 
     @Test
     public void onLocationsUpdatedTest() {

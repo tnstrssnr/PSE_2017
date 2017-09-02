@@ -3,12 +3,7 @@ package edu.kit.pse17.go_app.repositories;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Сеня on 28.08.2017.
@@ -29,7 +24,8 @@ public class UserRepositoryServerRequestsTest {
 
     @After
     public void tearDown() {
-        userRepo.createUser(userId);
+        //userRepo.createUser(userId);
+        userRepo.setResponseStatus(0);
         userRepo = null;
     }
 
@@ -42,12 +38,12 @@ public class UserRepositoryServerRequestsTest {
         assertEquals(userRepo.getResponseStatus(), 201);
     }*/
 
-    @Test
+    /*@Test
     public void a_deleteUserTest() throws InterruptedException {
         userRepo.deleteUser(userId);
         TimeUnit.SECONDS.sleep(10); // wait for the response of the server
 
         // 200 is HTTP OK status code
         assertEquals(userRepo.getResponseStatus(), 200);
-    }
+    }*/
 }

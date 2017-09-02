@@ -33,6 +33,11 @@ public class UserRepository extends Repository<User> {
      */
     private final TomcatRestApi apiService;
 
+    @Deprecated
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
     /**
      * HTTP status code of the response of the server (by the requests).
      * It is used for testing.

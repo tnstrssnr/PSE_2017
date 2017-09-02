@@ -35,7 +35,7 @@ jacoco {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -54,16 +54,16 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
-    compile "com.squareup.retrofit2:retrofit:2.3.0"
-    compile "com.squareup.retrofit2:converter-gson:2.3.0"
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'android.arch.lifecycle:runtime:1.0.0-alpha3'
+    compile 'android.arch.lifecycle:extensions:1.0.0-alpha3'
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
-    compile "android.arch.persistence.room:runtime:1.0.0-alpha3"
+    compile 'android.arch.persistence.room:runtime:1.0.0-alpha3'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha3"
     compile 'com.google.dagger:dagger:2.4'
     annotationProcessor "com.google.dagger:dagger-compiler:2.4"
-
+    compile project(':mysql-connector-java-5.1.44-bin')
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -52,6 +52,11 @@ public class GoRepository extends Repository<List<Go>>{
      */
     private GoLiveData data;
 
+    @Deprecated
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
     /**
      * HTTP status code of the response of the server (by the requests).
      * It is used for testing.

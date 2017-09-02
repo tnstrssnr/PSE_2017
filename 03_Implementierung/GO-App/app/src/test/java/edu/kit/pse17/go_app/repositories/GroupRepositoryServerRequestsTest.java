@@ -47,6 +47,7 @@ public class GroupRepositoryServerRequestsTest {
 
     @After
     public void tearDown() {
+        groupRepo.setResponseStatus(0);
         groupRepo = null;
         user = null;
         data = null;
@@ -54,7 +55,7 @@ public class GroupRepositoryServerRequestsTest {
     }
 
     @AfterClass
-    public static void tearDownEnd() {
+    public static void tearDownAfterClass() {
         GROUP_ID = 0;
     }
 
@@ -170,7 +171,7 @@ public class GroupRepositoryServerRequestsTest {
     @Ignore
     @Test
     public void x_addAdminTest() throws InterruptedException {
-        String userId = "MLsXON00mUPSQvKi7DggE6lTAsq1";
+        String userId = "MrHCqabe6MOCsRLwUgVOkjOpPGf1";
 
         groupRepo.addAdmin(GROUP_ID, userId);
         TimeUnit.SECONDS.sleep(1); // wait for the response of the server

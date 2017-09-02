@@ -18,6 +18,7 @@ import edu.kit.pse17.go_app.model.entities.GroupMembership;
 import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
 import edu.kit.pse17.go_app.repositories.GroupRepository;
+import edu.kit.pse17.go_app.view.GroupListActivity;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 import edu.kit.pse17.go_app.сommand.AdminAddedCommand;
 import edu.kit.pse17.go_app.сommand.GoAddedCommand;
@@ -54,13 +55,17 @@ public class ServerCommandTest {
         data = Mockito.spy(new GroupListLiveData());
         Mockito.when(data.getValue()).thenReturn(groupRepo.getList());
         groupRepo.setData(data);
+
+        GroupListActivity.setUserId("testID");
     }
 
     @After
     public void tearDown() {
+        groupRepo.setMessageFlag(false);
         groupRepo = null;
         data = null;
         cmd = null;
+        GroupListActivity.setUserId(null);
     }
 
     @Test

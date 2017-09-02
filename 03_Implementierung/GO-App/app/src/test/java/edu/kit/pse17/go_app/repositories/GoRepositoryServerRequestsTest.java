@@ -1,20 +1,21 @@
 package edu.kit.pse17.go_app.repositories;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import edu.kit.pse17.go_app.model.Status;
 import edu.kit.pse17.go_app.model.entities.Cluster;
 import edu.kit.pse17.go_app.model.entities.Go;
 import edu.kit.pse17.go_app.model.entities.Group;
-import edu.kit.pse17.go_app.model.entities.GroupMembership;
+import edu.kit.pse17.go_app.model.entities.User;
 import edu.kit.pse17.go_app.model.entities.UserGoStatus;
 import edu.kit.pse17.go_app.viewModel.livedata.GroupListLiveData;
 
@@ -26,115 +27,167 @@ import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GoRepositoryServerRequestsTest {
-    private GoRepository goRepo;
-    private GroupRepository groupRepo;
-    private GroupListLiveData data;
-    private long goId = 32;
-    private long groupId = 38;
+    private static GoRepository goRepo;
+    private static GroupRepository groupRepo;
+    private static GroupListLiveData data;
+    private static User user;
+    private static List<Group> list;
+    private static long GROUP_ID;
+    private static long GO_ID;
 
-    @Before
-    public void setUp() throws InterruptedException {
+    @BeforeClass
+    public static void setUpBeforeClass() throws InterruptedException {
         groupRepo = GroupRepository.getInstance();
         goRepo = GoRepository.getInstance();
+        user = getMockedUser();
 
-        ArrayList<Group> list = new ArrayList<>();
-        list.add(getMockedGroup());
-        ArrayList<Go> goList = new ArrayList<>();
-        goList.add(getMockedGo());
-        list.get(0).setCurrentGos(goList);
+        list = new ArrayList<>();
         data = Mockito.spy(new GroupListLiveData());
         Mockito.when(data.getValue()).thenReturn(list);
         groupRepo.setData(data);
+
+        createTestGroupOnServer();
+        createTestGoOnServer();
     }
 
-    @After
+    /*@Before
+    public void setUp() throws InterruptedException {
+        groupRepo = GroupRepository.getInstance();
+        goRepo = GoRepository.getInstance();
+        user = getMockedUser();
+
+        list = new ArrayList<>();
+        data = Mockito.spy(new GroupListLiveData());
+        Mockito.when(data.getValue()).thenReturn(list);
+        groupRepo.setData(data);
+    }*/
+
+    /*@After
     public void tearDown() {
         data = null;
         groupRepo = null;
         goRepo = null;
+        user = null;
+    }*/
+
+    @AfterClass
+    public static void tearDownAfterClass() {
+        deleteTestGroupOnServer();
+
+        list = null;
+        data = null;
+        groupRepo = null;
+        goRepo = null;
+        user = null;
+
+        GROUP_ID = 0;
+        GO_ID = 0;
     }
 
     @Test
     public void a_changeStatusTest() throws InterruptedException {
+        String userId = "MrHCqabe6MOCsRLwUgVOkjOpPGf1";
+        goRepo.changeStatus(userId, GO_ID, Status.GOING);
+        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
+
+        // 200 is HTTP OK status code
+        assertEquals(goRepo.getResponseStatus(), 200);
+        goRepo.setResponseStatus(0);
+    }
+
+    @Test
+    public void b_editGoTest() throws InterruptedException {
         Go go = getMockedGo();
+        go.setName("EditedTestGo");
+        go.setDescription("EditedTestDescriptionGo");
+        go.setDesLat(107.00000);
+        double[] latLon = {go.getDesLat(), go.getDesLon()};
+        goRepo.editGo(GO_ID, GROUP_ID, user.getUid(), go.getName(), go.getDescription(),
+                go.getStart(), go.getEnd(), latLon, -1);
+        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
+
+        // 200 is HTTP OK status code
+        assertEquals(goRepo.getResponseStatus(), 200);
+        goRepo.setResponseStatus(0);
+    }
+
+    @Test
+    public void c_getLocationTest() throws InterruptedException {
+        goRepo.getLocation(user.getUid(), GO_ID, 27.000, 137.000);
+        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
+
+        // 200 is HTTP OK status code
+        assertEquals(goRepo.getResponseStatus(), 200);
+        goRepo.setResponseStatus(0);
+    }
+
+    @Test
+    public void d_deleteGoTest() throws InterruptedException {
+        goRepo.deleteGo(GO_ID);
+        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
+
+        // 200 is HTTP OK status code
+        assertEquals(goRepo.getResponseStatus(), 200);
+        goRepo.setResponseStatus(0);
+    }
+
+    private static void createTestGroupOnServer() throws InterruptedException {
+        String groupName = "TestGroupForGo";
+        String description = "TestDescriptionForGo";
+
+        groupRepo.createGroup(groupName, description, user);
+        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
+
+        list = groupRepo.getList();
+        GROUP_ID = list.get(0).getId();
+
+        /* Add new member to the group */
+        String userId = "MrHCqabe6MOCsRLwUgVOkjOpPGf1";
+        String email = "gruppe3.pse@gmail.com";
+        groupRepo.inviteMember(GROUP_ID, email);
+        TimeUnit.SECONDS.sleep(1);
+        groupRepo.answerGroupRequest(GROUP_ID, userId, true);
+        TimeUnit.SECONDS.sleep(1);
+    }
+
+    private static void createTestGoOnServer() throws InterruptedException {
+        Go go = getMockedGo();
+
         groupRepo.createGo(go.getName(), go.getDescription(), go.getStart(),
                 go.getEnd(), go.getDesLat(), go.getDesLon(), -1, go.getGroup(),
                 go.getOwner(), go.getOwnerName());
         TimeUnit.SECONDS.sleep(1); // wait for the response of the server
 
-        String userId = "MLsXON00mUPSQvKi7DggE6lTAsq1";
-        goRepo.changeStatus(userId, goId, Status.GOING);
-        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
-
-        /* 200 is HTTP OK status code */
-        assertEquals(goRepo.getResponseStatus(), 200);
+        //JavaToMySQL obj = new JavaToMySQL();
+        //GO_ID = JavaToMySQL.getGoId(11);
+        GO_ID = groupRepo.getGoWithoutId().getId();
     }
 
-    @Test
-    public void b_editGoTest() throws InterruptedException {
+    private static void deleteTestGroupOnServer() {
+        groupRepo.deleteGroup(GROUP_ID);
+    }
+
+    private static User getMockedUser() {
         String userId = "c1S8oa3nARUDexOfL1fTdhgeB5V2";
-        Go go = getMockedEditedGo();
-        double[] latLon = {go.getDesLat(), go.getDesLon()};
-        goRepo.editGo(goId, groupId, userId, go.getName(), go.getDescription(),
-                go.getStart(), go.getEnd(), latLon, -1);
-        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
-
-        /* 200 is HTTP OK status code */
-        assertEquals(goRepo.getResponseStatus(), 200);
-    }
-
-    @Test
-    public void c_getLocationTest() throws InterruptedException {
-        String userId = "c1S8oa3nARUDexOfL1fTdhgeB5V2";
-        goRepo.getLocation(userId, goId, 27.000, 137.000);
-        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
-
-        /* 200 is HTTP OK status code */
-        assertEquals(goRepo.getResponseStatus(), 200);
-    }
-
-    @Test
-    public void d_deleteGoTest() throws InterruptedException {
-        goRepo.deleteGo(goId);
-        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
-
-        /* 200 is HTTP OK status code */
-        assertEquals(goRepo.getResponseStatus(), 200);
-    }
-
-    private Go getMockedEditedGo() {
-        String goName = "EditedTestGo";
-        String description = "EditedTestDescriptionGo";
-        String start = "25.12.2017, 12:00";
-        String end = "25.12.2017, 13:00";
-        Group group = getMockedGroup();
-        group.setId(groupId);
-        double lat = 0.00000;
-        double lon = 107.00000;
-        String userId = "c1S8oa3nARUDexOfL1fTdhgeB5V2";
+        String email = "psepse2017@gmail.com";
+        String instanceId = "dPYeX9lZAtw:APA91bEZrNP7gV8wMRsPvvj1FYwCbTLXcToAqMKILKlMkLM4hanLBlGfyYkqS__n0Ff2RJt8Si3UFQG4DpFRi5Zfbi3jtfSD8Iz4iNOr9bWpP_3EwSVImQjsGp04uLUuf1ms8geOUZCb";
         String userName = "Gruppe3 PSE";
-        Go go = new Go(goId, goName, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
-        return go;
+        User user = new User(userId, email, userName, instanceId);
+        return user;
     }
 
-    private Group getMockedGroup() {
-        String groupName = "TestGroup";
-        String description = "TestDescription";
-        Group group = new Group(groupId, groupName, description, 1, null, new ArrayList<GroupMembership>(), new ArrayList<Go>());
-        return group;
-    }
-
-    private Go getMockedGo() {
+    private static Go getMockedGo() {
         String goName = "TestGo";
         String description = "TestDescriptionGo";
         String start = "25.12.2017, 12:00";
         String end = "25.12.2017, 13:00";
-        Group group = getMockedGroup();
+        Group group = new Group();
+        group.setId(GROUP_ID);
         double lat = 0.00000;
         double lon = 14.00000;
         String userId = "c1S8oa3nARUDexOfL1fTdhgeB5V2";
         String userName = "Gruppe3 PSE";
-        Go go = new Go(goId, goName, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
+        Go go = new Go(-321, goName, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
         return go;
     }
 }

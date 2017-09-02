@@ -66,11 +66,21 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private GroupListLiveData data;
 
+    @Deprecated
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
     /**
      * HTTP status code of the response of the server (by the requests).
      * It is used for testing.
      */
     private int responseStatus;
+
+    @Deprecated
+    public void setMessageFlag(boolean messageFlag) {
+        this.messageFlag = messageFlag;
+    }
 
     /**
      * Flag that shows if the message from server came or not.
@@ -79,6 +89,11 @@ public class GroupRepository extends Repository<List<Group>> {
     private boolean messageFlag = false;
 
     private Group groupWithoutId;
+
+    public Go getGoWithoutId() {
+        return goWithoutId;
+    }
+
     private Go goWithoutId;
 
     /**
@@ -434,6 +449,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
+                goWithoutId.setId(response.body());
                 responseStatus = response.code();
             }
 
@@ -841,13 +857,13 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userId
      */
     public void onUserDeleted(String userId) {
-        /*messageFlag = true;
-        list = data.getValue();
+        messageFlag = true;
+        /*list = data.getValue();
         for (Group group : list) {
             onMemberRemoved(userId, group.getId());
         }*/
 
-        getData(GroupListActivity.getUserId(),GroupListActivity.getGlobalEmail(),"instance id not used", GroupListActivity.getDisplayName());
+        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "instance id not used", GroupListActivity.getDisplayName());
     }
 
     /**
