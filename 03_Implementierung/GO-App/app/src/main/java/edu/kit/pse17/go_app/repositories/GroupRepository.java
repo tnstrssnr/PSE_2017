@@ -3,9 +3,7 @@ package edu.kit.pse17.go_app.repositories;
 import android.arch.lifecycle.Observer;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -55,7 +53,6 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private final TomcatRestApi apiService;
 
-
     /**
      * Local database of groups (not consistent).
      */
@@ -66,35 +63,24 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private GroupListLiveData data;
 
-    @Deprecated
-    public void setResponseStatus(int responseStatus) {
-        this.responseStatus = responseStatus;
-    }
-
     /**
      * HTTP status code of the response of the server (by the requests).
      * It is used for testing.
      */
     private int responseStatus;
 
-    @Deprecated
-    public void setMessageFlag(boolean messageFlag) {
-        this.messageFlag = messageFlag;
-    }
-
     /**
      * Flag that shows if the message from server came or not.
      * It is used for testing.
      */
-    private boolean messageFlag = false;
+    private boolean messageFlag;
+
+    /**
+     * GO with ID assigned from server.
+     */
+    private Go goWithIdAssigned;
 
     private Group groupWithoutId;
-
-    public Go getGoWithoutId() {
-        return goWithoutId;
-    }
-
-    private Go goWithoutId;
 
     /**
      * Constructor for Group Repository.
@@ -169,8 +155,6 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                String message = response.message();
-
                 responseStatus = response.code();
             }
 
@@ -442,14 +426,14 @@ public class GroupRepository extends Repository<List<Group>> {
     public void createGo(String name, String description, String start, String end,
                          double lat, double lon, int threshold, Group group, String userId, String userName) {
         Go go = new Go(-321, name, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
-        goWithoutId = go;
+        goWithIdAssigned = go;
         String json = TomcatRestApiClient.gson.toJson(go);
         Call<Long> call = apiService.createGo(go, group.getId(), userId);
         call.enqueue(new Callback<Long>() {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-                goWithoutId.setId(response.body());
+                goWithIdAssigned.setId(response.body());
                 responseStatus = response.code();
             }
 
@@ -528,7 +512,6 @@ public class GroupRepository extends Repository<List<Group>> {
                 List<Go> newGos = old;
                 group.setCurrentGos(newGos);
                 data.postValue(list);
-                //Log.d("GroupRepo", "Should call observer right now");
                 break;
             }
         }
@@ -566,7 +549,6 @@ public class GroupRepository extends Repository<List<Group>> {
 
         }
         data.postValue(list);
-        //Log.d("GroupRepo", "Should call observer right now");
     }
 
     /**
@@ -664,9 +646,6 @@ public class GroupRepository extends Repository<List<Group>> {
     public void onMemberAdded(User user, long groupId) {
         messageFlag = true;
         list = data.getValue();
-        /*if (GroupListActivity.getUserId().equals(user.getUid())) {
-            getGroupData(user.getUid(), groupId); // if added member
-        }*/
         for (Group group : list) {
             if (group.getId() == groupId) {
                 List<GroupMembership> old = group.getMembershipList();
@@ -730,7 +709,6 @@ public class GroupRepository extends Repository<List<Group>> {
                 for (GroupMembership membership : oldMembershipList) {
                     if (membership.getUser().getUid().equals(userId)) {
                         oldMembershipList.remove(membership);
-                        //group.setMemberCount(group.getMemberCount() - 1);
                         List<GroupMembership> newMembershipList = oldMembershipList;
                         group.setMembershipList(newMembershipList);
                         break;
@@ -765,14 +743,10 @@ public class GroupRepository extends Repository<List<Group>> {
 
         for (Go go : gosToBeDeleted) {
             goRepo.deleteGo(go.getId());
-            /*oldGoList.remove(go);
-            List<Go> newGoList = oldGoList;
-            group.setCurrentGos(newGoList);*/
         }
 
         for (Group group : groupsToBeDeleted) {
             deleteGroup(group.getId());
-            //list.remove(group);
         }
     }
 
@@ -858,12 +832,8 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public void onUserDeleted(String userId) {
         messageFlag = true;
-        /*list = data.getValue();
-        for (Group group : list) {
-            onMemberRemoved(userId, group.getId());
-        }*/
-
-        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "instance id not used", GroupListActivity.getDisplayName());
+        updateData();
+        //getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "instance id not used", GroupListActivity.getDisplayName());
     }
 
     /**
@@ -892,13 +862,12 @@ public class GroupRepository extends Repository<List<Group>> {
         data.postValue(list);
     }
 
-    private void refreshGroup(long groupId) {
-        /*executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                //fetch data from server
-            }
-        });*/
+    /**
+     * Method that gets all the data from server if there were too many
+     * messages from server so that they were deleted (see MessageReceiver).
+     */
+    public void updateData() {
+        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
     }
 
     /**
@@ -910,13 +879,7 @@ public class GroupRepository extends Repository<List<Group>> {
         return data;
     }
 
-    @Override
-    public List<Group> fetchData() {
-        return mockGroupData();
-
-    }
-
-    private List<Group> mockGroupData() {
+    /*private List<Group> mockGroupData() {
         list = new ArrayList<>();
         User user1 = new User("id", "User1", "user1@gmail.com");
         User user2 = new User("id", "User2", "user2@gmail.com");
@@ -978,13 +941,7 @@ public class GroupRepository extends Repository<List<Group>> {
         String userId = GroupListActivity.getUserId();
         return list;
 
-    }
-
-    @Override
-    public List<Group> getUpdatedData() {
-        return list;
-    }
-
+    }*/
 
     /**
      * GetInstance method for GroupRepository Singleton.
@@ -1032,14 +989,6 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     /**
-     * Method that gets all the data from server if there were too many
-     * messages from server so that they were deleted (see MessageReceiver).
-     */
-    public void updateData() {
-        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
-    }
-
-    /**
      * Getter for the GO Repository.
      * It is used only for testing. DO NOT use it in the main program!
      *
@@ -1074,6 +1023,17 @@ public class GroupRepository extends Repository<List<Group>> {
     }
 
     /**
+     * Setter for the HTTP status code of the response of the server.
+     * It is used only for testing (to reset the status code).
+     *
+     * @param responseStatus: Status of the response (0)
+     */
+    @Deprecated
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
+    /**
      * Getter for the flag of the message from server.
      * It is used only for testing.
      *
@@ -1082,5 +1042,27 @@ public class GroupRepository extends Repository<List<Group>> {
     @Deprecated
     public boolean isMessageFlag() {
         return messageFlag;
+    }
+
+    /**
+     * Getter for the flag of the message from server.
+     * It is used only for testing (to reset the flag).
+     *
+     * @param messageFlag: False
+     */
+    @Deprecated
+    public void setMessageFlag(boolean messageFlag) {
+        this.messageFlag = messageFlag;
+    }
+
+    /**
+     * Getter for the GO with ID assigned from server.
+     * It is used only for testing (to get the ID of the new GO for the tests).
+     *
+     * @return: GO with ID assigned from server
+     */
+    @Deprecated
+    public Go getGoWithIdAssigned() {
+        return goWithIdAssigned;
     }
 }

@@ -52,11 +52,6 @@ public class GoRepository extends Repository<List<Go>>{
      */
     private GoLiveData data;
 
-    @Deprecated
-    public void setResponseStatus(int responseStatus) {
-        this.responseStatus = responseStatus;
-    }
-
     /**
      * HTTP status code of the response of the server (by the requests).
      * It is used for testing.
@@ -92,7 +87,6 @@ public class GoRepository extends Repository<List<Go>>{
     public void changeStatus(String userId, long goId, Status status) {
         final Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("userId", userId);
-        //parameters.put("goId", Long.toString(goId));
         parameters.put("status", status.name());
         Call<Void> call = apiService.changeStatus(parameters, goId);
         call.enqueue(new Callback<Void>() {
@@ -209,11 +203,6 @@ public class GoRepository extends Repository<List<Go>>{
             @Override
             public void onResponse(Call<List<Cluster>> call, Response<List<Cluster>> response) {
                 List<Cluster> locations = response.body();
-                /*go = data.getValue();
-                if (go.getId() == goId) {
-                    go.setLocations(locations);
-                    data.postValue(go);
-                }*/
 
                 GroupRepository groupRepo = GroupRepository.getInstance();
                 groupRepo.onLocationsUpdated(goId, locations);
@@ -245,18 +234,6 @@ public class GoRepository extends Repository<List<Go>>{
         });
         t.start();*/
     }
-
-
-    @Override
-    public List<Go> fetchData() {
-        return null;
-    }
-
-    @Override
-    public List<Go> getUpdatedData() {
-        return null;
-    }
-
 
     /**
      * GetInstance method for GoRepository Singleton.
@@ -315,5 +292,16 @@ public class GoRepository extends Repository<List<Go>>{
     @Deprecated
     public int getResponseStatus() {
         return responseStatus;
+    }
+
+    /**
+     * Setter for the HTTP status code of the response of the server.
+     * It is used only for testing (to reset the status code).
+     *
+     * @param responseStatus: Status of the response (0)
+     */
+    @Deprecated
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
     }
 }

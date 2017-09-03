@@ -272,18 +272,6 @@ public class GroupRepositoryOnMethodsTest {
         assertEquals(groupRepo.getList().get(0).getCurrentGos().get(0).getParticipantsList().get(2).getStatus(), Status.NOT_GOING);
     }
 
-    /*@Test
-    public void onUserDeletedTest() {
-        String userId = "id2";
-
-        groupRepo.onUserDeleted(userId);
-
-        List<GroupMembership> newList = groupRepo.getList().get(0).getMembershipList();
-        for (GroupMembership member : newList) {
-            assertNotEquals(member.getUser().getUid(), userId);
-        }
-    }*/
-
     @Test
     public void onLocationsUpdatedTest() {
         Go go = new Go(1, "GO1.1", "desNew", null, null, null, 100, 0, "id1", "User1", null, null);

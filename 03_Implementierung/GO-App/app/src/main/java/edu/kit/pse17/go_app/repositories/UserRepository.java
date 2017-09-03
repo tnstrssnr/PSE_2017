@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 /**
  * The User Repository manages and sends data requests and data changes, which
- * with the user account linked informations are.
+ * with the user account linked information are.
  *
  * Unlike other Repositories, this class also addresses
  * the SharedPreferences of the system.
@@ -33,11 +33,6 @@ public class UserRepository extends Repository<User> {
      */
     private final TomcatRestApi apiService;
 
-    @Deprecated
-    public void setResponseStatus(int responseStatus) {
-        this.responseStatus = responseStatus;
-    }
-
     /**
      * HTTP status code of the response of the server (by the requests).
      * It is used for testing.
@@ -53,8 +48,7 @@ public class UserRepository extends Repository<User> {
         //groups = null;
     }
 
-    //TODO parameter User user, then take all http parameters from the user object
-    public void createUser(String userId) {
+    /*public void createUser(String userId) {
         User user = new User(userId, "gruppe3.pse@gmail.com", "Gruppe3 PSE");
         Call<Void> call = apiService.createUser(userId, user);
         call.enqueue(new Callback<Void>() {
@@ -69,7 +63,7 @@ public class UserRepository extends Repository<User> {
                 Log.e("create_user", t.toString());
             }
         });
-    }
+    }*/
 
     /**
      * This method deletes user.
@@ -91,34 +85,6 @@ public class UserRepository extends Repository<User> {
             }
         });
     }
-
-    public void registerDevice(String userId, String instanceId) {
-        /*Call<Void> call = apiService.registerDevice(userId, instanceId);
-        call.enqueue(new Callback<Void>() {
-
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                String message = response.message();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("register_device", t.toString());
-            }
-        });*/
-    }
-
-
-    @Override
-    public User fetchData() {
-        return null;
-    }
-
-    @Override
-    public User getUpdatedData() {
-        return null;
-    }
-
 
     /*
     private final TomcatRestApi apiService;
@@ -155,5 +121,16 @@ public class UserRepository extends Repository<User> {
     @Deprecated
     public int getResponseStatus() {
         return responseStatus;
+    }
+
+    /**
+     * Setter for the HTTP status code of the response of the server.
+     * It is used only for testing (to reset the status code).
+     *
+     * @param responseStatus: Status of the response (0)
+     */
+    @Deprecated
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
     }
 }

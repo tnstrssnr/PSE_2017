@@ -45,14 +45,6 @@ public class Cluster {
     public Cluster() {
     }
 
-    /*public Cluster(double lat, double lon, int size) {
-        this.lat = lat;
-        this.lon = lon;
-        this.size = size;
-    }*/
-
-
-
     public Cluster(double lat, double lon, int size, double radius) {
         this.lat = lat;
         this.lon = lon;
@@ -67,6 +59,7 @@ public class Cluster {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+
     public double getLat() {
         return lat;
     }

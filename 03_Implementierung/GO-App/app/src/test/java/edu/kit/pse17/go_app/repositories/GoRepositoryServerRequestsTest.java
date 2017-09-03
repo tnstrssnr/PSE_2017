@@ -3,6 +3,7 @@ package edu.kit.pse17.go_app.repositories;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
@@ -50,26 +51,6 @@ public class GoRepositoryServerRequestsTest {
         createTestGoOnServer();
     }
 
-    /*@Before
-    public void setUp() throws InterruptedException {
-        groupRepo = GroupRepository.getInstance();
-        goRepo = GoRepository.getInstance();
-        user = getMockedUser();
-
-        list = new ArrayList<>();
-        data = Mockito.spy(new GroupListLiveData());
-        Mockito.when(data.getValue()).thenReturn(list);
-        groupRepo.setData(data);
-    }*/
-
-    /*@After
-    public void tearDown() {
-        data = null;
-        groupRepo = null;
-        goRepo = null;
-        user = null;
-    }*/
-
     @AfterClass
     public static void tearDownAfterClass() throws InterruptedException {
         deleteTestGroupOnServer();
@@ -111,6 +92,7 @@ public class GoRepositoryServerRequestsTest {
         goRepo.setResponseStatus(0);
     }
 
+    @Ignore
     @Test
     public void c_getLocationTest() throws InterruptedException {
         goRepo.getLocation(user.getUid(), GO_ID, 27.000, 57.000);
@@ -158,7 +140,7 @@ public class GoRepositoryServerRequestsTest {
                 go.getOwner(), go.getOwnerName());
         TimeUnit.SECONDS.sleep(1); // wait for the response of the server
 
-        GO_ID = groupRepo.getGoWithoutId().getId();
+        GO_ID = groupRepo.getGoWithIdAssigned().getId();
     }
 
     private static void deleteTestGroupOnServer() throws InterruptedException {

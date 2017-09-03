@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import edu.kit.pse17.go_app.repositories.UserRepository;
+import edu.kit.pse17.go_app.repositories.GroupRepository;
 import edu.kit.pse17.go_app.view.GroupListActivity;
 
 /**
@@ -47,6 +47,7 @@ public class TokenService extends FirebaseInstanceIdService {
     private void sendTokenToServer(String refreshedToken) {
         //TODO implement
         if(GroupListActivity.getUserId() != null)
-            UserRepository.getInstance().registerDevice(GroupListActivity.getUserId(), refreshedToken);
+            //UserRepository.getInstance().registerDevice(GroupListActivity.getUserId(), refreshedToken);
+            GroupRepository.getInstance().registerDevice(GroupListActivity.getUserId(), refreshedToken);
     }
 }

@@ -70,7 +70,7 @@ public class MessageReceiver extends FirebaseMessagingService {
                 e.printStackTrace();
             }
         }
-           // Log.d("MESSAGE_Firebase", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
         command.restartAppIfNeeded(this);
     }
 

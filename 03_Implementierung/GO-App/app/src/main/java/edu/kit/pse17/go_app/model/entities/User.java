@@ -49,14 +49,6 @@ public class User implements Serializable {
     @Expose
     private String email;
 
-    /**
-     * Image of the user.
-     *//*
-    @Ignore
-    @SerializedName("icon")
-    @Expose
-    private Drawable icon;*/
-
     public User(String uid, String email, String name) {
         this.uid = uid;
         this.name = name;
@@ -101,12 +93,4 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    /*public Drawable getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }*/
 }

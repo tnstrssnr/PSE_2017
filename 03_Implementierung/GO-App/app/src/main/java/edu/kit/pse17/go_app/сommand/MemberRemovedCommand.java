@@ -17,10 +17,9 @@ import edu.kit.pse17.go_app.view.GroupListActivity;
  * of a member from the group when called.
  */
 public class MemberRemovedCommand extends ServerCommand {
+    private String userId;
+    private String groupId;
 
-
-    String userId;
-    String groupId;
     /**
      * This method changes the following data in the repositories of the App:
      *
@@ -31,7 +30,6 @@ public class MemberRemovedCommand extends ServerCommand {
      */
     @Override
     public void onCommandReceived() {
-
         try {
             String jsonString = getMessage().getString("data");
             JSONObject data = new JSONObject(jsonString);
@@ -40,8 +38,6 @@ public class MemberRemovedCommand extends ServerCommand {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
         GroupRepository.getInstance().onMemberRemoved(userId, Long.parseLong(groupId));
     }
