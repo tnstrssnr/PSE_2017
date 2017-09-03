@@ -49,7 +49,7 @@ public class MessageReceiver extends FirebaseMessagingService {
      * while it is running in the foreground. The message should be proceeded
      * at the very least 10s after the arrival (see specification of the Fcm API).
      *
-     * @param remoteMessage: The received messsage, packed in a remote message object.
+     * @param remoteMessage: The received message, packed in a remote message object.
      *                     This object is generated from the FCM Server and
      *                     contains the attributes from and data.
      */

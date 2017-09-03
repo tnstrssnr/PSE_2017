@@ -2,48 +2,46 @@ package edu.kit.pse17.go_app.repositories;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
+import org.junit.Test;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Сеня on 28.08.2017.
  */
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserRepositoryServerRequestsTest {
     private UserRepository userRepo;
-    private String userId = "MrHCqabe6MOCsRLwUgVOkjOpPGf1";
-    //private String instanceId = "dkVE5J7QcxM:APA91bFwKzvTSfXl5lS7_cPGL3kJC-D7C2tPIK_rVKWas5S-DZ8lPh1ERYQcwSo6Z4DzhQ5PRjnQ_2HltjI0EjlDeVUlauLH3gTlUys9PFVJQAh7K9DQahZtI3sYR_qXkbzhwdrCkEG4";
-
-    //private String userId = "TestUser";
+    private GroupRepository groupRepo;
+    private String userId = "TestUser";
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         userRepo = UserRepository.getInstance();
+        groupRepo = GroupRepository.getInstance();
     }
 
     @After
     public void tearDown() {
-        //userRepo.createUser(userId);
+        groupRepo.setResponseStatus(0);
+        groupRepo = null;
         userRepo.setResponseStatus(0);
         userRepo = null;
     }
 
-    /*@Test
-    public void b_createUserTest() throws InterruptedException {
-        userRepo.createUser(userId);
-        TimeUnit.SECONDS.sleep(5); // wait for the response of the server
+    @Test
+    public void createAndDeleteUserTest() throws InterruptedException {
+        /* This method also creates user, if this user is not there */
+        groupRepo.getData(userId, "test@test.com", "not used", "TestName");
+        TimeUnit.SECONDS.sleep(3);
+        assertEquals(groupRepo.getResponseStatus(), 200);
 
-        // 201 is HTTP CREATED status code
-        assertEquals(userRepo.getResponseStatus(), 201);
-    }*/
-
-    /*@Test
-    public void a_deleteUserTest() throws InterruptedException {
         userRepo.deleteUser(userId);
-        TimeUnit.SECONDS.sleep(10); // wait for the response of the server
+        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
 
         // 200 is HTTP OK status code
         assertEquals(userRepo.getResponseStatus(), 200);
-    }*/
+    }
 }

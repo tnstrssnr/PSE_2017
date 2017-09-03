@@ -71,7 +71,7 @@ public class GoRepositoryServerRequestsTest {
     }*/
 
     @AfterClass
-    public static void tearDownAfterClass() {
+    public static void tearDownAfterClass() throws InterruptedException {
         deleteTestGroupOnServer();
 
         list = null;
@@ -113,8 +113,8 @@ public class GoRepositoryServerRequestsTest {
 
     @Test
     public void c_getLocationTest() throws InterruptedException {
-        goRepo.getLocation(user.getUid(), GO_ID, 27.000, 137.000);
-        TimeUnit.SECONDS.sleep(1); // wait for the response of the server
+        goRepo.getLocation(user.getUid(), GO_ID, 27.000, 57.000);
+        TimeUnit.SECONDS.sleep(3); // wait for the response of the server
 
         // 200 is HTTP OK status code
         assertEquals(goRepo.getResponseStatus(), 200);
@@ -158,13 +158,12 @@ public class GoRepositoryServerRequestsTest {
                 go.getOwner(), go.getOwnerName());
         TimeUnit.SECONDS.sleep(1); // wait for the response of the server
 
-        //JavaToMySQL obj = new JavaToMySQL();
-        //GO_ID = JavaToMySQL.getGoId(11);
         GO_ID = groupRepo.getGoWithoutId().getId();
     }
 
-    private static void deleteTestGroupOnServer() {
+    private static void deleteTestGroupOnServer() throws InterruptedException {
         groupRepo.deleteGroup(GROUP_ID);
+        TimeUnit.SECONDS.sleep(1);
     }
 
     private static User getMockedUser() {
