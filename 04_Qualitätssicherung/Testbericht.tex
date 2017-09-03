@@ -365,8 +365,33 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 		\item[Ursache] Die Gruppen sind alphabetisch gespeichert, um sie in dieser Reihenfolge anzeigen zu können. Ändert sich ein Gruppenname, ändert sich auch die Reihenfolge in der die Gruppen in der ArrayList im ViewModel gespeichert sind. Da die aktuell angezeigte Gruppe durch ihren Index in der ArrayListe des ViewModels identifiziert wird, wird nach einer Änderung dieser Liste fälschlicherweise die Gruppe angezeigt, die nun diesen Index trägt.
 		\item[Behebung] %TODO bitte ergänzen, @Arsenii ich glaube du hast das gemacht
 	\end{itemize}
+	
+\item \textbf{Die neuen Mitglieder der Gruppe nicht zu den alten GOs der Gruppe hinzugefügt}
+	\begin{itemize}
+		\item[Symptom] Nach der Ergänzung der Gruppe um einen neuen Mitglied wird dieser nicht zu der Liste aller Teilnehmer der alten (schon existirenden) GOs hinzugefügt. Dies führt zu inkonsistenten Daten auf dem Endsystem dieses Benutzers.
+		\item[Ursache] Bei der \textit{onMemberAdded()}-Methode der Klasse \textit{GroupRepository}, die die Daten auf den Endsystemen der Benutzer aktualisiert, wurde der Datenbestand der alten GOs der Gruppe nicht geprüft und dabei auch nicht aktualisiert. Dieser Bug wurde mithilfe der Systemtests gefunden.
+		\item[Behebung] In der \textit{onMemberAdded()}-Methode werden jetzt alle GOs der Gruppe durchgelaufen und dabei wird der neue Mitglied zu den allen Teilnehmerlisten hinzugefügt.
+	\end{itemize}
+	
+\item \textbf{Die Gruppe auf dem Endsystem des Benutzers, der aus der Gruppe entfernt wird, nicht gelöscht}
+	\begin{itemize}
+		\item[Symptom] Nach der Entfernung eines Mitglieds der Gruppe wird diese Gruppe auf dem Endsystem dieses Mitglieds weiter angezeigt (statt gelöscht zu werden). Dies führt zum Absturz des Servers, wenn der Benutzer die Gruppe weiter benutzt.
+		\item[Ursache] Für den Mitglied der Gruppe, der entfernt wird, wurde dieselbe Verarbeitung gemacht, wie für die anderen Gruppenmitglieder, und zwar nur diese Mitgliedschaft gelöscht (und nicht die Gruppe). Dieser Bug wurde mithilfe der Unittests gefunden.
+		\item[Behebung] Falls die Änderung das Endsystem des zu löschenden Mitglieds betrifft, wird bei dem die ganze Gruppe gelöscht.
+	\end{itemize}
+	
+\item \textbf{Aktualisieren der Clusters bei einem falschen GO}
+	\begin{itemize}
+		\item[Symptom] Wenn der Benutzer aus der \textit{GoDetailActivity} ausgeht, während die Locations ständig in diesem GO aktualisiert werden, und er schaut sich ein anderes GO an, werden die Locations bei einem anderen (falschen) GO geändert.
+		\item[Ursache] Bei diesem Vorgehen wurde das GoLiveData beim \textit{GoRepository} mit dem neuen GO, das der Benutzer im GUI gewählt hat, überschrieben. Dabei bekommt die App weiterhin die Locations für das alte GO, die aber im neuen (falschen) GO gespeichert wurden. Dieser Bug wurde mithilfe der Systemtests gefunden.
+		\item[Behebung] Die Locations werden jetzt nicht im \textit{GoRepository} aktualisiert, sondern im \textit{GroupRepository} mithilfe der \textit{onLocationsUpdated()}-Methode. Diese Methode bekommt jetzt auch das ID des GOs mit, sodass die Daten konsistent bleiben.
+	\end{itemize}
 
 \end{enumerate}
+
+\newpage
+
+\section{Testüberdeckung}
 
 \newpage
 
