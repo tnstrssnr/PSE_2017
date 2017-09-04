@@ -3,7 +3,6 @@ package edu.kit.pse17.go_app.repositories;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
@@ -68,7 +67,7 @@ public class GoRepositoryServerRequestsTest {
     @Test
     public void a_changeStatusTest() throws InterruptedException {
         String userId = "MrHCqabe6MOCsRLwUgVOkjOpPGf1";
-        goRepo.changeStatus(userId, GO_ID, Status.GOING);
+        goRepo.changeStatus(userId, GO_ID, Status.GONE);
         TimeUnit.SECONDS.sleep(1); // wait for the response of the server
 
         // 200 is HTTP OK status code
@@ -92,10 +91,14 @@ public class GoRepositoryServerRequestsTest {
         goRepo.setResponseStatus(0);
     }
 
-    @Ignore
     @Test
     public void c_getLocationTest() throws InterruptedException {
+        String userId = "MrHCqabe6MOCsRLwUgVOkjOpPGf1";
+
+        goRepo.changeStatus(user.getUid(), GO_ID, Status.GONE);
+        TimeUnit.SECONDS.sleep(2);
         goRepo.getLocation(user.getUid(), GO_ID, 27.000, 57.000);
+        goRepo.getLocation(userId, GO_ID, 27.000, 57.00004);
         TimeUnit.SECONDS.sleep(3); // wait for the response of the server
 
         // 200 is HTTP OK status code

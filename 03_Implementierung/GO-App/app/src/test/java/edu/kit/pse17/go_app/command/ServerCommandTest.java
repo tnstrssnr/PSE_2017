@@ -48,6 +48,7 @@ public class ServerCommandTest {
     @Before
     public void setUp() {
         groupRepo = GroupRepository.getInstance();
+        groupRepo.setMessageFlag(false);
 
         ArrayList<Group> list = new ArrayList<>();
         groupRepo.setList(list);
