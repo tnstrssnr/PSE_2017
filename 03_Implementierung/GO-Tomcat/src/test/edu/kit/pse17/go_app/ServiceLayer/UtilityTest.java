@@ -1,16 +1,13 @@
 package edu.kit.pse17.go_app.ServiceLayer;
 
-import org.apache.commons.collections.iterators.ArrayListIterator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class UtilityTest {
