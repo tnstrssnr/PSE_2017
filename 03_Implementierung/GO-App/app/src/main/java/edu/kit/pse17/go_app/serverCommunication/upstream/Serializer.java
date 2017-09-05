@@ -52,6 +52,7 @@ public class Serializer {
         groupMembership.getGroup().setMembershipList(new ArrayList<GroupMembership>());
         groupMembership.getGroup().getCurrentGos().clear();
     }
+
     public static void makeJsonable(Go go, boolean keepGroupInfo) {
         if (keepGroupInfo) {
             makeJsonable(go.getGroup());

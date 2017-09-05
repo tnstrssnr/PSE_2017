@@ -15,6 +15,9 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  */
 public class UserDeletedCommand extends ServerCommand {
 
+    /**
+     * Overrides the default constructor.
+     */
     public UserDeletedCommand(){
         this.restartNeeded = true;
     }

@@ -7,8 +7,6 @@ package edu.kit.pse17.go_app.сommand;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
 import edu.kit.pse17.go_app.repositories.GroupRepository;
 
 /**
@@ -16,7 +14,6 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  * member of the group from the Admin of this group when called.
  */
 public class AdminAddedCommand extends ServerCommand {
-    public HashMap<String, String> map = new HashMap<>();
 
     /**
      * This method changes the following data in the repositories of the App:

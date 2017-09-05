@@ -1,6 +1,5 @@
 package edu.kit.pse17.go_app.repositories;
 
-import android.arch.lifecycle.Observer;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -80,34 +79,16 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     private Go goWithIdAssigned;
 
-    private Group groupWithoutId;
-
     /**
      * Constructor for Group Repository.
-     *
-     * @param observer: Observer for the Livedata
      */
-    private GroupRepository(Observer<List<Group>> observer) {
+    private GroupRepository() {
         goRepo = GoRepository.getInstance();
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
-        if (data == null)
+        if (this.data == null) {
             this.data = new GroupListLiveData();
-        data.observeForever(observer);
-        Log.d("GroupRepoConstructor", "called");
+        }
     }
-
-    /**
-     * This should be called from GroupViewModel, it does not need the parameter observer,
-     * because it should've been given already by GroupListViewModel, which is initialized before GroupViewModel.
-     */
-    public GroupRepository(/*GroupDao groupDao, Executor executor*/) {
-        goRepo = GoRepository.getInstance();
-        this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
-        if (this.data == null)
-            this.data = new GroupListLiveData();
-        //this.executor = executor;
-    }
-
 
     /**
      * Method that fetches all the data from server (list of groups) and sets
@@ -137,7 +118,7 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onFailure(Call<List<Group>> call, Throwable t) {
-                StackTraceElement[] a = t.getStackTrace();
+                Log.e("get_data", t.toString());
             }
         });
     }
@@ -165,7 +146,6 @@ public class GroupRepository extends Repository<List<Group>> {
         });
     }
 
-
     /**
      * Method that creates group. Group ID is assigned then internally on the
      * server.
@@ -178,7 +158,7 @@ public class GroupRepository extends Repository<List<Group>> {
         Group newGroup = new Group(0, name, description, 1, null, new ArrayList<GroupMembership>(), new ArrayList<Go>());
         newGroup.getMembershipList().add(new GroupMembership(user, newGroup, true, false));
 
-        //add locally
+        /* add locally */
         List<Group> newData = data.getValue();
         if (newData == null) {
             newData = new ArrayList<>();
@@ -191,13 +171,11 @@ public class GroupRepository extends Repository<List<Group>> {
         membership.add(new GroupMembership(user, group, true, false));
         group.setMembershipList(membership);
         newData.add(group);
-        groupWithoutId = group;
         list = newData;
         data.postValue(list);
 
-        //
+        /* To send the group to the server without stack overflow */
         Serializer.makeJsonable(newGroup);
-        String json = TomcatRestApiClient.gson.toJson(newGroup);
 
         Call<Long> call = apiService.createGroup(newGroup);
         call.enqueue(new Callback<Long>() {
@@ -205,7 +183,7 @@ public class GroupRepository extends Repository<List<Group>> {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
                 long code = response.body();
-                GroupRepository.getInstance().onGroupIdAssigned(code);
+                onGroupIdAssigned(code);
 
                 responseStatus = response.code();
             }
@@ -332,9 +310,9 @@ public class GroupRepository extends Repository<List<Group>> {
 
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                responseStatus = response.code();
-                //onRequestDenied(userId, groupId);
                 onGroupRemoved(groupId);
+
+                responseStatus = response.code();
             }
 
             @Override
@@ -427,19 +405,18 @@ public class GroupRepository extends Repository<List<Group>> {
                          double lat, double lon, int threshold, Group group, String userId, String userName) {
         Go go = new Go(-321, name, description, start, end, group, lat, lon, userId, userName, new ArrayList<UserGoStatus>(), new ArrayList<Cluster>());
         goWithIdAssigned = go;
-        String json = TomcatRestApiClient.gson.toJson(go);
         Call<Long> call = apiService.createGo(go, group.getId(), userId);
         call.enqueue(new Callback<Long>() {
 
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
                 goWithIdAssigned.setId(response.body());
+
                 responseStatus = response.code();
             }
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-                StackTraceElement[] st = t.getStackTrace();
                 Log.e("create_go", t.toString());
             }
         });
@@ -485,7 +462,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param go:      New GO
      * @param groupId: ID of the group of the GO
      */
-    public void onGoAdded(Go go, long groupId/*, String userId*/) {
+    public void onGoAdded(Go go, long groupId) {
         messageFlag = true;
         list = data.getValue();
         for (Group group : list) {
@@ -833,7 +810,6 @@ public class GroupRepository extends Repository<List<Group>> {
     public void onUserDeleted(String userId) {
         messageFlag = true;
         updateData();
-        //getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "instance id not used", GroupListActivity.getDisplayName());
     }
 
     /**
@@ -879,70 +855,6 @@ public class GroupRepository extends Repository<List<Group>> {
         return data;
     }
 
-    /*private List<Group> mockGroupData() {
-        list = new ArrayList<>();
-        User user1 = new User("id", "User1", "user1@gmail.com");
-        User user2 = new User("id", "User2", "user2@gmail.com");
-        User user3 = new User("id", "User3", "user3@gmail.com");
-        User me = new User("MLsXON00mUPSQvKi7DggE6lTAsq1", "Vova", "vovaspilka1@gmail.com");
-        List<GroupMembership> memberships = new ArrayList<>();
-        Group group1 = new Group();
-        group1.setId(1);
-        GroupMembership myMembership = new GroupMembership(me, group1, true, true);
-        memberships.add(myMembership);
-        for (int i = 0; i < 10; i++) {
-            GroupMembership mem1 = new GroupMembership(user1, group1, false, false);
-            memberships.add(mem1);
-        }
-
-        GroupMembership mem2 = new GroupMembership(user2, group1, false, false);
-        memberships.add(mem2);
-        GroupMembership mem3 = new GroupMembership(user3, group1, false, false);
-        memberships.add(mem3);
-        group1.setName("Group 1");
-        group1.setDescription("DeScRiPtIoN");
-        group1.setMembershipList(memberships);
-        Go go1 = new Go();
-        go1.setId(1);
-        List<UserGoStatus> goStatusList = new ArrayList<>();
-        goStatusList.add(new UserGoStatus(user1, go1, Status.GOING));
-        goStatusList.add(new UserGoStatus(user2, go1, Status.NOT_GOING));
-        goStatusList.add(new UserGoStatus(me, go1, Status.GONE));
-        go1.setParticipantsList(goStatusList);
-        go1.setName("GO1");
-        go1.setOwner(me.getUid());
-
-        go1.setDescription("GO DESCRIPTION");
-        go1.setStart(new SimpleDateFormat().format(new Date()));
-        go1.setEnd(new SimpleDateFormat().format(new Date()));
-        List<Cluster> clusters = new ArrayList<>();
-        clusters.add(new Cluster(49.012307, 8.402427, 3,3));
-        clusters.add(new Cluster(49.012334, 8.405621, 4,4));
-        clusters.add(new Cluster(49.011271, 8.404376, 5,5));
-        go1.setLocations(clusters);
-        ArrayList<Go> gos = new ArrayList<>();
-        gos.add(go1);
-        group1.setCurrentGos(gos);
-        group1.setId(1);
-        Group group2 = new Group();
-        List<GroupMembership> memberships2 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            GroupMembership mem1 = new GroupMembership(user1, group2, true, true);
-            memberships2.add(mem1);
-        }
-        group2.setId(2);
-        group2.setName("Group 2");
-        group2.setDescription("Description");
-        group2.setCurrentGos(new ArrayList<Go>());
-        group2.setMembershipList(memberships2);
-        list.add(group1);
-        list.add(group2);
-        data.setValue(list);
-        String userId = GroupListActivity.getUserId();
-        return list;
-
-    }*/
-
     /**
      * GetInstance method for GroupRepository Singleton.
      *
@@ -950,7 +862,7 @@ public class GroupRepository extends Repository<List<Group>> {
      */
     public static GroupRepository getInstance() {
         if (groupRepo == null) {
-            groupRepo = new GroupRepository(/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/);
+            groupRepo = new GroupRepository();
         }
         return groupRepo;
     }

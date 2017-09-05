@@ -45,9 +45,7 @@ public class TokenService extends FirebaseInstanceIdService {
      *                      calling this method that it a valid InstanceID is.
      */
     private void sendTokenToServer(String refreshedToken) {
-        //TODO implement
-        if(GroupListActivity.getUserId() != null)
-            //UserRepository.getInstance().registerDevice(GroupListActivity.getUserId(), refreshedToken);
+        if (GroupListActivity.getUserId() != null)
             GroupRepository.getInstance().registerDevice(GroupListActivity.getUserId(), refreshedToken);
     }
 }

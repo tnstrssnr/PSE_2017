@@ -24,13 +24,15 @@ public class TomcatRestApiClient {
      * Base URL of the server
      */
     public static final String BASE_URL = "http://i43pc164.ipd.kit.edu/PSESoSe17Gruppe3/go-tomcat/";
-    //public static final String BASE_URL = "141.3.211.32:8080/go-tomcat/";
 
     /**
      * Retrofit singleton
      */
     private static Retrofit retrofit = null;
 
+    /**
+     * GSON Converter
+     */
     public static Gson gson;
 
     /**
@@ -41,7 +43,6 @@ public class TomcatRestApiClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             gson = new GsonBuilder()
-                    //.registerTypeAdapter(Group.class, Deserializer.getDeserializer())
                     //.addSerializationExclusionStrategy(Serializer.getGroupExclusionStrategy())
                     .enableComplexMapKeySerialization()
                     .serializeNulls()

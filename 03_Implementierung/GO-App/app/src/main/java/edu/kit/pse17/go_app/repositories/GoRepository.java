@@ -58,23 +58,14 @@ public class GoRepository extends Repository<List<Go>>{
      */
     private int responseStatus;
 
-
-    /**
-     * Eine DAO zum komminizieren mit der lokalen go-Datenbankrelation
-     */
-    // private final GoDao goDao;
-
-    /**
-     * Ein executor-objekt, um Anfragen auf einem separaten Hintergrundthread ausführen zu können.
-     */
-    //private final Executor executor;
-
     /**
      * Constructor for the GO repository.
      */
-    private GoRepository(/*GoDao godao Executor executor*/) {
+    private GoRepository() {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
-        //this.executor = executor;
+        if (data == null) {
+            data = new GoLiveData();
+        }
     }
 
     /**
@@ -137,7 +128,8 @@ public class GoRepository extends Repository<List<Go>>{
      * @param latLon: New desired location (latitude + longitude)
      * @param threshold: New threshold
      */
-    //using array latlon instead, because it won't accept more that 7 parameters... -_- wtf
+
+    /* using array latLon instead, because it won't accept more that 7 parameters */
     public void editGo(long goId, long groupId, String userId, String name,
                        String description, String start, String end,
                        double[] latLon, int threshold) {
@@ -188,6 +180,7 @@ public class GoRepository extends Repository<List<Go>>{
 
         Call<Void> sendLocation = apiService.setLocation(goId, new UserLocation(userId,lat, lon));
         sendLocation.enqueue(new Callback<Void>() {
+
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 responseStatus = response.code();
@@ -198,6 +191,7 @@ public class GoRepository extends Repository<List<Go>>{
 
             }
         });
+
         Call<List<Cluster>> getLocation = apiService.getLocation(goId);
         getLocation.enqueue(new Callback<List<Cluster>>() {
             @Override
@@ -206,6 +200,7 @@ public class GoRepository extends Repository<List<Go>>{
 
                 GroupRepository groupRepo = GroupRepository.getInstance();
                 groupRepo.onLocationsUpdated(goId, locations);
+
                 responseStatus = response.code();
             }
 
@@ -214,25 +209,6 @@ public class GoRepository extends Repository<List<Go>>{
 
             }
         });
-
-        /*final Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Call<Void> sendLocation = apiService.setLocation(goId, new UserLocation(userId,lat, lon));
-                Call<List<Cluster>> getLocation = apiService.getLocation(goId);
-                try {
-                    go = data.getValue();
-                    go.setLocations(getLocation.execute().body());
-                    data.postValue(go);
-
-                    GroupRepository groupRepo = GroupRepository.getInstance();
-                    groupRepo.onLocationsUpdated(data);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t.start();*/
     }
 
     /**
@@ -241,8 +217,8 @@ public class GoRepository extends Repository<List<Go>>{
      * @return GoRepository Singleton object
      */
     public static GoRepository getInstance(){
-        if(goRepo == null){
-            goRepo = new GoRepository(/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/);
+        if (goRepo == null) {
+            goRepo = new GoRepository();
         }
         return goRepo;
     }

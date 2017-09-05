@@ -66,7 +66,6 @@ public class MessageReceiver extends FirebaseMessagingService {
                 command.setMessage(data);
                 command.onCommandReceived();
             } catch (JSONException e) {
-                StackTraceElement[] t = e.getStackTrace();
                 e.printStackTrace();
             }
         }

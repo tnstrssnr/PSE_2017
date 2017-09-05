@@ -17,6 +17,10 @@ import org.json.JSONObject;
  */
 public abstract class ServerCommand {
 
+    /**
+     * The flag that says whether the restart of the App is needed or not
+     * (i.e. by deletion of the data).
+     */
     protected boolean restartNeeded = false;
 
     /**
@@ -51,12 +55,13 @@ public abstract class ServerCommand {
         this.message = message;
     }
 
-
-    /*
-    * restart is needed if something was deleted, and data needs to fetched again
-    * */
+    /**
+     * Restart is needed if something was deleted, and data needs to be fetched again.
+     *
+     * @param service: FirebaseMessagingService
+     */
     public void restartAppIfNeeded(FirebaseMessagingService service){
-        if(restartNeeded) {
+        if (restartNeeded) {
             Intent i = service.getBaseContext().getPackageManager()
                     .getLaunchIntentForPackage(service.getBaseContext().getPackageName());
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

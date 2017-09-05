@@ -15,6 +15,9 @@ import edu.kit.pse17.go_app.repositories.GroupRepository;
  */
 public class GroupRemovedCommand extends ServerCommand {
 
+    /**
+     * Overrides the default constructor.
+     */
     public GroupRemovedCommand(){
         this.restartNeeded = true;
     }

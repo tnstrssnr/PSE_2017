@@ -6,10 +6,4 @@ package edu.kit.pse17.go_app.repositories;
  */
 public abstract class Repository<T> {
 
-    /*public abstract T fetchData();
-
-    public abstract T getUpdatedData();
-
-    public static void receiveUpdatedData(){
-    }*/
 }

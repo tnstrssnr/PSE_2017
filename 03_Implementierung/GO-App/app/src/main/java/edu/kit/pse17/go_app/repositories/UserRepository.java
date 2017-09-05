@@ -38,32 +38,13 @@ public class UserRepository extends Repository<User> {
      * It is used for testing.
      */
     private int responseStatus;
-    //private ArrayList<Group> groups;
 
     /**
      * Constructor for User Repository.
      */
-    public UserRepository() {
+    private UserRepository() {
         this.apiService = TomcatRestApiClient.getClient().create(TomcatRestApi.class);
-        //groups = null;
     }
-
-    /*public void createUser(String userId) {
-        User user = new User(userId, "gruppe3.pse@gmail.com", "Gruppe3 PSE");
-        Call<Void> call = apiService.createUser(userId, user);
-        call.enqueue(new Callback<Void>() {
-
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                responseStatus = response.code();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("create_user", t.toString());
-            }
-        });
-    }*/
 
     /**
      * This method deletes user.
@@ -86,20 +67,6 @@ public class UserRepository extends Repository<User> {
         });
     }
 
-    /*
-    private final TomcatRestApi apiService;
-    private final SharedPreferences sharedPrefManager;
-    /*
-    * Wird wie Thread benutzt, um die UI nicht anzuhalten
-    * */
-   /* private final Executor executor;
-
-    public UserRepository(TomcatRestApi apiService, SharedPreferences sharedPrefManager, Executor executor) {
-        this.apiService = apiService;
-        this.sharedPrefManager = sharedPrefManager;
-        this.executor = executor;
-    } */
-
     /**
      * GetInstance method for UserRepository Singleton.
      *
@@ -107,7 +74,7 @@ public class UserRepository extends Repository<User> {
      */
     public static UserRepository getInstance() {
         if (userRepo == null) {
-            userRepo = new UserRepository()/*, GroupListViewModel.getCurrentGroupListViewModel().getObserver()*/;
+            userRepo = new UserRepository();
         }
         return userRepo;
     }
