@@ -363,9 +363,9 @@ Zuerst wurde ein Monkey Test mit 500 zufälligen Events ausgeführt. Danach ein 
 	
 \item \textbf{Vertauschung der angezeigten Gruppe, bei Änderung des Gruppennamens}
 	\begin{itemize}
-		\item[Symptom] Befindet sich ein Benutzer in der Detailansicht einer Gruppe und ändert den Namen derselben, wird nach Ausführung der Aktion die Detailansicht einer anderen Gruppe angezeigt.
-		\item[Ursache] Die Gruppen sind alphabetisch gespeichert, um sie in dieser Reihenfolge anzeigen zu können. Ändert sich ein Gruppenname, ändert sich auch die Reihenfolge in der die Gruppen in der ArrayList im ViewModel gespeichert sind. Da die aktuell angezeigte Gruppe durch ihren Index in der ArrayListe des ViewModels identifiziert wird, wird nach einer Änderung dieser Liste fälschlicherweise die Gruppe angezeigt, die nun diesen Index trägt.
-		\item[Behebung] %TODO bitte ergänzen, @Arsenii ich glaube du hast das gemacht
+		\item[Symptom] Befindet sich ein Benutzer in der Detailansicht einer Gruppe (oder eines GOs) und ändert den Namen derselben (desselben), wird nach Ausführung der Aktion die Detailansicht einer anderen Gruppe (eines anderen GOs) angezeigt.
+		\item[Ursache] Die Gruppen und die GOs sind beim Client in einer Liste gespeichert, um sie in der Reihenfolge der Erstellung anzeigen zu können. Wenn ein GO/eine Gruppe geändert wird, wird diese aus der Liste gelöscht und wieder am Ende der Liste hinzugefügt. Da die aktuell angezeigte Gruppe/das GO durch ihren/seinen Index in der \textit{ArrayListe} des \textit{ViewModels} identifiziert wird, wird nach einer Änderung dieser Liste fälschlicherweise die Gruppe/das GO angezeigt, die/das nun diesen Index trägt. Dieser Bug wurde mithilfe der Systemtests gefunden.
+		\item[Behebung] Der Bug wird behoben, indem das alte GO/die alte Gruppe durch das neue/die neue auf dem gleichen Platz (mit dem gleichen Index) in der Liste ersetzt wird.
 	\end{itemize}
 	
 \item \textbf{Die neuen Mitglieder der Gruppe nicht zu den alten GOs der Gruppe hinzugefügt}
@@ -390,10 +390,6 @@ Zuerst wurde ein Monkey Test mit 500 zufälligen Events ausgeführt. Danach ein 
 	\end{itemize}
 
 \end{enumerate}
-
-\newpage
-
-\section{Testüberdeckung}
 
 \newpage
 
