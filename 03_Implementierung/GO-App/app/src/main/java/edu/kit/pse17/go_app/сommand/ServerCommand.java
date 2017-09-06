@@ -64,7 +64,7 @@ public abstract class ServerCommand {
         if (restartNeeded) {
             Intent i = service.getBaseContext().getPackageManager()
                     .getLaunchIntentForPackage(service.getBaseContext().getPackageName());
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             service.startActivity(i);
         }
     }

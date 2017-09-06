@@ -50,7 +50,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import edu.kit.pse17.go_app.R;
 import edu.kit.pse17.go_app.model.entities.Group;
@@ -183,18 +182,6 @@ public class GroupListActivity extends BaseActivity implements View.OnClickListe
         user_gone_icon = getDrawable(R.drawable.ic_person_outline_blue_24dp);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = getIntent();
-
-        Bundle bundle =  getIntent().getExtras();
-        Set<String> setBundle = bundle.keySet();
-        Bundle bundel = new Bundle();
-        bundel.putString("zhopa","chlen");
-        Set<String> set = bundel.keySet();
-
-    }
 
     /*
             *
