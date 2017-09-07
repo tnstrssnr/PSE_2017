@@ -166,6 +166,44 @@ Durch Änderungen der Anwendung während der Entwurfs- und Implementierungsphase
 
 \section{Unittests}
 
+\subsection{Client}
+
+\subsubsection{Tests für Entity-Klassen}
+Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Nur die zusätzlichen Methoden (wie z.B. \textit{isAdmin()}-Methode bei der \textit{Group}-Klasse) werden getestet.
+
+\subsubsection{Tests für ServerCommands}
+Alle ServerCommands werden getestet. Dabei wird jeweils das richtige Parsen der \textit{JSON-Objekte} und der Aufruf der richtigen Methoden der \textit{GroupRepository}-Klasse getestet.
+
+\subsubsection{Tests für Repositories}
+\begin{itemize}
+	\item[Server Anfragen] Jedes der Repositorien (\textit{UserRepository}, \textit{GroupRepository} und \textit{GoRepository}) besitzt die Methoden, die die Anfragen zum Server gewährleisten. Für jede dieser Methoden wird mithilfe der UnitTests und der Testdaten gecheckt, ob die Anfrage richtig zum Server ankommt und dort richtig bearbeitet wird. Dabei schickt der Server den HTTP status code zurück, der entweder 'OK' (200) oder 'CREATED' (201) lauten soll. Dabei dürfen auch keine Fehler auftreten (z.B. 'Internal Server Error' (500) etc.).
+	\item[\textit{on...()}-Methoden] Die \textit{GroupRepository}-Klasse verfügt über mehreren \textit{on[CommandName]()}-Methoden, die durch ServerCommands aufgerufen werden und die die Daten lokal auf dem Endgerät ändern. Die Methode \textit{mockGroupData()} wird benutzt, um die Testdaten zu mocken. Danach werden die \textit{on[CommandName]()}-Methoden mithilfe von UnitTests getestet, dabei wird jedes mal gecheckt, ob die Daten lokal richtig geändert werden.
+\end{itemize}
+
+\subsubsection{Tests für Server Kommunikation}
+\begin{itemize}
+	\item[Upstream] Dieses Package besteht aus dem Serializer (für \textit{JSON-Objekte}) und dem REST API für die Server Anfragen. Diese Klassen werden durch die vorherigen UnitTests abgedeckt.
+	\item[Downstream] Die meisten Klassen aus diesem Package implementieren das \textit{FirebaseMessagingService}, dessen Testbarkeit durch die UnitTests sehr niedrig ist. Damit wird dieses Package mithilfe von Systemtests getestet.
+\end{itemize}
+
+\subsubsection{Tests für Login}
+Die \textit{Login}-Klassen werden auch von Google vorgegeben. Damit wird die Möglichkeit, sich in der App an- und abzumelden, manuell durch die Systemtests getestet.
+
+\subsubsection{Tests für GUI}
+%TODO @Vovan
+
+\newpage
+
+\subsection{Server}
+
+\newpage
+
+\section{Testabdeckung}
+
+\subsection{Client}
+
+\subsection{Server}
+
 \newpage
 
 \section{Integrationstests}
