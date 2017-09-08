@@ -443,6 +443,13 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu au
 		\item[Ursache] Bei diesem Vorgehen wurde das GoLiveData beim \textit{GoRepository} mit dem neuen GO, das der Benutzer im GUI gewählt hat, überschrieben. Dabei bekommt die App weiterhin die Locations für das alte GO, die aber im neuen (falschen) GO gespeichert wurden. Dieser Bug wurde mithilfe der Systemtests gefunden.
 		\item[Behebung] Die Locations werden jetzt nicht im \textit{GoRepository} aktualisiert, sondern im \textit{GroupRepository} mithilfe der \textit{onLocationsUpdated()}-Methode. Diese Methode bekommt jetzt auch das ID des GOs mit, sodass die Daten konsistent bleiben.
 	\end{itemize}
+	
+\item \textbf{Server unerreichbar, aufgrund zu vieler Datenbankverbindungen}
+	\begin{itemize}
+		\item[Symptom] Bei Anfragen an den Server wird die Fehlermeldung "too many Connections" zurückgegeben.
+		\item[Ursache] Es waren zu viele offene Verbindungen zur Datenbank vorhanden. Diese sind entstanden, da in einer Methode der server-Andwendung die geöffnete DB-Verbindung nicht wieder geschloßen wurde.
+		\item[Behebung] Die Methode wurde ergänzt, sodass am Ende des Methodenaufrufs die Datenbankverbindung geschlossen wird.
+	\end{itemize}
 
 \end{enumerate}
 
