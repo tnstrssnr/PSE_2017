@@ -54,9 +54,9 @@ public class MemberAddedObserverTest {
         //Mockito settings
         mockMessenger = Mockito.mock(FcmClient.class);
         mockService = Mockito.mock(GroupService.class);
-        Mockito.doReturn(TestData.getTestGroupBar()).when(mockService).getGroupById(Mockito.anyLong());
-
         mockDao = Mockito.mock(UserDaoImp.class);
+        Mockito.when(mockService.getUserDao()).thenReturn(mockDao);
+        Mockito.doReturn(TestData.getTestGroupBar()).when(mockService).getGroupById(Mockito.anyLong());
         Mockito.when(mockDao.get(Mockito.anyString())).thenReturn(TestData.getTestUserBob());
 
         Mockito.doAnswer(invocation -> {

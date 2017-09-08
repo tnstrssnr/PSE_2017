@@ -23,7 +23,7 @@ public class MemberRemovedObserverTest {
     private static final EventArg EXPECTED_EVENT = EventArg.MEMBER_REMOVED_EVENT;
 
     //might change after testing goEntityToGo method
-    private static final String EXPECTED_JSON = "{\"user_id\":\"testid_bob\",\"group_id\":\"1\"}";
+    private static final String EXPECTED_JSON = "{\"user_id\":\"testid_bob\",\"group_id\":1}";
 
     private EventArg resultEvent;
     private String resultString;

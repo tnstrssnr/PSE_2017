@@ -1,6 +1,5 @@
 package edu.kit.pse17.go_app.ClientCommunication.Upstream;
 
-import edu.kit.pse17.go_app.PersistenceLayer.UserEntity;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Go;
 import edu.kit.pse17.go_app.PersistenceLayer.clientEntities.Group;
 import edu.kit.pse17.go_app.ServiceLayer.Cluster;

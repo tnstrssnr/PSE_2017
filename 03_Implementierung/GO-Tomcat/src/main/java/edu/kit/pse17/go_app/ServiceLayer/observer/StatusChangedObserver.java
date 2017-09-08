@@ -30,10 +30,6 @@ public class StatusChangedObserver implements Observer {
         this.goService = goService;
     }
 
-    public UserDaoImp getUserDao() {
-        return userDao;
-    }
-
     public void setUserDao(UserDaoImp userDao) {
         this.userDao = userDao;
     }
@@ -51,7 +47,9 @@ public class StatusChangedObserver implements Observer {
         int newStatus;
 
         GoEntity go = goService.getGoById(Long.valueOf(entity_ids.get(1)));
-        userDao = new UserDaoImp(goService.getGoDao().getSessionFactory());
+        if (userDao == null) {
+            userDao = new UserDaoImp(goService.getGoDao().getSessionFactory());
+        }
         UserEntity user = userDao.get(entity_ids.get(0));
 
         if (!(go.getGoingUsers() == null) && go.getGoingUsers().contains(user)) {

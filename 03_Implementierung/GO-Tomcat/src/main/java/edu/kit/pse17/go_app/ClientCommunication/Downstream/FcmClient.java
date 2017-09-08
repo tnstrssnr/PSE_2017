@@ -53,10 +53,6 @@ public class FcmClient {
         fcmApi = retrofit.create(FcmApi.class);
     }
 
-    public FcmApi getFcmApi() {
-        return fcmApi;
-    }
-
     public void setFcmApi(FcmApi fcmApi) {
         this.fcmApi = fcmApi;
     }

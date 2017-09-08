@@ -126,12 +126,12 @@ public class GroupRestControllerTest {
 
     @Test
     public void inviteMember_Successful() throws Exception {
-        Mockito.doReturn(false).when(groupService).addGroupRequest(Mockito.anyString(), Mockito.anyLong());
+        Mockito.doReturn(true).when(groupService).addGroupRequest(Mockito.anyString(), Mockito.anyLong());
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/group/requests/1/user_id")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Mockito.verify(groupService, Mockito.times(1)).addGroupRequest("user_id", (long) 1);
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+        Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
 
     @Test

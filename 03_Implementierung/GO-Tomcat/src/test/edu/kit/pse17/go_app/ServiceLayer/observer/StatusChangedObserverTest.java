@@ -94,8 +94,6 @@ public class StatusChangedObserverTest {
         Assert.assertNotNull(observer.getMessenger());
         assertThat(observer.getMessenger(), instanceOf(FcmClient.class));
         Assert.assertEquals(mockService, observer.getGoService());
-        Assert.assertNotNull(observer.getUserDao());
-        assertThat(observer.getUserDao(), instanceOf(UserDaoImp.class));
     }
 
     @Test
@@ -103,8 +101,6 @@ public class StatusChangedObserverTest {
         observer = new StatusChangedObserver(mockMessenger, mockService);
         Assert.assertEquals(mockService, observer.getGoService());
         Assert.assertEquals(mockMessenger, observer.getMessenger());
-        Assert.assertNotNull(observer.getUserDao());
-        assertThat(observer.getUserDao(), instanceOf(UserDaoImp.class));
     }
 
 }

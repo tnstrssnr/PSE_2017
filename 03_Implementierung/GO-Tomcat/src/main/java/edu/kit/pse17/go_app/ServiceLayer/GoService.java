@@ -92,7 +92,6 @@ public class GoService implements IObservable {
             ArrayList<UserGoStatus> jsonableList = new ArrayList<>();
             for (UserGoStatus userGoStatus : go.getParticipantsList()) {
                 jsonableList.add(new UserGoStatus(userGoStatus.getUser(), null, userGoStatus.getStatus()));
-                //GoService.makeJsonable(userGoStatus);
             }
             go.setParticipantsList(jsonableList);
         } else {
@@ -110,11 +109,21 @@ public class GoService implements IObservable {
         this.groupDao = groupDao;
     }
 
-
     public void setUserDao(UserDaoImp userDao) {
         this.userDao = userDao;
     }
 
+    public GroupService getGroupService() {
+        return groupService;
+    }
+
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
+
+    public boolean isObserverInitialized() {
+        return observerInitialized;
+    }
 
     public void registerAll() {
         register(EventArg.GO_ADDED_EVENT, new GoAddedObserver(this));

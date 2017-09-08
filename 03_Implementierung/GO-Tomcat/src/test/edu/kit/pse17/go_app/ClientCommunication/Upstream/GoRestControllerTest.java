@@ -83,13 +83,13 @@ public class GoRestControllerTest {
 
     @Test
     public void changeStatusSuccessfulTest() throws Exception {
-        Mockito.when(goService.changeStatus(mockMap, 1)).thenReturn(true);
+        Mockito.when(goService.changeStatus(Mockito.anyMap(), Mockito.anyLong())).thenReturn(true);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/gos/1/status")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(mockMap))
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+        Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
 
     }
 
@@ -102,7 +102,6 @@ public class GoRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-
     }
 
     @Ignore
@@ -121,8 +120,10 @@ public class GoRestControllerTest {
     @Ignore
     @Test
     public void setLocationTest() throws Exception {
-
-
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/gos/location/1");
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+        //check if response body is of type GroupLocation
     }
 
     @Test
