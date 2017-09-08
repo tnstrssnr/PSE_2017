@@ -86,8 +86,6 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
 
     }
 
-    ;
-
     public GroupDaoImp getGroupDao() {
         return groupDao;
     }

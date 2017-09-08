@@ -132,7 +132,7 @@ Diverse Testszenarien, die im Pflichtenheft definiert wurde, werde nicht geteste
 \begin{itemize}
 	\item[/T0020/] Das Ändern des Benutzeraccounts war ein Wunschkriterium und wurde in der Implementierung nicht umgesetzt.
 	
-	\item[/T0090/] Hier wurde der Ablauf des Anwendungsfalls während der Implementierung verändert: Anstatt dem Benutzer eine Lliste mit Benutzern mit der passenden E-Mail-Adresse zu zeigen, wird direkt dem Benutzer mit der passenden E-Mail-Adresse eine Gruppenanfrage geschickt. Außerdem können weder Mitglieder noch Administratoren die aktuellen Gruppenanfragen in er App sehen, es werden lediglich vollwertige Gruppenmitglieder in der Gruppendetailansicht angezeigt.
+	\item[/T0090/] Hier wurde der Ablauf des Anwendungsfalls während der Implementierung verändert: Anstatt dem Benutzer eine Liste mit Benutzern mit der passenden E-Mail-Adresse zu zeigen, wird direkt dem Benutzer mit der passenden E-Mail-Adresse eine Gruppenanfrage geschickt. Außerdem können weder Mitglieder noch Administratoren die aktuellen Gruppenanfragen in er App sehen, es werden lediglich vollwertige Gruppenmitglieder in der Gruppendetailansicht angezeigt.
 	
 	\item[/T0130/]\label{130} Das Hinzufügen von Administratoren ist in der Implementierung nicht umgesetzt. Verlässt ein Administrator die Gruppe, wird diese gelöscht. Der erwartete Reaktion des Testfalls ist die Löschung der Gruppe.
 	
@@ -169,24 +169,24 @@ Durch Änderungen der Anwendung während der Entwurfs- und Implementierungsphase
 \subsection{Client}
 
 \subsubsection{Tests für Entity-Klassen}
-Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Nur die zusätzlichen Methoden (wie z.B. \textit{isAdmin()}-Methode bei der \textit{Group}-Klasse) werden getestet.
+Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Nur die komplexeren Methoden (wie z.B. \textit{isAdmin()}-Methode in der \textit{Group}-Klasse) werden getestet.
 
-\subsection{Tests für Activities}
-Die Activity Klassen werden nicht mit Unittests getestet, da die UI beinhalten und sehr schwierig Teil für Teil zu testen sind. Die wurden nach den Google-Guidelines erstellt und während der Implementierung manuell auf dem Gerät getestet und debuggt mit dem Android Studio Debugger.
+\subsubsection{Tests für Activities}
+Die Activity Klassen werden nicht mit Unittests getestet, da diese das UI beinhalten und sehr schwierig isoliert zu testen sind. Die Klassen wurden nach den Google-Guidelines erstellt und während der Implementierung manuell auf dem Gerät getestet und debuggt mit dem Android Studio Debugger.
 
 \subsubsection{Tests für ServerCommands}
-Alle ServerCommands werden getestet. Dabei wird jeweils das richtige Parsen der \textit{JSON-Objekte} und der Aufruf der richtigen Methoden der \textit{GroupRepository}-Klasse getestet.
+Alle ServerCommands werden durch Unittests getestet. Dabei wird jeweils das richtige Parsen der \textit{JSON-Objekte} und der Aufruf der richtigen Methoden der \textit{GroupRepository}-Klasse getestet.
 
 \subsubsection{Tests für Repositories}
 \begin{itemize}
-	\item[Server Anfragen] Jedes der Repositorien (\textit{UserRepository}, \textit{GroupRepository} und \textit{GoRepository}) besitzt die Methoden, die die Anfragen zum Server gewährleisten. Für jede dieser Methoden wird mithilfe der UnitTests und der Testdaten gecheckt, ob die Anfrage richtig zum Server ankommt und dort richtig bearbeitet wird. Dabei schickt der Server den HTTP status code zurück, der entweder 'OK' (200) oder 'CREATED' (201) lauten soll. Dabei dürfen auch keine Fehler auftreten (z.B. 'Internal Server Error' (500) etc.).
-	\item[\textit{on...()}-Methoden] Die \textit{GroupRepository}-Klasse verfügt über mehreren \textit{on[CommandName]()}-Methoden, die durch ServerCommands aufgerufen werden und die die Daten lokal auf dem Endgerät ändern. Die Methode \textit{mockGroupData()} wird benutzt, um die Testdaten zu mocken. Danach werden die \textit{on[CommandName]()}-Methoden mithilfe von UnitTests getestet, dabei wird jedes mal gecheckt, ob die Daten lokal richtig geändert werden.
+	\item \textbf{Server Anfragen} \\ Jedes der Repositories (\textit{UserRepository}, \textit{GroupRepository} und \textit{GoRepository}) besitzt Methoden, die die Anfragen zum Server in die Wege leiten. Für jede dieser Methoden wird mithilfe der UnitTests und der Testdaten geprüft, ob die Anfrage richtig beim Server ankommt und dort richtig bearbeitet wird. Dabei schickt der Server den HTTP-Statuscode zurück, der entweder 'OK' (200) oder 'CREATED' (201) lauten soll. Dabei dürfen auch keine Fehler auftreten (z.B. 'Internal Server Error' (500) etc.).
+	\item \textbf{\textit{on...()}-Methoden} \\ Die \textit{GroupRepository}-Klasse verfügt über mehreren \textit{on[CommandName]()}-Methoden, die durch ServerCommands aufgerufen werden und die die Daten lokal auf dem Endgerät ändern. Die Methode \textit{mockGroupData()} wird benutzt, um die Testdaten zu mocken. Danach werden die \textit{on[CommandName]()}-Methoden mithilfe von UnitTests getestet, dabei wird jedes mal geprüft, ob die Daten lokal richtig geändert werden.
 \end{itemize}
 
 \subsubsection{Tests für Server Kommunikation}
 \begin{itemize}
-	\item[Upstream] Dieses Package besteht aus dem Serializer (für \textit{JSON-Objekte}) und dem REST API für die Server Anfragen. Diese Klassen werden durch die vorherigen UnitTests abgedeckt.
-	\item[Downstream] Die meisten Klassen aus diesem Package implementieren das \textit{FirebaseMessagingService}, dessen Testbarkeit durch die UnitTests sehr niedrig ist. Damit wird dieses Package mithilfe von Systemtests getestet.
+	\item \textbf{Upstream} Dieses Package besteht aus dem Serializer (für \textit{JSON-Objekte}) und dem REST API für die Server Anfragen. Diese Klassen werden durch die vorherigen UnitTests abgedeckt.
+	\item \textbf{Downstream} Die meisten Klassen aus diesem Package implementieren das \textit{FirebaseMessagingService}, dessen Testbarkeit durch die UnitTests sehr niedrig ist. Damit wird dieses Package mithilfe von Systemtests getestet.
 \end{itemize}
 
 \subsubsection{Tests für Login}
@@ -197,17 +197,31 @@ Die \textit{Login}-Klassen werden auch von Google vorgegeben. Damit wird die Mö
 
 \subsection{Server}
 
-\newpage
+Die Unittests des Servers haben sich gegenüber der Beschreibung im Impementierungsbericht nicht geändert, es wurde lediglich die Testabdeckung erhöht.
 
-\section{Testabdeckung}
+Für folgende Methoden wurden keine Unittests geschireben:
+\begin{itemize}
+	\item getter- und setter-Methoden
+	\item Standardkonstruktoren
+	\item Methoden der PersistenceLayer - diese wurden durch Integrationstests getestet.
+\end{itemize}
 
-\subsection{Client}
-
+\subsection{Testabdeckung}
 \begin{center}
-	\includegraphics[width=1.0\linewidth]{ClientTestCoverage}
+	\begin{figure}[H]
+		\includegraphics[width=1.0\linewidth]{ClientTestCoverage}
+		\caption{Testabdeckung innerhalb der Module der Client-Anwendung}
+	\end{figure}
+	
 \end{center}
 
-\subsection{Server}
+\begin{center}
+	\begin{figure}[H]
+		\includegraphics[width=1.0\linewidth]{ServerTestCoverage}
+		\caption{Testabdeckung innerhalb der Module der Server-Anwendung}
+	\end{figure}
+	
+\end{center}
 
 \newpage
 
@@ -369,8 +383,6 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 \section{Monkey Testing}
 
 Zuerst wurde ein Monkey Test mit 500 zufälligen Events ausgeführt. Danach ein mit 10000 Events, das ist aber viel an einer Stelle geblieben, weil es schon sehr tief in der App war und nicht raus konnte. 1000 random Events geht tief genug in die Activity Hierarchie und bleibt nicht für ewig in einer Activity, wie mit dem Fall mit 10000 Events. Also wurde Monkey Testing mit 1000 zufälligen Events 10 mal ausgeführt. Das hat die App nicht runtergebracht. Das bestätigt die Robustheit der App.
-
-\section{Hallway Usability Test}
 
 \newpage
 

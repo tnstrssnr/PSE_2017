@@ -55,7 +55,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
     @Override
     public GoEntity get(Long key) {
         Transaction tx = null;
-        Session session;
+        Session session = null;
         GoEntity go = null;
 
         try {
@@ -68,6 +68,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return go;
     }
@@ -220,7 +224,6 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
                 session.close();
             }
         }
-
     }
 
     /**

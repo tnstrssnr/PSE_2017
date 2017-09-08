@@ -280,8 +280,7 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
              */
             new GoDaoImp(this.sf).onGroupMemberAdded(user.getUid(), group.getID(), session);
             tx.commit();
-
-
+            
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
         } finally {
