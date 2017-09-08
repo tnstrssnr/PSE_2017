@@ -203,6 +203,10 @@ Die \textit{Login}-Klassen werden auch von Google vorgegeben. Damit wird die Mö
 
 \subsection{Client}
 
+\begin{center}
+	\includegraphics[width=1.0\linewidth]{ClientTestCoverage}
+\end{center}
+
 \subsection{Server}
 
 \newpage
@@ -380,7 +384,7 @@ Nachdem alle funktionalen Anforderungen für ein Gerät erfüllt wurden, war es 
 
 Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu automatisiserten Tests. Ich habe aber keine zuverlässige Tools gefunden, um System so effizient wie manuell zu testen. Espresso ist meistens die "To go" Tool dafür. Es kommt aber raus, dass es manchmal scheint, undeterministisch zu sein, was sehr frustrierend ist. Es kann auch manche Schaltflächen nicht sehen, d.h. wieder manuelle Beteiligung. Und die Tests laufen dann auch auf dem echten Gerät und brauchen dann ungefähr so viel Zeit, wie der Mensch. Also heute in dem Zustand lohnt sich Espresso für die Systemtests basierend auf UI nicht. Deswegen wurden nur ein Paar geschrieben und gelassen, die wirklich laufen. In unserem Fall lohnt sich der Aufwand aber nicht.\\
 
-\\newpage
+\newpage
 
 \section{Bugs}
 
