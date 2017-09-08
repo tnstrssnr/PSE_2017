@@ -36,7 +36,7 @@
                 app:srcCompat="@drawable/ic_group_white_24dp" />
 
             <TextView
-                android:id="@+id/group_name"
+                android:id="@+id/edit_group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

@@ -85,7 +85,7 @@ public class GroupDetailActivity extends BaseActivity implements OnListItemClick
         index = getIntent().getIntExtra(INDEX_INTENT_CODE, -1);
         goList = (RecyclerView) findViewById(R.id.gos_recycler_view);
         goList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        groupName = (TextView) findViewById(R.id.group_name);
+        groupName = (TextView) findViewById(R.id.edit_group_name);
         groupName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

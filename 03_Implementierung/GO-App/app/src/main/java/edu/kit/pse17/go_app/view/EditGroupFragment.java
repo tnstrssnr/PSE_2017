@@ -28,7 +28,7 @@ public class EditGroupFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_fragment_add_group, null);
         groupDescription = (EditText) view.findViewById(R.id.edit_group_description);
-        groupName = (EditText) view.findViewById(R.id.group_name);
+        groupName = (EditText) view.findViewById(R.id.edit_group_name);
         groupName.setText(getArguments().getString(getString(R.string.edit_dialog_current_group_name_key)));
         groupDescription.setText(getArguments().getString(getString(R.string.edit_dialog_current_descr_key)));
 

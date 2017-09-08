@@ -2,6 +2,8 @@ package edu.kit.pse17.go_app.repositories;
 
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +102,9 @@ public class GroupRepository extends Repository<List<Group>> {
      * @param userName:   Name of the user
      */
     public void getData(final String userId, final String email, String instanceId, String userName) {
-        Call<List<Group>> call = apiService.getData(userId, email, userName/*, instanceId*/);
+        Call<List<Group>> call = apiService.getData(userId, email, userName);
+        //we update our device instance id, every time we call data, so it would always be consistent
+        registerDevice(userId,FirebaseInstanceId.getInstance().getToken());
         call.enqueue(new Callback<List<Group>>() {
 
             @Override
@@ -843,7 +847,7 @@ public class GroupRepository extends Repository<List<Group>> {
      * messages from server so that they were deleted (see MessageReceiver).
      */
     public void updateData() {
-        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), "NULL", GroupListActivity.getDisplayName());
+        getData(GroupListActivity.getUserId(), GroupListActivity.getGlobalEmail(), FirebaseInstanceId.getInstance().getToken(), GroupListActivity.getDisplayName());
     }
 
     /**

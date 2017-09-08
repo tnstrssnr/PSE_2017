@@ -171,6 +171,9 @@ Durch Änderungen der Anwendung während der Entwurfs- und Implementierungsphase
 \subsubsection{Tests für Entity-Klassen}
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Nur die zusätzlichen Methoden (wie z.B. \textit{isAdmin()}-Methode bei der \textit{Group}-Klasse) werden getestet.
 
+\subsection{Tests für Activities}
+Die Activity Klassen werden nicht mit Unittests getestet, da die UI beinhalten und sehr schwierig Teil für Teil zu testen sind. Die wurden nach den Google-Guidelines erstellt und während der Implementierung manuell auf dem Gerät getestet und debuggt mit dem Android Studio Debugger.
+
 \subsubsection{Tests für ServerCommands}
 Alle ServerCommands werden getestet. Dabei wird jeweils das richtige Parsen der \textit{JSON-Objekte} und der Aufruf der richtigen Methoden der \textit{GroupRepository}-Klasse getestet.
 
@@ -189,8 +192,6 @@ Alle ServerCommands werden getestet. Dabei wird jeweils das richtige Parsen der 
 \subsubsection{Tests für Login}
 Die \textit{Login}-Klassen werden auch von Google vorgegeben. Damit wird die Möglichkeit, sich in der App an- und abzumelden, manuell durch die Systemtests getestet.
 
-\subsubsection{Tests für GUI}
-%TODO @Vovan
 
 \newpage
 
@@ -368,6 +369,18 @@ Zuerst wurde ein Monkey Test mit 500 zufälligen Events ausgeführt. Danach ein 
 \section{Hallway Usability Test}
 
 \newpage
+
+\section{System Tests}
+
+Während der Implementierung wurde alles manuell getestet und einfach reingeschaut, dass alle funktionale Anforderungen nacheinander korrekt implementiert werden. Für viele Packages der Code sind Unittests und Integrationtests geeignet. Für UI Teil aber nicht so ganz. Deswegen wurde alles manuell auch mit dem Debugger auf einem echten Handy  getestet. Das ist nicht schlimm, da UI sowieso nur View in MVC ist, und wenn es bei der Implementierung richtig angezeigt wird, gibt es meistens sehr wenig Probleme, wenn man nur andere Daten zu UI gibt. Und alle andere Teile von dem Code sind mit automatischen Tests meistens gesichert, also ist die Behebung schnell deswegen.\\
+
+Jede funktionale Anforderung, die alleine für sich getestet werden kann, wurde so während der Implementierungsphase getestet. Die Sachen, wo man zwei Handys braucht (z.B. eine Gruppeneinladung erstellen, oder sehen wie die andere Person den Status ändert) wurden mit zwei echten Handys getestet. Mit getestet ist hier gemeint, dass man auf dem Bildschirm das bekommt, was man erwarten würde. Falls etwas falsch gelaufen ist, dann wurde Code mit dem Debugger durchgegangen und die Fehler meistens schnell lokalisiert, weil Debugger sehr genau ist.\\
+
+Nachdem alle funktionalen Anforderungen für ein Gerät erfüllt wurden, war es noch zu überprüfen, ob zwei Geräte über den Server denselben Zustand besitzen. Basierend auf den funktionalen Anforderungen wurden auch ServerCommands erstellt. Also jetzt sollte einfach systemtisch Command nach Command getestet werden. \\
+
+Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu automatisiserten Tests. Ich habe aber keine zuverlässige Tools gefunden, um System so effizient wie manuell zu testen. Espresso ist meistens die "To go" Tool dafür. Es kommt aber raus, dass es manchmal scheint, undeterministisch zu sein, was sehr frustrierend ist. Es kann auch manche Schaltflächen nicht sehen, d.h. wieder manuelle Beteiligung. Und die Tests laufen dann auch auf dem echten Gerät und brauchen dann ungefähr so viel Zeit, wie der Mensch. Also heute in dem Zustand lohnt sich Espresso für die Systemtests basierend auf UI nicht. Deswegen wurden nur ein Paar geschrieben und gelassen, die wirklich laufen. In unserem Fall lohnt sich der Aufwand aber nicht.\\
+
+\\newpage
 
 \section{Bugs}
 

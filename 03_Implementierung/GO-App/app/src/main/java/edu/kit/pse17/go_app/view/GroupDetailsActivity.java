@@ -49,7 +49,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnListItemClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_details);
-        groupName = (TextView) findViewById(R.id.group_name);
+        groupName = (TextView) findViewById(R.id.edit_group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
         members = (RecyclerView) findViewById(R.id.group_details_members);
         members.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

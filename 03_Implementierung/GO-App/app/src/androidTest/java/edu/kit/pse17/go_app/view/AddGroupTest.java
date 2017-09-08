@@ -57,11 +57,11 @@ public class AddGroupTest {
         floatingActionButton.perform(click());
 
         ViewInteraction editText = onView(
-                allOf(withId(R.id.group_name), isDisplayed()));
+                allOf(withId(R.id.edit_group_name), isDisplayed()));
         editText.perform(click());
 
         ViewInteraction editText2 = onView(
-                allOf(withId(R.id.group_name), isDisplayed()));
+                allOf(withId(R.id.edit_group_name), isDisplayed()));
         editText2.perform(replaceText("hi"), closeSoftKeyboard());
 
         ViewInteraction editText3 = onView(
@@ -89,12 +89,12 @@ public class AddGroupTest {
         }
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.group_name), withText("hi"),
+                allOf(withId(R.id.edit_group_name), withText("hi"),
                         isDisplayed()));
         textView.check(matches(withText("hi")));
 
         ViewInteraction textView2 = onView(
-                allOf(withId(R.id.group_name), withText("hi"), isDisplayed()));
+                allOf(withId(R.id.edit_group_name), withText("hi"), isDisplayed()));
         textView2.perform(click());
 
         // Added a sleep statement to match the app's execution delay.
