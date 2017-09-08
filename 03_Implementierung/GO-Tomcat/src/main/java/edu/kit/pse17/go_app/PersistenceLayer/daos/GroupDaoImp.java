@@ -197,6 +197,10 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
             Hibernate.initialize(gos);
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
 
         for (GoEntity go : gos) {
@@ -229,7 +233,6 @@ public class GroupDaoImp implements AbstractDao<GroupEntity, Long>, GroupDao {
 
             session.update(oldData);
             tx.commit();
-
 
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);

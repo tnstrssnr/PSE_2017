@@ -236,7 +236,7 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
     @Override
     public void changeStatus(String userId, long goId, Status status) {
         Transaction tx = null;
-        Session session;
+        Session session = null;
 
         try {
             session = sf.openSession();
@@ -265,6 +265,10 @@ public class GoDaoImp implements AbstractDao<GoEntity, Long>, GoDao {
             tx.commit();
         } catch (HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 

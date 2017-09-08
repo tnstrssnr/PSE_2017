@@ -166,7 +166,7 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
     @Override
     public UserEntity get(final String key) {
         Transaction tx = null;
-        Session session;
+        Session session = null;
         UserEntity user = null;
 
         try {
@@ -186,6 +186,10 @@ public class UserDaoImp implements UserDao, AbstractDao<UserEntity, String> {
             tx.commit();
         } catch (final HibernateException e) {
             handleHibernateException(e, tx);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return user;
     }
