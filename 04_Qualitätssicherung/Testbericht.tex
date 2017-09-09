@@ -138,21 +138,21 @@ Diverse Testszenarien, die im Pflichtenheft definiert wurde, werde nicht geteste
 	
 	\item[/T0140/] Fällt weg, da die Funktion 'Administrator hinzufügen' nicht implementiert wurde.
 	
-	\item[/T0210/] Fällt weg, da die GO-Ansicht nciht umgesetzt wurde. GOs können in der jeweiligen Gruppendetailansicht angesehen werden.
+	\item[/T0210/] Fällt weg, da die GO-Ansicht nicht umgesetzt wurde. GOs können in der jeweiligen Gruppendetailansicht angesehen werden.
 	
 	\item[/T0220/] Das Erfassen des Standorts eines Benutzers und das Übermitteln der aktuellen Standorts-Cluster wird durch zwei verschiedene API-Calls realisiert. Deshalb wird das Testszenario jeweils in zwei separate Testfälle gespalten:
 	\begin{enumerate}
-		\item[/T0221/] Das Übertragen des Standorts und das korrekte Abspeichern des Standorts in der entspechenden Datenstruktur.\label{221}
+		\item[/T0221/] Das Übertragen des Standorts und das korrekte Abspeichern des Standorts in der entsprechenden Datenstruktur.\label{221}
 		\item[/T0222/] Bei Anfrage das Zurücksenden der korrekt geclusterten Standorte.\label{222}
 	\end{enumerate}
 	
 	\item[/T0230/] Fällt weg, da der Teilnahmestatus nur manuell und nicht automatisch geändert werden kann.
 	
-	\item[/T0240/] wird nicht separat getestet, sondern duch Verwendung unterschiedlicher in Testszenario /T0220/ abgedeckt.
+	\item[/T0240/] wird nicht separat getestet, sondern durch Verwendung unterschiedlicher in Testszenario /T0220/ abgedeckt.
 	
 	\item[/T0250/] Fällt weg, da ein GO nur manuell beendet werden kann.
 	
-	\item[/T0320/] Fällt weg. Benachrichtigungen können dur in den Systemeinstellungen des Endsystems geändert werden.
+	\item[/T0320/] Fällt weg. Benachrichtigungen können in den Systemeinstellungen des Endsystems geändert werden.
 	
 \end{itemize}
 
@@ -172,10 +172,10 @@ Durch Änderungen der Anwendung während der Entwurfs- und Implementierungsphase
 Die Entity-Klassen bestehen hauptsächlich aus Getter- und Setter-Methoden, die aufgrund ihrer Einfachheit nicht extra getestet werden. Nur die komplexeren Methoden (wie z.B. \textit{isAdmin()}-Methode in der \textit{Group}-Klasse) werden getestet.
 
 \subsubsection{Tests für Activities}
-Die Activity Klassen werden nicht mit Unittests getestet, da diese das UI beinhalten und sehr schwierig isoliert zu testen sind. Die Klassen wurden nach den Google-Guidelines erstellt und während der Implementierung manuell auf dem Gerät getestet und debuggt mit dem Android Studio Debugger.
+Die Activity Klassen werden nicht mit UnitTests getestet, da diese das UI beinhalten und sehr schwierig isoliert zu testen sind. Die Klassen wurden nach den Google-Guidelines erstellt und während der Implementierung manuell auf dem Gerät getestet und debuggt mit dem Android Studio Debugger.
 
 \subsubsection{Tests für ServerCommands}
-Alle ServerCommands werden durch Unittests getestet. Dabei wird jeweils das richtige Parsen der \textit{JSON-Objekte} und der Aufruf der richtigen Methoden der \textit{GroupRepository}-Klasse getestet.
+Alle ServerCommands werden durch UnitTests getestet. Dabei wird jeweils das richtige Parsen der \textit{JSON-Objekte} und der Aufruf der richtigen Methoden der \textit{GroupRepository}-Klasse getestet.
 
 \subsubsection{Tests für Repositories}
 \begin{itemize}
@@ -197,9 +197,9 @@ Die \textit{Login}-Klassen werden auch von Google vorgegeben. Damit wird die Mö
 
 \subsection{Server}
 
-Die Unittests des Servers haben sich gegenüber der Beschreibung im Impementierungsbericht nicht geändert, es wurde lediglich die Testabdeckung erhöht.
+Die UnitTests des Servers haben sich gegenüber der Beschreibung im Implementierungsbericht nicht geändert, es wurde lediglich die Testabdeckung erhöht.
 
-Für folgende Methoden wurden keine Unittests geschireben:
+Für folgende Methoden wurden keine UnitTests geschrieben:
 \begin{itemize}
 	\item getter- und setter-Methoden
 	\item Standardkonstruktoren
@@ -231,7 +231,7 @@ Für folgende Methoden wurden keine Unittests geschireben:
 Tests dieser Art sollen die Funktionsfähigkeit der Serveranwendung testen, ohne dabei die Funktionsfähigkeit der Clients zu berücksichtigen. Dabei wird getestet, ob
 \begin{enumerate}
 	\item API Calls die richtige Response liefern,
-	\item Der Datenbestand in der Datebank nach einem Request wie erwartet manipuliert wurde,
+	\item Der Datenbestand in der Datenbank nach einem Request wie erwartet manipuliert wurde,
 	\item Die Speicherung der Benutzerstandortdaten in den entsprechenden Datenstrukturen korrekt abläuft (nur für Testfall /T0211/),
 	\item Benachrichtigungen über Datenänderungen an die richtigen User geschickt wurden,
 	\item Der Message Payload der Benachrichtigungen dem richtigen Format und Inhalt entspricht.
@@ -244,17 +244,17 @@ Bei der Durchführung eines Testfalls werden folgende Phasen durchlaufen:
 	\item Löschen sämtlicher Daten aus der Datenbank
 	\item Ein für den jeweiligen Testfall definierter Anfangsdatenbestand wird in die Datenbank geladen
 	\item Es wird ein oder mehrere HTTP-Requests an den Server gestellt. Hierfür wird das Commandline Tool Newman verwendet.
-	\item Die Server-Reponse des API Calls wird getestet, auf Korrektheit des HTTP-Statuscodes und des Inhalts des Response-Bodys. Die Testfälle sind in das Newman-Skript integriert und liefern automatisch einen Testbericht, der in einer TestResult-Datei gespeichert wird.
-	\item Der Datenbestand der Datenbank nach Beendigung des Newman-Runs wird als .csv-Datei exportiert und mit einer zuvor erstellten .csv-Datei verglichen, die den erwarteten Datenbestand, nach korrekter Ausführung, darstellt. Enthält die .csv ein Datentupel, das nicht erwartet wurde,  wird dieses, zusammen mit der Anzahl der gefundenen Unterschiede, ebenfalss in die TestResult Datei angehängt.
+	\item Die Server-Response des API Calls wird getestet, auf Korrektheit des HTTP-Statuscodes und des Inhalts des Response-Bodys. Die Testfälle sind in das Newman-Skript integriert und liefern automatisch einen Testbericht, der in einer TestResult-Datei gespeichert wird.
+	\item Der Datenbestand der Datenbank nach Beendigung des Newman-Runs wird als .csv-Datei exportiert und mit einer zuvor erstellten .csv-Datei verglichen, die den erwarteten Datenbestand, nach korrekter Ausführung, darstellt. Enthält die .csv ein Datentupel, das nicht erwartet wurde,  wird dieses, zusammen mit der Anzahl der gefundenen Unterschiede, ebenfalls in die TestResult Datei angehängt.
 	\item Die aktuellen GOs und die Standortlisten derselben werden in eine Text-Datei exportiert und auf Korrektheit überprüft. Die Ergebnisse werden im Testbericht festgehalten.
-	\item Der versendete Message Payload der Observer-Benachrichtigungen wird mit dem erwarteten JSON-String verglichen. Das Ergebnis der Überprüfung wird in der Testresult Datei festgehalten.
+	\item Der versendete Message Payload der Observer-Benachrichtigungen wird mit dem erwarteten JSON-String verglichen. Das Ergebnis der Überprüfung wird in der TestResult Datei festgehalten.
 	\item Es wird überprüft, ob die versendete Observer-Benachrichtigung an die richtigen Benutzer versendet wurde (keine zusätzlichen Versendungen, keine fehlenden Versendungen).
 \end{enumerate}
-Einzelne Phasen können ggfs. wegfallen, fallls sie für einen Testfall nicht relevant sind, z.B. wenn es keine Manipulation an der Datenbank gibt oder bei einem API-Call kein Response-Body erwartet wird.\\
+Einzelne Phasen können ggfs. wegfallen, falls sie für einen Testfall nicht relevant sind, z.B. wenn es keine Manipulation an der Datenbank gibt oder bei einem API-Call kein Response-Body erwartet wird.\\
 
 Die Ausführung der Testfälle ist mittels eines Shell-Skripts komplett automatisiert. Die benutzten Testdaten und die abgedeckten Testfälle sind dem folgenden Abschnitt zu entnehmen. Dabei sind nicht alle Testfälle des Pflichtenhefts aufgeführt. Auf Testfälle, die gar nicht getestet wurden, wird in Abschnitt \ref{weggefallene Testfälle} eingegangen. Bei weiteren Testfällen, die in diesem Abschnitt nicht auftauchen, kann davon ausgegangen werden, das die getesteten Funktionen keine Beteiligung der Serveranwendung erfordern.\\
 
-Beispielhaft werden hier dast testskript und der testbericht zu Testfall /T0010/ aufgeführt:
+Beispielhaft werden hier das Testskript und der Testbericht zu Testfall /T0010/ aufgeführt:
 
 \begin{figure}[H]
 \VerbatimInput{Server_IntegrationTest/SQL_Skripts/T0010.sh}
@@ -275,25 +275,25 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	\item[\textbf{/T0010/}]
 	\textbf{Testfall des Pflichtenhefts: }Der Testfall des Pflichtenhefts beschreibt das erstmalige Einloggen mit einem Google-Account, und damit die Erstellung eines Benutzeraccounts.\\
 	\textbf{Anfangsbedingungen: }Die Datenbank enthält noch keine Daten.\\
-	\textbf{Umsetzung auf der Serveranwendung: }Der Testfall entspricht dem Aufruf der Methode getData() auf dem Server über die Rest-API, wenn der aufgerufene Benutzeraccount noch nicht in der Datenbank existiert. Es werden drei API-Calls ausgeführt für drei verschiedende Benutzer.\\
-	\textbf{Erwartetes Ergebnis: } Der Respose-Body jedes API-Calls besteht aus einer Liste, die eine Dummy-Gruppe mit der Gruppen-ID 1 enthält, da keiner der Benutzer Mitglied in einer Gruppe ist. Nach der Ausführung der API-Calls sind die Benutzer mit den entsprechenden Daten in der Datenbank gespeichert.
+	\textbf{Umsetzung auf der Serveranwendung: }Der Testfall entspricht dem Aufruf der Methode getData() auf dem Server über die Rest-API, wenn der aufgerufene Benutzeraccount noch nicht in der Datenbank existiert. Es werden drei API-Calls ausgeführt für drei verschiedene Benutzer.\\
+	\textbf{Erwartetes Ergebnis: } Der Response-Body jedes API-Calls besteht aus einer Liste, die eine Dummy-Gruppe mit der Gruppen-ID 1 enthält, da keiner der Benutzer Mitglied in einer Gruppe ist. Nach der Ausführung der API-Calls sind die Benutzer mit den entsprechenden Daten in der Datenbank gespeichert.
 	
 	\item[\textbf{/T0040/}]
 	\textbf{Testfall des Pflichtenhefts: }Ein Benutzer loggt sich in seinem (existierenden) Benutzeraccount ein.\\
 	\textbf{Anfangsbedingungen: }Es befinden sich bereits Daten in der Datenbank (3 Benutzer, 1 Gruppe mit 2 Mitgliedern und 1 Gruppenanfrage, 1 Go)\\
-	\textbf{Umsetzung auf der Serveranwendung: }Der Tesetfall entspricht dem Aufruf der Methode \textit{getData()} über die Rest-API, wenn der aufgerufene Benutzeraccount bereits existiert. Es wird ein API-Call je angelegtem Benutzer durchgeführt.\\
+	\textbf{Umsetzung auf der Serveranwendung: }Der Testfall entspricht dem Aufruf der Methode \textit{getData()} über die Rest-API, wenn der aufgerufene Benutzeraccount bereits existiert. Es wird ein API-Call je angelegtem Benutzer durchgeführt.\\
 	\textbf{Erwartetes Ergebnis: }Der Response-Body jedes API-Calls gibt die Struktur der in den Anfangsbedingungen festgelegten Daten wieder. Die Responses sind identisch, da jeder Benutzer mit den gleichen Gruppen assoziiert ist. Es wird keine Manipulation der Daten auf der Datenbank vorgenommen.
 	
 	\item[\textbf{/T0050/}]
 	\textbf{Testfall des Pflichtenhefts: }Ein Benutzer löscht seinen Benutzeraccount\\
 	\textbf{Anfangsbedingungen: }Der Benutzer ist mit einem gültigen Account in der Datenbank gespeichert.\\
 	\textbf{Umsetzung auf der Serveranwendung: }Die Methode deleteUser() wird aufgerufen. Die Daten des Benutzers, sowie alle Gruppen und Gos, die ihm gehören werden gelöscht.\\
-	\textbf{Erwartetes Ergebnis: }Der Testfall-Benutzer ist Adminsitrator einer Gruppe. Es wird erwartet, dass die Gruppe, alle Gruppemmitglieder der Members-Tabelle, alle Requests der Requests-Tabelle, sowie der Eintrag des Benutzers in der Users-Tabelle gelöscht werden.
+	\textbf{Erwartetes Ergebnis: }Der Testfall-Benutzer ist Administrator einer Gruppe. Es wird erwartet, dass die Gruppe, alle Gruppenmitglieder der Members-Tabelle, alle Requests der Requests-Tabelle, sowie der Eintrag des Benutzers in der Users-Tabelle gelöscht werden.
 	
 	\item[\textbf{/T0060/}]
 	\textbf{Testfall des Pflichtenhefts: }Ein Benutzer erstellt eine neue Gruppe.\\
 	\textbf{Anfangsbedingungen:}Der Benutzer ist mit einem gültigen Account in der Datenbank gespeichert.\\
-	\textbf{Umsetzung auf der Serveranwendung: }Die Methode createGroup() wird aufgerufen. Im request-Body befindet sich ein gültiger JSON-String, der ein Group-Objekt repräsentiert.\\
+	\textbf{Umsetzung auf der Serveranwendung: }Die Methode createGroup() wird aufgerufen. Im Request-Body befindet sich ein gültiger JSON-String, der ein Group-Objekt repräsentiert.\\
 	\textbf{Erwartetes Ergebnis: }Der Datenbank wird ein Tupel in der Group-Tabelle hinzugefügt, das dem übergebenen JSON-String entspricht. Darüber hinaus werden entsprechende Einträge in der Members- und Admins-Tabelle hinzugefügt. Der Response-Body enthält die ID unter der die Gruppe in der DB gespeichert ist.
 	
 	\item[\textbf{/T0070/}]
@@ -303,7 +303,7 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	\textbf{Erwartetes Ergebnis: }Der neue Name der Gruppe ist in der Datenbank gespeichert.
 	
 	\item[\textbf{/T0090/}]
-	\textbf{Testfall des Pflichtenhefts: }Der Gruppenadministrator füt ein neues Mitglied hinzu, d.h. er verschickt eine Gruppenanfrage.\\
+	\textbf{Testfall des Pflichtenhefts: }Der Gruppenadministrator für ein neues Mitglied hinzu, d.h. er verschickt eine Gruppenanfrage.\\
 	\textbf{Anfangsbedingungen:}Eine Gruppe ist in der Datenbank gespeichert und es existieren Benutzer, die nicht mit der Gruppe assoziiert sind.\\
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode inviteMember() und Übergabe der Email-Adresse des zu hinzufügenden Benutzers. Es werden 2 API-Calls ausgeführt, um 2 Gruppeneinladungen zu verschicken.\\
 	\textbf{Erwartetes Ergebnis: }Es werden der Tabelle Requests 2 Tupel hinzugefügt, mit jeweils der ID der Gruppe und der ID des eingeladenen Benutzers.
@@ -328,15 +328,15 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	
 	\item[\textbf{/T0160/}]
 	\textbf{Testfall des Pflichtenhefts: }Ein Mitglied einer Gruppe wird entfernt.\\
-	\textbf{Anfangsbedingungen: }Es existiert eine Gruppe in der Datenbank unnd der zu entfernende Benutzer ist nicht der Administrator der Gruppe.\\
+	\textbf{Anfangsbedingungen: }Es existiert eine Gruppe in der Datenbank und der zu entfernende Benutzer ist nicht der Administrator der Gruppe.\\
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode removeMember().\\
-	\textbf{Erwartetes Ergebnis: }Der Eintrag in der Member-Tabelle wird entfernt. Zusätzlich werden alle Gos des entfernten Benutzers und die damit assoziierten Daten (Going Users, Not Going Users, Gone Users) gelöscht.
+	\textbf{Erwartetes Ergebnis: }Der Eintrag in der Members-Tabelle wird entfernt. Zusätzlich werden alle Gos des entfernten Benutzers und die damit assoziierten Daten (Going Users, Not Going Users, Gone Users) gelöscht.
 	
 	\item[\textbf{/T0170/}] wird von Testfall \ref{T130} /T0130/ abgedeckt
 	
 	\item[\textbf{/T0180/}]
 	\textbf{Testfall des Pflichtenhefts: }Erstellen eines GOs\\
-	\textbf{Anfangsbedingungen:}Es exisitert eine Gruppe in der Datenbank\\
+	\textbf{Anfangsbedingungen:}Es existiert eine Gruppe in der Datenbank\\
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode createGo(). Als Argument wird das im Request-Body als JSON-String übertragene GO-Objekt übergeben.\\
 	\textbf{Erwartetes Ergebnis: }Es wird ein Eintrag in der Tabelle GOs erstellt, die dem übergebenen GO-Objekt entspricht. Für den GO-Verantwortlichen wird ein Eintrag in der Tabelle Going-Users erstellt. Für jedes weitere Gruppenmitglied wird ein Eintrag in der Tabelle Not-Going-Users erstellt.
 	
@@ -344,7 +344,7 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	\textbf{Testfall des Pflichtenhefts: }Änderung des Teilnahmestatus (im Pflichtenheft von Abgelehnt auf Bestätigt).\\
 	\textbf{Anfangsbedingungen:}Es existiert ein Go in der Datenbank.\\
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode changeStatus(). Der betroffenen Benutzer, sowie der neue Status, werden im Request-Body übergeben. Es werden 3 API-Calls ausgeführt mit jeweils einem Statuswechsel von Going zu Gone, Gone zu Going und Not Going zu Going.\\
-	\textbf{Erwartetes Ergebnis: }Der alte Eintrag des Benutzers in den Status-Tabellen (Going-Users, Not-Going-Users, Gone-Users) wird entfernt und ein neuer, entspechend dem neuen Status eingefügt.
+	\textbf{Erwartetes Ergebnis: }Der alte Eintrag des Benutzers in den Status-Tabellen (Going-Users, Not-Going-Users, Gone-Users) wird entfernt und ein neuer, entsprechend dem neuen Status eingefügt.
 	
 	\item[\textbf{/T0221/}]
 	\textbf{Testfall des Pflichtenhefts: }siehe \ref{221} /T0221/\\
@@ -356,7 +356,7 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	\textbf{Testfall des Pflichtenhefts: }siehe \ref{222} /T0222/\\
 	\textbf{Anfangsbedingungen: }Es befindet sich ein Go in der Datenbank, in der UserLocation-Liste des GOs befinden sich Standortdaten mehrerer Benutzer.\\
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode \textit{getLocation()}.\\
-	\textbf{Erwartetes Ergebnis: }Im Repsose-Body des API-Calls wird eine Lister von Clustern zurückgegeben, die die korrekt geclusterten Standorte repräsentieren.
+	\textbf{Erwartetes Ergebnis: }Im Response-Body des API-Calls wird eine Lister von Clustern zurückgegeben, die die korrekt geclusterten Standorte repräsentieren.
 	
 	\item[\textbf{/T0250/}]
 	\textbf{Testfall des Pflichtenhefts: }Ein GO wird beendet.\\
@@ -366,7 +366,7 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	
 	\item[\textbf{/T0260/}]
 	\textbf{Testfall des Pflichtenhefts: }Die Daten eines GOs werden geändert.\\
-	\textbf{Anfangsbedingungen:}Es exisitert ein GO in der Datenbank.\\
+	\textbf{Anfangsbedingungen:}Es existiert ein GO in der Datenbank.\\
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode editGo(). Die geänderte Gruppe wird dabei als JSON-String im Request-Body übertragen. es wird ein API-Call durchgeführt, der den Namen des GOs ändert.\\
 	\textbf{Erwartetes Ergebnis: }Der geänderte Name des GOs wird in der Datenbank gespeichert.
 	
@@ -382,19 +382,19 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 
 \section{Monkey Testing}
 
-Zuerst wurde ein Monkey Test mit 500 zufälligen Events ausgeführt. Danach ein mit 10000 Events, das ist aber viel an einer Stelle geblieben, weil es schon sehr tief in der App war und nicht raus konnte. 1000 random Events geht tief genug in die Activity Hierarchie und bleibt nicht für ewig in einer Activity, wie mit dem Fall mit 10000 Events. Also wurde Monkey Testing mit 1000 zufälligen Events 10 mal ausgeführt. Das hat die App nicht runtergebracht. Das bestätigt die Robustheit der App.
+Zuerst wurde ein Monkey Test mit 500 zufälligen Events ausgeführt. Danach ein mit 10000 Events, das ist aber viel an einer Stelle geblieben, weil es schon sehr tief in der App war und nicht raus konnte. 1000 random Events geht tief genug in die Activity Hierarchie und bleibt nicht für ewig in einer Activity, wie mit dem Fall mit 10000 Events. Also wurde Monkey Testing mit 1000 zufälligen Events 10 mal ausgeführt. Das hat die App nicht untergebracht Das bestätigt die Robustheit der App.
 
 \newpage
 
 \section{System Tests}
 
-Während der Implementierung wurde alles manuell getestet und einfach reingeschaut, dass alle funktionale Anforderungen nacheinander korrekt implementiert werden. Für viele Packages der Code sind Unittests und Integrationtests geeignet. Für UI Teil aber nicht so ganz. Deswegen wurde alles manuell auch mit dem Debugger auf einem echten Handy  getestet. Das ist nicht schlimm, da UI sowieso nur View in MVC ist, und wenn es bei der Implementierung richtig angezeigt wird, gibt es meistens sehr wenig Probleme, wenn man nur andere Daten zu UI gibt. Und alle andere Teile von dem Code sind mit automatischen Tests meistens gesichert, also ist die Behebung schnell deswegen.\\
+Während der Implementierung wurde alles manuell getestet und einfach reingeschaut, dass alle funktionale Anforderungen nacheinander korrekt implementiert werden. Für viele Packages der Code sind UnitTests und Integrationstests geeignet. Für UI Teil aber nicht so ganz. Deswegen wurde alles manuell auch mit dem Debugger auf einem echten Handy  getestet. Das ist nicht schlimm, da UI sowieso nur View in MVC ist, und wenn es bei der Implementierung richtig angezeigt wird, gibt es meistens sehr wenig Probleme, wenn man nur andere Daten zu UI gibt. Und alle andere Teile von dem Code sind mit automatischen Tests meistens gesichert, also ist die Behebung schnell deswegen.\\
 
 Jede funktionale Anforderung, die alleine für sich getestet werden kann, wurde so während der Implementierungsphase getestet. Die Sachen, wo man zwei Handys braucht (z.B. eine Gruppeneinladung erstellen, oder sehen wie die andere Person den Status ändert) wurden mit zwei echten Handys getestet. Mit getestet ist hier gemeint, dass man auf dem Bildschirm das bekommt, was man erwarten würde. Falls etwas falsch gelaufen ist, dann wurde Code mit dem Debugger durchgegangen und die Fehler meistens schnell lokalisiert, weil Debugger sehr genau ist.\\
 
-Nachdem alle funktionalen Anforderungen für ein Gerät erfüllt wurden, war es noch zu überprüfen, ob zwei Geräte über den Server denselben Zustand besitzen. Basierend auf den funktionalen Anforderungen wurden auch ServerCommands erstellt. Also jetzt sollte einfach systemtisch Command nach Command getestet werden. \\
+Nachdem alle funktionalen Anforderungen für ein Gerät erfüllt wurden, war es noch zu überprüfen, ob zwei Geräte über den Server denselben Zustand besitzen. Basierend auf den funktionalen Anforderungen wurden auch ServerCommands erstellt. Also jetzt sollte einfach systematisch Command nach Command getestet werden. \\
 
-Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu automatisiserten Tests. Ich habe aber keine zuverlässige Tools gefunden, um System so effizient wie manuell zu testen. Espresso ist meistens die "To go" Tool dafür. Es kommt aber raus, dass es manchmal scheint, undeterministisch zu sein, was sehr frustrierend ist. Es kann auch manche Schaltflächen nicht sehen, d.h. wieder manuelle Beteiligung. Und die Tests laufen dann auch auf dem echten Gerät und brauchen dann ungefähr so viel Zeit, wie der Mensch. Also heute in dem Zustand lohnt sich Espresso für die Systemtests basierend auf UI nicht. Deswegen wurden nur ein Paar geschrieben und gelassen, die wirklich laufen. In unserem Fall lohnt sich der Aufwand aber nicht.\\
+Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im Vergleich zu automatisierten Tests. Ich habe aber keine zuverlässige Tools gefunden, um System so effizient wie manuell zu testen. Espresso ist meistens die "To go" Tool dafür. Es kommt aber raus, dass es manchmal scheint, nichtdeterministisch zu sein, was sehr frustrierend ist. Es kann auch manche Schaltflächen nicht sehen, d.h. wieder manuelle Beteiligung. Und die Tests laufen dann auch auf dem echten Gerät und brauchen dann ungefähr so viel Zeit, wie der Mensch. Also heute in dem Zustand lohnt sich Espresso für die Systemtests basierend auf UI nicht. Deswegen wurden nur ein Paar geschrieben und gelassen, die wirklich laufen. In unserem Fall lohnt sich der Aufwand aber nicht.\\
 
 \newpage
 
@@ -416,16 +416,16 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu au
 		\item[Symptom]
 		Das System stürzt ab, sobald ein JSON-String einer Entity-Klasse erstellt werden soll.
 		\item[Ursache]
-		Durch zyklische Abhängigkeiten (Gruppen entalten GOs, GOs enthalten ein Gruppe) kommt es bei der Konvertierung zu einem StackOverflow.
+		Durch zyklische Abhängigkeiten (Gruppen enthalten GOs, GOs enthalten ein Gruppe) kommt es bei der Konvertierung zu einem StackOverflow.
 		\item[Behebung]
-		Bevor Entities konvertiert werden, werden die durch die passende \textit{makeJsonable()}-Methode angepasst, sodass sie sicher konvertiert werden können, ohne dass es zu einem StackOVerflow kommt und ohne, dass wichtige Informationen verloren gehen.
+		Bevor Entities konvertiert werden, werden die durch die passende \textit{makeJsonable()}-Methode angepasst, sodass sie sicher konvertiert werden können, ohne dass es zu einem StackOverflow kommt und ohne, dass wichtige Informationen verloren gehen.
 	\end{itemize}
 
 \item \textbf{Rückgabe von Null-Werten bei Suche eines Users anhand der Email-Adresse}
 	\begin{itemize}
 		\item[Symptom] In Anwendungsfällen, in denen ein Benutzer anhand seiner E-Mail-Adresse in der Datenbank gefunden wurde, wird \textit{null} zurückgegeben, wodurch die weitere Abarbeitung des Anwendungsfalls nicht möglich ist.
-		\item[Ursache] Die URI, mit der die Anfrage an den Server gestellt wird endet mit der E-Mail-Adresse des Benutzers, woraufhin das '.com' am Ende der E-Mail-Adresse abgeschnitten wird. Durch die fehlende TLD, kann die richtige E-Mail-Adresse in der Datebank nicht identifiziert werden.
-		\item[Behebung] Bevor die Anfrage an die Datenbank weitergeleitet wird, wird die Endung '.com' an die gesuchte E-Mail-Adresse angefügt. Da es sich bei den Adressen stets um gmail-Accounts handelt, muss nicht zwischen mehreren TLDs unterschieden werden.
+		\item[Ursache] Die URI, mit der die Anfrage an den Server gestellt wird endet mit der E-Mail-Adresse des Benutzers, woraufhin das '.com' am Ende der E-Mail-Adresse abgeschnitten wird. Durch die fehlende TLD, kann die richtige E-Mail-Adresse in der Datenbank nicht identifiziert werden.
+		\item[Behebung] Bevor die Anfrage an die Datenbank weitergeleitet wird, wird die Endung '.com' an die gesuchte E-Mail-Adresse angefügt. Da es sich bei den Adressen stets um Gmail-Accounts handelt, muss nicht zwischen mehreren TLDs unterschieden werden.
 	\end{itemize}
 	
 \item \textbf{Vertauschung der angezeigten Gruppe, bei Änderung des Gruppennamens}
@@ -437,7 +437,7 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu au
 	
 \item \textbf{Die neuen Mitglieder der Gruppe nicht zu den alten GOs der Gruppe hinzugefügt}
 	\begin{itemize}
-		\item[Symptom] Nach der Ergänzung der Gruppe um einen neuen Mitglied wird dieser nicht zu der Liste aller Teilnehmer der alten (schon existirenden) GOs hinzugefügt. Dies führt zu inkonsistenten Daten auf dem Endsystem dieses Benutzers.
+		\item[Symptom] Nach der Ergänzung der Gruppe um einen neuen Mitglied wird dieser nicht zu der Liste aller Teilnehmer der alten (schon existierenden) GOs hinzugefügt. Dies führt zu inkonsistenten Daten auf dem Endsystem dieses Benutzers.
 		\item[Ursache] Bei der \textit{onMemberAdded()}-Methode der Klasse \textit{GroupRepository}, die die Daten auf den Endsystemen der Benutzer aktualisiert, wurde der Datenbestand der alten GOs der Gruppe nicht geprüft und dabei auch nicht aktualisiert. Dieser Bug wurde mithilfe der Systemtests gefunden.
 		\item[Behebung] In der \textit{onMemberAdded()}-Methode werden jetzt alle GOs der Gruppe durchgelaufen und dabei wird der neue Mitglied zu den allen Teilnehmerlisten hinzugefügt.
 	\end{itemize}
@@ -445,7 +445,7 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu au
 \item \textbf{Die Gruppe auf dem Endsystem des Benutzers, der aus der Gruppe entfernt wird, nicht gelöscht}
 	\begin{itemize}
 		\item[Symptom] Nach der Entfernung eines Mitglieds der Gruppe wird diese Gruppe auf dem Endsystem dieses Mitglieds weiter angezeigt (statt gelöscht zu werden). Dies führt zum Absturz des Servers, wenn der Benutzer die Gruppe weiter benutzt.
-		\item[Ursache] Für den Mitglied der Gruppe, der entfernt wird, wurde dieselbe Verarbeitung gemacht, wie für die anderen Gruppenmitglieder, und zwar nur diese Mitgliedschaft gelöscht (und nicht die Gruppe). Dieser Bug wurde mithilfe der Unittests gefunden.
+		\item[Ursache] Für den Mitglied der Gruppe, der entfernt wird, wurde dieselbe Verarbeitung gemacht, wie für die anderen Gruppenmitglieder, und zwar nur diese Mitgliedschaft gelöscht (und nicht die Gruppe). Dieser Bug wurde mithilfe der UnitTests gefunden.
 		\item[Behebung] Falls die Änderung das Endsystem des zu löschenden Mitglieds betrifft, wird bei dem die ganze Gruppe gelöscht.
 	\end{itemize}
 	
@@ -459,7 +459,7 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im vergleich zu au
 \item \textbf{Server unerreichbar, aufgrund zu vieler Datenbankverbindungen}
 	\begin{itemize}
 		\item[Symptom] Bei Anfragen an den Server wird die Fehlermeldung "too many Connections" zurückgegeben.
-		\item[Ursache] Es waren zu viele offene Verbindungen zur Datenbank vorhanden. Diese sind entstanden, da in einer Methode der server-Andwendung die geöffnete DB-Verbindung nicht wieder geschloßen wurde.
+		\item[Ursache] Es waren zu viele offene Verbindungen zur Datenbank vorhanden. Diese sind entstanden, da in einer Methode der Server-Anwendung die geöffnete DB-Verbindung nicht wieder geschlossen wurde.
 		\item[Behebung] Die Methode wurde ergänzt, sodass am Ende des Methodenaufrufs die Datenbankverbindung geschlossen wird.
 	\end{itemize}
 
