@@ -125,7 +125,7 @@
 \tableofcontents
 
 \newpage
-Link zum Github-Repo: \url{https://github.com/tnstrssnr/PSE_2017}
+Link zumcd  Github-Repo: \url{https://github.com/tnstrssnr/PSE_2017}
 
 \section{Testszenarien und globale Testfälle des Pflichtenhefts}
 
@@ -145,17 +145,17 @@ Mehrere dieser Testszenarien werden nicht getestet, da sie durch Änderungen im 
 	
 	\item[/T0220/] Das Erfassen des Standorts eines Benutzers und das Übermitteln der aktuellen Standorts-Cluster wird durch zwei verschiedene API-Calls realisiert. Deshalb wird das Testszenario jeweils in zwei separate Testfälle gespalten:
 	\begin{enumerate}
-		\item[/T0221/] Das Übertragen des Standorts und das korrekte Abspeichern des Standorts in der entspechenden Datenstruktur.\label{221}
+		\item[/T0221/] Das Übertragen des Standorts und das korrekte Abspeichern des Standorts in der entsprechenden Datenstruktur.\label{221}
 		\item[/T0222/] Bei Anfrage das Zurücksenden der korrekt geclusterten Standorte.\label{222}
 	\end{enumerate}
 	
 	\item[/T0230/] Fällt weg, da der Teilnahmestatus nur manuell und nicht automatisch geändert werden kann.
 	
-	\item[/T0240/] wird nicht separat getestet, sondern duch Verwendung unterschiedlicher Datensätze in Testszenario /T0220/ abgedeckt.
+	\item[/T0240/] wird nicht separat getestet, sondern durch Verwendung unterschiedlicher Datensätze in Testszenario /T0220/ abgedeckt.
 	
 	\item[/T0250/] Fällt weg, da ein GO nur manuell beendet werden kann.
 	
-	\item[/T0320/] Fällt weg. Benachrichtigungen können dur in den Systemeinstellungen des Endsystems geändert werden.
+	\item[/T0320/] Fällt weg. Benachrichtigungen können nur in den Systemeinstellungen des Endsystems geändert werden.
 	
 \end{itemize}
 
@@ -200,7 +200,7 @@ Die \textit{Login}-Klassen werden auch von Google vorgegeben. Damit wird die Mö
 
 \subsection{Server}
 
-Die Unittests des Servers haben sich gegenüber der Beschreibung im Impementierungsbericht nicht geändert, es wurde lediglich die Testabdeckung erhöht.\\
+Die Unittests des Servers haben sich gegenüber der Beschreibung im Implementierungsbericht nicht geändert, es wurde lediglich die Testabdeckung erhöht.\\
 
 Für folgende Methoden wurden keine Unittests geschrieben:
 \begin{itemize}
@@ -236,7 +236,7 @@ Zur Analyse der Testabdeckung wurde für beide Teile das Tool JaCoCo verwendet.
 Tests dieser Art sollen die Funktionsfähigkeit der Serveranwendung testen, ohne dabei die Funktionsfähigkeit der Clients zu berücksichtigen. Dabei wird getestet, ob
 \begin{enumerate}
 	\item API Calls die richtige Response liefern,
-	\item Der Datenbestand in der Datebank nach einem Request wie erwartet manipuliert wurde,
+	\item Der Datenbestand in der Datenbank nach einem Request wie erwartet manipuliert wurde,
 	\item Benachrichtigungen über Datenänderungen an die richtigen User geschickt wurden,
 	\item Der Message Payload der Benachrichtigungen dem richtigen Format und Inhalt entspricht.
 \end{enumerate}
@@ -248,13 +248,13 @@ Bei der Durchführung eines Testfalls werden folgende Phasen durchlaufen:
 	\item Löschen sämtlicher Daten aus der Datenbank
 	\item Ein für den jeweiligen Testfall definierter Anfangsdatenbestand wird in die Datenbank geladen
 	\item Es wird ein oder mehrere HTTP-Requests an den Server gestellt (Hierfür wird das Commandline Tool Newman verwendet)
-	\item Die Server-Reponse des API Calls wird getestet, auf Korrektheit des HTTP-Statuscodes und des Inhalts des Response-Bodys. Die Testfälle sind in das Newman-Skript integriert und liefern automatisch einen Testbericht, der in einer TestResult-Datei gespeichert wird.
+	\item Die Server-Response des API Calls wird getestet, auf Korrektheit des HTTP-Statuscodes und des Inhalts des Response-Bodys. Die Testfälle sind in das Newman-Skript integriert und liefern automatisch einen Testbericht, der in einer TestResult-Datei gespeichert wird.
 	\item Der Datenbestand der Datenbank nach Beendigung des Newman-Runs wird als .csv-Datei exportiert und mit einer zuvor erstellten .csv-Datei verglichen, die den erwarteten Datenbestand, nach korrekter Ausführung, darstellt. Enthält die .csv ein Datentupel, das nicht erwartet wurde,  wird dieses, zusammen mit der Anzahl der gefundenen Unterschiede, ebenfalss in die TestResult Datei angehängt.
 	\item Die aktuellen GOs und die Standortlisten derselben werden in eine Text-Datei exportiert und auf Korrektheit überprüft. Die Ergebnisse werden im Testbericht festgehalten.
 	\item Der versendete Message Payload der Observer-Benachrichtigungen wird mit dem erwarteten JSON-String verglichen. Das Ergebnis der Überprüfung wird in der Testresult Datei festgehalten.
 	\item Es wird überprüft, ob die versendete Observer-Benachrichtigung an die richtigen Benutzer versendet wurde (keine zusätzlichen Versendungen, keine fehlenden Versendungen).
 \end{enumerate}
-Einzelne Phasen können ggfs. wegfallen, fallls sie für einen Testfall nicht relevant sind, z.B. wenn es keine Manipulation an der Datenbank gibt oder bei einem API-Call kein Response-Body erwartet wird.\\
+Einzelne Phasen können ggfs. wegfallen, falls sie für einen Testfall nicht relevant sind, z.B. wenn es keine Manipulation an der Datenbank gibt oder bei einem API-Call kein Response-Body erwartet wird.\\
 
 Die Ausführung der Testfälle ist mittels eines Shell-Skripts komplett automatisiert. Die benutzten Testdaten und die abgedeckten Testfälle sind dem folgenden Abschnitt zu entnehmen. Dabei sind nicht alle Testfälle des Pflichtenhefts aufgeführt. Auf Testfälle, die gar nicht getestet wurden, wird in Abschnitt \ref{weggefallene Testfälle} eingegangen. Bei weiteren Testfällen, die in diesem Abschnitt nicht auftauchen, kann davon ausgegangen werden, das die getesteten Funktionen keine Beteiligung der Serveranwendung erfordern.\\
 
@@ -277,19 +277,19 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 \subsection{durchgeführte Tests}
 \begin{enumerate}
 	\item[\textbf{/T0010/}]
-	\textbf{Umsetzung auf der Serveranwendung: }Der Testfall entspricht dem Aufruf der Methode getData() auf dem Server über die Rest-API, wenn der aufgerufene Benutzeraccount noch nicht in der Datenbank existiert. Es werden drei API-Calls ausgeführt für drei verschiedende Benutzer.\\
-	\textbf{Erwartetes Ergebnis: } Der Respose-Body jedes API-Calls besteht aus einer Liste, die eine Dummy-Gruppe mit der Gruppen-ID 1 enthält, da keiner der Benutzer Mitglied in einer Gruppe ist. Nach der Ausführung der API-Calls sind die Benutzer mit den entsprechenden Daten in der Datenbank gespeichert.
+	\textbf{Umsetzung auf der Serveranwendung: }Der Testfall entspricht dem Aufruf der Methode getData() auf dem Server über die Rest-API, wenn der aufgerufene Benutzeraccount noch nicht in der Datenbank existiert. Es werden drei API-Calls ausgeführt für drei verschiedene Benutzer.\\
+	\textbf{Erwartetes Ergebnis: } Der Response-Body jedes API-Calls besteht aus einer Liste, die eine Dummy-Gruppe mit der Gruppen-ID 1 enthält, da keiner der Benutzer Mitglied in einer Gruppe ist. Nach der Ausführung der API-Calls sind die Benutzer mit den entsprechenden Daten in der Datenbank gespeichert.
 	
 	\item[\textbf{/T0040/}]
-	\textbf{Umsetzung auf der Serveranwendung: }Der Tesetfall entspricht dem Aufruf der Methode \textit{getData()} über die Rest-API, wenn der aufgerufene Benutzeraccount bereits existiert. Es wird ein API-Call je angelegtem Benutzer durchgeführt.\\
+	\textbf{Umsetzung auf der Serveranwendung: }Der Testfall entspricht dem Aufruf der Methode \textit{getData()} über die Rest-API, wenn der aufgerufene Benutzeraccount bereits existiert. Es wird ein API-Call je angelegtem Benutzer durchgeführt.\\
 	\textbf{Erwartetes Ergebnis: }Der Response-Body jedes API-Calls gibt die Struktur der in den Anfangsbedingungen festgelegten Daten wieder. Die Responses sind identisch, da jeder Benutzer mit den gleichen Gruppen assoziiert ist. Es wird keine Manipulation der Daten auf der Datenbank vorgenommen.
 	
 	\item[\textbf{/T0050/}]
 	\textbf{Umsetzung auf der Serveranwendung: }Die Methode deleteUser() wird aufgerufen. Die Daten des Benutzers, sowie alle Gruppen und Gos, die ihm gehören werden gelöscht.\\
-	\textbf{Erwartetes Ergebnis: }Der Testfall-Benutzer ist Adminsitrator einer Gruppe. Es wird erwartet, dass die Gruppe, alle Gruppemmitglieder der Members-Tabelle, alle Requests der Requests-Tabelle, sowie der Eintrag des Benutzers in der Users-Tabelle gelöscht werden.
+	\textbf{Erwartetes Ergebnis: }Der Testfall-Benutzer ist Administrator einer Gruppe. Es wird erwartet, dass die Gruppe, alle Gruppemmitglieder der Members-Tabelle, alle Requests der Requests-Tabelle, sowie der Eintrag des Benutzers in der Users-Tabelle gelöscht werden.
 	
 	\item[\textbf{/T0060/}]
-	\textbf{Umsetzung auf der Serveranwendung: }Die Methode createGroup() wird aufgerufen. Im request-Body befindet sich ein gültiger JSON-String, der ein Group-Objekt repräsentiert.\\
+	\textbf{Umsetzung auf der Serveranwendung: }Die Methode createGroup() wird aufgerufen. Im Request-Body befindet sich ein gültiger JSON-String, der ein Group-Objekt repräsentiert.\\
 	\textbf{Erwartetes Ergebnis: }Der Datenbank wird ein Tupel in der Group-Tabelle hinzugefügt, das dem übergebenen JSON-String entspricht. Darüber hinaus werden entsprechende Einträge in der Members- und Admins-Tabelle hinzugefügt. Der Response-Body enthält die ID unter der die Gruppe in der DB gespeichert ist.
 	
 	\item[\textbf{/T0070/}]
@@ -324,7 +324,7 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	
 	\item[\textbf{/T0200/}]
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode changeStatus(). Der betroffenen Benutzer, sowie der neue Status, werden im Request-Body übergeben. Es werden 3 API-Calls ausgeführt mit jeweils einem Statuswechsel von Going zu Gone, Gone zu Going und Not Going zu Going.\\
-	\textbf{Erwartetes Ergebnis: }Der alte Eintrag des Benutzers in den Status-Tabellen (Going-Users, Not-Going-Users, Gone-Users) wird entfernt und ein neuer, entspechend dem neuen Status eingefügt.
+	\textbf{Erwartetes Ergebnis: }Der alte Eintrag des Benutzers in den Status-Tabellen (Going-Users, Not-Going-Users, Gone-Users) wird entfernt und ein neuer, entsprechend dem neuen Status eingefügt.
 	
 	\item[\textbf{/T0221/}]
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode setLocation().\\
@@ -332,7 +332,7 @@ Die vollständigen Testberichte der einzelnen Testfälle befinden sich im Anhang
 	
 	\item[\textbf{/T0222/}]
 	\textbf{Umsetzung auf der Serveranwendung: }Aufruf der Methode \textit{getLocation()}.\\
-	\textbf{Erwartetes Ergebnis: }Im Repsose-Body des API-Calls wird eine Lister von Clustern zurückgegeben, die die korrekt geclusterten Standorte repräsentieren.
+	\textbf{Erwartetes Ergebnis: }Im Response-Body des API-Calls wird eine Lister von Clustern zurückgegeben, die die korrekt geclusterten Standorte repräsentieren.
 	
 	\item[\textbf{/T0250/}]
 	\textbf{Umsetzung auf der Serveranwendung: }Die Beendigung eines GOs ist gleichzusetzen mit dem Löschen eines Gos. Es wird die Methode deleteGo() aufgerufen.\\
@@ -402,9 +402,9 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im Vergleich zu au
 		\item[Symptom]
 		Das System stürzt ab, sobald ein JSON-String einer Entity-Klasse erstellt werden soll. Der Bug wurde durch Unittests der RestController-Klassen gefunden.
 		\item[Ursache]
-		Durch zyklische Abhängigkeiten (Gruppen entalten GOs, GOs enthalten ein Gruppe) kommt es bei der Konvertierung zu einem StackOverflow.
+		Durch zyklische Abhängigkeiten (Gruppen enthalten GOs, GOs enthalten ein Gruppe) kommt es bei der Konvertierung zu einem StackOverflow.
 		\item[Behebung]
-		Bevor Entities konvertiert werden, werden die durch die passende \textit{makeJsonable()}-Methode angepasst, sodass sie sicher konvertiert werden können, ohne dass es zu einem StackOVerflow kommt und ohne, dass wichtige Informationen verloren gehen.
+		Bevor Entities konvertiert werden, werden die durch die passende \textit{makeJsonable()}-Methode angepasst, sodass sie sicher konvertiert werden können, ohne dass es zu einem StackOverflow kommt und ohne, dass wichtige Informationen verloren gehen.
 	\end{itemize}
 
 \item \textbf{Rückgabe von Null-Werten bei Suche eines Users anhand der Email-Adresse}
@@ -445,7 +445,7 @@ Man könnte denken, dass so ein Ansatz nicht sehr schnell ist im Vergleich zu au
 \item \textbf{Server unerreichbar, aufgrund zu vieler Datenbankverbindungen}
 	\begin{itemize}
 		\item[Symptom] Bei Anfragen an den Server wird die Fehlermeldung "too many Connections" zurückgegeben. Der Bug wurde durch die Systemtests gefunden, nachdem viele Anfragen an den Server gemacht wurden.
-		\item[Ursache] Es waren zu viele offene Verbindungen zur Datenbank vorhanden. Diese sind entstanden, da in einer Methode der Server-Andwendung die geöffnete DB-Verbindung nicht wieder geschloßen wurde.
+		\item[Ursache] Es waren zu viele offene Verbindungen zur Datenbank vorhanden. Diese sind entstanden, da in einer Methode der Server-Anwendung die geöffnete DB-Verbindung nicht wieder geschlossen wurde.
 		\item[Behebung] Die Methode wurde ergänzt, sodass am Ende des Methodenaufrufs die Datenbankverbindung geschlossen wird.
 	\end{itemize}
 
