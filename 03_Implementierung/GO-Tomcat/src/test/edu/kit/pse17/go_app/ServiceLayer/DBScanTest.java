@@ -9,6 +9,13 @@ import java.util.Vector;
 
 import static org.junit.Assert.*;
 
+/**
+ * Klasse getestet in Zusammenhang mit Utility-Klasse, da sämtliche Resultate und Funktionen mit Methoden von Utility Klasse gegeben sind.
+ * Essentiell wäre ein Mocking hier nur eine Wiedergabe von dem vom Mocking gewünschten Wiedergabewert, was wiederrum sinnlos wäre.
+ * Diese Testklasse testet nun das Zusammenspiel der einzelnen Methoden und den richtigen Ablauf des eignetlichen Clusterings.
+ *
+ */
+
 public class DBScanTest {
 
     private DBScan newScan;

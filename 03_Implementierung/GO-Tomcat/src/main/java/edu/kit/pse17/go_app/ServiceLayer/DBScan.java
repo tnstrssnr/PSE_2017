@@ -8,6 +8,8 @@ import java.util.*;
  *
  * Der Algorithmus macht sich hierzu verschidene Listen/Vektoren zu nutzen.
  *
+ * Basiert auf einem Algorithmus von Kanwar Bhajneek.
+ *
  */
 
 
