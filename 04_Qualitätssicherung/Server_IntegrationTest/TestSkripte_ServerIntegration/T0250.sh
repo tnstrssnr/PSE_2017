@@ -30,7 +30,7 @@ python3 compareCsv.py empty.csv T0250_out_going.csv >> T0250_results.txt
 rm T0250_out_notgoing.csv
 rm /var/lib/mysql-files/T0250_out_notgoing.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM NOT_GOING_USERS
 INTO OUTFILE '/var/lib/mysql-files/T0250_out_notgoing.csv'
@@ -48,7 +48,7 @@ python3 compareCsv.py empty.csv T0200_out_notgoing.csv >> T0250_results.txt
 rm T0250_out_gone.csv
 rm /var/lib/mysql-files/T0250_out_gone.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM GONE_USERS
 INTO OUTFILE '/var/lib/mysql-files/T0250_out_gone.csv'
@@ -67,7 +67,7 @@ python3 compareCsv.py empty.csv T0250_out_gone.csv >> T0250_results.txt
 rm T0250_out_go.csv
 rm /var/lib/mysql-files/T0250_out_go.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM GOS
 INTO OUTFILE '/var/lib/mysql-files/T0250_out_go.csv'

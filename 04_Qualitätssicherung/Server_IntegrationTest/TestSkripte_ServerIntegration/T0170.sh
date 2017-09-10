@@ -9,7 +9,7 @@ newman run T0170.postman_collection.json >> T0170_results.txt
 rm T0170_out_group.csv
 rm /var/lib/mysql-files/T0170_out_group.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM GROUPS
 INTO OUTFILE '/var/lib/mysql-files/T0170_out_group.csv'
@@ -28,7 +28,7 @@ python3 compareCsv.py T0170_expectedDbOutput_group.csv T0170_out_group.csv >> T0
 rm T0170_out_mem.csv
 rm /var/lib/mysql-files/T0170_out_mem.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM MEMBERS
 INTO OUTFILE '/var/lib/mysql-files/T0170_out_mem.csv'
@@ -47,7 +47,7 @@ python3 compareCsv.py T0170_expectedDbOutput_group.csv T0170_out_mem.csv >> T017
 rm T0170_out_user.csv
 rm /var/lib/mysql-files/T0170_out_user.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM USERS
 INTO OUTFILE '/var/lib/mysql-files/T0170_out_user.csv'

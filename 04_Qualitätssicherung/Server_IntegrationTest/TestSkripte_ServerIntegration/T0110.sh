@@ -1,6 +1,6 @@
 rm T0110_results.txt
 
-mysql -u root -p69h97jnv pse_development < T0100_T0110_in.sql
+mysql -u root -p?? pse_development < T0100_T0110_in.sql
 
 echo Newman Run >> T0110_results.txt
 date >> T0110_results.txt
@@ -9,7 +9,7 @@ newman run T0110.postman_collection.json >> T0110_results.txt
 rm T0110_out_req.csv
 rm /var/lib/mysql-files/T0110_out_req.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM REQUESTS
 INTO OUTFILE '/var/lib/mysql-files/T0110_out_req.csv'
@@ -21,7 +21,7 @@ EOF
 rm T0110_ou_mem.csv
 rm /var/lib/mysql-files/T0110_out_mem.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM MEMBERS
 INTO OUTFILE '/var/lib/mysql-files/T0110_out_mem.csv'

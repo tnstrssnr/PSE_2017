@@ -30,7 +30,7 @@ python3 compareCsv.py T0180_expectedDbOutput_go.csv T0180_out_go.csv >> T0180_re
 rm T0180_out_going.csv
 rm /var/lib/mysql-files/T0180_out_going.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM GOING_USERS
 INTO OUTFILE '/var/lib/mysql-files/T0180_out_going.csv'
@@ -48,7 +48,7 @@ python3 compareCsv.py T0180_expectedDbOutput_going.csv T0180_out_going.csv >> T0
 rm T0180_out_notgoing.csv
 rm /var/lib/mysql-files/T0180_out_notgoing.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM NOT_GOING_USERS
 INTO OUTFILE '/var/lib/mysql-files/T0180_out_notgoing.csv'
@@ -66,7 +66,7 @@ python3 compareCsv.py T0180_expectedDbOutput_notgoing.csv T0180_out_notgoing.csv
 rm T0180_out_gone.csv
 rm /var/lib/mysql-files/T0180_out_gone.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM GONE_USERS
 INTO OUTFILE '/var/lib/mysql-files/T0180_out_gone.csv'

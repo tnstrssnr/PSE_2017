@@ -3,7 +3,7 @@ rm T0260_results.txt
 rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goEdited_json.txt
 rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/goEdited_rec.txt
 
-mysql -u root -p69h97jnv pse_development < T0040_T0250_T0260_in.sql
+mysql -u root -p?? pse_development < T0040_T0250_T0260_in.sql
 
 echo Newman Run >> T0260_results.txt
 date >> T0260_results.txt
@@ -12,7 +12,7 @@ newman run T0260.postman_collection.json >> T0260_results.txt
 rm T0260_out.csv
 rm /var/lib/mysql-files/T0260_out.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM GOS
 INTO OUTFILE '/var/lib/mysql-files/T0260_out.csv'

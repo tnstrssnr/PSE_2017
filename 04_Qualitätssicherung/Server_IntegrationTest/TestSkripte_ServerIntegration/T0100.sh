@@ -3,7 +3,7 @@ rm T0100_results.txt
 rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_json.txt
 rm /home/tina/PSE/04_Qualitätssicherung/ObserverTestsResult/memberAdded_rec.txt
 
-mysql -u root -p69h97jnv pse_development < T0100_T0110_in.sql
+mysql -u root -p?? pse_development < T0100_T0110_in.sql
 
 echo Newman Run >> T0100_results.txt
 date >> T0100_results.txt
@@ -12,7 +12,7 @@ newman run T0100.postman_collection.json >> T0100_results.txt
 rm T0100_out_req.csv
 rm /var/lib/mysql-files/T0100_out_req.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM REQUESTS
 INTO OUTFILE '/var/lib/mysql-files/T0100_out_req.csv'
@@ -24,7 +24,7 @@ EOF
 rm T0100_ou_mem.csv
 rm /var/lib/mysql-files/T0100_out_mem.csv
 
-mysql -u "root" "-p69h97jnv" -D "pse_development" <<EOF
+mysql -u "root" "-p??" -D "pse_development" <<EOF
 SELECT *
 FROM MEMBERS
 INTO OUTFILE '/var/lib/mysql-files/T0100_out_mem.csv'

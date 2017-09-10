@@ -1,6 +1,6 @@
 rm T0040_results.txt
 
-mysql -u root -p69h97jnv pse_development < T0040_T0250_T0260_in.sql
+mysql -u root -p?? pse_development < T0040_T0250_T0260_in.sql
 
 echo Newman Run >> T0040_results.txt
 date >> T0040_results.txt
